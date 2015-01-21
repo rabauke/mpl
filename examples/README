@@ -1,0 +1,38 @@
+hello_world.cc
+  Simple hello-world program.  Initializes the message passing
+  environment and determines the number of processes and rank.  
+
+blocking.cc
+  Demonstrates various blocking send and receive modes of standard
+  data types.
+
+blocking_vector.cc
+  Demonstrates blocking send and receive of a vector of standard data
+  types. 
+
+nonblocking.cc
+  Demonstrates nonblocking send and receive of standard data types and
+  vectors of standard data types and different waiting methods.
+
+nonblocking_mult.cc 
+  Utilizes nonblocking send and receive of standard data types to
+  implement a gather operation.
+
+standard_types.cc
+  Sends and recieves data of various standard types.
+
+struct.cc
+  Demonstrates how to use class mpl::struct_builder to enable
+  communication using structures and classes.  Class memebers must be
+  of fixed size (no dynamic memory allocation).  All types of the
+  class members must be suited for commnication.  These rules may be
+  applied recursively.
+
+collective.cc
+  Demonstrates collective various modes of communication.
+
+reduce_lcm.cc
+  Demonstrates use of custom reduction functions.
+
+layouts.cc and subarray.cc
+  Construction of various data layouts.
