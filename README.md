@@ -1,5 +1,4 @@
-# mpl
-MPL - A message passing library
+# MPL - A message passing library
 
 MPL is a message passing library written in C++11 based on the MPI 
 (Message Passing Interface) standard.  Since the C++ API has been dropped 
