@@ -32,14 +32,16 @@ namespace mpl {
 	env(const env &) = delete;
 	env& operator=(const env &) = delete;
 	int tag_up() const {
-	  int flag, tag_up_;
-	  MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &tag_up_, &flag);
-	  return tag_up_;
+	  void *p;
+	  int flag;
+	  MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &p, &flag);
+	  return *reinterpret_cast<int *>(p);
 	}
 	bool wtime_is_global() const {
-	  int flag, wtime_is_global_;
-	  MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &wtime_is_global_, &flag);
-	  return wtime_is_global_;
+	  void *p;
+	  int flag;
+	  MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &p, &flag);
+	  return *reinterpret_cast<int *>(p);
 	}
 	const communicator & comm_world() const {
 	  return comm_world_;
@@ -152,15 +154,13 @@ namespace mpl {
     char *buff;
   public:
     bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
-      std::cerr << "allocate " << size << '\n';
       environment::buffer_attach(buff, size);
     }
     bsend_buffer(int size, A alloc) : size(size), alloc(alloc), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
     ~bsend_buffer() {
-      // environment::buffer_detach();
-      std::cerr << "deallocate " << environment::buffer_detach().second << '\n';
+      environment::buffer_detach();
       alloc.deallocate(buff, size);
     }
   };

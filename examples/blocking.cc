@@ -3,6 +3,7 @@
 #include <mpl/mpl.hpp>
 
 int main() {
+  try {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
   if (comm_world.size()<2) 
     return EXIT_FAILURE;
@@ -30,6 +31,10 @@ int main() {
     std::cout << "x = " << x << '\n';
     comm_world.recv(x, 0);
     std::cout << "x = " << x << '\n';
+  }
+  } 
+  catch (std::exception &err) {
+    std::cerr << err.what() << std::endl;
   }
   return EXIT_SUCCESS;
 }

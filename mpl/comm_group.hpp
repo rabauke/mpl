@@ -5,6 +5,39 @@
 #include <mpi.h>
 #include <type_traits>
 
+#define MPL_CHECK_DEST(dest)              \
+  if (dest!=environment::proc_null() and  \
+      (dest<0 or dest>=size()))		  \
+    throw invalid_rank();
+
+#define MPL_CHECK_SOURCE(source)	     \
+  if (source!=environment::proc_null() and   \
+      source!=environment::any_source() and  \
+      (source<0 or source>=size()))	     \
+    throw invalid_rank();
+
+#define MPL_CHECK_STAG(tag)                 \
+  if (tag<0 or tag>environment::tag_up())   \
+    throw invalid_tag();
+
+#define MPL_CHECK_RTAG(tag)      	     \
+  if (tag!=environment::any_tag() and        \
+      (tag<0 or tag>environment::tag_up()))  \
+    throw invalid_tag();
+
+#define MPL_CHECK_ROOT(root)   \
+  if (root<0 or root>=size())  \
+    throw invalid_rank();
+
+#define MPL_CHECK_NONROOT(root)               \
+  if (root<0 or root>=size() or root=rank())  \
+    throw invalid_rank();
+
+#define MPL_CHECK_SIZE(x)               \
+  if (x.size()<=0 or x.size()>size())	\
+    throw invalid_size();
+
+
 namespace mpl {
 
   class group;
@@ -17,6 +50,11 @@ namespace mpl {
       class env;
       
     }
+
+    int tag_up();
+    constexpr int any_tag();
+    constexpr int any_source();
+    constexpr int proc_null();
 
   }
   
@@ -118,22 +156,82 @@ namespace mpl {
       MPI_Abort(comm, err);
     }
 
-    // === blocking point to point =====================================
+    // === point to point ==============================================
 
-    // --- send ---
+    // === standard send ===
+    // --- blocking standard send ---
     template<typename T>
     void send(const T &data, int dest, int tag=0) const {
-      MPI_Send(const_cast<T *>(&data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Send(&data, 1, 
 	       datatype_traits<T>::get_datatype(), 
 	       dest, tag, comm);
     }
     template<typename T>
     void send(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Send(const_cast<T *>(data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Send(data, 1, 
       	       datatype_traits<layout<T> >::get_datatype(l), 
       	       dest, tag, comm);
     }
-    // --- bsend_size ---
+    // --- nonblocking standard send ---
+    template<typename T>
+    detail::irequest isend(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Isend(&data, 1, 
+		datatype_traits<T>::get_datatype(), 
+		dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest isend(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Isend(data, 1, 
+		datatype_traits<layout<T> >::get_datatype(l), 
+		dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- persistend standard send ---
+    template<typename T>
+    detail::prequest send_init(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_send_init(&data, 1, 
+		    datatype_traits<T>::get_datatype(), 
+		    dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    template<typename T>
+    detail::prequest send_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Send_init(data, 1, 
+		    datatype_traits<layout<T> >::get_datatype(l), 
+		    dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    // === buffered send ===
+    // --- determine buffer size ---
     template<typename T>
     int bsend_size() const {
       int size;
@@ -150,75 +248,333 @@ namespace mpl {
 		    comm, &size);
       return size+MPI_BSEND_OVERHEAD;
     }
-    // --- bsend ---
+    // --- blocking buffered send ---
     template<typename T>
     void bsend(const T &data, int dest, int tag=0) const {
-      MPI_Bsend(const_cast<T *>(&data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Bsend(&data, 1, 
 		datatype_traits<T>::get_datatype(), 
 		dest, tag, comm);
     }
     template<typename T>
     void bsend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Bsend(const_cast<T *>(data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Bsend(data, 1, 
 		datatype_traits<layout<T> >::get_datatype(l), 
 		dest, tag, comm);
     }
-    // --- ssend ---
+    // --- nonblocking buffered send ---
+    template<typename T>
+    detail::irequest ibsend(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Ibsend(&data, 1, 
+		 datatype_traits<T>::get_datatype(), 
+		 dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ibsend(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Ibsend(data, 1, 
+		 datatype_traits<layout<T> >::get_datatype(l), 
+		 dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- persistent buffered send ---
+    template<typename T>
+    detail::prequest bsend_init(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Bsend_init(&data, 1, 
+		     datatype_traits<T>::get_datatype(), 
+		     dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    template<typename T>
+    detail::prequest bsend_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Bsend_init(data, 1, 
+		     datatype_traits<layout<T> >::get_datatype(l), 
+		     dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    // === synchronous send ===
+    // --- blocking synchronous send ---
     template<typename T>
     void ssend(const T &data, int dest, int tag=0) const {
-      MPI_Ssend(const_cast<T *>(&data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Ssend(&data, 1, 
 		datatype_traits<T>::get_datatype(), 
 		dest, tag, comm);
     }
     template<typename T>
     void ssend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Ssend(const_cast<T *>(data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Ssend(data, 1, 
 		datatype_traits<layout<T> >::get_datatype(l), 
 		dest, tag, comm);
     }
-    // --- rsend ---
+    // --- nonblocking synchronous send ---
+    template<typename T>
+    detail::irequest issend(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Issend(&data, 1, 
+		 datatype_traits<T>::get_datatype(), 
+		 dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest issend(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Issend(data, 1, 
+		 datatype_traits<layout<T> >::get_datatype(l), 
+		 dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- persistent synchronous send ---
+    template<typename T>
+    detail::prequest ssend_init(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Ssend_init(&data, 1, 
+		     datatype_traits<T>::get_datatype(), 
+		     dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    template<typename T>
+    detail::prequest ssend_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Ssend_init(data, 1, 
+		     datatype_traits<layout<T> >::get_datatype(l), 
+		     dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    // === ready send ===
+    // --- blocking ready send ---
     template<typename T>
     void rsend(const T &data, int dest, int tag=0) const {
-      MPI_Rsend(const_cast<T *>(&data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Rsend(&data, 1, 
 		datatype_traits<T>::get_datatype(), 
 		dest, tag, comm);
     }
     template<typename T>
     void rsend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Rsend(const_cast<T *>(data), 1, 
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Rsend(data, 1, 
 		datatype_traits<layout<T> >::get_datatype(l), 
 		dest, tag, comm);
     }
-    // --- recv ---
+    // --- nonblocking ready send ---
+    template<typename T>
+    detail::irequest irsend(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Irsend(&data, 1, 
+		 datatype_traits<T>::get_datatype(), 
+		 dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest irsend(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Irsend(data, 1, 
+		 datatype_traits<layout<T> >::get_datatype(l), 
+		 dest, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- persistent ready send ---
+    template<typename T>
+    detail::prequest rsend_init(const T &data, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Rsend_init(&data, 1, 
+		     datatype_traits<T>::get_datatype(), 
+		     dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    template<typename T>
+    detail::prequest rsend_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_STAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Rsend_init(data, 1, 
+		     datatype_traits<layout<T> >::get_datatype(l), 
+		     dest, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    // === receive ===
+    // --- blocking receive ---
     template<typename T>
     status recv(T &data, int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
       status s;
       MPI_Recv(&data, 1, 
-	       datatype_traits<T>::get_datatype(), 
-	       source, tag, comm, reinterpret_cast<MPI_Status *>(&s));
+      	       datatype_traits<T>::get_datatype(), 
+      	       source, tag, comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
     template<typename T>
     status recv(T *data, const layout<T> &l, int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
       status s;
       MPI_Recv(data, 1, 
       	       datatype_traits<layout<T> >::get_datatype(l), 
       	       source, tag, comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
-    // --- probe ---
+    // --- nonblocking receive ---
     template<typename T>
+    detail::irequest irecv(T &data, int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Irecv(&data, 1, 
+		datatype_traits<T>::get_datatype(), 
+		source, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest irecv(T *data, const layout<T> &l, int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Irecv(data, 1, 
+		datatype_traits<layout<T> >::get_datatype(l), 
+		source, tag, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- persistent receive ---
+    template<typename T>
+    detail::prequest recv_init(T &data, int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Recv_init(&data, 1, 
+		    datatype_traits<T>::get_datatype(), 
+		    source, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    template<typename T>
+    detail::prequest recv_init(T *data, const layout<T> &l, int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      MPI_Request req;
+      MPI_Recv_init(data, 1, 
+		    datatype_traits<layout<T> >::get_datatype(l), 
+		    source, tag, comm, &req);
+      return detail::prequest(req);
+    }
+    // === probe ===
+    // --- blocking probe ---
     status probe(int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
       status s;
       MPI_Probe(source, tag, comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
-    // --- sendrecv ---
+    // --- nonblocking probe ---
+    template<typename T>
+    std::pair<bool, status> iprobe(int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      int result; 
+      status s;
+      MPI_Iprobe(source, tag, comm, &result, reinterpret_cast<MPI_Status *>(&s));
+      return std::make_pair(static_cast<bool>(result), s);
+    }
+    // === send and receive ===
+    // --- send and receive ---
     template<typename T>
     status sendrecv(const T &senddata, int dest, int sendtag,
 		    T &recvdata, int source, int recvtag) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_STAG(sendtag);
+      MPL_CHECK_RTAG(recvtag);
+#endif
       status s;
-      MPI_Sendrecv(const_cast<T *>(&senddata), 1, 
+      MPI_Sendrecv(&senddata, 1, 
 		   datatype_traits<T>::get_datatype(), dest, sendtag,
 		   &recvdata, 1,
 		   datatype_traits<T>::get_datatype(), source, recvtag,
@@ -228,18 +584,30 @@ namespace mpl {
     template<typename T>
     status sendrecv(const T *senddata, const layout<T> &sendl, int dest, int sendtag,
 		    T *recvdata, const layout<T> &recvl, int source, int recvtag) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_STAG(sendtag);
+      MPL_CHECK_RTAG(recvtag);
+#endif
       status s;
-      MPI_Sendrecv(const_cast<T *>(senddata), 1, 
+      MPI_Sendrecv(senddata, 1, 
 		   datatype_traits<layout<T> >::get_datatype(sendl), dest, sendtag,
 		   recvdata, 1,
 		   datatype_traits<layout<T> >::get_datatype(recvl), source, recvtag,
 		   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
-    // --- sendrecv_replace ---
+    // --- send, receive and replace ---
     template<typename T>
     status sendrecv_replace(T &data, 
 			    int dest, int sendtag, int source, int recvtag) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_STAG(sendtag);
+      MPL_CHECK_RTAG(recvtag);
+#endif
       status s;
       MPI_Sendrecv_replace(&data, 1, 
 			   datatype_traits<T>::get_datatype(), 
@@ -250,6 +618,12 @@ namespace mpl {
     template<typename T>
     status sendrecv_replace(T *data, const layout<T> &l, 
 			    int dest, int sendtag, int source, int recvtag) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_DEST(dest);
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_STAG(sendtag);
+      MPL_CHECK_RTAG(recvtag);
+#endif
       status s;
       MPI_Sendrecv_replace(data, 1, 
 			   datatype_traits<layout<T> >::get_datatype(l), 
@@ -257,449 +631,1272 @@ namespace mpl {
 			   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
-
-    // === nonblocking point to point ==================================
-
-    // --- isend ---
-    template<typename T>
-    detail::irequest isend(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Isend(const_cast<T *>(&data), 1, 
-		datatype_traits<T>::get_datatype(), 
-		dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest isend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Isend(const_cast<T *>(data), 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
-		dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    // --- ibsend ---
-    template<typename T>
-    detail::irequest ibsend(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Ibsend(const_cast<T *>(&data), 1, 
-		 datatype_traits<T>::get_datatype(), 
-		 dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest ibsend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Ibsend(const_cast<T *>(data), 1, 
-		 datatype_traits<layout<T> >::get_datatype(l), 
-		 dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    // --- issend ---
-    template<typename T>
-    detail::irequest issend(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Issend(const_cast<T *>(&data), 1, 
-		 datatype_traits<T>::get_datatype(), 
-		 dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest issend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Issend(const_cast<T *>(data), 1, 
-		 datatype_traits<layout<T> >::get_datatype(l), 
-		 dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    // --- irsend ---
-    template<typename T>
-    detail::irequest irsend(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Irsend(const_cast<T *>(&data), 1, 
-		 datatype_traits<T>::get_datatype(), 
-		 dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest irsend(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Irsend(const_cast<T *>(data), 1, 
-		 datatype_traits<layout<T> >::get_datatype(l), 
-		 dest, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    // --- irecv ---
-    template<typename T>
-    detail::irequest irecv(T &data, int source, int tag=0) const {
-      MPI_Request req;
-      MPI_Irecv(&data, 1, 
-		datatype_traits<T>::get_datatype(), 
-		source, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest irecv(T *data, const layout<T> &l, int source, int tag=0) const {
-      MPI_Request req;
-      MPI_Irecv(data, 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
-		source, tag, comm, &req);
-      return detail::irequest(req);
-    }
-    // --- iprobe ---
-    template<typename T>
-    std::pair<bool, status> iprobe(int source, int tag=0) const {
-      int result; 
-      status s;
-      MPI_Iprobe(source, tag, comm, &result, reinterpret_cast<MPI_Status *>(&s));
-      return std::make_pair(static_cast<bool>(result), s);
-    }
-
-    // === persistent point to point ===================================
-
-    // --- send_init ---
-    template<typename T>
-    detail::prequest send_init(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_send_init(const_cast<T *>(&data), 1, 
-		    datatype_traits<T>::get_datatype(), 
-		    dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    template<typename T>
-    detail::prequest send_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Send_init(const_cast<T *>(data), 1, 
-		    datatype_traits<layout<T> >::get_datatype(l), 
-		    dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    // --- bsend_init ---
-    template<typename T>
-    detail::prequest bsend_init(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Bsend_init(const_cast<T *>(&data), 1, 
-		     datatype_traits<T>::get_datatype(), 
-		     dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    template<typename T>
-    detail::prequest bsend_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Bsend_init(const_cast<T *>(data), 1, 
-		     datatype_traits<layout<T> >::get_datatype(l), 
-		     dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    // --- ssend_init ---
-    template<typename T>
-    detail::prequest ssend_init(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Ssend_init(const_cast<T *>(&data), 1, 
-		     datatype_traits<T>::get_datatype(), 
-		     dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    template<typename T>
-    detail::prequest ssend_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Ssend_init(const_cast<T *>(data), 1, 
-		     datatype_traits<layout<T> >::get_datatype(l), 
-		     dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    // --- rsend_init ---
-    template<typename T>
-    detail::prequest rsend_init(const T &data, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Rsend_init(const_cast<T *>(&data), 1, 
-		     datatype_traits<T>::get_datatype(), 
-		     dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    template<typename T>
-    detail::prequest rsend_init(const T *data, const layout<T> &l, int dest, int tag=0) const {
-      MPI_Request req;
-      MPI_Rsend_init(const_cast<T *>(data), 1, 
-		     datatype_traits<layout<T> >::get_datatype(l), 
-		     dest, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    // --- recv_init ---
-    template<typename T>
-    detail::prequest recv_init(T &data, int source, int tag=0) const {
-      MPI_Request req;
-      MPI_Recv_init(&data, 1, 
-		    datatype_traits<T>::get_datatype(), 
-		    source, tag, comm, &req);
-      return detail::prequest(req);
-    }
-    template<typename T>
-    detail::prequest recv_init(T *data, const layout<T> &l, int source, int tag=0) const {
-      MPI_Request req;
-      MPI_Recv_init(data, 1, 
-		    datatype_traits<layout<T> >::get_datatype(l), 
-		    source, tag, comm, &req);
-      return detail::prequest(req);
-    }
-
     // === collective ==================================================
-
-    // --- barrier ---
+    // === barrier ===
+    // --- blocking barrier ---
     void barrier() const {
       MPI_Barrier(comm);
     }
-    // --- bcast ---
+    // --- nonblocking barrier ---
+    detail::irequest ibarrier() const {
+      MPI_Request req;
+      MPI_Ibarrier(comm, &req);
+      return detail::irequest(req);
+    }
+    // === broadcast ===
+    // --- blocking broadcast ---
     template<typename T>
-    void bcast(T &data, int root) const {
+    void bcast(int root, T &data) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       MPI_Bcast(&data, 1, datatype_traits<T>::get_datatype(), root, comm);
     }
     template<typename T>
-    void bcast(T *data, const layout<T> &l, int root) const {
+    void bcast(int root, T *data, const layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       MPI_Bcast(data, 1, datatype_traits<layout<T> >::get_datatype(l), root, comm);
     }
-    // --- gather ---
+    // --- nonblocking broadcast ---
     template<typename T>
-    void gather(const T &senddata, T *recvdata, int root) const {
-      MPI_Gather(const_cast<T *>(&senddata), 1, datatype_traits<T>::get_datatype(),
+    detail::irequest ibcast(int root, T &data) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Ibcast(&data, 1, datatype_traits<T>::get_datatype(), root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest bcast(int root, T *data, const layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Ibcast(data, 1, datatype_traits<layout<T> >::get_datatype(l), root, comm, &req);
+      return detail::irequest(req);
+    }
+    // === gather ===
+    // === root gets a signle value from each rank and stores in contiguous memory 
+    // --- blocking gather ---
+    template<typename T>
+    void gather(int root, const T &senddata, T *recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Gather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		 recvdata, 1, datatype_traits<T>::get_datatype(),
 		 root, comm);
     }
     template<typename T>
-    void gather(const T *senddata, const layout<T> &sendl, 
-		T *recvdata, const layout<T> &recvl, int root) const {
-      MPI_Gather(const_cast<T *>(senddata), 1, datatype_traits<layout<T> >::get_datatype(sendl),
+    void gather(int root, 
+		const T *senddata, const layout<T> &sendl, 
+		T *recvdata, const layout<T> &recvl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Gather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
 		 recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
 		 root, comm);
     }
+    // --- nonblocking gather ---
     template<typename T>
-    void gather(T *data, const layout<T> &l, int root) const {
-      MPI_Gather(data, 1, datatype_traits<layout<T> >::get_datatype(l),
-		 MPI_IN_PLACE, 0, NULL,
+    detail::irequest igather(int root, const T &senddata, T *recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Igather(&senddata, 1, datatype_traits<T>::get_datatype(),
+		  recvdata, 1, datatype_traits<T>::get_datatype(),
+		  root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest igather(int root, 
+			     const T *senddata, const layout<T> &sendl, 
+			     T *recvdata, const layout<T> &recvl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Igather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+		  recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		  root, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking gather, non-root variant ---
+    template<typename T>
+    void gather(int root, const T &senddata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Gather(&senddata, 1, datatype_traits<T>::get_datatype(),
+		 0, 0, MPI_DATATYPE_NULL,
 		 root, comm);
     }
-    // --- allgather ---
+    template<typename T>
+    void gather(int root, 
+		const T *senddata, const layout<T> &sendl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Gather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+		 0, 0, MPI_DATATYPE_NULL,
+		 root, comm);
+    }
+    // --- nonblocking gather, non-root variant ---
+    template<typename T>
+    detail::irequest igather(int root, const T &senddata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Igather(&senddata, 1, datatype_traits<T>::get_datatype(),
+		  0, 0, MPI_DATATYPE_NULL,
+		  root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest igather(int root, 
+			     const T *senddata, const layout<T> &sendl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);;
+#endif
+      MPI_Request req;
+      MPI_Igather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+		  0, 0, MPI_DATATYPE_NULL,
+		  root, comm, &req);
+      return detail::irequest(req);
+    }
+    // === root gets varying amount of data from each rank and stores in noncontiguous memory 
+    // --- blocking gather ---
+    template<typename T>
+    void gatherv(int root, 
+		 const T *senddata, int sendcount,
+		 T *recvdata, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Gatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+		  recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
+		  root, comm);
+    }
+    template<typename T>
+    void gatherv(int root, 
+		 const T *senddata, const layout<T> &sendl, int sendcount, 
+		 T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+		  recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+		  root, comm);
+    }
+    // --- nonblocking gather ---
+    template<typename T>
+    detail::irequest igatherv(int root, 
+			      const T *senddata, int sendcount,
+			      T *recvdata, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Request req;
+      MPI_Igatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+		   recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
+		   root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest igatherv(int root, 
+			      const T *senddata, const layout<T> &sendl, int sendcount, 
+			      T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Request req;
+      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+		   recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+		   root, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking gather, non-root variant ---
+    template<typename T>
+    void gatherv(int root, 
+		 const T *senddata, int sendcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+	MPI_Gatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+		    0, 0, 0, MPI_DATATYPE_NULL,
+		    root, comm);
+    }
+    template<typename T>
+    void gatherv(int root, 
+		 const T *senddata, const layout<T> &sendl, int sendcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+		  0, 0, 0, MPI_DATATYPE_NULL,
+		  root, comm);
+    }
+    // --- nonblocking gather, non-root variant ---
+    template<typename T>
+    detail::irequest igatherv(int root, 
+			      const T *senddata, int sendcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Igatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+		   0, 0, 0, MPI_DATATYPE_NULL,
+		   root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest igatherv(int root, 
+			      const T *senddata, const layout<T> &sendl, int sendcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+		   0, 0, 0, MPI_DATATYPE_NULL,
+		   root, comm, &req);
+      return detail::irequest(req);
+    }
+    // === allgather ===
+    // === get a signle value from each rank and stores in contiguous memory 
+    // --- blocking allgather ---
     template<typename T>
     void allgather(const T &senddata, T *recvdata) const {
-      MPI_Allgather(const_cast<T *>(&senddata), 1, datatype_traits<T>::get_datatype(),
+      MPI_Allgather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		    recvdata, 1, datatype_traits<T>::get_datatype(),
 		    comm);
     }
     template<typename T>
     void allgather(const T *senddata, const layout<T> &sendl, 
 		   T *recvdata, const layout<T> &recvl) const {
-      MPI_Allgather(const_cast<T *>(senddata), 1, datatype_traits<T>::get_datatype(),
-		    recvdata, 1, datatype_traits<T>::get_datatype(),
+      MPI_Allgather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+		    recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
 		    comm);
     }
+    // --- nonblocking allgather ---
     template<typename T>
-    void allgather(T *data, const layout<T> &l) const {
-      MPI_Allgather(data, 1, datatype_traits<layout<T> >::get_datatype(l),
-		    MPI_IN_PLACE, 0, NULL,
-		    comm);
+    detail::irequest iallgather(const T &senddata, T *recvdata) const {
+      MPI_Request req;
+      MPI_Iallgather(&senddata, 1, datatype_traits<T>::get_datatype(),
+		     recvdata, 1, datatype_traits<T>::get_datatype(),
+		     comm, &req);
+      return detail::irequest(req);
     }
-    // --- scatter ---
     template<typename T>
-    void scatter(const T *senddata, T &recvdata, int root) const {
-      MPI_Scatter(const_cast<T *>(senddata), 1, datatype_traits<T>::get_datatype(),
+    detail::irequest iallgather(const T *senddata, const layout<T> &sendl, 
+				T *recvdata, const layout<T> &recvl) const {
+      MPI_Request req;
+      MPI_Iallgather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+		     recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		     comm, &req);
+      return detail::irequest(req);
+    }
+    // === get varying amount of data from each rank and stores in noncontiguous memory 
+    // --- blocking allgather ---
+    template<typename T>
+    void allgatherv(const T *senddata, int sendcount,
+		    T *recvdata, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Allgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+		     recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
+		     comm);
+    }
+    template<typename T>
+    void allgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
+		    T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Allgatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+		     recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+		     comm);
+    }
+    // --- nonblocking allgather ---
+    template<typename T>
+    detail::irequest iallgatherv(const T *senddata, int sendcount,
+				 T *recvdata, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Request req;
+      MPI_Iallgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+		      recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
+		      comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
+				 T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Request req;
+      MPI_Iallgatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+		      recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+		      comm, &req);
+      return detail::irequest(req);
+    }
+    // === scatter ===
+    // === root sends a signle value from contiguous memory to each rank
+    // --- blocking scatter ---
+    template<typename T>
+    void scatter(int root, const T *senddata, T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Scatter(senddata, 1, datatype_traits<T>::get_datatype(),
 		  &recvdata, 1, datatype_traits<T>::get_datatype(),
 		  root, comm);
     }
     template<typename T>
-    void scatter(const T *senddata, const layout<T> &sendl, 
-		 T *recvdata, const layout<T> &recvl, int root) const {
-      MPI_Scatter(const_cast<T *>(senddata), 1, datatype_traits<layout<T> >::get_datatype(sendl),
+    void scatter(int root, 
+		 const T *senddata, const layout<T> &sendl, 
+		 T *recvdata, const layout<T> &recvl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Scatter(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
 		  recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
 		  root, comm);
     }
+    // --- nonblocking scatter ---
     template<typename T>
-    void scatter(T *data, const layout<T> &l, int root) const {
-      MPI_Scatter(data, 1, datatype_traits<layout<T> >::get_datatype(l),
-		  MPI_IN_PLACE, 0, NULL,
+    detail::irequest iscatter(int root, const T *senddata, T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Iscatter(senddata, 1, datatype_traits<T>::get_datatype(),
+		   &recvdata, 1, datatype_traits<T>::get_datatype(),
+		  root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest iscatter(int root, 
+			      const T *senddata, const layout<T> &sendl, 
+			      T *recvdata, const layout<T> &recvl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Iscatter(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+		   recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		   root, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking scatter, non-root variant ---
+    template<typename T>
+    void scatter(int root, T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Scatter(0, 0, MPI_DATATYPE_NULL,
+		  &recvdata, 1, datatype_traits<T>::get_datatype(),
 		  root, comm);
     }
-    // --- alltoall ---
+    template<typename T>
+    void scatter(int root, 
+		 T *recvdata, const layout<T> &recvl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      MPI_Scatter(0, 0, MPI_DATATYPE_NULL,
+		  recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		  root, comm);
+    }
+    // --- nonblocking scatter, non-root variant ---
+    template<typename T>
+    detail::irequest iscatter(int root, T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Iscatter(0, 0, MPI_DATATYPE_NULL,
+		  &recvdata, 1, datatype_traits<T>::get_datatype(),
+		  root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest iscatter(int root, 
+			      T *recvdata, const layout<T> &recvl) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Iscatter(0, 0, MPI_DATATYPE_NULL,
+		   recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		   root, comm, &req);
+      return detail::irequest(req);
+    }
+    // === root sends varying amount of data from noncontiguous memory to each rank
+    // --- blocking scatter ---
+    template<typename T>
+    void scatterv(int root, 
+		  const T *senddata, const counts &sendcounts, const displacements &displs,
+		  T *recvdata, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Scatterv(senddata, sendcounts(), displs(), datatype_traits<T>::get_datatype(),
+		   recvdata, recvcount, datatype_traits<T>::get_datatype(), 
+		   root, comm);
+    }
+    template<typename T>
+    void scatterv(int root, 
+		  const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &displs,
+		  T *recvdata, const layout<T> &recvl, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Scatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T> >::get_datatype(sendl),
+		   recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+		   root, comm);
+    }
+    // --- nonblocking scatter ---
+    template<typename T>
+    detail::irequest iscatterv(int root, 
+			       const T *senddata, const counts &sendcounts, const displacements &displs,
+			       T *recvdata, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Request req;
+      MPI_Iscatterv(senddata, sendcounts(), displs(), datatype_traits<T>::get_datatype(),
+		    recvdata, recvcount, datatype_traits<T>::get_datatype(), 
+		    root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest iscatterv(int root, 
+			       const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &displs,
+			       T *recvdata, const layout<T> &recvl, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(displs);
+#endif
+      MPI_Request req;
+      MPI_IScatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T> >::get_datatype(sendl),
+		    recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+		    root, comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking scatter, non-root variant ---
+    template<typename T>
+    void scatterv(int root, 
+		  T *recvdata, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Scatterv(0, 0, 0, MPI_DATATYPE_NULL,
+		   recvdata, recvcount, datatype_traits<T>::get_datatype(), 
+		   root, comm);
+    }
+    template<typename T>
+    void scatterv(int root, 
+		  T *recvdata, const layout<T> &recvl, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Scatterv(0, 0, 0, MPI_DATATYPE_NULL,
+		   recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+		   root, comm);
+    }
+    // --- nonblocking scatter, non-root variant ---
+    template<typename T>
+    detail::irequest iscatterv(int root, 
+			       T *recvdata, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Request req;
+      MPI_Iscatterv(0, 0, 0, MPI_DATATYPE_NULL,
+		    recvdata, recvcount, datatype_traits<T>::get_datatype(), 
+		    root, comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest iscatterv(int root, 
+			       T *recvdata, const layout<T> &recvl, int recvcount) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_NONROOT(root);
+#endif
+      MPI_Request req;
+      MPI_IScatterv(0, 0, 0, MPI_DATATYPE_NULL,
+		    recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+		    root, comm, &req);
+      return detail::irequest(req);
+    }
+    // === all-to-all ===
+    // === each rank sends a signle value to each rank
+    // --- blocking all-to-all ---
     template<typename T>
     void alltoall(const T *senddata, T *recvdata) const {
-      MPI_Alltoall(const_cast<T *>(senddata), 1, datatype_traits<T>::get_datatype(),
+      MPI_Alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
 		   recvdata, 1, datatype_traits<T>::get_datatype(),
 		   comm);
     }
     template<typename T>
     void alltoall(const T *senddata, const layout<T> &sendl, 
 		  T *recvdata, const layout<T> &recvl) const {
-      MPI_Alltoall(const_cast<T *>(senddata), 1, datatype_traits<T>::get_datatype(),
+      MPI_Alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+		   recvdata, 1, datatype_traits<T>::get_datatype(),
+		   comm);
+    }
+    // --- nonblocking all-to-all ---
+    template<typename T>
+    detail::irequest ialltoall(const T *senddata, T *recvdata) const {
+      MPI_Request req;
+      MPI_Ialltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+		    recvdata, 1, datatype_traits<T>::get_datatype(),
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ialltoall(const T *senddata, const layout<T> &sendl, 
+			       T *recvdata, const layout<T> &recvl) const {
+      MPI_Request req;
+      MPI_Ialltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+		    recvdata, 1, datatype_traits<T>::get_datatype(),
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking all-to-all, in place ---
+    template<typename T>
+    void alltoall(T *recvdata) const {
+      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
 		   recvdata, 1, datatype_traits<T>::get_datatype(),
 		   comm);
     }
     template<typename T>
-    void alltoall(T *data, const layout<T> &l) const {
-      MPI_Alltoall(data, 1, datatype_traits<layout<T> >::get_datatype(l),
-		   MPI_IN_PLACE, 0, NULL,
+    void alltoall(T *recvdata, const layout<T> &recvl) const {
+      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
+		   recvdata, 1, datatype_traits<T>::get_datatype(),
 		   comm);
     }
-    // --- reduce ---
+    // --- nonblocking all-to-all, in place ---
+    template<typename T>
+    detail::irequest ialltoall(T *recvdata) const {
+      MPI_Request req;
+      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
+		    recvdata, 1, datatype_traits<T>::get_datatype(),
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ialltoall(T *recvdata, const layout<T> &recvl) const {
+      MPI_Request req;
+      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
+		    recvdata, 1, datatype_traits<T>::get_datatype(),
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    // === each rank sends a varying number of values to each rank
+    // --- blocking all-to-all ---
+    template<typename T>
+    void alltoallv(const T *senddata, const counts &sendcounts, const displacements &senddispls,
+		   T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(senddispls);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Altoallv(senddata, sendcounts(), senddispls(), datatype_traits<T>::get_datatype(),
+		   recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
+		   comm);
+    }
+    template<typename T>
+    void alltoallv(const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &senddispls,
+		   T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(senddispls);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Altoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T> >::get_datatype(sendl),
+		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+		   comm);
+    }
+    // --- non-blocking all-to-all ---
+    template<typename T>
+    detail::irequest ialltoallv(const T *senddata, const counts &sendcounts, const displacements &senddispls,
+				T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(senddispls);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Request req;
+      MPI_Ialtoallv(senddata, sendcounts(), senddispls(), datatype_traits<T>::get_datatype(),
+		    recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ialltoallv(const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &senddispls,
+				T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(senddispls);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Request req;
+      MPI_Ialtoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T> >::get_datatype(sendl),
+		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking all-to-all, in place ---
+    template<typename T>
+    void alltoallv(T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Altoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
+		   recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
+		   comm);
+    }
+    template<typename T>
+    void alltoallv(T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Altoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
+		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+		   comm);
+    }
+    // --- non-blocking all-to-all, in place ---
+    template<typename T>
+    detail::irequest ialltoallv(T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Request req;
+      MPI_Ialtoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
+		    recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ialltoallv(T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+#endif
+      MPI_Request req;
+      MPI_Ialtoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
+		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+		    comm, &req);
+      return detail::irequest(req);
+    }
+    // === reduce ===
+    // --- blocking reduce ---
     template<typename T, typename F>
-    void reduce(const T &senddata, T &recvdata, F f, int root) const {
+    void reduce(F f, int root, 
+		const T &senddata, T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Reduce(const_cast<T *>(&senddata), &recvdata, 1, 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, comm);
+      MPI_Reduce(&senddata, &recvdata, 1, 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		 comm);
     }
     template<typename T, typename F>
-    void reduce(T &data, F f, int root) const {
+    void reduce(F f, int root,
+		const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Reduce(&data, MPI_IN_PLACE, 1, 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, comm);
+      MPI_Reduce(senddata, recvdata, l.size(), 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		 comm);
     }
+    // --- non-blocking reduce ---
     template<typename T, typename F>
-    void reduce(const T *senddata, T *recvdata, const contiguous_layout<T> &l, F f, int root) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
-      static detail::op<F> functor;
-      functor.f=f;      
-      MPI_Reduce(const_cast<T *>(senddata), recvdata, l.size(), 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, comm);
-    }
-    template<typename T, typename F>
-    void reduce(T *data, const contiguous_layout<T> &l, F f, int root) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
-      static detail::op<F> functor;
-      functor.f=f;      
-      MPI_Reduce(const_cast<T *>(data), MPI_IN_PLACE, l.size(), 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, comm);
-    }
-    // --- allreduce ---
-    template<typename T, typename F>
-    void allreduce(const T &senddata, T &recvdata, F f) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
-      static detail::op<F> functor;
-      functor.f=f;      
-      MPI_Allreduce(const_cast<T *>(&senddata), &recvdata, 1, 
-		    datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
-    }
-    template<typename T, typename F>
-    void allreduce(T &data, F f) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
-      static detail::op<F> functor;
-      functor.f=f;      
-      MPI_Allreduce(&data, MPI_IN_PLACE, 1, 
-		    datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
-    }
-    template<typename T, typename F>
-    void allreduce(const T *senddata, T *recvdata, const contiguous_layout<T> &l, F f) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
-      static detail::op<F> functor;
-      functor.f=f;      
-      MPI_Allreduce(const_cast<T *>(senddata), recvdata, l.size(), 
-		    datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
-    }
-    template<typename T, typename F>
-    void allreduce(T *data, const contiguous_layout<T> &l, F f) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
-      static detail::op<F> functor;
-      functor.f=f;      
-      MPI_Allreduce(const_cast<T *>(data), MPI_IN_PLACE, l.size(), 
-		    datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
-    }
-    //--- scan ---
-    template<typename T, typename F>
-    void scan(const T &senddata, T &recvdata, F f) const {
+    detail::irequest ireduce(F f, int root, 
+			     const T &senddata, T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
-      MPI_Scan(const_cast<T *>(&senddata), &recvdata, 1, 
-	       datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Request req;
+      MPI_Ireduce(&senddata, &recvdata, 1, 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		  comm, &req);
+      return detail::irequest(req);
     }
     template<typename T, typename F>
-    void scan(T &data, F f) const {
+    detail::irequest ireduce(F f, int root,
+			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce(senddata, recvdata, l.size(), 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		  comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking reduce, in place ---
+    template<typename T, typename F>
+    void reduce(F f, int root, 
+		T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Scan(&data, MPI_IN_PLACE, 1, 
-	       datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Reduce(MPI_IN_PLACE, &recvdata, 1, 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		 comm);
     }
     template<typename T, typename F>
-    void scan(const T *senddata, T *recvdata, const contiguous_layout<T> &l, F f) const {
+    void reduce(F f, int root,
+		T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Scan(const_cast<T *>(senddata), recvdata, l.size(), 
-	       datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Reduce(MPI_IN_PLACE, recvdata, l.size(), 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		 comm);
+    }
+    // --- non-blocking reduce, in place ---
+    template<typename T, typename F>
+    detail::irequest ireduce(F f, int root, 
+			     T &recvdata) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce(MPI_IN_PLACE, &recvdata, 1, 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		  comm, &req);
+      return detail::irequest(req);
     }
     template<typename T, typename F>
-    void scan(T *data, const contiguous_layout<T> &l, F f) const {
+    detail::irequest ireduce(F f, int root,
+			     T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_ROOT(root);
+#endif
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce(MPI_IN_PLACE, recvdata, l.size(), 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
+		  comm, &req);
+      return detail::irequest(req);
+    }
+    // === all-reduce ===
+    // --- blocking all-reduce ---
+    template<typename T, typename F>
+    void allreduce(F f, 
+		   const T &senddata, T &recvdata) const {
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Scan(const_cast<T *>(data), MPI_IN_PLACE, l.size(), 
-	       datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Allreduce(&senddata, &recvdata, 1, 
+		    datatype_traits<T>::get_datatype(), functor.mpi_op, 
+		    comm);
     }
-    //--- exscan ---
     template<typename T, typename F>
-    void exscan(const T &senddata, T &recvdata, F f) const {
+    void allreduce(F f,
+		   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Exscan(const_cast<T *>(&senddata), &recvdata, 1, 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Allreduce(senddata, recvdata, l.size(), 
+		    datatype_traits<T>::get_datatype(), functor.mpi_op,
+		    comm);
+    }
+    // --- non-blocking all-reduce ---
+    template<typename T, typename F>
+    detail::irequest iallreduce(F f,
+				const T &senddata, T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iallreduce(&senddata, &recvdata, 1, 
+		     datatype_traits<T>::get_datatype(), functor.mpi_op,
+		     comm, &req);
+      return detail::irequest(req);
     }
     template<typename T, typename F>
-    void exscan(T &data, F f) const {
+    detail::irequest iallreduce(F f,
+				const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iallreduce(senddata, recvdata, l.size(), 
+		     datatype_traits<T>::get_datatype(), functor.mpi_op,
+		     comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking all-reduce, in place ---
+    template<typename T, typename F>
+    void allreduce(F f,
+		   T &recvdata) const {
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Exscan(&data, MPI_IN_PLACE, 1, 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Allreduce(MPI_IN_PLACE, &recvdata, 1, 
+		    datatype_traits<T>::get_datatype(), functor.mpi_op,
+		    comm);
     }
     template<typename T, typename F>
-    void exscan(const T *senddata, T *recvdata, const contiguous_layout<T> &l, F f) const {
+    void allreduce(F f,
+		   T *recvdata, const contiguous_layout<T> &l) const {
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Exscan(const_cast<T *>(senddata), recvdata, l.size(), 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Allreduce(MPI_IN_PLACE, recvdata, l.size(), 
+		    datatype_traits<T>::get_datatype(), functor.mpi_op,
+		    comm);
+    }
+    // --- non-blocking all-reduce, in place ---
+    template<typename T, typename F>
+    detail::irequest iallreduce(F f,
+				T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iallreduce(MPI_IN_PLACE, &recvdata, 1, 
+		     datatype_traits<T>::get_datatype(), functor.mpi_op,
+		     comm, &req);
+      return detail::irequest(req);
     }
     template<typename T, typename F>
-    void exscan(T *data, const contiguous_layout<T> &l, F f) const {
+    detail::irequest iallreduce(F f,
+				T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iallreduce(MPI_IN_PLACE, recvdata, l.size(), 
+		     datatype_traits<T>::get_datatype(), functor.mpi_op,
+		     comm, &req);
+      return detail::irequest(req);
+    }
+    // === reduce-scatter-block ===
+    // --- blocking reduce-scatter-block ---
+    template<typename T, typename F>
+    void reduce_scatter_block(F f, 
+			      const T *senddata, T &recvdata) const {
       static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;      
-      MPI_Exscan(const_cast<T *>(data), MPI_IN_PLACE, l.size(), 
-		 datatype_traits<T>::get_datatype(), functor.mpi_op, comm);
+      MPI_Reduce_scatter_block(senddata, &recvdata, 1, 
+			       datatype_traits<T>::get_datatype(), functor.mpi_op, 
+			       comm);
+    }
+    template<typename T, typename F>
+    void reduce_scatter_block(F f,
+			      const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Reduce_scatter_block(senddata, recvdata, l.size(), 
+			       datatype_traits<T>::get_datatype(), functor.mpi_op,
+			       comm);
+    }
+    // --- non-blocking reduce-scatter-block ---
+    template<typename T, typename F>
+    detail::irequest ireduce_scatter_block(F f,
+					   const T *senddata, T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce_scatter_block(&senddata, &recvdata, 1, 
+				datatype_traits<T>::get_datatype(), functor.mpi_op,
+				comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T, typename F>
+    detail::irequest ireduce_scatter_block(F f,
+					   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce_scatter_block(senddata, recvdata, l.size(), 
+				datatype_traits<T>::get_datatype(), functor.mpi_op,
+				comm, &req);
+      return detail::irequest(req);
+    }
+    // === reduce-scatter ===
+    // --- blocking reduce-scatter ---
+    template<typename T, typename F>
+    void reduce_scatter(F f,
+			const T *senddata, T *recvdata, const counts &recvcounts) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Reduce_scatter(senddata, recvdata, recvcounts(), 
+			 datatype_traits<T>::get_datatype(), functor.mpi_op,
+			 comm);
+    }
+    // --- non-blocking reduce-scatter-block ---
+    template<typename T, typename F>
+    detail::irequest ireduce_scatter(F f,
+				     const T *senddata, T *recvdata, const counts &recvcounts) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce_scatter(senddata, recvdata, recvcounts(),
+			  datatype_traits<T>::get_datatype(), functor.mpi_op,
+			  comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking reduce-scatter, in place ---
+    template<typename T, typename F>
+    void reduce_scatter(F f,
+			T *recvdata, const counts &recvcounts) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Reduce_scatter(MPI_IN_PLACE, recvdata, recvcounts(), 
+			 datatype_traits<T>::get_datatype(), functor.mpi_op,
+			 comm);
+    }
+    // --- non-blocking reduce-scatter-block ---
+    template<typename T, typename F>
+    detail::irequest ireduce_scatter(F f,
+				     T *recvdata, const counts &recvcounts) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Ireduce_scatter(MPI_IN_PLACE, recvdata, recvcounts(),
+			  datatype_traits<T>::get_datatype(), functor.mpi_op,
+			  comm, &req);
+      return detail::irequest(req);
+    }
+    // === scan ===
+    // --- blocking scan ---
+    template<typename T, typename F>
+    void scan(F f, 
+	      const T &senddata, T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Scan(&senddata, &recvdata, 1, 
+	       datatype_traits<T>::get_datatype(), functor.mpi_op, 
+	       comm);
+    }
+    template<typename T, typename F>
+    void scan(F f,
+	      const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Scan(senddata, recvdata, l.size(), 
+	       datatype_traits<T>::get_datatype(), functor.mpi_op,
+	       comm);
+    }
+    // --- non-blocking scan ---
+    template<typename T, typename F>
+    detail::irequest iscan(F f,
+			   const T &senddata, T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iscan(&senddata, &recvdata, 1, 
+		datatype_traits<T>::get_datatype(), functor.mpi_op,
+		comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T, typename F>
+    detail::irequest iscan(F f,
+			   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iscan(senddata, recvdata, l.size(), 
+		datatype_traits<T>::get_datatype(), functor.mpi_op,
+		comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking scan, in place ---
+    template<typename T, typename F>
+    void scan(F f,
+	      T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Scan(MPI_IN_PLACE, &recvdata, 1, 
+	       datatype_traits<T>::get_datatype(), functor.mpi_op,
+	       comm);
+    }
+    template<typename T, typename F>
+    void scan(F f,
+	      T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Scan(MPI_IN_PLACE, recvdata, l.size(), 
+	       datatype_traits<T>::get_datatype(), functor.mpi_op,
+	       comm);
+    }
+    // --- non-blocking scan, in place ---
+    template<typename T, typename F>
+    detail::irequest iscan(F f,
+				T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iscan(MPI_IN_PLACE, &recvdata, 1, 
+		datatype_traits<T>::get_datatype(), functor.mpi_op,
+		comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T, typename F>
+    detail::irequest iscan(F f,
+			   T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iscan(MPI_IN_PLACE, recvdata, l.size(), 
+		datatype_traits<T>::get_datatype(), functor.mpi_op,
+		comm, &req);
+      return detail::irequest(req);
+    }
+    // === exscan ===
+    // --- blocking exscan ---
+    template<typename T, typename F>
+    void exscan(F f, 
+		const T &senddata, T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Exscan(&senddata, &recvdata, 1, 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op, 
+		 comm);
+    }
+    template<typename T, typename F>
+    void exscan(F f,
+		const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Exscan(senddata, recvdata, l.size(), 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op,
+		 comm);
+    }
+    // --- non-blocking exscan ---
+    template<typename T, typename F>
+    detail::irequest iexscan(F f,
+			     const T &senddata, T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iexscan(&senddata, &recvdata, 1, 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op,
+		  comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T, typename F>
+    detail::irequest iexscan(F f,
+			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iexscan(senddata, recvdata, l.size(), 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op,
+		  comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking exscan, in place ---
+    template<typename T, typename F>
+    void exscan(F f,
+		T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Exscan(MPI_IN_PLACE, &recvdata, 1, 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op,
+		 comm);
+    }
+    template<typename T, typename F>
+    void exscan(F f,
+		T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;      
+      MPI_Exscan(MPI_IN_PLACE, recvdata, l.size(), 
+		 datatype_traits<T>::get_datatype(), functor.mpi_op,
+		 comm);
+    }
+    // --- non-blocking exscan, in place ---
+    template<typename T, typename F>
+    detail::irequest iexscan(F f,
+			     T &recvdata) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iexscan(MPI_IN_PLACE, &recvdata, 1, 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op,
+		  comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T, typename F>
+    detail::irequest iexscan(F f,
+			     T *recvdata, const contiguous_layout<T> &l) const {
+      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
+		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
+		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static detail::op<F> functor;
+      functor.f=f;
+      MPI_Request req;
+      MPI_Iexscan(MPI_IN_PLACE, recvdata, l.size(), 
+		  datatype_traits<T>::get_datatype(), functor.mpi_op,
+		  comm, &req);
+      return detail::irequest(req);
     }
     
   };

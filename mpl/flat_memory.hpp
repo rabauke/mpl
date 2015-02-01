@@ -36,6 +36,9 @@ namespace mpl {
       const T * data() const {
 	return first;
       }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
+      }
     };
 
     template<typename T>
@@ -57,6 +60,9 @@ namespace mpl {
       }
       const T * data() const {
 	return first;
+      }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
       }
     };
 
@@ -83,6 +89,9 @@ namespace mpl {
       const T * data() const {
 	return &(*first);
       }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
+      }
     };
 
     template<typename T>
@@ -105,6 +114,9 @@ namespace mpl {
       }
       const T * data() const {
 	return &(*first);
+      }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
       }
     };
 
@@ -137,6 +149,12 @@ namespace mpl {
       T * data() {
 	return first;
       }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
+      }
+      T & operator[](std::size_t i) {
+	return data()[i];
+      }
       I copy_back(size_type m) const {
 	return std::copy(first, first+std::min(m, n), first_out);
       }
@@ -166,6 +184,12 @@ namespace mpl {
       }
       T * data() {
 	return first;
+      }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
+      }
+      T & operator[](std::size_t i) {
+	return data()[i];
       }
       T * copy_back(size_type m) const {
 	return first_out+std::min(m, n);
@@ -199,6 +223,12 @@ namespace mpl {
       }
       T * data() {
 	return &(*first);
+      }
+      const T & operator[](std::size_t i) const {
+	return data()[i];
+      }
+      T & operator[](std::size_t i) {
+	return data()[i];
       }
       iter copy_back(size_type m) const {
 	return first_out+std::min(m, n);

@@ -37,7 +37,7 @@ int main() {
     v.push_back(std::rand()%16+1);
   mpl::contiguous_layout<int> layout(n);
   std::vector<int> result(n);
-  comm_world.reduce(v.data(), result.data(), layout, lcm<int>(), 0);
+  comm_world.reduce(lcm<int>(), 0, v.data(), result.data(), layout);
   if (comm_world.rank()==0) {
     std::cout << "Results:\n";
     for (int i=0; i<n; ++i) 
