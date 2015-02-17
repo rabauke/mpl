@@ -22,26 +22,28 @@ namespace mpl {
 
   template<>
   class struct_builder<structure> : public base_struct_builder<structure> {
-    structure str;
     struct_layout<structure> layout;
   public:
-    struct_builder() : layout(str) {
+    struct_builder() {
+      structure str;
+      layout.register_struct(str);
       // register each element
-      layout(str.d);
-      layout(str.i);
+      layout.register_element(str.d);
+      layout.register_element(str.i);
       define_struct(layout);
     }
   };
   
   template<>
   class struct_builder<structure2> : public base_struct_builder<structure2> {
-    structure2 str2;
     struct_layout<structure2> layout;
   public:
-    struct_builder() : layout(str2) {
+    struct_builder() {
+      structure2 str2;
+      layout.register_struct(str2);
       // register each element
-      layout(str2.d);
-      layout(str2.str);
+      layout.register_element(str2.d);
+      layout.register_element(str2.str);
       define_struct(layout);
     }
   };

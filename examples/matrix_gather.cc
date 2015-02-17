@@ -37,7 +37,7 @@ int main() {
   while (p/px*px!=p)
     --px;
   int py={p/px};
-  int nx={7}, ny={7}; // total size of the matrix
+  int nx={31}, ny={29}; // total size of the matrix
   matrix<int> nx_l(px, py), ny_l(px, py);  // sizes of sub matrices
   matrix<int> nx_0(px, py), ny_0(px, py);  // starts of sub matrices
   matrix<mpl::subarray_layout<int, 2> > sub_matrix_l(px, py);
@@ -47,34 +47,78 @@ int main() {
       ny_l(ix, iy)=ny*(iy+1)/py-ny*iy/py;
       nx_0(ix, iy)=nx*ix/px;
       ny_0(ix, iy)=ny*iy/py;
-      mpl::vector<int, 2> sizes(ny, nx);
-      mpl::vector<int, 2> subsizes(ny_l(ix, iy), nx_l(ix, iy));
-      mpl::vector<int, 2> starts(ny_0(ix, iy), nx_0(ix, iy));
-      sub_matrix_l(ix, iy)=mpl::subarray_layout<int, 2>(sizes, subsizes, starts, mpl::subarray_layout<int, 2>::C_order);
+      sub_matrix_l(ix, iy)=mpl::subarray_layout<int, 2>({ny, nx}, {ny_l(ix, iy), nx_l(ix, iy)}, {ny_0(ix, iy), nx_0(ix, iy)});
     }
   }
   int py_l={p_l/px}, px_l{p_l-px*py_l};
 
-  matrix<int> M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));
-  std::fill(M_l.begin(), M_l.end(), p_l);
-  mpl::contiguous_layout<int> matrix_l(nx_l(px_l, py_l)*ny_l(px_l, py_l));
-  mpl::irequest r(comm_world.isend(M_l.data(), matrix_l, 0));
-  if (p_l==0) {
-    matrix<int> M(nx, ny);
-    std::fill(M.begin(), M.end(), 0-' ');
-    for (int iy=0; iy<py; ++iy) {
-      for (int ix=0; ix<px; ++ix) {
-	comm_world.recv(M.data(), sub_matrix_l(ix, iy), ix+px*iy);
-  	for (int iy=0; iy<ny; ++iy) {
-   	  for (int ix=0; ix<nx; ++ix) {
-   	    std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
- 	  }
-   	  std::cout << '\n';
+  // gather via send-recv
+  {
+    matrix<int> M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));
+    std::fill(M_l.begin(), M_l.end(), p_l);
+    mpl::contiguous_layout<int> matrix_l(nx_l(px_l, py_l)*ny_l(px_l, py_l));
+    mpl::irequest r(comm_world.isend(M_l.data(), matrix_l, 0));
+    if (p_l==0) {
+      // gather all submatrices
+      matrix<int> M(nx, ny);
+      std::fill(M.begin(), M.end(), 0-' ');
+      for (int iy=0; iy<py; ++iy) {
+	for (int ix=0; ix<px; ++ix) {
+	  comm_world.recv(M.data(), sub_matrix_l(ix, iy), ix+px*iy);
+	  for (int iy=0; iy<ny; ++iy) {
+	    for (int ix=0; ix<nx; ++ix) {
+	      std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
+	    }
+	    std::cout << '\n';
+	  }
+	  std::cout << '\n';
 	}
- 	std::cout << '\n';
       }
     }
+    r.wait();
   }
-  r.wait();
+  
+  // gather via alltoallw
+  {
+    matrix<int> M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));
+    std::fill(M_l.begin(), M_l.end(), p_l);
+    mpl::layouts<int> sendl, recvl;
+    mpl::counts sendcounts, recvcounts;
+    mpl::displacements senddispls, recvdispls;
+    sendl.push_back(mpl::contiguous_layout<int>(nx_l(px_l, py_l)*ny_l(px_l, py_l)));
+    sendcounts.push_back(1);
+    senddispls.push_back(0);
+    for (int i=1; i<p; ++i) {
+      sendl.push_back(mpl::empty_layout<int>());
+      sendcounts.push_back(0);
+      senddispls.push_back(0);
+    }
+    if (p_l==0) {
+      for (int i=0; i<p; ++i) {
+  	recvl.push_back(sub_matrix_l(i%px, i/px));
+  	recvcounts.push_back(1);
+  	recvdispls.push_back(0);
+      }
+      matrix<int> M(nx, ny);
+      comm_world.alltoallw(M_l.data(), sendl, sendcounts, senddispls,
+       			   M.data(), recvl, recvcounts, recvdispls);
+      for (int iy=0; iy<ny; ++iy) {
+  	for (int ix=0; ix<nx; ++ix) {
+  	  std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
+  	}
+  	std::cout << '\n';
+      }
+      std::cout << '\n';
+    } else {
+      for (int i=0; i<p; ++i) {
+	recvl.push_back(mpl::empty_layout<int>());
+  	recvcounts.push_back(0);
+  	recvdispls.push_back(0);
+      }
+      comm_world.alltoallw(M_l.data(), sendl, sendcounts, senddispls,
+			   reinterpret_cast<int *>(0), recvl, recvcounts, recvdispls);
+    }
+    
+  }
   return EXIT_SUCCESS;
 }

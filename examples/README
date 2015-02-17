@@ -21,18 +21,35 @@ nonblocking_mult.cc
 standard_types.cc
   Sends and recieves data of various standard types.
 
-struct.cc
-  Demonstrates how to use class mpl::struct_builder to enable
-  communication using structures and classes.  Class memebers must be
-  of fixed size (no dynamic memory allocation).  All types of the
-  class members must be suited for commnication.  These rules may be
+arrays.cc
+  Sends and recieves arrays (C arrays ans std::array) of fixed size,
+  which must be known at compile time.  The types of the array
+  elements musst be suited for communication.  These rules may be
   applied recursively.
 
+struct.cc
+  Demonstrates how to use class mpl::struct_builder to enable
+  communication using structures and classes.  Class members must be
+  of fixed size (no dynamic memory allocation).  All types of the
+  class members must be suited for communication.  These rules may be
+  applied recursively.
+ 
 collective.cc
-  Demonstrates collective various modes of communication.
+  Demonstrates various modes of collective communication.
+
+gather.cc
+  Gather data to a signle process.
 
 reduce_lcm.cc
   Demonstrates use of custom reduction functions.
 
 layouts.cc and subarray.cc
   Construction of various data layouts.
+
+matrix_gather.cc 
+  Gather submatrices, demonstrates use of subarray data layouts and
+  alltoallw.
+
+vibrating_string_mpi.c and vibrating_string_mpl.cc
+  Solve one-dimensional wave equatiion via finite differences, MPI
+  version vs. MPL version.

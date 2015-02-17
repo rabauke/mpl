@@ -1,5 +1,5 @@
 MPL_HEADERS = $(shell ls ../mpl/*hpp)
-BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types struct gather collective reduce_lcm layouts subarray vibrating_string_mpi vibrating_string_mpl
+BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types arrays struct gather collective reduce_lcm layouts subarray vibrating_string_mpi vibrating_string_mpl matrix_gather
 CC = mpicc
 CXX = mpic++
 #CXXFLAGS = -std=c++98 -pedantic -Wall -Wno-long-long
@@ -29,6 +29,9 @@ nonblocking_mult: nonblocking_mult.cc $(MPL_HEADERS)
 standard_types: standard_types.cc $(MPL_HEADERS)
 	$(CXX) $(CXXFLAGS) -o standard_types -I .. standard_types.cc
 
+arrays: arrays.cc $(MPL_HEADERS)
+	$(CXX) $(CXXFLAGS) -o arrays -I .. arrays.cc
+
 struct: struct.cc $(MPL_HEADERS)
 	$(CXX) $(CXXFLAGS) -o struct -I .. struct.cc
 
@@ -52,6 +55,9 @@ vibrating_string_mpi: vibrating_string_mpi.c
 
 vibrating_string_mpl: vibrating_string_mpl.cc
 	$(CXX) $(CXXFLAGS) -o vibrating_string_mpl -I .. vibrating_string_mpl.cc
+
+matrix_gather: matrix_gather.cc
+	$(CXX) $(CXXFLAGS) -o matrix_gather -I .. matrix_gather.cc
 
 clean:
 	rm -f $(BINS) *.o

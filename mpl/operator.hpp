@@ -182,13 +182,18 @@ namespace mpl {
       ~op() {
 	MPI_Op_free(&mpi_op);
       }
+      static constexpr bool is_s_commutative() {
+	return op_traits<F>::is_commutative();
+      }
+      op(op const &)=delete;
+      op& operator=(op const&)=delete;
     };
-
+    
     template<typename F>
     F op<F>::f;
-  
+    
   }
-
+  
 }
 
 #endif

@@ -29,12 +29,12 @@
   if (root<0 or root>=size())  \
     throw invalid_rank();
 
-#define MPL_CHECK_NONROOT(root)               \
-  if (root<0 or root>=size() or root=rank())  \
+#define MPL_CHECK_NONROOT(root)                \
+  if (root<0 or root>=size() or root==rank())  \
     throw invalid_rank();
 
-#define MPL_CHECK_SIZE(x)               \
-  if (x.size()<=0 or x.size()>size())	\
+#define MPL_CHECK_SIZE(x)                 \
+  if (static_cast<int>(x.size())>size())  \
     throw invalid_size();
 
 
@@ -1324,6 +1324,67 @@ namespace mpl {
       MPI_Ialtoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
 		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
 		    comm, &req);
+      return detail::irequest(req);
+    }
+    // === each rank sends a varying number of values to each rank with possibly different layouts
+    // --- blocking all-to-all ---
+    template<typename T>
+    void alltoallw(const T *senddata, const layouts<T> &sendl, const counts &sendcounts, const displacements &senddispls, 
+		   T *recvdata, const layouts<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(senddispls);
+      MPL_CHECK_SIZE(sendl);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+      MPL_CHECK_SIZE(recvl);
+#endif
+      MPI_Alltoallw(senddata, sendcounts(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
+	            recvdata, recvcounts(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+	            comm);
+    }
+    // --- non-blocking all-to-all ---
+    template<typename T>
+    detail::irequest ialltoallw(const T *senddata, const layouts<T> &sendl, const counts &sendcounts, const displacements &senddispls, 
+	                        T *recvdata, const layouts<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(sendcounts);
+      MPL_CHECK_SIZE(senddispls);
+      MPL_CHECK_SIZE(sendl);
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+      MPL_CHECK_SIZE(recvl);
+#endif
+      MPI_Request req;
+      MPI_Ialltoallw(senddata, sendcounts(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
+	 	     recvdata, recvcounts(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+		     comm, &req);
+      return detail::irequest(req);
+    }
+    // --- blocking all-to-all, in place ---
+    template<typename T>
+    void alltoallw(T *recvdata, const layouts<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+      MPL_CHECK_SIZE(recvl);
+#endif
+      MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0,
+		    recvdata, recvcounts(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+	            comm);
+    }
+    // --- non-blocking all-to-all, in place ---
+    template<typename T>
+    detail::irequest ialltoallw(T *recvdata, const layouts<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SIZE(recvcounts);
+      MPL_CHECK_SIZE(recvdispls);
+      MPL_CHECK_SIZE(recvl);
+#endif
+      MPI_Request req;
+      MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0,
+		     recvdata, recvcounts(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+		     comm, &req);
       return detail::irequest(req);
     }
     // === reduce ===

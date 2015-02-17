@@ -8,13 +8,18 @@
 #include <complex>
 #include <utility>
 #include <tuple>
+#include <array>
 
 namespace mpl {
   
   template<typename T>
   struct datatype_traits;
+
   template<typename T>
   class base_struct_builder;
+
+  template<typename T>
+  class struct_builder;
 
   //--------------------------------------------------------------------
 
@@ -26,6 +31,10 @@ namespace mpl {
     }
     template <typename T>
     inline std::size_t size(T *) { 
+      return sizeof(T); 
+    }
+    template <typename T>
+    inline std::size_t size(const T *) { 
       return sizeof(T); 
     }
     template <typename T>
@@ -45,16 +54,26 @@ namespace mpl {
     std::vector<MPI_Aint> displacements;
     std::vector<MPI_Datatype> datatypes;
   public:
-    struct_layout(const S &x) {
+    struct_layout & register_struct(const S &x) {
       MPI_Get_address(const_cast<S *>(&x), &base);
+      return *this;
     }
     template<typename T>
-    struct_layout & operator()(const T &x) {
+    struct_layout & register_element(const T &x) {
       blocklengths.push_back(sizeof(x)/size(x));
       MPI_Aint address;
-      MPI_Get_address(const_cast<T *>(&x), &address);
+      MPI_Get_address(&x, &address);
       displacements.push_back(address-base);
       datatypes.push_back(get_datatype(x));
+      return *this;
+    }
+    template<typename T>
+    struct_layout & register_vector(const T *x, MPI_Aint N) {
+      blocklengths.push_back(N);
+      MPI_Aint address;
+      MPI_Get_address(x, &address);
+      displacements.push_back(address-base);
+      datatypes.push_back(get_datatype(*x));
       return *this;
     }
     friend class base_struct_builder<S>;
@@ -70,9 +89,9 @@ namespace mpl {
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
       MPI_Type_create_struct(str.blocklengths.size(),
-			     const_cast<int *>(&str.blocklengths[0]),
- 			     const_cast<MPI_Aint *>(&str.displacements[0]),
-			     const_cast<MPI_Datatype *>(&str.datatypes[0]), &temp_type);
+			     str.blocklengths.data(),
+ 			     str.displacements.data(),
+			     str.datatypes.data(), &temp_type);
       MPI_Type_commit(&temp_type);
       MPI_Type_create_resized(temp_type, 0, sizeof(T), &type);
       MPI_Type_commit(&type);
@@ -86,33 +105,21 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  template<typename T>
-  class struct_builder;
-
-  // template<typename T>
-  // class struct_builder<std::complex<T> > : public base_struct_builder<std::complex<T> > {
-  //   typedef base_struct_builder<std::complex<T> > base;
-  //   T complex_number[2];
-  //   struct_layout<std::complex<T> > layout;
-  // public:
-  //   struct_builder() : layout(*reinterpret_cast<std::complex<T> *>(&complex_number[0])) {
-  //     layout(complex_number);
-  //     base::define_struct(layout);
-  //   }
-  // };
-    
   template<typename T1, typename T2>
   class struct_builder<std::pair<T1, T2> > : public base_struct_builder<std::pair<T1, T2> > {
     typedef base_struct_builder<std::pair<T1, T2> > base;
-    std::pair<T1, T2> pair;
     struct_layout<std::pair<T1, T2> > layout;
   public:
-    struct_builder() : layout(pair) {
-      layout(pair.first);
-      layout(pair.second);
+    struct_builder() {
+      std::pair<T1, T2> pair;
+      layout.register_struct(pair);
+      layout.register_element(pair.first);
+      layout.register_element(pair.second);
       base::define_struct(layout);
     }
   };
+
+  //--------------------------------------------------------------------
 
   namespace detail {
     
@@ -154,7 +161,7 @@ namespace mpl {
       }
       template<typename T>
       void operator()(const T &x) const {
-	layout(x);
+	layout.register_element(x);
       }
     };
 
@@ -163,13 +170,83 @@ namespace mpl {
   template<typename... Ts>
   class struct_builder<std::tuple<Ts...> > : public base_struct_builder<std::tuple<Ts...> > {
     typedef base_struct_builder<std::tuple<Ts...> > base;
-    std::tuple<Ts...> tuple;
     struct_layout<std::tuple<Ts...> > layout;
   public:
-    struct_builder() : layout(tuple) {
+    struct_builder() {
+      std::tuple<Ts...> tuple;
+      layout.register_struct(tuple);
       base::define_struct(layout);
       detail::register_element<Ts...> reg(layout);
       detail::apply<detail::register_element<Ts...> >(tuple, reg);
+      base::define_struct(layout);
+    }
+  };
+  
+  //--------------------------------------------------------------------
+
+  template<typename T, std::size_t N>
+  class struct_builder<T[N]> : public base_struct_builder<T[N]> {
+    typedef base_struct_builder<T[N]> base;
+    struct_layout<T[N]> layout;
+  public:
+    struct_builder() {
+      T array[N];
+      layout.register_struct(array);
+      layout.register_vector(array, N);
+      base::define_struct(layout);
+    }
+  };
+
+  template<typename T, std::size_t N0, std::size_t N1>
+  class struct_builder<T[N0][N1]> : public base_struct_builder<T[N0][N1]> {
+    typedef base_struct_builder<T[N0][N1]> base;
+    struct_layout<T[N0][N1]> layout;
+  public:
+    struct_builder()  {
+      T array[N0][N1];
+      layout.register_struct(array);
+      layout.register_vector(array, N0*N1);
+      base::define_struct(layout);
+    }
+  };
+  
+  template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
+  class struct_builder<T[N0][N1][N2]> : public base_struct_builder<T[N0][N1][N2]> {
+    typedef base_struct_builder<T[N0][N1][N2]> base;
+    struct_layout<T[N0][N1][N2]> layout;
+  public:
+    struct_builder()  {
+      T array[N0][N1][N2];
+      layout.register_struct(array);
+      layout.register_vector(array, N0*N1*N2);
+      base::define_struct(layout);
+    }
+  };
+
+  template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
+  class struct_builder<T[N0][N1][N2][N3]> : public base_struct_builder<T[N0][N1][N2][N3]> {
+    typedef base_struct_builder<T[N0][N1][N2][N3]> base;
+    struct_layout<T[N0][N1][N2][N3]> layout;
+  public:
+    struct_builder()  {
+      T array[N0][N1][N2][N3];
+      layout.register_struct(array);
+      layout.register_vector(array, N0*N1*N2*N3);
+      base::define_struct(layout);
+    }
+  };
+
+  //--------------------------------------------------------------------
+
+  template<typename T, std::size_t N>
+  class struct_builder<std::array<T, N> > : public base_struct_builder<std::array<T, N> > {
+    typedef base_struct_builder<std::array<T, N> > base;
+    struct_layout<std::array<T, N> > layout;
+  public:
+    struct_builder() {
+      std::array<T, N> array;
+      layout.register_struct(array);
+      layout.register_vector(array.data(), N);
       base::define_struct(layout);
     }
   };
