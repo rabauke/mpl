@@ -13,13 +13,7 @@ int main() {
     for (int i1=0; i1<n1; ++i1)
       for (int i0=0; i0<n0; ++i0)
   	A[i1][i0]=i0+0.01*i1;
-    mpl::vector<int, 2> array_of_sizes(n1, n0),
-      array_of_subsizes(s1, s0),
-      array_of_starts(2, 4);
-    mpl::subarray_layout<double, 2> subarray(array_of_sizes, 
-					     array_of_subsizes, 
-					     array_of_starts, 
-					     mpl::subarray_layout<double, 2>::C_order);
+    mpl::subarray_layout<double> subarray({{n1, s1, 2}, {n0, s0, 4}});
     comm_world.send(&A[0][0], subarray, 1, 0);
   }
   if (comm_world.rank()==1) {

@@ -42,6 +42,7 @@ namespace mpl {
 
   class group;
   class communicator;
+  class cart_communicator;
 
   namespace environment {
 
@@ -106,11 +107,12 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class communicator {
+  protected:
     MPI_Comm comm;
   public:
     typedef enum { ident=MPI_IDENT, congruent=MPI_CONGRUENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL } equality_type;
-  private:
-    communicator(MPI_Comm comm) : comm(comm) {
+  protected:
+    communicator(MPI_Comm comm=MPI_COMM_NULL) : comm(comm) {
     }
   public:
     communicator(const communicator &other) {
@@ -150,6 +152,7 @@ namespace mpl {
       return static_cast<equality_type>(result);
     }
     friend class group;
+    friend class cart_communicator;
     friend class environment::detail::env;
 
     void abort(int err) const {

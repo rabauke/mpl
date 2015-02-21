@@ -156,15 +156,83 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
+  class indexed_layout : public layout<T> {
+    using layout<T>::type;
+  public:
+    class parameter {
+      std::vector<int> blocklengths, displacements;
+    public:
+      parameter(std::initializer_list<std::array<int, 2>> list) {
+	for (const std::array<int, 2> &i : list) 
+	  add(i[0], i[1]);
+      }
+      void add(int blocklength, int displacement) {
+	blocklengths.push_back(blocklength);
+	displacements.push_back(displacement);
+      }
+      friend class indexed_layout;
+    };
+  private:
+    static MPI_Datatype build() {
+      MPI_Datatype new_type;
+      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
+ 			  &new_type);
+      return new_type;
+    }
+    static MPI_Datatype build(const parameter &par) {
+      MPI_Datatype new_type;
+      MPI_Type_indexed(par.displacements.size(), par.blocklengths.data(), par.displacements.data(), 
+		       datatype_traits<T>::get_datatype(), &new_type);
+      return new_type;
+    }
+  public:
+    indexed_layout() : layout<T>::layout(build()) {
+      MPI_Type_commit(&type);
+    }
+    indexed_layout(const parameter &par) :
+      layout<T>::layout(build(par)) {
+      MPI_Type_commit(&type);
+    }
+    indexed_layout(const indexed_layout &l) {
+      MPI_Type_dup(l.type, &type);
+    }
+    indexed_layout & operator=(const indexed_layout &l) {
+      if (this!=&l) {
+	MPI_Type_free(&type);
+	MPI_Type_dup(l.type, &type);
+      }
+      return *this;
+    }
+  };
+
+  //--------------------------------------------------------------------
+
+  template<typename T>
   class indexed_block_layout : public layout<T> {
     using layout<T>::type;
-    template<typename I>
-    static MPI_Datatype build(int blocklength, I i1, I i2) {
-      static_assert(std::is_same<int, typename std::iterator_traits<I>::value_type>::value, "iterator value_type musst be int");
-      detail::flat_memory_in<int, I> displacements(i1, i2);
+  public:
+    class parameter {
+      std::vector<int> displacements;
+    public:
+      parameter(std::initializer_list<int> list) {
+	for (int i : list) 
+	  add(i);
+      }
+      void add(int displacement) {
+	displacements.push_back(displacement);
+      }
+      friend class indexed_block_layout;
+    };
+  private:
+    static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_create_indexed_block(displacements.size(), blocklength, 
-				    displacements.data(), 
+      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
+ 			  &new_type);
+      return new_type;
+    }
+    static MPI_Datatype build(int blocklengths, const parameter &par) {
+      MPI_Datatype new_type;
+      MPI_Type_create_indexed_block(par.displacements.size(), blocklengths, par.displacements.data(), 
 				    datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
@@ -172,14 +240,8 @@ namespace mpl {
     indexed_block_layout() : layout<T>::layout(build()) {
       MPI_Type_commit(&type);
     }
-    template<typename I>
-    explicit indexed_block_layout(int blocklength, I i1, I i2) : 
-      layout<T>::layout(build(blocklength, i1, i2)) {
-      MPI_Type_commit(&type);
-    }
-    template<typename I>
-    explicit indexed_block_layout(int blocklength, std::initializer_list<I> i) : 
-      layout<T>::layout(build(blocklength, i.begin(), i.end())) {
+    indexed_block_layout(int blocklengths, const parameter &par) :
+      layout<T>::layout(build(blocklengths, par)) {
       MPI_Type_commit(&type);
     }
     indexed_block_layout(const indexed_block_layout &l) {
@@ -197,86 +259,39 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
-  class indexed_layout : public layout<T> {
-    using layout<T>::type;
-    static MPI_Datatype build() {
-      MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
- 			  &new_type);
-      return new_type;
-    }
-    template<typename I, typename J>
-    static MPI_Datatype build(I i1, I i2, J j1, J j2) {
-      static_assert(std::is_same<int, typename std::iterator_traits<I>::value_type>::value, "iterator value_type musst be int");
-      static_assert(std::is_same<int, typename std::iterator_traits<J>::value_type>::value, "iterator value_type musst be int");
-      detail::flat_memory_in<int, I> blocklengths(i1, i2);
-      detail::flat_memory_in<int, J> displacements(j1, j2);
-      // TODO: implement error handling for blocklengths.size()!=displacements.size()
-      MPI_Datatype new_type;
-      MPI_Type_indexed(displacements.size(), blocklengths.data(), displacements.data(), 
-		       datatype_traits<T>::get_datatype(), &new_type);
-      return new_type;
-    }
-  public:
-    indexed_layout() : layout<T>::layout(build()) {
-      MPI_Type_commit(&type);
-    }
-    template<typename I, typename J>
-    explicit indexed_layout(I i1, I i2, J j1, J j2) : 
-      layout<T>::layout(build(i1, i2, j1, j2)) {
-      MPI_Type_commit(&type);
-    }
-    template<typename I, typename J>
-    explicit indexed_layout(I i1, I i2, std::initializer_list<J> j) : 
-      layout<T>::layout(build(i1, i2, j.begin(), j.end())) {
-      MPI_Type_commit(&type);
-    }
-    template<typename I, typename J>
-    explicit indexed_layout(std::initializer_list<I> i, J j1, J j2) : 
-      layout<T>::layout(build(i.begin(), i.end(), j1, j2)) {
-      MPI_Type_commit(&type);
-    }
-    template<typename I, typename J>
-    explicit indexed_layout(std::initializer_list<I> i, std::initializer_list<J> j) : 
-      layout<T>::layout(build(i.begin(), i.end(), j.begin(), j.end())) {
-      MPI_Type_commit(&type);
-    }
-    indexed_layout(const indexed_layout &l) {
-      MPI_Type_dup(l.type, &type);
-    }
-    indexed_layout & operator=(const indexed_layout &l) {
-      if (this!=&l) {
-	MPI_Type_free(&type);
-	MPI_Type_dup(l.type, &type);
-      }
-      return *this;
-    }
-  };
-
-  //--------------------------------------------------------------------
-
-  template<typename T, int n>
   class subarray_layout : public layout<T> {
+    using layout<T>::type;
   public:
+    class parameter {
+      std::vector<int> sizes, subsizes, starts;
+    public:
+      parameter(std::initializer_list<std::array<int, 3>> list) {
+	for (const std::array<int, 3> &i : list) 
+	  add(i[0], i[1], i[2]);
+      }
+      void add(int size, int subsize, int start) {
+	sizes.push_back(size);
+	subsizes.push_back(subsize);
+	starts.push_back(start);
+      }
+      friend class subarray_layout;
+    };
     typedef enum { C_order=MPI_ORDER_C, Fortran_order=MPI_ORDER_FORTRAN } order_type;
   private:
-    using layout<T>::type;
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
  			  &new_type);
       return new_type;
     }
-    static MPI_Datatype build(const vector<int, n> &sizes,
-			      const vector<int, n> &subsizes,
-			      const vector<int, n> &starts, 
+    static MPI_Datatype build(const parameter &par, 
 			      order_type order) {
       MPI_Datatype new_type;
       int total_size=1;
-      for (int i=0; i<n; ++i)
-	total_size*=subsizes[i];
+      for (std::vector<int>::size_type i=0; i<par.sizes.size(); ++i)
+	total_size*=par.subsizes[i];
       if (total_size>0)
-	MPI_Type_create_subarray(n, &sizes[0], &subsizes[0], &starts[0],
+	MPI_Type_create_subarray(par.sizes.size(), par.sizes.data(), par.subsizes.data(), par.starts.data(),
 				 order,
 				 datatype_traits<T>::get_datatype(), &new_type);
       else 
@@ -287,11 +302,8 @@ namespace mpl {
     subarray_layout() : layout<T>::layout(build()) {
       MPI_Type_commit(&type);
     }
-    subarray_layout(const vector<int, n> &sizes,
-		    const vector<int, n> &subsizes,
-		    const vector<int, n> &starts, 
-		    order_type order=C_order) : 
-      layout<T>::layout(build(sizes, subsizes, starts, order)) {
+    subarray_layout(const parameter &par, order_type order=C_order) : 
+      layout<T>::layout(build(par, order)) {
       MPI_Type_commit(&type);
     }		   
     subarray_layout(const subarray_layout &l) {

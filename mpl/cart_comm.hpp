@@ -85,6 +85,76 @@ namespace mpl {
       MPI_Cart_shift(comm, direction, disp, &rank_source, &rank_dest);
       return {rank_source, rank_dest};
     }
+    // === neighbour collective ========================================
+    // === neighbour allgather ===
+    // === get a signle value from each neighbour and store in contiguous memory 
+    // --- blocking neighbour allgather ---
+    template<typename T>
+    void neighbour_allgather(const T &senddata, T *recvdata) const {
+      MPI_Neighbor_allgather(*senddata, 1, datatype_traits<T>::get_datatype(),
+			     recvdata, 1, datatype_traits<T>::get_datatype(),
+			     comm);
+    }
+    template<typename T>
+    void neighbour_allgather(const T *senddata, const layout<T> &sendl, 
+			     T *recvdata, const layout<T> &recvl) const {
+      MPI_Neighbour_allgather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+			      recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+			      comm);
+    }
+    // --- nonblocking neighbour allgather ---
+    template<typename T>
+    detail::irequest ineighbour_allgather(const T &senddata, T *recvdata) const {
+      MPI_Request req;
+      MPI_Ineighbour_allgather(&senddata, 1, datatype_traits<T>::get_datatype(),
+			       recvdata, 1, datatype_traits<T>::get_datatype(),
+			       comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ineighbour_allgather(const T *senddata, const layout<T> &sendl, 
+				T *recvdata, const layout<T> &recvl) const {
+      MPI_Request req;
+      MPI_Ineighbour_allgather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+			       recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+			       comm, &req);
+      return detail::irequest(req);
+    }
+    // === get varying amount of data from each neighbour and stores in noncontiguous memory 
+    // --- blocking neighbour allgather ---
+    template<typename T>
+    void neighbourallgatherv(const T *senddata, int sendcount,
+			     T *recvdata, const counts &recvcounts, const displacements &displs) const {
+      MPI_Neigbour_allgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+			      recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
+			      comm);
+    }
+    template<typename T>
+    void neighbur_allgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
+			     T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
+      MPI_Neighbour_allgatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+			       recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+			       comm);
+    }
+    // --- nonblocking neighbour allgather ---
+    template<typename T>
+    detail::irequest ineighbour_allgatherv(const T *senddata, int sendcount,
+					   T *recvdata, const counts &recvcounts, const displacements &displs) const {
+      MPI_Request req;
+      MPI_Ineighbour_allgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
+				recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
+				comm, &req);
+      return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ineughbour_allgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
+					   T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
+      MPI_Request req;
+      MPI_Ineighbour_allgatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+				recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+				comm, &req);
+      return detail::irequest(req);
+    }
   };
 
   //--------------------------------------------------------------------

@@ -13,5 +13,6 @@
 #include <mpl/request.hpp>
 #include <mpl/comm_group.hpp>
 #include <mpl/environment.hpp>
+#include <mpl/cart_comm.hpp>
 
 #endif
