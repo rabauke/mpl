@@ -74,7 +74,7 @@ namespace mpl {
     }
     int count;
   public:
-    explicit empty_layout() : 
+    empty_layout() : 
       layout<T>::layout(build()), count() {
       MPI_Type_commit(&type);
     }
@@ -98,16 +98,20 @@ namespace mpl {
   template<typename T>
   class contiguous_layout : public layout<T> {
     using layout<T>::type;
-    static MPI_Datatype build(int count) {
+    static MPI_Datatype build(int count, 
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(count, datatype_traits<T>::get_datatype(),
- 			  &new_type);
+      MPI_Type_contiguous(count, old_type, &new_type);
       return new_type;
     }
     int count;
   public:
     explicit contiguous_layout(int c=0) : 
       layout<T>::layout(build(c)), count(c) {
+      MPI_Type_commit(&type);
+    }
+    explicit contiguous_layout(int c, const layout<T> &other) : 
+      layout<T>::layout(build(c, other.type)), count(c) {
       MPI_Type_commit(&type);
     }
     contiguous_layout(const contiguous_layout &l) {
@@ -136,10 +140,10 @@ namespace mpl {
  			  &new_type);
       return new_type;
     }
-    static MPI_Datatype build(int count, int blocklength, int stride) {
+    static MPI_Datatype build(int count, int blocklength, int stride, 
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_vector(count, blocklength, stride, datatype_traits<T>::get_datatype(),
-		      &new_type);
+      MPI_Type_vector(count, blocklength, stride, old_type, &new_type);
       return new_type;
     }
   public:
@@ -148,6 +152,10 @@ namespace mpl {
     }
     explicit vector_layout(int count, int blocklength, int stride) : 
       layout<T>::layout(build(count, blocklength, stride)) {
+      MPI_Type_commit(&type);
+    }
+    explicit vector_layout(int count, int blocklength, int stride, const layout<T> &other) : 
+      layout<T>::layout(build(count, blocklength, stride, other.type)) {
       MPI_Type_commit(&type);
     }
     vector_layout(const vector_layout &l) {
@@ -188,18 +196,23 @@ namespace mpl {
  			  &new_type);
       return new_type;
     }
-    static MPI_Datatype build(const parameter &par) {
+    static MPI_Datatype build(const parameter &par, 
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_indexed(par.displacements.size(), par.blocklengths.data(), par.displacements.data(), 
-		       datatype_traits<T>::get_datatype(), &new_type);
+		       old_type, &new_type);
       return new_type;
     }
   public:
     indexed_layout() : layout<T>::layout(build()) {
       MPI_Type_commit(&type);
     }
-    indexed_layout(const parameter &par) :
+    explicit indexed_layout(const parameter &par) :
       layout<T>::layout(build(par)) {
+      MPI_Type_commit(&type);
+    }
+    explicit indexed_layout(const parameter &par, const layout<T> &other) :
+      layout<T>::layout(build(par, other.type)) {
       MPI_Type_commit(&type);
     }
     indexed_layout(const indexed_layout &l) {
@@ -239,18 +252,23 @@ namespace mpl {
  			  &new_type);
       return new_type;
     }
-    static MPI_Datatype build(int blocklengths, const parameter &par) {
+    static MPI_Datatype build(int blocklengths, const parameter &par, 
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_create_indexed_block(par.displacements.size(), blocklengths, par.displacements.data(), 
-				    datatype_traits<T>::get_datatype(), &new_type);
+				    old_type, &new_type);
       return new_type;
     }
   public:
     indexed_block_layout() : layout<T>::layout(build()) {
       MPI_Type_commit(&type);
     }
-    indexed_block_layout(int blocklengths, const parameter &par) :
+    explicit indexed_block_layout(int blocklengths, const parameter &par) :
       layout<T>::layout(build(blocklengths, par)) {
+      MPI_Type_commit(&type);
+    }
+    explicit indexed_block_layout(int blocklengths, const parameter &par, const layout<T> &other) :
+      layout<T>::layout(build(blocklengths, par, other.type)) {
       MPI_Type_commit(&type);
     }
     indexed_block_layout(const indexed_block_layout &l) {
@@ -271,8 +289,10 @@ namespace mpl {
   class subarray_layout : public layout<T> {
     using layout<T>::type;
   public:
+    typedef enum { C_order=MPI_ORDER_C, Fortran_order=MPI_ORDER_FORTRAN } order_type;
     class parameter {
       std::vector<int> sizes, subsizes, starts;
+      order_type order_=C_order;
     public:
       parameter(std::initializer_list<std::array<int, 3>> list) {
 	for (const std::array<int, 3> &i : list) 
@@ -283,9 +303,14 @@ namespace mpl {
 	subsizes.push_back(subsize);
 	starts.push_back(start);
       }
+      void order(order_type new_order) {
+	order_=new_order;
+      }
+      order_type order() const {
+	return order_;
+      }
       friend class subarray_layout;
     };
-    typedef enum { C_order=MPI_ORDER_C, Fortran_order=MPI_ORDER_FORTRAN } order_type;
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
@@ -294,15 +319,15 @@ namespace mpl {
       return new_type;
     }
     static MPI_Datatype build(const parameter &par, 
-			      order_type order) {
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       int total_size=1;
       for (std::vector<int>::size_type i=0; i<par.sizes.size(); ++i)
 	total_size*=par.subsizes[i];
       if (total_size>0)
 	MPI_Type_create_subarray(par.sizes.size(), par.sizes.data(), par.subsizes.data(), par.starts.data(),
-				 order,
-				 datatype_traits<T>::get_datatype(), &new_type);
+				 par.order(),
+				 old_type, &new_type);
       else 
 	new_type=build();
       return new_type;
@@ -311,8 +336,12 @@ namespace mpl {
     subarray_layout() : layout<T>::layout(build()) {
       MPI_Type_commit(&type);
     }
-    subarray_layout(const parameter &par, order_type order=C_order) : 
-      layout<T>::layout(build(par, order)) {
+    explicit subarray_layout(const parameter &par) : 
+      layout<T>::layout(build(par)) {
+      MPI_Type_commit(&type);
+    }		   
+    explicit subarray_layout(const parameter &par, const layout<T> &other) : 
+      layout<T>::layout(build(par, other.type)) {
       MPI_Type_commit(&type);
     }		   
     subarray_layout(const subarray_layout &l) {
