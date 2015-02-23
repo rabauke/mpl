@@ -68,7 +68,7 @@ namespace mpl {
       return *this;
     }
     template<typename T>
-    struct_layout & register_vector(const T *x, MPI_Aint N) {
+    struct_layout & register_vector(const T *x, std::ptrdiff_t N) {
       blocklengths.push_back(N);
       MPI_Aint address;
       MPI_Get_address(x, &address);

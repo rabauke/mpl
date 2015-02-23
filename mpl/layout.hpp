@@ -3,6 +3,7 @@
 #define MPL_LAYOUT_HPP
 
 #include <mpi.h>
+#include <cstddef>
 #include <iterator>
 #include <initializer_list>
 #include <type_traits>
@@ -34,6 +35,14 @@ namespace mpl {
 	  type=MPI_DATATYPE_NULL;
       }
       return *this;
+    }
+    void resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
+      if (type!=MPI_DATATYPE_NULL) {
+	MPI_Datatype newtype;
+	MPI_Type_create_resized(type, lb, extent, &newtype);
+	MPI_Type_free(&type);
+	type=newtype;
+      }
     }
     ~layout() {
       if (type!=MPI_DATATYPE_NULL)
