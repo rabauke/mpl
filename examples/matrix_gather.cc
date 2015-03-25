@@ -122,49 +122,5 @@ int main() {
     }
   }
 
-  // gather via alltoallw
-  {
-    auto par=mpl::dims_create(p, {{0,false}, {0, false}});
-    std::cout << par.dims(0) << '\t' << par.dims(1) << '\n';
-    mpl::cart_communicator cart_comm(comm_world, par);
-    // matrix<int> M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));
-    // std::fill(M_l.begin(), M_l.end(), p_l);
-    // mpl::layouts<int> sendl, recvl;
-    // mpl::counts sendcounts, recvcounts;
-    // mpl::displacements senddispls, recvdispls;
-    // sendl.push_back(mpl::contiguous_layout<int>(nx_l(px_l, py_l)*ny_l(px_l, py_l)));
-    // sendcounts.push_back(1);
-    // senddispls.push_back(0);
-    // for (int i=1; i<p; ++i) {
-    //   sendl.push_back(mpl::empty_layout<int>());
-    //   sendcounts.push_back(0);
-    //   senddispls.push_back(0);
-    // }
-    // if (p_l==0) {
-    //   for (int i=0; i<p; ++i) {
-    // 	recvl.push_back(sub_matrix_l(i%px, i/px));
-    // 	recvcounts.push_back(1);
-    // 	recvdispls.push_back(0);
-    //   }
-    //   matrix<int> M(nx, ny);
-    //   comm_world.alltoallw(M_l.data(), sendl, sendcounts, senddispls,
-    //    			   M.data(), recvl, recvcounts, recvdispls);
-    //   for (int iy=0; iy<ny; ++iy) {
-    // 	for (int ix=0; ix<nx; ++ix) {
-    // 	  std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
-    // 	}
-    // 	std::cout << '\n';
-    //   }
-    //   std::cout << '\n';
-    // } else {
-    //   for (int i=0; i<p; ++i) {
-    // 	recvl.push_back(mpl::empty_layout<int>());
-    // 	recvcounts.push_back(0);
-    // 	recvdispls.push_back(0);
-    //   }
-    //   comm_world.alltoallw(M_l.data(), sendl, sendcounts, senddispls,
-    // 			   reinterpret_cast<int *>(0), recvl, recvcounts, recvdispls);
-    // }
-  }
   return EXIT_SUCCESS;
 }

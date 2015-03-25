@@ -13,6 +13,8 @@ namespace mpl {
     typedef base::size_type size_type;
     explicit counts(size_type n=0) : base(n, 0) {
     }
+    counts(std::initializer_list<int> init) : base(init) {
+    }
     using base::operator[];
     using base::size;
     using base::push_back;
@@ -28,6 +30,8 @@ namespace mpl {
   public:
     typedef base::size_type size_type;
     explicit displacements(size_type n=0) : base(n, 0) {
+    }
+    displacements(std::initializer_list<int> init) : base(init) {
     }
     using base::operator[];
     using base::size;

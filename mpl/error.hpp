@@ -42,6 +42,14 @@ namespace mpl {
     virtual ~invalid_size() {
     }
   };
+
+  class invalid_dim : public error {
+  public:
+    explicit invalid_dim() : error("invalid dimension") {
+    }
+    virtual ~invalid_dim() {
+    }
+  };
   
 }
 

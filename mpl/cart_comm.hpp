@@ -17,11 +17,11 @@ namespace mpl {
 
   class cart_communicator : public communicator {
   public:
-    class parameter {
+    class sizes {
       std::vector<int> dims_, periodic_;
     public:
       typedef std::vector<int>::size_type size_type;
-      parameter(std::initializer_list<std::pair<int, bool>> list) {
+      sizes(std::initializer_list<std::pair<int, bool>> list) {
 	for (const std::pair<int, bool> &i : list) 
 	  add(i.first, i.second);
       }
@@ -36,10 +36,10 @@ namespace mpl {
 	return periodic_[i];
       }
       friend class cart_communicator;
-      friend parameter dims_create(int, parameter);
+      friend sizes dims_create(int, sizes);
     };
     cart_communicator(const communicator &old_comm,
-		      const parameter &par,
+		      const sizes &par,
 		      bool reorder=true) {
       MPI_Cart_create(old_comm.comm, par.dims_.size(), par.dims_.data(), par.periodic_.data(), reorder, &comm);
     }
@@ -47,6 +47,62 @@ namespace mpl {
 		      const std::vector<int> &remain_dims) {
       MPI_Cart_sub(old_comm.comm, remain_dims.data(), &comm);
     }
+    using communicator::rank;
+    // using communicator::send;
+    // using communicator::isend;
+    // using communicator::send_init;
+    // using communicator::bsend_size;
+    // using communicator::bsend;
+    // using communicator::ibsend;
+    // using communicator::bsend_init;
+    // using communicator::ssend;
+    // using communicator::issend;
+    // using communicator::ssend_init;
+    // using communicator::rsend;
+    // using communicator::irsend;
+    // using communicator::rsend_init;
+    // using communicator::recv;
+    // using communicator::irecv;
+    // using communicator::recv_init;
+    // using communicator::probe;
+    // using communicator::iprobe;
+    // using communicator::sendrecv;
+    // using communicator::sendrecv_replace;
+    // using communicator::barrier;
+    // using communicator::ibarrier;
+    // using communicator::bcast;
+    // using communicator::ibcast;
+    // using communicator::gather;
+    // using communicator::igather;
+    // using communicator::gatherv;
+    // using communicator::igatherv;
+    // using communicator::allgather;
+    // using communicator::iallgather;
+    // using communicator::allgatherv;
+    // using communicator::iallgatherv;
+    // using communicator::scatter;
+    // using communicator::iscatter;
+    // using communicator::scatterv;
+    // using communicator::iscatterv;
+    // using communicator::alltoall;
+    // using communicator::ialltoall;
+    // using communicator::alltoallv;
+    // using communicator::ialltoallv;
+    // using communicator::alltoallw;
+    // using communicator::ialltoallw;
+    // using communicator::reduce;
+    // using communicator::ireduce;
+    // using communicator::allreduce;
+    // using communicator::iallreduce;
+    // using communicator::reduce_scatter_block;
+    // using communicator::ireduce_scatter_block;
+    // using communicator::reduce_scatter;
+    // using communicator::ireduce_scatter;
+    // using communicator::scan;
+    // using communicator::iscan;
+    // using communicator::exscan;
+    // using communicator::iexscan;
+
     int dim() const {
       int ndims;
       MPI_Cartdim_get(comm, &ndims);
@@ -277,8 +333,9 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  cart_communicator::parameter dims_create(int size, cart_communicator::parameter par) {
-    MPI_Dims_create(size, par.dims_.size(), par.dims_.data());
+  cart_communicator::sizes dims_create(int size, cart_communicator::sizes par) {
+    if (MPI_Dims_create(size, par.dims_.size(), par.dims_.data())!=MPI_SUCCESS)
+      throw invalid_dim();
     return par;
   }
 

@@ -673,7 +673,7 @@ namespace mpl {
       return detail::irequest(req);
     }
     template<typename T>
-    detail::irequest bcast(int root, T *data, const layout<T> &l) const {
+    detail::irequest ibcast(int root, T *data, const layout<T> &l) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif

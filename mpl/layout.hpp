@@ -179,6 +179,8 @@ namespace mpl {
     class parameter {
       std::vector<int> blocklengths, displacements;
     public:
+      parameter() {
+      }
       parameter(std::initializer_list<std::array<int, 2>> list) {
 	for (const std::array<int, 2> &i : list) 
 	  add(i[0], i[1]);
@@ -236,6 +238,8 @@ namespace mpl {
     class parameter {
       std::vector<int> displacements;
     public:
+      parameter() {
+      }
       parameter(std::initializer_list<int> list) {
 	for (int i : list) 
 	  add(i);
@@ -294,6 +298,8 @@ namespace mpl {
       std::vector<int> sizes, subsizes, starts;
       order_type order_=C_order;
     public:
+      parameter() {
+      }
       parameter(std::initializer_list<std::array<int, 3>> list) {
 	for (const std::array<int, 3> &i : list) 
 	  add(i[0], i[1], i[2]);
