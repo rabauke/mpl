@@ -7,25 +7,41 @@
 
 namespace mpl {
   
+  template<std::size_t dim, typename T, typename A>
+  class distributed_grid;
+
+  template<std::size_t dim, typename T, typename A>
+  class local_grid;
+
+  template<std::size_t dim, typename T, typename A>
+  void update_overlap(const cart_communicator &C, distributed_grid<dim, T, A> &G, int tag=0);
+
+  template<std::size_t dim, typename T, typename A>
+  void gather(const cart_communicator &C, const distributed_grid<dim, T, A> &G, local_grid<dim, T, A> &L, int root, int tag=0);
+
+  template<std::size_t dim, typename T, typename A>
+  void scatter(const cart_communicator &C, const local_grid<dim, T, A> &L, distributed_grid<dim, T, A> &G, int root, int tag=0);
+
+  //--------------------------------------------------------------------
+
   template<std::size_t dim, typename T, typename A=std::allocator<T> >
   class distributed_grid {
   public:
     typedef std::vector<T, A> vector_type;
     typedef typename vector_type::value_type value_type;
     typedef typename vector_type::allocator_type allocator_type;
-    typedef typename vector_type::size_type size_type;
+    typedef std::ptrdiff_t size_type;
     typedef typename vector_type::difference_type difference_type;
     typedef typename vector_type::reference reference;
     typedef typename vector_type::const_reference const_reference;
     typedef typename vector_type::pointer pointer;
     typedef typename vector_type::const_pointer const_pointer;
   private:
-    const cart_communicator &C;
     std::vector<size_type> gsize_, gbegin_, gend_, size_, oend_, overlap_;
     vector_type v;
-    std::vector<int> C_size, C_coord;
     std::vector<subarray_layout<T> > left_mirror_layout, right_mirror_layout,
-       left_border_layout, right_border_layout;
+      left_border_layout, right_border_layout;
+    subarray_layout<T> interior_layout;
 
     size_type gbegin(size_type n, int comm_size, int comm_coord) const {
       return n*comm_coord/comm_size;
@@ -49,13 +65,13 @@ namespace mpl {
     };
 
     distributed_grid(const cart_communicator &C, const sizes &size) : 
-      C(C), gsize_(size.size_), gbegin_(dim), gend_(dim), size_(dim), oend_(dim), overlap_(size.overlap_) {
+      gsize_(size.size_), gbegin_(dim), gend_(dim), size_(dim), oend_(dim), overlap_(size.overlap_) {
 #if defined MPL_DEBUG
       if (C.dim()!=dim or gsize_.size()!=dim or overlap_.size()!=dim)
 	throw invalid_dim();
 #endif
-      C_size=C.dims();
-      C_coord=C.coords();
+      auto C_size=C.dims();
+      auto C_coord=C.coords();
       size_type vol=1;
       for (std::size_t i=0; i<dim; ++i) {
 	gbegin_[i]=gbegin(gsize_[i], C_size[i], C_coord[i]);
@@ -86,6 +102,13 @@ namespace mpl {
 	right_mirror_layout.push_back(subarray_layout<T>(par_m_r));
 	left_border_layout.push_back(subarray_layout<T>(par_b_l));
 	right_border_layout.push_back(subarray_layout<T>(par_b_r));
+	typename subarray_layout<T>::parameter par_i;
+	for (std::size_t j=dim-1; true; --j) {
+	  par_i.add(oend_[j], size_[j], overlap_[j]);
+	  if (j==0)
+	    break;
+	}
+	interior_layout=subarray_layout<T>(par_i);
       }
     }
     size_type gsize(size_type d) const {
@@ -145,27 +168,156 @@ namespace mpl {
     const_pointer data() const {
       return v.data();
     }
-    void update_overlap() {
-      shift_ranks ranks;
-      for (std::size_t i=0; i<dim; ++i) {
-	irequest_pool r;
-	// send to left
-	ranks=C.shift(i, -1);
-	// C.sendrecv(data(), left_border_layout[i], ranks.dest, 0,
-	// 	   data(), right_mirror_layout[i], ranks.source, 0);
-	r.push(C.isend(data(), left_border_layout[i], ranks.dest));
-	r.push(C.irecv(data(), right_mirror_layout[i], ranks.source));
-	// send to right
-	ranks=C.shift(i, +1);
-	// C.sendrecv(data(), right_border_layout[i], ranks.dest, 0,
-	// 	   data(), left_mirror_layout[i], ranks.source, 0);
-	r.push(C.isend(data(), right_border_layout[i], ranks.dest));
-	r.push(C.irecv(data(), left_mirror_layout[i], ranks.source));
-	r.waitall();
+    friend void update_overlap<>(const cart_communicator &, distributed_grid &, int tag);
+    friend void gather<>(const cart_communicator &C, const distributed_grid<dim, T, A> &G, local_grid<dim, T, A> &L, int root, int tag);
+    friend void scatter<>(const cart_communicator &C, const local_grid<dim, T, A> &L, distributed_grid<dim, T, A> &G, int root, int tag);
+  };
+
+  //--------------------------------------------------------------------
+
+  template<std::size_t dim, typename T, typename A=std::allocator<T> >
+  class local_grid {
+  public:
+    typedef std::vector<T, A> vector_type;
+    typedef typename vector_type::value_type value_type;
+    typedef typename vector_type::allocator_type allocator_type;
+    typedef std::ptrdiff_t size_type;
+    typedef typename vector_type::difference_type difference_type;
+    typedef typename vector_type::reference reference;
+    typedef typename vector_type::const_reference const_reference;
+    typedef typename vector_type::pointer pointer;
+    typedef typename vector_type::const_pointer const_pointer;
+  private:
+    std::vector<size_type> gsize_;
+    vector_type v;
+    std::vector<subarray_layout<T> > sub_layouts;
+
+    size_type gbegin(size_type n, int comm_size, int comm_coord) const {
+      return n*comm_coord/comm_size;
+    }
+    size_type gend(size_type n, int comm_size, int comm_coord) const {
+      return n*(comm_coord+1)/comm_size;
+    }
+  public:
+    class sizes {
+      std::vector<size_type> size_;
+    public:
+      sizes(std::initializer_list<size_type> list) {
+        for (const size_type &i : list) 
+          add(i);
+      }
+      void add(size_type size) {
+        size_.push_back(size);
+      }
+      friend class local_grid;
+    };
+
+    local_grid(const cart_communicator &C, const sizes &size) : 
+      gsize_(size.size_) {
+#if defined MPL_DEBUG
+      if (C.dim()!=dim or gsize_.size()!=dim)
+	throw invalid_dim();
+#endif
+      size_type vol=1;
+      for (std::size_t i=0; i<dim; ++i)
+	vol*=gsize_[i];
+      v.resize(vol);
+      auto C_size=C.dims();
+      for (int i=0, i_end=C.size(); i<i_end; ++i) {
+	auto coords=C.coords(i);
+	typename subarray_layout<T>::parameter par;
+	for (std::size_t j=dim-1; true; --j) {
+	  par.add(gsize_[j], gend(gsize_[j], C_size[j], coords[j])-gbegin(gsize_[j], C_size[j], coords[j]), gbegin(gsize_[j], C_size[j], coords[j]));
+	  if (j==0)
+	    break;
+	}
+	sub_layouts.push_back(subarray_layout<T>(par));
       }
     }
+    size_type size(size_type d) const {
+      return gsize_[d];
+    }
+    size_type begin(size_type d) const {
+      return 0;
+    };
+    size_type end(size_type d) const {
+      return gsize_[d];
+    };
+    const_reference operator()(size_type x) const {
+      static_assert(dim==1, "invalid dimension");
+      return v[x];
+    }
+    reference operator()(size_type x, size_type y) {
+      static_assert(dim==2, "invalid dimension");
+      return v[x+gsize_[0]*y];
+    }
+    const_reference operator()(size_type x, size_type y) const {
+      static_assert(dim==2, "invalid dimension");
+      return v[x+gsize_[0]*y];
+    }
+    reference operator()(size_type x, size_type y, size_type z) {
+      static_assert(dim==3, "invalid dimension");
+      return v[x+gsize_[0]*(y+gsize_[1]*z)];
+    }
+    const_reference operator()(size_type x, size_type y, size_type z) const {
+      static_assert(dim==3, "invalid dimension");
+      return v[x+gsize_[0]*(y+gsize_[1]*z)];
+    }
+    pointer data() {
+      return v.data();
+    }
+    const_pointer data() const {
+      return v.data();
+    }
+    friend void gather<>(const cart_communicator &C, const distributed_grid<dim, T, A> &G, local_grid<dim, T, A> &L, int root, int tag);
+    friend void scatter<>(const cart_communicator &C, const local_grid<dim, T, A> &L, distributed_grid<dim, T, A> &G, int root, int tag);
   };
+
+  //--------------------------------------------------------------------
+
+  template<std::size_t dim, typename T, typename A>
+  void update_overlap(const cart_communicator &C, distributed_grid<dim, T, A> &G, int tag) {
+    shift_ranks ranks;
+    for (std::size_t i=0; i<dim; ++i) {
+      irequest_pool r;
+      // send to left
+      ranks=C.shift(i, -1);
+      // C.sendrecv(data(), left_border_layout[i], ranks.dest, 0,
+      // 	   data(), right_mirror_layout[i], ranks.source, 0);
+      r.push(C.isend(G.data(), G.left_border_layout[i], ranks.dest, tag));
+      r.push(C.irecv(G.data(), G.right_mirror_layout[i], ranks.source, tag));
+      // send to right
+      ranks=C.shift(i, +1);
+      // C.sendrecv(data(), right_border_layout[i], ranks.dest, 0,
+      // 	   data(), left_mirror_layout[i], ranks.source, 0);
+      r.push(C.isend(G.data(), G.right_border_layout[i], ranks.dest, tag));
+      r.push(C.irecv(G.data(), G.left_mirror_layout[i], ranks.source, tag));
+      r.waitall();
+    }
+  }
+
+  //--------------------------------------------------------------------
+
+  template<std::size_t dim, typename T, typename A>
+  void gather(const cart_communicator &C, const distributed_grid<dim, T, A> &G, local_grid<dim, T, A> &L, int root, int tag) {
+    irequest r(C.isend(G.data(), G.interior_layout, root, tag));
+    if (C.rank()==root)
+      for (int i=0; i<C.size(); ++i)
+	C.recv(L.data(), L.sub_layouts[i], i, tag);
+    r.wait();
+  }
   
+  //--------------------------------------------------------------------
+
+  template<std::size_t dim, typename T, typename A>
+  void scatter(const cart_communicator &C, const local_grid<dim, T, A> &L, distributed_grid<dim, T, A> &G, int root, int tag) {
+    irequest r(C.irecv(G.data(), G.interior_layout, root, tag));
+    if (C.rank()==root)
+      for (int i=0; i<C.size(); ++i)
+	C.send(L.data(), L.sub_layouts[i], i, tag);
+    r.wait();
+  }
+
 }
 
 #endif

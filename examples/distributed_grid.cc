@@ -11,7 +11,7 @@ int main() {
     mpl::distributed_grid<1, int> G(comm_c, { {31, 2} });
     for (auto i=G.obegin(0), i_end=G.oend(0); i<i_end; ++i)
       G(i)=comm_c.rank();
-    G.update_overlap();
+    mpl::update_overlap(comm_c, G);
     for (auto i=G.obegin(0), i_end=G.oend(0); i<i_end; ++i)
       std::cout << G(i);
     std::cout << std::endl;
@@ -25,7 +25,7 @@ int main() {
     for (auto j=G.obegin(1), j_end=G.oend(1); j<j_end; ++j)
       for (auto i=G.obegin(0), i_end=G.oend(0); i<i_end; ++i)
 	G(i, j)=comm_c.rank();
-    G.update_overlap();
+    mpl::update_overlap(comm_c, G);
     for (int i=0; i<comm_c.size(); ++i) {
       if (i==comm_c.rank()) {
 	std::cout << std::endl;

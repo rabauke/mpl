@@ -53,3 +53,11 @@ matrix_gather.cc
 vibrating_string_mpi.c and vibrating_string_mpl.cc
   Solve one-dimensional wave equatiion via finite differences, MPI
   version vs. MPL version.
+
+distributed_grid.cc
+  Data type distributed_grid in action.
+
+heat_equation.cc
+  Solves the two-dimensional time-independent heat equation with fixed 
+  temperatures at the border via successive over-relaxation.  Implementtaion 
+  uses distributed_grid.
