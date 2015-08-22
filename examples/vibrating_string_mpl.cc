@@ -1,3 +1,5 @@
+// solve one-dimensional wave equation 
+
 #include <cstdlib>
 #include <iostream>
 #include <cmath>
