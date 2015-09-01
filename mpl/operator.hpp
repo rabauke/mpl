@@ -4,7 +4,6 @@
 
 #include <mpi.h>
 #include <functional>
-#include <utility>
 
 namespace mpl {
 
@@ -75,28 +74,6 @@ namespace mpl {
   struct bit_xor : public std::function<T (T, T)> {
     T operator()(const T &x, const T &y) {
       return x ^ y;
-    }
-  };
-
-  template<typename T>
-  struct max_loc : public std::function<std::pair<T, int> (std::pair<T, int>, std::pair<T, int>)> {
-    std::pair<T, int> operator()(const std::pair<T, int> &x, const std::pair<T, int> &y) {
-      if (x.first<y.first)
-	return y;
-      else if (y.first<x.first)
-	return x;
-      else return std::make_pair(x.first, std::min(x.second, y.second));
-    }
-  };
-
-  template<typename T>
-  struct min_loc : public std::function<std::pair<T, int> (std::pair<T, int>, std::pair<T, int>)> {
-    std::pair<T, int> operator()(const std::pair<T, int> &x, const std::pair<T, int> &y) {
-      if (x.first<y.first)
-	return x;
-      else if (y.first<x.first)
-	return y;
-      else return std::make_pair(x.first, std::min(x.second, y.second));
     }
   };
   
@@ -174,20 +151,6 @@ namespace mpl {
 
   template<typename T>
   struct op_traits<bit_xor<T> > {
-    static constexpr bool is_commutative() {
-      return true;
-    }
-  };
-
-  template<typename T>
-  struct op_traits<max_loc<T> > {
-    static constexpr bool is_commutative() {
-      return true;
-    }
-  };
-
-  template<typename T>
-  struct op_traits<min_loc<T> > {
     static constexpr bool is_commutative() {
       return true;
     }

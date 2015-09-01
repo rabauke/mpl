@@ -20,7 +20,7 @@ int main() {
   if (comm_world.rank()==0) {
     std::vector<pair_t> result(n);
     // calculate minimum
-    comm_world.reduce(mpl::min_loc<double>(), 0, v.data(), result.data(), layout);
+    comm_world.reduce(mpl::min<pair_t>(), 0, v.data(), result.data(), layout);
     // display data from all ranks
     std::cout << "Arguments:\n";
     for (int r=0; r<comm_world.size(); ++r) {
@@ -37,7 +37,7 @@ int main() {
     std::cout << '\n';
   } else {
     // calculate minium and its location and send result to rank 0
-    comm_world.reduce(mpl::min_loc<double>(), 0, v.data(), layout);
+    comm_world.reduce(mpl::min<pair_t>(), 0, v.data(), layout);
     // send data to rank 0 for display
     comm_world.send(v.data(), layout, 0);
   }
