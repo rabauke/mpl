@@ -5,7 +5,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
-// calculate least common multiple
+// calculate least common multiple of two arguments 
 template<typename T>
 class lcm : public std::function<T (T, T)> {
   // helper: calculate greatest common divisor
@@ -30,27 +30,36 @@ public:
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
-  const int n=12;
-  std::vector<int> v;
-  std::srand(std::time(0)*comm_world.rank());
-  for (int i=0; i<n; ++i) 
-    v.push_back(std::rand()%16+1);
+  // generate data
+  std::srand(std::time(0)*comm_world.rank());  // random seed
+  const int n=8;
+  std::vector<int> v(n);
+  for (int &i : v)
+    i=std::rand()%12+1;
+  // calculate least common multiple and send result to rank 0
   mpl::contiguous_layout<int> layout(n);
-  std::vector<int> result(n);
-  comm_world.reduce(lcm<int>(), 0, v.data(), result.data(), layout);
   if (comm_world.rank()==0) {
-    std::cout << "Results:\n";
-    for (int i=0; i<n; ++i) 
-      std::cout << result[i] << '\t';
-    std::cout << "\n\nArguments:\n";
+    std::vector<int> result(n);
+    // calculate least common multiple
+    comm_world.reduce(lcm<int>(), 0, v.data(), result.data(), layout);
+    // display data from all ranks
+    std::cout << "Arguments:\n";
     for (int r=0; r<comm_world.size(); ++r) {
       if (r>0)
 	comm_world.recv(v.data(), layout, r);
-      for (int i=0; i<n; ++i) 
-	std::cout << v[i] << '\t';
+      for (int i : v) 
+	std::cout << i << '\t';
       std::cout << '\n';
     }
+    // display results of global reduction
+    std::cout << "\nResults:\n";
+    for (int i : result) 
+      std::cout << i << '\t';
+    std::cout << '\n';
   } else {
+    // calculate least common multiple
+    comm_world.reduce(lcm<int>(), 0, v.data(), layout);
+    // send data to rank 0 for display
     comm_world.send(v.data(), layout, 0);
   }
   return EXIT_SUCCESS;

@@ -1,5 +1,5 @@
 MPL_HEADERS = $(shell ls ../mpl/*hpp)
-BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types arrays struct gather collective reduce_lcm layouts subarray vibrating_string_mpi vibrating_string_mpl matrix_gather distributed_grid heat_equation
+BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types arrays struct gather collective reduce_lcm reduce_min_loc layouts subarray vibrating_string_mpi vibrating_string_mpl matrix_gather distributed_grid heat_equation
 CC = mpicc
 CXX = mpic++
 #CXXFLAGS = -std=c++98 -pedantic -Wall -Wno-long-long
@@ -43,6 +43,9 @@ collective: collective.cc $(MPL_HEADERS)
 
 reduce_lcm: reduce_lcm.cc $(MPL_HEADERS)
 	$(CXX) $(CXXFLAGS) -o reduce_lcm -I .. reduce_lcm.cc
+
+reduce_min_loc: reduce_min_loc.cc $(MPL_HEADERS)
+	$(CXX) $(CXXFLAGS) -o reduce_min_loc -I .. reduce_min_loc.cc
 
 layouts: layouts.cc $(MPL_HEADERS)
 	$(CXX) $(CXXFLAGS) -o layouts -I .. layouts.cc
