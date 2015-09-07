@@ -63,7 +63,9 @@ namespace mpl {
       return *this;
     }
     template<typename T>
-    struct_layout & register_element(const T &x) {
+    //struct_layout & register_element(const T &x) {
+    struct_layout & register_element(T &x) {
+      static_assert(not std::is_const<T>::value, "type must not be const");
       blocklengths.push_back(sizeof(x)/size(x));
       MPI_Aint address;
       MPI_Get_address(&x, &address);
