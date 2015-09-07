@@ -135,7 +135,7 @@ namespace mpl {
     public:
       apply_n(F &f) : f(f) {
       }
-      void operator()(const T &x) {
+      void operator()(T &x) const {
 	apply_n<F, T, n-1> next(f);
 	next(x);
 	f(std::get<n-1>(x));
@@ -148,13 +148,13 @@ namespace mpl {
     public:
       apply_n(F &f) : f(f) {
       }
-      void operator()(const T &x) {
+      void operator()(T &x) const {
 	f(std::get<0>(x));
       }
     };
 
     template<typename F, typename... Args>
-    void apply(const std::tuple<Args...> &t, F &f) {
+    void apply(std::tuple<Args...> &t, F &f) {
       apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...> >::value> app(f);
       app(t);
     }
@@ -166,7 +166,7 @@ namespace mpl {
       register_element(struct_layout<std::tuple<Ts...> > &layout) : layout(layout) {
       }
       template<typename T>
-      void operator()(const T &x) const {
+      void operator()(T &x) const {
 	layout.register_element(x);
       }
     };
