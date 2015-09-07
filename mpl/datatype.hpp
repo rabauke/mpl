@@ -9,11 +9,15 @@
 #include <utility>
 #include <tuple>
 #include <array>
+#include <type_traits>
 
 namespace mpl {
   
   template<typename T>
   struct datatype_traits;
+
+  template<typename T, typename E>
+  struct datatype_traits_impl;
 
   template<typename T>
   class base_struct_builder;
@@ -100,7 +104,7 @@ namespace mpl {
     ~base_struct_builder() {
       MPI_Type_free(&type);
     }
-    friend class datatype_traits<T>;
+    friend class datatype_traits_impl<T, void>;
   };
 
   //--------------------------------------------------------------------
@@ -253,8 +257,8 @@ namespace mpl {
   
   //--------------------------------------------------------------------
 
-  template<typename T>
-  class datatype_traits {
+  template<typename T, typename Enable=void>
+  class datatype_traits_impl {
   public:
     static MPI_Datatype get_datatype() {
       static struct_builder<T> builder; 
@@ -262,9 +266,25 @@ namespace mpl {
     }
   };
   
+  template<typename T>
+  class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
+    public:
+    static MPI_Datatype get_datatype() {
+      return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
+    }
+  };
+
+  template<typename T>
+  class datatype_traits {
+  public:
+    static MPI_Datatype get_datatype() {
+      return datatype_traits_impl<T>::get_datatype();
+    }
+  };
+  
 #define MPL_DATATYPE_TRAITS(type, mpi_type)          \
   template<>				             \
-  struct datatype_traits<type> {		     \
+  struct datatype_traits<type> {         	     \
     static constexpr MPI_Datatype get_datatype() {   \
       return mpi_type;				     \
     }						     \
