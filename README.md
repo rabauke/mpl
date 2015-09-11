@@ -8,4 +8,4 @@ modern C++ message passing library for high performance computing.
 MPL will neither bring all functions of the C language API to C++ nor 
 provide a direct mapping of the C API to some C++ functions and classes. 
 Its focus is on the MPI core functions, ease of use, type safety, and 
-elegance. 
+elegance.

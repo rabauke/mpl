@@ -276,6 +276,19 @@ namespace mpl {
     }
   };
 
+#if defined MPL_HOMOGENEOUS
+  template<typename T>
+  class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value 
+							and std::is_copy_assignable<T>::value 
+							and not std::is_enum<T>::value 
+							and not std::is_array<T>::value>::type> {
+    public:
+    static MPI_Datatype get_datatype() {
+      return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
+    }
+  };
+#endif
+  
   template<typename T>
   class datatype_traits {
   public:
