@@ -289,14 +289,15 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  enum class array_orders { C_order=MPI_ORDER_C, Fortran_order=MPI_ORDER_FORTRAN }; 
+
   template<typename T>
   class subarray_layout : public layout<T> {
     using layout<T>::type;
   public:
-    typedef enum { C_order=MPI_ORDER_C, Fortran_order=MPI_ORDER_FORTRAN } order_type;
     class parameter {
       std::vector<int> sizes, subsizes, starts;
-      order_type order_=C_order;
+      array_orders order_=array_orders::C_order;
     public:
       parameter() {
       }
@@ -309,10 +310,10 @@ namespace mpl {
 	subsizes.push_back(subsize);
 	starts.push_back(start);
       }
-      void order(order_type new_order) {
+      void order(array_orders new_order) {
 	order_=new_order;
       }
-      order_type order() const {
+      array_orders order() const {
 	return order_;
       }
       friend class subarray_layout;
@@ -332,7 +333,7 @@ namespace mpl {
 	total_size*=par.subsizes[i];
       if (total_size>0)
 	MPI_Type_create_subarray(par.sizes.size(), par.sizes.data(), par.subsizes.data(), par.starts.data(),
-				 par.order(),
+				 static_cast<int>(par.order()),
 				 old_type, &new_type);
       else 
 	new_type=build();

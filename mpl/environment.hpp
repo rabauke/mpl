@@ -8,6 +8,11 @@
 
 namespace mpl {
   
+  enum class threading_modes { single=MPI_THREAD_SINGLE, 
+      funneled=MPI_THREAD_FUNNELED, 
+      serialized=MPI_THREAD_SERIALIZED, 
+      multiple=MPI_THREAD_MULTIPLE }; 
+
   namespace environment {
 
     namespace detail {
@@ -16,7 +21,8 @@ namespace mpl {
 	class initializer {
 	public:
 	  initializer() {
-	    MPI_Init(0, 0);
+	    int thread_mode;
+	    MPI_Init_thread(0, 0, MPI_THREAD_MULTIPLE, &thread_mode);
 	  }
 	  ~initializer() {
 	    MPI_Finalize();
@@ -36,6 +42,26 @@ namespace mpl {
 	  int flag;
 	  MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &p, &flag);
 	  return *reinterpret_cast<int *>(p);
+	}
+	threading_modes threading_mode() const {
+	  int provided;
+	  MPI_Query_thread(&provided);
+	  switch (provided) {
+	    case MPI_THREAD_SINGLE:
+	      return threading_modes::single;
+	    case MPI_THREAD_FUNNELED:
+	      return threading_modes::funneled;
+	    case MPI_THREAD_SERIALIZED:
+	      return threading_modes::serialized;
+	    case MPI_THREAD_MULTIPLE:
+	      return threading_modes::multiple;
+	  }
+	  return threading_modes::single;  // make compiler happy
+	}
+	bool is_thread_main() const {
+	  int res;
+	  MPI_Is_thread_main(&res);
+	  return static_cast<bool>(res);
 	}
 	bool wtime_is_global() const {
 	  void *p;
@@ -109,6 +135,14 @@ namespace mpl {
 
     constexpr int bsend_overheadroot() {
       return MPI_BSEND_OVERHEAD;
+    }
+	  
+    threading_modes threading_mode() {
+      return detail::get_env().threading_mode();
+    }
+
+    bool is_thread_main() {
+      return detail::get_env().is_thread_main();
     }
 
     bool wtime_is_global() {

@@ -64,7 +64,7 @@ namespace mpl {
   class group {
     MPI_Group gr;
   public:
-    typedef enum { ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL } equality_type;
+    enum class equality_type { ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL };
     group() {
       gr=MPI_GROUP_EMPTY;
     }
@@ -110,7 +110,7 @@ namespace mpl {
   protected:
     MPI_Comm comm;
   public:
-    typedef enum { ident=MPI_IDENT, congruent=MPI_CONGRUENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL } equality_type;
+    enum class equality_type { ident=MPI_IDENT, congruent=MPI_CONGRUENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL };
   protected:
     communicator(MPI_Comm comm=MPI_COMM_NULL) : comm(comm) {
     }
@@ -1402,7 +1402,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce(&senddata, &recvdata, 1, 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
 		 comm);
@@ -1417,7 +1417,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce(senddata, recvdata, l.size(), 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
 		 comm);
@@ -1433,7 +1433,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce(&senddata, &recvdata, 1, 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
@@ -1450,7 +1450,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce(senddata, recvdata, l.size(), 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
@@ -1468,7 +1468,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       if (rank()==root)
 	MPI_Reduce(MPI_IN_PLACE, &sendrecvdata, 1, 
 		   datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
@@ -1489,7 +1489,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce(&senddata, nullptr, 1, 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
 		 comm);
@@ -1504,7 +1504,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       if (rank()==root)
 	MPI_Reduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
 		   datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
@@ -1525,7 +1525,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce(sendrecvdata, nullptr, l.size(), 
 	datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
 	comm);
@@ -1541,7 +1541,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       if (rank()==root)
 	MPI_Ireduce(MPI_IN_PLACE, &sendrecvdata, 1, 
@@ -1564,7 +1564,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce(&sendrecvdata, nullptr, 1, 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
@@ -1581,7 +1581,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       if (rank()==root)
 	MPI_Ireduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
@@ -1604,7 +1604,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce(sendrecvdata, nullptr, l.size(), 
 	          datatype_traits<T>::get_datatype(), functor.mpi_op, root, 
@@ -1620,7 +1620,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Allreduce(&senddata, &recvdata, 1, 
 		    datatype_traits<T>::get_datatype(), functor.mpi_op, 
 		    comm);
@@ -1632,7 +1632,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Allreduce(senddata, recvdata, l.size(), 
 		    datatype_traits<T>::get_datatype(), functor.mpi_op,
 		    comm);
@@ -1645,7 +1645,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iallreduce(&senddata, &recvdata, 1, 
 		     datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1659,7 +1659,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iallreduce(senddata, recvdata, l.size(), 
 		     datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1674,7 +1674,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Allreduce(MPI_IN_PLACE, &sendrecvdata, 1, 
 		    datatype_traits<T>::get_datatype(), functor.mpi_op,
 		    comm);
@@ -1686,7 +1686,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
 		    datatype_traits<T>::get_datatype(), functor.mpi_op,
 		    comm);
@@ -1699,7 +1699,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, &sendrecvdata, 1, 
 		     datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1713,7 +1713,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
 		     datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1729,7 +1729,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce_scatter_block(senddata, &recvdata, 1, 
 			       datatype_traits<T>::get_datatype(), functor.mpi_op, 
 			       comm);
@@ -1741,7 +1741,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce_scatter_block(senddata, recvdata, l.size(), 
 			       datatype_traits<T>::get_datatype(), functor.mpi_op,
 			       comm);
@@ -1754,7 +1754,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce_scatter_block(&senddata, &recvdata, 1, 
 				datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1768,7 +1768,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce_scatter_block(senddata, recvdata, l.size(), 
 				datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1784,7 +1784,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce_scatter(senddata, recvdata, recvcounts(), 
 			 datatype_traits<T>::get_datatype(), functor.mpi_op,
 			 comm);
@@ -1797,7 +1797,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce_scatter(senddata, recvdata, recvcounts(),
 			  datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1812,7 +1812,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Reduce_scatter(MPI_IN_PLACE, recvdata, recvcounts(), 
 			 datatype_traits<T>::get_datatype(), functor.mpi_op,
 			 comm);
@@ -1825,7 +1825,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Ireduce_scatter(MPI_IN_PLACE, recvdata, recvcounts(),
 			  datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1841,7 +1841,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Scan(&senddata, &recvdata, 1, 
 	       datatype_traits<T>::get_datatype(), functor.mpi_op, 
 	       comm);
@@ -1853,7 +1853,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Scan(senddata, recvdata, l.size(), 
 	       datatype_traits<T>::get_datatype(), functor.mpi_op,
 	       comm);
@@ -1866,7 +1866,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iscan(&senddata, &recvdata, 1, 
 		datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1880,7 +1880,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iscan(senddata, recvdata, l.size(), 
 		datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1895,7 +1895,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Scan(MPI_IN_PLACE, &recvdata, 1, 
 	       datatype_traits<T>::get_datatype(), functor.mpi_op,
 	       comm);
@@ -1907,7 +1907,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Scan(MPI_IN_PLACE, recvdata, l.size(), 
 	       datatype_traits<T>::get_datatype(), functor.mpi_op,
 	       comm);
@@ -1920,7 +1920,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, &recvdata, 1, 
 		datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1934,7 +1934,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, recvdata, l.size(), 
 		datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1950,7 +1950,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Exscan(&senddata, &recvdata, 1, 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op, 
 		 comm);
@@ -1962,7 +1962,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Exscan(senddata, recvdata, l.size(), 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op,
 		 comm);
@@ -1975,7 +1975,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iexscan(&senddata, &recvdata, 1, 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -1989,7 +1989,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iexscan(senddata, recvdata, l.size(), 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -2004,7 +2004,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Exscan(MPI_IN_PLACE, &recvdata, 1, 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op,
 		 comm);
@@ -2016,7 +2016,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Exscan(MPI_IN_PLACE, recvdata, l.size(), 
 		 datatype_traits<T>::get_datatype(), functor.mpi_op,
 		 comm);
@@ -2029,7 +2029,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, &recvdata, 1, 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op,
@@ -2043,7 +2043,7 @@ namespace mpl {
 		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
 		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
-      // functor.f=f;
+      functor.f=f;
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, recvdata, l.size(), 
 		  datatype_traits<T>::get_datatype(), functor.mpi_op,
