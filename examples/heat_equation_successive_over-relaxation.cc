@@ -66,7 +66,7 @@ int main() {
   // is empty except on rank 0
   mpl::local_grid<2, double> u(comm_c, 
 			       {comm_c.rank()==0 ? Nx : 0, comm_c.rank()==0 ? Ny : 0});
-  // dirtributed grid that holds each processor's subgrid plus one row and one collumn 
+  // distributed grid that holds each processor's subgrid plus one row and one collumn 
   // of neighboring data
   mpl::distributed_grid<2, double> u_d(comm_c, 
 				       {{Nx, 1}, {Ny, 1}});
@@ -79,8 +79,15 @@ int main() {
   scatter(comm_c, u, u_d, 0);
   // initiallize boundary data, loop with obegin and oend over all 
   // data including the overlap 
-  for (auto j=u_d.obegin(1), j_end=u_d.oend(1); j<j_end; ++j)
+  for (auto j : { u_d.obegin(1), u_d.oend(1)-1 } )
     for (auto i=u_d.obegin(0), i_end=u_d.oend(0); i<i_end; ++i) {
+      if (u_d.gindex(0, i)<0 or u_d.gindex(1, j)<0)
+	u_d(i, j)=1;
+      if (u_d.gindex(0, i)>=Nx or u_d.gindex(1, j)>=Ny)
+  	u_d(i, j)=0;
+    }
+  for (auto i : { u_d.obegin(0), u_d.oend(0)-1 } )
+    for (auto j=u_d.obegin(1), j_end=u_d.oend(1); j<j_end; ++j) {
       if (u_d.gindex(0, i)<0 or u_d.gindex(1, j)<0)
 	u_d(i, j)=1;
       if (u_d.gindex(0, i)>=Nx or u_d.gindex(1, j)>=Ny)

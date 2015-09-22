@@ -59,6 +59,8 @@ namespace mpl {
   public:
     null_layout() : layout<T>::layout(MPI_DATATYPE_NULL) {
     }
+    void swap(null_layout<T> &other) {
+    }
   };
 
   //--------------------------------------------------------------------
@@ -72,24 +74,22 @@ namespace mpl {
  			  &new_type);
       return new_type;
     }
-    int count;
   public:
     empty_layout() : 
-      layout<T>::layout(build()), count() {
+      layout<T>::layout(build()) {
       MPI_Type_commit(&type);
     }
     empty_layout(const empty_layout &l) {
       MPI_Type_dup(l.type, &type);
     }
-    empty_layout & operator=(const empty_layout &l) {
+    empty_layout<T> & operator=(const empty_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
 	MPI_Type_dup(l.type, &type);
       }
       return *this;
     }
-    int size() const {
-      return count;
+    void swap(empty_layout<T> &other) {
     }
   };
 
@@ -114,10 +114,10 @@ namespace mpl {
       layout<T>::layout(build(c, other.type)), count(c) {
       MPI_Type_commit(&type);
     }
-    contiguous_layout(const contiguous_layout &l) {
+    contiguous_layout(const contiguous_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
-    contiguous_layout & operator=(const contiguous_layout &l) {
+    contiguous_layout<T> & operator=(const contiguous_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
 	MPI_Type_dup(l.type, &type);
@@ -126,6 +126,10 @@ namespace mpl {
     }
     int size() const {
       return count;
+    }
+    void swap(contiguous_layout<T> &other) {
+      std::swap(type, other.type);
+      std::swap(count, other.count);
     }
   };
 
@@ -158,15 +162,18 @@ namespace mpl {
       layout<T>::layout(build(count, blocklength, stride, other.type)) {
       MPI_Type_commit(&type);
     }
-    vector_layout(const vector_layout &l) {
+    vector_layout(const vector_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
-    vector_layout & operator=(const vector_layout &l) {
+    vector_layout<T> & operator=(const vector_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
 	MPI_Type_dup(l.type, &type);
       }
       return *this;
+    }
+    void swap(vector_layout<T> &other) {
+      std::swap(type, other.type);
     }
   };
 
@@ -217,15 +224,18 @@ namespace mpl {
       layout<T>::layout(build(par, other.type)) {
       MPI_Type_commit(&type);
     }
-    indexed_layout(const indexed_layout &l) {
+    indexed_layout(const indexed_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
-    indexed_layout & operator=(const indexed_layout &l) {
+    indexed_layout<T> & operator=(const indexed_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
 	MPI_Type_dup(l.type, &type);
       }
       return *this;
+    }
+    void swap(indexed_layout<T> &other) {
+      std::swap(type, other.type);
     }
   };
 
@@ -275,15 +285,18 @@ namespace mpl {
       layout<T>::layout(build(blocklengths, par, other.type)) {
       MPI_Type_commit(&type);
     }
-    indexed_block_layout(const indexed_block_layout &l) {
+    indexed_block_layout(const indexed_block_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
-    indexed_block_layout & operator=(const indexed_block_layout &l) {
+    indexed_block_layout<T> & operator=(const indexed_block_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
 	MPI_Type_dup(l.type, &type);
       }
       return *this;
+    }
+    void swap(indexed_block_layout<T> &other) {
+      std::swap(type, other.type);
     }
   };
 
@@ -351,15 +364,18 @@ namespace mpl {
       layout<T>::layout(build(par, other.type)) {
       MPI_Type_commit(&type);
     }		   
-    subarray_layout(const subarray_layout &l) {
+    subarray_layout(const subarray_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
-    subarray_layout & operator=(const subarray_layout &l) {
+    subarray_layout<T> & operator=(const subarray_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
 	MPI_Type_dup(l.type, &type);
       }
       return *this;
+    }
+    void swap(subarray_layout<T> &other) {
+      std::swap(type, other.type);
     }
   };
 

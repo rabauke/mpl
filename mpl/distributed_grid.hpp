@@ -174,6 +174,20 @@ namespace mpl {
     const subarray_layout<T> & interior_layout() const {
       return interior_layout_;
     }
+    void swap(distributed_grid<dim, T, A> &other) {
+      gsize_.swap(other.gsize_);
+      gbegin_.swap(other.gbegin_);
+      gend_.swap(other.gend_);
+      size_.swap(other.size_);
+      oend_.swap(other.oend_);
+      overlap_.swap(other.overlap_);
+      v.swap(other.v);
+      left_mirror_layout_.swap(other.left_mirror_layout_); 
+      right_mirror_layout_.swap(other.right_mirror_layout_);
+      left_border_layout_.swap(other.left_border_layout_);
+      right_border_layout_.swap(other.right_border_layout_);
+      interior_layout_.swap(other.interior_layout_);
+    }
   };
 
   //--------------------------------------------------------------------
@@ -274,6 +288,11 @@ namespace mpl {
     }
     const subarray_layout<T> & sub_layout(size_type i) const {
       return sub_layout_[i];
+    }
+    void swap(local_grid<dim, T, A> &other) {
+      gsize_.swap(other.gsize_);
+      v.swap(other.v);
+      sub_layout_.swap(other.sub_layout_);
     }
   };
 
