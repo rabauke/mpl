@@ -160,13 +160,46 @@ namespace mpl {
 
   namespace detail {
  
+    template<typename T> struct remove_class { };
+    template<typename C, typename R, typename... A>
+    struct remove_class<R(C::*)(A...)> { using type = R(A...); };
+    template<typename C, typename R, typename... A>
+    struct remove_class<R(C::*)(A...) const> { using type = R(A...); };
+    template<typename C, typename R, typename... A>
+    struct remove_class<R(C::*)(A...) volatile> { using type = R(A...); };
+    template<typename C, typename R, typename... A>
+    struct remove_class<R(C::*)(A...) const volatile> { using type = R(A...); };
+    
+    template<typename T>
+    struct get_signature_impl { 
+      using type = typename remove_class<decltype(&std::remove_reference<T>::type::operator())>::type; 
+    };
+    template<typename R, typename... A>
+    struct get_signature_impl<R(A...)> { using type = R(A...); };
+    template<typename R, typename... A>
+    struct get_signature_impl<R(&)(A...)> { using type = R(A...); };
+    template<typename R, typename... A>
+    struct get_signature_impl<R(*)(A...)> { using type = R(A...); };
+    template<typename T> using get_signature = typename get_signature_impl<T>::type;
+    template<typename F> using make_function_type = std::function<get_signature<F>>;
+  }
+  
+  template<typename F> detail::make_function_type<F> make_function(F &&f) {
+    return detail::make_function_type<F>(std::forward<F>(f)); 
+  }
+  
+  namespace detail {
+
     template<typename F>
     class op : public F {
     public:
       typedef F functor;
-      typedef typename F::first_argument_type first_argument_type;
-      typedef typename F::second_argument_type second_argument_type;
-      typedef typename F::result_type result_type;
+      typedef typename std::decay<typename functor::first_argument_type>::type first_argument_type;
+      typedef typename std::decay<typename functor::second_argument_type>::type second_argument_type;
+      typedef typename std::decay<typename functor::result_type>::type result_type;
+      static_assert(std::is_same<first_argument_type, second_argument_type>::value and
+		    std::is_same<second_argument_type, result_type>::value, "argument type mismatch");
+
       static F f;
       static void apply(void *invec, void *inoutvec, int *len, 
 			MPI_Datatype *datatype) {

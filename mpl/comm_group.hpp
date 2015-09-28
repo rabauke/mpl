@@ -1398,9 +1398,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce(&senddata, &recvdata, 1, 
@@ -1413,9 +1411,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce(senddata, recvdata, l.size(), 
@@ -1429,9 +1425,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1446,9 +1440,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1464,9 +1456,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       if (rank()==root)
@@ -1485,9 +1475,7 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce(&senddata, nullptr, 1, 
@@ -1500,9 +1488,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       if (rank()==root)
@@ -1521,9 +1507,7 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce(sendrecvdata, nullptr, l.size(), 
@@ -1537,9 +1521,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1560,9 +1542,7 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1577,9 +1557,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1600,9 +1578,7 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
 #endif
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1616,9 +1592,7 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f, 
 		   const T &senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Allreduce(&senddata, &recvdata, 1, 
@@ -1628,9 +1602,7 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f,
 		   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Allreduce(senddata, recvdata, l.size(), 
@@ -1641,9 +1613,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iallreduce(F f,
 				const T &senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1655,9 +1625,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iallreduce(F f,
 				const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1670,9 +1638,7 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f,
 		   T &sendrecvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Allreduce(MPI_IN_PLACE, &sendrecvdata, 1, 
@@ -1682,9 +1648,7 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f,
 		   T *sendrecvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
@@ -1695,9 +1659,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iallreduce(F f,
 				T &sendrecvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1709,9 +1671,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iallreduce(F f,
 				T *sendrecvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1725,9 +1685,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce_scatter_block(F f, 
 			      const T *senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce_scatter_block(senddata, &recvdata, 1, 
@@ -1737,9 +1695,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce_scatter_block(F f,
 			      const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce_scatter_block(senddata, recvdata, l.size(), 
@@ -1750,9 +1706,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce_scatter_block(F f,
 					   const T *senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1764,9 +1718,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce_scatter_block(F f,
 					   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1780,9 +1732,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce_scatter(F f,
 			const T *senddata, T *recvdata, const counts &recvcounts) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce_scatter(senddata, recvdata, recvcounts(), 
@@ -1793,9 +1743,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce_scatter(F f,
 				     const T *senddata, T *recvdata, const counts &recvcounts) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1808,9 +1756,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce_scatter(F f,
 			T *recvdata, const counts &recvcounts) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Reduce_scatter(MPI_IN_PLACE, recvdata, recvcounts(), 
@@ -1821,9 +1767,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce_scatter(F f,
 				     T *recvdata, const counts &recvcounts) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1837,9 +1781,7 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f, 
 	      const T &senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Scan(&senddata, &recvdata, 1, 
@@ -1849,9 +1791,7 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f,
 	      const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Scan(senddata, recvdata, l.size(), 
@@ -1862,9 +1802,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iscan(F f,
 			   const T &senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1876,9 +1814,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iscan(F f,
 			   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1891,9 +1827,7 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f,
 	      T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Scan(MPI_IN_PLACE, &recvdata, 1, 
@@ -1903,9 +1837,7 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f,
 	      T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Scan(MPI_IN_PLACE, recvdata, l.size(), 
@@ -1916,9 +1848,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iscan(F f,
                            T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1930,9 +1860,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iscan(F f,
 			   T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1946,9 +1874,7 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f, 
 		const T &senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Exscan(&senddata, &recvdata, 1, 
@@ -1958,9 +1884,7 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f,
 		const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Exscan(senddata, recvdata, l.size(), 
@@ -1971,9 +1895,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iexscan(F f,
 			     const T &senddata, T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -1985,9 +1907,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iexscan(F f,
 			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -2000,9 +1920,7 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f,
 		T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Exscan(MPI_IN_PLACE, &recvdata, 1, 
@@ -2012,9 +1930,7 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f,
 		T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Exscan(MPI_IN_PLACE, recvdata, l.size(), 
@@ -2025,9 +1941,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iexscan(F f,
 			     T &recvdata) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;
@@ -2039,9 +1953,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iexscan(F f,
 			     T *recvdata, const contiguous_layout<T> &l) const {
-      static_assert(std::is_same<typename F::first_argument_type, typename F::second_argument_type>::value and
-		    std::is_same<typename F::second_argument_type, typename F::result_type>::value and
-		    std::is_same<typename F::result_type, T>::value, "argument type mismatch");
+      static_assert(std::is_same<typename F::result_type, T>::value, "argument type mismatch");
       static detail::op<F> functor;
       functor.f=f;
       MPI_Request req;

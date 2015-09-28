@@ -1,6 +1,5 @@
 #include <cstdlib>
 #include <iostream>
-#include <functional>
 #include <mpl/mpl.hpp>
 
 int main() {
@@ -28,10 +27,10 @@ int main() {
   comm_world.scatter(0, v.data(), x);
   std::cout << "after scatter " << x << '\n';
   double y;
-  comm_world.reduce(std::plus<double>(), 0, x, y);
+  comm_world.reduce(mpl::plus<double>(), 0, x, y);
   if (comm_world.rank()==0) 
     std::cout << "after reduce " << y << '\n';
-  comm_world.allreduce(std::multiplies<double>(), x, y);
+  comm_world.allreduce(mpl::multiplies<double>(), x, y);
   std::cout << "after allreduce " << y << '\n';
   return EXIT_SUCCESS;
 }

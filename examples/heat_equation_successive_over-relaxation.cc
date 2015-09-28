@@ -27,26 +27,38 @@ void update_overlap(const mpl::cart_communicator &C,
 
 
 template<std::size_t dim, typename T, typename A>
-void gather(const mpl::cart_communicator &C, 
-	    const mpl::distributed_grid<dim, T, A> &G, 
-	    mpl::local_grid<dim, T, A> &L, int root, int tag=0) {
-  mpl::irequest r(C.isend(G.data(), G.interior_layout(), root, tag));
+void scatter(const mpl::cart_communicator &C, int root, 
+	     const mpl::local_grid<dim, T, A> &L, 
+	     mpl::distributed_grid<dim, T, A> &G) {
+  mpl::irequest r(C.irecv(G.data(), G.interior_layout(), root));
   if (C.rank()==root)
     for (int i=0; i<C.size(); ++i)
-      C.recv(L.data(), L.sub_layout(i), i, tag);
+      C.send(L.data(), L.sub_layout(i), i);
   r.wait();
+}
+
+template<std::size_t dim, typename T, typename A>
+void scatter(const mpl::cart_communicator &C, int root, 
+	     mpl::distributed_grid<dim, T, A> &G) {
+  C.recv(G.data(), G.interior_layout(), root);
 }
 
 
 template<std::size_t dim, typename T, typename A>
-void scatter(const mpl::cart_communicator &C, 
-	     const mpl::local_grid<dim, T, A> &L, 
-	     mpl::distributed_grid<dim, T, A> &G, int root, int tag=0) {
-  mpl::irequest r(C.irecv(G.data(), G.interior_layout(), root, tag));
+void gather(const mpl::cart_communicator &C, int root, 
+	    const mpl::distributed_grid<dim, T, A> &G, 
+	    mpl::local_grid<dim, T, A> &L) {
+  mpl::irequest r(C.isend(G.data(), G.interior_layout(), root));
   if (C.rank()==root)
     for (int i=0; i<C.size(); ++i)
-      C.send(L.data(), L.sub_layout(i), i, tag);
+      C.recv(L.data(), L.sub_layout(i), i);
   r.wait();
+}
+
+template<std::size_t dim, typename T, typename A>
+void gather(const mpl::cart_communicator &C, int root, 
+	    const mpl::distributed_grid<dim, T, A> &G) {
+  C.send(G.data(), G.interior_layout(), root);
 }
 
 
@@ -62,21 +74,20 @@ int main() {
   // grid points with extremal indices (-1, Nx or Ny) hold fixed boundary data
   // grid lengths and grid spacings
   double l_x=1.5, l_y=1, dx=l_x/(Nx+1), dy=l_y/(Ny+1);
-  // local grid to store the whole set of inner grid points, 
-  // is empty except on rank 0
-  mpl::local_grid<2, double> u(comm_c, 
-			       {comm_c.rank()==0 ? Nx : 0, comm_c.rank()==0 ? Ny : 0});
-  // distributed grid that holds each processor's subgrid plus one row and one collumn 
-  // of neighboring data
-  mpl::distributed_grid<2, double> u_d(comm_c, 
-				       {{Nx, 1}, {Ny, 1}});
+  // distributed grid that holds each processor's subgrid plus one row and 
+  // one collumn of neighboring data
+  mpl::distributed_grid<2, double> u_d(comm_c, {{Nx, 1}, {Ny, 1}});
   // rank 0 inializes with some random data
-  if (comm_c.rank()==0)
+  if (comm_c.rank()==0) {
+    // local grid to store the whole set of inner grid points
+    mpl::local_grid<2, double> u(comm_c, {Nx, Ny});
     for (auto j=u.begin(1), j_end=u.end(1); j<j_end; ++j)
       for (auto i=u.begin(0), i_end=u.end(0); i<i_end; ++i) 
 	u(i, j)=std::rand()/static_cast<double>(RAND_MAX);
-  // scater data to each processors subgrid
-  scatter(comm_c, u, u_d, 0);
+    // scater data to each processors subgrid
+    scatter(comm_c, 0, u, u_d);
+  } else
+    scatter(comm_c, 0, u_d);
   // initiallize boundary data, loop with obegin and oend over all 
   // data including the overlap 
   for (auto j : { u_d.obegin(1), u_d.oend(1)-1 } )
@@ -113,20 +124,24 @@ int main() {
     // determine global sum of Delta_u and sum_u and distribute to all processors
     double_2 Delta_sum_u{ Delta_u, sum_u };  // pack into pair
     // use a lambda function for global reduction
-    comm_c.allreduce(std::function<double_2(double_2, double_2)>( [](double_2 a, double_2 b) { 
+    comm_c.allreduce(mpl::make_function( [](double_2 a, double_2 b) { 
 	  // reduction adds component-by-component
 	  return double_2{ std::get<0>(a)+std::get<0>(b), std::get<1>(a)+std::get<1>(b) };
 	} ), Delta_sum_u);
     std::tie(Delta_u, sum_u)=Delta_sum_u;  // unpack from pair
     converged=Delta_u/sum_u<1e-6;  // check for convergence
   }
-  // gather data and print result
-  gather(comm_c, u_d, u, 0);
-  if (comm_c.rank()==0)
+  if (comm_c.rank()==0) {
+    // local grid to store the whole set of inner grid points
+    mpl::local_grid<2, double> u(comm_c, {Nx, Ny});
+    // gather data and print result
+    gather(comm_c, 0, u_d, u);
     for (auto j=u.begin(1), j_end=u.end(1); j<j_end; ++j) {
       for (auto i=u.begin(0), i_end=u.end(0); i<i_end; ++i) 
 	std::cout << u(i, j) << '\t';	
       std::cout << '\n';
     }
+  } else
+    gather(comm_c, 0, u_d);
   return EXIT_SUCCESS;
 }
