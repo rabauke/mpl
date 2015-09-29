@@ -139,10 +139,10 @@ int main() {
       }
     // determine global sum of Delta_u and sum_u and distribute to all processors
     double_2 Delta_sum_u{ Delta_u, sum_u };  // pack into pair
-    comm_c.allreduce(mpl::make_function([](double_2 a, double_2 b) { 
-	  // reduction adds component-by-component
-	  return double_2{ std::get<0>(a)+std::get<0>(b), std::get<1>(a)+std::get<1>(b) };
-	}), Delta_sum_u);
+    comm_c.allreduce([](double_2 a, double_2 b) { 
+	// reduction adds component-by-component
+	return double_2{ std::get<0>(a)+std::get<0>(b), std::get<1>(a)+std::get<1>(b) };
+      }, Delta_sum_u);
     std::tie(Delta_u, sum_u)=Delta_sum_u;  // unpack from pair
     converged=Delta_u/sum_u<1e-3;  // check for convergence
     u_d2.swap(u_d1);

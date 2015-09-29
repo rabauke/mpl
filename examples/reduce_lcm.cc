@@ -1,13 +1,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
-#include <functional>
 #include <vector>
 #include <mpl/mpl.hpp>
 
 // calculate least common multiple of two arguments 
 template<typename T>
-class lcm : public std::function<T (T, T)> {
+class lcm {
   // helper: calculate greatest common divisor
   T gcd(T a, T b) {
     T zero=T(), t;
