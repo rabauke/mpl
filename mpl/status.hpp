@@ -34,7 +34,7 @@ namespace mpl {
     template<typename T>
     int get_count(const layout<T> &l) const {
       int result;
-      MPI_Get_count(reinterpret_cast<const MPI_Status *>(this), datatype_traits<layout<T> >::get_datatype(l), &result);
+      MPI_Get_count(reinterpret_cast<const MPI_Status *>(this), datatype_traits<layout<T>>::get_datatype(l), &result);
       return result;
     }
     status() {

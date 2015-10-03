@@ -181,7 +181,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  template<typename A=std::allocator<char> >
+  template<typename A=std::allocator<char>>
   class bsend_buffer {
     int size;
     A alloc;

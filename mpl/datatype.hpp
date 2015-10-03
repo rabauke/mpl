@@ -16,8 +16,12 @@ namespace mpl {
   template<typename T>
   struct datatype_traits;
 
-  template<typename T, typename E>
-  struct datatype_traits_impl;
+  namespace detail {
+    
+    template<typename T, typename E>
+    struct datatype_traits_impl;
+
+  }
 
   template<typename T>
   class base_struct_builder;
@@ -106,15 +110,15 @@ namespace mpl {
     ~base_struct_builder() {
       MPI_Type_free(&type);
     }
-    friend class datatype_traits_impl<T, void>;
+    friend class detail::datatype_traits_impl<T, void>;
   };
 
   //--------------------------------------------------------------------
 
   template<typename T1, typename T2>
-  class struct_builder<std::pair<T1, T2> > : public base_struct_builder<std::pair<T1, T2> > {
-    typedef base_struct_builder<std::pair<T1, T2> > base;
-    struct_layout<std::pair<T1, T2> > layout;
+  class struct_builder<std::pair<T1, T2>> : public base_struct_builder<std::pair<T1, T2>> {
+    typedef base_struct_builder<std::pair<T1, T2>> base;
+    struct_layout<std::pair<T1, T2>> layout;
   public:
     struct_builder() {
       std::pair<T1, T2> pair;
@@ -155,15 +159,15 @@ namespace mpl {
 
     template<typename F, typename... Args>
     void apply(std::tuple<Args...> &t, F &f) {
-      apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...> >::value> app(f);
+      apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...>>::value> app(f);
       app(t);
     }
     
     template<typename... Ts>
     class register_element {
-      struct_layout<std::tuple<Ts...> > &layout;
+      struct_layout<std::tuple<Ts...>> &layout;
     public:
-      register_element(struct_layout<std::tuple<Ts...> > &layout) : layout(layout) {
+      register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {
       }
       template<typename T>
       void operator()(T &x) const {
@@ -174,16 +178,16 @@ namespace mpl {
   }
 
   template<typename... Ts>
-  class struct_builder<std::tuple<Ts...> > : public base_struct_builder<std::tuple<Ts...> > {
-    typedef base_struct_builder<std::tuple<Ts...> > base;
-    struct_layout<std::tuple<Ts...> > layout;
+  class struct_builder<std::tuple<Ts...>> : public base_struct_builder<std::tuple<Ts...>> {
+    typedef base_struct_builder<std::tuple<Ts...>> base;
+    struct_layout<std::tuple<Ts...>> layout;
   public:
     struct_builder() {
       std::tuple<Ts...> tuple;
       layout.register_struct(tuple);
       base::define_struct(layout);
       detail::register_element<Ts...> reg(layout);
-      detail::apply<detail::register_element<Ts...> >(tuple, reg);
+      detail::apply<detail::register_element<Ts...>>(tuple, reg);
       base::define_struct(layout);
     }
   };
@@ -245,9 +249,9 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T, std::size_t N>
-  class struct_builder<std::array<T, N> > : public base_struct_builder<std::array<T, N> > {
-    typedef base_struct_builder<std::array<T, N> > base;
-    struct_layout<std::array<T, N> > layout;
+  class struct_builder<std::array<T, N>> : public base_struct_builder<std::array<T, N>> {
+    typedef base_struct_builder<std::array<T, N>> base;
+    struct_layout<std::array<T, N>> layout;
   public:
     struct_builder() {
       std::array<T, N> array;
@@ -259,41 +263,45 @@ namespace mpl {
   
   //--------------------------------------------------------------------
 
-  template<typename T, typename Enable=void>
-  class datatype_traits_impl {
-  public:
-    static MPI_Datatype get_datatype() {
-      static struct_builder<T> builder; 
-      return builder.type;
-    }
-  };
-  
-  template<typename T>
-  class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
-    public:
-    static MPI_Datatype get_datatype() {
-      return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
-    }
-  };
+  namespace detail {
 
-#if defined MPL_HOMOGENEOUS
-  template<typename T>
-  class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value 
-							and std::is_copy_assignable<T>::value 
-							and not std::is_enum<T>::value 
-							and not std::is_array<T>::value>::type> {
+    template<typename T, typename Enable=void>
+    class datatype_traits_impl {
     public:
-    static MPI_Datatype get_datatype() {
-      return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
-    }
-  };
+      static MPI_Datatype get_datatype() {
+	static struct_builder<T> builder; 
+	return builder.type;
+      }
+    };
+    
+    template<typename T>
+    class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
+    public:
+      static MPI_Datatype get_datatype() {
+	return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
+      }
+    };
+    
+#if defined MPL_HOMOGENEOUS
+    template<typename T>
+    class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value 
+							  and std::is_copy_assignable<T>::value 
+							  and not std::is_enum<T>::value 
+							  and not std::is_array<T>::value>::type> {
+    public:
+      static MPI_Datatype get_datatype() {
+	return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
+      }
+    };
 #endif
-  
+
+  }
+    
   template<typename T>
   class datatype_traits {
   public:
     static MPI_Datatype get_datatype() {
-      return datatype_traits_impl<T>::get_datatype();
+      return detail::datatype_traits_impl<T>::get_datatype();
     }
   };
   

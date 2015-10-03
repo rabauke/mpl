@@ -48,7 +48,7 @@ namespace mpl {
       if (type!=MPI_DATATYPE_NULL)
 	MPI_Type_free(&type);
     }
-    friend struct datatype_traits<layout<T> >;
+    friend struct datatype_traits<layout<T>>;
   };
 
   //--------------------------------------------------------------------
@@ -382,7 +382,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
-  struct datatype_traits<layout<T> > {
+  struct datatype_traits<layout<T>> {
     static MPI_Datatype get_datatype(const layout<T> &l) {
       return l.type;
     }
@@ -391,12 +391,16 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
-  class layouts : private std::vector<layout<T> > {
-    typedef std::vector<layout<T> > base;
+  class layouts : private std::vector<layout<T>> {
+    typedef std::vector<layout<T>> base;
   public:
     typedef typename base::size_type size_type;
     explicit layouts(size_type n=0) : base(n, null_layout<T>()) {
     }
+    using base::begin;
+    using base::end;
+    using base::cbegin;
+    using base::cend;
     using base::operator[];
     using base::size;
     using base::push_back;

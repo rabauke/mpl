@@ -180,7 +180,7 @@ namespace mpl {
       MPL_CHECK_STAG(tag);
 #endif
       MPI_Send(data, 1, 
-      	       datatype_traits<layout<T> >::get_datatype(l), 
+      	       datatype_traits<layout<T>>::get_datatype(l), 
       	       dest, tag, comm);
     }
     // --- nonblocking standard send ---
@@ -204,7 +204,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Isend(data, 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
+		datatype_traits<layout<T>>::get_datatype(l), 
 		dest, tag, comm, &req);
       return detail::irequest(req);
     }
@@ -229,7 +229,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Send_init(data, 1, 
-		    datatype_traits<layout<T> >::get_datatype(l), 
+		    datatype_traits<layout<T>>::get_datatype(l), 
 		    dest, tag, comm, &req);
       return detail::prequest(req);
     }
@@ -247,7 +247,7 @@ namespace mpl {
     int bsend_size(const layout<T> &l) const {
       int size;
       MPI_Pack_size(1, 
-		    datatype_traits<layout<T> >::get_datatype(l), 
+		    datatype_traits<layout<T>>::get_datatype(l), 
 		    comm, &size);
       return size+MPI_BSEND_OVERHEAD;
     }
@@ -269,7 +269,7 @@ namespace mpl {
       MPL_CHECK_STAG(tag);
 #endif
       MPI_Bsend(data, 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
+		datatype_traits<layout<T>>::get_datatype(l), 
 		dest, tag, comm);
     }
     // --- nonblocking buffered send ---
@@ -293,7 +293,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Ibsend(data, 1, 
-		 datatype_traits<layout<T> >::get_datatype(l), 
+		 datatype_traits<layout<T>>::get_datatype(l), 
 		 dest, tag, comm, &req);
       return detail::irequest(req);
     }
@@ -318,7 +318,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Bsend_init(data, 1, 
-		     datatype_traits<layout<T> >::get_datatype(l), 
+		     datatype_traits<layout<T>>::get_datatype(l), 
 		     dest, tag, comm, &req);
       return detail::prequest(req);
     }
@@ -341,7 +341,7 @@ namespace mpl {
       MPL_CHECK_STAG(tag);
 #endif
       MPI_Ssend(data, 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
+		datatype_traits<layout<T>>::get_datatype(l), 
 		dest, tag, comm);
     }
     // --- nonblocking synchronous send ---
@@ -365,7 +365,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Issend(data, 1, 
-		 datatype_traits<layout<T> >::get_datatype(l), 
+		 datatype_traits<layout<T>>::get_datatype(l), 
 		 dest, tag, comm, &req);
       return detail::irequest(req);
     }
@@ -390,7 +390,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Ssend_init(data, 1, 
-		     datatype_traits<layout<T> >::get_datatype(l), 
+		     datatype_traits<layout<T>>::get_datatype(l), 
 		     dest, tag, comm, &req);
       return detail::prequest(req);
     }
@@ -413,7 +413,7 @@ namespace mpl {
       MPL_CHECK_STAG(tag);
 #endif
       MPI_Rsend(data, 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
+		datatype_traits<layout<T>>::get_datatype(l), 
 		dest, tag, comm);
     }
     // --- nonblocking ready send ---
@@ -437,7 +437,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Irsend(data, 1, 
-		 datatype_traits<layout<T> >::get_datatype(l), 
+		 datatype_traits<layout<T>>::get_datatype(l), 
 		 dest, tag, comm, &req);
       return detail::irequest(req);
     }
@@ -462,7 +462,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Rsend_init(data, 1, 
-		     datatype_traits<layout<T> >::get_datatype(l), 
+		     datatype_traits<layout<T>>::get_datatype(l), 
 		     dest, tag, comm, &req);
       return detail::prequest(req);
     }
@@ -488,7 +488,7 @@ namespace mpl {
 #endif
       status s;
       MPI_Recv(data, 1, 
-      	       datatype_traits<layout<T> >::get_datatype(l), 
+      	       datatype_traits<layout<T>>::get_datatype(l), 
       	       source, tag, comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
@@ -513,7 +513,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Irecv(data, 1, 
-		datatype_traits<layout<T> >::get_datatype(l), 
+		datatype_traits<layout<T>>::get_datatype(l), 
 		source, tag, comm, &req);
       return detail::irequest(req);
     }
@@ -538,7 +538,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Recv_init(data, 1, 
-		    datatype_traits<layout<T> >::get_datatype(l), 
+		    datatype_traits<layout<T>>::get_datatype(l), 
 		    source, tag, comm, &req);
       return detail::prequest(req);
     }
@@ -595,9 +595,9 @@ namespace mpl {
 #endif
       status s;
       MPI_Sendrecv(senddata, 1, 
-		   datatype_traits<layout<T> >::get_datatype(sendl), dest, sendtag,
+		   datatype_traits<layout<T>>::get_datatype(sendl), dest, sendtag,
 		   recvdata, 1,
-		   datatype_traits<layout<T> >::get_datatype(recvl), source, recvtag,
+		   datatype_traits<layout<T>>::get_datatype(recvl), source, recvtag,
 		   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
@@ -629,7 +629,7 @@ namespace mpl {
 #endif
       status s;
       MPI_Sendrecv_replace(data, 1, 
-			   datatype_traits<layout<T> >::get_datatype(l), 
+			   datatype_traits<layout<T>>::get_datatype(l), 
 			   dest, sendtag, source, recvtag,
 			   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
@@ -660,7 +660,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      MPI_Bcast(data, 1, datatype_traits<layout<T> >::get_datatype(l), root, comm);
+      MPI_Bcast(data, 1, datatype_traits<layout<T>>::get_datatype(l), root, comm);
     }
     // --- nonblocking broadcast ---
     template<typename T>
@@ -678,7 +678,7 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
 #endif
       MPI_Request req;
-      MPI_Ibcast(data, 1, datatype_traits<layout<T> >::get_datatype(l), root, comm, &req);
+      MPI_Ibcast(data, 1, datatype_traits<layout<T>>::get_datatype(l), root, comm, &req);
       return detail::irequest(req);
     }
     // === gather ===
@@ -700,8 +700,8 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      MPI_Gather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
-		 recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Gather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+		 recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		 root, comm);
     }
     // --- nonblocking gather ---
@@ -724,8 +724,8 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
 #endif
       MPI_Request req;
-      MPI_Igather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
-		  recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Igather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+		  recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		  root, comm, &req);
       return detail::irequest(req);
     }
@@ -745,7 +745,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_NONROOT(root);
 #endif
-      MPI_Gather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+      MPI_Gather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		 0, 0, MPI_DATATYPE_NULL,
 		 root, comm);
     }
@@ -765,10 +765,10 @@ namespace mpl {
     detail::irequest igather(int root, 
 			     const T *senddata, const layout<T> &sendl) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);;
+      MPL_CHECK_NONROOT(root);
 #endif
       MPI_Request req;
-      MPI_Igather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
+      MPI_Igather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		  0, 0, MPI_DATATYPE_NULL,
 		  root, comm, &req);
       return detail::irequest(req);
@@ -797,8 +797,8 @@ namespace mpl {
       MPL_CHECK_SIZE(recvcounts);
       MPL_CHECK_SIZE(displs);
 #endif
-      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
-		  recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
+		  recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
 		  root, comm);
     }
     // --- nonblocking gather ---
@@ -827,8 +827,8 @@ namespace mpl {
       MPL_CHECK_SIZE(displs);
 #endif
       MPI_Request req;
-      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
-		   recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
+		   recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
 		   root, comm, &req);
       return detail::irequest(req);
     }
@@ -849,7 +849,7 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_NONROOT(root);
 #endif
-      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
 		  0, 0, 0, MPI_DATATYPE_NULL,
 		  root, comm);
     }
@@ -873,7 +873,7 @@ namespace mpl {
       MPL_CHECK_NONROOT(root);
 #endif
       MPI_Request req;
-      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
+      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
 		   0, 0, 0, MPI_DATATYPE_NULL,
 		   root, comm, &req);
       return detail::irequest(req);
@@ -890,8 +890,8 @@ namespace mpl {
     template<typename T>
     void allgather(const T *senddata, const layout<T> &sendl, 
 		   T *recvdata, const layout<T> &recvl) const {
-      MPI_Allgather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
-		    recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+		    recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		    comm);
     }
     // --- nonblocking allgather ---
@@ -907,8 +907,8 @@ namespace mpl {
     detail::irequest iallgather(const T *senddata, const layout<T> &sendl, 
 				T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
-      MPI_Iallgather(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
-		     recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Iallgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+		     recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		     comm, &req);
       return detail::irequest(req);
     }
@@ -932,8 +932,8 @@ namespace mpl {
       MPL_CHECK_SIZE(recvcounts);
       MPL_CHECK_SIZE(displs);
 #endif
-      MPI_Allgatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
-		     recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Allgatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
+		     recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
 		     comm);
     }
     // --- nonblocking allgather ---
@@ -958,8 +958,8 @@ namespace mpl {
       MPL_CHECK_SIZE(displs);
 #endif
       MPI_Request req;
-      MPI_Iallgatherv(senddata, sendcount, datatype_traits<layout<T> >::get_datatype(sendl),
-		      recvdata, recvcounts(), displs(), datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Iallgatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
+		      recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
 		      comm, &req);
       return detail::irequest(req);
     }
@@ -982,8 +982,8 @@ namespace mpl {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
 #endif
-      MPI_Scatter(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
-		  recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Scatter(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+		  recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		  root, comm);
     }
     // --- nonblocking scatter ---
@@ -1006,8 +1006,8 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
 #endif
       MPI_Request req;
-      MPI_Iscatter(senddata, 1, datatype_traits<layout<T> >::get_datatype(sendl),
-		   recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Iscatter(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+		   recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		   root, comm, &req);
       return detail::irequest(req);
     }
@@ -1028,7 +1028,7 @@ namespace mpl {
       MPL_CHECK_ROOT(root);
 #endif
       MPI_Scatter(0, 0, MPI_DATATYPE_NULL,
-		  recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		  recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		  root, comm);
     }
     // --- nonblocking scatter, non-root variant ---
@@ -1051,7 +1051,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Iscatter(0, 0, MPI_DATATYPE_NULL,
-		   recvdata, 1, datatype_traits<layout<T> >::get_datatype(recvl),
+		   recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		   root, comm, &req);
       return detail::irequest(req);
     }
@@ -1079,8 +1079,8 @@ namespace mpl {
       MPL_CHECK_SIZE(sendcounts);
       MPL_CHECK_SIZE(displs);
 #endif
-      MPI_Scatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T> >::get_datatype(sendl),
-		   recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Scatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T>>::get_datatype(sendl),
+		   recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
 		   root, comm);
     }
     // --- nonblocking scatter ---
@@ -1109,8 +1109,8 @@ namespace mpl {
       MPL_CHECK_SIZE(displs);
 #endif
       MPI_Request req;
-      MPI_IScatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T> >::get_datatype(sendl),
-		    recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_IScatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T>>::get_datatype(sendl),
+		    recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
 		    root, comm, &req);
       return detail::irequest(req);
     }
@@ -1132,7 +1132,7 @@ namespace mpl {
       MPL_CHECK_NONROOT(root);
 #endif
       MPI_Scatterv(0, 0, 0, MPI_DATATYPE_NULL,
-		   recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+		   recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
 		   root, comm);
     }
     // --- nonblocking scatter, non-root variant ---
@@ -1156,7 +1156,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_IScatterv(0, 0, 0, MPI_DATATYPE_NULL,
-		    recvdata, recvcount, datatype_traits<layout<T> >::get_datatype(recvl),
+		    recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
 		    root, comm, &req);
       return detail::irequest(req);
     }
@@ -1172,8 +1172,8 @@ namespace mpl {
     template<typename T>
     void alltoall(const T *senddata, const layout<T> &sendl, 
 		  T *recvdata, const layout<T> &recvl) const {
-      MPI_Alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
-		   recvdata, 1, datatype_traits<T>::get_datatype(),
+      MPI_Alltoall(senddata, 1, datatype_traits<layout<T>>::get_datatype(),
+		   recvdata, 1, datatype_traits<layout<T>>::get_datatype(),
 		   comm);
     }
     // --- nonblocking all-to-all ---
@@ -1189,8 +1189,8 @@ namespace mpl {
     detail::irequest ialltoall(const T *senddata, const layout<T> &sendl, 
 			       T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
-      MPI_Ialltoall(senddata, 1, datatype_traits<T>::get_datatype(),
-		    recvdata, 1, datatype_traits<T>::get_datatype(),
+      MPI_Ialltoall(senddata, 1, datatype_traits<layout<T>>::get_datatype(),
+		    recvdata, 1, datatype_traits<layout<T>>::get_datatype(),
 		    comm, &req);
       return detail::irequest(req);
     }
@@ -1204,7 +1204,7 @@ namespace mpl {
     template<typename T>
     void alltoall(T *recvdata, const layout<T> &recvl) const {
       MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
-		   recvdata, 1, datatype_traits<T>::get_datatype(),
+		   recvdata, 1, datatype_traits<layout<T>>::get_datatype(),
 		   comm);
     }
     // --- nonblocking all-to-all, in place ---
@@ -1220,7 +1220,7 @@ namespace mpl {
     detail::irequest ialltoall(T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
-		    recvdata, 1, datatype_traits<T>::get_datatype(),
+		    recvdata, 1, datatype_traits<layout<T>>::get_datatype(),
 		    comm, &req);
       return detail::irequest(req);
     }
@@ -1248,8 +1248,8 @@ namespace mpl {
       MPL_CHECK_SIZE(recvcounts);
       MPL_CHECK_SIZE(recvdispls);
 #endif
-      MPI_Altoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T> >::get_datatype(sendl),
-		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Altoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T>>::get_datatype(sendl),
+		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
 		   comm);
     }
     // --- non-blocking all-to-all ---
@@ -1278,8 +1278,8 @@ namespace mpl {
       MPL_CHECK_SIZE(recvdispls);
 #endif
       MPI_Request req;
-      MPI_Ialtoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T> >::get_datatype(sendl),
-		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+      MPI_Ialtoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T>>::get_datatype(sendl),
+		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
 		    comm, &req);
       return detail::irequest(req);
     }
@@ -1301,7 +1301,7 @@ namespace mpl {
       MPL_CHECK_SIZE(recvdispls);
 #endif
       MPI_Altoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
-		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
 		   comm);
     }
     // --- non-blocking all-to-all, in place ---
@@ -1325,7 +1325,7 @@ namespace mpl {
 #endif
       MPI_Request req;
       MPI_Ialtoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
-		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T> >::get_datatype(recvl),
+		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
 		    comm, &req);
       return detail::irequest(req);
     }

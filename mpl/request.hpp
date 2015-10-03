@@ -17,13 +17,7 @@ namespace mpl {
     class request_pool;
     
     class irequest {
-      MPI_Request req;
-      irequest() : req(MPI_REQUEST_NULL) {
-      }
-      irequest & operator=(const irequest &other) {
-	req=other.req;
-	return *this;
-      }
+      MPI_Request req=MPI_REQUEST_NULL;
     public:
       irequest(MPI_Request req) : req(req) {
       }
@@ -32,13 +26,7 @@ namespace mpl {
     };
     
     class prequest {
-      MPI_Request req;
-      prequest() : req(MPI_REQUEST_NULL) {
-      }
-      prequest & operator=(const prequest &other) {
-	req=other.req;
-	return *this;	
-      }
+      MPI_Request req=MPI_REQUEST_NULL;
     public:
       prequest(MPI_Request req) : req(req) {
       }

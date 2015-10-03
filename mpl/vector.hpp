@@ -15,6 +15,10 @@ namespace mpl {
     }
     counts(std::initializer_list<int> init) : base(init) {
     }
+    using base::begin;
+    using base::end;
+    using base::cbegin;
+    using base::cend;
     using base::operator[];
     using base::size;
     using base::push_back;
@@ -33,6 +37,10 @@ namespace mpl {
     }
     displacements(std::initializer_list<int> init) : base(init) {
     }
+    using base::begin;
+    using base::end;
+    using base::cbegin;
+    using base::cend;
     using base::operator[];
     using base::size;
     using base::push_back;

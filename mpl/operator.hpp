@@ -88,70 +88,70 @@ namespace mpl {
   };
 
   template<typename T>
-  struct op_traits<max<T> > {
+  struct op_traits<max<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<min<T> > {
+  struct op_traits<min<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<plus<T> > {
+  struct op_traits<plus<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<multiplies<T> > {
+  struct op_traits<multiplies<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<logical_and<T> > {
+  struct op_traits<logical_and<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<logical_or<T> > {
+  struct op_traits<logical_or<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<logical_xor<T> > {
+  struct op_traits<logical_xor<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<bit_and<T> > {
+  struct op_traits<bit_and<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<bit_or<T> > {
+  struct op_traits<bit_or<T>> {
     static constexpr bool is_commutative() {
       return true;
     }
   };
 
   template<typename T>
-  struct op_traits<bit_xor<T> > {
+  struct op_traits<bit_xor<T>> {
     static constexpr bool is_commutative() {
       return true;
     }

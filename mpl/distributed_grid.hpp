@@ -15,7 +15,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  template<std::size_t dim, typename T, typename A=std::allocator<T> >
+  template<std::size_t dim, typename T, typename A=std::allocator<T>>
   class distributed_grid {
   public:
     typedef std::vector<T, A> vector_type;
@@ -30,7 +30,7 @@ namespace mpl {
   private:
     std::vector<size_type> gsize_, gbegin_, gend_, size_, oend_, overlap_;
     vector_type v;
-    std::vector<subarray_layout<T> > left_mirror_layout_, right_mirror_layout_,
+    std::vector<subarray_layout<T>> left_mirror_layout_, right_mirror_layout_,
       left_border_layout_, right_border_layout_;
     subarray_layout<T> interior_layout_;
 
@@ -192,7 +192,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  template<std::size_t dim, typename T, typename A=std::allocator<T> >
+  template<std::size_t dim, typename T, typename A=std::allocator<T>>
   class local_grid {
   public:
     typedef std::vector<T, A> vector_type;
@@ -207,7 +207,7 @@ namespace mpl {
   private:
     std::vector<size_type> gsize_;
     vector_type v;
-    std::vector<subarray_layout<T> > sub_layout_;
+    std::vector<subarray_layout<T>> sub_layout_;
 
     size_type gbegin(size_type n, int comm_size, int comm_coord) const {
       return n*comm_coord/comm_size;
