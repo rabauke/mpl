@@ -404,7 +404,7 @@ namespace mpl {
     typedef std::vector<layout<T>> base;
   public:
     typedef typename base::size_type size_type;
-    explicit layouts(size_type n=0) : base(n, null_layout<T>()) {
+    explicit layouts(size_type n=0) : base(n, empty_layout<T>()) {
     }
     using base::begin;
     using base::end;

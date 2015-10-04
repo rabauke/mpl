@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <mpl/cart_comm.hpp>
+#include <mpl/layout.hpp>
 
 namespace mpl {
   
@@ -207,7 +208,7 @@ namespace mpl {
   private:
     std::vector<size_type> gsize_;
     vector_type v;
-    std::vector<subarray_layout<T>> sub_layout_;
+    layouts<T> sub_layout_;
 
     size_type gbegin(size_type n, int comm_size, int comm_coord) const {
       return n*comm_coord/comm_size;
@@ -286,8 +287,11 @@ namespace mpl {
     const_pointer data() const {
       return v.data();
     }
-    const subarray_layout<T> & sub_layout(size_type i) const {
+    const layout<T> & sub_layout(size_type i) const {
       return sub_layout_[i];
+    }
+    const layouts<T> & sub_layouts() const {
+      return sub_layout_;
     }
     void swap(local_grid<dim, T, A> &other) {
       gsize_.swap(other.gsize_);

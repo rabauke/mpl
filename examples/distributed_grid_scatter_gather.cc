@@ -6,42 +6,33 @@ template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cart_communicator &C, int root, 
 	     const mpl::local_grid<dim, T, A> &L, 
 	     mpl::distributed_grid<dim, T, A> &G) {
-  mpl::layouts<T> sendl, recvl;
-  mpl::displacements sendd, recvd;
-  for (int i=0; i<C.size(); ++i) {
+  mpl::displacements send_recv_d(C.size());
+  mpl::layouts<T> recvl;
+  for (int i=0; i<C.size(); ++i)
     if (i==root)
       recvl.push_back(G.interior_layout());
     else
       recvl.push_back(mpl::empty_layout<T>());
-    recvd.push_back(0);
-    if (C.rank()==root) {
-      sendl.push_back(L.sub_layout(i));
-      sendd.push_back(0);
-    } else {
-      sendl.push_back(mpl::empty_layout<T>());
-      sendd.push_back(0);
-    }
-  }
-  C.alltoallw(L.data(), sendl, sendd, 
-	      G.data(), recvl, recvd);
+  if (C.rank()==root)
+    C.alltoallw(L.data(), L.sub_layouts(), send_recv_d, 
+		G.data(), recvl, send_recv_d);
+  else 
+    C.alltoallw(L.data(), mpl::layouts<T>(C.size()), send_recv_d, 
+		G.data(), recvl, send_recv_d);
 }
 
 template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cart_communicator &C, int root, 
 	     mpl::distributed_grid<dim, T, A> &G) {
-  mpl::layouts<T> sendl, recvl;
-  mpl::displacements sendd, recvd;
-  for (int i=0; i<C.size(); ++i) {
-    if (i==root) 
+  mpl::displacements send_recv_d(C.size());
+  mpl::layouts<T> recvl;
+  for (int i=0; i<C.size(); ++i)
+    if (i==root)
       recvl.push_back(G.interior_layout());
     else
       recvl.push_back(mpl::empty_layout<T>());
-    recvd.push_back(0);
-    sendl.push_back(mpl::empty_layout<T>());
-    sendd.push_back(0);
-  }
-  C.alltoallw(static_cast<const T *>(nullptr), sendl, sendd, 
-	      G.data(), recvl, recvd);
+  C.alltoallw(static_cast<const T *>(nullptr), mpl::layouts<T>(C.size()), send_recv_d, 
+	      G.data(), recvl, send_recv_d);
 }
 
 
@@ -49,42 +40,33 @@ template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cart_communicator &C, int root, 
 	    const mpl::distributed_grid<dim, T, A> &G, 
 	    mpl::local_grid<dim, T, A> &L) {
+  mpl::displacements send_recv_d(C.size());
   mpl::layouts<T> sendl, recvl;
-  mpl::displacements sendd, recvd;
-  for (int i=0; i<C.size(); ++i) {
+  for (int i=0; i<C.size(); ++i)
     if (i==root)
       sendl.push_back(G.interior_layout());
     else
       sendl.push_back(mpl::empty_layout<T>());
-    sendd.push_back(0);
-    if (C.rank()==root) {
-      recvl.push_back(L.sub_layout(i));
-      recvd.push_back(0);
-    } else {
-      recvl.push_back(mpl::empty_layout<T>());
-      recvd.push_back(0);
-    }
-  }
-  C.alltoallw(G.data(), sendl, sendd, 
-	      L.data(), recvl, recvd);
+  if (C.rank()==root)
+    C.alltoallw(G.data(), sendl, send_recv_d, 
+		L.data(), L.sub_layouts(), send_recv_d);
+  else
+    C.alltoallw(G.data(), sendl, send_recv_d, 
+		L.data(), mpl::layouts<T>(C.size()), send_recv_d);
 }
 
 template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cart_communicator &C, int root, 
 	    const mpl::distributed_grid<dim, T, A> &G) {
+  mpl::displacements send_recv_d(C.size());
   mpl::layouts<T> sendl, recvl;
-  mpl::displacements sendd, recvd;
-  for (int i=0; i<C.size(); ++i) {
+  for (int i=0; i<C.size(); ++i)
     if (i==root)
       sendl.push_back(G.interior_layout());
     else
       sendl.push_back(mpl::empty_layout<T>());
-    sendd.push_back(0);
-    recvl.push_back(mpl::empty_layout<T>());
-    recvd.push_back(0);
-  }
-  C.alltoallw(G.data(), sendl, sendd, 
-	      static_cast<T *>(nullptr), recvl, recvd);
+  C.alltoallw(G.data(), sendl, send_recv_d, 
+	      static_cast<T *>(nullptr), mpl::layouts<T>(C.size()), send_recv_d);
 }
 
 
