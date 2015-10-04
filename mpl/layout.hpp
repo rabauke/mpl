@@ -104,17 +104,28 @@ namespace mpl {
       MPI_Type_contiguous(count, old_type, &new_type);
       return new_type;
     }
-    int count;
+    const int count;
+    const bool simple;
+    int size() const {
+      return count;
+    }
+    bool is_simple() const {
+      return simple;
+    }
   public:
     explicit contiguous_layout(int c=0) : 
-      layout<T>::layout(build(c)), count(c) {
+      layout<T>::layout(build(c)), count(c), simple(true) {
       MPI_Type_commit(&type);
     }
     explicit contiguous_layout(int c, const layout<T> &other) : 
-      layout<T>::layout(build(c, other.type)), count(c) {
+      layout<T>::layout(build(c, other.type)), count(c), simple(false) {
       MPI_Type_commit(&type);
     }
-    contiguous_layout(const contiguous_layout<T> &l) {
+    explicit contiguous_layout(int c, const contiguous_layout<T> &other) : 
+      layout<T>::layout(build(c, other.type)), count(other.simple ? other.c*c : c), simple(other.simple) {
+      MPI_Type_commit(&type);
+    }
+    contiguous_layout(const contiguous_layout<T> &l) : count(l.count), simple(l.simple) {
       MPI_Type_dup(l.type, &type);
     }
     contiguous_layout<T> & operator=(const contiguous_layout<T> &l) {
@@ -124,13 +135,11 @@ namespace mpl {
       }
       return *this;
     }
-    int size() const {
-      return count;
-    }
     void swap(contiguous_layout<T> &other) {
       std::swap(type, other.type);
       std::swap(count, other.count);
     }
+    friend class communicator;
   };
 
   //--------------------------------------------------------------------

@@ -37,6 +37,10 @@
   if (static_cast<int>(x.size())>size())  \
     throw invalid_size();
 
+#define MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l)  \
+  if (not l.is_simple())                   \
+    throw invalid_layout();
+   
 
 namespace mpl {
 
@@ -1406,6 +1410,7 @@ namespace mpl {
 		const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
 #endif
       detail::get_op<T, F>().f=&f;
       MPI_Reduce(senddata, recvdata, l.size(), 
@@ -1431,6 +1436,7 @@ namespace mpl {
 			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
 #endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1460,7 +1466,6 @@ namespace mpl {
     void reduce(F f, int root, 
 		const T &senddata) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
 #endif
       detail::get_op<T, F>().f=&f;
@@ -1472,7 +1477,7 @@ namespace mpl {
     void reduce(F f, int root,
 		T *sendrecvdata, const contiguous_layout<T> &l) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
 #endif
       detail::get_op<T, F>().f=&f;
       if (rank()==root)
@@ -1488,8 +1493,8 @@ namespace mpl {
     void reduce(F f, int root,
 		const T *sendrecvdata, const contiguous_layout<T> &l) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
 #endif
       detail::get_op<T, F>().f=&f;
       MPI_Reduce(sendrecvdata, nullptr, l.size(), 
@@ -1519,7 +1524,6 @@ namespace mpl {
     detail::irequest ireduce(F f, int root, 
 			     const T &sendrecvdata) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
 #endif
       detail::get_op<T, F>().f=&f;
@@ -1534,6 +1538,7 @@ namespace mpl {
 			     T *sendrecvdata, const contiguous_layout<T> &l) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
 #endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1551,8 +1556,8 @@ namespace mpl {
     detail::irequest ireduce(F f, int root,
 			     const T *sendrecvdata, const contiguous_layout<T> &l) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
       MPL_CHECK_NONROOT(root);
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
 #endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1574,6 +1579,9 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f,
 		   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Allreduce(senddata, recvdata, l.size(), 
 		    datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1593,6 +1601,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iallreduce(F f,
 				const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Iallreduce(senddata, recvdata, l.size(), 
@@ -1612,6 +1623,9 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f,
 		   T *sendrecvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
 		    datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1631,6 +1645,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iallreduce(F f,
 				T *sendrecvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, sendrecvdata, l.size(), 
@@ -1651,6 +1668,9 @@ namespace mpl {
     template<typename T, typename F>
     void reduce_scatter_block(F f,
 			      const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Reduce_scatter_block(senddata, recvdata, l.size(), 
 			       datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1670,6 +1690,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce_scatter_block(F f,
 					   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce_scatter_block(senddata, recvdata, l.size(), 
@@ -1731,6 +1754,9 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f,
 	      const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Scan(senddata, recvdata, l.size(), 
 	       datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1750,6 +1776,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iscan(F f,
 			   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Iscan(senddata, recvdata, l.size(), 
@@ -1769,6 +1798,9 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f,
 	      T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Scan(MPI_IN_PLACE, recvdata, l.size(), 
 	       datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1788,6 +1820,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iscan(F f,
 			   T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, recvdata, l.size(), 
@@ -1808,6 +1843,9 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f,
 		const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Exscan(senddata, recvdata, l.size(), 
 		 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1827,6 +1865,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iexscan(F f,
 			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Iexscan(senddata, recvdata, l.size(), 
@@ -1846,6 +1887,9 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f,
 		T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Exscan(MPI_IN_PLACE, recvdata, l.size(), 
 		 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1865,6 +1909,9 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest iexscan(F f,
 			     T *recvdata, const contiguous_layout<T> &l) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_CONTIGUOUS_IS_SIMPLE(l);
+#endif
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, recvdata, l.size(), 
