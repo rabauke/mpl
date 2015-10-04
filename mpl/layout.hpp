@@ -15,7 +15,8 @@ namespace mpl {
   protected:
     MPI_Datatype type;
     explicit layout(MPI_Datatype new_type) : type(new_type) {
-      MPI_Type_commit(&type);
+      if (type!=MPI_DATATYPE_NULL)
+	MPI_Type_commit(&type);
     }
   public:
     layout() : type(MPI_DATATYPE_NULL) {
