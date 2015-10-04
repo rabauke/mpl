@@ -12,7 +12,9 @@
 #include <type_traits>
 
 namespace mpl {
-  
+
+  //--- forward declarations -------------------------------------------
+
   template<typename T>
   struct datatype_traits;
 
@@ -42,19 +44,11 @@ namespace mpl {
       return sizeof(T); 
     }
     template <typename T>
-    inline std::size_t size(const T *) { 
-      return sizeof(T); 
-    }
-    template <typename T>
     inline MPI_Datatype get_datatype(T) {
       return datatype_traits<T>().get_datatype(); 
     }
     template <typename T>
     inline MPI_Datatype get_datatype(T *) {
-      return datatype_traits<T>().get_datatype(); 
-    }
-    template <typename T>
-    inline MPI_Datatype get_datatype(const T *) {
       return datatype_traits<T>().get_datatype(); 
     }
     MPI_Aint base;
@@ -67,7 +61,6 @@ namespace mpl {
       return *this;
     }
     template<typename T>
-    //struct_layout & register_element(const T &x) {
     struct_layout & register_element(T &x) {
       static_assert(not std::is_const<T>::value, "type must not be const");
       blocklengths.push_back(sizeof(x)/size(x));
@@ -78,7 +71,8 @@ namespace mpl {
       return *this;
     }
     template<typename T>
-    struct_layout & register_vector(const T *x, std::ptrdiff_t N) {
+    struct_layout & register_vector(T *x, std::ptrdiff_t N) {
+      static_assert(not std::is_const<T>::value, "type must not be const");
       blocklengths.push_back(N);
       MPI_Aint address;
       MPI_Get_address(x, &address);
@@ -107,6 +101,10 @@ namespace mpl {
       MPI_Type_commit(&type);
       MPI_Type_free(&temp_type);
     }
+    base_struct_builder() {
+    }
+    base_struct_builder(const base_struct_builder &)=delete;
+    base_struct_builder & operator=(const base_struct_builder &)=delete;
     ~base_struct_builder() {
       MPI_Type_free(&type);
     }
@@ -325,18 +323,6 @@ namespace mpl {
   MPL_DATATYPE_TRAITS(unsigned long, MPI_UNSIGNED_LONG);
   MPL_DATATYPE_TRAITS(signed long long, MPI_LONG_LONG);
   MPL_DATATYPE_TRAITS(unsigned long long, MPI_UNSIGNED_LONG_LONG);
-
-// #if __cplusplus >= 201103L
-// #include <cstdint>
-//   MPL_DATATYPE_TRAITS(int8_t, MPI_INT8_T);
-//   MPL_DATATYPE_TRAITS(uint8_t, MPI_UINT8_T);
-//   MPL_DATATYPE_TRAITS(int16_t, MPI_INT16_T);
-//   MPL_DATATYPE_TRAITS(uint16_t, MPI_UINT16_T);
-//   MPL_DATATYPE_TRAITS(int32_t, MPI_INT32_T);
-//   MPL_DATATYPE_TRAITS(uint32_t, MPI_UINT32_T);
-//   MPL_DATATYPE_TRAITS(int64_t, MPI_INT64_T);
-//   MPL_DATATYPE_TRAITS(uint64_t, MPI_UINT64_T);
-// #endif
 
   MPL_DATATYPE_TRAITS(bool, MPI_CXX_BOOL);
 
