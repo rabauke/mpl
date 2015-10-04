@@ -15,6 +15,7 @@ namespace mpl {
   protected:
     MPI_Datatype type;
     explicit layout(MPI_Datatype new_type) : type(new_type) {
+      MPI_Type_commit(&type);
     }
   public:
     layout() : type(MPI_DATATYPE_NULL) {
@@ -77,7 +78,6 @@ namespace mpl {
   public:
     empty_layout() : 
       layout<T>::layout(build()) {
-      MPI_Type_commit(&type);
     }
     empty_layout(const empty_layout &l) {
       MPI_Type_dup(l.type, &type);
@@ -115,15 +115,12 @@ namespace mpl {
   public:
     explicit contiguous_layout(int c=0) : 
       layout<T>::layout(build(c)), count(c), simple(true) {
-      MPI_Type_commit(&type);
     }
     explicit contiguous_layout(int c, const layout<T> &other) : 
       layout<T>::layout(build(c, other.type)), count(c), simple(false) {
-      MPI_Type_commit(&type);
     }
     explicit contiguous_layout(int c, const contiguous_layout<T> &other) : 
       layout<T>::layout(build(c, other.type)), count(other.simple ? other.c*c : c), simple(other.simple) {
-      MPI_Type_commit(&type);
     }
     contiguous_layout(const contiguous_layout<T> &l) : count(l.count), simple(l.simple) {
       MPI_Type_dup(l.type, &type);
@@ -161,15 +158,12 @@ namespace mpl {
     }
   public:
     vector_layout() : layout<T>::layout(build()) {
-      MPI_Type_commit(&type);
     }
     explicit vector_layout(int count, int blocklength, int stride) : 
       layout<T>::layout(build(count, blocklength, stride)) {
-      MPI_Type_commit(&type);
     }
     explicit vector_layout(int count, int blocklength, int stride, const layout<T> &other) : 
       layout<T>::layout(build(count, blocklength, stride, other.type)) {
-      MPI_Type_commit(&type);
     }
     vector_layout(const vector_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
@@ -223,15 +217,12 @@ namespace mpl {
     }
   public:
     indexed_layout() : layout<T>::layout(build()) {
-      MPI_Type_commit(&type);
     }
     explicit indexed_layout(const parameter &par) :
       layout<T>::layout(build(par)) {
-      MPI_Type_commit(&type);
     }
     explicit indexed_layout(const parameter &par, const layout<T> &other) :
       layout<T>::layout(build(par, other.type)) {
-      MPI_Type_commit(&type);
     }
     indexed_layout(const indexed_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
@@ -284,15 +275,12 @@ namespace mpl {
     }
   public:
     indexed_block_layout() : layout<T>::layout(build()) {
-      MPI_Type_commit(&type);
     }
     explicit indexed_block_layout(int blocklengths, const parameter &par) :
       layout<T>::layout(build(blocklengths, par)) {
-      MPI_Type_commit(&type);
     }
     explicit indexed_block_layout(int blocklengths, const parameter &par, const layout<T> &other) :
       layout<T>::layout(build(blocklengths, par, other.type)) {
-      MPI_Type_commit(&type);
     }
     indexed_block_layout(const indexed_block_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
@@ -363,15 +351,12 @@ namespace mpl {
     }
   public:
     subarray_layout() : layout<T>::layout(build()) {
-      MPI_Type_commit(&type);
     }
     explicit subarray_layout(const parameter &par) : 
       layout<T>::layout(build(par)) {
-      MPI_Type_commit(&type);
     }		   
     explicit subarray_layout(const parameter &par, const layout<T> &other) : 
       layout<T>::layout(build(par, other.type)) {
-      MPI_Type_commit(&type);
     }		   
     subarray_layout(const subarray_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
