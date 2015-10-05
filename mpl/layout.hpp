@@ -104,6 +104,7 @@ namespace mpl {
       return *this;
     }
     void swap(empty_layout<T> &other) {
+      std::swap(type, other.type);
     }
   };
 

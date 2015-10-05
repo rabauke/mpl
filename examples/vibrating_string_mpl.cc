@@ -62,19 +62,19 @@ int main() {
     r.waitall();
     std::swap(u_l, u_old_l);  std::swap(u_new_l, u_l);
   }
-  mpl::counts counts;
+  mpl::layouts<double> layouts;
   mpl::displacements displ;
   for (int i=0; i<C_size; ++i) {
-    counts.push_back(N_l[i]-2);
-    displ.push_back(N0_l[i]+1);
+    layouts.push_back(mpl::contiguous_layout<double>(N_l[i]-2));
+    displ.push_back((N0_l[i]+1)*sizeof(double));
   }
   if (C_rank==0) {
-    std::vector<double> u(N);
-    comm_world.gatherv(0, u_l.data(), counts[C_rank], 
-		       u.data(), counts, displ);
+    std::vector<double> u(N, 0);
+    comm_world.gatherv(0, u_l.data(), layouts[C_rank], 
+		       u.data(), layouts, displ);
     for (int i=0; i<N; ++i)
       std::cout << u[i] << '\n';
   } else
-    comm_world.gatherv(0, u_l.data(), counts[C_rank]);
+    comm_world.gatherv(0, u_l.data(), layouts[C_rank]);
   return EXIT_SUCCESS;
 }

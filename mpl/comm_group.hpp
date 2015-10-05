@@ -780,107 +780,73 @@ namespace mpl {
     // === root gets varying amount of data from each rank and stores in noncontiguous memory 
     // --- blocking gather ---
     template<typename T>
-    void gatherv(int root, 
-		 const T *senddata, int sendcount,
-		 T *recvdata, const counts &recvcounts, const displacements &displs) const {
+    void gatherv(int root,
+		 const T *senddata, const layout<T> &sendl,
+		 T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
+      MPL_CHECK_SIZE(recvls);
+      MPL_CHECK_SIZE(recvdispls);
 #endif
-      MPI_Gatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-		  recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
-		  root, comm);
-    }
-    template<typename T>
-    void gatherv(int root, 
-		 const T *senddata, const layout<T> &sendl, int sendcount, 
-		 T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
-#endif
-      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-		  recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
-		  root, comm);
+      int N(size());
+      displacements senddispls(N);
+      layouts<T> sendls(N);
+      sendls[root]=sendl;
+      if (rank()==root)
+	alltoallw(senddata, sendls, senddispls, 
+		  recvdata, recvls, recvdispls);
+      else
+	alltoallw(senddata, sendls, senddispls, 
+		  recvdata, mpl::layouts<T>(N), recvdispls);
     }
     // --- nonblocking gather ---
     template<typename T>
-    detail::irequest igatherv(int root, 
-			      const T *senddata, int sendcount,
-			      T *recvdata, const counts &recvcounts, const displacements &displs) const {
+    detail::irequest igatherv(int root,
+			      const T *senddata, const layout<T> &sendl,
+			      T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
+      MPL_CHECK_SIZE(recvls);
+      MPL_CHECK_SIZE(recvdispls);
 #endif
-      MPI_Request req;
-      MPI_Igatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-		   recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
-		   root, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest igatherv(int root, 
-			      const T *senddata, const layout<T> &sendl, int sendcount, 
-			      T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
-#endif
-      MPI_Request req;
-      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-		   recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
-		   root, comm, &req);
-      return detail::irequest(req);
+      int N(size());
+      displacements senddispls(N);
+      layouts<T> sendls(N);
+      sendls[root]=sendl;
+      if (rank()==root)
+	return ialltoallw(senddata, sendls, senddispls, 
+			  recvdata, recvls, recvdispls);
+      else
+	return ialltoallw(senddata, sendls, senddispls, 
+			  recvdata, mpl::layouts<T>(N), recvdispls);
     }
     // --- blocking gather, non-root variant ---
     template<typename T>
-    void gatherv(int root, 
-		 const T *senddata, int sendcount) const {
+    void gatherv(int root,
+		 const T *senddata, const layout<T> &sendl) const {
 #if defined MPL_DEBUG
       MPL_CHECK_NONROOT(root);
 #endif
-	MPI_Gatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-		    0, 0, 0, MPI_DATATYPE_NULL,
-		    root, comm);
-    }
-    template<typename T>
-    void gatherv(int root, 
-		 const T *senddata, const layout<T> &sendl, int sendcount) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
-      MPI_Gatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-		  0, 0, 0, MPI_DATATYPE_NULL,
-		  root, comm);
+      int N(size());
+      displacements sendrecvdispls(N);
+      layouts<T> sendls(N);
+      sendls[root]=sendl;
+      alltoallw(senddata, sendls, sendrecvdispls, 
+		static_cast<T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls);
     }
     // --- nonblocking gather, non-root variant ---
     template<typename T>
     detail::irequest igatherv(int root, 
-			      const T *senddata, int sendcount) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
-      MPI_Request req;
-      MPI_Igatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-		   0, 0, 0, MPI_DATATYPE_NULL,
-		   root, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest igatherv(int root, 
-			      const T *senddata, const layout<T> &sendl, int sendcount) const {
+			      const T *senddata, const layout<T> &sendl) const {
 #if defined MPL_DEBUG
       MPL_CHECK_NONROOT(root);
 #endif
-      MPI_Request req;
-      MPI_Igatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-		   0, 0, 0, MPI_DATATYPE_NULL,
-		   root, comm, &req);
-      return detail::irequest(req);
+      int N(size());
+      displacements sendrecvdispls(N);
+      layouts<T> sendls(N);
+      sendls[root]=sendl;
+      ialltoallw(senddata, sendls, sendrecvdispls, 
+		 static_cast<T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls);
     }
     // === allgather ===
     // === get a signle value from each rank and stores in contiguous memory 
