@@ -27,6 +27,10 @@ namespace mpl {
       else 
 	type=MPI_DATATYPE_NULL;
     }
+    layout(layout &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+    }
     layout & operator=(const layout &l) {
       if (this!=&l) {
 	if (type!=MPI_DATATYPE_NULL)
@@ -38,13 +42,22 @@ namespace mpl {
       }
       return *this;
     }
+    layout & operator=(layout &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+      return *this;
+    }
     void resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
       if (type!=MPI_DATATYPE_NULL) {
 	MPI_Datatype newtype;
 	MPI_Type_create_resized(type, lb, extent, &newtype);
+	MPI_Type_commit(&newtype);
 	MPI_Type_free(&type);
 	type=newtype;
       }
+    }
+    void swap(layout &l) {
+      std::swap(type, l.type);
     }
     ~layout() {
       if (type!=MPI_DATATYPE_NULL)
@@ -99,6 +112,7 @@ namespace mpl {
   template<typename T>
   class contiguous_layout : public layout<T> {
     using layout<T>::type;
+    using layout<T>::resize;
     static MPI_Datatype build(int count, 
 			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
@@ -126,6 +140,12 @@ namespace mpl {
     contiguous_layout(const contiguous_layout<T> &l) : count(l.count), simple(l.simple) {
       MPI_Type_dup(l.type, &type);
     }
+    contiguous_layout(contiguous_layout &&l) : count(l.count), simple(l.simple) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+      l.size=0;
+      l.simple=false;
+    }
     contiguous_layout<T> & operator=(const contiguous_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
@@ -133,10 +153,20 @@ namespace mpl {
       }
       return *this;
     }
+    contiguous_layout<T> & operator=(contiguous_layout<T> &&l) {
+      type=l.type;
+      size=l.size;
+      simple=l.simple;
+      l.type=MPI_DATATYPE_NULL;
+      l.size=0;
+      l.simple=false;
+      return *this;
+    }
     void swap(contiguous_layout<T> &other) {
       std::swap(type, other.type);
       std::swap(count, other.count);
-    }
+      std::swap(simple, other.simple);
+    }    
     friend class communicator;
   };
 
@@ -145,6 +175,7 @@ namespace mpl {
   template<typename T>
   class vector_layout : public layout<T> {
     using layout<T>::type;
+    using layout<T>::resize;
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
@@ -169,6 +200,10 @@ namespace mpl {
     vector_layout(const vector_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
+    vector_layout(vector_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+    }
     vector_layout<T> & operator=(const vector_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
@@ -176,6 +211,11 @@ namespace mpl {
       }
       return *this;
     }
+    vector_layout<T> & operator=(vector_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+      return *this;
+    }      
     void swap(vector_layout<T> &other) {
       std::swap(type, other.type);
     }
@@ -186,6 +226,7 @@ namespace mpl {
   template<typename T>
   class indexed_layout : public layout<T> {
     using layout<T>::type;
+    using layout<T>::resize;
   public:
     class parameter {
       std::vector<int> blocklengths, displacements;
@@ -228,6 +269,10 @@ namespace mpl {
     indexed_layout(const indexed_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
+    indexed_layout(indexed_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+    }
     indexed_layout<T> & operator=(const indexed_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
@@ -235,6 +280,11 @@ namespace mpl {
       }
       return *this;
     }
+    indexed_layout<T> & operator=(indexed_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+      return *this;
+    }      
     void swap(indexed_layout<T> &other) {
       std::swap(type, other.type);
     }
@@ -245,6 +295,7 @@ namespace mpl {
   template<typename T>
   class indexed_block_layout : public layout<T> {
     using layout<T>::type;
+    using layout<T>::resize;
   public:
     class parameter {
       std::vector<int> displacements;
@@ -286,6 +337,10 @@ namespace mpl {
     indexed_block_layout(const indexed_block_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
+    indexed_block_layout(indexed_block_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+    }
     indexed_block_layout<T> & operator=(const indexed_block_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
@@ -293,6 +348,11 @@ namespace mpl {
       }
       return *this;
     }
+    indexed_block_layout<T> & operator=(indexed_block_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+      return *this;
+    }      
     void swap(indexed_block_layout<T> &other) {
       std::swap(type, other.type);
     }
@@ -305,6 +365,7 @@ namespace mpl {
   template<typename T>
   class subarray_layout : public layout<T> {
     using layout<T>::type;
+    using layout<T>::resize;
   public:
     class parameter {
       std::vector<int> sizes, subsizes, starts;
@@ -362,6 +423,10 @@ namespace mpl {
     subarray_layout(const subarray_layout<T> &l) {
       MPI_Type_dup(l.type, &type);
     }
+    subarray_layout(subarray_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+    }
     subarray_layout<T> & operator=(const subarray_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
@@ -369,6 +434,11 @@ namespace mpl {
       }
       return *this;
     }
+    subarray_layout<T> & operator=(subarray_layout<T> &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+      return *this;
+    }      
     void swap(subarray_layout<T> &other) {
       std::swap(type, other.type);
     }
