@@ -47,68 +47,12 @@ namespace mpl {
 		      const std::vector<int> &remain_dims) {
       MPI_Cart_sub(old_comm.comm, remain_dims.data(), &comm);
     }
-    using communicator::rank;
-    using communicator::size;
-    // using communicator::send;
-    // using communicator::isend;
-    // using communicator::send_init;
-    // using communicator::bsend_size;
-    // using communicator::bsend;
-    // using communicator::ibsend;
-    // using communicator::bsend_init;
-    // using communicator::ssend;
-    // using communicator::issend;
-    // using communicator::ssend_init;
-    // using communicator::rsend;
-    // using communicator::irsend;
-    // using communicator::rsend_init;
-    // using communicator::recv;
-    // using communicator::irecv;
-    // using communicator::recv_init;
-    // using communicator::probe;
-    // using communicator::iprobe;
-    // using communicator::sendrecv;
-    // using communicator::sendrecv_replace;
-    // using communicator::barrier;
-    // using communicator::ibarrier;
-    // using communicator::bcast;
-    // using communicator::ibcast;
-    // using communicator::gather;
-    // using communicator::igather;
-    // using communicator::gatherv;
-    // using communicator::igatherv;
-    // using communicator::allgather;
-    // using communicator::iallgather;
-    // using communicator::allgatherv;
-    // using communicator::iallgatherv;
-    // using communicator::scatter;
-    // using communicator::iscatter;
-    // using communicator::scatterv;
-    // using communicator::iscatterv;
-    // using communicator::alltoall;
-    // using communicator::ialltoall;
-    // using communicator::alltoallv;
-    // using communicator::ialltoallv;
-    // using communicator::alltoallw;
-    // using communicator::ialltoallw;
-    // using communicator::reduce;
-    // using communicator::ireduce;
-    // using communicator::allreduce;
-    // using communicator::iallreduce;
-    // using communicator::reduce_scatter_block;
-    // using communicator::ireduce_scatter_block;
-    // using communicator::reduce_scatter;
-    // using communicator::ireduce_scatter;
-    // using communicator::scan;
-    // using communicator::iscan;
-    // using communicator::exscan;
-    // using communicator::iexscan;
-
     int dim() const {
       int ndims;
       MPI_Cartdim_get(comm, &ndims);
       return ndims;
     }
+    using communicator::rank;
     int rank(const std::vector<int> &coords) const {
       int rank_;
       MPI_Cart_rank(comm, coords.data(), &rank_);
@@ -148,8 +92,6 @@ namespace mpl {
     // --- blocking neighbour allgather ---
     template<typename T>
     void neighbour_allgather(const T &senddata, T *recvdata) const {
-#if defined MPL_DEBUG
-#endif
       MPI_Neighbor_allgather(*senddata, 1, datatype_traits<T>::get_datatype(),
 			     recvdata, 1, datatype_traits<T>::get_datatype(),
 			     comm);
@@ -164,8 +106,6 @@ namespace mpl {
     // --- nonblocking neighbour allgather ---
     template<typename T>
     detail::irequest ineighbour_allgather(const T &senddata, T *recvdata) const {
-#if defined MPL_DEBUG
-#endif
       MPI_Request req;
       MPI_Ineighbour_allgather(&senddata, 1, datatype_traits<T>::get_datatype(),
 			       recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -184,52 +124,28 @@ namespace mpl {
     // === get varying amount of data from each neighbour and stores in noncontiguous memory 
     // --- blocking neighbour allgather ---
     template<typename T>
-    void neighbour_allgatherv(const T *senddata, int sendcount,
-			      T *recvdata, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Neigbour_allgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-			      recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
-			      comm);
-    }
-    template<typename T>
-    void neighbur_allgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
-			     T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Neighbour_allgatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-			       recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
-			       comm);
+    void neighbour_allgatherv(const T *senddata, const layout<T> &sendl,
+			      T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
+      int N(recvdispls.size());
+      displacements senddispls(N);
+      layouts<T> sendls(N, sendl);
+      alltoallv(senddata, sendls, senddispls, 
+                recvdata, recvls, recvdispls);
     }
     // --- nonblocking neighbour allgather ---
     template<typename T>
-    detail::irequest ineighbour_allgatherv(const T *senddata, int sendcount,
-					   T *recvdata, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Request req;
-      MPI_Ineighbour_allgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-				recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
-				comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest ineughbour_allgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
-					   T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Request req;
-      MPI_Ineighbour_allgatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-				recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
-				comm, &req);
-      return detail::irequest(req);
+    detail::irequest ineighbour_allgatherv(const T *senddata, const layout<T> &sendl,
+					   T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
+      int N(recvdispls.size());
+      displacements senddispls(N);
+      layouts<T> sendls(N, sendl);
+      return ialltoallv(senddata, sendls, senddispls, 
+			recvdata, recvls, recvdispls);
     }
     // === neighbour all-to-all ===
     // === each rank sends a signle value to each neighbour
     // --- blocking neighbour all-to-all ---
     template<typename T>
-#if defined MPL_DEBUG
-#endif
     void neighbour_alltoall(const T *senddata, T *recvdata) const {
       MPI_Neighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
 			     recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -238,8 +154,6 @@ namespace mpl {
     template<typename T>
     void neighbour_alltoall(const T *senddata, const layout<T> &sendl, 
 			    T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-#endif
       MPI_Neighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
 			     recvdata, 1, datatype_traits<T>::get_datatype(),
 			     comm);
@@ -247,8 +161,6 @@ namespace mpl {
     // --- nonblocking neighbour all-to-all ---
     template<typename T>
     detail::irequest ineighbour_alltoall(const T *senddata, T *recvdata) const {
-#if defined MPL_DEBUG
-#endif
       MPI_Request req;
       MPI_Ineighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
 			      recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -258,75 +170,30 @@ namespace mpl {
     template<typename T>
     detail::irequest ineighbour_alltoall(const T *senddata, const layout<T> &sendl, 
 					 T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-#endif
       MPI_Request req;
       MPI_Ineighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
 			      recvdata, 1, datatype_traits<T>::get_datatype(),
 			      comm, &req);
       return detail::irequest(req);
     }
-    // === each rank sends a varying number of values to each neighbour
-    // --- blocking neighbour all-to-all ---
-    template<typename T>
-    void neighbour_alltoallv(const T *senddata, const counts &sendcounts, const displacements &senddispls,
-			     T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Neighbour_altoallv(senddata, sendcounts(), senddispls(), datatype_traits<T>::get_datatype(),
-			     recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
-			     comm);
-    }
-    template<typename T>
-    void neighbour_alltoallv(const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &senddispls,
-			     T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-      MPI_Neighbour_altoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T>>::get_datatype(sendl),
-			     recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
-			     comm);
-    }
-    // --- non-blocking neighbour all-to-all ---
-    template<typename T>
-    detail::irequest ineighbour_alltoallv(const T *senddata, const counts &sendcounts, const displacements &senddispls,
-					  T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Request req;
-      MPI_Ineighbour_altoallv(senddata, sendcounts(), senddispls(), datatype_traits<T>::get_datatype(),
-			      recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
-			      comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest ineighbour_alltoallv(const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &senddispls,
-					  T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Request req;
-      MPI_Ineighbour_altoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T>>::get_datatype(sendl),
-			      recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
-			      comm, &req);
-      return detail::irequest(req);
-    }
     // === each rank sends a varying number of values to each neighbor with possibly different layouts
     // --- blocking neighbour all-to-all ---
     template<typename T>
-    void neighbour_alltoallw(const T *senddata, const layouts<T> &sendl, const counts &sendcounts, const displacements &senddispls, 
-			     T *recvdata, const layouts<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-#endif
-      MPI_Neighbour_alltoallw(senddata, sendcounts(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
-			      recvdata, recvcounts(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+    void neighbour_alltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls, 
+			     T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
+      std::vector<int> counts(recvl.size(), 1);
+      MPI_Neighbour_alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
+			      recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
 			      comm);
     }
     // --- non-blocking neighbour all-to-all ---
     template<typename T>
-    detail::irequest ineighbour_alltoallw(const T *senddata, const layouts<T> &sendl, const counts &sendcounts, const displacements &senddispls, 
-					  T *recvdata, const layouts<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-#endif
+    detail::irequest ineighbour_alltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls, 
+					  T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
+      std::vector<int> counts(recvl.size(), 1);
       MPI_Request req;
-      MPI_Ineighbour_alltoallw(senddata, sendcounts(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
-			       recvdata, recvcounts(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+      MPI_Ineighbour_alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
+			       recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
 			       comm, &req);
       return detail::irequest(req);
     }

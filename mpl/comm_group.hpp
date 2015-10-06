@@ -886,11 +886,9 @@ namespace mpl {
     // === get varying amount of data from each rank and stores in noncontiguous memory 
     // --- blocking allgather ---
     template<typename T>
-    void allgatherv(int root,
-		    const T *senddata, const layout<T> &sendl,
+    void allgatherv(const T *senddata, const layout<T> &sendl,
 		    T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
       MPL_CHECK_SIZE(recvls);
       MPL_CHECK_SIZE(recvdispls);
 #endif
@@ -902,11 +900,9 @@ namespace mpl {
     }
     // --- nonblocking allgather ---
     template<typename T>
-    detail::irequest iallgatherv(int root,
-				 const T *senddata, const layout<T> &sendl,
+    detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl,
 				 T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
       MPL_CHECK_SIZE(recvls);
       MPL_CHECK_SIZE(recvdispls);
 #endif
@@ -1155,8 +1151,10 @@ namespace mpl {
       MPL_CHECK_SIZE(recvl);
 #endif
       std::vector<int> counts(recvl.size(), 1);
-      MPI_Alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
-	            recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+      std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
+      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
+      MPI_Alltoallw(senddata, counts.data(), senddispls_int.data(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
+	            recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
 	            comm);
     }
     // --- non-blocking all-to-all ---
@@ -1170,9 +1168,11 @@ namespace mpl {
       MPL_CHECK_SIZE(recvl);
 #endif
       std::vector<int> counts(recvl.size(), 1);
+      std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
+      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Request req;
-      MPI_Ialltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
-	 	     recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+      MPI_Ialltoallw(senddata, counts.data(), senddispls_int.data(), reinterpret_cast<const MPI_Datatype *>(sendl()), 
+	 	     recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
 		     comm, &req);
       return detail::irequest(req);
     }
@@ -1184,8 +1184,9 @@ namespace mpl {
       MPL_CHECK_SIZE(recvl);
 #endif
       std::vector<int> counts(recvl.size(), 1);
+      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0,
-		    recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+		    recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
 	            comm);
     }
     // --- non-blocking all-to-all, in place ---
@@ -1196,9 +1197,10 @@ namespace mpl {
       MPL_CHECK_SIZE(recvl);
 #endif
       std::vector<int> counts(recvl.size(), 1);
+      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Request req;
       MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0,
-		     recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
+		     recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()), 
 		     comm, &req);
       return detail::irequest(req);
     }
