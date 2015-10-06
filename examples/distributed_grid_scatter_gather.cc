@@ -6,33 +6,16 @@ template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cart_communicator &C, int root, 
 	     const mpl::local_grid<dim, T, A> &L, 
 	     mpl::distributed_grid<dim, T, A> &G) {
-  mpl::displacements send_recv_d(C.size());
-  mpl::layouts<T> recvl;
-  for (int i=0; i<C.size(); ++i)
-    if (i==root)
-      recvl.push_back(G.interior_layout());
-    else
-      recvl.push_back(mpl::empty_layout<T>());
-  if (C.rank()==root)
-    C.alltoallw(L.data(), L.sub_layouts(), send_recv_d, 
-		G.data(), recvl, send_recv_d);
-  else 
-    C.alltoallw(L.data(), mpl::layouts<T>(C.size()), send_recv_d, 
-		G.data(), recvl, send_recv_d);
+  C.scatterv(root, 
+	     L.data(), L.sub_layouts(), mpl::displacements(C.size()),
+	     G.data(), G.interior_layout());
 }
 
 template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cart_communicator &C, int root, 
 	     mpl::distributed_grid<dim, T, A> &G) {
-  mpl::displacements send_recv_d(C.size());
-  mpl::layouts<T> recvl;
-  for (int i=0; i<C.size(); ++i)
-    if (i==root)
-      recvl.push_back(G.interior_layout());
-    else
-      recvl.push_back(mpl::empty_layout<T>());
-  C.alltoallw(static_cast<const T *>(nullptr), mpl::layouts<T>(C.size()), send_recv_d, 
-	      G.data(), recvl, send_recv_d);
+  C.scatterv(root, 
+	     G.data(), G.interior_layout());
 }
 
 
@@ -48,15 +31,6 @@ void gather(const mpl::cart_communicator &C, int root,
 template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cart_communicator &C, int root, 
 	    const mpl::distributed_grid<dim, T, A> &G) {
-  // mpl::displacements send_recv_d(C.size());
-  // mpl::layouts<T> sendl, recvl;
-  // for (int i=0; i<C.size(); ++i)
-  //   if (i==root)
-  //     sendl.push_back(G.interior_layout());
-  //   else
-  //     sendl.push_back(mpl::empty_layout<T>());
-  // C.alltoallw(G.data(), sendl, send_recv_d, 
-  // 	      static_cast<T *>(nullptr), mpl::layouts<T>(C.size()), send_recv_d);
   C.gatherv(root, 
 	    G.data(), G.interior_layout());
 }

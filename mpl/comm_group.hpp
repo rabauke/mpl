@@ -69,8 +69,7 @@ namespace mpl {
     MPI_Group gr;
   public:
     enum class equality_type { ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL };
-    group() {
-      gr=MPI_GROUP_EMPTY;
+    group() : gr(MPI_GROUP_EMPTY) {
     }
     group(const communicator &comm);  // define later
     ~group() {
@@ -122,12 +121,18 @@ namespace mpl {
     communicator(const communicator &other) {
       MPI_Comm_dup(other.comm, &comm);
     }
+    communicator(communicator &&other) {
+      comm=other.comm;
+      other.comm=MPI_COMM_NULL;
+    }
     ~communicator() {
-      int result1, result2;
-      MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
-      MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
-      if (result1!=MPI_IDENT and result2!=MPI_IDENT)
-	MPI_Comm_free(&comm);
+      if (comm!=MPI_COMM_NULL) {
+	int result1, result2;
+	MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+	MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+	if (result1!=MPI_IDENT and result2!=MPI_IDENT)
+	  MPI_Comm_free(&comm);
+      }
     }
     void operator=(const communicator &)=delete;
     int size() const {
@@ -793,10 +798,10 @@ namespace mpl {
       layouts<T> sendls(N);
       sendls[root]=sendl;
       if (rank()==root)
-	alltoallw(senddata, sendls, senddispls, 
+	alltoallv(senddata, sendls, senddispls, 
 		  recvdata, recvls, recvdispls);
       else
-	alltoallw(senddata, sendls, senddispls, 
+	alltoallv(senddata, sendls, senddispls, 
 		  recvdata, mpl::layouts<T>(N), recvdispls);
     }
     // --- nonblocking gather ---
@@ -814,10 +819,10 @@ namespace mpl {
       layouts<T> sendls(N);
       sendls[root]=sendl;
       if (rank()==root)
-	return ialltoallw(senddata, sendls, senddispls, 
+	return ialltoallv(senddata, sendls, senddispls, 
 			  recvdata, recvls, recvdispls);
       else
-	return ialltoallw(senddata, sendls, senddispls, 
+	return ialltoallv(senddata, sendls, senddispls, 
 			  recvdata, mpl::layouts<T>(N), recvdispls);
     }
     // --- blocking gather, non-root variant ---
@@ -831,7 +836,7 @@ namespace mpl {
       displacements sendrecvdispls(N);
       layouts<T> sendls(N);
       sendls[root]=sendl;
-      alltoallw(senddata, sendls, sendrecvdispls, 
+      alltoallv(senddata, sendls, sendrecvdispls, 
 		static_cast<T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls);
     }
     // --- nonblocking gather, non-root variant ---
@@ -845,8 +850,8 @@ namespace mpl {
       displacements sendrecvdispls(N);
       layouts<T> sendls(N);
       sendls[root]=sendl;
-      ialltoallw(senddata, sendls, sendrecvdispls, 
-		 static_cast<T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls);
+      return ialltoallv(senddata, sendls, sendrecvdispls, 
+			static_cast<T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls);
     }
     // === allgather ===
     // === get a signle value from each rank and stores in contiguous memory 
@@ -885,53 +890,35 @@ namespace mpl {
     // === get varying amount of data from each rank and stores in noncontiguous memory 
     // --- blocking allgather ---
     template<typename T>
-    void allgatherv(const T *senddata, int sendcount,
-		    T *recvdata, const counts &recvcounts, const displacements &displs) const {
+    void allgatherv(int root,
+		    const T *senddata, const layout<T> &sendl,
+		    T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(recvls);
+      MPL_CHECK_SIZE(recvdispls);
 #endif
-      MPI_Allgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-		     recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
-		     comm);
-    }
-    template<typename T>
-    void allgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
-		    T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
-#endif
-      MPI_Allgatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-		     recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
-		     comm);
+      int N(size());
+      displacements senddispls(N);
+      layouts<T> sendls(N, sendl);
+      alltoallv(senddata, sendls, senddispls, 
+		recvdata, recvls, recvdispls);
     }
     // --- nonblocking allgather ---
     template<typename T>
-    detail::irequest iallgatherv(const T *senddata, int sendcount,
-				 T *recvdata, const counts &recvcounts, const displacements &displs) const {
+    detail::irequest iallgatherv(int root,
+				 const T *senddata, const layout<T> &sendl,
+				 T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
+      MPL_CHECK_ROOT(root);
+      MPL_CHECK_SIZE(recvls);
+      MPL_CHECK_SIZE(recvdispls);
 #endif
-      MPI_Request req;
-      MPI_Iallgatherv(senddata, sendcount, datatype_traits<T>::get_datatype(),
-		      recvdata, recvcounts(), displs(), datatype_traits<T>::get_datatype(), 
-		      comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl, int sendcount, 
-				 T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &displs) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvcounts);
-      MPL_CHECK_SIZE(displs);
-#endif
-      MPI_Request req;
-      MPI_Iallgatherv(senddata, sendcount, datatype_traits<layout<T>>::get_datatype(sendl),
-		      recvdata, recvcounts(), displs(), datatype_traits<layout<T>>::get_datatype(recvl),
-		      comm, &req);
-      return detail::irequest(req);
+      int N(size());
+      displacements senddispls(N);
+      layouts<T> sendls(N, sendl);
+      return ialltoallv(senddata, sendls, senddispls, 
+			recvdata, recvls, recvdispls);
     }
     // === scatter ===
     // === root sends a signle value from contiguous memory to each rank
@@ -1029,106 +1016,72 @@ namespace mpl {
     // --- blocking scatter ---
     template<typename T>
     void scatterv(int root, 
-		  const T *senddata, const counts &sendcounts, const displacements &displs,
-		  T *recvdata, int recvcount) const {
+		  const T *senddata, const layouts<T> &sendls, const displacements &senddispls,
+		  T *recvdata, const layout<T> &recvl) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(sendcounts);
-      MPL_CHECK_SIZE(displs);
+      MPL_CHECK_SIZE(sendls);
+      MPL_CHECK_SIZE(senddispls);
 #endif
-      MPI_Scatterv(senddata, sendcounts(), displs(), datatype_traits<T>::get_datatype(),
-		   recvdata, recvcount, datatype_traits<T>::get_datatype(), 
-		   root, comm);
-    }
-    template<typename T>
-    void scatterv(int root, 
-		  const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &displs,
-		  T *recvdata, const layout<T> &recvl, int recvcount) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(sendcounts);
-      MPL_CHECK_SIZE(displs);
-#endif
-      MPI_Scatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T>>::get_datatype(sendl),
-		   recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
-		   root, comm);
+      int N(size());
+      displacements recvdispls(N);
+      layouts<T> recvls(N);
+      recvls[root]=recvl;
+      if (rank()==root)
+	alltoallv(senddata, sendls, senddispls, 
+		  recvdata, recvls, recvdispls);
+      else
+	alltoallv(senddata, sendls, senddispls, 
+		  recvdata, mpl::layouts<T>(N), recvdispls);
     }
     // --- nonblocking scatter ---
     template<typename T>
     detail::irequest iscatterv(int root, 
-			       const T *senddata, const counts &sendcounts, const displacements &displs,
-			       T *recvdata, int recvcount) const {
+			       const T *senddata, const layouts<T> &sendls, const displacements &senddispls,
+			       T *recvdata, const layout<T> &recvl) const {
 #if defined MPL_DEBUG
       MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(sendcounts);
-      MPL_CHECK_SIZE(displs);
+      MPL_CHECK_SIZE(sendls);
+      MPL_CHECK_SIZE(senddispls);
 #endif
-      MPI_Request req;
-      MPI_Iscatterv(senddata, sendcounts(), displs(), datatype_traits<T>::get_datatype(),
-		    recvdata, recvcount, datatype_traits<T>::get_datatype(), 
-		    root, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest iscatterv(int root, 
-			       const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &displs,
-			       T *recvdata, const layout<T> &recvl, int recvcount) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(sendcounts);
-      MPL_CHECK_SIZE(displs);
-#endif
-      MPI_Request req;
-      MPI_IScatterv(senddata, sendcounts(), displs(), datatype_traits<layout<T>>::get_datatype(sendl),
-		    recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
-		    root, comm, &req);
-      return detail::irequest(req);
+      int N(size());
+      displacements recvdispls(N);
+      layouts<T> recvls(N);
+      recvls[root]=recvl;
+      if (rank()==root)
+	return ialltoallv(senddata, sendls, senddispls, 
+			  recvdata, recvls, recvdispls);
+      else
+	return ialltoallv(senddata, sendls, senddispls, 
+			  recvdata, mpl::layouts<T>(N), recvdispls);
     }
     // --- blocking scatter, non-root variant ---
     template<typename T>
     void scatterv(int root, 
-		  T *recvdata, int recvcount) const {
+		  T *recvdata, const layout<T> &recvl) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
+      MPL_CHECK_ROOT(root);
 #endif
-      MPI_Scatterv(0, 0, 0, MPI_DATATYPE_NULL,
-		   recvdata, recvcount, datatype_traits<T>::get_datatype(), 
-		   root, comm);
-    }
-    template<typename T>
-    void scatterv(int root, 
-		  T *recvdata, const layout<T> &recvl, int recvcount) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
-      MPI_Scatterv(0, 0, 0, MPI_DATATYPE_NULL,
-		   recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
-		   root, comm);
+      int N(size());
+      displacements sendrecvdispls(N);
+      layouts<T> recvls(N);
+      recvls[root]=recvl;
+      alltoallv(static_cast<const T *>(nullptr),  mpl::layouts<T>(N), sendrecvdispls, 
+		recvdata, recvls, sendrecvdispls);
     }
     // --- nonblocking scatter, non-root variant ---
     template<typename T>
     detail::irequest iscatterv(int root, 
-			       T *recvdata, int recvcount) const {
+			       T *recvdata, const layout<T> &recvl) const {
 #if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
+      MPL_CHECK_ROOT(root);
 #endif
-      MPI_Request req;
-      MPI_Iscatterv(0, 0, 0, MPI_DATATYPE_NULL,
-		    recvdata, recvcount, datatype_traits<T>::get_datatype(), 
-		    root, comm, &req);
-      return detail::irequest(req);
-    }
-    template<typename T>
-    detail::irequest iscatterv(int root, 
-			       T *recvdata, const layout<T> &recvl, int recvcount) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
-      MPI_Request req;
-      MPI_IScatterv(0, 0, 0, MPI_DATATYPE_NULL,
-		    recvdata, recvcount, datatype_traits<layout<T>>::get_datatype(recvl),
-		    root, comm, &req);
-      return detail::irequest(req);
+      int N(size());
+      displacements sendrecvdispls(N);
+      layouts<T> recvls(N);
+      recvls[root]=recvl;
+      return ialltoallv(static_cast<const T *>(nullptr),  mpl::layouts<T>(N), sendrecvdispls, 
+			recvdata, recvls, sendrecvdispls);
     }
     // === all-to-all ===
     // === each rank sends a signle value to each rank
@@ -1194,115 +1147,10 @@ namespace mpl {
 		    comm, &req);
       return detail::irequest(req);
     }
-//     // === each rank sends a varying number of values to each rank
-//     // --- blocking all-to-all ---
-//     template<typename T>
-//     void alltoallv(const T *senddata, const counts &sendcounts, const displacements &senddispls,
-// 		   T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(sendcounts);
-//       MPL_CHECK_SIZE(senddispls);
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Altoallv(senddata, sendcounts(), senddispls(), datatype_traits<T>::get_datatype(),
-// 		   recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
-// 		   comm);
-//     }
-//     template<typename T>
-//     void alltoallv(const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &senddispls,
-// 		   T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(sendcounts);
-//       MPL_CHECK_SIZE(senddispls);
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Altoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T>>::get_datatype(sendl),
-// 		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
-// 		   comm);
-//     }
-//     // --- non-blocking all-to-all ---
-//     template<typename T>
-//     detail::irequest ialltoallv(const T *senddata, const counts &sendcounts, const displacements &senddispls,
-// 				T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(sendcounts);
-//       MPL_CHECK_SIZE(senddispls);
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Request req;
-//       MPI_Ialtoallv(senddata, sendcounts(), senddispls(), datatype_traits<T>::get_datatype(),
-// 		    recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
-// 		    comm, &req);
-//       return detail::irequest(req);
-//     }
-//     template<typename T>
-//     detail::irequest ialltoallv(const T *senddata, const layout<T> &sendl, const counts &sendcounts, const displacements &senddispls,
-// 				T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(sendcounts);
-//       MPL_CHECK_SIZE(senddispls);
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Request req;
-//       MPI_Ialtoallv(senddata, sendcounts(), senddispls(), datatype_traits<layout<T>>::get_datatype(sendl),
-// 		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
-// 		    comm, &req);
-//       return detail::irequest(req);
-//     }
-//     // --- blocking all-to-all, in place ---
-//     template<typename T>
-//     void alltoallv(T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Altoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
-// 		   recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
-// 		   comm);
-//     }
-//     template<typename T>
-//     void alltoallv(T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Altoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
-// 		   recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
-// 		   comm);
-//     }
-//     // --- non-blocking all-to-all, in place ---
-//     template<typename T>
-//     detail::irequest ialltoallv(T *recvdata, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Request req;
-//       MPI_Ialtoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
-// 		    recvdata, recvcounts(), recvdispls(), datatype_traits<T>::get_datatype(), 
-// 		    comm, &req);
-//       return detail::irequest(req);
-//     }
-//     template<typename T>
-//     detail::irequest ialltoallv(T *recvdata, const layout<T> &recvl, const counts &recvcounts, const displacements &recvdispls) const {
-// #if defined MPL_DEBUG
-//       MPL_CHECK_SIZE(recvcounts);
-//       MPL_CHECK_SIZE(recvdispls);
-// #endif
-//       MPI_Request req;
-//       MPI_Ialtoallv(MPI_IN_PLACE, 0, 0, MPI_DATATYPE_NULL,
-// 		    recvdata, recvcounts(), recvdispls(), datatype_traits<layout<T>>::get_datatype(recvl),
-// 		    comm, &req);
-//       return detail::irequest(req);
-//     }
     // === each rank sends a varying number of values to each rank with possibly different layouts
     // --- blocking all-to-all ---
     template<typename T>
-    void alltoallw(const T *senddata, const layouts<T> &sendl, const displacements &senddispls, 
+    void alltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls, 
 		   T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
       MPL_CHECK_SIZE(senddispls);
@@ -1317,7 +1165,7 @@ namespace mpl {
     }
     // --- non-blocking all-to-all ---
     template<typename T>
-    detail::irequest ialltoallw(const T *senddata, const layouts<T> &sendl, const displacements &senddispls, 
+    detail::irequest ialltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls, 
 	                        T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
       MPL_CHECK_SIZE(senddispls);
@@ -1334,7 +1182,7 @@ namespace mpl {
     }
     // --- blocking all-to-all, in place ---
     template<typename T>
-    void alltoallw(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
+    void alltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
       MPL_CHECK_SIZE(recvdispls);
       MPL_CHECK_SIZE(recvl);
@@ -1346,7 +1194,7 @@ namespace mpl {
     }
     // --- non-blocking all-to-all, in place ---
     template<typename T>
-    detail::irequest ialltoallw(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
+    detail::irequest ialltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
 #if defined MPL_DEBUG
       MPL_CHECK_SIZE(recvdispls);
       MPL_CHECK_SIZE(recvl);

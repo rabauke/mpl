@@ -80,7 +80,7 @@ int main() {
     r.wait();
   }
   
-  // gather via alltoallw
+  // gather via alltoallv
   {
     matrix<int> M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));
     std::fill(M_l.begin(), M_l.end(), p_l);
@@ -98,7 +98,7 @@ int main() {
   	recvdispls.push_back(0);
       }
       matrix<int> M(nx, ny);
-      comm_world.alltoallw(M_l.data(), sendl, senddispls,
+      comm_world.alltoallv(M_l.data(), sendl, senddispls,
        			   M.data(), recvl, recvdispls);
       for (int iy=0; iy<ny; ++iy) {
   	for (int ix=0; ix<nx; ++ix) {
@@ -112,7 +112,7 @@ int main() {
 	recvl.push_back(mpl::empty_layout<int>());
   	recvdispls.push_back(0);
       }
-      comm_world.alltoallw(M_l.data(), sendl, senddispls,
+      comm_world.alltoallv(M_l.data(), sendl, senddispls,
 			   reinterpret_cast<int *>(0), recvl, recvdispls);
     }
   }

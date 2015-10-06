@@ -48,6 +48,7 @@ namespace mpl {
       MPI_Cart_sub(old_comm.comm, remain_dims.data(), &comm);
     }
     using communicator::rank;
+    using communicator::size;
     // using communicator::send;
     // using communicator::isend;
     // using communicator::send_init;
@@ -173,7 +174,7 @@ namespace mpl {
     }
     template<typename T>
     detail::irequest ineighbour_allgather(const T *senddata, const layout<T> &sendl, 
-				T *recvdata, const layout<T> &recvl) const {
+					  T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Ineighbour_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 			       recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
