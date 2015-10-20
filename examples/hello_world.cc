@@ -4,6 +4,7 @@
 
 int main() {
   const mpl::communicator & comm_world(mpl::environment::comm_world());
+  
   std::cout << "Hello world! I am running on \"" 
    	    << mpl::environment::processor_name() 
    	    << "\". My rank is "

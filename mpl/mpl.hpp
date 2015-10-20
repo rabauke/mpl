@@ -5,6 +5,7 @@
 #include <mpi.h>
 #include <mpl/error.hpp>
 #include <mpl/displacements.hpp>
+#include <mpl/ranks.hpp>
 #include <mpl/flat_memory.hpp>
 #include <mpl/datatype.hpp>
 #include <mpl/layout.hpp>

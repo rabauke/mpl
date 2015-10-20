@@ -1,26 +1,26 @@
-#if !(defined MPL_DISPLACEMENTS_HPP)
+#if !(defined MPL_RANKS_HPP)
 
-#define MPL_DISPLACEMENTS_HPP
+#define MPL_RANKS_HPP
 
 #include <cstddef>
 #include <vector>
 
 namespace mpl {
 
-  class displacements : private std::vector<MPI_Aint> {
-    typedef std::vector<MPI_Aint> base;
+  class ranks : private std::vector<int> {
+    typedef std::vector<int> base;
   public:
     typedef base::size_type size_type;
     typedef base::value_type value_type;
     typedef base::iterator iterator;
     typedef base::const_iterator const_iterator;
-    explicit displacements(size_type n=0) : base(n, 0) {
+    explicit ranks(size_type n=0) : base(n, 0) {
     }
-    displacements(std::initializer_list<MPI_Aint> init) : base(init) {
+    ranks(std::initializer_list<int> init) : base(init) {
     }
-    displacements(const displacements &other) : base(other) {
+    ranks(const ranks &other) : base(other) {
     }
-    displacements(displacements &&other) : base(other) {
+    ranks(ranks &&other) : base(other) {
     }
     using base::begin;
     using base::end;
@@ -29,7 +29,7 @@ namespace mpl {
     using base::operator[];
     using base::size;
     using base::push_back;
-    const MPI_Aint * operator()() const {
+    const int * operator()() const {
       return base::data();
     }
   };
