@@ -32,6 +32,9 @@ namespace mpl {
     const int * operator()() const {
       return base::data();
     }
+    int * operator()() {
+      return base::data();
+    }
   };
 
 }

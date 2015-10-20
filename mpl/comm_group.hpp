@@ -89,6 +89,17 @@ namespace mpl {
       MPI_Group_rank(gr, &result);
       return result;
     }
+    int translate(int rank, const group &other) const {
+      int other_rank;
+      MPI_Group_translate_ranks(gr, 1, &rank, other.gr, &other_rank);
+      return other_rank;
+    }
+    ranks translate(const ranks &rank, const group &other) const {
+      ranks other_rank;
+      MPI_Group_translate_ranks(gr, static_cast<int>(rank.size()), 
+				rank(), other.gr, other_rank());
+      return other_rank;
+    }
     bool operator==(const group &other) const {
       int result;
       MPI_Group_compare(gr, other.gr, &result);
