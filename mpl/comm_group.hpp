@@ -68,6 +68,10 @@ namespace mpl {
     group() : gr(MPI_GROUP_EMPTY) {
     }
     group(const communicator &comm);  // define later
+    group(group &&other) {
+      gr=other.gr;
+      other.gr=MPI_GROUP_EMPTY;
+    }
     ~group() {
       int result;
       MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
