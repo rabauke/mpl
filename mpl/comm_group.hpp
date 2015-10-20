@@ -65,6 +65,7 @@ namespace mpl {
     MPI_Group gr;
   public:
     enum class equality_type { ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL };
+    enum class set_operation { group_union, group_intersection, group_difference };
     group() : gr(MPI_GROUP_EMPTY) {
     }
     group(const communicator &comm);  // define later
@@ -72,6 +73,8 @@ namespace mpl {
       gr=other.gr;
       other.gr=MPI_GROUP_EMPTY;
     }
+    group(set_operation op, 
+	  const group &other_1, const group &other_2);  // define later
     ~group() {
       int result;
       MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
@@ -1703,6 +1706,21 @@ namespace mpl {
 
   inline group::group(const communicator &comm) {
     MPI_Comm_group(comm.comm, &gr);
+  }
+
+  inline group::group(set_operation op, 
+		      const group &other_1, const group &other_2) {
+    switch (op) {
+      case set_operation::group_union:
+	MPI_Group_union(other_1.gr, other_2.gr, &gr);
+	break;
+      case set_operation::group_intersection:
+	MPI_Group_intersection(other_1.gr, other_2.gr, &gr);
+	break;
+      case set_operation::group_difference:
+	MPI_Group_difference(other_1.gr, other_2.gr, &gr);
+	break;
+    }
   }
 
 }
