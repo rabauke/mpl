@@ -10,6 +10,9 @@ blocking_vector.cc
   Demonstrates blocking send and receive of a vector of standard data
   types. 
 
+probe.cc
+  Demonstrated how to probe data and to receive a message of unknown size. 
+ 
 nonblocking.cc
   Demonstrates nonblocking send and receive of standard data types and
   vectors of standard data types and different waiting methods.
@@ -33,31 +36,38 @@ struct.cc
   of fixed size (no dynamic memory allocation).  All types of the
   class members must be suited for communication.  These rules may be
   applied recursively.
+
+gather.cc
+  Gather data to a signle process.
  
 collective.cc
   Demonstrates various modes of collective communication.
 
-gather.cc
-  Gather data to a signle process.
-
 reduce_lcm.cc
   Demonstrates use of custom reduction functions.
 
-layouts.cc and subarray.cc
-  Construction of various data layouts.
+reduce_min_loc.cc
+  Demonstrates use of reduction functions for std::pair to determine 
+  a minimum as its location.
 
-matrix_gather.cc 
-  Gather submatrices, demonstrates use of subarray data layouts and
-  alltoallw.
+layouts.cc and subarray.cc
+  Construction and usage of various data layouts.
+
+communicator.cc
+  Demonstrates some basic communicator management.
 
 vibrating_string_mpi.c and vibrating_string_mpl.cc
   Solve one-dimensional wave equatiion via finite differences, MPI
   version vs. MPL version.
 
+matrix_gather:
+  Demonstrates gathering of a distributed matrix as it may used in domain 
+  partitioning applications.
+
 distributed_grid.cc
   Data type distributed_grid in action.
 
-heat_equation_successive_over-relaxation.cc
-  Solves the two-dimensional time-independent heat equation with fixed 
-  temperatures at the border via successive over-relaxation.  Implementtaion 
-  uses distributed_grid.
+heat_equation_successive_over-relaxation.cc heat_equation_Jacobi_method.cc 
+  Solves the two-dimensional time-independent heat equation with fixed
+  temperatures at the border via successive over-relaxation and Jacobi
+  iterations.  Implementation uses distributed_grid.

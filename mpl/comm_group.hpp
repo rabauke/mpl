@@ -140,6 +140,10 @@ namespace mpl {
     MPI_Comm comm;
   public:
     enum class equality_type { ident=MPI_IDENT, congruent=MPI_CONGRUENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL };
+    class comm_collective { };
+    class group_collective { };
+    class split { };
+    class split_shared { };
   protected:
     communicator(MPI_Comm comm=MPI_COMM_NULL) : comm(comm) {
     }
@@ -150,6 +154,18 @@ namespace mpl {
     communicator(communicator &&other) {
       comm=other.comm;
       other.comm=MPI_COMM_NULL;
+    }
+    communicator(comm_collective, const communicator &other, const group &gr) {
+      MPI_Comm_create(other.comm, gr.gr, &comm);
+    }
+    communicator(group_collective, const communicator &other, const group &gr, int tag=0) {
+      MPI_Comm_create_group(other.comm, gr.gr, tag, &comm);
+    }
+    communicator(split, const communicator &other, int color, int key=0) {
+      MPI_Comm_split(other.comm, color, key, &comm);
+    }
+    communicator(split_shared, const communicator &other, int key=0) {
+      MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED, key, MPI_INFO_NULL, &comm);
     }
     ~communicator() {
       if (comm!=MPI_COMM_NULL) {
@@ -185,6 +201,9 @@ namespace mpl {
       int result;
       MPI_Comm_compare(comm, other.comm, &result);
       return static_cast<equality_type>(result);
+    }
+    bool is_valid() const {
+      return comm!=MPI_COMM_NULL;
     }
     friend class group;
     friend class cart_communicator;
