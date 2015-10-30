@@ -94,6 +94,13 @@ namespace mpl {
       const status & get_status(size_type i) const {
 	return stats[i];
       }
+      void cancel(size_type i) {
+	MPI_Cancel(&reqs[i]);
+      }
+      void cancelall() {
+	for (size_type i=0; i<reqs.size(); ++i)
+	  cancel(i);
+      }
       void push(const T &other) {
 	reqs.push_back(other.req);
 	stats.push_back(status());
