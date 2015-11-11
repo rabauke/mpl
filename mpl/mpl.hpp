@@ -10,6 +10,7 @@
 #include <mpl/datatype.hpp>
 #include <mpl/layout.hpp>
 #include <mpl/status.hpp>
+#include <mpl/message.hpp>
 #include <mpl/operator.hpp>
 #include <mpl/request.hpp>
 #include <mpl/comm_group.hpp>

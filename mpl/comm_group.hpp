@@ -4,6 +4,7 @@
 
 #include <mpi.h>
 #include <type_traits>
+#include <tuple>
 
 #define MPL_CHECK_DEST(dest)              \
   if (dest!=environment::proc_null() and  \
@@ -75,7 +76,7 @@ namespace mpl {
     group(const communicator &comm);  // define later
     group(group &&other) {
       gr=other.gr;
-      other.gr=MPI_GROUP_EMPTY;
+      other.gr=MPI_GROUP_NULL;
     }
     group(Union, 
 	  const group &other_1, const group &other_2);  // define later
@@ -88,10 +89,12 @@ namespace mpl {
     group(excl, 
 	  const group &other, const ranks &rank);  // define later
     ~group() {
-      int result;
-      MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
-      if (result!=MPI_IDENT)
-	MPI_Group_free(&gr);
+      if (gr!=MPI_GROUP_NULL) {
+	int result;
+	MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+	if (result!=MPI_IDENT)
+	  MPI_Group_free(&gr);
+      }
     }
     void operator=(const group &)=delete;
     int size() const {
@@ -619,6 +622,35 @@ namespace mpl {
       MPI_Iprobe(source, tag, comm, &result, reinterpret_cast<MPI_Status *>(&s));
       return std::make_pair(static_cast<bool>(result), s);
     }
+    // === matching probe ===
+    // --- blocking matching probe ---
+    std::pair<message, status> mprobe(int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      status s;
+      message m;
+      MPI_Mprobe(source, tag, comm, &m, reinterpret_cast<MPI_Status *>(&s));
+      return std::make_pair(m, s);
+    }
+    // --- nonblocking matching probe ---
+    std::tuple<bool, message, status> improbe(int source, int tag=0) const {
+#if defined MPL_DEBUG
+      MPL_CHECK_SOURCE(source);
+      MPL_CHECK_RTAG(tag);
+#endif
+      int result;
+      status s;
+      message m;
+      MPI_Improbe(source, tag, comm, &result, &m, reinterpret_cast<MPI_Status *>(&s));
+      return std::make_tuple(static_cast<bool>(result), m, s);
+    }
+    // === matching receive ===
+    // --- blocking matching receive ---
+
+    // --- nonblocking matching receive ---
+
     // === send and receive ===
     // --- send and receive ---
     template<typename T>
