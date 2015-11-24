@@ -1,7 +1,7 @@
 MPL_HEADERS = $(shell ls ../mpl/*hpp)
 BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types arrays struct gather collective reduce_lcm reduce_min_loc layouts subarray communicator vibrating_string_mpi vibrating_string_mpl matrix_gather distributed_grid distributed_grid_scatter_gather heat_equation_successive_over-relaxation heat_equation_Jacobi_method
 CC = mpicc
-CXX = mpic++
+CXX = mpicxx
 #CXXFLAGS = -std=c++98 -pedantic -Wall -Wno-long-long
 CCFLAGS = -std=c99 -Wall -O3
 CXXFLAGS = -std=c++11 -Wall -O3 -DMPL_DEBUG
