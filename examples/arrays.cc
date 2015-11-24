@@ -2,6 +2,7 @@
 #include <array>
 #include <vector>
 #include <iostream>
+#include <numeric>
 #include <algorithm>
 #include <mpl/mpl.hpp>
 

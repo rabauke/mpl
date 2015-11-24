@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <numeric>
 #include <algorithm>
 #include <mpl/mpl.hpp>
 
