@@ -63,7 +63,7 @@ namespace mpl {
       if (type!=MPI_DATATYPE_NULL)
 	MPI_Type_free(&type);
     }
-    friend struct datatype_traits<layout<T>>;
+    friend class datatype_traits<layout<T>>;
   };
 
   //--------------------------------------------------------------------
@@ -120,7 +120,7 @@ namespace mpl {
       MPI_Type_contiguous(count, old_type, &new_type);
       return new_type;
     }
-    const int count;
+    int count;
     int size() const {
       return count;
     }
@@ -148,7 +148,7 @@ namespace mpl {
     }
     contiguous_layout<T> & operator=(contiguous_layout<T> &&l) {
       type=l.type;
-      size=l.size;
+      count=l.count;
       l.type=MPI_DATATYPE_NULL;
       l.size=0;
       return *this;

@@ -16,12 +16,12 @@ namespace mpl {
   //--- forward declarations -------------------------------------------
 
   template<typename T>
-  struct datatype_traits;
+  class datatype_traits;
 
   namespace detail {
     
     template<typename T, typename E>
-    struct datatype_traits_impl;
+    class datatype_traits_impl;
 
   }
 
