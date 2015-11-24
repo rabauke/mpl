@@ -3,18 +3,6 @@
 #include <iostream>
 #include <mpl/mpl.hpp>
 
-template<typename T>
-void send(const mpl::communicator &comm, const T &x) {
-  comm.send(x, 1);
-}
-
-template<typename T>
-void recv(const mpl::communicator &comm) {
-  T x;
-  comm.recv(x, 0);
-  std::cout << "x = " << std::boolalpha << x << '\n';
-}
-
 template<typename T1, typename T2>
 std::ostream & operator<<(std::ostream &out, const std::pair<T1, T2> &p) {
   out << p.first << ' ' << p.second;
@@ -67,6 +55,18 @@ std::ostream & operator<<(std::ostream &out, const std::tuple<Ts...> &t) {
   print_element f(out);
   apply<print_element>(t, f);
   return out;
+}
+
+template<typename T>
+void send(const mpl::communicator &comm, const T &x) {
+  comm.send(x, 1);
+}
+
+template<typename T>
+void recv(const mpl::communicator &comm) {
+  T x;
+  comm.recv(x, 0);
+  std::cout << "x = " << std::boolalpha << x << '\n';
 }
 
 int main() {
