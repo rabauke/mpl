@@ -303,12 +303,13 @@ namespace mpl {
     }
   };
   
-#define MPL_DATATYPE_TRAITS(type, mpi_type)          \
-  template<>				             \
-  struct datatype_traits<type> {         	     \
-    static MPI_Datatype get_datatype() {   \
-      return mpi_type;				     \
-    }						     \
+#define MPL_DATATYPE_TRAITS(type, mpi_type)  \
+  template<>				     \
+  class datatype_traits<type> {              \
+  public:                                    \
+    static MPI_Datatype get_datatype() {     \
+      return mpi_type;			     \
+    }					     \
   }
 
   MPL_DATATYPE_TRAITS(char, MPI_CHAR);
