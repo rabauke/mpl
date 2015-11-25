@@ -16,12 +16,12 @@ namespace mpl {
   //--- forward declarations -------------------------------------------
 
   template<typename T>
-  struct datatype_traits;
+  class datatype_traits;
 
   namespace detail {
     
     template<typename T, typename E>
-    struct datatype_traits_impl;
+    class datatype_traits_impl;
 
   }
 
@@ -303,12 +303,13 @@ namespace mpl {
     }
   };
   
-#define MPL_DATATYPE_TRAITS(type, mpi_type)          \
-  template<>				             \
-  struct datatype_traits<type> {         	     \
-    static constexpr MPI_Datatype get_datatype() {   \
-      return mpi_type;				     \
-    }						     \
+#define MPL_DATATYPE_TRAITS(type, mpi_type)  \
+  template<>				     \
+  class datatype_traits<type> {              \
+  public:                                    \
+    static MPI_Datatype get_datatype() {     \
+      return mpi_type;			     \
+    }					     \
   }
 
   MPL_DATATYPE_TRAITS(char, MPI_CHAR);

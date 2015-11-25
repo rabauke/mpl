@@ -1,6 +1,6 @@
 #if !(defined MPL_UTILITY_HPP)
 
-#define MPLUTILITY_HPP
+#define MPL_UTILITY_HPP
 
 #include <iterator>
 
