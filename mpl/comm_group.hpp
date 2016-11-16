@@ -768,7 +768,7 @@ namespace mpl {
       return detail::irequest(req);
     }
     // === gather ===
-    // === root gets a signle value from each rank and stores in contiguous memory 
+    // === root gets a single value from each rank and stores in contiguous memory 
     // --- blocking gather ---
     template<typename T>
     void gather(int root, const T &senddata, T *recvdata) const {
@@ -931,7 +931,7 @@ namespace mpl {
 			static_cast<T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls);
     }
     // === allgather ===
-    // === get a signle value from each rank and stores in contiguous memory 
+    // === get a single value from each rank and stores in contiguous memory 
     // --- blocking allgather ---
     template<typename T>
     void allgather(const T &senddata, T *recvdata) const {
@@ -994,7 +994,7 @@ namespace mpl {
 			recvdata, recvls, recvdispls);
     }
     // === scatter ===
-    // === root sends a signle value from contiguous memory to each rank
+    // === root sends a single value from contiguous memory to each rank
     // --- blocking scatter ---
     template<typename T>
     void scatter(int root, const T *senddata, T &recvdata) const {
@@ -1157,7 +1157,7 @@ namespace mpl {
 			recvdata, recvls, sendrecvdispls);
     }
     // === all-to-all ===
-    // === each rank sends a signle value to each rank
+    // === each rank sends a single value to each rank
     // --- blocking all-to-all ---
     template<typename T>
     void alltoall(const T *senddata, T *recvdata) const {
