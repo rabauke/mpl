@@ -75,7 +75,7 @@ heat_equation_successive_over-relaxation: heat_equation_successive_over-relaxati
 	$(CXX) $(CXXFLAGS) -o heat_equation_successive_over-relaxation -I .. heat_equation_successive_over-relaxation.cc
 
 heat_equation_Jacobi_method: heat_equation_Jacobi_method.cc $(MPL_HEADERS)
-	$(CXX) $(CXXFLAGS) -o heat_equation_Jacobi_method -I .. heat_equation_Jacobi_method.cc
+	$(CXX) $(CXXFLAGS) -o heat_equation_Jacobi_method -I .. heat_equation_Jacobi_method.cc -pthread
 
 clean:
 	rm -f $(BINS) *.o
