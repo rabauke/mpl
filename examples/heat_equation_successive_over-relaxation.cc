@@ -30,17 +30,16 @@ template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cart_communicator &C, int root, 
 	     const mpl::local_grid<dim, T, A> &L, 
 	     mpl::distributed_grid<dim, T, A> &G) {
-  mpl::irequest r(C.irecv(G.data(), G.interior_layout(), root));
-  if (C.rank()==root)
-    for (int i=0; i<C.size(); ++i)
-      C.send(L.data(), L.sub_layout(i), i);
-  r.wait();
+  C.scatterv(root, 
+	     L.data(), L.sub_layouts(), mpl::displacements(C.size()),
+	     G.data(), G.interior_layout());
 }
 
 template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cart_communicator &C, int root, 
 	     mpl::distributed_grid<dim, T, A> &G) {
-  C.recv(G.data(), G.interior_layout(), root);
+  C.scatterv(root, 
+	     G.data(), G.interior_layout());
 }
 
 
@@ -48,17 +47,16 @@ template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cart_communicator &C, int root, 
 	    const mpl::distributed_grid<dim, T, A> &G, 
 	    mpl::local_grid<dim, T, A> &L) {
-  mpl::irequest r(C.isend(G.data(), G.interior_layout(), root));
-  if (C.rank()==root)
-    for (int i=0; i<C.size(); ++i)
-      C.recv(L.data(), L.sub_layout(i), i);
-  r.wait();
+  C.gatherv(root, 
+	    G.data(), G.interior_layout(), 
+	    L.data(), L.sub_layouts(), mpl::displacements(C.size()));
 }
 
 template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cart_communicator &C, int root, 
 	    const mpl::distributed_grid<dim, T, A> &G) {
-  C.send(G.data(), G.interior_layout(), root);
+  C.gatherv(root, 
+	    G.data(), G.interior_layout());
 }
 
 
@@ -90,23 +88,23 @@ int main() {
     scatter(comm_c, 0, u_d);
   // initiallize boundary data, loop with obegin and oend over all 
   // data including the overlap 
-  for (auto j : { u_d.obegin(1), u_d.oend(1)-1 } )
-    for (auto i=u_d.obegin(0), i_end=u_d.oend(0); i<i_end; ++i) {
-      if (u_d.gindex(0, i)<0 or u_d.gindex(1, j)<0)
-	u_d(i, j)=1;
-      if (u_d.gindex(0, i)>=Nx or u_d.gindex(1, j)>=Ny)
-  	u_d(i, j)=0;
+  for (auto j : { u_d1.obegin(1), u_d1.oend(1)-1 } )
+    for (auto i=u_d1.obegin(0), i_end=u_d1.oend(0); i<i_end; ++i) {
+      if (u_d1.gindex(0, i)<0 or u_d1.gindex(1, j)<0)
+	u_d1(i, j)=u_d2(i, j)=1;  // left boundary condition
+      if (u_d1.gindex(0, i)>=Nx or u_d1.gindex(1, j)>=Ny)
+  	u_d1(i, j)=u_d2(i, j)=0;  // right boundary condition
     }
-  for (auto i : { u_d.obegin(0), u_d.oend(0)-1 } )
-    for (auto j=u_d.obegin(1), j_end=u_d.oend(1); j<j_end; ++j) {
-      if (u_d.gindex(0, i)<0 or u_d.gindex(1, j)<0)
-	u_d(i, j)=1;
-      if (u_d.gindex(0, i)>=Nx or u_d.gindex(1, j)>=Ny)
-  	u_d(i, j)=0;
-    }
+  for (auto i : { u_d1.obegin(0), u_d1.oend(0)-1 } )
+    for (auto j=u_d1.obegin(1), j_end=u_d1.oend(1); j<j_end; ++j) {
+      if (u_d1.gindex(0, i)<0 or u_d1.gindex(1, j)<0)
+	u_d1(i, j)=u_d2(i, j)=1;  // lower boundary condition
+      if (u_d1.gindex(0, i)>=Nx or u_d1.gindex(1, j)>=Ny)
+  	u_d1(i, j)=u_d2(i, j)=0;  // upper boundary condition
+    }  
   double w=1.875, // the over-relaxation parameter 
     dx2=dx*dx, dy2=dy*dy;
-   // loop until converged
+  // loop until converged
   bool converged=false;
   while (not converged) {
     // exchange overlap data
