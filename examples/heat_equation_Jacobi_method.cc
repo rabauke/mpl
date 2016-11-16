@@ -2,15 +2,14 @@
 #include <iostream>
 #include <cmath>
 #include <tuple>
-#include <future>
 #include <mpl/mpl.hpp>
 
 typedef std::tuple<double, double> double_2;
 
 
 template<std::size_t dim, typename T, typename A>
-void update_overlap(const mpl::cart_communicator &C, 
-		    mpl::distributed_grid<dim, T, A> &G, int tag=0) {
+mpl::irequest_pool update_overlap(const mpl::cart_communicator &C, 
+				  mpl::distributed_grid<dim, T, A> &G, int tag=0) {
   mpl::shift_ranks ranks;
   mpl::irequest_pool r;
   for (std::size_t i=0; i<dim; ++i) {
@@ -23,7 +22,7 @@ void update_overlap(const mpl::cart_communicator &C,
     r.push(C.isend(G.data(), G.right_border_layout(i), ranks.dest, tag));
     r.push(C.irecv(G.data(), G.left_mirror_layout(i), ranks.source, tag));
   }
-  r.waitall();
+  return r;
 }
 
 
@@ -111,8 +110,7 @@ int main() {
   while (not converged) {
     iterations++;
     // exchange asynchronously overlapping boundary data
-    std::future<void> update_overlap_f(std::async(std::launch::async, 
-						  [&](){ update_overlap(comm_c, u_d1); } ));
+    mpl::irequest_pool r(update_overlap(comm_c, u_d1));
     // apply one Jacobi iteration step for interior region
     double Delta_u=0, sum_u=0;
     for (auto j=u_d1.begin(1)+1, j_end=u_d1.end(1)-1; j<j_end; ++j)
@@ -121,7 +119,7 @@ int main() {
 	Delta_u+=std::abs(u_d2(i, j)-u_d1(i, j));
 	sum_u+=std::abs(u_d2(i, j));
       }
-    update_overlap_f.get();
+    r.waitall();
     // apply one Jacobi iteration step for edge region, which requires overlapping boundary data
     for (auto j : { u_d1.begin(1), u_d1.end(1)-1 })
       for (auto i=u_d1.begin(0), i_end=u_d1.end(0); i<i_end; ++i) {

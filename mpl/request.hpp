@@ -40,12 +40,15 @@ namespace mpl {
     class request {
     protected:
       MPI_Request req;
-      request();
-      request & operator=(const request &);
-      request(const request &);
     public:
+      request()=delete;
+      request(const request &)=delete;
       request(const T &other) : req(other.req) {
       }
+      request(T &&other) : req(other.req) {
+	other.req=MPI_REQUEST_NULL;
+      }
+      request & operator=(const request &)=delete;
       void cancel() {
 	MPI_Cancel(&req);
       }
@@ -79,12 +82,15 @@ namespace mpl {
     protected:
       std::vector<MPI_Request> reqs;
       std::vector<status> stats;
-      request_pool & operator=(const request_pool &);
-      request_pool(const request_pool &);
     public:
       typedef std::vector<MPI_Request>::size_type size_type;
-      request_pool() { 
+      request_pool() {
       }
+      request_pool(const request_pool &)=delete;
+      request_pool(request_pool &&other) : reqs(std::move(other.reqs)),
+					   stats(std::move(other.stats)) {
+      }
+      request_pool & operator=(const request_pool &)=delete;
       size_type size() const {
 	return reqs.size();
       }
@@ -166,21 +172,27 @@ namespace mpl {
   
   class irequest : public detail::request<detail::irequest> {
     typedef detail::request<detail::irequest> base;
+    using base::req;
   public:
     irequest(const detail::irequest &r) : base(r) {
     }
-    irequest & operator=(const irequest &)=delete;
     irequest(const irequest &)=delete;
+    irequest(irequest &&r) : base(std::move(r.req)) {
+    }
+    irequest & operator=(const irequest &)=delete;
   };
 
   //--------------------------------------------------------------------
   
   class irequest_pool : public detail::request_pool<detail::irequest> {
+    typedef detail::request_pool<detail::irequest> base;
   public:
     irequest_pool() {
     }
-    irequest_pool & operator=(const irequest_pool &)=delete;
     irequest_pool(const irequest_pool &)=delete;
+    irequest_pool(irequest_pool &&r) : base(std::move(r)) {
+    }
+    irequest_pool & operator=(const irequest_pool &)=delete;
   };
 
   //--------------------------------------------------------------------
@@ -191,8 +203,10 @@ namespace mpl {
   public:
     prequest(const detail::prequest &r) : base(r) {
     }
-    prequest & operator=(const prequest &)=delete;
     prequest(const prequest &)=delete;
+    prequest(prequest &&r) : base(std::move(r.req)) {
+    }
+    prequest & operator=(const prequest &)=delete;
     void start() {
       MPI_Start(&req);
     }
@@ -208,6 +222,8 @@ namespace mpl {
     }
     prequest_pool & operator=(const prequest_pool &)=delete;
     prequest_pool(const prequest_pool &)=delete;
+    prequest_pool(prequest_pool &&r) : base(std::move(r)) {
+    }
     void startall() {
       MPI_Startall(size(), &reqs[0]);
     }
