@@ -88,19 +88,19 @@ int main() {
     scatter(comm_c, 0, u_d);
   // initiallize boundary data, loop with obegin and oend over all 
   // data including the overlap 
-  for (auto j : { u_d1.obegin(1), u_d1.oend(1)-1 } )
-    for (auto i=u_d1.obegin(0), i_end=u_d1.oend(0); i<i_end; ++i) {
-      if (u_d1.gindex(0, i)<0 or u_d1.gindex(1, j)<0)
-	u_d1(i, j)=u_d2(i, j)=1;  // left boundary condition
-      if (u_d1.gindex(0, i)>=Nx or u_d1.gindex(1, j)>=Ny)
-  	u_d1(i, j)=u_d2(i, j)=0;  // right boundary condition
+  for (auto j : { u_d.obegin(1), u_d.oend(1)-1 } )
+    for (auto i=u_d.obegin(0), i_end=u_d.oend(0); i<i_end; ++i) {
+      if (u_d.gindex(0, i)<0 or u_d.gindex(1, j)<0)
+	u_d(i, j)=1;  // left boundary condition
+      if (u_d.gindex(0, i)>=Nx or u_d.gindex(1, j)>=Ny)
+  	u_d(i, j)=0;  // right boundary condition
     }
-  for (auto i : { u_d1.obegin(0), u_d1.oend(0)-1 } )
-    for (auto j=u_d1.obegin(1), j_end=u_d1.oend(1); j<j_end; ++j) {
-      if (u_d1.gindex(0, i)<0 or u_d1.gindex(1, j)<0)
-	u_d1(i, j)=u_d2(i, j)=1;  // lower boundary condition
-      if (u_d1.gindex(0, i)>=Nx or u_d1.gindex(1, j)>=Ny)
-  	u_d1(i, j)=u_d2(i, j)=0;  // upper boundary condition
+  for (auto i : { u_d.obegin(0), u_d.oend(0)-1 } )
+    for (auto j=u_d.obegin(1), j_end=u_d.oend(1); j<j_end; ++j) {
+      if (u_d.gindex(0, i)<0 or u_d.gindex(1, j)<0)
+	u_d(i, j)=1;  // lower boundary condition
+      if (u_d.gindex(0, i)>=Nx or u_d.gindex(1, j)>=Ny)
+  	u_d(i, j)=0;  // upper boundary condition
     }  
   double w=1.875, // the over-relaxation parameter 
     dx2=dx*dx, dy2=dy*dy;
