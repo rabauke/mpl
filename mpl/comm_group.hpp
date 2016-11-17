@@ -191,6 +191,20 @@ namespace mpl {
       }
     }
     void operator=(const communicator &)=delete;
+    communicator & operator=(communicator &&other) {
+      if (this!=&other) {
+	if (comm!=MPI_COMM_NULL) {
+	  int result1, result2;
+	  MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+	  MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+	  if (result1!=MPI_IDENT and result2!=MPI_IDENT)
+	    MPI_Comm_free(&comm);
+	}
+	comm=other.comm;
+	other.comm=MPI_COMM_NULL;
+      }
+      return *this;
+    }
     int size() const {
       int result;
       MPI_Comm_size(comm, &result);
