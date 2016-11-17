@@ -48,7 +48,20 @@ namespace mpl {
       request(T &&other) : req(other.req) {
 	other.req=MPI_REQUEST_NULL;
       }
-      request & operator=(const request &)=delete;
+      ~request() {
+	if (req!=MPI_REQUEST_NULL)
+	  MPI_Request_free(&req);
+      }
+      void operator=(const request &)=delete;
+      request & operator=(request &&other) {
+	if (this!=&other) {
+	  if (req!=MPI_REQUEST_NULL)
+	    MPI_Request_free(&req);
+	  req=other.req;
+	  other.req=MPI_REQUEST_NULL;
+	}
+	return *this;
+      }
       void cancel() {
 	MPI_Cancel(&req);
       }
@@ -69,10 +82,6 @@ namespace mpl {
 	MPI_Request_get_status(req, &result, reinterpret_cast<MPI_Status *>(&s));
 	return std::make_pair(static_cast<bool>(result), s);
       }
-      ~request() {
-	if (req!=MPI_REQUEST_NULL)
-	  MPI_Request_free(&req);
-      }
     };
 
     //------------------------------------------------------------------
@@ -90,7 +99,22 @@ namespace mpl {
       request_pool(request_pool &&other) : reqs(std::move(other.reqs)),
 					   stats(std::move(other.stats)) {
       }
-      request_pool & operator=(const request_pool &)=delete;
+      ~request_pool() {
+	for (std::vector<MPI_Request>::iterator i(reqs.begin()), i_end(reqs.end()); i!=i_end; ++i)
+	  if ((*i)!=MPI_REQUEST_NULL)
+	    MPI_Request_free(&(*i));
+      }
+      void operator=(const request_pool &)=delete;
+      request_pool & operator=(request_pool &&other) {
+	if (this!=&other) {
+	  for (std::vector<MPI_Request>::iterator i(reqs.begin()), i_end(reqs.end()); i!=i_end; ++i)
+	    if ((*i)!=MPI_REQUEST_NULL)
+	    MPI_Request_free(&(*i));
+	  reqs=std::move(other.reqs);
+	  stats=std::move(other.stats);
+	}
+	return *this;
+      }
       size_type size() const {
 	return reqs.size();
       }
@@ -159,11 +183,6 @@ namespace mpl {
 	  return indices.copy_back(count);
 	return iter;
       }
-      ~request_pool() {
-	for (std::vector<MPI_Request>::iterator i(reqs.begin()), i_end(reqs.end()); i!=i_end; ++i)
-	  if ((*i)!=MPI_REQUEST_NULL)
-	    MPI_Request_free(&(*i));
-      }
     };
     
   }
@@ -179,7 +198,12 @@ namespace mpl {
     irequest(const irequest &)=delete;
     irequest(irequest &&r) : base(std::move(r.req)) {
     }
-    irequest & operator=(const irequest &)=delete;
+    void operator=(const irequest &)=delete;
+    irequest & operator=(irequest &&other) {
+      if (this!=&other)
+	base::operator=(std::move(other));
+      return *this;
+    }
   };
 
   //--------------------------------------------------------------------
@@ -192,7 +216,12 @@ namespace mpl {
     irequest_pool(const irequest_pool &)=delete;
     irequest_pool(irequest_pool &&r) : base(std::move(r)) {
     }
-    irequest_pool & operator=(const irequest_pool &)=delete;
+    void operator=(const irequest_pool &)=delete;
+    irequest_pool & operator=(irequest_pool &&other) {
+      if (this!=&other)
+	base::operator=(std::move(other));
+      return *this;
+    }
   };
 
   //--------------------------------------------------------------------
@@ -206,7 +235,12 @@ namespace mpl {
     prequest(const prequest &)=delete;
     prequest(prequest &&r) : base(std::move(r.req)) {
     }
-    prequest & operator=(const prequest &)=delete;
+    void operator=(const prequest &)=delete;
+    prequest & operator=(prequest &&other) {
+      if (this!=&other)
+	base::operator=(std::move(other));
+      return *this;
+    }
     void start() {
       MPI_Start(&req);
     }
@@ -220,8 +254,12 @@ namespace mpl {
   public:
     prequest_pool() {
     }
-    prequest_pool & operator=(const prequest_pool &)=delete;
-    prequest_pool(const prequest_pool &)=delete;
+    void operator=(const prequest_pool &)=delete;
+    prequest_pool & operator=(prequest_pool &&other) {
+      if (this!=&other)
+	base::operator=(std::move(other));
+      return *this;
+    }
     prequest_pool(prequest_pool &&r) : base(std::move(r)) {
     }
     void startall() {
