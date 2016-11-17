@@ -97,6 +97,17 @@ namespace mpl {
       }
     }
     void operator=(const group &)=delete;
+    group & operator=(group &&other) {
+      if (this!=&other) {
+	int result;
+	MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+	if (result!=MPI_IDENT)
+	  MPI_Group_free(&gr);
+	gr=other.gr;
+	other.gr=MPI_GROUP_NULL;
+      }
+      return *this;
+    }
     int size() const {
       int result;
       MPI_Group_size(gr, &result);
