@@ -76,7 +76,7 @@ namespace mpl {
     group(const communicator &comm);  // define later
     group(group &&other) {
       gr=other.gr;
-      other.gr=MPI_GROUP_NULL;
+      other.gr=MPI_GROUP_EMPTY;
     }
     group(Union, 
 	  const group &other_1, const group &other_2);  // define later
@@ -89,12 +89,10 @@ namespace mpl {
     group(excl, 
 	  const group &other, const ranks &rank);  // define later
     ~group() {
-      if (gr!=MPI_GROUP_NULL) {
-	int result;
-	MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
-	if (result!=MPI_IDENT)
-	  MPI_Group_free(&gr);
-      }
+      int result;
+      MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+      if (result!=MPI_IDENT)
+	MPI_Group_free(&gr);
     }
     void operator=(const group &)=delete;
     group & operator=(group &&other) {
@@ -104,7 +102,7 @@ namespace mpl {
 	if (result!=MPI_IDENT)
 	  MPI_Group_free(&gr);
 	gr=other.gr;
-	other.gr=MPI_GROUP_NULL;
+	other.gr=MPI_GROUP_EMPTY;
       }
       return *this;
     }
@@ -159,15 +157,17 @@ namespace mpl {
     class split { };
     class split_shared { };
   protected:
-    communicator(MPI_Comm comm=MPI_COMM_NULL) : comm(comm) {
+    communicator(MPI_Comm comm) : comm(comm) {
     }
   public:
+    communicator() : comm(MPI_COMM_SELF) {
+    }
     communicator(const communicator &other) {
       MPI_Comm_dup(other.comm, &comm);
     }
     communicator(communicator &&other) {
       comm=other.comm;
-      other.comm=MPI_COMM_NULL;
+      other.comm=MPI_COMM_SELF;
     }
     communicator(comm_collective, const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm, gr.gr, &comm);
@@ -182,26 +182,22 @@ namespace mpl {
       MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED, key, MPI_INFO_NULL, &comm);
     }
     ~communicator() {
-      if (comm!=MPI_COMM_NULL) {
+      int result1, result2;
+      MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+      MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+      if (result1!=MPI_IDENT and result2!=MPI_IDENT)
+	MPI_Comm_free(&comm);
+    }
+    void operator=(const communicator &)=delete;
+    communicator & operator=(communicator &&other) {
+      if (this!=&other) {
 	int result1, result2;
 	MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
 	MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
 	if (result1!=MPI_IDENT and result2!=MPI_IDENT)
 	  MPI_Comm_free(&comm);
-      }
-    }
-    void operator=(const communicator &)=delete;
-    communicator & operator=(communicator &&other) {
-      if (this!=&other) {
-	if (comm!=MPI_COMM_NULL) {
-	  int result1, result2;
-	  MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
-	  MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
-	  if (result1!=MPI_IDENT and result2!=MPI_IDENT)
-	    MPI_Comm_free(&comm);
-	}
 	comm=other.comm;
-	other.comm=MPI_COMM_NULL;
+	other.comm=MPI_COMM_SELF;
       }
       return *this;
     }
