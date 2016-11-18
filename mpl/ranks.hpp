@@ -23,6 +23,7 @@ namespace mpl {
     }
     ranks(ranks &&other) : base(std::move(other)) {
     }
+    using base::operator=;
     using base::begin;
     using base::end;
     using base::cbegin;
