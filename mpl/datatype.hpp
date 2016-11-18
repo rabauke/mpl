@@ -101,10 +101,9 @@ namespace mpl {
       MPI_Type_commit(&type);
       MPI_Type_free(&temp_type);
     }
-    base_struct_builder() {
-    }
+    base_struct_builder()=default;
     base_struct_builder(const base_struct_builder &)=delete;
-    base_struct_builder & operator=(const base_struct_builder &)=delete;
+    void operator=(const base_struct_builder &)=delete;
     ~base_struct_builder() {
       MPI_Type_free(&type);
     }
@@ -223,7 +222,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0][N1][N2]> base;
     struct_layout<T[N0][N1][N2]> layout;
   public:
-    struct_builder()  {
+    struct_builder() {
       T array[N0][N1][N2];
       layout.register_struct(array);
       layout.register_vector(array, N0*N1*N2);
