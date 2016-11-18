@@ -7,7 +7,7 @@
 namespace mpl {
 
   typedef MPI_Message message;
-  
+
 }
 
 #endif

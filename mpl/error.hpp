@@ -26,7 +26,7 @@ namespace mpl {
     virtual ~invalid_rank() {
     }
   };
-  
+
   class invalid_tag : public error {
   public:
     invalid_tag() : error("invalid tag") {
@@ -58,7 +58,7 @@ namespace mpl {
     virtual ~invalid_dim() {
     }
   };
-  
+
 }
 
 #endif

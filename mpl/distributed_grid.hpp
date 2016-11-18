@@ -7,7 +7,7 @@
 #include <mpl/layout.hpp>
 
 namespace mpl {
-  
+
   template<std::size_t dim, typename T, typename A>
   class distributed_grid;
 
@@ -46,7 +46,7 @@ namespace mpl {
       std::vector<size_type> size_, overlap_;
     public:
       sizes(std::initializer_list<std::pair<size_type, size_type>> list) {
-        for (const std::pair<size_type, size_type> &i : list) 
+        for (const std::pair<size_type, size_type> &i : list)
           add(i.first, i.second);
       }
       void add(size_type size, size_type overlap) {
@@ -56,7 +56,7 @@ namespace mpl {
       friend class distributed_grid;
     };
 
-    distributed_grid(const cart_communicator &C, const sizes &size) : 
+    distributed_grid(const cart_communicator &C, const sizes &size) :
       gsize_(size.size_), gbegin_(dim), gend_(dim), size_(dim), oend_(dim), overlap_(size.overlap_) {
 #if defined MPL_DEBUG
       if (C.dim()!=dim or gsize_.size()!=dim or overlap_.size()!=dim)
@@ -183,7 +183,7 @@ namespace mpl {
       oend_.swap(other.oend_);
       overlap_.swap(other.overlap_);
       v.swap(other.v);
-      left_mirror_layout_.swap(other.left_mirror_layout_); 
+      left_mirror_layout_.swap(other.left_mirror_layout_);
       right_mirror_layout_.swap(other.right_mirror_layout_);
       left_border_layout_.swap(other.left_border_layout_);
       right_border_layout_.swap(other.right_border_layout_);
@@ -221,7 +221,7 @@ namespace mpl {
       std::vector<size_type> size_;
     public:
       sizes(std::initializer_list<size_type> list) {
-        for (const size_type &i : list) 
+        for (const size_type &i : list)
           add(i);
       }
       void add(size_type size) {
@@ -230,7 +230,7 @@ namespace mpl {
       friend class local_grid;
     };
 
-    local_grid(const cart_communicator &C, const sizes &size) : 
+    local_grid(const cart_communicator &C, const sizes &size) :
       gsize_(size.size_) {
 #if defined MPL_DEBUG
       if (C.dim()!=dim or gsize_.size()!=dim)

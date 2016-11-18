@@ -43,7 +43,7 @@ namespace mpl {
       MPI_Status::MPI_ERROR=MPI_SUCCESS;
     }
   };
-  
+
 }
 
 #endif

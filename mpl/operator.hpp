@@ -77,7 +77,7 @@ namespace mpl {
       return x ^ y;
     }
   };
-  
+
   // -------------------------------------------------------------------
 
   template<typename F>
@@ -160,7 +160,7 @@ namespace mpl {
   // -------------------------------------------------------------------
 
   namespace detail {
- 
+
     template<typename T> struct remove_class { };
     template<typename C, typename R, typename... A>
     struct remove_class<R(C::*)(A...)> { using type = R(A...); };
@@ -172,8 +172,8 @@ namespace mpl {
     struct remove_class<R(C::*)(A...) const volatile> { using type = R(A...); };
 
     template<typename T>
-    struct get_signature_impl { 
-      using type = typename remove_class<decltype(&std::remove_reference<T>::type::operator())>::type; 
+    struct get_signature_impl {
+      using type = typename remove_class<decltype(&std::remove_reference<T>::type::operator())>::type;
     };
 
     template<typename R, typename... A>
@@ -205,7 +205,7 @@ namespace mpl {
     template<typename F> using make_function_type = std::function<get_signature<F>>;
 
     template<typename F> make_function_type<F> make_function(F &&f) {
-      return make_function_type<F>(std::forward<F>(f)); 
+      return make_function_type<F>(std::forward<F>(f));
     }
 
     //------------------------------------------------------------------
@@ -214,16 +214,16 @@ namespace mpl {
     class op {
     public:
       typedef F functor;
-      typedef get_signature<functor> signature; 
+      typedef get_signature<functor> signature;
       typedef typename std::decay<get_first_argument_type<signature>>::type first_argument_type;
       typedef typename std::decay<get_second_argument_type<signature>>::type second_argument_type;
       typedef typename std::decay<get_result_type<signature>>::type result_type;
       static_assert(std::is_assignable<typename std::add_lvalue_reference<first_argument_type>::type, T>::value and
 		    std::is_assignable<typename std::add_lvalue_reference<second_argument_type>::type, T>::value and
 		    std::is_assignable<T &, result_type>::value, "argument type mismatch");
-      
+
       static functor *f;
-      static void apply(void *invec, void *inoutvec, int *len, 
+      static void apply(void *invec, void *inoutvec, int *len,
     			MPI_Datatype *datatype) {
 	functor local_f(*f);
     	T *i1=reinterpret_cast<T *>(invec);
@@ -253,9 +253,9 @@ namespace mpl {
       static detail::op<T, F> op;
       return op;
     }
-    
+
   }
-  
+
 }
 
 #endif

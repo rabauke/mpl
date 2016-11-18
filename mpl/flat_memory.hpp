@@ -195,7 +195,7 @@ namespace mpl {
 	return first_out+std::min(m, n);
       }
     };
-  
+
     // a more general implementation would be possible with
     // contiguous_iterator_tag of C++17
     template<typename T>
@@ -234,7 +234,7 @@ namespace mpl {
 	return first_out+std::min(m, n);
       }
     };
-  
+
   }
 
 }

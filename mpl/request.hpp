@@ -7,15 +7,15 @@
 #include <vector>
 
 namespace mpl {
-  
+
   namespace detail {
-    
+
     template<typename T>
     class request;
-    
+
     template<typename T>
     class request_pool;
-    
+
     class irequest {
       MPI_Request req=MPI_REQUEST_NULL;
     public:
@@ -24,7 +24,7 @@ namespace mpl {
       friend class request<irequest>;
       friend class request_pool<irequest>;
     };
-    
+
     class prequest {
       MPI_Request req=MPI_REQUEST_NULL;
     public:
@@ -33,9 +33,9 @@ namespace mpl {
       friend class request<prequest>;
       friend class request_pool<prequest>;
     };
-    
+
     //------------------------------------------------------------------
-    
+
     template<typename T>
     class request {
     protected:
@@ -66,7 +66,7 @@ namespace mpl {
 	MPI_Cancel(&req);
       }
       std::pair<bool, status> test() {
-	int result; 
+	int result;
 	status s;
 	MPI_Test(&req, &result, reinterpret_cast<MPI_Status *>(&s));
 	return std::make_pair(static_cast<bool>(result), s);
@@ -77,7 +77,7 @@ namespace mpl {
 	return s;
       }
       std::pair<bool, status> get_status() {
-	int result; 
+	int result;
 	status s;
 	MPI_Request_get_status(req, &result, reinterpret_cast<MPI_Status *>(&s));
 	return std::make_pair(static_cast<bool>(result), s);
@@ -167,7 +167,7 @@ namespace mpl {
       I waitsome(I iter) {
 	flat_memory_out<int, I> indices(size(), iter);
 	int count;
-	MPI_Waitsome(size(), &reqs[0], &count, indices.data(), 
+	MPI_Waitsome(size(), &reqs[0], &count, indices.data(),
 		     reinterpret_cast<MPI_Status *>(&stats[0]));
 	if (count!=MPI_UNDEFINED)
 	  return indices.copy_back(count);
@@ -177,18 +177,18 @@ namespace mpl {
       I testsome(I iter) {
 	flat_memory_out<int, I> indices(size(), iter);
 	int count;
-	MPI_Testsome(size(), &reqs[0], &count, indices.data(), 
+	MPI_Testsome(size(), &reqs[0], &count, indices.data(),
 		     reinterpret_cast<MPI_Status *>(&stats[0]));
 	if (count!=MPI_UNDEFINED)
 	  return indices.copy_back(count);
 	return iter;
       }
     };
-    
+
   }
-  
+
   //--------------------------------------------------------------------
-  
+
   class irequest : public detail::request<detail::irequest> {
     typedef detail::request<detail::irequest> base;
     using base::req;
@@ -207,7 +207,7 @@ namespace mpl {
   };
 
   //--------------------------------------------------------------------
-  
+
   class irequest_pool : public detail::request_pool<detail::irequest> {
     typedef detail::request_pool<detail::irequest> base;
   public:

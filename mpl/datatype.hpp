@@ -19,7 +19,7 @@ namespace mpl {
   class datatype_traits;
 
   namespace detail {
-    
+
     template<typename T, typename E>
     class datatype_traits_impl;
 
@@ -36,20 +36,20 @@ namespace mpl {
   template<typename S>
   class struct_layout {
     template <typename T>
-    inline std::size_t size(T) { 
-      return sizeof(T); 
+    inline std::size_t size(T) {
+      return sizeof(T);
     }
     template <typename T>
-    inline std::size_t size(T *) { 
-      return sizeof(T); 
+    inline std::size_t size(T *) {
+      return sizeof(T);
     }
     template <typename T>
     inline MPI_Datatype get_datatype(T) {
-      return datatype_traits<T>().get_datatype(); 
+      return datatype_traits<T>().get_datatype();
     }
     template <typename T>
     inline MPI_Datatype get_datatype(T *) {
-      return datatype_traits<T>().get_datatype(); 
+      return datatype_traits<T>().get_datatype();
     }
     MPI_Aint base;
     std::vector<int> blocklengths;
@@ -82,7 +82,7 @@ namespace mpl {
     }
     friend class base_struct_builder<S>;
   };
-  
+
   //--------------------------------------------------------------------
 
   template<typename T>
@@ -130,7 +130,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   namespace detail {
-    
+
     template<typename F, typename T, std::size_t n>
     class apply_n {
       F &f;
@@ -143,7 +143,7 @@ namespace mpl {
 	f(std::get<n-1>(x));
       }
     };
-    
+
     template<typename F, typename T>
     struct apply_n<F, T, 1> {
       F &f;
@@ -160,7 +160,7 @@ namespace mpl {
       apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...>>::value> app(f);
       app(t);
     }
-    
+
     template<typename... Ts>
     class register_element {
       struct_layout<std::tuple<Ts...>> &layout;
@@ -189,7 +189,7 @@ namespace mpl {
       base::define_struct(layout);
     }
   };
-  
+
   //--------------------------------------------------------------------
 
   template<typename T, std::size_t N>
@@ -217,7 +217,7 @@ namespace mpl {
       base::define_struct(layout);
     }
   };
-  
+
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
   class struct_builder<T[N0][N1][N2]> : public base_struct_builder<T[N0][N1][N2]> {
     typedef base_struct_builder<T[N0][N1][N2]> base;
@@ -258,7 +258,7 @@ namespace mpl {
       base::define_struct(layout);
     }
   };
-  
+
   //--------------------------------------------------------------------
 
   namespace detail {
@@ -267,11 +267,11 @@ namespace mpl {
     class datatype_traits_impl {
     public:
       static MPI_Datatype get_datatype() {
-	static struct_builder<T> builder; 
+	static struct_builder<T> builder;
 	return builder.type;
       }
     };
-    
+
     template<typename T>
     class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
     public:
@@ -279,12 +279,12 @@ namespace mpl {
 	return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
       }
     };
-    
+
 #if defined MPL_HOMOGENEOUS
     template<typename T>
-    class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value 
-							  and std::is_copy_assignable<T>::value 
-							  and not std::is_enum<T>::value 
+    class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value
+							  and std::is_copy_assignable<T>::value
+							  and not std::is_enum<T>::value
 							  and not std::is_array<T>::value>::type> {
     public:
       static MPI_Datatype get_datatype() {
@@ -294,7 +294,7 @@ namespace mpl {
 #endif
 
   }
-    
+
   template<typename T>
   class datatype_traits {
   public:
@@ -302,7 +302,7 @@ namespace mpl {
       return detail::datatype_traits_impl<T>::get_datatype();
     }
   };
-  
+
 #define MPL_DATATYPE_TRAITS(type, mpi_type)  \
   template<>				     \
   class datatype_traits<type> {              \
@@ -334,7 +334,7 @@ namespace mpl {
   MPL_DATATYPE_TRAITS(std::complex<float>, MPI_CXX_FLOAT_COMPLEX);
   MPL_DATATYPE_TRAITS(std::complex<double>, MPI_CXX_DOUBLE_COMPLEX);
   MPL_DATATYPE_TRAITS(std::complex<long double>, MPI_CXX_LONG_DOUBLE_COMPLEX);
-  
+
 #undef MPL_DATATYPE_TRAITS
 
 }
