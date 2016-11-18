@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <utility>
 
 namespace mpl {
 
@@ -20,7 +21,7 @@ namespace mpl {
     }
     ranks(const ranks &other) : base(other) {
     }
-    ranks(ranks &&other) : base(other) {
+    ranks(ranks &&other) : base(std::move(other)) {
     }
     using base::begin;
     using base::end;

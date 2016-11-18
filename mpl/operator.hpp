@@ -242,7 +242,7 @@ namespace mpl {
     	return op_traits<functor>::is_commutative();
       }
       op(op const &)=delete;
-      op& operator=(op const&)=delete;
+      void operator=(op const&)=delete;
     };
 
     template<typename T, typename F>

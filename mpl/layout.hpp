@@ -43,8 +43,10 @@ namespace mpl {
       return *this;
     }
     layout & operator=(layout &&l) {
-      type=l.type;
-      l.type=MPI_DATATYPE_NULL;
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
       return *this;
     }
     void resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
@@ -103,6 +105,13 @@ namespace mpl {
       }
       return *this;
     }
+    empty_layout<T> & operator=(empty_layout<T> &&l) {
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
+      return *this;
+    }
     void swap(empty_layout<T> &other) {
       std::swap(type, other.type);
     }
@@ -147,10 +156,12 @@ namespace mpl {
       return *this;
     }
     contiguous_layout<T> & operator=(contiguous_layout<T> &&l) {
-      type=l.type;
-      count=l.count;
-      l.type=MPI_DATATYPE_NULL;
-      l.size=0;
+      if (this!=&l) {
+	type=l.type;
+	count=l.count;
+	l.type=MPI_DATATYPE_NULL;
+	l.size=0;
+      }
       return *this;
     }
     void swap(contiguous_layout<T> &other) {
@@ -197,8 +208,10 @@ namespace mpl {
       return *this;
     }
     vector_layout<T> & operator=(vector_layout<T> &&l) {
-      type=l.type;
-      l.type=MPI_DATATYPE_NULL;
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
       return *this;
     }
     void swap(vector_layout<T> &other) {
@@ -249,8 +262,10 @@ namespace mpl {
       return *this;
     }
     strided_vector_layout<T> & operator=(strided_vector_layout<T> &&l) {
-      type=l.type;
-      l.type=MPI_DATATYPE_NULL;
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
       return *this;
     }
     void swap(strided_vector_layout<T> &other) {
@@ -318,8 +333,10 @@ namespace mpl {
       return *this;
     }
     indexed_layout<T> & operator=(indexed_layout<T> &&l) {
-      type=l.type;
-      l.type=MPI_DATATYPE_NULL;
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
       return *this;
     }
     void swap(indexed_layout<T> &other) {
@@ -386,8 +403,10 @@ namespace mpl {
       return *this;
     }
     indexed_block_layout<T> & operator=(indexed_block_layout<T> &&l) {
-      type=l.type;
-      l.type=MPI_DATATYPE_NULL;
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
       return *this;
     }
     void swap(indexed_block_layout<T> &other) {
@@ -472,8 +491,10 @@ namespace mpl {
       return *this;
     }
     subarray_layout<T> & operator=(subarray_layout<T> &&l) {
-      type=l.type;
-      l.type=MPI_DATATYPE_NULL;
+      if (this!=&l) {
+	type=l.type;
+	l.type=MPI_DATATYPE_NULL;
+      }
       return *this;
     }
     void swap(subarray_layout<T> &other) {

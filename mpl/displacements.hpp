@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <vector>
+#include <utility>
 
 namespace mpl {
 
@@ -20,7 +21,7 @@ namespace mpl {
     }
     displacements(const displacements &other) : base(other) {
     }
-    displacements(displacements &&other) : base(other) {
+    displacements(displacements &&other) : base(std::move(other)) {
     }
     using base::begin;
     using base::end;
