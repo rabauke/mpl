@@ -109,7 +109,7 @@ namespace mpl {
     
     //------------------------------------------------------------------
     
-    int tag_up() {
+    inline int tag_up() {
       return detail::get_env().tag_up();
     }
     
@@ -137,43 +137,43 @@ namespace mpl {
       return MPI_BSEND_OVERHEAD;
     }
 	  
-    threading_modes threading_mode() {
+    inline threading_modes threading_mode() {
       return detail::get_env().threading_mode();
     }
 
-    bool is_thread_main() {
+    inline bool is_thread_main() {
       return detail::get_env().is_thread_main();
     }
 
-    bool wtime_is_global() {
+    inline bool wtime_is_global() {
       return detail::get_env().wtime_is_global();
     }
 
-    const communicator & comm_world() {
+    inline const communicator & comm_world() {
       return detail::get_env().comm_world();
     }
 
-    const communicator & comm_self() {
+    inline const communicator & comm_self() {
       return detail::get_env().comm_self();
     }
 
-    std::string processor_name() {
+    inline std::string processor_name() {
       return detail::get_env().processor_name();
     }
 
-    double wtime() {
+    inline double wtime() {
       return detail::get_env().wtime();
     }
 
-    double wtick() {
+    inline double wtick() {
       return detail::get_env().wtick();
     }
 
-    void buffer_attach(void *buff, int size) {
+    inline void buffer_attach(void *buff, int size) {
       return detail::get_env().buffer_attach(buff, size);
     }
 
-    std::pair<void *, int> buffer_detach() {
+    inline std::pair<void *, int> buffer_detach() {
       return detail::get_env().buffer_detach();
     }
 
