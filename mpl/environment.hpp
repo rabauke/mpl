@@ -7,11 +7,11 @@
 #include <mpi.h>
 
 namespace mpl {
-  
-  enum class threading_modes { single=MPI_THREAD_SINGLE, 
-      funneled=MPI_THREAD_FUNNELED, 
-      serialized=MPI_THREAD_SERIALIZED, 
-      multiple=MPI_THREAD_MULTIPLE }; 
+
+  enum class threading_modes { single=MPI_THREAD_SINGLE,
+      funneled=MPI_THREAD_FUNNELED,
+      serialized=MPI_THREAD_SERIALIZED,
+      multiple=MPI_THREAD_MULTIPLE };
 
   namespace environment {
 
@@ -28,11 +28,11 @@ namespace mpl {
 	    MPI_Finalize();
 	  }
 	};
-	
+
 	initializer init;
 	mpl::communicator comm_world_, comm_self_;
       public:
-	env() : 
+	env() :
 	  init(), comm_world_(MPI_COMM_WORLD), comm_self_(MPI_COMM_SELF) {
 	}
 	env(const env &) = delete;
@@ -104,19 +104,19 @@ namespace mpl {
 	static env the_env;
 	return the_env;
       }
-      
+
     }
-    
+
     //------------------------------------------------------------------
-    
+
     inline int tag_up() {
       return detail::get_env().tag_up();
     }
-    
+
     constexpr int any_tag() {
       return MPI_ANY_TAG;
     }
-    
+
     constexpr int any_source() {
       return MPI_ANY_SOURCE;
     }
@@ -136,7 +136,7 @@ namespace mpl {
     constexpr int bsend_overheadroot() {
       return MPI_BSEND_OVERHEAD;
     }
-	  
+
     inline threading_modes threading_mode() {
       return detail::get_env().threading_mode();
     }
