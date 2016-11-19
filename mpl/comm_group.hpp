@@ -57,7 +57,6 @@ namespace mpl {
     constexpr int any_tag();
     constexpr int any_source();
     constexpr int proc_null();
-    const displacements & zero_displacements();
 
   }
 
@@ -907,7 +906,7 @@ namespace mpl {
     void gatherv(int root,
          const T *senddata, const layout<T> &sendl,
          T *recvdata, const layouts<T> &recvls) const {
-      gatherv(root, senddata, sendl, recvdata, recvls, environment::zero_displacements());
+      gatherv(root, senddata, sendl, recvdata, recvls, displacements(size()));
     }
     // --- nonblocking gather ---
     template<typename T>
@@ -934,7 +933,7 @@ namespace mpl {
     detail::irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layouts<T> &recvls) const {
-      return igatherv(root, senddata, sendl, recvdata, recvls, environment::zero_displacements());
+      return igatherv(root, senddata, sendl, recvdata, recvls, displacements(size()));
     }
     // --- blocking gather, non-root variant ---
     template<typename T>
@@ -1145,7 +1144,7 @@ namespace mpl {
     void scatterv(int root,
 		  const T *senddata, const layouts<T> &sendls,
 		  T *recvdata, const layout<T> &recvl) const {
-      scatterv(root, senddata, sendls, environment::zero_displacements(),
+      scatterv(root, senddata, sendls, displacements(size()),
 	       recvdata, recvl);
     }
     // --- nonblocking scatter ---
@@ -1173,7 +1172,7 @@ namespace mpl {
     detail::irequest iscatterv(int root,
 			       const T *senddata, const layouts<T> &sendls,
 			       T *recvdata, const layout<T> &recvl) const {
-      return iscatterv(root, senddata, sendls, environment::zero_displacements(),
+      return iscatterv(root, senddata, sendls, displacements(size()),
 		       recvdata, recvl);
     }
     // --- blocking scatter, non-root variant ---
