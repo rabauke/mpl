@@ -57,6 +57,7 @@ namespace mpl {
     constexpr int any_tag();
     constexpr int any_source();
     constexpr int proc_null();
+    const displacements & zero_displacements();
 
   }
 
@@ -906,11 +907,7 @@ namespace mpl {
     void gatherv(int root,
          const T *senddata, const layout<T> &sendl,
          T *recvdata, const layouts<T> &recvls) const {
-      displacements recvdispls;
-      recvdispls.push_back(0);
-      for (int i=1; i<size(); ++i)
-        recvdispls.push_back(recvdispls[i-1]+recvls[i-1].extent());
-      gatherv(root, senddata, sendl, recvdata, recvls, recvdispls);
+      gatherv(root, senddata, sendl, recvdata, recvls, environment::zero_displacements());
     }
     // --- nonblocking gather ---
     template<typename T>
@@ -937,11 +934,7 @@ namespace mpl {
     detail::irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layouts<T> &recvls) const {
-      displacements recvdispls;
-      recvdispls.push_back(0);
-      for (int i=1; i<size(); ++i)
-        recvdispls.push_back(recvdispls[i-1]+recvls[i-1].extent());
-      return igatherv(root, senddata, sendl, recvdata, recvls, recvdispls);
+      return igatherv(root, senddata, sendl, recvdata, recvls, environment::zero_displacements());
     }
     // --- blocking gather, non-root variant ---
     template<typename T>
@@ -1152,11 +1145,7 @@ namespace mpl {
     void scatterv(int root,
 		  const T *senddata, const layouts<T> &sendls,
 		  T *recvdata, const layout<T> &recvl) const {
-      displacements senddispls;
-      senddispls.push_back(0);
-      for (int i=1; i<size(); ++i)
-        senddispls.push_back(senddispls[i-1]+sendls[i-1].extent());
-      scatterv(root, senddata, sendls, senddispls,
+      scatterv(root, senddata, sendls, environment::zero_displacements(),
 	       recvdata, recvl);
     }
     // --- nonblocking scatter ---
@@ -1184,11 +1173,7 @@ namespace mpl {
     detail::irequest iscatterv(int root,
 			       const T *senddata, const layouts<T> &sendls,
 			       T *recvdata, const layout<T> &recvl) const {
-      displacements senddispls;
-      senddispls.push_back(0);
-      for (int i=1; i<size(); ++i)
-        senddispls.push_back(senddispls[i-1]+sendls[i-1].extent());
-      return iscatterv(root, senddata, sendls, senddispls,
+      return iscatterv(root, senddata, sendls, environment::zero_displacements(),
 		       recvdata, recvl);
     }
     // --- blocking scatter, non-root variant ---

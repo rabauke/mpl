@@ -4,6 +4,7 @@
 
 #include <string>
 #include <memory>
+#include <vector>
 #include <mpi.h>
 
 namespace mpl {
@@ -31,9 +32,13 @@ namespace mpl {
 
 	initializer init;
 	mpl::communicator comm_world_, comm_self_;
+	displacements zeros_displacements_;
       public:
 	env() :
 	  init(), comm_world_(MPI_COMM_WORLD), comm_self_(MPI_COMM_SELF) {
+	  int size;
+	  MPI_Comm_size(MPI_COMM_WORLD, &size);
+	  zeros_displacements_.resize(size, 0);
 	}
 	env(const env &) = delete;
 	env& operator=(const env &) = delete;
@@ -95,6 +100,9 @@ namespace mpl {
 	  int size;
 	  MPI_Buffer_detach(&buff, &size);
 	  return std::make_pair(buff, size);
+	}
+	const displacements & zeros_displacements() const {
+	  return zeros_displacements_;
 	}
       };
 
@@ -175,6 +183,10 @@ namespace mpl {
 
     inline std::pair<void *, int> buffer_detach() {
       return detail::get_env().buffer_detach();
+    }
+
+    inline const displacements & zero_displacements() {
+      return detail::get_env().zeros_displacements();
     }
 
   }

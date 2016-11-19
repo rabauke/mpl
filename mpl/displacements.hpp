@@ -31,6 +31,7 @@ namespace mpl {
     using base::operator[];
     using base::size;
     using base::push_back;
+    using base::resize;
     const MPI_Aint * operator()() const {
       return base::data();
     }

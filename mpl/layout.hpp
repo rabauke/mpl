@@ -44,6 +44,8 @@ namespace mpl {
     }
     layout & operator=(layout &&l) {
       if (this!=&l) {
+	if (type!=MPI_DATATYPE_NULL)
+	  MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -83,6 +85,8 @@ namespace mpl {
     }
     void swap(null_layout<T> &other) {
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
   };
 
   //--------------------------------------------------------------------
@@ -103,6 +107,10 @@ namespace mpl {
     empty_layout(const empty_layout &l) {
       MPI_Type_dup(l.type, &type);
     }
+    empty_layout(empty_layout &&l) {
+      type=l.type;
+      l.type=MPI_DATATYPE_NULL;
+    }
     empty_layout<T> & operator=(const empty_layout<T> &l) {
       if (this!=&l) {
 	MPI_Type_free(&type);
@@ -112,6 +120,7 @@ namespace mpl {
     }
     empty_layout<T> & operator=(empty_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -120,6 +129,8 @@ namespace mpl {
     void swap(empty_layout<T> &other) {
       std::swap(type, other.type);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
   };
 
   //--------------------------------------------------------------------
@@ -127,7 +138,6 @@ namespace mpl {
   template<typename T>
   class contiguous_layout : public layout<T> {
     using layout<T>::type;
-    using layout<T>::resize;
     static MPI_Datatype build(int count,
 			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
@@ -162,6 +172,7 @@ namespace mpl {
     }
     contiguous_layout<T> & operator=(contiguous_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	count=l.count;
 	l.type=MPI_DATATYPE_NULL;
@@ -173,6 +184,8 @@ namespace mpl {
       std::swap(type, other.type);
       std::swap(count, other.count);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
     friend class communicator;
   };
 
@@ -181,7 +194,6 @@ namespace mpl {
   template<typename T>
   class vector_layout : public layout<T> {
     using layout<T>::type;
-    using layout<T>::resize;
     static MPI_Datatype build(int count,
 			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
@@ -214,6 +226,7 @@ namespace mpl {
     }
     vector_layout<T> & operator=(vector_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -222,6 +235,8 @@ namespace mpl {
     void swap(vector_layout<T> &other) {
       std::swap(type, other.type);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
     friend class communicator;
   };
 
@@ -230,7 +245,6 @@ namespace mpl {
   template<typename T>
   class strided_vector_layout : public layout<T> {
     using layout<T>::type;
-    using layout<T>::resize;
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
@@ -268,6 +282,7 @@ namespace mpl {
     }
     strided_vector_layout<T> & operator=(strided_vector_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -276,6 +291,8 @@ namespace mpl {
     void swap(strided_vector_layout<T> &other) {
       std::swap(type, other.type);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
   };
 
   //--------------------------------------------------------------------
@@ -283,7 +300,6 @@ namespace mpl {
   template<typename T>
   class indexed_layout : public layout<T> {
     using layout<T>::type;
-    using layout<T>::resize;
   public:
     class parameter {
       std::vector<int> blocklengths, displacements;
@@ -339,6 +355,7 @@ namespace mpl {
     }
     indexed_layout<T> & operator=(indexed_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -347,6 +364,8 @@ namespace mpl {
     void swap(indexed_layout<T> &other) {
       std::swap(type, other.type);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
   };
 
   //--------------------------------------------------------------------
@@ -354,7 +373,6 @@ namespace mpl {
   template<typename T>
   class indexed_block_layout : public layout<T> {
     using layout<T>::type;
-    using layout<T>::resize;
   public:
     class parameter {
       std::vector<int> displacements;
@@ -409,6 +427,7 @@ namespace mpl {
     }
     indexed_block_layout<T> & operator=(indexed_block_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -417,6 +436,8 @@ namespace mpl {
     void swap(indexed_block_layout<T> &other) {
       std::swap(type, other.type);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
   };
 
   //--------------------------------------------------------------------
@@ -426,7 +447,6 @@ namespace mpl {
   template<typename T>
   class subarray_layout : public layout<T> {
     using layout<T>::type;
-    using layout<T>::resize;
   public:
     class parameter {
       std::vector<int> sizes, subsizes, starts;
@@ -497,6 +517,7 @@ namespace mpl {
     }
     subarray_layout<T> & operator=(subarray_layout<T> &&l) {
       if (this!=&l) {
+	MPI_Type_free(&type);
 	type=l.type;
 	l.type=MPI_DATATYPE_NULL;
       }
@@ -505,6 +526,8 @@ namespace mpl {
     void swap(subarray_layout<T> &other) {
       std::swap(type, other.type);
     }
+    using layout<T>::resize;
+    using layout<T>::extent;
   };
 
   //--------------------------------------------------------------------
