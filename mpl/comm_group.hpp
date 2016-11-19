@@ -904,8 +904,8 @@ namespace mpl {
     }
     template<typename T>
     void gatherv(int root,
-         const T *senddata, const layout<T> &sendl,
-         T *recvdata, const layouts<T> &recvls) const {
+		 const T *senddata, const layout<T> &sendl,
+		 T *recvdata, const layouts<T> &recvls) const {
       gatherv(root, senddata, sendl, recvdata, recvls, displacements(size()));
     }
     // --- nonblocking gather ---
@@ -1012,6 +1012,12 @@ namespace mpl {
       alltoallv(senddata, sendls, senddispls,
 		recvdata, recvls, recvdispls);
     }
+    template<typename T>
+    void allgatherv(const T *senddata, const layout<T> &sendl,
+		    T *recvdata, const layouts<T> &recvls) const {
+      allgatherv(senddata, sendl,
+		 recvdata, recvls, displacements(size()));
+    }
     // --- nonblocking allgather ---
     template<typename T>
     detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl,
@@ -1025,6 +1031,12 @@ namespace mpl {
       layouts<T> sendls(N, sendl);
       return ialltoallv(senddata, sendls, senddispls,
 			recvdata, recvls, recvdispls);
+    }
+    template<typename T>
+    detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl,
+				 T *recvdata, const layouts<T> &recvls) const {
+      return iallgatherv(senddata, sendl,
+			 recvdata, recvls, displacements(size()));
     }
     // === scatter ===
     // === root sends a single value from contiguous memory to each rank
@@ -1285,6 +1297,13 @@ namespace mpl {
 	            recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
 	            comm);
     }
+    template<typename T>
+    void alltoallv(const T *senddata, const layouts<T> &sendl,
+		   T *recvdata, const layouts<T> &recvl) const {
+      displacements sendrecvdispls(size());
+      alltoallv(senddata, sendl, sendrecvdispls,
+		recvdata, recvl, sendrecvdispls);
+    }
     // --- non-blocking all-to-all ---
     template<typename T>
     detail::irequest ialltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls,
@@ -1304,6 +1323,14 @@ namespace mpl {
 		     comm, &req);
       return detail::irequest(req);
     }
+    template<typename T>
+    detail::irequest ialltoallv(const T *senddata, const layouts<T> &sendl,
+                                T *recvdata, const layouts<T> &recvl) const {
+      displacements sendrecvdispls(size());
+      return ialltoallv(senddata, sendl, sendrecvdispls,
+                        recvdata, recvl, sendrecvdispls);
+    }
+
     // --- blocking all-to-all, in place ---
     template<typename T>
     void alltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
@@ -1316,6 +1343,10 @@ namespace mpl {
       MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0,
 		    recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
 	            comm);
+    }
+    template<typename T>
+    void alltoallv(T *recvdata, const layouts<T> &recvl) const {
+      alltoallv(recvdata, recvl, displacements(size()));
     }
     // --- non-blocking all-to-all, in place ---
     template<typename T>
@@ -1331,6 +1362,10 @@ namespace mpl {
 		     recvdata, counts.data(), recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
 		     comm, &req);
       return detail::irequest(req);
+    }
+    template<typename T>
+    detail::irequest ialltoallv(T *recvdata, const layouts<T> &recvl) const {
+      return ialltoallv(recvdata, recvl, displacements(size()));
     }
     // === reduce ===
     // --- blocking reduce ---
