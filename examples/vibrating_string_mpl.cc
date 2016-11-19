@@ -1,4 +1,4 @@
-// solve one-dimensional wave equation 
+// solve one-dimensional wave equation
 
 #include <cstdlib>
 #include <iostream>
@@ -10,7 +10,7 @@ const int N=1001;
 const double L=1, c=1, dt=0.001, t_end=2.4;
 enum { left_copy, right_copy };
 
-void string(const std::vector<double> &u, const std::vector<double> &u_old, 
+void string(const std::vector<double> &u, const std::vector<double> &u_old,
 	    std::vector<double> &u_new, double eps) {
   typedef std::vector<double>::size_type size_type;
   size_type N=u.size();
@@ -23,11 +23,11 @@ void string(const std::vector<double> &u, const std::vector<double> &u_old,
 inline double u_0(double x) {
   if (x<=0 or x>=L)
     return 0;
-  return std::exp(-200.0*(x-0.5*L)*(x-0.5*L));  
+  return std::exp(-200.0*(x-0.5*L)*(x-0.5*L));
 }
 
-inline double u_0_dt(double x) {  
-  return 0.0;  
+inline double u_0_dt(double x) {
+  return 0.0;
 }
 
 int main() {
@@ -53,7 +53,7 @@ int main() {
     mpl::irequest_pool r;
     r.push(comm_world.isend(u_new_l[N_l[C_rank]-2],
 			    C_rank+1<C_size ? C_rank+1 : mpl::environment::proc_null(), right_copy));
-    r.push(comm_world.isend(u_new_l[1],   
+    r.push(comm_world.isend(u_new_l[1],
 			    C_rank-1>=0 ? C_rank-1 : mpl::environment::proc_null(), left_copy));
     r.push(comm_world.irecv(u_new_l[0],
 			    C_rank-1>=0 ? C_rank-1 : mpl::environment::proc_null(), right_copy));
@@ -63,18 +63,16 @@ int main() {
     std::swap(u_l, u_old_l);  std::swap(u_new_l, u_l);
   }
   mpl::layouts<double> layouts;
-  mpl::displacements displ;
-  for (int i=0; i<C_size; ++i) {
-    layouts.push_back(mpl::contiguous_layout<double>(N_l[i]-2));
-    displ.push_back((N0_l[i]+1)*sizeof(double));
-  }
+  for (int i=0; i<C_size; ++i)
+    layouts.push_back(mpl::indexed_layout<double>( { {N_l[i]-2, N0_l[i]+1} }));
+  mpl::contiguous_layout<double> layout(N_l[C_rank]-2);
   if (C_rank==0) {
     std::vector<double> u(N, 0);
-    comm_world.gatherv(0, u_l.data(), layouts[C_rank], 
-		       u.data(), layouts, displ);
+    comm_world.gatherv(0, u_l.data()+1, layout,
+		       u.data(), layouts);
     for (int i=0; i<N; ++i)
       std::cout << u[i] << '\n';
   } else
-    comm_world.gatherv(0, u_l.data(), layouts[C_rank]);
+    comm_world.gatherv(0, u_l.data()+1, layout);
   return EXIT_SUCCESS;
 }
