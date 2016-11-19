@@ -1,6 +1,6 @@
 hello_world.cc
   Simple hello-world program.  Initializes the message passing
-  environment and determines the number of processes and rank.  
+  environment and determines the number of processes and rank.
 
 blocking.cc
   Demonstrates various blocking send and receive modes of standard
@@ -8,16 +8,16 @@ blocking.cc
 
 blocking_vector.cc
   Demonstrates blocking send and receive of a vector of standard data
-  types. 
+  types.
 
 probe.cc
-  Demonstrated how to probe data and to receive a message of unknown size. 
- 
+  Demonstrated how to probe data and to receive a message of unknown size.
+
 nonblocking.cc
   Demonstrates nonblocking send and receive of standard data types and
   vectors of standard data types and different waiting methods.
 
-nonblocking_mult.cc 
+nonblocking_mult.cc
   Utilizes nonblocking send and receive of standard data types to
   implement a gather operation.
 
@@ -39,7 +39,10 @@ struct.cc
 
 gather.cc
   Gather data to a signle process.
- 
+
+gather.cc
+  Gather data if varying size to a signle process.
+
 collective.cc
   Demonstrates various modes of collective communication.
 
@@ -47,7 +50,7 @@ reduce_lcm.cc
   Demonstrates use of custom reduction functions.
 
 reduce_min_loc.cc
-  Demonstrates use of reduction functions for std::pair to determine 
+  Demonstrates use of reduction functions for std::pair to determine
   a minimum as its location.
 
 layouts.cc and subarray.cc
@@ -61,13 +64,13 @@ vibrating_string_mpi.c and vibrating_string_mpl.cc
   version vs. MPL version.
 
 matrix_gather:
-  Demonstrates gathering of a distributed matrix as it may used in domain 
+  Demonstrates gathering of a distributed matrix as it may used in domain
   partitioning applications.
 
 distributed_grid.cc
   Data type distributed_grid in action.
 
-heat_equation_successive_over-relaxation.cc heat_equation_Jacobi_method.cc 
+heat_equation_successive_over-relaxation.cc heat_equation_Jacobi_method.cc
   Solves the two-dimensional time-independent heat equation with fixed
   temperatures at the border via successive over-relaxation and Jacobi
   iterations.  Implementation uses distributed_grid.

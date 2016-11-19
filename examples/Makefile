@@ -1,5 +1,5 @@
 MPL_HEADERS = $(shell ls ../mpl/*hpp)
-BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types arrays struct gather collective reduce_lcm reduce_min_loc layouts subarray communicator vibrating_string_mpi vibrating_string_mpl matrix_gather distributed_grid distributed_grid_scatter_gather heat_equation_successive_over-relaxation heat_equation_Jacobi_method
+BINS = hello_world blocking blocking_vector probe nonblocking nonblocking_mult standard_types arrays struct gather gatherv collective reduce_lcm reduce_min_loc layouts subarray communicator vibrating_string_mpi vibrating_string_mpl matrix_gather distributed_grid distributed_grid_scatter_gather heat_equation_successive_over-relaxation heat_equation_Jacobi_method
 CC = mpicc
 CXX = mpicxx
 #CXXFLAGS = -std=c++98 -pedantic -Wall -Wno-long-long
@@ -38,6 +38,9 @@ struct: struct.cc $(MPL_HEADERS)
 gather: gather.cc $(MPL_HEADERS)
 	$(CXX) $(CXXFLAGS) -o gather -I .. gather.cc
 
+gatherv: gatherv.cc $(MPL_HEADERS)
+	$(CXX) $(CXXFLAGS) -o gatherv -I .. gatherv.cc
+
 collective: collective.cc $(MPL_HEADERS)
 	$(CXX) $(CXXFLAGS) -o collective -I .. collective.cc
 
@@ -75,7 +78,7 @@ heat_equation_successive_over-relaxation: heat_equation_successive_over-relaxati
 	$(CXX) $(CXXFLAGS) -o heat_equation_successive_over-relaxation -I .. heat_equation_successive_over-relaxation.cc
 
 heat_equation_Jacobi_method: heat_equation_Jacobi_method.cc $(MPL_HEADERS)
-	$(CXX) $(CXXFLAGS) -o heat_equation_Jacobi_method -I .. heat_equation_Jacobi_method.cc -pthread
+	$(CXX) $(CXXFLAGS) -o heat_equation_Jacobi_method -I .. heat_equation_Jacobi_method.cc
 
 clean:
 	rm -f $(BINS) *.o

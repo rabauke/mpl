@@ -58,6 +58,11 @@ namespace mpl {
 	type=newtype;
       }
     }
+    std::ptrdiff_t extent() const {
+      MPI_Aint lb_, extent_;
+      MPI_Type_get_extent(type, &lb_, &extent_);
+      return extent_;
+    }
     void swap(layout &l) {
       std::swap(type, l.type);
     }

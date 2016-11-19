@@ -902,6 +902,16 @@ namespace mpl {
 	alltoallv(senddata, sendls, senddispls,
 		  recvdata, mpl::layouts<T>(N), recvdispls);
     }
+    template<typename T>
+    void gatherv(int root,
+         const T *senddata, const layout<T> &sendl,
+         T *recvdata, const layouts<T> &recvls) const {
+      displacements recvdispls;
+      recvdispls.push_back(0);
+      for (int i=1; i<size(); ++i)
+        recvdispls.push_back(recvdispls[i-1]+recvls[i-1].extent());
+      gatherv(root, senddata, sendl, recvdata, recvls, recvdispls);
+    }
     // --- nonblocking gather ---
     template<typename T>
     detail::irequest igatherv(int root,
@@ -922,6 +932,16 @@ namespace mpl {
       else
 	return ialltoallv(senddata, sendls, senddispls,
 			  recvdata, mpl::layouts<T>(N), recvdispls);
+    }
+    template<typename T>
+    detail::irequest igatherv(int root,
+			      const T *senddata, const layout<T> &sendl,
+			      T *recvdata, const layouts<T> &recvls) const {
+      displacements recvdispls;
+      recvdispls.push_back(0);
+      for (int i=1; i<size(); ++i)
+        recvdispls.push_back(recvdispls[i-1]+recvls[i-1].extent());
+      return igatherv(root, senddata, sendl, recvdata, recvls, recvdispls);
     }
     // --- blocking gather, non-root variant ---
     template<typename T>
@@ -1128,6 +1148,17 @@ namespace mpl {
 	alltoallv(senddata, sendls, senddispls,
 		  recvdata, mpl::layouts<T>(N), recvdispls);
     }
+    template<typename T>
+    void scatterv(int root,
+		  const T *senddata, const layouts<T> &sendls,
+		  T *recvdata, const layout<T> &recvl) const {
+      displacements senddispls;
+      senddispls.push_back(0);
+      for (int i=1; i<size(); ++i)
+        senddispls.push_back(senddispls[i-1]+sendls[i-1].extent());
+      scatterv(root, senddata, sendls, senddispls,
+	       recvdata, recvl);
+    }
     // --- nonblocking scatter ---
     template<typename T>
     detail::irequest iscatterv(int root,
@@ -1148,6 +1179,17 @@ namespace mpl {
       else
 	return ialltoallv(senddata, sendls, senddispls,
 			  recvdata, mpl::layouts<T>(N), recvdispls);
+    }
+    template<typename T>
+    detail::irequest iscatterv(int root,
+			       const T *senddata, const layouts<T> &sendls,
+			       T *recvdata, const layout<T> &recvl) const {
+      displacements senddispls;
+      senddispls.push_back(0);
+      for (int i=1; i<size(); ++i)
+        senddispls.push_back(senddispls[i-1]+sendls[i-1].extent());
+      return iscatterv(root, senddata, sendls, senddispls,
+		       recvdata, recvl);
     }
     // --- blocking scatter, non-root variant ---
     template<typename T>
