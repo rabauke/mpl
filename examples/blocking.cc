@@ -10,6 +10,8 @@ int main() {
       return EXIT_FAILURE;
     // process 0 sends
     if (comm_world.rank()==0) {
+      // see MPI Standard for the semantics of standard send, buffered send,
+      // synchronous send and ready send
       double x=1.23456;
       comm_world.send(x, 1);  // send x to rank 1 via standard send
       ++x;
