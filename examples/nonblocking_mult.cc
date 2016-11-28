@@ -4,17 +4,18 @@
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
-  std::vector<double> v(comm_world.size());
   double x=1.23456+comm_world.rank();
-  mpl::irequest r_send(comm_world.isend(x, 0));
+  mpl::irequest r_send(comm_world.isend(x, 0));  // nonblocking send to rank 0
+  // rank 0 receives data from all ranks
   if (comm_world.rank()==0) {
+    std::vector<double> v(comm_world.size());
     mpl::irequest_pool r_pool;
-    for (int i=0; i<comm_world.size(); ++i) 
+    for (int i=0; i<comm_world.size(); ++i)
       r_pool.push(comm_world.irecv(v[i], i));
-    r_pool.waitall();
-    for (int i=0; i<comm_world.size(); ++i) 
+    r_pool.waitall();  // wait to finish all receive operations
+    for (int i=0; i<comm_world.size(); ++i)
       std::cout << i << '\t' << v[i] << '\n';
   }
-  r_send.wait();
+  r_send.wait();  // wait to finisch send operation
   return EXIT_SUCCESS;
 }
