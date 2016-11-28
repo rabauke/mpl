@@ -16,7 +16,7 @@ void print_range(const char * const str, I i1, I i2) {
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
-  // run the program with two ore more processes
+  // run the program with two or more processes
   if (comm_world.size()<2)
     return EXIT_FAILURE;
   if (comm_world.rank()==0) {

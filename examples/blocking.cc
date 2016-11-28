@@ -4,7 +4,7 @@
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
-  // run the program with two ore more processes
+  // run the program with two or more processes
   if (comm_world.size()<2)
     return EXIT_FAILURE;
   // process 0 sends
@@ -19,8 +19,7 @@ int main() {
       // memory will be freed on leaving the scope
       int size={ comm_world.bsend_size<decltype(x)>() };
       mpl::bsend_buffer<> buff(size);
-      // send x to rank 1 via buffered send
-      comm_world.bsend(x, 1);
+      comm_world.bsend(x, 1);  // send x to rank 1 via buffered send
     }
     ++x;
     comm_world.ssend(x, 1);  // send x to rank 1 via synchronous send
