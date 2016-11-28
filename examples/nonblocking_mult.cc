@@ -16,6 +16,6 @@ int main() {
     for (int i=0; i<comm_world.size(); ++i)
       std::cout << i << '\t' << v[i] << '\n';
   }
-  r_send.wait();  // wait to finisch send operation
+  r_send.wait();  // wait to finish send operation
   return EXIT_SUCCESS;
 }
