@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <vector>
 #include <iterator>
+#include <algorithm>
 #include <type_traits>
 #include <mpl/utility.hpp>
 
@@ -15,7 +16,6 @@ namespace mpl {
 
     template<typename T, typename I>
     class flat_memory_in {
-      static_assert(std::is_same<T, typename mpl::detail::iterator_traits<I>::insert_type >::value, "type mismatch");
     public:
       typedef std::ptrdiff_t size_type;
     private:
@@ -124,7 +124,6 @@ namespace mpl {
 
     template<typename T, typename I>
     class flat_memory_out {
-      static_assert(std::is_same<T, typename mpl::detail::iterator_traits<I>::insert_type >::value, "type mismatch");
     public:
       typedef std::ptrdiff_t size_type;
     private:

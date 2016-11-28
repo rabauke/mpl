@@ -4,7 +4,7 @@ CC = mpicc
 CXX = mpicxx
 #CXXFLAGS = -std=c++98 -pedantic -Wall -Wno-long-long
 CCFLAGS = -std=c99 -Wall -O3
-CXXFLAGS = -std=c++11 -Wall -O3 -DMPL_DEBUG
+CXXFLAGS = -std=c++14 -Wall -O3 -DMPL_DEBUG
 
 all: $(BINS)
 
