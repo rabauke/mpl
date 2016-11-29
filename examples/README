@@ -22,12 +22,12 @@ nonblocking_mult.cc
   implement a gather operation.
 
 standard_types.cc
-  Sends and recieves data of various standard types.
+  Sends and receives data of various standard types.
 
 arrays.cc
-  Sends and recieves arrays (C arrays ans std::array) of fixed size,
+  Sends and receives arrays (C arrays ans std::array) of fixed size,
   which must be known at compile time.  The types of the array
-  elements musst be suited for communication.  These rules may be
+  elements must be suited for communication.  These rules may be
   applied recursively.
 
 struct.cc
@@ -38,10 +38,10 @@ struct.cc
   applied recursively.
 
 gather.cc
-  Gather data to a signle process.
+  Gather data to a single process.
 
 gather.cc
-  Gather data if varying size to a signle process.
+  Gather data if varying size to a single process.
 
 collective.cc
   Demonstrates various modes of collective communication.
@@ -60,7 +60,7 @@ communicator.cc
   Demonstrates some basic communicator management.
 
 vibrating_string_mpi.c and vibrating_string_mpl.cc
-  Solve one-dimensional wave equatiion via finite differences, MPI
+  Solve one-dimensional wave equation via finite differences, MPI
   version vs. MPL version.
 
 matrix_gather:
