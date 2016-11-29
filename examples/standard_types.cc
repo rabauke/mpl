@@ -1,67 +1,42 @@
 #include <cstdlib>
 #include <complex>
 #include <iostream>
+#include <tuple>
+#include <utility>
 #include <mpl/mpl.hpp>
 
+// print elements of a pair
 template<typename T1, typename T2>
 std::ostream & operator<<(std::ostream &out, const std::pair<T1, T2> &p) {
-  out << p.first << ' ' << p.second;
-  return out;
+  return out << '(' << p.first << ',' << p.second << ')';
 }
 
-template<typename F, typename T, std::size_t n>
-class apply_n {
-  F &f;
-public:
-  apply_n(F &f) : f(f) {
-  }
-  void operator()(const T &x) {
-    apply_n<F, T, n-1> next(f);
-    next(x);
-    f(std::get<n-1>(x));
-  }
-};
-
-template<typename F, typename T>
-struct apply_n<F, T, 1> {
-  F &f;
-public:
-  apply_n(F &f) : f(f) {
-  }
-  void operator()(const T &x) {
-    f(std::get<0>(x));
-  }
-};
-
-template<typename F, typename... Args>
-void apply(const std::tuple<Args...> &t, F &f) {
-  apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...> >::value> app(f);
-  app(t);
+// print elements of a tuple
+template<typename ch, typename tr, typename tuple, std::size_t... is>
+void print_tuple_impl(std::basic_ostream<ch, tr>& os,
+                      const tuple & t,
+                      std::index_sequence<is...> is_) {
+  auto print_element = [&] (auto i, auto a) -> void {
+    os << a << (i+1<is_.size() ? "," : "");
+  };
+  std::initializer_list<int> { (print_element(is, std::get<is>(t)), 0)... };
 }
 
-class print_element {
-  std::ostream &out;
-public:
-  print_element(std::ostream &out) : out(out) {
-  }
-  template<typename T>
-  void operator()(const T &x) const {
-    out << x << ' ';
-  }
-};
-
-template<typename... Ts>
-std::ostream & operator<<(std::ostream &out, const std::tuple<Ts...> &t) {
-  print_element f(out);
-  apply<print_element>(t, f);
-  return out;
+template<typename ch, typename tr, typename... args>
+decltype(auto) operator<<(std::basic_ostream<ch, tr>& os,
+                          const std::tuple<args...>& t) {
+  os << '(';
+  print_tuple_impl(os, t, std::index_sequence_for<args...>{});
+  return os << ')';
 }
 
+// send some item of a standard type
 template<typename T>
 void send(const mpl::communicator &comm, const T &x) {
   comm.send(x, 1);
 }
 
+// receive some item of a standard type
 template<typename T>
 void recv(const mpl::communicator &comm) {
   T x;
@@ -71,8 +46,10 @@ void recv(const mpl::communicator &comm) {
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
+  // run the program with two or more processes
   if (comm_world.size()<2)
     comm_world.abort(EXIT_FAILURE);
+  // process 0 sends
   if (comm_world.rank()==0) {
     char t1='A';                               send(comm_world, t1);
     signed char t2='B';                        send(comm_world, t2);
@@ -94,7 +71,8 @@ int main() {
     std::complex<long double> t18(3.4, -3.4);  send(comm_world, t18);
     std::pair<int, double> t19(-2, 0.1234);    send(comm_world, t19);
     std::tuple<int, std::complex<double> > t20(-2, 0.1234);   send(comm_world, t20);
-  } 
+  }
+  // process 1 recieves
   if (comm_world.rank()==1) {
     recv<char>(comm_world);
     recv<signed char>(comm_world);
@@ -111,11 +89,11 @@ int main() {
     recv<float>(comm_world);
     recv<double>(comm_world);
     recv<long double>(comm_world);
-    recv<std::complex<float> >(comm_world);
-    recv<std::complex<double> >(comm_world);
-    recv<std::complex<long double> >(comm_world);
-    recv<std::pair<int, double> >(comm_world);
-    recv<std::tuple<int, std::complex<double> > >(comm_world);
+    recv<std::complex<float>>(comm_world);
+    recv<std::complex<double>>(comm_world);
+    recv<std::complex<long double>>(comm_world);
+    recv<std::pair<int, double>>(comm_world);
+    recv<std::tuple<int, std::complex<double>> >(comm_world);
   }
   return EXIT_SUCCESS;
 }
