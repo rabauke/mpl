@@ -5,17 +5,27 @@
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
-  const int n0=20, n1=8; 
-  const int s0=11, s1=3; 
-  // C order matrix with two-dimensional C arrays 
+  // run the program with two or more processes
+  if (comm_world.size()<2)
+    return EXIT_FAILURE;
+  // test layout for a subarry
+  // layouts on sending and receiving side may differ but must be compatible
+  const int n0=20, n1=8;   // size of two-dimesional array
+  const int s0=11, s1=3;   // size of two-dimesional subarray
+  // process 0 sends
   if (comm_world.rank()==0) {
+  // C order matrix with two-dimensional C arrays
     double A[n1][n0];
     for (int i1=0; i1<n1; ++i1)
       for (int i0=0; i0<n0; ++i0)
   	A[i1][i0]=i0+0.01*i1;
-    mpl::subarray_layout<double> subarray({{n1, s1, 2}, {n0, s0, 4}});
+    mpl::subarray_layout<double> subarray({
+	{n1, s1, 2},  // 2nd dimension: size of array, size of subarray, start of subarray
+        {n0, s0, 4}   // 1st dimension: size of array, size of subarray, start of subarray
+      });
     comm_world.send(&A[0][0], subarray, 1, 0);
   }
+  // process 1 recieves
   if (comm_world.rank()==1) {
     double A[s1][s0];
     mpl::contiguous_layout<double> array(s0*s1);
