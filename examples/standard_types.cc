@@ -6,28 +6,29 @@
 #include <mpl/mpl.hpp>
 
 // print elements of a pair
-template<typename T1, typename T2>
-std::ostream & operator<<(std::ostream &out, const std::pair<T1, T2> &p) {
+template<typename ch, typename tr, typename T1, typename T2>
+std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
+					const std::pair<T1, T2> &p) {
   return out << '(' << p.first << ',' << p.second << ')';
 }
 
 // print elements of a tuple
 template<typename ch, typename tr, typename tuple, std::size_t... is>
-void print_tuple_impl(std::basic_ostream<ch, tr>& os,
+void print_tuple_impl(std::basic_ostream<ch, tr>& out,
                       const tuple & t,
                       std::index_sequence<is...> is_) {
   auto print_element = [&] (auto i, auto a) -> void {
-    os << a << (i+1<is_.size() ? "," : "");
+    out << a << (i+1<is_.size() ? "," : "");
   };
   std::initializer_list<int> { (print_element(is, std::get<is>(t)), 0)... };
 }
 
 template<typename ch, typename tr, typename... args>
-decltype(auto) operator<<(std::basic_ostream<ch, tr>& os,
-                          const std::tuple<args...>& t) {
-  os << '(';
-  print_tuple_impl(os, t, std::index_sequence_for<args...>{});
-  return os << ')';
+std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr>& out,
+				      const std::tuple<args...>& t) {
+  out << '(';
+  print_tuple_impl(out, t, std::index_sequence_for<args...>{});
+  return out << ')';
 }
 
 // send some item of a standard type
