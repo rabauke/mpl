@@ -13,18 +13,18 @@ int main() {
   mpl::communicator comm_3(mpl::communicator::split(),
 			   comm_world, comm_world.rank()%3);
   int key;
-  if (comm_3.rank()==0) 
+  if (comm_3.rank()==0)
     key=comm_world.rank()%3;
   comm_3.bcast(0, key);
   std::cout << "comm_3     rank: " << comm_3.rank()
-  	    << "\tsize: " << comm_3.size() 
+  	    << "\tsize: " << comm_3.size()
 	    << "\tkey: " << key << std::endl;
   comm_world.barrier();
   // split comm_wolrd into a communicator which contains all processes
   // except rank 0 of comm_world and carry ot somme collective communication
   mpl::communicator comm_without_0(mpl::communicator::split(),
-				   comm_world, 
-				   comm_world.rank()==0 ? mpl::environment::undefined() : 1);
+  				   comm_world,
+  				   comm_world.rank()==0 ? mpl::environment::undefined() : 1);
   if (comm_world.rank()!=0) {
     double data=1;
     comm_without_0.allreduce(mpl::plus<double>(), data);

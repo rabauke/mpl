@@ -182,20 +182,24 @@ namespace mpl {
       MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED, key, MPI_INFO_NULL, &comm);
     }
     ~communicator() {
-      int result1, result2;
-      MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
-      MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
-      if (result1!=MPI_IDENT and result2!=MPI_IDENT)
-	MPI_Comm_free(&comm);
-    }
-    void operator=(const communicator &)=delete;
-    communicator & operator=(communicator &&other) {
-      if (this!=&other) {
+      if (is_valid()) {
 	int result1, result2;
 	MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
 	MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
 	if (result1!=MPI_IDENT and result2!=MPI_IDENT)
 	  MPI_Comm_free(&comm);
+      }
+    }
+    void operator=(const communicator &)=delete;
+    communicator & operator=(communicator &&other) {
+      if (this!=&other) {
+	if (is_valid()) {
+	  int result1, result2;
+	  MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+	  MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+	  if (result1!=MPI_IDENT and result2!=MPI_IDENT)
+	    MPI_Comm_free(&comm);
+	}
 	comm=other.comm;
 	other.comm=MPI_COMM_SELF;
       }
@@ -229,13 +233,13 @@ namespace mpl {
     bool is_valid() const {
       return comm!=MPI_COMM_NULL;
     }
-    friend class group;
-    friend class cart_communicator;
-    friend class environment::detail::env;
-
     void abort(int err) const {
       MPI_Abort(comm, err);
     }
+
+    friend class group;
+    friend class cart_communicator;
+    friend class environment::detail::env;
 
     // === point to point ==============================================
 
