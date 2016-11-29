@@ -2,6 +2,7 @@
 #include <complex>
 #include <iostream>
 #include <tuple>
+#include <array>
 #include <utility>
 #include <mpl/mpl.hpp>
 
@@ -12,7 +13,7 @@ std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
   return out << '(' << p.first << ',' << p.second << ')';
 }
 
-// print elements of a tuple
+// helper function for printing all elements of a tuple/ an array
 template<typename ch, typename tr, typename tuple, std::size_t... is>
 void print_tuple_impl(std::basic_ostream<ch, tr>& out,
                       const tuple & t,
@@ -23,11 +24,21 @@ void print_tuple_impl(std::basic_ostream<ch, tr>& out,
   std::initializer_list<int> { (print_element(is, std::get<is>(t)), 0)... };
 }
 
+// print all elements of a tuple
 template<typename ch, typename tr, typename... args>
 std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr>& out,
-				      const std::tuple<args...>& t) {
+					const std::tuple<args...>& t) {
   out << '(';
   print_tuple_impl(out, t, std::index_sequence_for<args...>{});
+  return out << ')';
+}
+
+// print all elements of an array
+template<typename ch, typename tr, typename ty, std::size_t s>
+std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr>& out,
+					const std::array<ty, s>& t) {
+  out << '(';
+  print_tuple_impl(out, t, std::make_integer_sequence<std::size_t, s>{});
   return out << ')';
 }
 
@@ -72,6 +83,7 @@ int main() {
     std::complex<long double> t18(3.4, -3.4);  send(comm_world, t18);
     std::pair<int, double> t19(-2, 0.1234);    send(comm_world, t19);
     std::tuple<int, std::complex<double> > t20(-2, 0.1234);   send(comm_world, t20);
+    std::array<int, 4> t21{1, 2, 3, 4};        send(comm_world, t21);
   }
   // process 1 recieves
   if (comm_world.rank()==1) {
@@ -94,7 +106,8 @@ int main() {
     recv<std::complex<double>>(comm_world);
     recv<std::complex<long double>>(comm_world);
     recv<std::pair<int, double>>(comm_world);
-    recv<std::tuple<int, std::complex<double>> >(comm_world);
+    recv<std::tuple<int, std::complex<double>>>(comm_world);
+    recv<std::array<int, 4>>(comm_world);
   }
   return EXIT_SUCCESS;
 }
