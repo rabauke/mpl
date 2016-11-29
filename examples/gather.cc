@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <vector>
 #include <mpl/mpl.hpp>
 
 int main() {
