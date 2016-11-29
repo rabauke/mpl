@@ -160,14 +160,14 @@ namespace mpl {
     communicator(MPI_Comm comm) : comm(comm) {
     }
   public:
-    communicator() : comm(MPI_COMM_SELF) {
+    communicator() : comm(MPI_COMM_NULL) {
     }
     communicator(const communicator &other) {
       MPI_Comm_dup(other.comm, &comm);
     }
     communicator(communicator &&other) {
       comm=other.comm;
-      other.comm=MPI_COMM_SELF;
+      other.comm=MPI_COMM_NULL;
     }
     communicator(comm_collective, const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm, gr.gr, &comm);
@@ -201,7 +201,7 @@ namespace mpl {
 	    MPI_Comm_free(&comm);
 	}
 	comm=other.comm;
-	other.comm=MPI_COMM_SELF;
+	other.comm=MPI_COMM_NULL;
       }
       return *this;
     }
