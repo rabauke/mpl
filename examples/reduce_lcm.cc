@@ -2,6 +2,7 @@
 #include <ctime>
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include <mpl/mpl.hpp>
 
 // calculate least common multiple of two arguments
