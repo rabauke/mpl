@@ -40,7 +40,7 @@ struct.cc
 gather.cc
   Gather data to a single process.
 
-gather.cc
+gatherv.cc
   Gather data if varying size to a single process.
 
 collective.cc
