@@ -1,23 +1,42 @@
 #include <cstdlib>
 #include <vector>
 #include <iostream>
+#include <numeric>
 #include <mpl/mpl.hpp>
 
+// some structures
 struct structure {
-  double d;
-  char i[9];
-  structure() : d(0) {
-    for (int j=0; j<9; ++j) 
-      i[j]=0;
-  }
+  double d=0;
+  int i[9]={0, 0, 0, 0, 0, 0, 0, 0, 0};
+  structure()=default;
 };
+
+// print elements of structure
+template<typename ch, typename tr>
+std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
+					const structure &s) {
+  out << '(' << s.d << ",[" << s.i[0];
+  for (int i=1; i<9; ++i)
+    out << ',' << s.i[i];
+  return out << "])";
+}
 
 struct structure2 {
-  double d;
+  double d=0;
   structure str;
-  structure2() : d(0), str() { }
+  structure2()=default;
 };
 
+// print elements of structure2
+template<typename ch, typename tr>
+std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
+					const structure2 &s) {
+  return out << '(' << s.d << "," << s.str << ")";
+}
+
+
+// specialize trait template class struct_builder
+// for the structures defined above
 namespace mpl {
 
   template<>
@@ -27,13 +46,14 @@ namespace mpl {
     struct_builder() {
       structure str;
       layout.register_struct(str);
-      // register each element
+      // register each element of struct structure
       layout.register_element(str.d);
       layout.register_element(str.i);
+      // finalize
       define_struct(layout);
     }
   };
-  
+
   template<>
   class struct_builder<structure2> : public base_struct_builder<structure2> {
     struct_layout<structure2> layout;
@@ -41,69 +61,64 @@ namespace mpl {
     struct_builder() {
       structure2 str2;
       layout.register_struct(str2);
-      // register each element
+      // register each element of struct structure2
       layout.register_element(str2.d);
       layout.register_element(str2.str);
+      // finalize
       define_struct(layout);
     }
   };
-  
+
 }
+
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
+  // run the program with two or more processes
   if (comm_world.size()<2)
     comm_world.abort(EXIT_FAILURE);
-  // --- send / receive a single structure
+  // send / receive a single structure
   structure str;
   if (comm_world.rank()==0) {
     str.d=1;
-    for (int j=0; j<9; ++j) 
-      str.i[j]=j+1;
+    std::iota(str.i, str.i+9, 1);
     comm_world.send(str, 1, 0);
   }
   if (comm_world.rank()==1) {
     comm_world.recv(str, 0, 0);
-    std::cout << "d = " << str.d << '\n';
-    for (int j=0; j<9; ++j) 
-      std::cout << "i[" << j << "] = " << static_cast<int>(str.i[j]) << '\n';
+    std::cout << str << '\n';
   }
-  // --- send / receive a single structure containg another structure
+  // send / receive a single structure containg another structure
   structure2 str2;
   if (comm_world.rank()==0) {
     str2.d=1;
     str2.str.d=1;
-    for (int j=0; j<9; ++j) 
-      str2.str.i[j]=j+1;
+    std::iota(str2.str.i, str2.str.i+9, 1);
     comm_world.send(str2, 1, 0);
   }
   if (comm_world.rank()==1) {
     comm_world.recv(str2, 0, 0);
-    std::cout << "d = " << str2.d << '\n';
-    std::cout << "str.d = " << str2.str.d << '\n';
-    for (int j=0; j<9; ++j) 
-      std::cout << "str.i[" << j << "] = " << static_cast<int>(str2.str.i[j]) << '\n';
+    std::cout << str2 << '\n';
   }
-  // --- send / receive a field of single structures
-  int field_size=8;
+  // send / receive a vector of structures
+  const int field_size=8;
   std::vector<structure> str_field(field_size);
   mpl::contiguous_layout<structure> str_field_layout(field_size);
   if (comm_world.rank()==0) {
+    // populate vector of structures
     for (int k=0; k<field_size; ++k) {
       str_field[k].d=k+1;
-      for (int j=0; j<9; ++j) 
-  	str_field[k].i[j]=j+10*k;
+      std::iota(str_field[k].i, str_field[k].i+9, 1+k);
     }
-    comm_world.send(&str_field[0], str_field_layout, 1, 0);
+    // send vector of structures
+    comm_world.send(str_field.data(), str_field_layout, 1, 0);
   }
   if (comm_world.rank()==1) {
-    comm_world.recv(&str_field[0], str_field_layout, 0, 0);
-    for (int k=0; k<field_size; ++k) {
-      std::cout << "d = " << str_field[k].d << '\n';
-      for (int j=0; j<9; ++j) 
-  	std::cout << "i[" << j << "] = " << static_cast<int>(str_field[k].i[j]) << '\n';
-    }
+    // receive vector of structures
+    comm_world.recv(str_field.data(), str_field_layout, 0, 0);
+    for (int k=0; k<field_size; ++k)
+      std::cout << str_field[k] << '\n';
   }
-  
+
   return EXIT_SUCCESS;
 }
