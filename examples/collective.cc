@@ -1,36 +1,50 @@
 #include <cstdlib>
 #include <iostream>
+#include <numeric>
 #include <mpl/mpl.hpp>
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
+  int root=0;
+  // synchronize processes via barrier
   comm_world.barrier();
-  std::cout << mpl::environment::processor_name() 
+  std::cout << mpl::environment::processor_name()
 	    << " has passed barrier\n";
   comm_world.barrier();
   double x=0;
-  if (comm_world.rank()==0) 
+  if (comm_world.rank()==root)
     x=10;
-  comm_world.bcast(0, x);
+  // broadcast x to all from root rank
+  comm_world.bcast(root, x);
   std::cout << "x = " << x << '\n';
-  comm_world.barrier();
-  std::vector<double> v(comm_world.size());
-  x=comm_world.rank();
-  comm_world.gather(0, x, v.data());
-  if (comm_world.rank()==0) {
-    for (int i=0; i<comm_world.size(); ++i) {
-      std::cout << v[i] << '\t';
-      v[i]=2*v[i]+1;
-    }
+  // collect data from all ranks via gather to root rank
+  x=comm_world.rank()+1;
+  if (comm_world.rank()==root) {
+    std::vector<double> v(comm_world.size());  // receive buffer
+    comm_world.gather(root, x, v.data());
+    std::cout << "v = ";
+    for (auto x: v)
+      std::cout << x << ' ';
     std::cout << '\n';
-  }
-  comm_world.scatter(0, v.data(), x);
-  std::cout << "after scatter " << x << '\n';
-  double y;
-  comm_world.reduce(mpl::plus<double>(), 0, x, y);
-  if (comm_world.rank()==0) 
-    std::cout << "after reduce " << y << '\n';
+  } else
+    comm_world.gather(root, x);
+  // send data to all ranks via scatter from root rank
+  double y=0;
+  if (comm_world.rank()==root) {
+    std::vector<double> v(comm_world.size());  // send buffer
+    std::iota(v.begin(), v.end(), 1);  // populate send buffer
+    comm_world.scatter(root, v.data(), y);
+  } else
+    comm_world.scatter(root, y);
+  std::cout << "y = " << y << '\n';
+  // reduce/sum all values of x on all nodes and send global result to root
+  if (comm_world.rank()==root) {
+    comm_world.reduce(mpl::plus<double>(), root, x, y);
+    std::cout << "sum after reduce " << y << '\n';
+  } else
+    comm_world.reduce(mpl::plus<double>(), root, x);
+  // reduce/multiply all values of x on all nodes and send global result to all
   comm_world.allreduce(mpl::multiplies<double>(), x, y);
-  std::cout << "after allreduce " << y << '\n';
+  std::cout << "sum after allreduce " << y << '\n';
   return EXIT_SUCCESS;
 }
