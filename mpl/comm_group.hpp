@@ -1653,7 +1653,7 @@ namespace mpl {
     // --- blocking reduce-scatter ---
     template<typename T, typename F>
     void reduce_scatter(F f,
-			const T *senddata, T *recvdata, const cont_layouts<T> &recvcounts) const {
+			const T *senddata, T *recvdata, const contiguous_layouts<T> &recvcounts) const {
       detail::get_op<T, F>().f=&f;
       MPI_Reduce_scatter(senddata, recvdata, recvcounts.sizes(),
 			 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1662,7 +1662,7 @@ namespace mpl {
     // --- non-blocking reduce-scatter ---
     template<typename T, typename F>
     detail::irequest ireduce_scatter(F f,
-				     const T *senddata, T *recvdata, cont_layouts<T> &recvcounts) const {
+				     const T *senddata, T *recvdata, contiguous_layouts<T> &recvcounts) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce_scatter(senddata, recvdata, recvcounts.sizes(),
@@ -1673,7 +1673,7 @@ namespace mpl {
     // --- blocking reduce-scatter, in place ---
     template<typename T, typename F>
     void reduce_scatter(F f,
-			T *recvdata, const cont_layouts<T> &recvcounts) const {
+			T *recvdata, const contiguous_layouts<T> &recvcounts) const {
       detail::get_op<T, F>().f=&f;
       MPI_Reduce_scatter(MPI_IN_PLACE, recvdata, recvcounts.sizes(),
 			 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
@@ -1682,7 +1682,7 @@ namespace mpl {
     // --- non-blocking reduce-scatter, in place ---
     template<typename T, typename F>
     detail::irequest ireduce_scatter(F f,
-				     T *recvdata, const cont_layouts<T> &recvcounts) const {
+				     T *recvdata, const contiguous_layouts<T> &recvcounts) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce_scatter(MPI_IN_PLACE, recvdata, recvcounts.sizes(),

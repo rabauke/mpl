@@ -175,47 +175,6 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
-  class vector_layout : public layout<T> {
-    using layout<T>::type;
-    static MPI_Datatype build(int count,
-			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
-      MPI_Datatype new_type;
-      MPI_Type_contiguous(count, old_type, &new_type);
-      return new_type;
-    }
-  public:
-    explicit vector_layout(int c=0) :
-      layout<T>(build(c)) {
-    }
-    explicit vector_layout(int c, const layout<T> &other) :
-      layout<T>(build(c, other.type)) {
-    }
-    explicit vector_layout(int c, const vector_layout<T> &other) :
-      layout<T>(build(c, other.type)) {
-    }
-    vector_layout(const vector_layout<T> &l) : layout<T>(l) {
-    }
-    vector_layout(vector_layout &&l) : layout<T>(std::move(l)) {
-    }
-    vector_layout<T> & operator=(const vector_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
-    vector_layout<T> & operator=(vector_layout<T> &&l) {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
-    void swap(vector_layout<T> &other) {
-      std::swap(type, other.type);
-    }
-    using layout<T>::resize;
-    using layout<T>::extent;
-    friend class communicator;
-  };
-
-  //--------------------------------------------------------------------
-
-  template<typename T>
   class strided_vector_layout : public layout<T> {
     using layout<T>::type;
     static MPI_Datatype build() {
@@ -493,12 +452,12 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
-  class cont_layouts : private std::vector<contiguous_layout<T>> {
+  class contiguous_layouts : private std::vector<contiguous_layout<T>> {
     typedef std::vector<contiguous_layout<T>> base;
     mutable std::vector<int> s;
   public:
     typedef typename base::size_type size_type;
-    explicit cont_layouts(size_type n=0) : base(n, contiguous_layout<T>()), s() {
+    explicit contiguous_layouts(size_type n=0) : base(n, contiguous_layout<T>()), s() {
     }
     using base::begin;
     using base::end;
