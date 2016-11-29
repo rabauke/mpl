@@ -9,9 +9,10 @@
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
+  // run the program with two or more processes
   if (comm_world.size()<2)
     comm_world.abort(EXIT_FAILURE);
-  // --- send / receive a single array
+  // send / receive a single array
   {
     const int N=10;
     double arr[N];
@@ -21,40 +22,26 @@ int main() {
     }
     if (comm_world.rank()==1) {
       comm_world.recv(arr, 0, 0);
-      for (int j=0; j<N; ++j) 
+      for (int j=0; j<N; ++j)
 	std::cout << "arr[" << j << "] = " << arr[j] << '\n';
     }
   }
-  // --- send / receive a single array
+  // send / receive a single two-dimensional array
   {
     const int N0=2, N1=3;
     double arr[N0][N1];
-    for (int j1=0; j1<N1; ++j1)
-      for (int j0=0; j0<N0; ++j0) 
-	arr[j0][j1]=(j0+1)+100*(j1+1);
     if (comm_world.rank()==0) {
-      //std::iota(arr, arr+N, 1);
+      for (int j1=0; j1<N1; ++j1)
+	for (int j0=0; j0<N0; ++j0)
+	  arr[j0][j1]=(j0+1)+100*(j1+1);
       comm_world.send(arr, 1, 0);
     }
     if (comm_world.rank()==1) {
       comm_world.recv(arr, 0, 0);
       for (int j1=0; j1<N1; ++j1) {
-	for (int j0=0; j0<N0; ++j0) 
+	for (int j0=0; j0<N0; ++j0)
 	  std::cout << "arr[" << j0 << ", " << j1 << "] = " << arr[j0][j1] << '\n';
       }
-    }
-  }
-  // --- send / receive a single array
-  {
-    std::array<double, 10> arr;
-    if (comm_world.rank()==0) {
-      std::iota(arr.begin(), arr.end(), 1);
-      comm_world.send(arr, 1, 0);
-    }
-    if (comm_world.rank()==1) {
-      comm_world.recv(arr, 0, 0);
-      for (std::array<double, 10>::size_type j=0; j<arr.size(); ++j) 
-	std::cout << "arr[" << j << "] = " << arr[j] << '\n';
     }
   }
   return EXIT_SUCCESS;
