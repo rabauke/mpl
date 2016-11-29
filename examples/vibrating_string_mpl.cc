@@ -1,4 +1,5 @@
-// solve one-dimensional wave equation
+// solve the time-dependent one-dimensional wave equation
+// via a finite difference discretization and explicit time stepping
 
 #include <cstdlib>
 #include <iostream>
@@ -6,10 +7,15 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
-const int N=1001;
-const double L=1, c=1, dt=0.001, t_end=2.4;
+const int N=1001;  // total number of gridpoints
+const double L=1;  // lengths of domain
+const double c=1;  // speed of sound
+const double dt=0.001;  // temporal step width
+const double t_end=2.4; // simulation time
+
 enum { left_copy, right_copy };
 
+// update grid points
 void string(const std::vector<double> &u, const std::vector<double> &u_old,
 	    std::vector<double> &u_new, double eps) {
   typedef std::vector<double>::size_type size_type;
@@ -20,36 +26,47 @@ void string(const std::vector<double> &u, const std::vector<double> &u_old,
   u_new[N-1]=u[N-1];
 }
 
+// initial elongation of string
 inline double u_0(double x) {
   if (x<=0 or x>=L)
     return 0;
   return std::exp(-200.0*(x-0.5*L)*(x-0.5*L));
 }
 
+// initial velocity of string
 inline double u_0_dt(double x) {
   return 0.0;
 }
 
 int main() {
-  double dx=L/(N-1), eps=dt*dt*c*c/(dx*dx);
+  double dx=L/(N-1);  // grid spacing
+  double eps=dt*dt*c*c/(dx*dx);
   const mpl::communicator & comm_world(mpl::environment::comm_world());
   int C_size=comm_world.size();
   int C_rank=comm_world.rank();
   std::vector<int> N_l, N0_l;
   for (int i=0; i<C_size; ++i) {
+    // number of local grid points of process i
     N_l.push_back((i+1)*(N-2)/C_size-i*(N-2)/C_size+2);
+    // position of local grid of process i within the global grid
     N0_l.push_back(i*(N-2)/C_size);
   }
+  // grid data for times (t-dt), t and t+dt
   std::vector<double> u_old_l(N_l[C_rank]);
   std::vector<double> u_l(N_l[C_rank]);
   std::vector<double> u_new_l(N_l[C_rank]);
+  // 1st propagation step uses current elongation and velocity
+  // calcuate all grid points including ovlapping border data
   for (int i=0; i<N_l[C_rank]; ++i) {
     double x=(i+N0_l[C_rank])*dx;
     u_old_l[i]=u_0(x);
     u_l[i]=0.5*eps*(u_0(x-dx)+u_0(x+dx))+(1.0-eps)*u_0(x)+dt*u_0_dt(x);
   }
+  // propagate
   for (double t=2*dt; t<=t_end; t+=dt) {
+    // make one time step to get elongation
     string(u_l, u_old_l, u_new_l, eps);
+    // update border data
     mpl::irequest_pool r;
     r.push(comm_world.isend(u_new_l[N_l[C_rank]-2],
 			    C_rank+1<C_size ? C_rank+1 : mpl::environment::proc_null(), right_copy));
@@ -62,6 +79,7 @@ int main() {
     r.waitall();
     std::swap(u_l, u_old_l);  std::swap(u_new_l, u_l);
   }
+  // finally gather all the data at rank 0 and print result
   mpl::layouts<double> layouts;
   for (int i=0; i<C_size; ++i)
     layouts.push_back(mpl::indexed_layout<double>( { {N_l[i]-2, N0_l[i]+1} }));
@@ -71,7 +89,7 @@ int main() {
     comm_world.gatherv(0, u_l.data()+1, layout,
 		       u.data(), layouts);
     for (int i=0; i<N; ++i)
-      std::cout << u[i] << '\n';
+      std::cout << dx*i << '\t' << u[i] << '\n';
   } else
     comm_world.gatherv(0, u_l.data()+1, layout);
   return EXIT_SUCCESS;
