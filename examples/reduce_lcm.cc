@@ -4,7 +4,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
-// calculate least common multiple of two arguments 
+// calculate least common multiple of two arguments
 template<typename T>
 class lcm {
   // helper: calculate greatest common divisor
@@ -32,27 +32,27 @@ int main() {
   // generate data
   std::srand(std::time(0)*comm_world.rank());  // random seed
   const int n=8;
+  // populate vector with random data
   std::vector<int> v(n);
-  for (int &i : v)
-    i=std::rand()%12+1;
-  // calculate least common multiple and send result to rank 0
+  std::generate(v.begin(), v.end(), []()->auto{ return std::rand()%12+1; });
+  // calculate the least common multiple and send result to rank 0
   mpl::contiguous_layout<int> layout(n);
   if (comm_world.rank()==0) {
     std::vector<int> result(n);
     // calculate least common multiple
     comm_world.reduce(lcm<int>(), 0, v.data(), result.data(), layout);
-    // display data from all ranks
+    // to check the result display data from all ranks
     std::cout << "Arguments:\n";
     for (int r=0; r<comm_world.size(); ++r) {
       if (r>0)
 	comm_world.recv(v.data(), layout, r);
-      for (int i : v) 
+      for (auto i : v)
 	std::cout << i << '\t';
       std::cout << '\n';
     }
     // display results of global reduction
     std::cout << "\nResults:\n";
-    for (int i : result) 
+    for (auto i : result)
       std::cout << i << '\t';
     std::cout << '\n';
   } else {
