@@ -227,6 +227,11 @@ namespace mpl {
       std::vector<int> blocklengths, displacements;
     public:
       parameter()=default;
+      template<typename List_T>
+      parameter(const List_T &V) {
+	for (const auto &i : V)
+	  add(i[0], i[1]);
+      }
       parameter(std::initializer_list<std::array<int, 2>> list) {
 	for (const std::array<int, 2> &i : list)
 	  add(i[0], i[1]);
@@ -289,9 +294,14 @@ namespace mpl {
       std::vector<int> displacements;
     public:
       parameter()=default;
-      parameter(std::initializer_list<int> list) {
-	for (int i : list)
+      template<typename List_T>
+      parameter(const List_T &V) {
+	for (const auto &i : V)
 	  add(i);
+      }
+      parameter(std::initializer_list<int> list) {
+      	for (int i : list)
+   	  add(i);
       }
       void add(int displacement) {
 	displacements.push_back(displacement);
@@ -353,6 +363,11 @@ namespace mpl {
       array_orders order_=array_orders::C_order;
     public:
       parameter()=default;
+      template<typename List_T>
+      parameter(const List_T &V) {
+	for (const auto &i : V)
+	  add(i[0], i[1], i[2]);
+      }
       parameter(std::initializer_list<std::array<int, 3>> list) {
 	for (const std::array<int, 3> &i : list)
 	  add(i[0], i[1], i[2]);
