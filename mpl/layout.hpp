@@ -11,9 +11,39 @@
 namespace mpl {
 
   template<typename T>
+  class layout;
+
+  template<typename T>
+  class null_layout;
+
+  template<typename T>
+  class empty_layout;
+
+  template<typename T>
+  class contiguous_layout;
+
+  template<typename T>
+  class vector_layout;
+
+  template<typename T>
+  class strided_vector_layout;
+
+  template<typename T>
+  class indexed_layout;
+
+  template<typename T>
+  class indexed_block_layout;
+
+  template<typename T>
+  class subarray_layout;
+
+  //--------------------------------------------------------------------
+
+  template<typename T>
   class layout {
-  protected:
+  private:
     MPI_Datatype type;
+  protected:
     explicit layout(MPI_Datatype new_type) : type(new_type) {
       if (type!=MPI_DATATYPE_NULL)
 	MPI_Type_commit(&type);
@@ -72,7 +102,17 @@ namespace mpl {
       if (type!=MPI_DATATYPE_NULL)
 	MPI_Type_free(&type);
     }
+
     friend class datatype_traits<layout<T>>;
+    friend class null_layout<T>;
+    friend class empty_layout<T>;
+    friend class contiguous_layout<T>;
+    friend class vector_layout<T>;
+    friend class strided_vector_layout<T>;
+    friend class indexed_layout<T>;
+    friend class indexed_block_layout<T>;
+    friend class subarray_layout<T>;
+
   };
 
   //--------------------------------------------------------------------
@@ -166,6 +206,47 @@ namespace mpl {
     void swap(contiguous_layout<T> &other) {
       std::swap(type, other.type);
       std::swap(count, other.count);
+    }
+    using layout<T>::resize;
+    using layout<T>::extent;
+    friend class communicator;
+  };
+
+  //--------------------------------------------------------------------
+
+  template<typename T>
+  class vector_layout : public layout<T> {
+    using layout<T>::type;
+    static MPI_Datatype build(int count,
+                              MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
+      MPI_Datatype new_type;
+      MPI_Type_contiguous(count, old_type, &new_type);
+      return new_type;
+    }
+  public:
+    explicit vector_layout(int c=0) :
+      layout<T>(build(c)) {
+    }
+    explicit vector_layout(int c, const layout<T> &other) :
+      layout<T>(build(c, other.type)) {
+    }
+    explicit vector_layout(int c, const vector_layout<T> &other) :
+      layout<T>(build(c, other.type)) {
+    }
+    vector_layout(const vector_layout<T> &l) : layout<T>(l) {
+    }
+    vector_layout(vector_layout &&l) : layout<T>(std::move(l)) {
+    }
+    vector_layout<T> & operator=(const vector_layout<T> &l) {
+      layout<T>::operator=(l);
+      return *this;
+    }
+    vector_layout<T> & operator=(vector_layout<T> &&l) {
+      layout<T>::operator=(std::move(l));
+      return *this;
+    }
+    void swap(vector_layout<T> &other) {
+      std::swap(type, other.type);
     }
     using layout<T>::resize;
     using layout<T>::extent;

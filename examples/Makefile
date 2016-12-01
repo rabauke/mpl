@@ -86,4 +86,4 @@ clean:
 	rm -f $(BINS) *.o
 
 run: $(BINS)
-	for i in $(BINS); do echo "=== $$i ==="; mpirun -np 6 $$i; echo; done
+	for i in $(BINS); do echo "=== $$i ==="; mpiexec -n 2 ./$$i; echo; done
