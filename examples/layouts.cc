@@ -115,5 +115,19 @@ int main() {
     comm_world.recv(v.data(), l2, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+  // test layout for a sequence of items
+  // layouts on sending and receiving side may differ but must be compatible
+  if (comm_world.rank()==0) {
+    std::vector<int> v(20);
+    std::iota(v.begin(), v.end(), 1);  // fill vector with some data
+    mpl::contiguous_layout<int> l(20);  // contiguous_layout with 9 elements
+    comm_world.send(v.data(), l, 1);  // send data to rank 1
+  }
+  if (comm_world.rank()==1) {
+    std::list<int> v(20, 0);
+    mpl::iterator_layout<int> l(v.begin(), v.end());
+    comm_world.recv(&(*v.begin()), l, 0);  // receive data from rank 0
+    print_range("v = ", v.begin(), v.end());
+  }
   return EXIT_SUCCESS;
 }

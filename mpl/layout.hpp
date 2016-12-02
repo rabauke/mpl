@@ -32,7 +32,16 @@ namespace mpl {
   class indexed_layout;
 
   template<typename T>
+  class hindexed_layout;
+
+  template<typename T>
   class indexed_block_layout;
+
+  template<typename T>
+  class hindexed_block_layout;
+
+  template<typename T>
+  class iterator_layout;
 
   template<typename T>
   class subarray_layout;
@@ -110,7 +119,10 @@ namespace mpl {
     friend class vector_layout<T>;
     friend class strided_vector_layout<T>;
     friend class indexed_layout<T>;
+    friend class hindexed_layout<T>;
     friend class indexed_block_layout<T>;
+    friend class hindexed_block_layout<T>;
+    friend class iterator_layout<T>;
     friend class subarray_layout<T>;
 
   };
@@ -368,6 +380,74 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   template<typename T>
+  class hindexed_layout : public layout<T> {
+    using layout<T>::type;
+  public:
+    class parameter {
+      std::vector<int> blocklengths;
+      std::vector<MPI_Aint> displacements;
+    public:
+      parameter()=default;
+      template<typename List_T>
+      parameter(const List_T &V) {
+	for (const auto &i : V)
+	  add(i.first, i.second);
+      }
+      parameter(std::initializer_list<std::pair<int, MPI_Aint>> list) {
+	for (const std::pair<int, MPI_Aint> &i : list)
+	  add(i.first, i.second);
+      }
+      void add(int blocklength, MPI_Aint displacement) {
+	blocklengths.push_back(blocklength);
+	displacements.push_back(displacement);
+      }
+      friend class hindexed_layout;
+    };
+  private:
+    static MPI_Datatype build() {
+      MPI_Datatype new_type;
+      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
+ 			  &new_type);
+      return new_type;
+    }
+    static MPI_Datatype build(const parameter &par,
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
+      MPI_Datatype new_type;
+      MPI_Type_hindexed(par.displacements.size(), par.blocklengths.data(), par.displacements.data(),
+			old_type, &new_type);
+      return new_type;
+    }
+  public:
+    hindexed_layout() : layout<T>(build()) {
+    }
+    explicit hindexed_layout(const parameter &par) :
+      layout<T>(build(par)) {
+    }
+    explicit hindexed_layout(const parameter &par, const layout<T> &other) :
+      layout<T>(build(par, other.type)) {
+    }
+    hindexed_layout(const hindexed_layout<T> &l) : layout<T>(l) {
+    }
+    hindexed_layout(hindexed_layout<T> &&l) : layout<T>(std::move(l)) {
+    }
+    hindexed_layout<T> & operator=(const hindexed_layout<T> &l) {
+      layout<T>::operator=(l);
+      return *this;
+    }
+    hindexed_layout<T> & operator=(hindexed_layout<T> &&l) {
+      layout<T>::operator=(std::move(l));
+      return *this;
+    }
+    void swap(hindexed_layout<T> &other) {
+      std::swap(type, other.type);
+    }
+    using layout<T>::resize;
+    using layout<T>::extent;
+  };
+
+  //--------------------------------------------------------------------
+
+  template<typename T>
   class indexed_block_layout : public layout<T> {
     using layout<T>::type;
   public:
@@ -425,6 +505,150 @@ namespace mpl {
       return *this;
     }
     void swap(indexed_block_layout<T> &other) {
+      std::swap(type, other.type);
+    }
+    using layout<T>::resize;
+    using layout<T>::extent;
+  };
+
+  //--------------------------------------------------------------------
+
+  template<typename T>
+  class hindexed_block_layout : public layout<T> {
+    using layout<T>::type;
+  public:
+    class parameter {
+      std::vector<MPI_Aint> displacements;
+    public:
+      parameter()=default;
+      template<typename List_T>
+      parameter(const List_T &V) {
+	for (const auto &i : V)
+	  add(i);
+      }
+      parameter(std::initializer_list<MPI_Aint> list) {
+      	for (int i : list)
+   	  add(i);
+      }
+      void add(MPI_Aint displacement) {
+	displacements.push_back(displacement);
+      }
+      friend class hindexed_block_layout;
+    };
+  private:
+    static MPI_Datatype build() {
+      MPI_Datatype new_type;
+      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
+ 			  &new_type);
+      return new_type;
+    }
+    static MPI_Datatype build(int blocklengths, const parameter &par,
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
+      MPI_Datatype new_type;
+      MPI_Type_create_hindexed_block(par.displacements.size(), blocklengths, par.displacements.data(),
+				     old_type, &new_type);
+      return new_type;
+    }
+  public:
+    hindexed_block_layout() : layout<T>(build()) {
+    }
+    explicit hindexed_block_layout(int blocklengths, const parameter &par) :
+      layout<T>(build(blocklengths, par)) {
+    }
+    explicit hindexed_block_layout(int blocklengths, const parameter &par, const layout<T> &other) :
+      layout<T>(build(blocklengths, par, other.type)) {
+    }
+    hindexed_block_layout(const hindexed_block_layout<T> &l) : layout<T>(l) {
+    }
+    hindexed_block_layout(hindexed_block_layout<T> &&l) : layout<T>(std::move(l)) {
+    }
+    hindexed_block_layout<T> & operator=(const hindexed_block_layout<T> &l) {
+      layout<T>::operator=(l);
+      return *this;
+    }
+    hindexed_block_layout<T> & operator=(hindexed_block_layout<T> &&l) {
+      layout<T>::operator=(std::move(l));
+      return *this;
+    }
+    void swap(hindexed_block_layout<T> &other) {
+      std::swap(type, other.type);
+    }
+    using layout<T>::resize;
+    using layout<T>::extent;
+  };
+
+  //--------------------------------------------------------------------
+
+  template<typename T>
+  class iterator_layout : public layout<T> {
+    using layout<T>::type;
+  public:
+    class parameter {
+      std::vector<MPI_Aint> displacements;
+      template<typename value_T>
+      void add(value_T &base, value_T *&i) {
+	add(reinterpret_cast<char *>(&i) - reinterpret_cast<char *>(&base));
+      }
+      template<typename value_T>
+      void add(const value_T &base, const value_T &i) {
+	add(reinterpret_cast<const char *>(&i) - reinterpret_cast<const char *>(&base));
+      }
+      void add(MPI_Aint displacement) {
+	displacements.push_back(displacement);
+      }
+    public:
+      parameter()=default;
+      template<typename iter_T>
+      parameter(iter_T first, iter_T end) {
+	for (iter_T i=first; i!=end; ++i)
+	  add(*first, *i);
+      }
+      friend class iterator_layout;
+    };
+  private:
+    static MPI_Datatype build() {
+      MPI_Datatype new_type;
+      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(),
+ 			  &new_type);
+      return new_type;
+    }
+    static MPI_Datatype build(const parameter &par,
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
+      MPI_Datatype new_type;
+      MPI_Type_create_hindexed_block(par.displacements.size(), 1, par.displacements.data(),
+				     old_type, &new_type);
+      return new_type;
+    }
+  public:
+    iterator_layout() : layout<T>(build()) {
+    }
+    template<typename iter_T>
+    explicit iterator_layout(iter_T first, iter_T end) :
+      layout<T>(build(parameter(first, end))) {
+    }
+    explicit iterator_layout(const parameter &par) :
+      layout<T>(build(par)) {
+    }
+    template<typename iter_T>
+    explicit iterator_layout(iter_T first, iter_T end, const layout<T> &other) :
+      layout<T>(build(parameter(first, end), other.type)) {
+    }
+    explicit iterator_layout(const parameter &par, const layout<T> &other) :
+      layout<T>(build(par, other.type)) {
+    }
+    iterator_layout(const iterator_layout<T> &l) : layout<T>(l) {
+    }
+    iterator_layout(iterator_layout<T> &&l) : layout<T>(std::move(l)) {
+    }
+    iterator_layout<T> & operator=(const iterator_layout<T> &l) {
+      layout<T>::operator=(l);
+      return *this;
+    }
+    iterator_layout<T> & operator=(iterator_layout<T> &&l) {
+      layout<T>::operator=(std::move(l));
+      return *this;
+    }
+    void swap(iterator_layout<T> &other) {
       std::swap(type, other.type);
     }
     using layout<T>::resize;
