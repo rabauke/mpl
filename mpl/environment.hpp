@@ -136,6 +136,10 @@ namespace mpl {
       return MPI_ROOT;
     }
 
+    constexpr void * absolute() {
+      return reinterpret_cast<void *>(MPI_BOTTOM);
+    }
+
     constexpr int bsend_overheadroot() {
       return MPI_BSEND_OVERHEAD;
     }

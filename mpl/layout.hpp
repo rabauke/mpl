@@ -46,6 +46,11 @@ namespace mpl {
   template<typename T>
   class subarray_layout;
 
+  class heterogeneous_layout;
+
+  template<typename T>
+  std::pair<T *, MPI_Datatype> data_layout(T *, const layout<T> &);
+
   //--------------------------------------------------------------------
 
   template<typename T>
@@ -124,6 +129,8 @@ namespace mpl {
     friend class hindexed_block_layout<T>;
     friend class iterator_layout<T>;
     friend class subarray_layout<T>;
+    friend class heterogeneous_layout;
+    friend std::pair<T *, MPI_Datatype> data_layout<>(T *, const layout<T> &);
 
   };
 
@@ -738,6 +745,89 @@ namespace mpl {
     using layout<T>::resize;
     using layout<T>::extent;
   };
+
+  //--------------------------------------------------------------------
+
+  class heterogeneous_layout : public layout<void> {
+    using layout<void>::type;
+  public:
+    class parameter {
+      std::vector<int> blocklengths;
+      std::vector<MPI_Aint> displacements;
+      std::vector<MPI_Datatype> types;
+      void add() const {
+      }
+    public:
+      parameter()=default;
+      template<typename ...Ts>
+      parameter(const Ts &... xs) {
+	add(xs...);
+      }
+      template<typename T, typename ...Ts>
+      void add(const T &x, const Ts &... xs) {
+  	blocklengths.push_back(1);
+	displacements.push_back(reinterpret_cast<MPI_Aint>(&x));
+	types.push_back(datatype_traits<T>::get_datatype());
+	add(xs...);
+      }
+      template<typename T, typename ...Ts>
+      void add(const std::pair<T *, MPI_Datatype> &x, const Ts &... xs) {
+  	blocklengths.push_back(1);
+	displacements.push_back(reinterpret_cast<MPI_Aint>(x.first));
+	types.push_back(x.second);
+	add(xs...);
+      }
+      friend class heterogeneous_layout;
+    };
+  private:
+    static MPI_Datatype build() {
+      MPI_Datatype new_type;
+      MPI_Type_contiguous(0, datatype_traits<char>::get_datatype(),
+  			  &new_type);
+      return new_type;
+    }
+    static MPI_Datatype build(const parameter &par) {
+      MPI_Datatype new_type;
+      MPI_Type_create_struct(static_cast<int>(par.blocklengths.size()),
+			     par.blocklengths.data(),
+			     par.displacements.data(),
+			     par.types.data(), &new_type);
+      return new_type;
+    }
+  public:
+    heterogeneous_layout() : layout<void>(build()) {
+    }
+    explicit heterogeneous_layout(const parameter &par) :
+      layout<void>(build(par)) {
+    }
+    template<typename T, typename ...Ts>
+    explicit heterogeneous_layout(const T &x, const Ts &... xs) :
+      layout<void>(build(parameter(x, xs...))) {
+    }
+    heterogeneous_layout(const heterogeneous_layout &l) : layout<void>(l) {
+    }
+    heterogeneous_layout(heterogeneous_layout &&l) : layout<void>(std::move(l)) {
+    }
+    heterogeneous_layout & operator=(const heterogeneous_layout &l) {
+      layout<void>::operator=(l);
+      return *this;
+    }
+    heterogeneous_layout & operator=(heterogeneous_layout &&l) {
+      layout<void>::operator=(std::move(l));
+      return *this;
+    }
+    void swap(heterogeneous_layout &other) {
+      std::swap(type, other.type);
+    }
+    using layout<void>::resize;
+    using layout<void>::extent;
+  };
+
+
+  template<typename T>
+  inline std::pair<T *, MPI_Datatype> data_layout(T *x, const layout<T> &l) {
+    return std::make_pair(x, l.type);
+  }
 
   //--------------------------------------------------------------------
 
