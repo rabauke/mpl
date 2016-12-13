@@ -420,7 +420,7 @@ namespace mpl {
     static MPI_Datatype build(const parameter &par,
 			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_hindexed(par.displacements.size(), par.blocklengths.data(), par.displacements.data(),
+      MPI_Type_create_hindexed(par.displacements.size(), par.blocklengths.data(), par.displacements.data(),
 			old_type, &new_type);
       return new_type;
     }
