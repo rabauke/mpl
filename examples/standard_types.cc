@@ -42,6 +42,15 @@ std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr>& out,
   return out << ')';
 }
 
+#if __cplusplus >= 201703L
+// print a byte
+template<typename ch, typename tr>
+std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr>& out,
+					const std::byte &t) {
+  return out << std::to_integer<int>(t);
+}
+#endif
+
 // send some item of a standard type
 template<typename T>
 void send(const mpl::communicator &comm, const T &x) {
@@ -84,6 +93,9 @@ int main() {
     std::pair<int, double> t19(-2, 0.1234);    send(comm_world, t19);
     std::tuple<int, std::complex<double> > t20(-2, 0.1234);   send(comm_world, t20);
     std::array<int, 4> t21{1, 2, 3, 4};        send(comm_world, t21);
+#if __cplusplus >= 201703L
+    std::byte t22{255};                        send(comm_world, t22);
+#endif
   }
   // process 1 recieves
   if (comm_world.rank()==1) {
@@ -108,6 +120,9 @@ int main() {
     recv<std::pair<int, double>>(comm_world);
     recv<std::tuple<int, std::complex<double>>>(comm_world);
     recv<std::array<int, 4>>(comm_world);
+#if __cplusplus >= 201703L
+    recv<std::byte>(comm_world);
+#endif
   }
   return EXIT_SUCCESS;
 }

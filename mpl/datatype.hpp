@@ -9,6 +9,7 @@
 #include <utility>
 #include <tuple>
 #include <array>
+#include <cstddef>
 #include <type_traits>
 
 namespace mpl {
@@ -329,6 +330,10 @@ namespace mpl {
   MPL_DATATYPE_TRAITS(float, MPI_FLOAT);
   MPL_DATATYPE_TRAITS(double, MPI_DOUBLE);
   MPL_DATATYPE_TRAITS(long double, MPI_LONG_DOUBLE);
+
+#if __cplusplus >= 201703L
+  MPL_DATATYPE_TRAITS(std::byte, MPI_BYTE);
+#endif
 
   MPL_DATATYPE_TRAITS(std::complex<float>, MPI_CXX_FLOAT_COMPLEX);
   MPL_DATATYPE_TRAITS(std::complex<double>, MPI_CXX_DOUBLE_COMPLEX);
