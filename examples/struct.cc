@@ -54,23 +54,13 @@ namespace mpl {
     }
   };
 
-  template<>
-  class struct_builder<structure2> : public base_struct_builder<structure2> {
-    struct_layout<structure2> layout;
-  public:
-    struct_builder() {
-      structure2 str2;
-      layout.register_struct(str2);
-      // register each element of struct structure2
-      layout.register_element(str2.d);
-      layout.register_element(str2.str);
-      // finalize
-      define_struct(layout);
-    }
-  };
-
 }
 
+// MPL_REFLECTION is a convenient macro which creates the required
+// specializaion of the struct_builder template automatically.  Just
+// pass the class name and the public members as arguments to the
+// macro.  MPL_REFLECTION is limited to 120 class members.
+MPL_REFLECTION(structure2, d, str)
 
 int main() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
