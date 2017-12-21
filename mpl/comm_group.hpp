@@ -172,36 +172,28 @@ namespace mpl {
     communicator(comm_collective, const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm, gr.gr, &comm);
     }
-    communicator(group_collective, const communicator &other, const group &gr, int tag=0) {
-      MPI_Comm_create_group(other.comm, gr.gr, tag, &comm);
-    }
-    template<typename tag_type>
-    communicator(group_collective, const communicator &other, const group &gr, tag_type tag) :
-      communicator(group_collective(), other, gr, detail::underlying_type<tag_type>::value(tag)) {
+    
+    template<typename tag_type=int>
+    communicator(group_collective, const communicator &other, const group &gr, tag_type tag=0) {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
+      MPI_Comm_create_group(other.comm, gr.gr, detail::underlying_type<tag_type>::value(tag), &comm);
     }
-    template<typename color_type>
-    communicator(split, const communicator &other, color_type color, int key=0) {
+    template<typename color_type, typename key_type=int>
+    communicator(split, const communicator &other, color_type color, key_type key=0) {
       static_assert(detail::is_valid_tag<color_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-      MPI_Comm_split(other.comm, detail::underlying_type<color_type>::value(color), key, &comm);
-    }
-    template<typename color_type, typename key_type>
-    communicator(split, const communicator &other, color_type color, key_type key) :
-      communicator(split(), other, color, detail::underlying_type<color_type>::value(key))
-    {
       static_assert(detail::is_valid_tag<key_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
+      MPI_Comm_split(other.comm, detail::underlying_type<color_type>::value(color),
+		     detail::underlying_type<key_type>::value(key), &comm);
     }
-    communicator(split_shared, const communicator &other, int key=0) {
-      MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED, key, MPI_INFO_NULL, &comm);
-    }
-    template<typename key_type>
-    communicator(split_shared, const communicator &other, key_type key) :
-      communicator(split_shared(), other, detail::underlying_type<key_type>::value(key)) {
+    template<typename key_type=int>
+    communicator(split_shared, const communicator &other, key_type key=0) {
       static_assert(detail::is_valid_tag<key_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
+      MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED,
+			  detail::underlying_type<key_type>::value(key), MPI_INFO_NULL, &comm);
     }
     ~communicator() {
       if (is_valid()) {
