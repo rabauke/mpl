@@ -9,7 +9,7 @@ int main() {
   	    << "\tsize: " << comm_world.size() << std::endl;
   comm_world.barrier();
   // split comm_wolrd into 3 disjoint communicators
-  // and carry ot somme collective communication
+  // and carry out some collective communication
   mpl::communicator comm_3(mpl::communicator::split(),
 			   comm_world, comm_world.rank()%3);
   int key;
@@ -21,7 +21,7 @@ int main() {
 	    << "\tkey: " << key << std::endl;
   comm_world.barrier();
   // split comm_wolrd into a communicator which contains all processes
-  // except rank 0 of comm_world and carry ot somme collective communication
+  // except rank 0 of comm_world and carry out some collective communication
   mpl::communicator comm_without_0(mpl::communicator::split(),
   				   comm_world,
   				   comm_world.rank()==0 ? mpl::environment::undefined() : 1);

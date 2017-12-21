@@ -36,19 +36,19 @@ namespace mpl {
 
   template<typename S>
   class struct_layout {
-    template <typename T>
+    template<typename T>
     inline std::size_t size(T) {
       return sizeof(T);
     }
-    template <typename T>
+    template<typename T>
     inline std::size_t size(T *) {
       return sizeof(T);
     }
-    template <typename T>
+    template<typename T>
     inline MPI_Datatype get_datatype(T) {
       return datatype_traits<T>().get_datatype();
     }
-    template <typename T>
+    template<typename T>
     inline MPI_Datatype get_datatype(T *) {
       return datatype_traits<T>().get_datatype();
     }
