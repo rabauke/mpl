@@ -8,11 +8,12 @@ int main() {
   if (comm_world.size()<2)
     return EXIT_FAILURE;
   // process 0 sends
+  enum class tag_enum : short { tag=1 };
   if (comm_world.rank()==0) {
     // see MPI Standard for the semantics of standard send, buffered send,
     // synchronous send and ready send
     double x=1.23456;
-    comm_world.send(x, 1);  // send x to rank 1 via standard send
+    comm_world.send(x, 1, tag_enum::tag);  // send x to rank 1 via standard send
     ++x;
     {
       // create a buffer for buffered send,
@@ -29,7 +30,7 @@ int main() {
   // process 1 recieves
   if (comm_world.rank()==1) {
     double x;
-    comm_world.recv(x, 0);  // receive x from rank 0
+    comm_world.recv(x, 0, tag_enum::tag);  // receive x from rank 0
     std::cout << "x = " << x << '\n';
     comm_world.recv(x, 0);  // receive x from rank 0
     std::cout << "x = " << x << '\n';

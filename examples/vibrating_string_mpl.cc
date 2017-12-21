@@ -13,7 +13,7 @@ const double c=1;  // speed of sound
 const double dt=0.001;  // temporal step width
 const double t_end=2.4; // simulation time
 
-enum { left_copy, right_copy };
+enum : int { left_copy, right_copy };
 
 // update grid points
 void string(const std::vector<double> &u, const std::vector<double> &u_old,
