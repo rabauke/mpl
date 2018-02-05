@@ -6,39 +6,6 @@
 #include <type_traits>
 #include <tuple>
 
-#define MPL_CHECK_DEST(dest)                 \
-  if ((dest)!=environment::proc_null() and   \
-      ((dest)<0 or (dest)>=size()))	     \
-    throw invalid_rank();
-
-#define MPL_CHECK_SOURCE(source)	       \
-  if ((source)!=environment::proc_null() and   \
-      (source)!=environment::any_source() and  \
-      ((source)<0 or (source)>=size()))	       \
-    throw invalid_rank();
-
-#define MPL_CHECK_STAG(tag)                    \
-  if ((tag)<0 or (tag)>environment::tag_up())  \
-    throw invalid_tag();
-
-#define MPL_CHECK_RTAG(tag)      	       \
-  if ((tag)!=environment::any_tag() and	       \
-      ((tag)<0 or tag>environment::tag_up()))  \
-    throw invalid_tag();
-
-#define MPL_CHECK_ROOT(root)                   \
-  if ((root)<0 or (root)>=size())	       \
-    throw invalid_rank();
-
-#define MPL_CHECK_NONROOT(root)                      \
-  if ((root)<0 or (root)>=size() or (root)==rank())  \
-    throw invalid_rank();
-
-#define MPL_CHECK_SIZE(x)                 \
-  if (static_cast<int>(x.size())>size())  \
-    throw invalid_size();
-
-
 namespace mpl {
 
   class group;
@@ -156,6 +123,67 @@ namespace mpl {
     class group_collective { };
     class split { };
     class split_shared { };
+
+    void check_dest(int dest) const {
+#if defined MPL_DEBUG
+      if ((dest)!=environment::proc_null() and
+	  ((dest)<0 or (dest)>=size()))
+	throw invalid_rank();
+#endif
+    }
+
+    void check_source(int source) const {
+#if defined MPL_DEBUG
+      if ((source)!=environment::proc_null() and
+	  (source)!=environment::any_source() and
+	  ((source)<0 or (source)>=size()))
+	throw invalid_rank();
+#endif
+    }
+
+    void check_stag(int tag) const {
+#if defined MPL_DEBUG
+      if ((tag)<0 or (tag)>environment::tag_up())
+	throw invalid_tag();
+#endif
+    }
+    
+    void check_rtag(int tag) const {
+#if defined MPL_DEBUG
+      if ((tag)!=environment::any_tag() and
+	  ((tag)<0 or tag>environment::tag_up()))
+	throw invalid_tag();
+#endif
+    }
+    
+    void check_root(int root) const {
+#if defined MPL_DEBUG
+      if ((root)<0 or (root)>=size())
+	throw invalid_rank();
+#endif
+    }
+
+    void check_nonroot(int root) const {
+#if defined MPL_DEBUG
+      if ((root)<0 or (root)>=size() or (root)==rank())
+	throw invalid_rank();
+#endif
+    }
+
+    template<typename T>
+    void check_size(const layouts<T> &l) const {
+#if defined MPL_DEBUG
+      if (static_cast<int>(l.size())>size())
+	throw invalid_size();
+#endif
+    }
+    void check_size(const displacements &d) const {
+#if defined MPL_DEBUG
+      if (static_cast<int>(d.size())>size())
+	throw invalid_size();
+#endif
+    }
+
   protected:
     communicator(MPI_Comm comm) : comm(comm) {
     }
@@ -263,10 +291,8 @@ namespace mpl {
     void send(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Send(&data, 1,
 	       datatype_traits<T>::get_datatype(),
 	       dest, detail::underlying_type<tag_type>::value(tag), comm);
@@ -276,10 +302,8 @@ namespace mpl {
     void send(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Send(data, 1,
       	       datatype_traits<layout<T>>::get_datatype(l),
       	       dest, detail::underlying_type<tag_type>::value(tag), comm);
@@ -290,10 +314,8 @@ namespace mpl {
     detail::irequest isend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Isend(&data, 1,
 		datatype_traits<T>::get_datatype(),
@@ -305,10 +327,8 @@ namespace mpl {
     detail::irequest isend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Isend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
@@ -321,10 +341,8 @@ namespace mpl {
     detail::prequest send_init(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_send_init(&data, 1,
 		    datatype_traits<T>::get_datatype(),
@@ -336,10 +354,8 @@ namespace mpl {
     detail::prequest send_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::is_valid_tag<tag_type>::value);
-#endif
+      check_dest(dest);
+      check_stag(detail::is_valid_tag<tag_type>::value);
       MPI_Request req;
       MPI_Send_init(data, 1,
 		    datatype_traits<layout<T>>::get_datatype(l),
@@ -372,10 +388,8 @@ namespace mpl {
     void bsend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::is_valid_tag<tag_type>::value);
-#endif
+      check_dest(dest);
+      check_stag(detail::is_valid_tag<tag_type>::value);
       MPI_Bsend(&data, 1,
 		datatype_traits<T>::get_datatype(),
 		dest, detail::is_valid_tag<tag_type>::value, comm);
@@ -385,10 +399,8 @@ namespace mpl {
     void bsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::is_valid_tag<tag_type>::value);
-#endif
+      check_dest(dest);
+      check_stag(detail::is_valid_tag<tag_type>::value);
       MPI_Bsend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
 		dest, detail::is_valid_tag<tag_type>::value, comm);
@@ -399,10 +411,8 @@ namespace mpl {
     detail::irequest ibsend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Ibsend(&data, 1,
 		 datatype_traits<T>::get_datatype(),
@@ -414,10 +424,8 @@ namespace mpl {
     detail::irequest ibsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Ibsend(data, 1,
 		 datatype_traits<layout<T>>::get_datatype(l),
@@ -428,10 +436,8 @@ namespace mpl {
     // --- persistent buffered send ---
     template<typename T, typename tag_type=int>
     detail::prequest bsend_init(const T &data, int dest, tag_type tag=0) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Bsend_init(&data, 1,
 		     datatype_traits<T>::get_datatype(),
@@ -443,10 +449,8 @@ namespace mpl {
     detail::prequest bsend_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Bsend_init(data, 1,
 		     datatype_traits<layout<T>>::get_datatype(l),
@@ -460,10 +464,8 @@ namespace mpl {
     void ssend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Ssend(&data, 1,
 		datatype_traits<T>::get_datatype(),
 		dest, detail::underlying_type<tag_type>::value(tag), comm);
@@ -473,10 +475,8 @@ namespace mpl {
     void ssend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Ssend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
 		dest, detail::underlying_type<tag_type>::value(tag), comm);
@@ -487,10 +487,8 @@ namespace mpl {
     detail::irequest issend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Issend(&data, 1,
 		 datatype_traits<T>::get_datatype(),
@@ -502,10 +500,8 @@ namespace mpl {
     detail::irequest issend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Issend(data, 1,
 		 datatype_traits<layout<T>>::get_datatype(l),
@@ -518,10 +514,8 @@ namespace mpl {
     detail::prequest ssend_init(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Ssend_init(&data, 1,
 		     datatype_traits<T>::get_datatype(),
@@ -533,10 +527,8 @@ namespace mpl {
     detail::prequest ssend_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Ssend_init(data, 1,
 		     datatype_traits<layout<T>>::get_datatype(l),
@@ -550,10 +542,8 @@ namespace mpl {
     void rsend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Rsend(&data, 1,
 		datatype_traits<T>::get_datatype(),
 		dest, detail::underlying_type<tag_type>::value(tag), comm);
@@ -563,10 +553,8 @@ namespace mpl {
     void rsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Rsend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
 		dest, detail::underlying_type<tag_type>::value(tag), comm);
@@ -577,10 +565,8 @@ namespace mpl {
     detail::irequest irsend(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Irsend(&data, 1,
 		 datatype_traits<T>::get_datatype(),
@@ -592,10 +578,8 @@ namespace mpl {
     detail::irequest irsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Irsend(data, 1,
 		 datatype_traits<layout<T>>::get_datatype(l),
@@ -608,10 +592,8 @@ namespace mpl {
     detail::prequest rsend_init(const T &data, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Rsend_init(&data, 1,
 		     datatype_traits<T>::get_datatype(),
@@ -623,10 +605,8 @@ namespace mpl {
     detail::prequest rsend_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_dest(dest);
+      check_stag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Rsend_init(data, 1,
 		     datatype_traits<layout<T>>::get_datatype(l),
@@ -640,10 +620,8 @@ namespace mpl {
     status recv(T &data, int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       status s;
       MPI_Recv(&data, 1,
       	       datatype_traits<T>::get_datatype(),
@@ -655,10 +633,8 @@ namespace mpl {
     status recv(T *data, const layout<T> &l, int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       status s;
       MPI_Recv(data, 1,
       	       datatype_traits<layout<T>>::get_datatype(l),
@@ -671,10 +647,8 @@ namespace mpl {
     detail::irequest irecv(T &data, int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Irecv(&data, 1,
 		datatype_traits<T>::get_datatype(),
@@ -686,10 +660,8 @@ namespace mpl {
     detail::irequest irecv(T *data, const layout<T> &l, int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Irecv(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
@@ -702,10 +674,8 @@ namespace mpl {
     detail::prequest recv_init(T &data, int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Recv_init(&data, 1,
 		    datatype_traits<T>::get_datatype(),
@@ -717,10 +687,8 @@ namespace mpl {
     detail::prequest recv_init(T *data, const layout<T> &l, int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       MPI_Request req;
       MPI_Recv_init(data, 1,
 		    datatype_traits<layout<T>>::get_datatype(l),
@@ -734,10 +702,8 @@ namespace mpl {
     status probe(int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       status s;
       MPI_Probe(source, detail::underlying_type<tag_type>::value(tag),
 		comm, reinterpret_cast<MPI_Status *>(&s));
@@ -749,10 +715,8 @@ namespace mpl {
     std::pair<bool, status> iprobe(int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       int result;
       status s;
       MPI_Iprobe(source, detail::underlying_type<tag_type>::value(tag),
@@ -766,10 +730,8 @@ namespace mpl {
     std::pair<message, status> mprobe(int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       status s;
       message m;
       MPI_Mprobe(source, detail::underlying_type<tag_type>::value(tag),
@@ -782,10 +744,8 @@ namespace mpl {
     std::tuple<bool, message, status> improbe(int source, tag_type tag=0) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(tag));
-#endif
+      check_source(source);
+      check_rtag(detail::underlying_type<tag_type>::value(tag));
       int result;
       status s;
       message m;
@@ -806,12 +766,10 @@ namespace mpl {
 		    T &recvdata, int source, tag_type recvtag) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(sendtag));
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(recvtag));
-#endif
+      check_dest(dest);
+      check_source(source);
+      check_stag(detail::underlying_type<tag_type>::value(sendtag));
+      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
       status s;
       MPI_Sendrecv(&senddata, 1,
 		   datatype_traits<T>::get_datatype(), dest, detail::underlying_type<tag_type>::value(sendtag),
@@ -826,12 +784,10 @@ namespace mpl {
 		    T *recvdata, const layout<T> &recvl, int source, tag_type recvtag) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(sendtag));
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(recvtag));
-#endif
+      check_dest(dest);
+      check_source(source);
+      check_stag(detail::underlying_type<tag_type>::value(sendtag));
+      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
       status s;
       MPI_Sendrecv(senddata, 1,
 		   datatype_traits<layout<T>>::get_datatype(sendl), dest, detail::underlying_type<tag_type>::value(sendtag),
@@ -847,12 +803,10 @@ namespace mpl {
 			    int dest, tag_type sendtag, int source, tag_type recvtag) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(sendtag));
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(recvtag));
-#endif
+      check_dest(dest);
+      check_source(source);
+      check_stag(detail::underlying_type<tag_type>::value(sendtag));
+      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
       status s;
       MPI_Sendrecv_replace(&data, 1,
 			   datatype_traits<T>::get_datatype(),
@@ -867,12 +821,10 @@ namespace mpl {
 			    int dest, tag_type sendtag, int source, tag_type recvtag) const {
       static_assert(detail::is_valid_tag<tag_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-#if defined MPL_DEBUG
-      MPL_CHECK_DEST(dest);
-      MPL_CHECK_SOURCE(source);
-      MPL_CHECK_STAG(detail::underlying_type<tag_type>::value(sendtag));
-      MPL_CHECK_RTAG(detail::underlying_type<tag_type>::value(recvtag));
-#endif
+      check_dest(dest);
+      check_source(source);
+      check_stag(detail::underlying_type<tag_type>::value(sendtag));
+      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
       status s;
       MPI_Sendrecv_replace(data, 1,
 			   datatype_traits<layout<T>>::get_datatype(l),
@@ -900,26 +852,20 @@ namespace mpl {
     // --- blocking broadcast ---
     template<typename T>
     void bcast(int root, T &data) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Bcast(&data, 1, datatype_traits<T>::get_datatype(), root, comm);
     }
     
     template<typename T>
     void bcast(int root, T *data, const layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Bcast(data, 1, datatype_traits<layout<T>>::get_datatype(l), root, comm);
     }
     
     // --- nonblocking broadcast ---
     template<typename T>
     detail::irequest ibcast(int root, T &data) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Request req;
       MPI_Ibcast(&data, 1, datatype_traits<T>::get_datatype(), root, comm, &req);
       return detail::irequest(req);
@@ -927,9 +873,7 @@ namespace mpl {
     
     template<typename T>
     detail::irequest ibcast(int root, T *data, const layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Request req;
       MPI_Ibcast(data, 1, datatype_traits<layout<T>>::get_datatype(l), root, comm, &req);
       return detail::irequest(req);
@@ -940,9 +884,7 @@ namespace mpl {
     // --- blocking gather ---
     template<typename T>
     void gather(int root, const T &senddata, T *recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Gather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		 recvdata, 1, datatype_traits<T>::get_datatype(),
 		 root, comm);
@@ -952,9 +894,7 @@ namespace mpl {
     void gather(int root,
 		const T *senddata, const layout<T> &sendl,
 		T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Gather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		 recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		 root, comm);
@@ -963,9 +903,7 @@ namespace mpl {
     // --- nonblocking gather ---
     template<typename T>
     detail::irequest igather(int root, const T &senddata, T *recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Request req;
       MPI_Igather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		  recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -977,9 +915,7 @@ namespace mpl {
     detail::irequest igather(int root,
 			     const T *senddata, const layout<T> &sendl,
 			     T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Request req;
       MPI_Igather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		  recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
@@ -990,9 +926,7 @@ namespace mpl {
     // --- blocking gather, non-root variant ---
     template<typename T>
     void gather(int root, const T &senddata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Gather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		 0, 0, MPI_DATATYPE_NULL,
 		 root, comm);
@@ -1001,9 +935,7 @@ namespace mpl {
     template<typename T>
     void gather(int root,
 		const T *senddata, const layout<T> &sendl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Gather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		 0, 0, MPI_DATATYPE_NULL,
 		 root, comm);
@@ -1012,9 +944,7 @@ namespace mpl {
     // --- nonblocking gather, non-root variant ---
     template<typename T>
     detail::irequest igather(int root, const T &senddata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Request req;
       MPI_Igather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		  0, 0, MPI_DATATYPE_NULL,
@@ -1025,9 +955,7 @@ namespace mpl {
     template<typename T>
     detail::irequest igather(int root,
 			     const T *senddata, const layout<T> &sendl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Request req;
       MPI_Igather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		  0, 0, MPI_DATATYPE_NULL,
@@ -1041,11 +969,9 @@ namespace mpl {
     void gatherv(int root,
 		 const T *senddata, const layout<T> &sendl,
 		 T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(recvls);
-      MPL_CHECK_SIZE(recvdispls);
-#endif
+      check_root(root);
+      check_size(recvls);
+      check_size(recvdispls);
       int N(size());
       displacements senddispls(N);
       layouts<T> sendls(N);
@@ -1070,11 +996,9 @@ namespace mpl {
     detail::irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(recvls);
-      MPL_CHECK_SIZE(recvdispls);
-#endif
+      check_root(root);
+      check_size(recvls);
+      check_size(recvdispls);
       int N(size());
       displacements senddispls(N);
       layouts<T> sendls(N);
@@ -1098,9 +1022,7 @@ namespace mpl {
     template<typename T>
     void gatherv(int root,
 		 const T *senddata, const layout<T> &sendl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       int N(size());
       displacements sendrecvdispls(N);
       layouts<T> sendls(N);
@@ -1113,9 +1035,7 @@ namespace mpl {
     template<typename T>
     detail::irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       int N(size());
       displacements sendrecvdispls(N);
       layouts<T> sendls(N);
@@ -1167,10 +1087,8 @@ namespace mpl {
     template<typename T>
     void allgatherv(const T *senddata, const layout<T> &sendl,
 		    T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvls);
-      MPL_CHECK_SIZE(recvdispls);
-#endif
+      check_size(recvls);
+      check_size(recvdispls);
       int N(size());
       displacements senddispls(N);
       layouts<T> sendls(N, sendl);
@@ -1189,10 +1107,8 @@ namespace mpl {
     template<typename T>
     detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl,
 				 T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvls);
-      MPL_CHECK_SIZE(recvdispls);
-#endif
+      check_size(recvls);
+      check_size(recvdispls);
       int N(size());
       displacements senddispls(N);
       layouts<T> sendls(N, sendl);
@@ -1212,9 +1128,7 @@ namespace mpl {
     // --- blocking scatter ---
     template<typename T>
     void scatter(int root, const T *senddata, T &recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Scatter(senddata, 1, datatype_traits<T>::get_datatype(),
 		  &recvdata, 1, datatype_traits<T>::get_datatype(),
 		  root, comm);
@@ -1224,9 +1138,7 @@ namespace mpl {
     void scatter(int root,
 		 const T *senddata, const layout<T> &sendl,
 		 T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Scatter(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		  recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		  root, comm);
@@ -1235,9 +1147,7 @@ namespace mpl {
     // --- nonblocking scatter ---
     template<typename T>
     detail::irequest iscatter(int root, const T *senddata, T &recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Request req;
       MPI_Iscatter(senddata, 1, datatype_traits<T>::get_datatype(),
 		   &recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -1249,9 +1159,7 @@ namespace mpl {
     detail::irequest iscatter(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Request req;
       MPI_Iscatter(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
 		   recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
@@ -1262,9 +1170,7 @@ namespace mpl {
     // --- blocking scatter, non-root variant ---
     template<typename T>
     void scatter(int root, T &recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Scatter(0, 0, MPI_DATATYPE_NULL,
 		  &recvdata, 1, datatype_traits<T>::get_datatype(),
 		  root, comm);
@@ -1273,9 +1179,7 @@ namespace mpl {
     template<typename T>
     void scatter(int root,
 		 T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       MPI_Scatter(0, 0, MPI_DATATYPE_NULL,
 		  recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
 		  root, comm);
@@ -1284,9 +1188,7 @@ namespace mpl {
     // --- nonblocking scatter, non-root variant ---
     template<typename T>
     detail::irequest iscatter(int root, T &recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Request req;
       MPI_Iscatter(0, 0, MPI_DATATYPE_NULL,
 		  &recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -1297,9 +1199,7 @@ namespace mpl {
     template<typename T>
     detail::irequest iscatter(int root,
 			      T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       MPI_Request req;
       MPI_Iscatter(0, 0, MPI_DATATYPE_NULL,
 		   recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
@@ -1313,11 +1213,9 @@ namespace mpl {
     void scatterv(int root,
 		  const T *senddata, const layouts<T> &sendls, const displacements &senddispls,
 		  T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(sendls);
-      MPL_CHECK_SIZE(senddispls);
-#endif
+      check_root(root);
+      check_size(sendls);
+      check_size(senddispls);
       int N(size());
       displacements recvdispls(N);
       layouts<T> recvls(N);
@@ -1343,11 +1241,9 @@ namespace mpl {
     detail::irequest iscatterv(int root,
 			       const T *senddata, const layouts<T> &sendls, const displacements &senddispls,
 			       T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-      MPL_CHECK_SIZE(sendls);
-      MPL_CHECK_SIZE(senddispls);
-#endif
+      check_root(root);
+      check_size(sendls);
+      check_size(senddispls);
       int N(size());
       displacements recvdispls(N);
       layouts<T> recvls(N);
@@ -1372,9 +1268,7 @@ namespace mpl {
     template<typename T>
     void scatterv(int root,
 		  T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       int N(size());
       displacements sendrecvdispls(N);
       layouts<T> recvls(N);
@@ -1387,9 +1281,7 @@ namespace mpl {
     template<typename T>
     detail::irequest iscatterv(int root,
 			       T *recvdata, const layout<T> &recvl) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       int N(size());
       displacements sendrecvdispls(N);
       layouts<T> recvls(N);
@@ -1475,12 +1367,10 @@ namespace mpl {
     template<typename T>
     void alltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls,
 		   T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(senddispls);
-      MPL_CHECK_SIZE(sendl);
-      MPL_CHECK_SIZE(recvdispls);
-      MPL_CHECK_SIZE(recvl);
-#endif
+      check_size(senddispls);
+      check_size(sendl);
+      check_size(recvdispls);
+      check_size(recvl);
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
@@ -1501,12 +1391,10 @@ namespace mpl {
     template<typename T>
     detail::irequest ialltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls,
 	                        T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(senddispls);
-      MPL_CHECK_SIZE(sendl);
-      MPL_CHECK_SIZE(recvdispls);
-      MPL_CHECK_SIZE(recvl);
-#endif
+      check_size(senddispls);
+      check_size(sendl);
+      check_size(recvdispls);
+      check_size(recvl);
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
@@ -1528,10 +1416,8 @@ namespace mpl {
     // --- blocking all-to-all, in place ---
     template<typename T>
     void alltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvdispls);
-      MPL_CHECK_SIZE(recvl);
-#endif
+      check_size(recvdispls);
+      check_size(recvl);
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0,
@@ -1547,10 +1433,8 @@ namespace mpl {
     // --- non-blocking all-to-all, in place ---
     template<typename T>
     detail::irequest ialltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_SIZE(recvdispls);
-      MPL_CHECK_SIZE(recvl);
-#endif
+      check_size(recvdispls);
+      check_size(recvl);
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Request req;
@@ -1570,9 +1454,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root,
 		const T &senddata, T &recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       MPI_Reduce(&senddata, &recvdata, 1,
 		 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op, root,
@@ -1582,9 +1464,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root,
 		const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       MPI_Reduce(senddata, recvdata, l.size(),
 		 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op, root,
@@ -1595,9 +1475,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce(F f, int root,
 			     const T &senddata, T &recvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce(&senddata, &recvdata, 1,
@@ -1609,9 +1487,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce(F f, int root,
 			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce(senddata, recvdata, l.size(),
@@ -1624,9 +1500,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root,
 		T &sendrecvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       if (rank()==root)
 	MPI_Reduce(MPI_IN_PLACE, &sendrecvdata, 1,
@@ -1641,9 +1515,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root,
 		const T &senddata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       detail::get_op<T, F>().f=&f;
       MPI_Reduce(&senddata, nullptr, 1,
 		 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op, root,
@@ -1667,9 +1539,7 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root,
 		const T *sendrecvdata, const contiguous_layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       detail::get_op<T, F>().f=&f;
       MPI_Reduce(sendrecvdata, nullptr, l.size(),
 	datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op, root,
@@ -1680,9 +1550,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce(F f, int root,
 			     T &sendrecvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       if (rank()==root)
@@ -1699,9 +1567,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce(F f, int root,
 			     const T &sendrecvdata) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce(&sendrecvdata, nullptr, 1,
@@ -1713,9 +1579,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce(F f, int root,
 			     T *sendrecvdata, const contiguous_layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_ROOT(root);
-#endif
+      check_root(root);
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       if (rank()==root)
@@ -1732,9 +1596,7 @@ namespace mpl {
     template<typename T, typename F>
     detail::irequest ireduce(F f, int root,
 			     const T *sendrecvdata, const contiguous_layout<T> &l) const {
-#if defined MPL_DEBUG
-      MPL_CHECK_NONROOT(root);
-#endif
+      check_nonroot(root);
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
       MPI_Ireduce(sendrecvdata, nullptr, l.size(),
@@ -2120,14 +1982,5 @@ namespace mpl {
   }
 
 }
-
-
-#undef MPL_CHECK_DEST
-#undef MPL_CHECK_SOURCE
-#undef MPL_CHECK_STAG
-#undef MPL_CHECK_RTAG
-#undef MPL_CHECK_ROOT
-#undef MPL_CHECK_NONROOT
-#undef MPL_CHECK_SIZE
 
 #endif
