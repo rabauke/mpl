@@ -1,6 +1,4 @@
 #include <cstdlib>
-#include <array>
-#include <vector>
 #include <iostream>
 #include <numeric>
 #include <algorithm>

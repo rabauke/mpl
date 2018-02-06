@@ -5,7 +5,9 @@
 #include <iterator>
 #include <limits>
 #include <type_traits>
-		
+#include <vector>
+#include <valarray>
+
 namespace mpl {
 
   namespace detail {
@@ -50,7 +52,48 @@ namespace mpl {
 	(std::is_integral<T>::value or std::is_enum<T>::value) and
 	(not is_narrowing<typename underlying_type<T>::type, int>::value);
     };
+
+    //------------------------------------------------------------------
+
+    template<typename T, typename Enable=void>
+    struct is_contiguous_iterator : public std::false_type {
+    };
     
+    template<typename T>
+    struct is_contiguous_iterator<
+      T,
+      typename std::enable_if<std::is_same<T, typename std::vector<typename T::value_type>::iterator>::value>::type
+      > : public std::true_type {
+    };
+    
+    template<typename T>
+    struct is_contiguous_iterator<
+      T,
+      typename std::enable_if<std::is_same<T, typename std::vector<typename T::value_type>::const_iterator>::value>::type
+      > : public std::true_type {
+    };
+    
+    template<typename T>
+    struct is_contiguous_iterator<
+      T,
+      typename std::enable_if<std::is_same<T, typename std::valarray<typename T::value_type>::iterator>::value>::type
+      > : public std::true_type {
+    };
+    
+    template<typename T>
+    struct is_contiguous_iterator<
+      T,
+      typename std::enable_if<std::is_same<T, typename std::valarray<typename T::value_type>::const_iterator>::value>::type
+      > : public std::true_type {
+    };
+
+    template<typename T>
+    struct is_contiguous_iterator<
+      T,
+      typename std::enable_if<std::is_pointer<T>::value>::type
+      > : public std::true_type {
+    };
+
   }
 
 }
