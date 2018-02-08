@@ -11,8 +11,8 @@ namespace mpl {
     int source() const {
       return MPI_Status::MPI_SOURCE;
     }
-    int tag() const {
-      return MPI_Status::MPI_TAG;
+    mpl::tag tag() const {
+      return mpl::tag(MPI_Status::MPI_TAG);
     }
     int error() const {
       return MPI_Status::MPI_ERROR;

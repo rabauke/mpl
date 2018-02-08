@@ -23,13 +23,13 @@ int main() {
 	{n1, s1, 2},  // 2nd dimension: size of array, size of subarray, start of subarray
         {n0, s0, 4}   // 1st dimension: size of array, size of subarray, start of subarray
       });
-    comm_world.send(&A[0][0], subarray, 1, 0);
+    comm_world.send(&A[0][0], subarray, 1);
   }
   // process 1 recieves
   if (comm_world.rank()==1) {
     double A[s1][s0];
     mpl::contiguous_layout<double> array(s0*s1);
-    comm_world.recv(&A[0][0], array, 0, 0);
+    comm_world.recv(&A[0][0], array, 0);
     for (int i1=0; i1<s1; ++i1) {
       for (int i0=0; i0<s0; ++i0)
 	std::cout << std::fixed << std::setprecision(2) << A[i1][i0] << "  ";

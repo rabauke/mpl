@@ -112,14 +112,6 @@ namespace mpl {
 
     //------------------------------------------------------------------
 
-    inline int tag_up() {
-      return detail::get_env().tag_up();
-    }
-
-    constexpr int any_tag() {
-      return MPI_ANY_TAG;
-    }
-
     constexpr int any_source() {
       return MPI_ANY_SOURCE;
     }
@@ -184,6 +176,16 @@ namespace mpl {
       return detail::get_env().buffer_detach();
     }
 
+  }
+
+  //--------------------------------------------------------------------
+
+  tag tag::up() {
+    return tag(environment::detail::get_env().tag_up());
+  }
+
+  tag tag::any() {
+    return tag(MPI_ANY_TAG);
   }
 
   //--------------------------------------------------------------------

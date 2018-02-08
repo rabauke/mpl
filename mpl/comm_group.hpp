@@ -20,8 +20,6 @@ namespace mpl {
 
     }
 
-    int tag_up();
-    constexpr int any_tag();
     constexpr int any_source();
     constexpr int proc_null();
 
@@ -126,46 +124,47 @@ namespace mpl {
 
     void check_dest(int dest) const {
 #if defined MPL_DEBUG
-      if ((dest)!=environment::proc_null() and
-	  ((dest)<0 or (dest)>=size()))
+      if (dest!=environment::proc_null() and
+	  (dest<0 or dest>=size()))
 	throw invalid_rank();
 #endif
     }
 
     void check_source(int source) const {
 #if defined MPL_DEBUG
-      if ((source)!=environment::proc_null() and
-	  (source)!=environment::any_source() and
-	  ((source)<0 or (source)>=size()))
+      if (source!=environment::proc_null() and
+	  source!=environment::any_source() and
+	  (source<0 or source>=size()))
 	throw invalid_rank();
 #endif
     }
 
-    void check_stag(int tag) const {
+    void check_send_tag(tag t) const {
 #if defined MPL_DEBUG
-      if ((tag)<0 or (tag)>environment::tag_up())
+      if (static_cast<int>(t)<0 or
+	  static_cast<int>(t)>static_cast<int>(tag::up()))
 	throw invalid_tag();
 #endif
     }
     
-    void check_rtag(int tag) const {
+    void check_recv_tag(tag t) const {
 #if defined MPL_DEBUG
-      if ((tag)!=environment::any_tag() and
-	  ((tag)<0 or tag>environment::tag_up()))
+      if (static_cast<int>(t)!=static_cast<int>(tag::any()) and
+	  (static_cast<int>(t)<0 or static_cast<int>(t)>static_cast<int>(tag::up())))
 	throw invalid_tag();
 #endif
     }
     
     void check_root(int root) const {
 #if defined MPL_DEBUG
-      if ((root)<0 or (root)>=size())
+      if (root<0 or root>=size())
 	throw invalid_rank();
 #endif
     }
 
     void check_nonroot(int root) const {
 #if defined MPL_DEBUG
-      if ((root)<0 or (root)>=size() or (root)==rank())
+      if (root<0 or root>=size() or root==rank())
 	throw invalid_rank();
 #endif
     }
@@ -177,6 +176,7 @@ namespace mpl {
 	throw invalid_size();
 #endif
     }
+    
     void check_size(const displacements &d) const {
 #if defined MPL_DEBUG
       if (static_cast<int>(d.size())>size())
@@ -201,17 +201,14 @@ namespace mpl {
       MPI_Comm_create(other.comm, gr.gr, &comm);
     }
     
-    template<typename tag_type=int>
-    communicator(group_collective, const communicator &other, const group &gr, tag_type tag=0) {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
-      MPI_Comm_create_group(other.comm, gr.gr, detail::underlying_type<tag_type>::value(tag), &comm);
+    communicator(group_collective, const communicator &other, const group &gr, tag t=tag(0)) {
+      MPI_Comm_create_group(other.comm, gr.gr, static_cast<int>(t), &comm);
     }
     template<typename color_type, typename key_type=int>
     communicator(split, const communicator &other, color_type color, key_type key=0) {
-      static_assert(detail::is_valid_tag<color_type>::value,
+      static_assert(detail::is_valid_color<color_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
-      static_assert(detail::is_valid_tag<key_type>::value,
+      static_assert(detail::is_valid_key<key_type>::value,
 		    "not an enumeration type or underlying enumeration type too large");
       MPI_Comm_split(other.comm, detail::underlying_type<color_type>::value(color),
 		     detail::underlying_type<key_type>::value(key), &comm);
@@ -287,115 +284,103 @@ namespace mpl {
 
     // === standard send ===
     // --- blocking standard send ---
-    template<typename T, typename tag_type=int>
-    void send(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void send(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Send(&data, 1,
 	       datatype_traits<T>::get_datatype(),
-	       dest, detail::underlying_type<tag_type>::value(tag), comm);
+	       dest, static_cast<int>(t), comm);
     }
     
-    template<typename T, typename tag_type=int>
-    void send(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void send(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Send(data, 1,
       	       datatype_traits<layout<T>>::get_datatype(l),
-      	       dest, detail::underlying_type<tag_type>::value(tag), comm);
+      	       dest, static_cast<int>(t), comm);
     }
 
-    template<typename iterT, typename tag_type=int>
-    void send(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    void send(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	send(&(*begin), l, dest, tag);
+	send(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	send(&(*begin), l, dest, tag);
+	send(&(*begin), l, dest, t);
       }
     }
 
     // --- nonblocking standard send ---
-    template<typename T, typename tag_type=int>
-    detail::irequest isend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest isend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Isend(&data, 1,
 		datatype_traits<T>::get_datatype(),
-		dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
     
-    template<typename T, typename tag_type=int>
-    detail::irequest isend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest isend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Isend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
-		dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
     
-    template<typename iterT, typename tag_type=int>
-    detail::irequest isend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::irequest isend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return isend(&(*begin), l, dest, tag);
+	return isend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return isend(&(*begin), l, dest, tag);
+	return isend(&(*begin), l, dest, t);
       }
     }
     
     // --- persistend standard send ---
-    template<typename T, typename tag_type=int>
-    detail::prequest send_init(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest send_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_send_init(&data, 1,
 		    datatype_traits<T>::get_datatype(),
-		    dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		    dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
     
-    template<typename T, typename tag_type=int>
-    detail::prequest send_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest send_init(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::is_valid_tag<tag_type>::value);
+      check_send_tag(t);
       MPI_Request req;
       MPI_Send_init(data, 1,
 		    datatype_traits<layout<T>>::get_datatype(l),
-		    dest, detail::is_valid_tag<tag_type>::value, comm, &req);
+		    dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
     
-    template<typename iterT, typename tag_type=int>
-    detail::prequest send_init(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::prequest send_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return send_init(&(*begin), l, dest, tag);
+	return send_init(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return send_init(&(*begin), l, dest, tag);
+	return send_init(&(*begin), l, dest, t);
       }
     }
     
@@ -420,516 +405,459 @@ namespace mpl {
     }
     
     // --- blocking buffered send ---
-    template<typename T, typename tag_type=int>
-    void bsend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void bsend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::is_valid_tag<tag_type>::value);
+      check_send_tag(t);
       MPI_Bsend(&data, 1,
 		datatype_traits<T>::get_datatype(),
-		dest, detail::is_valid_tag<tag_type>::value, comm);
+		dest, static_cast<int>(t), comm);
     }
     
-    template<typename T, typename tag_type=int>
-    void bsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void bsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::is_valid_tag<tag_type>::value);
+      check_send_tag(t);
       MPI_Bsend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
-		dest, detail::is_valid_tag<tag_type>::value, comm);
+		dest, static_cast<int>(t), comm);
     }
     
-    template<typename iterT, typename tag_type=int>
-    void bsend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    void bsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	bsend(&(*begin), l, dest, tag);
+	bsend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	bsend(&(*begin), l, dest, tag);
+	bsend(&(*begin), l, dest, t);
       }
     }
     
     // --- nonblocking buffered send ---
-    template<typename T, typename tag_type=int>
-    detail::irequest ibsend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest ibsend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Ibsend(&data, 1,
 		 datatype_traits<T>::get_datatype(),
-		 dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		 dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::irequest ibsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest ibsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Ibsend(data, 1,
 		 datatype_traits<layout<T>>::get_datatype(l),
-		 dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		 dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::irequest ibsend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::irequest ibsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return ibsend(&(*begin), l, dest, tag);
+	return ibsend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return ibsend(&(*begin), l, dest, tag);
+	return ibsend(&(*begin), l, dest, t);
       }
     }
     
     // --- persistent buffered send ---
-    template<typename T, typename tag_type=int>
-    detail::prequest bsend_init(const T &data, int dest, tag_type tag=0) const {
+    template<typename T>
+    detail::prequest bsend_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Bsend_init(&data, 1,
 		     datatype_traits<T>::get_datatype(),
-		     dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		     dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::prequest bsend_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest bsend_init(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Bsend_init(data, 1,
 		     datatype_traits<layout<T>>::get_datatype(l),
-		     dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		     dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::prequest bsend_init(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::prequest bsend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return bsend_init(&(*begin), l, dest, tag);
+	return bsend_init(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return bsend_init(&(*begin), l, dest, tag);
+	return bsend_init(&(*begin), l, dest, t);
       }
     }
 
     // === synchronous send ===
     // --- blocking synchronous send ---
-    template<typename T, typename tag_type=int>
-    void ssend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void ssend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Ssend(&data, 1,
 		datatype_traits<T>::get_datatype(),
-		dest, detail::underlying_type<tag_type>::value(tag), comm);
+		dest, static_cast<int>(t), comm);
     }
 
-    template<typename T, typename tag_type=int>
-    void ssend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void ssend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Ssend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
-		dest, detail::underlying_type<tag_type>::value(tag), comm);
+		dest, static_cast<int>(t), comm);
     }
 
-    template<typename iterT, typename tag_type=int>
-    void ssend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    void ssend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	ssend(&(*begin), l, dest, tag);
+	ssend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	ssend(&(*begin), l, dest, tag);
+	ssend(&(*begin), l, dest, t);
       }
     }
 
     // --- nonblocking synchronous send ---
-    template<typename T, typename tag_type=int>
-    detail::irequest issend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest issend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Issend(&data, 1,
 		 datatype_traits<T>::get_datatype(),
-		 dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		 dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::irequest issend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest issend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Issend(data, 1,
 		 datatype_traits<layout<T>>::get_datatype(l),
-		 dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		 dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::irequest issend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::irequest issend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return issend(&(*begin), l, dest, tag);
+	return issend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return issend(&(*begin), l, dest, tag);
+	return issend(&(*begin), l, dest, t);
       }
     }
 
     // --- persistent synchronous send ---
-    template<typename T, typename tag_type=int>
-    detail::prequest ssend_init(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest ssend_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Ssend_init(&data, 1,
 		     datatype_traits<T>::get_datatype(),
-		     dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		     dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::prequest ssend_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest ssend_init(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Ssend_init(data, 1,
 		     datatype_traits<layout<T>>::get_datatype(l),
-		     dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		     dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::prequest ssend_init(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::prequest ssend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return ssend_init(&(*begin), l, dest, tag);
+	return ssend_init(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return ssend_init(&(*begin), l, dest, tag);
+	return ssend_init(&(*begin), l, dest, t);
       }
     }
 
     // === ready send ===
     // --- blocking ready send ---
-    template<typename T, typename tag_type=int>
-    void rsend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void rsend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Rsend(&data, 1,
 		datatype_traits<T>::get_datatype(),
-		dest, detail::underlying_type<tag_type>::value(tag), comm);
+		dest, static_cast<int>(t), comm);
     }
 
-    template<typename T, typename tag_type=int>
-    void rsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    void rsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Rsend(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
-		dest, detail::underlying_type<tag_type>::value(tag), comm);
+		dest, static_cast<int>(t), comm);
     }
 
-    template<typename iterT, typename tag_type=int>
-    void rsend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    void rsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	rsend(&(*begin), l, dest, tag);
+	rsend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	rsend(&(*begin), l, dest, tag);
+	rsend(&(*begin), l, dest, t);
       }
     }
 
     // --- nonblocking ready send ---
-    template<typename T, typename tag_type=int>
-    detail::irequest irsend(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest irsend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Irsend(&data, 1,
 		 datatype_traits<T>::get_datatype(),
-		 dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		 dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::irequest irsend(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest irsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Irsend(data, 1,
 		 datatype_traits<layout<T>>::get_datatype(l),
-		 dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		 dest, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::irequest irsend(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::irequest irsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return irsend(&(*begin), l, dest, tag);
+	return irsend(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return irsend(&(*begin), l, dest, tag);
+	return irsend(&(*begin), l, dest, t);
       }
     }
 
     // --- persistent ready send ---
-    template<typename T, typename tag_type=int>
-    detail::prequest rsend_init(const T &data, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest rsend_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Rsend_init(&data, 1,
 		     datatype_traits<T>::get_datatype(),
-		     dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		     dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::prequest rsend_init(const T *data, const layout<T> &l, int dest, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest rsend_init(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
-      check_stag(detail::underlying_type<tag_type>::value(tag));
+      check_send_tag(t);
       MPI_Request req;
       MPI_Rsend_init(data, 1,
 		     datatype_traits<layout<T>>::get_datatype(l),
-		     dest, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		     dest, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::prequest rsend_init(iterT begin, iterT end, int dest, tag_type tag=0) const {
+    template<typename iterT>
+    detail::prequest rsend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return rsend_init(&(*begin), l, dest, tag);
+	return rsend_init(&(*begin), l, dest, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return rsend_init(&(*begin), l, dest, tag);
+	return rsend_init(&(*begin), l, dest, t);
       }
     }
 
     // === receive ===
     // --- blocking receive ---
-    template<typename T, typename tag_type=int>
-    status recv(T &data, int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    status recv(T &data, int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       status s;
       MPI_Recv(&data, 1,
       	       datatype_traits<T>::get_datatype(),
-      	       source, detail::underlying_type<tag_type>::value(tag), comm, reinterpret_cast<MPI_Status *>(&s));
+      	       source, static_cast<int>(t), comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
-    template<typename T, typename tag_type=int>
-    status recv(T *data, const layout<T> &l, int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    status recv(T *data, const layout<T> &l, int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       status s;
       MPI_Recv(data, 1,
       	       datatype_traits<layout<T>>::get_datatype(l),
-      	       source, detail::underlying_type<tag_type>::value(tag), comm, reinterpret_cast<MPI_Status *>(&s));
+      	       source, static_cast<int>(t), comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
     
-    template<typename iterT, typename tag_type=int>
-    status recv(iterT begin, iterT end, int source, tag_type tag=0) const {
+    template<typename iterT>
+    status recv(iterT begin, iterT end, int source, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return recv(&(*begin), l, source, tag);
+	return recv(&(*begin), l, source, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return recv(&(*begin), l, source, tag);
+	return recv(&(*begin), l, source, t);
       }
     }
 
     // --- nonblocking receive ---
-    template<typename T, typename tag_type=int>
-    detail::irequest irecv(T &data, int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest irecv(T &data, int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       MPI_Request req;
       MPI_Irecv(&data, 1,
 		datatype_traits<T>::get_datatype(),
-		source, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		source, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::irequest irecv(T *data, const layout<T> &l, int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::irequest irecv(T *data, const layout<T> &l, int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       MPI_Request req;
       MPI_Irecv(data, 1,
 		datatype_traits<layout<T>>::get_datatype(l),
-		source, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		source, static_cast<int>(t), comm, &req);
       return detail::irequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::irequest irecv(iterT begin, iterT end, int source, tag_type tag=0) const {
+    template<typename iterT>
+    detail::irequest irecv(iterT begin, iterT end, int source, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return irecv(&(*begin), l, source, tag);
+	return irecv(&(*begin), l, source, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return irecv(&(*begin), l, source, tag);
+	return irecv(&(*begin), l, source, t);
       }
     }
 
     // --- persistent receive ---
-    template<typename T, typename tag_type=int>
-    detail::prequest recv_init(T &data, int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest recv_init(T &data, int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       MPI_Request req;
       MPI_Recv_init(&data, 1,
 		    datatype_traits<T>::get_datatype(),
-		    source, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		    source, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename T, typename tag_type=int>
-    detail::prequest recv_init(T *data, const layout<T> &l, int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    detail::prequest recv_init(T *data, const layout<T> &l, int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       MPI_Request req;
       MPI_Recv_init(data, 1,
 		    datatype_traits<layout<T>>::get_datatype(l),
-		    source, detail::underlying_type<tag_type>::value(tag), comm, &req);
+		    source, static_cast<int>(t), comm, &req);
       return detail::prequest(req);
     }
 
-    template<typename iterT, typename tag_type=int>
-    detail::prequest recv_init(iterT begin, iterT end, int source, tag_type tag=0) const {
+    template<typename iterT>
+    detail::prequest recv_init(iterT begin, iterT end, int source, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
-	return recv_init(&(*begin), l, source, tag);
+	return recv_init(&(*begin), l, source, t);
       } else {
 	iterator_layout<value_type> l(begin, end);
-	return recv_init(&(*begin), l, source, tag);
+	return recv_init(&(*begin), l, source, t);
       }
     }
 
     // === probe ===
     // --- blocking probe ---
-    template<typename tag_type=int>
-    status probe(int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    status probe(int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       status s;
-      MPI_Probe(source, detail::underlying_type<tag_type>::value(tag),
+      MPI_Probe(source, static_cast<int>(t),
 		comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
     // --- nonblocking probe ---
-    template<typename T, typename tag_type=int>
-    std::pair<bool, status> iprobe(int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    std::pair<bool, status> iprobe(int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       int result;
       status s;
-      MPI_Iprobe(source, detail::underlying_type<tag_type>::value(tag),
+      MPI_Iprobe(source, static_cast<int>(t),
 		 comm, &result, reinterpret_cast<MPI_Status *>(&s));
       return std::make_pair(static_cast<bool>(result), s);
     }
     
     // === matching probe ===
     // --- blocking matching probe ---
-    template<typename tag_type=int>
-    std::pair<message, status> mprobe(int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    std::pair<message, status> mprobe(int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       status s;
       message m;
-      MPI_Mprobe(source, detail::underlying_type<tag_type>::value(tag),
+      MPI_Mprobe(source, static_cast<int>(t),
 		 comm, &m, reinterpret_cast<MPI_Status *>(&s));
       return std::make_pair(m, s);
     }
     
     // --- nonblocking matching probe ---
-    template<typename tag_type=int>
-    std::tuple<bool, message, status> improbe(int source, tag_type tag=0) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    std::tuple<bool, message, status> improbe(int source, tag t=tag(0)) const {
       check_source(source);
-      check_rtag(detail::underlying_type<tag_type>::value(tag));
+      check_recv_tag(t);
       int result;
       status s;
       message m;
-      MPI_Improbe(source, detail::underlying_type<tag_type>::value(tag),
+      MPI_Improbe(source, static_cast<int>(t),
 		  comm, &result, &m, reinterpret_cast<MPI_Status *>(&s));
       return std::make_tuple(static_cast<bool>(result), m, s);
     }
@@ -941,45 +869,41 @@ namespace mpl {
 
     // === send and receive ===
     // --- send and receive ---
-    template<typename T, typename tag_type=int>
-    status sendrecv(const T &senddata, int dest, tag_type sendtag,
-		    T &recvdata, int source, tag_type recvtag) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    status sendrecv(const T &senddata, int dest, tag sendtag,
+		    T &recvdata, int source, tag recvtag) const {
       check_dest(dest);
       check_source(source);
-      check_stag(detail::underlying_type<tag_type>::value(sendtag));
-      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
+      check_send_tag(sendtag);
+      check_recv_tag(recvtag);
       status s;
       MPI_Sendrecv(&senddata, 1,
-		   datatype_traits<T>::get_datatype(), dest, detail::underlying_type<tag_type>::value(sendtag),
+		   datatype_traits<T>::get_datatype(), dest, static_cast<int>(sendtag),
 		   &recvdata, 1,
-		   datatype_traits<T>::get_datatype(), source, detail::underlying_type<tag_type>::value(recvtag),
+		   datatype_traits<T>::get_datatype(), source, static_cast<int>(recvtag),
 		   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
     
-    template<typename T, typename tag_type=int>
-    status sendrecv(const T *senddata, const layout<T> &sendl, int dest, tag_type sendtag,
-		    T *recvdata, const layout<T> &recvl, int source, tag_type recvtag) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+    template<typename T>
+    status sendrecv(const T *senddata, const layout<T> &sendl, int dest, tag sendtag,
+		    T *recvdata, const layout<T> &recvl, int source, tag recvtag) const {
       check_dest(dest);
       check_source(source);
-      check_stag(detail::underlying_type<tag_type>::value(sendtag));
-      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
+      check_send_tag(sendtag);
+      check_recv_tag(recvtag);
       status s;
       MPI_Sendrecv(senddata, 1,
-		   datatype_traits<layout<T>>::get_datatype(sendl), dest, detail::underlying_type<tag_type>::value(sendtag),
+		   datatype_traits<layout<T>>::get_datatype(sendl), dest, static_cast<int>(sendtag),
 		   recvdata, 1,
-		   datatype_traits<layout<T>>::get_datatype(recvl), source, detail::underlying_type<tag_type>::value(recvtag),
+		   datatype_traits<layout<T>>::get_datatype(recvl), source, static_cast<int>(recvtag),
 		   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
     
-    template<typename iterT1, typename iterT2, typename tag_type=int>
-    status sendrecv(iterT1 begin1, iterT1 end1, int dest, tag_type sendtag,
-		    iterT2 begin2, iterT2 end2, int source, tag_type recvtag) const {
+    template<typename iterT1, typename iterT2>
+    status sendrecv(iterT1 begin1, iterT1 end1, int dest, tag sendtag,
+		    iterT2 begin2, iterT2 end2, int source, tag recvtag) const {
       using value_type1=typename std::iterator_traits<iterT1>::value_type;
       using value_type2=typename std::iterator_traits<iterT2>::value_type;
       if (detail::is_contiguous_iterator<iterT1>::value and
@@ -1007,45 +931,41 @@ namespace mpl {
     }
 
     // --- send, receive and replace ---
-    template<typename T, typename tag_type=int>
+    template<typename T>
     status sendrecv_replace(T &data,
-			    int dest, tag_type sendtag, int source, tag_type recvtag) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+			    int dest, tag sendtag, int source, tag recvtag) const {
       check_dest(dest);
       check_source(source);
-      check_stag(detail::underlying_type<tag_type>::value(sendtag));
-      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
+      check_send_tag(sendtag);
+      check_recv_tag(recvtag);
       status s;
       MPI_Sendrecv_replace(&data, 1,
 			   datatype_traits<T>::get_datatype(),
-			   dest, detail::underlying_type<tag_type>::value(sendtag),
-			   source, detail::underlying_type<tag_type>::value(recvtag),
+			   dest, static_cast<int>(sendtag),
+			   source, static_cast<int>(recvtag),
 			   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
     
-    template<typename T, typename tag_type=int>
+    template<typename T>
     status sendrecv_replace(T *data, const layout<T> &l,
-			    int dest, tag_type sendtag, int source, tag_type recvtag) const {
-      static_assert(detail::is_valid_tag<tag_type>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+			    int dest, tag sendtag, int source, tag recvtag) const {
       check_dest(dest);
       check_source(source);
-      check_stag(detail::underlying_type<tag_type>::value(sendtag));
-      check_rtag(detail::underlying_type<tag_type>::value(recvtag));
+      check_send_tag(sendtag);
+      check_recv_tag(recvtag);
       status s;
       MPI_Sendrecv_replace(data, 1,
 			   datatype_traits<layout<T>>::get_datatype(l),
-			   dest, detail::underlying_type<tag_type>::value(sendtag),
-			   source, detail::underlying_type<tag_type>::value(recvtag),
+			   dest, static_cast<int>(sendtag),
+			   source, static_cast<int>(recvtag),
 			   comm, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
     
-    template<typename iterT, typename tag_type=int>
+    template<typename iterT>
     status sendrecv_replace(iterT begin, iterT end,
-			    int dest, tag_type sendtag, int source, tag_type recvtag) const {
+			    int dest, tag sendtag, int source, tag recvtag) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));

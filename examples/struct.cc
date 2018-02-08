@@ -72,10 +72,10 @@ int main() {
   if (comm_world.rank()==0) {
     str.d=1;
     std::iota(str.i, str.i+9, 1);
-    comm_world.send(str, 1, 0);
+    comm_world.send(str, 1);
   }
   if (comm_world.rank()==1) {
-    comm_world.recv(str, 0, 0);
+    comm_world.recv(str, 0);
     std::cout << str << '\n';
   }
   // send / receive a single structure containg another structure
@@ -84,10 +84,10 @@ int main() {
     str2.d=1;
     str2.str.d=1;
     std::iota(str2.str.i, str2.str.i+9, 1);
-    comm_world.send(str2, 1, 0);
+    comm_world.send(str2, 1);
   }
   if (comm_world.rank()==1) {
-    comm_world.recv(str2, 0, 0);
+    comm_world.recv(str2, 0);
     std::cout << str2 << '\n';
   }
   // send / receive a vector of structures
@@ -101,11 +101,11 @@ int main() {
       std::iota(str_field[k].i, str_field[k].i+9, 1+k);
     }
     // send vector of structures
-    comm_world.send(str_field.data(), str_field_layout, 1, 0);
+    comm_world.send(str_field.data(), str_field_layout, 1);
   }
   if (comm_world.rank()==1) {
     // receive vector of structures
-    comm_world.recv(str_field.data(), str_field_layout, 0, 0);
+    comm_world.recv(str_field.data(), str_field_layout, 0);
     for (int k=0; k<field_size; ++k)
       std::cout << str_field[k] << '\n';
   }

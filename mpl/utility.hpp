@@ -49,6 +49,20 @@ namespace mpl {
     template<typename T>
     struct is_valid_tag {
       static constexpr bool value=
+	(std::is_enum<T>::value) and
+	(not is_narrowing<typename underlying_type<T>::type, int>::value);
+    };
+
+    template<typename T>
+    struct is_valid_color {
+      static constexpr bool value=
+	(std::is_integral<T>::value or std::is_enum<T>::value) and
+	(not is_narrowing<typename underlying_type<T>::type, int>::value);
+    };
+
+    template<typename T>
+    struct is_valid_key {
+      static constexpr bool value=
 	(std::is_integral<T>::value or std::is_enum<T>::value) and
 	(not is_narrowing<typename underlying_type<T>::type, int>::value);
     };

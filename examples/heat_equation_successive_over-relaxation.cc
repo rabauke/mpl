@@ -9,7 +9,7 @@ typedef std::tuple<double, double> double_2;
 
 template<std::size_t dim, typename T, typename A>
 void update_overlap(const mpl::cart_communicator &C,
-		    mpl::distributed_grid<dim, T, A> &G, int tag=0) {
+		    mpl::distributed_grid<dim, T, A> &G, mpl::tag tag=mpl::tag()) {
   mpl::shift_ranks ranks;
   mpl::irequest_pool r;
   for (std::size_t i=0; i<dim; ++i) {

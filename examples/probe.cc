@@ -21,19 +21,20 @@ int main() {
     return EXIT_FAILURE;
   if (comm_world.rank()==0) {
     // send a message of n elements to rank 1
-    const int tag=29;
+    enum class tag { send=29 };
     const int n=12;
     std::vector<int> v(n);
     mpl::contiguous_layout<int> l(n);
     std::iota(v.begin(), v.end(), 0);
-    comm_world.send(v.data(), l, 1, tag);
+    comm_world.send(v.data(), l, 1, tag::send);
   }
   if (comm_world.rank()==1) {
     // receive a message of an a priory unknown number of elements from rank 0
     // first probe for a message from some arbitrary rank with any tag
-    mpl::status s(comm_world.probe(mpl::environment::any_source(), mpl::environment::any_tag()));
+    mpl::status s(comm_world.probe(mpl::environment::any_source(), mpl::tag::any()));
     // decode the number of elements, the source and the tag
-    int n(s.get_count<int>()), source(s.source()), tag(s.tag());
+    int n(s.get_count<int>()), source(s.source());
+    mpl::tag tag(s.tag());
     std::cerr << "souce : " << s.source() << '\n'
 	      << "tag   : " << s.tag() << '\n'
 	      << "error : " << s.error() << '\n'

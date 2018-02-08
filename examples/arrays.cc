@@ -16,10 +16,10 @@ int main() {
     double arr[N];
     if (comm_world.rank()==0) {
       std::iota(arr, arr+N, 1);
-      comm_world.send(arr, 1, 0);
+      comm_world.send(arr, 1);
     }
     if (comm_world.rank()==1) {
-      comm_world.recv(arr, 0, 0);
+      comm_world.recv(arr, 0);
       for (int j=0; j<N; ++j)
 	std::cout << "arr[" << j << "] = " << arr[j] << '\n';
     }
@@ -32,10 +32,10 @@ int main() {
       for (int j1=0; j1<N1; ++j1)
 	for (int j0=0; j0<N0; ++j0)
 	  arr[j0][j1]=(j0+1)+100*(j1+1);
-      comm_world.send(arr, 1, 0);
+      comm_world.send(arr, 1);
     }
     if (comm_world.rank()==1) {
-      comm_world.recv(arr, 0, 0);
+      comm_world.recv(arr, 0);
       for (int j1=0; j1<N1; ++j1) {
 	for (int j0=0; j0<N0; ++j0)
 	  std::cout << "arr[" << j0 << ", " << j1 << "] = " << arr[j0][j1] << '\n';
