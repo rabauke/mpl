@@ -25,14 +25,14 @@ void * secure_malloc(size_t size) {
 }
 
 // initial eleongation
-inline double u_0(double x) {
+static inline double u_0(double x) {
   if (x<=0 || x>=L)
     return 0;
   return exp(-200.0*(x-0.5*L)*(x-0.5*L));
 }
 
 // initial velocity
-inline double u_0_dt(double x) {
+static inline double u_0_dt(double x) {
   return 0.0;
 }
 

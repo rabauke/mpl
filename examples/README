@@ -37,6 +37,15 @@ struct.cc
   class members must be suited for communication.  These rules may be
   applied recursively.
 
+iterators.cc
+  Sends and receives containers (std::vector, std::list, etc.) given
+  by their iterators.  The types of the array elements must be suited
+  for communication.  On the receiving side, there must be sufficent
+  preallocated memory, i.e., sending and receiving containers must be
+  of the same size.  Furthermore, traking the address of a
+  dereferenced iteratir must result a non-const pointer on the
+  receiving side.
+
 gather.cc
   Gather data to a single process.
 
