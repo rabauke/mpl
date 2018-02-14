@@ -134,8 +134,7 @@ int main() {
   if (comm_world.rank()==0) {
     double y=1;
     std::pair<int, double> pair{2, 3.4};
-    std::vector<double> v(10);
-    std::iota(v.begin(), v.end(), 1);
+    const std::vector<double> v({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
     mpl::vector_layout<double> lv(v.size());
     mpl::heterogeneous_layout l(y, pair, mpl::data_layout(v.data(), lv));  // heterogeneous_layout with 3 elements
     comm_world.send(mpl::environment::absolute(), l, 1);  // send data to rank 1
