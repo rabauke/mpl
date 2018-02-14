@@ -10,70 +10,70 @@ namespace mpl {
 
   template<typename T>
   struct max {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return (x<y) ? y : x;
     }
   };
 
   template<typename T>
   struct min {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return !(y<x) ? x : y;
     }
   };
 
   template<typename T>
   struct plus {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x+y;
     }
   };
 
   template<typename T>
   struct multiplies {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x*y;
     }
   };
 
   template<typename T>
   struct logical_and {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x and y;
     }
   };
 
   template<typename T>
   struct logical_or {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x or y;
     }
   };
 
   template<typename T>
   struct logical_xor {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x xor y;
     }
   };
 
   template<typename T>
   struct bit_and {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x & y;
     }
   };
 
   template<typename T>
   struct bit_or {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x | y;
     }
   };
 
   template<typename T>
   struct bit_xor {
-    T operator()(const T &x, const T &y) {
+    T operator()(const T &x, const T &y) const {
       return x ^ y;
     }
   };
