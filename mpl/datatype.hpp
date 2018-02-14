@@ -4,6 +4,7 @@
 
 #include <mpi.h>
 #include <cstddef>
+#include <cstdint>
 #include <vector>
 #include <complex>
 #include <utility>
@@ -340,6 +341,22 @@ namespace mpl {
   MPL_DATATYPE_TRAITS(std::complex<long double>, MPI_CXX_LONG_DOUBLE_COMPLEX);
 
 #undef MPL_DATATYPE_TRAITS
+
+  template<>
+  class datatype_traits<char16_t> {
+  public:
+    static MPI_Datatype get_datatype() {
+      return datatype_traits<std::uint_least16_t>::get_datatype();
+    }
+  };
+
+  template<>
+  class datatype_traits<char32_t> {
+  public:
+    static MPI_Datatype get_datatype() {
+      return datatype_traits<std::uint_least32_t>::get_datatype();
+    }
+  };
 
 }
 
