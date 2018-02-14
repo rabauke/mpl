@@ -136,7 +136,7 @@ int main() {
     std::pair<int, double> pair{2, 3.4};
     const std::vector<double> v({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
     mpl::vector_layout<double> lv(v.size());
-    mpl::heterogeneous_layout l(y, pair, mpl::data_layout(v.data(), lv));  // heterogeneous_layout with 3 elements
+    mpl::heterogeneous_layout l(y, pair, mpl::absolute_layout(v.data(), lv));  // heterogeneous_layout with 3 elements
     comm_world.send(mpl::environment::absolute(), l, 1);  // send data to rank 1
   }
   if (comm_world.rank()==1) {
@@ -144,7 +144,7 @@ int main() {
     std::pair<int, double> pair;
     std::vector<double> v(10);
     mpl::vector_layout<double> lv(v.size());
-    mpl::heterogeneous_layout l(y, pair, mpl::data_layout(v.data(), lv));  // heterogeneous_layout with 3 elements
+    mpl::heterogeneous_layout l(y, pair, mpl::absolute_layout(v.data(), lv));  // heterogeneous_layout with 3 elements
     comm_world.recv(mpl::environment::absolute(), l, 0);  // receive data from rank 0
     std::cout << "y = " << y << "  pair = " << pair.first << ", " << pair.second << "  ";
     print_range("v = ", v.begin(), v.end());

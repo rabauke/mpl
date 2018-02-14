@@ -49,10 +49,10 @@ namespace mpl {
   class heterogeneous_layout;
 
   template<typename T>
-  std::pair<T *, MPI_Datatype> data_layout(T *, const layout<T> &);
+  std::pair<T *, MPI_Datatype> absoute_layout(T *, const layout<T> &);
 
   template<typename T>
-  std::pair<const T *, MPI_Datatype> data_layout(const T *, const layout<T> &);
+  std::pair<const T *, MPI_Datatype> absoute_layout(const T *, const layout<T> &);
 
   //--------------------------------------------------------------------
 
@@ -133,8 +133,8 @@ namespace mpl {
     friend class iterator_layout<T>;
     friend class subarray_layout<T>;
     friend class heterogeneous_layout;
-    friend std::pair<T *, MPI_Datatype> data_layout<>(T *, const layout<T> &);
-    friend std::pair<const T *, MPI_Datatype> data_layout<>(const T *, const layout<T> &);
+    friend std::pair<T *, MPI_Datatype> absoute_layout<>(T *, const layout<T> &);
+    friend std::pair<const T *, MPI_Datatype> absoute_layout<>(const T *, const layout<T> &);
 
   };
 
@@ -829,12 +829,12 @@ namespace mpl {
 
 
   template<typename T>
-  inline std::pair<T *, MPI_Datatype> data_layout(T *x, const layout<T> &l) {
+  inline std::pair<T *, MPI_Datatype> absoute_layout(T *x, const layout<T> &l) {
     return std::make_pair(x, l.type);
   }
 
   template<typename T>
-  inline std::pair<const T *, MPI_Datatype> data_layout(const T *x, const layout<T> &l) {
+  inline std::pair<const T *, MPI_Datatype> absoute_layout(const T *x, const layout<T> &l) {
     return std::make_pair(x, l.type);
   }
 
