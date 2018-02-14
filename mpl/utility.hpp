@@ -33,7 +33,7 @@ namespace mpl {
     template<typename T>
     struct underlying_type<T, true> {
       typedef typename std::underlying_type<T>::type type;
-      static constexpr auto value(const T &v) {
+      static constexpr int value(const T &v) {
 	return static_cast<int>(v);
       }
     };
@@ -41,7 +41,7 @@ namespace mpl {
     template<typename T>
     struct underlying_type<T, false> {
       typedef T type;
-      static constexpr auto value(const T &v) {
+      static constexpr int value(const T &v) {
 	return static_cast<int>(v);
       }
     };

@@ -49,10 +49,10 @@ namespace mpl {
   class heterogeneous_layout;
 
   template<typename T>
-  std::pair<T *, MPI_Datatype> absoute_layout(T *, const layout<T> &);
+  std::pair<T *, MPI_Datatype> absolute_layout(T *, const layout<T> &);
 
   template<typename T>
-  std::pair<const T *, MPI_Datatype> absoute_layout(const T *, const layout<T> &);
+  std::pair<const T *, MPI_Datatype> absolute_layout(const T *, const layout<T> &);
 
   //--------------------------------------------------------------------
 
@@ -98,7 +98,85 @@ namespace mpl {
       }
       return *this;
     }
-    void resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
+    std::ptrdiff_t byte_extent() const {
+      MPI_Count lb_, extent_;
+      MPI_Type_get_extent_x(type, &lb_, &extent_);
+      if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	throw invalid_datatype_bound();
+      return extent_;
+    }
+    std::ptrdiff_t byte_lower_bound() const {
+      MPI_Count lb_, extent_;
+      MPI_Type_get_extent_x(type, &lb_, &extent_);
+      if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	throw invalid_datatype_bound();
+      return lb_;
+    }
+    std::ptrdiff_t byte_upper_bound() const {
+      MPI_Count lb_, extent_;
+      MPI_Type_get_extent_x(type, &lb_, &extent_);
+      if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	throw invalid_datatype_bound();
+      return extent_-lb_;
+    }
+    std::ptrdiff_t extent() const {
+      std::ptrdiff_t res=byte_extent();
+      if (res/sizeof(T)*sizeof(T)!=res)
+	throw invalid_datatype_bound();
+      return res/sizeof(T);
+    }
+    std::ptrdiff_t lower_bound() const {
+      std::ptrdiff_t res=byte_lower_bound();
+      if (res/sizeof(T)*sizeof(T)!=res)
+	throw invalid_datatype_bound();
+      return res/sizeof(T);
+    }
+    std::ptrdiff_t upper_bound() const {
+      std::ptrdiff_t res=byte_upper_bound();
+      if (res/sizeof(T)*sizeof(T)!=res)
+	throw invalid_datatype_bound();
+      return res/sizeof(T);
+    }
+    std::ptrdiff_t true_byte_extent() const {
+      MPI_Count lb_, extent_;
+      MPI_Type_get_true_extent_x(type, &lb_, &extent_);
+      if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	throw invalid_datatype_bound();
+      return extent_;
+    }
+    std::ptrdiff_t true_byte_lower_bound() const {
+      MPI_Count lb_, extent_;
+      MPI_Type_get_true_extent_x(type, &lb_, &extent_);
+      if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	throw invalid_datatype_bound();
+      return lb_;
+    }
+    std::ptrdiff_t true_byte_upper_bound() const {
+      MPI_Count lb_, extent_;
+      MPI_Type_get_true_extent_x(type, &lb_, &extent_);
+      if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	throw invalid_datatype_bound();
+      return extent_-lb_;
+    }
+    std::ptrdiff_t true_extent() const {
+      std::ptrdiff_t res=true_byte_extent();
+      if (res/sizeof(T)*sizeof(T)!=res)
+	throw invalid_datatype_bound();
+      return res/sizeof(T);
+    }
+    std::ptrdiff_t true_lower_bound() const {
+      std::ptrdiff_t res=true_byte_lower_bound();
+      if (res/sizeof(T)*sizeof(T)!=res)
+	throw invalid_datatype_bound();
+      return res/sizeof(T);
+    }
+    std::ptrdiff_t true_upper_bound() const {
+      std::ptrdiff_t res=true_byte_upper_bound();
+      if (res/sizeof(T)*sizeof(T)!=res)
+	throw invalid_datatype_bound();
+      return res/sizeof(T);
+    }
+    void byte_resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
       if (type!=MPI_DATATYPE_NULL) {
 	MPI_Datatype newtype;
 	MPI_Type_create_resized(type, lb, extent, &newtype);
@@ -107,10 +185,14 @@ namespace mpl {
 	type=newtype;
       }
     }
-    std::ptrdiff_t extent() const {
-      MPI_Aint lb_, extent_;
-      MPI_Type_get_extent(type, &lb_, &extent_);
-      return extent_;
+    void resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
+      if (type!=MPI_DATATYPE_NULL) {
+	MPI_Datatype newtype;
+	MPI_Type_create_resized(type, lb*sizeof(T), extent*sizeof(T), &newtype);
+	MPI_Type_commit(&newtype);
+	MPI_Type_free(&type);
+	type=newtype;
+      }
     }
     void swap(layout &l) {
       std::swap(type, l.type);
@@ -133,8 +215,8 @@ namespace mpl {
     friend class iterator_layout<T>;
     friend class subarray_layout<T>;
     friend class heterogeneous_layout;
-    friend std::pair<T *, MPI_Datatype> absoute_layout<>(T *, const layout<T> &);
-    friend std::pair<const T *, MPI_Datatype> absoute_layout<>(const T *, const layout<T> &);
+    friend std::pair<T *, MPI_Datatype> absolute_layout<>(T *, const layout<T> &);
+    friend std::pair<const T *, MPI_Datatype> absolute_layout<>(const T *, const layout<T> &);
 
   };
 
@@ -148,8 +230,14 @@ namespace mpl {
     }
     void swap(null_layout<T> &other) {
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::byte_resize;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -182,8 +270,14 @@ namespace mpl {
     void swap(empty_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -230,8 +324,14 @@ namespace mpl {
       std::swap(type, other.type);
       std::swap(count, other.count);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
     friend class communicator;
   };
 
@@ -271,9 +371,14 @@ namespace mpl {
     void swap(vector_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
-    friend class communicator;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -317,8 +422,14 @@ namespace mpl {
     void swap(strided_vector_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -384,8 +495,14 @@ namespace mpl {
     void swap(indexed_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -452,8 +569,14 @@ namespace mpl {
     void swap(hindexed_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -518,8 +641,14 @@ namespace mpl {
     void swap(indexed_block_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -584,8 +713,14 @@ namespace mpl {
     void swap(hindexed_block_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -662,8 +797,14 @@ namespace mpl {
     void swap(iterator_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -746,8 +887,14 @@ namespace mpl {
     void swap(subarray_layout<T> &other) {
       std::swap(type, other.type);
     }
-    using layout<T>::resize;
+    using layout<T>::byte_extent;
+    using layout<T>::byte_lower_bound;
+    using layout<T>::byte_upper_bound;
+    using layout<T>::byte_resize;
     using layout<T>::extent;
+    using layout<T>::lower_bound;
+    using layout<T>::upper_bound;
+    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -823,18 +970,24 @@ namespace mpl {
     void swap(heterogeneous_layout &other) {
       std::swap(type, other.type);
     }
-    using layout<void>::resize;
+    using layout<void>::byte_extent;
+    using layout<void>::byte_lower_bound;
+    using layout<void>::byte_upper_bound;
+    using layout<void>::byte_resize;
     using layout<void>::extent;
-  };
+    using layout<void>::lower_bound;
+    using layout<void>::upper_bound;
+    using layout<void>::resize;
+ };
 
 
   template<typename T>
-  inline std::pair<T *, MPI_Datatype> absoute_layout(T *x, const layout<T> &l) {
+  inline std::pair<T *, MPI_Datatype> absolute_layout(T *x, const layout<T> &l) {
     return std::make_pair(x, l.type);
   }
 
   template<typename T>
-  inline std::pair<const T *, MPI_Datatype> absoute_layout(const T *x, const layout<T> &l) {
+  inline std::pair<const T *, MPI_Datatype> absolute_layout(const T *x, const layout<T> &l) {
     return std::make_pair(x, l.type);
   }
 

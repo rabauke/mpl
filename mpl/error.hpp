@@ -59,6 +59,14 @@ namespace mpl {
     }
   };
 
+  class invalid_datatype_bound : public error {
+  public:
+    invalid_datatype_bound() : error("invalid datatype bound") {
+    }
+    virtual ~invalid_datatype_bound() {
+    }
+  };
+
 }
 
 #endif

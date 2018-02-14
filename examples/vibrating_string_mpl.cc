@@ -69,13 +69,13 @@ int main() {
     // update border data
     mpl::irequest_pool r;
     r.push(comm_world.isend(u_new_l[N_l[C_rank]-2],
-			    C_rank+1<C_size ? C_rank+1 : mpl::environment::proc_null(), right_copy));
+			    C_rank+1<C_size ? C_rank+1 : mpl::proc_null, right_copy));
     r.push(comm_world.isend(u_new_l[1],
-			    C_rank-1>=0 ? C_rank-1 : mpl::environment::proc_null(), left_copy));
+			    C_rank-1>=0 ? C_rank-1 : mpl::proc_null, left_copy));
     r.push(comm_world.irecv(u_new_l[0],
-			    C_rank-1>=0 ? C_rank-1 : mpl::environment::proc_null(), right_copy));
+			    C_rank-1>=0 ? C_rank-1 : mpl::proc_null, right_copy));
     r.push(comm_world.irecv(u_new_l[N_l[C_rank]-1],
-			    C_rank+1<C_size ? C_rank+1 : mpl::environment::proc_null(), left_copy));
+			    C_rank+1<C_size ? C_rank+1 : mpl::proc_null, left_copy));
     r.waitall();
     std::swap(u_l, u_old_l);  std::swap(u_new_l, u_l);
   }

@@ -112,30 +112,6 @@ namespace mpl {
 
     //------------------------------------------------------------------
 
-    constexpr int any_source() {
-      return MPI_ANY_SOURCE;
-    }
-
-    constexpr int proc_null() {
-      return MPI_PROC_NULL;
-    }
-
-    constexpr int undefined() {
-      return MPI_UNDEFINED;
-    }
-
-    constexpr int root() {
-      return MPI_ROOT;
-    }
-
-    constexpr void * absolute() {
-      return reinterpret_cast<void *>(MPI_BOTTOM);
-    }
-
-    constexpr int bsend_overheadroot() {
-      return MPI_BSEND_OVERHEAD;
-    }
-
     inline threading_modes threading_mode() {
       return detail::get_env().threading_mode();
     }

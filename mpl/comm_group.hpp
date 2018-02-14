@@ -20,9 +20,6 @@ namespace mpl {
 
     }
 
-    constexpr int any_source();
-    constexpr int proc_null();
-
   }
 
   //--------------------------------------------------------------------

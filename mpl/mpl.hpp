@@ -3,6 +3,23 @@
 #define MPL_HPP
 
 #include <mpi.h>
+
+namespace mpl {
+  
+  static constexpr int any_source=MPI_ANY_SOURCE;
+
+  static constexpr int proc_null=MPI_PROC_NULL;
+
+  static constexpr int undefined=MPI_UNDEFINED;
+
+  static constexpr int root=MPI_ROOT;
+
+  static constexpr void * absolute=reinterpret_cast<void *>(MPI_BOTTOM);
+
+  static constexpr int bsend_overheadroot=MPI_BSEND_OVERHEAD;
+
+}
+
 #include <mpl/error.hpp>
 #include <mpl/displacements.hpp>
 #include <mpl/tag.hpp>
