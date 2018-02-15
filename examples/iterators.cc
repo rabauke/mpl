@@ -24,8 +24,8 @@ int main() {
     if (comm_world.rank()==1) {
       comm_world.recv(l.begin(), l.end(), 0);
       std::for_each(l.begin(), l.end(), [](auto x) {
-	std::cout << x << '\n';
-	});
+  	std::cout << x << '\n';
+  	});
     }
   }
   // send / receive a single list
@@ -39,23 +39,23 @@ int main() {
     if (comm_world.rank()==1) {
       comm_world.recv(l.begin(), l.end(), 0);
       std::for_each(l.begin(), l.end(), [](auto x) {
-	std::cout << x << '\n';
-	});
+  	std::cout << x << '\n';
+  	});
     }
   }
-  // send a set / receive an C array
+  // send a set / receive an array
   {
     const int N=10;
     if (comm_world.rank()==0) {
-      std::set<double> l;
-      for (int i=1; i<=N; i)
-	l.insert(i);
-      comm_world.send(l.begin(), l.end(), 1);
+      std::set<double> s;
+      for (int i=1; i<=N; ++i)
+  	s.insert(i);
+      comm_world.send(s.begin(), s.end(), 1);
     }
     if (comm_world.rank()==1) {
-      double l[N];
-      comm_world.recv(l, l+N, 0);
-      std::for_each(l, l+N, [](auto x) {
+      std::array<double, N> l;
+      comm_world.recv(begin(l), end(l), 0);
+      std::for_each(begin(l), end(l), [](auto x) {
 	std::cout << x << '\n';
 	});
     }
