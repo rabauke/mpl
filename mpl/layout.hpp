@@ -761,6 +761,10 @@ namespace mpl {
     static MPI_Datatype build(const parameter &par,
 			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
+#if defined MPL_DEBUG
+      if (par.displacements.size()>std::numeric_limits<int>::max())
+	throw invalid_size();
+#endif
       MPI_Type_create_hindexed_block(par.displacements.size(), 1, par.displacements.data(),
 				     old_type, &new_type);
       return new_type;
