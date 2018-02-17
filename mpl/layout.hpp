@@ -7,6 +7,7 @@
 #include <iterator>
 #include <initializer_list>
 #include <type_traits>
+#include <limits>
 
 namespace mpl {
 
@@ -285,21 +286,39 @@ namespace mpl {
   template<typename T>
   class contiguous_layout : public layout<T> {
     using layout<T>::type;
-    static MPI_Datatype build(int count,
+    static MPI_Datatype build(size_t count,
 			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(count, old_type, &new_type);
+      if (count<=std::numeric_limits<int>::max()) {
+	MPI_Type_contiguous(static_cast<int>(count), old_type, &new_type);
+      } else {
+	const size_t modulus=std::numeric_limits<int>::max();
+	const size_t count1=count/modulus;
+	const size_t count0=count-count1*modulus;
+	MPI_Count lb, extent;
+	MPI_Type_get_extent_x(old_type, &lb, &extent);
+	MPI_Datatype type_modulus;
+	MPI_Type_contiguous(static_cast<int>(modulus), old_type, &type_modulus);
+	std::vector<int> block_lengths{ static_cast<int>(count0), static_cast<int>(count1) };
+#if defined MPL_DEBUG
+	if (count0*extent>std::numeric_limits<MPI_Aint>::max())
+	  throw invalid_size();
+#endif
+	std::vector<MPI_Aint> displacements{ 0, static_cast<MPI_Aint>(count0*extent) };
+	std::vector<MPI_Datatype> types{ old_type, type_modulus };
+	MPI_Type_create_struct(2, block_lengths.data(), displacements.data(), types.data(), &new_type);
+      }
       return new_type;
     }
-    int count;
-    int size() const {
+    size_t count;
+    size_t size() const {
       return count;
     }
   public:
-    explicit contiguous_layout(int c=0) :
+    explicit contiguous_layout(size_t c=0) :
       layout<T>(build(c)), count(c) {
     }
-    explicit contiguous_layout(int c, const contiguous_layout<T> &other) :
+    explicit contiguous_layout(size_t c, const contiguous_layout<T> &other) :
       layout<T>(build(c, other.type)), count(other.c*c) {
     }
     contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count(l.count) {
@@ -340,20 +359,38 @@ namespace mpl {
   template<typename T>
   class vector_layout : public layout<T> {
     using layout<T>::type;
-    static MPI_Datatype build(int count,
-                              MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(size_t count,
+			      MPI_Datatype old_type=datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(count, old_type, &new_type);
+      if (count<=std::numeric_limits<int>::max()) {
+	MPI_Type_contiguous(static_cast<int>(count), old_type, &new_type);
+      } else {
+	const size_t modulus=std::numeric_limits<int>::max();
+	const size_t count1=count/modulus;
+	const size_t count0=count-count1*modulus;
+	MPI_Count lb, extent;
+	MPI_Type_get_extent_x(old_type, &lb, &extent);
+	MPI_Datatype type_modulus;
+	MPI_Type_contiguous(static_cast<int>(modulus), old_type, &type_modulus);
+	std::vector<int> block_lengths{ static_cast<int>(count0), static_cast<int>(count1) };
+#if defined MPL_DEBUG
+	if (count0*extent>std::numeric_limits<MPI_Aint>::max())
+	  throw invalid_size();
+#endif
+	std::vector<MPI_Aint> displacements{ 0, static_cast<MPI_Aint>(count0*extent) };
+	std::vector<MPI_Datatype> types{ old_type, type_modulus };
+	MPI_Type_create_struct(2, block_lengths.data(), displacements.data(), types.data(), &new_type);
+      }
       return new_type;
     }
   public:
-    explicit vector_layout(int c=0) :
+    explicit vector_layout(size_t c=0) :
       layout<T>(build(c)) {
     }
-    explicit vector_layout(int c, const layout<T> &other) :
+    explicit vector_layout(size_t c, const layout<T> &other) :
       layout<T>(build(c, other.type)) {
     }
-    explicit vector_layout(int c, const vector_layout<T> &other) :
+    explicit vector_layout(size_t c, const vector_layout<T> &other) :
       layout<T>(build(c, other.type)) {
     }
     vector_layout(const vector_layout<T> &l) : layout<T>(l) {

@@ -3,6 +3,7 @@
 #define MPL_HPP
 
 #include <mpi.h>
+#include <cstddef>
 
 namespace mpl {
   
@@ -17,6 +18,8 @@ namespace mpl {
   static constexpr void * absolute=reinterpret_cast<void *>(MPI_BOTTOM);
 
   static constexpr int bsend_overheadroot=MPI_BSEND_OVERHEAD;
+
+  typedef std::size_t size_t;
 
 }
 
