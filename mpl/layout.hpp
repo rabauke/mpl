@@ -768,23 +768,35 @@ namespace mpl {
   public:
     class parameter {
       std::vector<MPI_Aint> displacements;
+      std::vector<int> blocklengths;
       template<typename value_T>
-      void add(value_T &base, value_T *&i) {
-	add(reinterpret_cast<char *>(&i) - reinterpret_cast<char *>(&base));
+      void add(value_T &base, value_T *&i, MPI_Count extent_) {
+	add(reinterpret_cast<char *>(&i) - reinterpret_cast<char *>(&base), extent_);
       }
       template<typename value_T>
-      void add(const value_T &base, const value_T &i) {
-	add(reinterpret_cast<const char *>(&i) - reinterpret_cast<const char *>(&base));
+      void add(const value_T &base, const value_T &i, MPI_Count extent_) {
+	add(reinterpret_cast<const char *>(&i) - reinterpret_cast<const char *>(&base), extent_);
       }
-      void add(MPI_Aint displacement) {
-	displacements.push_back(displacement);
+      void add(MPI_Aint displacement, MPI_Count extent_) {
+	if ((not displacements.empty()) and
+	    displacements.back()+blocklengths.back()*extent_==displacement and
+	    blocklengths.back()<std::numeric_limits<int>::max())
+	  blocklengths.back()++;
+	else {
+	  displacements.push_back(displacement);
+	  blocklengths.push_back(1);
+	}
       }
     public:
       parameter()=default;
       template<typename iter_T>
-      parameter(iter_T first, iter_T end) {
+	parameter(iter_T first, iter_T end) {
+	MPI_Count lb_, extent_;
+	MPI_Type_get_extent_x(datatype_traits<T>::get_datatype(), &lb_, &extent_);
+	if (lb_==MPI_UNDEFINED or extent_==MPI_UNDEFINED)
+	  throw invalid_datatype_bound();
 	for (iter_T i=first; i!=end; ++i)
-	  add(*first, *i);
+	  add(*first, *i, extent_);
       }
       friend class iterator_layout;
     };
@@ -802,8 +814,8 @@ namespace mpl {
       if (par.displacements.size()>std::numeric_limits<int>::max())
 	throw invalid_size();
 #endif
-      MPI_Type_create_hindexed_block(par.displacements.size(), 1, par.displacements.data(),
-				     old_type, &new_type);
+      MPI_Type_create_hindexed(par.displacements.size(), par.blocklengths.data(), par.displacements.data(),
+      			       old_type, &new_type);
       return new_type;
     }
   public:
