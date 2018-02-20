@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(mpl_examples)
+project(mpl_tests)
 
 enable_language(C)
 enable_language(CXX)
