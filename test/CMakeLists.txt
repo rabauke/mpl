@@ -17,10 +17,13 @@ include_directories("../")
 
 add_executable(send_recv send_recv.cc)
 add_executable(isend_irecv isend_irecv.cc)
+add_executable(collective collective.cc)
 
 add_custom_target(run
-  COMMAND mpiexec -n 2 ./send_recv
-  DEPENDS send_recv
-  COMMAND mpiexec -n 2 ./isend_irecv
-  DEPENDS isend_irecv
+        COMMAND mpiexec -n 2 ./send_recv
+        DEPENDS send_recv
+        COMMAND mpiexec -n 2 ./isend_irecv
+        DEPENDS isend_irecv
+        COMMAND mpiexec -n 8 ./collective
+        DEPENDS collective
   )
