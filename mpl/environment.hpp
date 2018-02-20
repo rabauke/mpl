@@ -103,7 +103,7 @@ namespace mpl {
 
       //----------------------------------------------------------------
 
-      const env & get_env() {
+      inline const env & get_env() {
 	static env the_env;
 	return the_env;
       }

@@ -220,7 +220,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  cart_communicator::sizes dims_create(int size, cart_communicator::sizes par) {
+  inline cart_communicator::sizes dims_create(int size, cart_communicator::sizes par) {
     if (MPI_Dims_create(size, par.dims_.size(), par.dims_.data())!=MPI_SUCCESS)
       throw invalid_dim();
     return par;
