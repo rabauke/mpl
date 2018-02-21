@@ -121,7 +121,7 @@ namespace mpl {
 
     void check_dest(int dest) const {
 #if defined MPL_DEBUG
-      if (dest!=environment::proc_null() and
+      if (dest!=proc_null and
 	  (dest<0 or dest>=size()))
 	throw invalid_rank();
 #endif
@@ -129,8 +129,8 @@ namespace mpl {
 
     void check_source(int source) const {
 #if defined MPL_DEBUG
-      if (source!=environment::proc_null() and
-	  source!=environment::any_source() and
+      if (source!=proc_null and
+	  source!=any_source and
 	  (source<0 or source>=size()))
 	throw invalid_rank();
 #endif

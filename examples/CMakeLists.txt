@@ -2,12 +2,16 @@ cmake_minimum_required(VERSION 3.0)
 
 project(mpl_examples)
 
+set(ALLOW_DUPLICATE_CUSTOM_TARGETS TRUE)
+
 enable_language(C)
 enable_language(CXX)
 
 find_package(MPI REQUIRED) 
 set(CMAKE_C_COMPILER ${MPI_C_COMPILER})
 set(CMAKE_CXX_COMPILER ${MPI_CXX_COMPILER})
+
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DMPL_DEBUG")
 
 include_directories("../")
 

@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 
 project(mpl_tests)
 
+set(ALLOW_DUPLICATE_CUSTOM_TARGETS TRUE)
+
 enable_language(C)
 enable_language(CXX)
 
@@ -13,11 +15,13 @@ find_package(MPI REQUIRED)
 set(CMAKE_C_COMPILER ${MPI_C_COMPILER})
 set(CMAKE_CXX_COMPILER ${MPI_CXX_COMPILER})
 
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DMPL_DEBUG")
+
 include_directories("../")
 
-add_executable(send_recv send_recv.cc)
-add_executable(isend_irecv isend_irecv.cc)
-add_executable(collective collective.cc)
+add_executable(test_send_recv test_send_recv.cc)
+add_executable(test_isend_irecv test_isend_irecv.cc)
+add_executable(test_collective test_collective.cc)
 
 add_custom_target(run
         COMMAND mpiexec -n 2 ./send_recv
