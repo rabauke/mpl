@@ -74,7 +74,7 @@ int main() {
 	  break;
 	// print indces of finished sends
 	std::cout << "send finished : ";
-	std::for_each(finished.begin(), i, [](auto j){ std::cout << j << ' '; });
+	std::for_each(finished.begin(), i, [](mpl::irequest_pool::size_type j){ std::cout << j << ' '; });
 	std::cout << "\n";
       }
     }
@@ -119,7 +119,7 @@ int main() {
 	  break;
 	// print indces of finished receives
 	std::cout << "recv finished : ";
-	std::for_each(finished.begin(), i, [](auto j){ std::cout << j << ' '; });
+	std::for_each(finished.begin(), i, [](mpl::irequest_pool::size_type j){ std::cout << j << ' '; });
 	std::cout << '\n';
       }
       print_range("v = ", v1.begin(), v1.end());

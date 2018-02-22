@@ -16,7 +16,7 @@ int main() {
   const int n=8;
   // populate vector with random data
   std::vector<pair_t> v(n);
-  std::generate(v.begin(), v.end(), [&]()->auto{
+  std::generate(v.begin(), v.end(), [&](){
       return std::make_pair(static_cast<double>(std::rand())/RAND_MAX, comm_world.rank());
     });
   // calculate minium and its location and send result to rank root

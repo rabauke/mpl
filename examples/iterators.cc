@@ -18,12 +18,12 @@ int main() {
     const int N=10;
     std::vector<double> l(N);
     if (comm_world.rank()==0) {
-      std::iota(l.begin(), l.end(), 1);
-      comm_world.send(l.begin(), l.end(), 1);
+      std::iota(begin(l), end(l), 1);
+      comm_world.send(begin(l), end(l), 1);
     }
     if (comm_world.rank()==1) {
-      comm_world.recv(l.begin(), l.end(), 0);
-      std::for_each(l.begin(), l.end(), [](auto x) {
+      comm_world.recv(begin(l), end(l), 0);
+      std::for_each(begin(l), end(l), [](double x) {
   	std::cout << x << '\n';
   	});
     }
@@ -33,12 +33,12 @@ int main() {
     const int N=10;
     std::list<double> l(N);
     if (comm_world.rank()==0) {
-      std::iota(l.begin(), l.end(), 1);
-      comm_world.send(l.begin(), l.end(), 1);
+      std::iota(begin(l), end(l), 1);
+      comm_world.send(begin(l), end(l), 1);
     }
     if (comm_world.rank()==1) {
-      comm_world.recv(l.begin(), l.end(), 0);
-      std::for_each(l.begin(), l.end(), [](auto x) {
+      comm_world.recv(begin(l), end(l), 0);
+      std::for_each(begin(l), end(l), [](double x) {
   	std::cout << x << '\n';
   	});
     }
@@ -55,7 +55,7 @@ int main() {
     if (comm_world.rank()==1) {
       std::array<double, N> l;
       comm_world.recv(begin(l), end(l), 0);
-      std::for_each(begin(l), end(l), [](auto x) {
+      std::for_each(begin(l), end(l), [](double x) {
 	std::cout << x << '\n';
 	});
     }

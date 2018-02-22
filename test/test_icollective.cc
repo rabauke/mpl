@@ -1,4 +1,4 @@
-#define BOOST_TEST_MODULE collective
+#define BOOST_TEST_MODULE icollective
 #include <boost/test/included/unit_test.hpp>
 #include <iostream>
 #include <vector>
@@ -8,51 +8,57 @@
 #include <mpl/mpl.hpp>
 
 template<typename T>
-bool bcast_test() {
+bool ibcast_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
   T x;
   if (comm_world.rank()==0)
     x=T(1);
-  comm_world.bcast(0, x);
+  auto r{comm_world.ibcast(0, x)};
+  r.wait();
   return x==T(1);
 }
 
 template<typename T>
-bool scatter_test() {
+bool iscatter_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
   std::vector<T> v(comm_world.size());
   std::iota(begin(v), end(v), 0);
   T x;
   if (comm_world.rank()==0) {
-    comm_world.scatter(0, v.data(), x);
+    auto r{comm_world.iscatter(0, v.data(), x)};
+    r.wait();
   } else {
-    comm_world.scatter(0, x);
+    auto r{comm_world.iscatter(0, x)};
+    r.wait();
   }
   return x==v[comm_world.rank()];
 }
 
 template<typename T>
-bool gather_test() {
+bool igather_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
   std::vector<T> v(comm_world.size());
   T x=comm_world.rank();
   if (comm_world.rank()==0) {
-    comm_world.gather(0, x, v.data());
+    auto r{comm_world.igather(0, x, v.data())};
+    r.wait();
     for (int i=0; i<comm_world.size(); ++i)
       if (v[i]!=i)
         return false;
   } else {
-    comm_world.gather(0, x);
+    auto r{comm_world.igather(0, x)};
+    r.wait();
   }
   return true;
 }
 
 template<typename T>
-bool allgather_test() {
+bool iallgather_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
   std::vector<T> v(comm_world.size());
   T x=comm_world.rank();
-  comm_world.allgather(x, v.data());
+  auto r{comm_world.iallgather(x, v.data())};
+  r.wait();
   for (int i=0; i<comm_world.size(); ++i)
     if (v[i]!=i)
       return false;
@@ -60,12 +66,13 @@ bool allgather_test() {
 }
 
 template<typename T>
-bool alltoall_test() {
+bool ialltoall_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
   std::vector<std::pair<T, T>> v(comm_world.size());
   for (int i=0; i<comm_world.size(); ++i)
     v[i]=std::make_pair(static_cast<T>(i), static_cast<T>(comm_world.rank()));
-  comm_world.alltoall(v.data());
+  auto r{comm_world.ialltoall(v.data())};
+  r.wait();
   for (int i=0; i<comm_world.size(); ++i)
     if (v[i]!=std::make_pair(static_cast<T>(comm_world.rank()), static_cast<T>(i)))
       return false;
@@ -73,11 +80,11 @@ bool alltoall_test() {
 }
 
 
-BOOST_AUTO_TEST_CASE(collective)
+BOOST_AUTO_TEST_CASE(icollective)
 {
-  BOOST_TEST(bcast_test<double>());
-  BOOST_TEST(scatter_test<double>());
-  BOOST_TEST(gather_test<double>());
-  BOOST_TEST(allgather_test<double>());
-  BOOST_TEST(alltoall_test<double>());
+  BOOST_TEST(ibcast_test<double>());
+  BOOST_TEST(iscatter_test<double>());
+  BOOST_TEST(igather_test<double>());
+  BOOST_TEST(iallgather_test<double>());
+  BOOST_TEST(ialltoall_test<double>());
 }

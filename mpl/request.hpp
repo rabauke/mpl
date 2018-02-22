@@ -8,6 +8,14 @@
 
 namespace mpl {
 
+  class irequest;
+
+  class prequest;
+
+  class irequest_pool;
+
+  class rrequest_pool;
+
   namespace detail {
 
     template<typename T>
@@ -22,7 +30,7 @@ namespace mpl {
       irequest(MPI_Request req) : req(req) {
       }
       friend class request<irequest>;
-      friend class request_pool<irequest>;
+      friend class request_pool<mpl::irequest>;
     };
 
     class prequest {
@@ -31,7 +39,7 @@ namespace mpl {
       prequest(MPI_Request req) : req(req) {
       }
       friend class request<prequest>;
-      friend class request_pool<prequest>;
+      friend class request_pool<mpl::prequest>;
     };
 
     //------------------------------------------------------------------
@@ -39,8 +47,8 @@ namespace mpl {
     template<typename T>
     class request {
     protected:
-      MPI_Request req;
     public:
+      MPI_Request req;
       request()=delete;
       request(const request &)=delete;
       request(const T &other) : req(other.req) {
@@ -204,12 +212,13 @@ namespace mpl {
 	base::operator=(std::move(other));
       return *this;
     }
+    friend class detail::request_pool<irequest>;
   };
 
   //--------------------------------------------------------------------
 
-  class irequest_pool : public detail::request_pool<detail::irequest> {
-    typedef detail::request_pool<detail::irequest> base;
+  class irequest_pool : public detail::request_pool<irequest> {
+    typedef detail::request_pool<irequest> base;
   public:
     irequest_pool() {
     }
@@ -244,12 +253,13 @@ namespace mpl {
     void start() {
       MPI_Start(&req);
     }
+    friend class detail::request_pool<prequest>;
   };
 
   //--------------------------------------------------------------------
 
-  class prequest_pool : public detail::request_pool<detail::prequest> {
-    typedef detail::request_pool<detail::prequest> base;
+  class prequest_pool : public detail::request_pool<prequest> {
+    typedef detail::request_pool<prequest> base;
     using base::reqs;
   public:
     prequest_pool() {

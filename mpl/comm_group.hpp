@@ -313,7 +313,7 @@ namespace mpl {
 
     // --- nonblocking standard send ---
     template<typename T>
-    detail::irequest isend(const T &data, int dest, tag t=tag(0)) const {
+    irequest isend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -324,7 +324,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest isend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
+    irequest isend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -335,7 +335,7 @@ namespace mpl {
     }
     
     template<typename iterT>
-    detail::irequest isend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    irequest isend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
@@ -434,7 +434,7 @@ namespace mpl {
     
     // --- nonblocking buffered send ---
     template<typename T>
-    detail::irequest ibsend(const T &data, int dest, tag t=tag(0)) const {
+    irequest ibsend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -445,7 +445,7 @@ namespace mpl {
     }
 
     template<typename T>
-    detail::irequest ibsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
+    irequest ibsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -456,7 +456,7 @@ namespace mpl {
     }
 
     template<typename iterT>
-    detail::irequest ibsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    irequest ibsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
@@ -536,7 +536,7 @@ namespace mpl {
 
     // --- nonblocking synchronous send ---
     template<typename T>
-    detail::irequest issend(const T &data, int dest, tag t=tag(0)) const {
+    irequest issend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -547,7 +547,7 @@ namespace mpl {
     }
 
     template<typename T>
-    detail::irequest issend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
+    irequest issend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -558,7 +558,7 @@ namespace mpl {
     }
 
     template<typename iterT>
-    detail::irequest issend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    irequest issend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
@@ -638,7 +638,7 @@ namespace mpl {
 
     // --- nonblocking ready send ---
     template<typename T>
-    detail::irequest irsend(const T &data, int dest, tag t=tag(0)) const {
+    irequest irsend(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -649,7 +649,7 @@ namespace mpl {
     }
 
     template<typename T>
-    detail::irequest irsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
+    irequest irsend(const T *data, const layout<T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
@@ -660,7 +660,7 @@ namespace mpl {
     }
 
     template<typename iterT>
-    detail::irequest irsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    irequest irsend(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
@@ -744,7 +744,7 @@ namespace mpl {
 
     // --- nonblocking receive ---
     template<typename T>
-    detail::irequest irecv(T &data, int source, tag t=tag(0)) const {
+    irequest irecv(T &data, int source, tag t=tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       MPI_Request req;
@@ -755,7 +755,7 @@ namespace mpl {
     }
 
     template<typename T>
-    detail::irequest irecv(T *data, const layout<T> &l, int source, tag t=tag(0)) const {
+    irequest irecv(T *data, const layout<T> &l, int source, tag t=tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       MPI_Request req;
@@ -766,7 +766,7 @@ namespace mpl {
     }
 
     template<typename iterT>
-    detail::irequest irecv(iterT begin, iterT end, int source, tag t=tag(0)) const {
+    irequest irecv(iterT begin, iterT end, int source, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
 	vector_layout<value_type> l(std::distance(begin, end));
@@ -983,7 +983,7 @@ namespace mpl {
     }
     
     // --- nonblocking barrier ---
-    detail::irequest ibarrier() const {
+    irequest ibarrier() const {
       MPI_Request req;
       MPI_Ibarrier(comm, &req);
       return detail::irequest(req);
@@ -1005,7 +1005,7 @@ namespace mpl {
     
     // --- nonblocking broadcast ---
     template<typename T>
-    detail::irequest ibcast(int root, T &data) const {
+    irequest ibcast(int root, T &data) const {
       check_root(root);
       MPI_Request req;
       MPI_Ibcast(&data, 1, datatype_traits<T>::get_datatype(), root, comm, &req);
@@ -1013,7 +1013,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest ibcast(int root, T *data, const layout<T> &l) const {
+    irequest ibcast(int root, T *data, const layout<T> &l) const {
       check_root(root);
       MPI_Request req;
       MPI_Ibcast(data, 1, datatype_traits<layout<T>>::get_datatype(l), root, comm, &req);
@@ -1043,7 +1043,7 @@ namespace mpl {
     
     // --- nonblocking gather ---
     template<typename T>
-    detail::irequest igather(int root, const T &senddata, T *recvdata) const {
+    irequest igather(int root, const T &senddata, T *recvdata) const {
       check_root(root);
       MPI_Request req;
       MPI_Igather(&senddata, 1, datatype_traits<T>::get_datatype(),
@@ -1053,7 +1053,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest igather(int root,
+    irequest igather(int root,
 			     const T *senddata, const layout<T> &sendl,
 			     T *recvdata, const layout<T> &recvl) const {
       check_root(root);
@@ -1084,7 +1084,7 @@ namespace mpl {
     
     // --- nonblocking gather, non-root variant ---
     template<typename T>
-    detail::irequest igather(int root, const T &senddata) const {
+    irequest igather(int root, const T &senddata) const {
       check_nonroot(root);
       MPI_Request req;
       MPI_Igather(&senddata, 1, datatype_traits<T>::get_datatype(),
@@ -1094,7 +1094,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest igather(int root,
+    irequest igather(int root,
 			     const T *senddata, const layout<T> &sendl) const {
       check_nonroot(root);
       MPI_Request req;
@@ -1134,7 +1134,7 @@ namespace mpl {
     
     // --- nonblocking gather ---
     template<typename T>
-    detail::irequest igatherv(int root,
+    irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
       check_root(root);
@@ -1153,7 +1153,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest igatherv(int root,
+    irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layouts<T> &recvls) const {
       return igatherv(root, senddata, sendl, recvdata, recvls, displacements(size()));
@@ -1174,7 +1174,7 @@ namespace mpl {
     
     // --- nonblocking gather, non-root variant ---
     template<typename T>
-    detail::irequest igatherv(int root,
+    irequest igatherv(int root,
 			      const T *senddata, const layout<T> &sendl) const {
       check_nonroot(root);
       int N(size());
@@ -1205,7 +1205,7 @@ namespace mpl {
     
     // --- nonblocking allgather ---
     template<typename T>
-    detail::irequest iallgather(const T &senddata, T *recvdata) const {
+    irequest iallgather(const T &senddata, T *recvdata) const {
       MPI_Request req;
       MPI_Iallgather(&senddata, 1, datatype_traits<T>::get_datatype(),
 		     recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -1214,7 +1214,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest iallgather(const T *senddata, const layout<T> &sendl,
+    irequest iallgather(const T *senddata, const layout<T> &sendl,
 				T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Iallgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
@@ -1246,7 +1246,7 @@ namespace mpl {
     
     // --- nonblocking allgather ---
     template<typename T>
-    detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl,
+    irequest iallgatherv(const T *senddata, const layout<T> &sendl,
 				 T *recvdata, const layouts<T> &recvls, const displacements &recvdispls) const {
       check_size(recvls);
       check_size(recvdispls);
@@ -1258,7 +1258,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest iallgatherv(const T *senddata, const layout<T> &sendl,
+    irequest iallgatherv(const T *senddata, const layout<T> &sendl,
 				 T *recvdata, const layouts<T> &recvls) const {
       return iallgatherv(senddata, sendl,
 			 recvdata, recvls, displacements(size()));
@@ -1287,7 +1287,7 @@ namespace mpl {
     
     // --- nonblocking scatter ---
     template<typename T>
-    detail::irequest iscatter(int root, const T *senddata, T &recvdata) const {
+    irequest iscatter(int root, const T *senddata, T &recvdata) const {
       check_root(root);
       MPI_Request req;
       MPI_Iscatter(senddata, 1, datatype_traits<T>::get_datatype(),
@@ -1297,7 +1297,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest iscatter(int root,
+    irequest iscatter(int root,
 			      const T *senddata, const layout<T> &sendl,
 			      T *recvdata, const layout<T> &recvl) const {
       check_root(root);
@@ -1328,7 +1328,7 @@ namespace mpl {
     
     // --- nonblocking scatter, non-root variant ---
     template<typename T>
-    detail::irequest iscatter(int root, T &recvdata) const {
+    irequest iscatter(int root, T &recvdata) const {
       check_nonroot(root);
       MPI_Request req;
       MPI_Iscatter(0, 0, MPI_DATATYPE_NULL,
@@ -1338,7 +1338,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest iscatter(int root,
+    irequest iscatter(int root,
 			      T *recvdata, const layout<T> &recvl) const {
       check_nonroot(root);
       MPI_Request req;
@@ -1379,7 +1379,7 @@ namespace mpl {
     
     // --- nonblocking scatter ---
     template<typename T>
-    detail::irequest iscatterv(int root,
+    irequest iscatterv(int root,
 			       const T *senddata, const layouts<T> &sendls, const displacements &senddispls,
 			       T *recvdata, const layout<T> &recvl) const {
       check_root(root);
@@ -1398,7 +1398,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest iscatterv(int root,
+    irequest iscatterv(int root,
 			       const T *senddata, const layouts<T> &sendls,
 			       T *recvdata, const layout<T> &recvl) const {
       return iscatterv(root, senddata, sendls, displacements(size()),
@@ -1420,7 +1420,7 @@ namespace mpl {
     
     // --- nonblocking scatter, non-root variant ---
     template<typename T>
-    detail::irequest iscatterv(int root,
+    irequest iscatterv(int root,
 			       T *recvdata, const layout<T> &recvl) const {
       check_root(root);
       int N(size());
@@ -1451,7 +1451,7 @@ namespace mpl {
     
     // --- nonblocking all-to-all ---
     template<typename T>
-    detail::irequest ialltoall(const T *senddata, T *recvdata) const {
+    irequest ialltoall(const T *senddata, T *recvdata) const {
       MPI_Request req;
       MPI_Ialltoall(senddata, 1, datatype_traits<T>::get_datatype(),
 		    recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -1460,7 +1460,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest ialltoall(const T *senddata, const layout<T> &sendl,
+    irequest ialltoall(const T *senddata, const layout<T> &sendl,
 			       T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Ialltoall(senddata, 1, datatype_traits<layout<T>>::get_datatype(),
@@ -1486,7 +1486,7 @@ namespace mpl {
     
     // --- nonblocking all-to-all, in place ---
     template<typename T>
-    detail::irequest ialltoall(T *recvdata) const {
+    irequest ialltoall(T *recvdata) const {
       MPI_Request req;
       MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
 		    recvdata, 1, datatype_traits<T>::get_datatype(),
@@ -1495,7 +1495,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest ialltoall(T *recvdata, const layout<T> &recvl) const {
+    irequest ialltoall(T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL,
 		    recvdata, 1, datatype_traits<layout<T>>::get_datatype(),
@@ -1530,7 +1530,7 @@ namespace mpl {
 
     // --- non-blocking all-to-all ---
     template<typename T>
-    detail::irequest ialltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls,
+    irequest ialltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls,
 	                        T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
       check_size(senddispls);
       check_size(sendl);
@@ -1547,7 +1547,7 @@ namespace mpl {
     }
 
     template<typename T>
-    detail::irequest ialltoallv(const T *senddata, const layouts<T> &sendl,
+    irequest ialltoallv(const T *senddata, const layouts<T> &sendl,
                                 T *recvdata, const layouts<T> &recvl) const {
       displacements sendrecvdispls(size());
       return ialltoallv(senddata, sendl, sendrecvdispls,
@@ -1573,7 +1573,7 @@ namespace mpl {
     
     // --- non-blocking all-to-all, in place ---
     template<typename T>
-    detail::irequest ialltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
+    irequest ialltoallv(T *recvdata, const layouts<T> &recvl, const displacements &recvdispls) const {
       check_size(recvdispls);
       check_size(recvl);
       std::vector<int> counts(recvl.size(), 1);
@@ -1586,7 +1586,7 @@ namespace mpl {
     }
     
     template<typename T>
-    detail::irequest ialltoallv(T *recvdata, const layouts<T> &recvl) const {
+    irequest ialltoallv(T *recvdata, const layouts<T> &recvl) const {
       return ialltoallv(recvdata, recvl, displacements(size()));
     }
     
@@ -1614,7 +1614,7 @@ namespace mpl {
     
     // --- non-blocking reduce ---
     template<typename T, typename F>
-    detail::irequest ireduce(F f, int root,
+    irequest ireduce(F f, int root,
 			     const T &senddata, T &recvdata) const {
       check_root(root);
       detail::get_op<T, F>().f=&f;
@@ -1626,7 +1626,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest ireduce(F f, int root,
+    irequest ireduce(F f, int root,
 			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       check_root(root);
       detail::get_op<T, F>().f=&f;
@@ -1689,7 +1689,7 @@ namespace mpl {
     
     // --- non-blocking reduce, in place ---
     template<typename T, typename F>
-    detail::irequest ireduce(F f, int root,
+    irequest ireduce(F f, int root,
 			     T &sendrecvdata) const {
       check_root(root);
       detail::get_op<T, F>().f=&f;
@@ -1706,7 +1706,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest ireduce(F f, int root,
+    irequest ireduce(F f, int root,
 			     const T &sendrecvdata) const {
       check_nonroot(root);
       detail::get_op<T, F>().f=&f;
@@ -1718,7 +1718,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest ireduce(F f, int root,
+    irequest ireduce(F f, int root,
 			     T *sendrecvdata, const contiguous_layout<T> &l) const {
       check_root(root);
       detail::get_op<T, F>().f=&f;
@@ -1735,7 +1735,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest ireduce(F f, int root,
+    irequest ireduce(F f, int root,
 			     const T *sendrecvdata, const contiguous_layout<T> &l) const {
       check_nonroot(root);
       detail::get_op<T, F>().f=&f;
@@ -1768,7 +1768,7 @@ namespace mpl {
     
     // --- non-blocking all-reduce ---
     template<typename T, typename F>
-    detail::irequest iallreduce(F f,
+    irequest iallreduce(F f,
 				const T &senddata, T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1779,7 +1779,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest iallreduce(F f,
+    irequest iallreduce(F f,
 				const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1810,7 +1810,7 @@ namespace mpl {
     
     // --- non-blocking all-reduce, in place ---
     template<typename T, typename F>
-    detail::irequest iallreduce(F f,
+    irequest iallreduce(F f,
 				T &sendrecvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1821,7 +1821,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest iallreduce(F f,
+    irequest iallreduce(F f,
 				T *sendrecvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1853,7 +1853,7 @@ namespace mpl {
     
     // --- non-blocking reduce-scatter-block ---
     template<typename T, typename F>
-    detail::irequest ireduce_scatter_block(F f,
+    irequest ireduce_scatter_block(F f,
 					   const T *senddata, T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1864,7 +1864,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest ireduce_scatter_block(F f,
+    irequest ireduce_scatter_block(F f,
 					   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1887,7 +1887,7 @@ namespace mpl {
     
     // --- non-blocking reduce-scatter ---
     template<typename T, typename F>
-    detail::irequest ireduce_scatter(F f,
+    irequest ireduce_scatter(F f,
 				     const T *senddata, T *recvdata, contiguous_layouts<T> &recvcounts) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1909,7 +1909,7 @@ namespace mpl {
     
     // --- non-blocking reduce-scatter, in place ---
     template<typename T, typename F>
-    detail::irequest ireduce_scatter(F f,
+    irequest ireduce_scatter(F f,
 				     T *recvdata, const contiguous_layouts<T> &recvcounts) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1941,7 +1941,7 @@ namespace mpl {
     
     // --- non-blocking scan ---
     template<typename T, typename F>
-    detail::irequest iscan(F f,
+    irequest iscan(F f,
 			   const T &senddata, T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1952,7 +1952,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest iscan(F f,
+    irequest iscan(F f,
 			   const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1983,7 +1983,7 @@ namespace mpl {
     
     // --- non-blocking scan, in place ---
     template<typename T, typename F>
-    detail::irequest iscan(F f,
+    irequest iscan(F f,
                            T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -1994,7 +1994,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest iscan(F f,
+    irequest iscan(F f,
 			   T *recvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -2026,7 +2026,7 @@ namespace mpl {
     
     // --- non-blocking exscan ---
     template<typename T, typename F>
-    detail::irequest iexscan(F f,
+    irequest iexscan(F f,
 			     const T &senddata, T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -2037,7 +2037,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest iexscan(F f,
+    irequest iexscan(F f,
 			     const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -2068,7 +2068,7 @@ namespace mpl {
     
     // --- non-blocking exscan, in place ---
     template<typename T, typename F>
-    detail::irequest iexscan(F f,
+    irequest iexscan(F f,
 			     T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
@@ -2079,7 +2079,7 @@ namespace mpl {
     }
     
     template<typename T, typename F>
-    detail::irequest iexscan(F f,
+    irequest iexscan(F f,
 			     T *recvdata, const contiguous_layout<T> &l) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;

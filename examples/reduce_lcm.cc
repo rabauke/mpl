@@ -35,7 +35,7 @@ int main() {
   const int n=8;
   // populate vector with random data
   std::vector<int> v(n);
-  std::generate(v.begin(), v.end(), []()->auto{ return std::rand()%12+1; });
+  std::generate(v.begin(), v.end(), []()->int{ return std::rand()%12+1; });
   // calculate the least common multiple and send result to rank 0
   mpl::contiguous_layout<int> layout(n);
   if (comm_world.rank()==0) {
