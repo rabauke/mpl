@@ -82,79 +82,57 @@ namespace mpl {
 
   template<typename F>
   struct op_traits {
-    static constexpr bool is_commutative() {
-      return false;
-    }
+    static constexpr bool is_commutative=false;
   };
 
   template<typename T>
   struct op_traits<max<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<min<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<plus<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<multiplies<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<logical_and<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<logical_or<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<logical_xor<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<bit_and<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<bit_or<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   template<typename T>
   struct op_traits<bit_xor<T>> {
-    static constexpr bool is_commutative() {
-      return true;
-    }
+    static constexpr bool is_commutative=true;
   };
 
   // -------------------------------------------------------------------
@@ -222,6 +200,7 @@ namespace mpl {
 		    std::is_assignable<typename std::add_lvalue_reference<second_argument_type>::type, T>::value and
 		    std::is_assignable<T &, result_type>::value, "argument type mismatch");
 
+      static constexpr bool is_commutative=op_traits<functor>::is_commutative;
       static functor *f;
       static void apply(void *invec, void *inoutvec, int *len,
     			MPI_Datatype *datatype) {
@@ -233,13 +212,10 @@ namespace mpl {
       }
       MPI_Op mpi_op;
       op() {
-    	MPI_Op_create(op::apply, op_traits<functor>::is_commutative(), &mpi_op);
+    	MPI_Op_create(op::apply, is_commutative, &mpi_op);
       }
       ~op() {
     	MPI_Op_free(&mpi_op);
-      }
-      static constexpr bool is_s_commutative() {
-    	return op_traits<functor>::is_commutative();
       }
       op(op const &)=delete;
       void operator=(op const&)=delete;
