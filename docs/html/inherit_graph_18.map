@@ -1,6 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1contiguous__layouts.html" title="mpl::contiguous_layouts\&lt; T \&gt;" alt="" coords="5,56,200,83"/>
-<area shape="rect" id="node2" href="$classmpl_1_1displacements.html" title="mpl::displacements" alt="" coords="248,5,383,32"/>
-<area shape="rect" id="node3" href="$classmpl_1_1layouts.html" title="mpl::layouts\&lt; T \&gt;" alt="" coords="253,56,378,83"/>
-<area shape="rect" id="node4" href="$classmpl_1_1ranks.html" title="mpl::ranks" alt="" coords="274,107,357,133"/>
+<area shape="rect" id="node1" href="$classmpl_1_1contiguous__layouts.html" title="mpl::contiguous_layouts\&lt; T \&gt;" alt="" coords="5,59,236,88"/>
+<area shape="rect" id="node2" href="$classmpl_1_1displacements.html" title="mpl::displacements" alt="" coords="284,5,443,35"/>
+<area shape="rect" id="node3" href="$classmpl_1_1layouts.html" title="mpl::layouts\&lt; T \&gt;" alt="" coords="292,59,435,88"/>
+<area shape="rect" id="node4" href="$classmpl_1_1ranks.html" title="mpl::ranks" alt="" coords="316,112,411,141"/>
 </map>
