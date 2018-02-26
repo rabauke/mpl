@@ -11,6 +11,7 @@ provide a direct mapping of the C API to some C++ functions and classes.
 Its focus is on the MPI core functions, ease of use, type safety, and 
 elegance.
 
+
 ## Installation
 
 MPL is a header-only library.  Just copy the `mpl` directory containing all 
@@ -18,3 +19,10 @@ header files to a place, where the compiler will find it, e.g.,
 `/usr/local/include`.  As MPL is built on MPI, an MPI implementation needs to 
 be installed, e.g., [Open MPI](https://www.open-mpi.org/) or 
 [MPICH](https://www.mpich.org/).
+
+
+## Documentation
+
+For documentation see the
+[Doxygen-generated documentation](https://rabauke.github.io/mpl/html/) and
+the files in the `examples` directory of the source.
