@@ -14,10 +14,12 @@ elegance.
 
 ## Installation
 
-MPL is a header-only library.  Just copy the `mpl` directory containing all 
-header files to a place, where the compiler will find it, e.g., 
-`/usr/local/include`.  As MPL is built on MPI, an MPI implementation needs to 
-be installed, e.g., [Open MPI](https://www.open-mpi.org/) or 
+MPL is a header-only library.  Just download the
+[source](https://github.com/rabauke/mpl) and copy the `mpl` directory
+containing all header files to a place, where the compiler will find
+it, e.g., `/usr/local/include`.  As MPL is built on MPI, an MPI
+implementation needs to be installed, e.g.,
+[Open MPI](https://www.open-mpi.org/) or 
 [MPICH](https://www.mpich.org/).
 
 

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Message Passing Library: Main Page</title>
+<title>Message Passing Library: MPL - A message passing library</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -80,10 +80,16 @@ $(document).ready(function(){initNavTree('index.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Message Passing Library Documentation</div>  </div>
+<div class="title">MPL - A message passing library </div>  </div>
 </div><!--header-->
 <div class="contents">
-</div><!-- contents -->
+<div class="textblock"><p>MPL is a message passing library written in C++11 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.0 it is the aim of MPL is to provide a modern C++ message passing library for high performance computing.</p>
+<p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. Its focus is on the MPI core functions, ease of use, type safety, and elegance.</p>
+<h2>Installation</h2>
+<p>MPL is a header-only library. Just copy the <code>mpl</code> directory containing all header files to a place, where the compiler will find it, e.g., <code>/usr/local/include</code>. As MPL is built on MPI, an MPI implementation needs to be installed, e.g., <a href="https://www.open-mpi.org/">Open MPI</a> or <a href="https://www.mpich.org/">MPICH</a>.</p>
+<h2>Documentation</h2>
+<p>For documentation see the <a href="https://rabauke.github.io/mpl/html/">Doxygen-generated documentation</a> and the files in the <code>examples</code> directory of the source. </p>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

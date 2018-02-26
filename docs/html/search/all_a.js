@@ -1,6 +1,7 @@
 var searchData=
 [
   ['environment',['environment',['../namespacempl_1_1environment.html',1,'mpl']]],
+  ['mpl_20_2d_20a_20message_20passing_20library',['MPL - A message passing library',['../index.html',1,'']]],
   ['make_5fabsolute',['make_absolute',['../classmpl_1_1layout.html#af2fc8f28b43dae7a77521113083bcf21',1,'mpl::layout::make_absolute()'],['../classmpl_1_1layout.html#a375b01f6d57a5cca92bc030cd84ef8fd',1,'mpl::layout::make_absolute()'],['../namespacempl.html#af0b7a10cdfd34ecaadf5263c431a797a',1,'mpl::make_absolute(T *, const layout&lt; T &gt; &amp;)'],['../namespacempl.html#a26f71f8155fc67af51ba3b6345bf0a75',1,'mpl::make_absolute(const T *, const layout&lt; T &gt; &amp;)']]],
   ['max',['max',['../structmpl_1_1max.html',1,'mpl']]],
   ['message',['message',['../namespacempl.html#a948286acb3a75553a5e6ea4e921bfe68',1,'mpl']]],

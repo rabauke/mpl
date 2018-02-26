@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "Message Passing Library", "index.html", [
+    [ "MPL - A message passing library", "index.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
