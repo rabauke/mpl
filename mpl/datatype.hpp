@@ -79,7 +79,7 @@ namespace mpl {
       MPI_Aint address;
       MPI_Get_address(x, &address);
       displacements.push_back(address-base);
-      datatypes.push_back(get_datatype(*x));
+      datatypes.push_back(get_datatype(x));
       return *this;
     }
     friend class base_struct_builder<S>;

@@ -140,7 +140,7 @@ int main() {
     comm_world.send(mpl::absolute, l, 1);  // send data to rank 1
   }
   if (comm_world.rank()==1) {
-    double y;
+    double y=0;
     std::pair<int, double> pair;
     std::vector<double> v(10);
     mpl::vector_layout<double> lv(v.size());

@@ -1,3 +1,5 @@
+
+
 #if !(defined MPL_HPP)
 
 #define MPL_HPP
@@ -15,7 +17,7 @@ namespace mpl {
 
   static constexpr int root=MPI_ROOT;
 
-  static constexpr void * absolute=reinterpret_cast<void *>(MPI_BOTTOM);
+  static constexpr void * absolute=MPI_BOTTOM;
 
   static constexpr int bsend_overheadroot=MPI_BSEND_OVERHEAD;
 
