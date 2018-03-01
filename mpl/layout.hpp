@@ -1064,6 +1064,8 @@ namespace mpl {
     typedef typename base::size_type size_type;
     explicit layouts(size_type n=0) : base(n, empty_layout<T>()) {
     }
+    explicit layouts(size_type n, const layout<T> &l) : base(n, l) {
+    }
     using base::begin;
     using base::end;
     using base::cbegin;
