@@ -5,6 +5,7 @@
 #include <mpi.h>
 #include <type_traits>
 #include <tuple>
+#include <mpl/layout.hpp>
 
 namespace mpl {
 
