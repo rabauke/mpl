@@ -12,18 +12,23 @@ namespace mpl {
   private:
     int t=0;
   public:
-    tag() = default;
+    tag()=default;
+
     template<typename T>
     tag(T t) : t(static_cast<int>(t)) {
       static_assert(detail::is_valid_tag<T>::value,
-		    "not an enumeration type or underlying enumeration type too large");
+                    "not an enumeration type or underlying enumeration type too large");
     }
+
     explicit tag(int t) : t(t) {
     }
+
     explicit operator int() const {
       return t;
     }
+
     static inline tag up();
+
     static inline tag any();
   };
 
@@ -36,19 +41,19 @@ namespace mpl {
   }
 
   template<typename CharT, typename Traits>
-  std::basic_ostream<CharT, Traits>& operator<<(std::basic_ostream<CharT, Traits>& os, tag t) {
+  std::basic_ostream<CharT, Traits> &operator<<(std::basic_ostream<CharT, Traits> &os, tag t) {
     return os << static_cast<int>(t);
   }
 
   template<typename CharT, typename Traits>
-  std::basic_istream<CharT, Traits>& operator<<(std::basic_istream<CharT, Traits>& is, tag &t) {
+  std::basic_istream<CharT, Traits> &operator<<(std::basic_istream<CharT, Traits> &is, tag &t) {
     int t_;
     is >> t_;
     if (is)
       t=tag(t_);
     return is;
   }
-  
+
 }
 
 #endif

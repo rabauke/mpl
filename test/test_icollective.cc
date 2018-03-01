@@ -1,4 +1,5 @@
 #define BOOST_TEST_MODULE icollective
+
 #include <boost/test/included/unit_test.hpp>
 #include <iostream>
 #include <vector>
@@ -80,8 +81,7 @@ bool ialltoall_test() {
 }
 
 
-BOOST_AUTO_TEST_CASE(icollective)
-{
+BOOST_AUTO_TEST_CASE(icollective) {
   BOOST_TEST(ibcast_test<double>());
   BOOST_TEST(iscatter_test<double>());
   BOOST_TEST(igather_test<double>());

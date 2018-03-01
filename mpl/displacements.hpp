@@ -15,14 +15,19 @@ namespace mpl {
     typedef base::value_type value_type;
     typedef base::iterator iterator;
     typedef base::const_iterator const_iterator;
+
     explicit displacements(size_type n=0) : base(n, 0) {
     }
+
     displacements(std::initializer_list<MPI_Aint> init) : base(init) {
     }
+
     displacements(const displacements &other) : base(other) {
     }
+
     displacements(displacements &&other) : base(std::move(other)) {
     }
+
     using base::operator=;
     using base::begin;
     using base::end;
@@ -32,7 +37,8 @@ namespace mpl {
     using base::size;
     using base::push_back;
     using base::resize;
-    const MPI_Aint * operator()() const {
+
+    const MPI_Aint *operator()() const {
       return base::data();
     }
   };

@@ -15,13 +15,18 @@ namespace mpl {
     typedef base::value_type value_type;
     typedef base::iterator iterator;
     typedef base::const_iterator const_iterator;
+
     explicit ranks(size_type n=0) : base(n, 0) {
     }
+
     ranks(std::initializer_list<int> init) : base(init) {
     }
-    ranks(const ranks &other) = default;
+
+    ranks(const ranks &other)=default;
+
     ranks(ranks &&other) noexcept : base(std::move(other)) {
     }
+
     using base::operator=;
     using base::begin;
     using base::end;
@@ -30,10 +35,12 @@ namespace mpl {
     using base::operator[];
     using base::size;
     using base::push_back;
-    const int * operator()() const {
+
+    const int *operator()() const {
       return base::data();
     }
-    int * operator()() {
+
+    int *operator()() {
       return base::data();
     }
   };

@@ -8,7 +8,9 @@ int main() {
   if (comm_world.size()<2)
     return EXIT_FAILURE;
   // process 0 sends
-  enum class tag_enum : short { tag=1 };
+  enum class tag_enum : short {
+    tag=1
+  };
   if (comm_world.rank()==0) {
     // see MPI Standard for the semantics of standard send, buffered send,
     // synchronous send and ready send
@@ -18,7 +20,7 @@ int main() {
     {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
-      int size={ comm_world.bsend_size<decltype(x)>() };
+      int size={comm_world.bsend_size<decltype(x)>()};
       mpl::bsend_buffer<> buff(size);
       comm_world.bsend(x, 1);  // send x to rank 1 via buffered send
     }

@@ -4,7 +4,7 @@
 #include <mpl/mpl.hpp>
 
 int main() {
-  const mpl::communicator & comm_world(mpl::environment::comm_world());
+  const mpl::communicator &comm_world(mpl::environment::comm_world());
   int C_rank(comm_world.rank()), C_size(comm_world.size());
   // fill vector with C_rank+1 elements, each having the value C_rank+1
   std::vector<int> x(C_rank+1, C_rank+1);
@@ -17,10 +17,10 @@ int main() {
     mpl::layouts<int> ls;
     for (int i=0; i<C_size; ++i)
       // define layout for message to be received from rank i
-      ls.push_back(mpl::indexed_layout<int>( { {
-	      i+1,         // number of int elements
-		(i*i+i)/2  // position of the first element in receive buffer
-	    } } ) );
+      ls.push_back(mpl::indexed_layout<int>({{
+                                                 i+1,         // number of int elements
+                                                 (i*i+i)/2  // position of the first element in receive buffer
+                                             }}));
     std::vector<int> y((C_size*C_size+C_size)/2);  // receive buffer
     comm_world.gatherv(0, x.data(), l, y.data(), ls);  // receive data
     // print data

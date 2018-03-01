@@ -14,10 +14,13 @@ class lcm {
     if (a<zero) a=-a;
     if (b<zero) b=-b;
     while (b>zero) {
-      t=a%b;  a=b;  b=t;
+      t=a%b;
+      a=b;
+      b=t;
     }
     return a;
   }
+
 public:
   T operator()(T a, T b) {
     T zero=T();
@@ -35,7 +38,7 @@ int main() {
   const int n=8;
   // populate vector with random data
   std::vector<int> v(n);
-  std::generate(v.begin(), v.end(), []()->int{ return std::rand()%12+1; });
+  std::generate(v.begin(), v.end(), []() -> int { return std::rand()%12+1; });
   // calculate the least common multiple and send result to rank 0
   mpl::contiguous_layout<int> layout(n);
   if (comm_world.rank()==0) {
@@ -46,9 +49,9 @@ int main() {
     std::cout << "Arguments:\n";
     for (int r=0; r<comm_world.size(); ++r) {
       if (r>0)
-	comm_world.recv(v.data(), layout, r);
+        comm_world.recv(v.data(), layout, r);
       for (auto i : v)
-	std::cout << i << '\t';
+        std::cout << i << '\t';
       std::cout << '\n';
     }
     // display results of global reduction

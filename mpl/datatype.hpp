@@ -41,29 +41,34 @@ namespace mpl {
     inline std::size_t size(T) {
       return sizeof(T);
     }
+
     template<typename T>
     inline std::size_t size(T *) {
       return sizeof(T);
     }
+
     template<typename T>
     inline MPI_Datatype get_datatype(T) {
       return datatype_traits<T>().get_datatype();
     }
+
     template<typename T>
     inline MPI_Datatype get_datatype(T *) {
       return datatype_traits<T>().get_datatype();
     }
+
     MPI_Aint base;
     std::vector<int> blocklengths;
     std::vector<MPI_Aint> displacements;
     std::vector<MPI_Datatype> datatypes;
   public:
-    struct_layout & register_struct(const S &x) {
+    struct_layout &register_struct(const S &x) {
       MPI_Get_address(const_cast<S *>(&x), &base);
       return *this;
     }
+
     template<typename T>
-    struct_layout & register_element(T &x) {
+    struct_layout &register_element(T &x) {
       static_assert(not std::is_const<T>::value, "type must not be const");
       blocklengths.push_back(sizeof(x)/size(x));
       MPI_Aint address;
@@ -72,8 +77,9 @@ namespace mpl {
       datatypes.push_back(get_datatype(x));
       return *this;
     }
+
     template<typename T>
-    struct_layout & register_vector(T *x, std::ptrdiff_t N) {
+    struct_layout &register_vector(T *x, std::ptrdiff_t N) {
       static_assert(not std::is_const<T>::value, "type must not be const");
       blocklengths.push_back(N);
       MPI_Aint address;
@@ -82,6 +88,7 @@ namespace mpl {
       datatypes.push_back(get_datatype(x));
       return *this;
     }
+
     friend class base_struct_builder<S>;
   };
 
@@ -95,20 +102,25 @@ namespace mpl {
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
       MPI_Type_create_struct(str.blocklengths.size(),
-			     str.blocklengths.data(),
- 			     str.displacements.data(),
-			     str.datatypes.data(), &temp_type);
+                             str.blocklengths.data(),
+                             str.displacements.data(),
+                             str.datatypes.data(), &temp_type);
       MPI_Type_commit(&temp_type);
       MPI_Type_create_resized(temp_type, 0, sizeof(T), &type);
       MPI_Type_commit(&type);
       MPI_Type_free(&temp_type);
     }
+
     base_struct_builder()=default;
+
     base_struct_builder(const base_struct_builder &)=delete;
-    void operator=(const base_struct_builder &)=delete;
+
+    void operator=(const base_struct_builder &)= delete;
+
     ~base_struct_builder() {
       MPI_Type_free(&type);
     }
+
     friend class detail::datatype_traits_impl<T, void>;
   };
 
@@ -138,10 +150,11 @@ namespace mpl {
     public:
       explicit apply_n(F &f) : f(f) {
       }
+
       void operator()(T &x) const {
-	apply_n<F, T, n-1> next(f);
-	next(x);
-	f(std::get<n-1>(x));
+        apply_n<F, T, n-1> next(f);
+        next(x);
+        f(std::get<n-1>(x));
       }
     };
 
@@ -151,8 +164,9 @@ namespace mpl {
     public:
       explicit apply_n(F &f) : f(f) {
       }
+
       void operator()(T &x) const {
-	f(std::get<0>(x));
+        f(std::get<0>(x));
       }
     };
 
@@ -168,9 +182,10 @@ namespace mpl {
     public:
       explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {
       }
+
       template<typename T>
       void operator()(T &x) const {
-	layout.register_element(x);
+        layout.register_element(x);
       }
     };
 
@@ -211,7 +226,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0][N1]> base;
     struct_layout<T[N0][N1]> layout;
   public:
-    struct_builder()  {
+    struct_builder() {
       T array[N0][N1];
       layout.register_struct(array);
       layout.register_vector(array, N0*N1);
@@ -237,7 +252,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0][N1][N2][N3]> base;
     struct_layout<T[N0][N1][N2][N3]> layout;
   public:
-    struct_builder()  {
+    struct_builder() {
       T array[N0][N1][N2][N3];
       layout.register_struct(array);
       layout.register_vector(array, N0*N1*N2*N3);
@@ -268,8 +283,8 @@ namespace mpl {
     class datatype_traits_impl {
     public:
       static MPI_Datatype get_datatype() {
-	static struct_builder<T> builder;
-	return builder.type;
+        static struct_builder<T> builder;
+        return builder.type;
       }
     };
 
@@ -277,19 +292,19 @@ namespace mpl {
     class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
     public:
       static MPI_Datatype get_datatype() {
-	return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
+        return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
       }
     };
 
 #if defined MPL_HOMOGENEOUS
     template<typename T>
     class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value
-							  and std::is_copy_assignable<T>::value
-							  and not std::is_enum<T>::value
-							  and not std::is_array<T>::value>::type> {
+                                                          and std::is_copy_assignable<T>::value
+                                                          and not std::is_enum<T>::value
+                                                          and not std::is_array<T>::value>::type> {
     public:
       static MPI_Datatype get_datatype() {
-	return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
+        return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
       }
     };
 #endif
@@ -305,39 +320,54 @@ namespace mpl {
   };
 
 #define MPL_DATATYPE_TRAITS(type, mpi_type)  \
-  template<>				     \
+  template<>                                     \
   class datatype_traits<type> {              \
   public:                                    \
     static MPI_Datatype get_datatype() {     \
-      return mpi_type;			     \
-    }					     \
+      return mpi_type;                             \
+    }                                             \
   }
 
   MPL_DATATYPE_TRAITS(char, MPI_CHAR);
+
   MPL_DATATYPE_TRAITS(signed char, MPI_SIGNED_CHAR);
+
   MPL_DATATYPE_TRAITS(unsigned char, MPI_UNSIGNED_CHAR);
+
   MPL_DATATYPE_TRAITS(wchar_t, MPI_WCHAR);
+
   MPL_DATATYPE_TRAITS(signed short int, MPI_SHORT);
+
   MPL_DATATYPE_TRAITS(unsigned short int, MPI_UNSIGNED_SHORT);
+
   MPL_DATATYPE_TRAITS(signed int, MPI_INT);
+
   MPL_DATATYPE_TRAITS(unsigned int, MPI_UNSIGNED);
+
   MPL_DATATYPE_TRAITS(signed long, MPI_LONG);
+
   MPL_DATATYPE_TRAITS(unsigned long, MPI_UNSIGNED_LONG);
+
   MPL_DATATYPE_TRAITS(signed long long, MPI_LONG_LONG);
+
   MPL_DATATYPE_TRAITS(unsigned long long, MPI_UNSIGNED_LONG_LONG);
 
   MPL_DATATYPE_TRAITS(bool, MPI_CXX_BOOL);
 
   MPL_DATATYPE_TRAITS(float, MPI_FLOAT);
+
   MPL_DATATYPE_TRAITS(double, MPI_DOUBLE);
+
   MPL_DATATYPE_TRAITS(long double, MPI_LONG_DOUBLE);
 
-#if __cplusplus >= 201703L
+#if __cplusplus>=201703L
   MPL_DATATYPE_TRAITS(std::byte, MPI_BYTE);
 #endif
 
   MPL_DATATYPE_TRAITS(std::complex<float>, MPI_CXX_FLOAT_COMPLEX);
+
   MPL_DATATYPE_TRAITS(std::complex<double>, MPI_CXX_DOUBLE_COMPLEX);
+
   MPL_DATATYPE_TRAITS(std::complex<long double>, MPI_CXX_LONG_DOUBLE_COMPLEX);
 
 #undef MPL_DATATYPE_TRAITS

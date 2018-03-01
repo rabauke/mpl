@@ -16,9 +16,9 @@ int main() {
   const int n=8;
   // populate vector with random data
   std::vector<pair_t> v(n);
-  std::generate(v.begin(), v.end(), [&](){
-      return std::make_pair(static_cast<double>(std::rand())/RAND_MAX, comm_world.rank());
-    });
+  std::generate(v.begin(), v.end(), [&]() {
+    return std::make_pair(static_cast<double>(std::rand())/RAND_MAX, comm_world.rank());
+  });
   // calculate minium and its location and send result to rank root
   int root=0;
   mpl::contiguous_layout<pair_t> layout(n);
@@ -30,9 +30,9 @@ int main() {
     std::cout << "arguments:\n";
     for (int r=0; r<comm_world.size(); ++r) {
       if (r>0)
-	comm_world.recv(v.data(), layout, r);
+        comm_world.recv(v.data(), layout, r);
       for (auto i : v)
-	std::cout << std::fixed << std::setprecision(5) << i.first << ' ' << i.second << '\t';
+        std::cout << std::fixed << std::setprecision(5) << i.first << ' ' << i.second << '\t';
       std::cout << '\n';
     }
     // display results of global reduction

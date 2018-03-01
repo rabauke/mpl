@@ -1,4 +1,5 @@
 #define BOOST_TEST_MODULE isend_irecv
+
 #include <boost/test/included/unit_test.hpp>
 #include <iostream>
 #include <limits>
@@ -12,13 +13,13 @@ bool isend_irecv_test(const T &data) {
   if (comm_world.size()<2)
     false;
   if (comm_world.rank()==0) {
-    mpl::irequest r{ comm_world.isend(data, 1) };
+    mpl::irequest r{comm_world.isend(data, 1)};
     r.wait();
   }
   if (comm_world.rank()==1) {
     T data_r;
-    mpl::irequest r{ comm_world.irecv(data_r, 0) };
-    while (not r.test().first) { }
+    mpl::irequest r{comm_world.irecv(data_r, 0)};
+    while (not r.test().first) {}
     return data_r==data;
   }
   return true;
@@ -30,15 +31,15 @@ bool ibsend_irecv_test(const T &data) {
   if (comm_world.size()<2)
     false;
   if (comm_world.rank()==0) {
-    const int size{ comm_world.bsend_size<T>() };
+    const int size{comm_world.bsend_size<T>()};
     mpl::bsend_buffer<> buff(size);
-    mpl::irequest r{ comm_world.ibsend(data, 1) };
+    mpl::irequest r{comm_world.ibsend(data, 1)};
     r.wait();
   }
   if (comm_world.rank()==1) {
     T data_r;
-    mpl::irequest r{ comm_world.irecv(data_r, 0) };
-    while (not r.test().first) { }
+    mpl::irequest r{comm_world.irecv(data_r, 0)};
+    while (not r.test().first) {}
     return data_r==data;
   }
   return true;
@@ -50,20 +51,19 @@ bool issend_irecv_test(const T &data) {
   if (comm_world.size()<2)
     false;
   if (comm_world.rank()==0) {
-    mpl::irequest r{ comm_world.issend(data, 1) };
+    mpl::irequest r{comm_world.issend(data, 1)};
     r.wait();
   }
   if (comm_world.rank()==1) {
     T data_r;
-    mpl::irequest r{ comm_world.irecv(data_r, 0) };
-    while (not r.test().first) { }
+    mpl::irequest r{comm_world.irecv(data_r, 0)};
+    while (not r.test().first) {}
     return data_r==data;
   }
   return true;
 }
 
-BOOST_AUTO_TEST_CASE(isend_irecv)
-{
+BOOST_AUTO_TEST_CASE(isend_irecv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(isend_irecv_test(std::byte(77)));
@@ -93,12 +93,13 @@ BOOST_AUTO_TEST_CASE(isend_irecv)
   // logical type
   BOOST_TEST(isend_irecv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(isend_irecv_test(my_enum::val));
 }
 
-BOOST_AUTO_TEST_CASE(ibsend_irecv)
-{
+BOOST_AUTO_TEST_CASE(ibsend_irecv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(ibsend_irecv_test(std::byte(77)));
@@ -128,12 +129,13 @@ BOOST_AUTO_TEST_CASE(ibsend_irecv)
   // logical type
   BOOST_TEST(ibsend_irecv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(ibsend_irecv_test(my_enum::val));
 }
 
-BOOST_AUTO_TEST_CASE(issend_irecv)
-{
+BOOST_AUTO_TEST_CASE(issend_irecv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(issend_irecv_test(std::byte(77)));
@@ -163,6 +165,8 @@ BOOST_AUTO_TEST_CASE(issend_irecv)
   // logical type
   BOOST_TEST(issend_irecv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(issend_irecv_test(my_enum::val));
 }

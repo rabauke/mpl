@@ -13,11 +13,13 @@ const double c=1;  // speed of sound
 const double dt=0.001;  // temporal step width
 const double t_end=2.4; // simulation time
 
-enum : int { left_copy, right_copy };
+enum : int {
+  left_copy, right_copy
+};
 
 // update grid points
 void string(const std::vector<double> &u, const std::vector<double> &u_old,
-	    std::vector<double> &u_new, double eps) {
+            std::vector<double> &u_new, double eps) {
   typedef std::vector<double>::size_type size_type;
   size_type N=u.size();
   u_new[0]=u[0];
@@ -41,7 +43,7 @@ inline double u_0_dt(double x) {
 int main() {
   double dx=L/(N-1);  // grid spacing
   double eps=dt*dt*c*c/(dx*dx);
-  const mpl::communicator & comm_world(mpl::environment::comm_world());
+  const mpl::communicator &comm_world(mpl::environment::comm_world());
   int C_size=comm_world.size();
   int C_rank=comm_world.rank();
   std::vector<int> N_l, N0_l;
@@ -69,25 +71,26 @@ int main() {
     // update border data
     mpl::irequest_pool r;
     r.push(comm_world.isend(u_new_l[N_l[C_rank]-2],
-			    C_rank+1<C_size ? C_rank+1 : mpl::proc_null, right_copy));
+                            C_rank+1<C_size ? C_rank+1 : mpl::proc_null, right_copy));
     r.push(comm_world.isend(u_new_l[1],
-			    C_rank-1>=0 ? C_rank-1 : mpl::proc_null, left_copy));
+                            C_rank-1>=0 ? C_rank-1 : mpl::proc_null, left_copy));
     r.push(comm_world.irecv(u_new_l[0],
-			    C_rank-1>=0 ? C_rank-1 : mpl::proc_null, right_copy));
+                            C_rank-1>=0 ? C_rank-1 : mpl::proc_null, right_copy));
     r.push(comm_world.irecv(u_new_l[N_l[C_rank]-1],
-			    C_rank+1<C_size ? C_rank+1 : mpl::proc_null, left_copy));
+                            C_rank+1<C_size ? C_rank+1 : mpl::proc_null, left_copy));
     r.waitall();
-    std::swap(u_l, u_old_l);  std::swap(u_new_l, u_l);
+    std::swap(u_l, u_old_l);
+    std::swap(u_new_l, u_l);
   }
   // finally gather all the data at rank 0 and print result
   mpl::layouts<double> layouts;
   for (int i=0; i<C_size; ++i)
-    layouts.push_back(mpl::indexed_layout<double>( { {N_l[i]-2, N0_l[i]+1} }));
+    layouts.push_back(mpl::indexed_layout<double>({{N_l[i]-2, N0_l[i]+1}}));
   mpl::contiguous_layout<double> layout(N_l[C_rank]-2);
   if (C_rank==0) {
     std::vector<double> u(N, 0);
     comm_world.gatherv(0, u_l.data()+1, layout,
-		       u.data(), layouts);
+                       u.data(), layouts);
     for (int i=0; i<N; ++i)
       std::cout << dx*i << '\t' << u[i] << '\n';
   } else

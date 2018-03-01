@@ -6,7 +6,7 @@
 #include <mpl/mpl.hpp>
 
 template<typename I>
-void print_range(const char * const str, I i1, I i2) {
+void print_range(const char *const str, I i1, I i2) {
   std::cout << str;
   while (i1!=i2) {
     std::cout << (*i1);
@@ -59,8 +59,8 @@ int main() {
   if (comm_world.rank()==1) {
     std::vector<int> v(20, 0);
     mpl::strided_vector_layout<int> l(3,  // number of blocks
-				      4,  // block length
-				      6); // block spacing
+                                      4,  // block length
+                                      6); // block spacing
     comm_world.recv(v.data(), l, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
@@ -75,10 +75,10 @@ int main() {
   if (comm_world.rank()==1) {
     std::vector<int> v(20, 0);
     mpl::indexed_layout<int> l({
-	{3, 1},  // 1st block of length 3 with displacement 1
-        {4, 8},  // 2nd block of length 4 with displacement 8
-        {2, 16}  // 3rd block of length 2 with displacement 16
-      });
+                                   {3, 1},  // 1st block of length 3 with displacement 1
+                                   {4, 8},  // 2nd block of length 4 with displacement 8
+                                   {2, 16}  // 3rd block of length 2 with displacement 16
+                               });
     comm_world.recv(v.data(), l, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
@@ -93,8 +93,8 @@ int main() {
   if (comm_world.rank()==1) {
     std::vector<int> v(20, 0);
     mpl::indexed_block_layout<int> l(3, // block length
-				     {1, 8, 12}  // block displacements
-				     );
+                                     {1, 8, 12}  // block displacements
+    );
     comm_world.recv(v.data(), l, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
@@ -109,8 +109,8 @@ int main() {
   if (comm_world.rank()==1) {
     std::vector<int> v(15*4, 0);
     mpl::indexed_block_layout<int> l1(3, // block length
-				     {1, 8, 12}  // block displacements
-				     );
+                                      {1, 8, 12}  // block displacements
+    );
     mpl::vector_layout<int> l2(4, l1);  // vector layout of l1
     comm_world.recv(v.data(), l2, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());

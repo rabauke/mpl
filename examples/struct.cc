@@ -8,13 +8,14 @@
 struct structure {
   double d=0;
   int i[9]={0, 0, 0, 0, 0, 0, 0, 0, 0};
+
   structure()=default;
 };
 
 // print elements of structure
 template<typename ch, typename tr>
-std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
-					const structure &s) {
+std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
+                                       const structure &s) {
   out << '(' << s.d << ",[" << s.i[0];
   for (int i=1; i<9; ++i)
     out << ',' << s.i[i];
@@ -24,13 +25,14 @@ std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
 struct structure2 {
   double d=0;
   structure str;
+
   structure2()=default;
 };
 
 // print elements of structure2
 template<typename ch, typename tr>
-std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr> &out,
-					const structure2 &s) {
+std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
+                                       const structure2 &s) {
   return out << '(' << s.d << "," << s.str << ")";
 }
 

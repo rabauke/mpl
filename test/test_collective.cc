@@ -1,4 +1,5 @@
 #define BOOST_TEST_MODULE collective
+
 #include <boost/test/included/unit_test.hpp>
 #include <iostream>
 #include <vector>
@@ -73,8 +74,7 @@ bool alltoall_test() {
 }
 
 
-BOOST_AUTO_TEST_CASE(collective)
-{
+BOOST_AUTO_TEST_CASE(collective) {
   BOOST_TEST(bcast_test<double>());
   BOOST_TEST(scatter_test<double>());
   BOOST_TEST(gather_test<double>());

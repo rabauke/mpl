@@ -8,7 +8,7 @@
 #include <cstddef>
 
 namespace mpl {
-  
+
   static constexpr int any_source=MPI_ANY_SOURCE;
 
   static constexpr int proc_null=MPI_PROC_NULL;
@@ -17,7 +17,7 @@ namespace mpl {
 
   static constexpr int root=MPI_ROOT;
 
-  static constexpr void * absolute=MPI_BOTTOM;
+  static constexpr void *absolute=MPI_BOTTOM;
 
   static constexpr int bsend_overheadroot=MPI_BSEND_OVERHEAD;
 

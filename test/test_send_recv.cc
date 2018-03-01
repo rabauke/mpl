@@ -1,4 +1,5 @@
 #define BOOST_TEST_MODULE send_recv
+
 #include <boost/test/included/unit_test.hpp>
 #include <iostream>
 #include <limits>
@@ -27,7 +28,7 @@ bool bsend_recv_test(const T &data) {
   if (comm_world.size()<2)
     false;
   if (comm_world.rank()==0) {
-    const int size{ comm_world.bsend_size<T>() };
+    const int size{comm_world.bsend_size<T>()};
     mpl::bsend_buffer<> buff(size);
     comm_world.bsend(data, 1);
   }
@@ -69,8 +70,7 @@ bool rsend_recv_test(const T &data) {
   return true;
 }
 
-BOOST_AUTO_TEST_CASE(send_recv)
-{
+BOOST_AUTO_TEST_CASE(send_recv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(send_recv_test(std::byte(77)));
@@ -100,12 +100,13 @@ BOOST_AUTO_TEST_CASE(send_recv)
   // logical type
   BOOST_TEST(send_recv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(send_recv_test(my_enum::val));
 }
 
-BOOST_AUTO_TEST_CASE(bsend_recv)
-{
+BOOST_AUTO_TEST_CASE(bsend_recv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(bsend_recv_test(std::byte(77)));
@@ -135,12 +136,13 @@ BOOST_AUTO_TEST_CASE(bsend_recv)
   // logical type
   BOOST_TEST(bsend_recv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(bsend_recv_test(my_enum::val));
 }
 
-BOOST_AUTO_TEST_CASE(ssend_recv)
-{
+BOOST_AUTO_TEST_CASE(ssend_recv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(ssend_recv_test(std::byte(77)));
@@ -170,12 +172,13 @@ BOOST_AUTO_TEST_CASE(ssend_recv)
   // logical type
   BOOST_TEST(ssend_recv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(ssend_recv_test(my_enum::val));
 }
 
-BOOST_AUTO_TEST_CASE(rsend_recv)
-{
+BOOST_AUTO_TEST_CASE(rsend_recv) {
   // integer types
 #if __cplusplus>=201703L
   BOOST_TEST(rsend_recv_test(std::byte(77)));
@@ -205,6 +208,8 @@ BOOST_AUTO_TEST_CASE(rsend_recv)
   // logical type
   BOOST_TEST(rsend_recv_test(true));
   // enums
-  enum class my_enum : int { val=std::numeric_limits<int>::max()-1 };
+  enum class my_enum : int {
+    val=std::numeric_limits<int>::max()-1
+  };
   BOOST_TEST(rsend_recv_test(my_enum::val));
 }

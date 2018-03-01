@@ -19,19 +19,22 @@ private:
 public:
   matrix(size_type nx, size_type ny) : base(nx*ny), nx(nx), ny(ny) {
   }
+
   const_reference operator()(size_type ix, size_type iy) const {
     return base::operator[](ix+nx*iy);
   }
+
   reference operator()(size_type ix, size_type iy) {
     return base::operator[](ix+nx*iy);
   }
+
   using base::begin;
   using base::end;
   using base::data;
 };
 
 int main() {
-  const mpl::communicator & comm_world(mpl::environment::comm_world());
+  const mpl::communicator &comm_world(mpl::environment::comm_world());
   int p={comm_world.size()};    // total numbers of processors
   int p_l={comm_world.rank()};
   // find integer px and py such that px*py=p and px and py as close as possible
@@ -52,8 +55,8 @@ int main() {
       nx_0(ix, iy)=nx*ix/px;
       ny_0(ix, iy)=ny*iy/py;
       sub_matrix_l(ix, iy)=mpl::subarray_layout<int>(
-	{ {ny, ny_l(ix, iy), ny_0(ix, iy)},
-	  {nx, nx_l(ix, iy), nx_0(ix, iy)} });
+          {{ny, ny_l(ix, iy), ny_0(ix, iy)},
+           {nx, nx_l(ix, iy), nx_0(ix, iy)}});
     }
   }
   // process local position in global data grid
@@ -72,13 +75,13 @@ int main() {
       matrix<int> M(nx, ny);
       std::fill(M.begin(), M.end(), 0-' ');
       for (int iy=0; iy<py; ++iy) {
-	for (int ix=0; ix<px; ++ix)
-	  comm_world.recv(M.data(), sub_matrix_l(ix, iy), ix+px*iy);
+        for (int ix=0; ix<px; ++ix)
+          comm_world.recv(M.data(), sub_matrix_l(ix, iy), ix+px*iy);
       }
       for (int iy=0; iy<ny; ++iy) {
-	for (int ix=0; ix<nx; ++ix)
-	  std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
-	std::cout << '\n';
+        for (int ix=0; ix<nx; ++ix)
+          std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
+        std::cout << '\n';
       }
       std::cout << '\n';
     }
@@ -96,14 +99,14 @@ int main() {
     if (p_l==root) {
       mpl::layouts<int> recvl;
       for (int i=0; i<p; ++i)
-  	recvl.push_back(sub_matrix_l(i%px, i/px));
+        recvl.push_back(sub_matrix_l(i%px, i/px));
       matrix<int> M(nx, ny);
       comm_world.gatherv(root, M_l.data(), matrix_l,
-			 M.data(), recvl);
+                         M.data(), recvl);
       for (int iy=0; iy<ny; ++iy) {
-  	for (int ix=0; ix<nx; ++ix)
-  	  std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
-  	std::cout << '\n';
+        for (int ix=0; ix<nx; ++ix)
+          std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
+        std::cout << '\n';
       }
       std::cout << '\n';
     } else
@@ -120,27 +123,27 @@ int main() {
     mpl::layouts<int> sendl, recvl;
     for (int i=0; i<p; ++i) {
       if (i==root)
-	sendl.push_back(mpl::contiguous_layout<int>(nx_l(px_l, py_l)*ny_l(px_l, py_l)));
+        sendl.push_back(mpl::contiguous_layout<int>(nx_l(px_l, py_l)*ny_l(px_l, py_l)));
       else
-	sendl.push_back(mpl::empty_layout<int>());
+        sendl.push_back(mpl::empty_layout<int>());
     }
     if (p_l==root) {
       for (int i=0; i<p; ++i)
-  	recvl.push_back(sub_matrix_l(i%px, i/px));
+        recvl.push_back(sub_matrix_l(i%px, i/px));
       matrix<int> M(nx, ny);
       comm_world.alltoallv(M_l.data(), sendl,
-       			   M.data(), recvl);
+                           M.data(), recvl);
       for (int iy=0; iy<ny; ++iy) {
-  	for (int ix=0; ix<nx; ++ix)
-  	  std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
-  	std::cout << '\n';
+        for (int ix=0; ix<nx; ++ix)
+          std::cout << static_cast<unsigned char>(M(ix, iy)+'A');
+        std::cout << '\n';
       }
       std::cout << '\n';
     } else {
       for (int i=0; i<p; ++i)
-	recvl.push_back(mpl::empty_layout<int>());
+        recvl.push_back(mpl::empty_layout<int>());
       comm_world.alltoallv(M_l.data(), sendl,
-			   reinterpret_cast<int *>(0), recvl);
+                           reinterpret_cast<int *>(0), recvl);
     }
   }
 

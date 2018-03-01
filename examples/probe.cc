@@ -5,7 +5,7 @@
 #include <mpl/mpl.hpp>
 
 template<typename I>
-void print_range(const char * const str, I i1, I i2) {
+void print_range(const char *const str, I i1, I i2) {
   std::cout << str;
   while (i1!=i2) {
     std::cout << (*i1);
@@ -21,7 +21,9 @@ int main() {
     return EXIT_FAILURE;
   if (comm_world.rank()==0) {
     // send a message of n elements to rank 1
-    enum class tag { send=29 };
+    enum class tag {
+      send=29
+    };
     const int n=12;
     std::vector<int> v(n);
     mpl::contiguous_layout<int> l(n);
@@ -36,9 +38,9 @@ int main() {
     int n(s.get_count<int>()), source(s.source());
     mpl::tag tag(s.tag());
     std::cerr << "souce : " << s.source() << '\n'
-	      << "tag   : " << s.tag() << '\n'
-	      << "error : " << s.error() << '\n'
-	      << "count : " << n << '\n';
+              << "tag   : " << s.tag() << '\n'
+              << "error : " << s.error() << '\n'
+              << "count : " << n << '\n';
     // reserve sufficinet amount of memory to receive the message
     std::vector<int> v(n);
     mpl::contiguous_layout<int> l(n);

@@ -9,7 +9,7 @@ int main() {
   // synchronize processes via barrier
   comm_world.barrier();
   std::cout << mpl::environment::processor_name()
-	    << " has passed barrier\n";
+            << " has passed barrier\n";
   comm_world.barrier();
   double x=0;
   if (comm_world.rank()==root)

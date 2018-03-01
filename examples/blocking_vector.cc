@@ -6,7 +6,7 @@
 #include <mpl/mpl.hpp>
 
 template<typename I>
-void print_range(const char * const str, I i1, I i2) {
+void print_range(const char *const str, I i1, I i2) {
   std::cout << str;
   while (i1!=i2) {
     std::cout << (*i1);
@@ -28,13 +28,13 @@ int main() {
     // see MPI Standard for the semantics of standard send, buffered send,
     // synchronous send and ready send
     std::iota(v.begin(), v.end(), 0);  // fill vector with some data
-    auto add_one=[](int x){ return x+1; };
+    auto add_one=[](int x) { return x+1; };
     comm_world.send(v.data(), l, 1);  // send vector to rank 1 via standard send
     std::transform(v.begin(), v.end(), v.begin(), add_one);  // update data
     {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
-      int size={ comm_world.bsend_size(l) };
+      int size={comm_world.bsend_size(l)};
       mpl::bsend_buffer<> buff(size);
       comm_world.bsend(v.data(), l, 1);  // send x to rank 1 via buffered send
     }

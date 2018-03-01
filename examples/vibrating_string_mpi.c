@@ -7,7 +7,9 @@
 
 const int N=1001;  // total global number of grid points
 const double L=1, c=1, dt=0.001, t_end=2.4;
-enum { left_copy, right_copy };
+enum {
+  left_copy, right_copy
+};
 
 // update string elongation
 void string(double *u, double *u_old, double *u_new, int N, double eps) {
@@ -17,8 +19,8 @@ void string(double *u, double *u_old, double *u_new, int N, double eps) {
   u_new[N-1]=u[N-1];
 }
 
-void * secure_malloc(size_t size) {
-  void * p=malloc(size);
+void *secure_malloc(size_t size) {
+  void *p=malloc(size);
   if (p==NULL)
     MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
   return p;
@@ -26,7 +28,7 @@ void * secure_malloc(size_t size) {
 
 // initial eleongation
 static inline double u_0(double x) {
-  if (x<=0 || x>=L)
+  if (x<=0||x>=L)
     return 0;
   return exp(-200.0*(x-0.5*L)*(x-0.5*L));
 }
@@ -39,7 +41,7 @@ static inline double u_0_dt(double x) {
 int main(int argc, char *argv[]) {
   int C_rank, C_size, *N_l, *N0_l;
   double dx=L/(N-1), eps=dt*dt*c*c/(dx*dx),
-    *u=NULL, *u_l, *u_old_l, *u_new_l, *u_temp;
+      *u=NULL, *u_l, *u_old_l, *u_new_l, *u_temp;
   MPI_Status statuses[4];
   MPI_Request requests[4];
   MPI_Init(&argc, &argv);
@@ -70,17 +72,20 @@ int main(int argc, char *argv[]) {
     MPI_Isend(&u_new_l[N_l[C_rank]-2], 1, MPI_DOUBLE,
               C_rank+1<C_size ? C_rank+1 : MPI_PROC_NULL, right_copy,
               MPI_COMM_WORLD, &requests[0]);
-    MPI_Isend(&u_new_l[1],             1, MPI_DOUBLE,
+    MPI_Isend(&u_new_l[1], 1, MPI_DOUBLE,
               C_rank-1>=0 ? C_rank-1 : MPI_PROC_NULL, left_copy,
               MPI_COMM_WORLD, &requests[1]);
-    MPI_Irecv(&u_new_l[0],           1, MPI_DOUBLE,
-	      C_rank-1>=0 ? C_rank-1 : MPI_PROC_NULL, right_copy,
-	      MPI_COMM_WORLD, &requests[2]);
+    MPI_Irecv(&u_new_l[0], 1, MPI_DOUBLE,
+              C_rank-1>=0 ? C_rank-1 : MPI_PROC_NULL, right_copy,
+              MPI_COMM_WORLD, &requests[2]);
     MPI_Irecv(&u_new_l[N_l[C_rank]-1], 1, MPI_DOUBLE,
-	      C_rank+1<C_size ? C_rank+1 : MPI_PROC_NULL, left_copy,
-	      MPI_COMM_WORLD, &requests[3]);
+              C_rank+1<C_size ? C_rank+1 : MPI_PROC_NULL, left_copy,
+              MPI_COMM_WORLD, &requests[3]);
     MPI_Waitall(4, requests, statuses);
-    u_temp=u_old_l;  u_old_l=u_l;  u_l=u_new_l;  u_new_l=u_temp;
+    u_temp=u_old_l;
+    u_old_l=u_l;
+    u_l=u_new_l;
+    u_new_l=u_temp;
   }
   // exclude overlapping grid points
   for (int i=0; i<C_size; ++i) {
@@ -91,7 +96,7 @@ int main(int argc, char *argv[]) {
   if (C_rank==0)
     u=secure_malloc(N*sizeof(*u));
   MPI_Gatherv(u_l+1, N_l[C_rank], MPI_DOUBLE, u, N_l, N0_l, MPI_DOUBLE,
-	      0, MPI_COMM_WORLD);
+              0, MPI_COMM_WORLD);
   if (C_rank==0) {
     u[0]=u[N-1]=0;    // boundary condition
     for (int i=0; i<N; ++i)
