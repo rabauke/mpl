@@ -12,8 +12,7 @@ namespace mpl {
   private:
     int t=0;
   public:
-    tag() {
-    }
+    tag() = default;
     template<typename T>
     tag(T t) : t(static_cast<int>(t)) {
       static_assert(detail::is_valid_tag<T>::value,

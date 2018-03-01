@@ -19,9 +19,8 @@ namespace mpl {
     }
     ranks(std::initializer_list<int> init) : base(init) {
     }
-    ranks(const ranks &other) : base(other) {
-    }
-    ranks(ranks &&other) : base(std::move(other)) {
+    ranks(const ranks &other) = default;
+    ranks(ranks &&other) noexcept : base(std::move(other)) {
     }
     using base::operator=;
     using base::begin;

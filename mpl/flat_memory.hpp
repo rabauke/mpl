@@ -53,8 +53,7 @@ namespace mpl {
 	n(std::distance(i1, i2)),
 	first(i1) {
       }
-      ~flat_memory_in() {
-      }
+      ~flat_memory_in() = default;
       size_type size() const {
 	return n;
       }
@@ -81,8 +80,7 @@ namespace mpl {
 	n(std::distance(i1, i2)),
 	first(i1) {
       }
-      ~flat_memory_in() {
-      }
+      ~flat_memory_in() = default;
       size_type size() const {
 	return n;
       }
@@ -107,8 +105,7 @@ namespace mpl {
 	n(std::distance(i1, i2)),
 	first(i1) {
       }
-      ~flat_memory_in() {
-      }
+      ~flat_memory_in() = default;
       size_type size() const {
 	return n;
       }
@@ -173,8 +170,7 @@ namespace mpl {
 	first_out(first_out),
 	first(first_out) {
       }
-      ~flat_memory_out() {
-      }
+      ~flat_memory_out() = default;
       size_type size() const {
 	return n;
       }
@@ -212,8 +208,7 @@ namespace mpl {
 	first_out(first_out),
 	first(first_out) {
       }
-      ~flat_memory_out() {
-      }
+      ~flat_memory_out() = default;
       size_type size() const {
 	return n;
       }

@@ -8,6 +8,8 @@
 #include <initializer_list>
 #include <type_traits>
 #include <limits>
+#include <utility>
+#include <algorithm>
 
 namespace mpl {
 
@@ -324,7 +326,7 @@ namespace mpl {
     contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count(l.count) {
     }
     contiguous_layout(contiguous_layout &&l) : layout<T>(std::move(l)), count(l.count) {
-      l.size=0;
+      l.count=0;
     }
     contiguous_layout<T> & operator=(const contiguous_layout<T> &l) {
       layout<T>::operator=(l);

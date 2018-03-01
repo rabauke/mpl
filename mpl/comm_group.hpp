@@ -118,7 +118,7 @@ namespace mpl {
     class group_collective { };
     class split { };
     class split_shared { };
-
+  private:
     void check_dest(int dest) const {
 #if defined MPL_DEBUG
       if (dest!=proc_null and

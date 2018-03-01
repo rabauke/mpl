@@ -136,7 +136,7 @@ namespace mpl {
     class apply_n {
       F &f;
     public:
-      apply_n(F &f) : f(f) {
+      explicit apply_n(F &f) : f(f) {
       }
       void operator()(T &x) const {
 	apply_n<F, T, n-1> next(f);
@@ -149,7 +149,7 @@ namespace mpl {
     struct apply_n<F, T, 1> {
       F &f;
     public:
-      apply_n(F &f) : f(f) {
+      explicit apply_n(F &f) : f(f) {
       }
       void operator()(T &x) const {
 	f(std::get<0>(x));
@@ -166,7 +166,7 @@ namespace mpl {
     class register_element {
       struct_layout<std::tuple<Ts...>> &layout;
     public:
-      register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {
+      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {
       }
       template<typename T>
       void operator()(T &x) const {
@@ -193,15 +193,15 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  template<typename T, std::size_t N>
-  class struct_builder<T[N]> : public base_struct_builder<T[N]> {
-    typedef base_struct_builder<T[N]> base;
-    struct_layout<T[N]> layout;
+  template<typename T, std::size_t N0>
+  class struct_builder<T[N0]> : public base_struct_builder<T[N0]> {
+    typedef base_struct_builder<T[N0]> base;
+    struct_layout<T[N0]> layout;
   public:
     struct_builder() {
-      T array[N];
+      T array[N0];
       layout.register_struct(array);
-      layout.register_vector(array, N);
+      layout.register_vector(array, N0);
       base::define_struct(layout);
     }
   };

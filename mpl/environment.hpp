@@ -172,10 +172,10 @@ namespace mpl {
     A alloc;
     char *buff;
   public:
-    bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
+    explicit bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
-    bsend_buffer(int size, A alloc) : size(size), alloc(alloc), buff(alloc.allocate(size)) {
+    explicit bsend_buffer(int size, A alloc) : size(size), alloc(alloc), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
     ~bsend_buffer() {
