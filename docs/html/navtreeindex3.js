@@ -1,12 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"datatype_8hpp.html#ab344c68328d2a8c7c8b7a60cf56940b9":[3,0,2,75],
-"datatype_8hpp.html#ab5ff34cd047c3ccd6e9d8e8a0a89c687":[3,0,2,85],
-"datatype_8hpp.html#aba1a72a6451e696d09fc755c1de93a36":[3,0,2,156],
-"datatype_8hpp.html#aba1b49e5d6800720295c7c1efe1a5ece":[3,0,2,81],
-"datatype_8hpp.html#abbb69d8fe5796ff479aea31889682684":[3,0,2,27],
-"datatype_8hpp.html#abf06f45fc7e3eb389dfad3e708ee7328":[3,0,2,140],
-"datatype_8hpp.html#abfef47fc056454885bd50cc11f967914":[3,0,2,51],
 "datatype_8hpp.html#ac0dc0caca9fec3c5c64ad1b49762260c":[3,0,2,129],
 "datatype_8hpp.html#ac6e5dde6745083b0243d74a342901213":[3,0,2,119],
 "datatype_8hpp.html#acd3f9024f3dc51ae91481117e14cabff":[3,0,2,26],
@@ -111,8 +104,8 @@ var NAVTREEINDEX3 =
 "globals.html":[3,1,0],
 "globals_defs.html":[3,1,1],
 "hierarchy.html":[2,2],
-"index.html":[0],
 "index.html":[],
+"index.html":[0],
 "layout_8hpp.html":[3,0,8],
 "layout_8hpp.html#a26f71f8155fc67af51ba3b6345bf0a75":[3,0,8,37],
 "layout_8hpp.html#a7fd33fa3d7b9a6f095cd55710c3b2dbf":[3,0,8,35],

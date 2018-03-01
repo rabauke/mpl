@@ -7,7 +7,7 @@ var datatype_8hpp =
     [ "base_struct_builder", "classmpl_1_1base__struct__builder.html", "classmpl_1_1base__struct__builder" ],
     [ "struct_builder< std::pair< T1, T2 > >", "classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html", "classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4" ],
     [ "struct_builder< std::tuple< Ts... > >", "classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html", "classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4" ],
-    [ "struct_builder< T[N]>", "classmpl_1_1struct__builder_3_01_t[_n]_4.html", "classmpl_1_1struct__builder_3_01_t[_n]_4" ],
+    [ "struct_builder< T[N0]>", "classmpl_1_1struct__builder_3_01_t[_n0]_4.html", "classmpl_1_1struct__builder_3_01_t[_n0]_4" ],
     [ "struct_builder< T[N0][N1]>", "classmpl_1_1struct__builder_3_01_t[_n0][_n1]_4.html", "classmpl_1_1struct__builder_3_01_t[_n0][_n1]_4" ],
     [ "struct_builder< T[N0][N1][N2]>", "classmpl_1_1struct__builder_3_01_t[_n0][_n1][_n2]_4.html", "classmpl_1_1struct__builder_3_01_t[_n0][_n1][_n2]_4" ],
     [ "struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1struct__builder_3_01_t[_n0][_n1][_n2][_n3]_4.html", "classmpl_1_1struct__builder_3_01_t[_n0][_n1][_n2][_n3]_4" ],

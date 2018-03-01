@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['tag',['tag',['../classmpl_1_1tag.html',1,'mpl::tag'],['../classmpl_1_1status.html#a312c5130bea2d322128372e1b5c9df5e',1,'mpl::status::tag()'],['../classmpl_1_1tag.html#a21e552f059078b7997ee112752b22652',1,'mpl::tag::tag()'],['../classmpl_1_1tag.html#a714f04e80bea46788025d6bd018a047a',1,'mpl::tag::tag(T t)'],['../classmpl_1_1tag.html#ae0d1cfd017d47116e8189aff58a436a9',1,'mpl::tag::tag(int t)']]],
+  ['tag',['tag',['../classmpl_1_1tag.html',1,'mpl::tag'],['../classmpl_1_1status.html#a312c5130bea2d322128372e1b5c9df5e',1,'mpl::status::tag()'],['../classmpl_1_1tag.html#aa566206e5410af90197e7884b8ff1840',1,'mpl::tag::tag()=default'],['../classmpl_1_1tag.html#a714f04e80bea46788025d6bd018a047a',1,'mpl::tag::tag(T t)'],['../classmpl_1_1tag.html#ae0d1cfd017d47116e8189aff58a436a9',1,'mpl::tag::tag(int t)']]],
   ['tag_2ehpp',['tag.hpp',['../tag_8hpp.html',1,'']]],
   ['threading_5fmode',['threading_mode',['../namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33',1,'mpl::environment']]],
   ['threading_5fmodes',['threading_modes',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828',1,'mpl']]],
