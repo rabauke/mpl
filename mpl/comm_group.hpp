@@ -400,29 +400,29 @@ namespace mpl {
 
     // --- persistend standard send ---
     template<typename T>
-    detail::prequest send_init(const T &data, int dest, tag t=tag(0)) const {
+    prequest send_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
-      MPI_send_init(&data, 1,
+      MPI_Send_init(&data, 1,
                     datatype_traits<T>::get_datatype(),
                     dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename T>
-    detail::prequest send_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
+    prequest send_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Send_init(data, 1,
                     datatype_traits<layout<T>>::get_datatype(l),
                     dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename iterT>
-    detail::prequest send_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    prequest send_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
         vector_layout<value_type> l(std::distance(begin, end));
@@ -521,29 +521,29 @@ namespace mpl {
 
     // --- persistent buffered send ---
     template<typename T>
-    detail::prequest bsend_init(const T &data, int dest, tag t=tag(0)) const {
+    prequest bsend_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Bsend_init(&data, 1,
                      datatype_traits<T>::get_datatype(),
                      dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename T>
-    detail::prequest bsend_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
+    prequest bsend_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Bsend_init(data, 1,
                      datatype_traits<layout<T>>::get_datatype(l),
                      dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename iterT>
-    detail::prequest bsend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    prequest bsend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
         vector_layout<value_type> l(std::distance(begin, end));
@@ -623,29 +623,29 @@ namespace mpl {
 
     // --- persistent synchronous send ---
     template<typename T>
-    detail::prequest ssend_init(const T &data, int dest, tag t=tag(0)) const {
+    prequest ssend_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Ssend_init(&data, 1,
                      datatype_traits<T>::get_datatype(),
                      dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename T>
-    detail::prequest ssend_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
+    prequest ssend_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Ssend_init(data, 1,
                      datatype_traits<layout<T>>::get_datatype(l),
                      dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename iterT>
-    detail::prequest ssend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    prequest ssend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
         vector_layout<value_type> l(std::distance(begin, end));
@@ -725,29 +725,29 @@ namespace mpl {
 
     // --- persistent ready send ---
     template<typename T>
-    detail::prequest rsend_init(const T &data, int dest, tag t=tag(0)) const {
+    prequest rsend_init(const T &data, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Rsend_init(&data, 1,
                      datatype_traits<T>::get_datatype(),
                      dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename T>
-    detail::prequest rsend_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
+    prequest rsend_init(const T *data, const layout <T> &l, int dest, tag t=tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
       MPI_Request req;
       MPI_Rsend_init(data, 1,
                      datatype_traits<layout<T>>::get_datatype(l),
                      dest, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename iterT>
-    detail::prequest rsend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
+    prequest rsend_init(iterT begin, iterT end, int dest, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
         vector_layout<value_type> l(std::distance(begin, end));

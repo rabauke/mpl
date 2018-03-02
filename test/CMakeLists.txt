@@ -21,6 +21,8 @@ add_executable(test_send_recv test_send_recv.cc)
 set_property(TARGET test_send_recv PROPERTY CXX_STANDARD 17)
 add_executable(test_isend_irecv test_isend_irecv.cc)
 set_property(TARGET test_isend_irecv PROPERTY CXX_STANDARD 17)
+add_executable(test_psend_precv test_psend_precv.cc)
+set_property(TARGET test_psend_precv PROPERTY CXX_STANDARD 17)
 add_executable(test_collective test_collective.cc)
 add_executable(test_icollective test_icollective.cc)
 add_executable(test_collectivev test_collectivev.cc)
@@ -31,6 +33,8 @@ add_custom_target(run_tests
         DEPENDS test_send_recv
         COMMAND mpiexec -n 8 ./test_isend_irecv
         DEPENDS test_isend_irecv
+        COMMAND mpiexec -n 8 ./test_psend_precv
+        DEPENDS test_psend_precv
         COMMAND mpiexec -n 8 ./test_collective
         DEPENDS test_collective
         COMMAND mpiexec -n 8 ./test_icollective
