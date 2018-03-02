@@ -10,7 +10,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(MPI REQUIRED) 
+find_package(MPI REQUIRED)
 set(CMAKE_CXX_COMPILER ${MPI_CXX_COMPILER})
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DMPL_DEBUG")
@@ -24,6 +24,7 @@ set_property(TARGET test_isend_irecv PROPERTY CXX_STANDARD 17)
 add_executable(test_collective test_collective.cc)
 add_executable(test_icollective test_icollective.cc)
 add_executable(test_collectivev test_collectivev.cc)
+add_executable(test_icollectivev test_icollectivev.cc)
 
 add_custom_target(run_tests
         COMMAND mpiexec -n 2 ./test_send_recv
@@ -36,4 +37,6 @@ add_custom_target(run_tests
         DEPENDS test_icollective
         COMMAND mpiexec -n 8 ./test_collectivev
         DEPENDS test_collectivev
-  )
+        COMMAND mpiexec -n 8 ./test_icollectivev
+        DEPENDS test_icollectivev
+        )
