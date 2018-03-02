@@ -163,7 +163,6 @@ namespace mpl {
     struct get_signature_impl {
       using type = typename remove_class<decltype(&std::remove_reference<T>::type::operator())>::type;
     };
-
     template<typename R, typename... A>
     struct get_signature_impl<R(A...)> {
       using type = R(A...);
@@ -202,14 +201,16 @@ namespace mpl {
     };
     template<typename T> using get_second_argument_type = typename get_second_argument_type_impl<T>::type;
 
-    template<typename F> using make_function_type = std::function<get_signature<F>>;
-
-    template<typename F>
-    make_function_type<F> make_function(F &&f) {
-      return make_function_type<F>(std::forward<F>(f));
-    }
-
     //------------------------------------------------------------------
+
+    template<typename T, typename F>
+    class op;
+
+    template<typename T, typename F>
+    inline op<T, F> &get_op() {
+      static op<T, F> op_;
+      return op_;
+    }
 
     template<typename T, typename F>
     class op {
@@ -236,28 +237,24 @@ namespace mpl {
       }
 
       MPI_Op mpi_op;
-
+    private:
       op() {
         MPI_Op_create(op::apply, is_commutative, &mpi_op);
       }
+
+      op(op const &)=delete;
 
       ~op() {
         MPI_Op_free(&mpi_op);
       }
 
-      op(op const &)=delete;
-
       void operator=(op const &)= delete;
+
+      friend op &get_op<>();
     };
 
     template<typename T, typename F>
     F *op<T, F>::f;
-
-    template<typename T, typename F>
-    op<T, F> &get_op() {
-      static detail::op<T, F> op;
-      return op;
-    }
 
   }
 

@@ -831,29 +831,29 @@ namespace mpl {
 
     // --- persistent receive ---
     template<typename T>
-    detail::prequest recv_init(T &data, int source, tag t=tag(0)) const {
+    prequest recv_init(T &data, int source, tag t=tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       MPI_Request req;
       MPI_Recv_init(&data, 1,
                     datatype_traits<T>::get_datatype(),
                     source, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename T>
-    detail::prequest recv_init(T *data, const layout <T> &l, int source, tag t=tag(0)) const {
+    prequest recv_init(T *data, const layout <T> &l, int source, tag t=tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       MPI_Request req;
       MPI_Recv_init(data, 1,
                     datatype_traits<layout<T>>::get_datatype(l),
                     source, static_cast<int>(t), comm, &req);
-      return detail::prequest(req);
+      return prequest(req);
     }
 
     template<typename iterT>
-    detail::prequest recv_init(iterT begin, iterT end, int source, tag t=tag(0)) const {
+    prequest recv_init(iterT begin, iterT end, int source, tag t=tag(0)) const {
       using value_type=typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator<iterT>::value) {
         vector_layout<value_type> l(std::distance(begin, end));
