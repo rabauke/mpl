@@ -70,6 +70,18 @@ bool rsend_recv_test(const T &data) {
   return true;
 }
 
+template<typename T>
+bool sendrecv_test() {
+  const mpl::communicator &comm_world=mpl::environment::comm_world();
+  int rank=comm_world.rank();
+  int size=comm_world.size();
+  T x[2]={T(rank), T(rank)};
+  comm_world.sendrecv(x[1], (rank+1)%size, mpl::tag(0),
+                      x[0], (rank-1+size)%size, mpl::tag(0));
+  return x[0]==T((rank-1+size)%size) and x[1]==T(rank);
+}
+
+
 BOOST_AUTO_TEST_CASE(send_recv) {
   // integer types
 #if __cplusplus>=201703L
@@ -212,4 +224,35 @@ BOOST_AUTO_TEST_CASE(rsend_recv) {
     val=std::numeric_limits<int>::max()-1
   };
   BOOST_TEST(rsend_recv_test(my_enum::val));
+}
+
+BOOST_AUTO_TEST_CASE(sendrecv) {
+  // integer types
+#if __cplusplus>=201703L
+  BOOST_TEST(sendrecv_test<std::byte>());
+#endif
+  BOOST_TEST(sendrecv_test<char>());
+  BOOST_TEST(sendrecv_test<signed char>());
+  BOOST_TEST(sendrecv_test<unsigned char>());
+  BOOST_TEST(sendrecv_test<signed short>());
+  BOOST_TEST(sendrecv_test<unsigned short>());
+  BOOST_TEST(sendrecv_test<signed int>());
+  BOOST_TEST(sendrecv_test<unsigned int>());
+  BOOST_TEST(sendrecv_test<signed long>());
+  BOOST_TEST(sendrecv_test<unsigned long>());
+  BOOST_TEST(sendrecv_test<signed long long>());
+  BOOST_TEST(sendrecv_test<unsigned long long>());
+  // character types
+  BOOST_TEST(sendrecv_test<wchar_t>());
+  BOOST_TEST(sendrecv_test<char16_t>());
+  BOOST_TEST(sendrecv_test<char32_t>());
+  // floating point number types
+  BOOST_TEST(sendrecv_test<float>());
+  BOOST_TEST(sendrecv_test<double>());
+  BOOST_TEST(sendrecv_test<long double>());
+  BOOST_TEST(sendrecv_test<float>());
+  BOOST_TEST(sendrecv_test<double>());
+  BOOST_TEST(sendrecv_test<long double>());
+  // logical type
+  BOOST_TEST(sendrecv_test<bool>());
 }
