@@ -27,6 +27,7 @@ add_executable(test_collective test_collective.cc)
 add_executable(test_icollective test_icollective.cc)
 add_executable(test_collectivev test_collectivev.cc)
 add_executable(test_icollectivev test_icollectivev.cc)
+add_executable(test_reduce test_reduce.cc)
 
 add_custom_target(run_tests
         COMMAND mpiexec -n 8 ./test_send_recv
@@ -43,4 +44,6 @@ add_custom_target(run_tests
         DEPENDS test_collectivev
         COMMAND mpiexec -n 8 ./test_icollectivev
         DEPENDS test_icollectivev
+        COMMAND mpiexec -n 8 ./test_reduce
+        DEPENDS test_reduce
         )
