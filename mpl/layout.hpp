@@ -57,6 +57,9 @@ namespace mpl {
   template<typename T>
   std::pair<const T *, MPI_Datatype> make_absolute(const T *, const layout<T> &);
 
+  template <typename T>
+  class contiguous_layouts;
+
   //--------------------------------------------------------------------
 
   template<typename T>
@@ -80,7 +83,7 @@ namespace mpl {
         type=MPI_DATATYPE_NULL;
     }
 
-    layout(layout &&l) {
+    layout(layout &&l) noexcept {
       type=l.type;
       l.type=MPI_DATATYPE_NULL;
     }
@@ -97,7 +100,7 @@ namespace mpl {
       return *this;
     }
 
-    layout &operator=(layout &&l) {
+    layout &operator=(layout &&l) noexcept {
       if (this!=&l) {
         if (type!=MPI_DATATYPE_NULL)
           MPI_Type_free(&type);
@@ -301,7 +304,7 @@ namespace mpl {
     empty_layout(const empty_layout &l) : layout<T>(l) {
     }
 
-    empty_layout(empty_layout &&l) : layout<T>(std::move(l)) {
+    empty_layout(empty_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     empty_layout<T> &operator=(const empty_layout<T> &l) {
@@ -309,7 +312,7 @@ namespace mpl {
       return *this;
     }
 
-    empty_layout<T> &operator=(empty_layout<T> &&l) {
+    empty_layout<T> &operator=(empty_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -377,7 +380,7 @@ namespace mpl {
     contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count(l.count) {
     }
 
-    contiguous_layout(contiguous_layout &&l) : layout<T>(std::move(l)), count(l.count) {
+    contiguous_layout(contiguous_layout &&l) noexcept : layout<T>(std::move(l)), count(l.count) {
       l.count=0;
     }
 
@@ -387,7 +390,7 @@ namespace mpl {
       return *this;
     }
 
-    contiguous_layout<T> &operator=(contiguous_layout<T> &&l) {
+    contiguous_layout<T> &operator=(contiguous_layout<T> &&l) noexcept {
       if (this!=&l) {
         layout<T>::operator=(std::move(l));
         count=l.count;
@@ -411,6 +414,7 @@ namespace mpl {
     using layout<T>::resize;
 
     friend class communicator;
+    friend class contiguous_layouts<T>;
   };
 
   //--------------------------------------------------------------------
@@ -460,7 +464,7 @@ namespace mpl {
     vector_layout(const vector_layout<T> &l) : layout<T>(l) {
     }
 
-    vector_layout(vector_layout &&l) : layout<T>(std::move(l)) {
+    vector_layout(vector_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     vector_layout<T> &operator=(const vector_layout<T> &l) {
@@ -468,7 +472,7 @@ namespace mpl {
       return *this;
     }
 
-    vector_layout<T> &operator=(vector_layout<T> &&l) {
+    vector_layout<T> &operator=(vector_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -530,7 +534,7 @@ namespace mpl {
       return *this;
     }
 
-    strided_vector_layout<T> &operator=(strided_vector_layout<T> &&l) {
+    strided_vector_layout<T> &operator=(strided_vector_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -610,7 +614,7 @@ namespace mpl {
     indexed_layout(const indexed_layout<T> &l) : layout<T>(l) {
     }
 
-    indexed_layout(indexed_layout<T> &&l) : layout<T>(std::move(l)) {
+    indexed_layout(indexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     indexed_layout<T> &operator=(const indexed_layout<T> &l) {
@@ -618,7 +622,7 @@ namespace mpl {
       return *this;
     }
 
-    indexed_layout<T> &operator=(indexed_layout<T> &&l) {
+    indexed_layout<T> &operator=(indexed_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -699,7 +703,7 @@ namespace mpl {
     hindexed_layout(const hindexed_layout<T> &l) : layout<T>(l) {
     }
 
-    hindexed_layout(hindexed_layout<T> &&l) : layout<T>(std::move(l)) {
+    hindexed_layout(hindexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     hindexed_layout<T> &operator=(const hindexed_layout<T> &l) {
@@ -707,7 +711,7 @@ namespace mpl {
       return *this;
     }
 
-    hindexed_layout<T> &operator=(hindexed_layout<T> &&l) {
+    hindexed_layout<T> &operator=(hindexed_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -786,7 +790,7 @@ namespace mpl {
     indexed_block_layout(const indexed_block_layout<T> &l) : layout<T>(l) {
     }
 
-    indexed_block_layout(indexed_block_layout<T> &&l) : layout<T>(std::move(l)) {
+    indexed_block_layout(indexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     indexed_block_layout<T> &operator=(const indexed_block_layout<T> &l) {
@@ -794,7 +798,7 @@ namespace mpl {
       return *this;
     }
 
-    indexed_block_layout<T> &operator=(indexed_block_layout<T> &&l) {
+    indexed_block_layout<T> &operator=(indexed_block_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -873,7 +877,7 @@ namespace mpl {
     hindexed_block_layout(const hindexed_block_layout<T> &l) : layout<T>(l) {
     }
 
-    hindexed_block_layout(hindexed_block_layout<T> &&l) : layout<T>(std::move(l)) {
+    hindexed_block_layout(hindexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     hindexed_block_layout<T> &operator=(const hindexed_block_layout<T> &l) {
@@ -881,7 +885,7 @@ namespace mpl {
       return *this;
     }
 
-    hindexed_block_layout<T> &operator=(hindexed_block_layout<T> &&l) {
+    hindexed_block_layout<T> &operator=(hindexed_block_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -992,7 +996,7 @@ namespace mpl {
     iterator_layout(const iterator_layout<T> &l) : layout<T>(l) {
     }
 
-    iterator_layout(iterator_layout<T> &&l) : layout<T>(std::move(l)) {
+    iterator_layout(iterator_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     iterator_layout<T> &operator=(const iterator_layout<T> &l) {
@@ -1000,7 +1004,7 @@ namespace mpl {
       return *this;
     }
 
-    iterator_layout<T> &operator=(iterator_layout<T> &&l) {
+    iterator_layout<T> &operator=(iterator_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -1109,7 +1113,7 @@ namespace mpl {
       return *this;
     }
 
-    subarray_layout<T> &operator=(subarray_layout<T> &&l) {
+    subarray_layout<T> &operator=(subarray_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
@@ -1209,7 +1213,7 @@ namespace mpl {
       return *this;
     }
 
-    heterogeneous_layout &operator=(heterogeneous_layout &&l) {
+    heterogeneous_layout &operator=(heterogeneous_layout &&l) noexcept {
       layout<void>::operator=(std::move(l));
       return *this;
     }

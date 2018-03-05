@@ -1949,28 +1949,6 @@ namespace mpl {
       return detail::irequest(req);
     }
 
-    // --- blocking reduce-scatter, in place ---
-    template<typename T, typename F>
-    void reduce_scatter(F f,
-                        T *recvdata, const contiguous_layouts <T> &recvcounts) const {
-      detail::get_op<T, F>().f=&f;
-      MPI_Reduce_scatter(MPI_IN_PLACE, recvdata, recvcounts.sizes(),
-                         datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
-                         comm);
-    }
-
-    // --- non-blocking reduce-scatter, in place ---
-    template<typename T, typename F>
-    irequest ireduce_scatter(F f,
-                             T *recvdata, const contiguous_layouts <T> &recvcounts) const {
-      detail::get_op<T, F>().f=&f;
-      MPI_Request req;
-      MPI_Ireduce_scatter(MPI_IN_PLACE, recvdata, recvcounts.sizes(),
-                          datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
-                          comm, &req);
-      return detail::irequest(req);
-    }
-
     // === scan ===
     // --- blocking scan ---
     template<typename T, typename F>
