@@ -8,6 +8,13 @@
 #include <algorithm>
 #include <mpl/mpl.hpp>
 
+bool ibarrier_test() {
+  const mpl::communicator &comm_world=mpl::environment::comm_world();
+  auto r{comm_world.ibarrier()};
+  r.wait();
+  return true;
+}
+
 template<typename T>
 bool ibcast_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
@@ -82,6 +89,7 @@ bool ialltoall_test() {
 
 
 BOOST_AUTO_TEST_CASE(icollective) {
+  BOOST_TEST(ibarrier_test());
   BOOST_TEST(ibcast_test<double>());
   BOOST_TEST(iscatter_test<double>());
   BOOST_TEST(igather_test<double>());
