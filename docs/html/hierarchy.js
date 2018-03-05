@@ -88,13 +88,13 @@ var hierarchy =
     [ "mpl::op_traits< min< T > >", "structmpl_1_1op__traits_3_01min_3_01_t_01_4_01_4.html", null ],
     [ "mpl::op_traits< multiplies< T > >", "structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html", null ],
     [ "mpl::op_traits< plus< T > >", "structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html", null ],
-    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
-    [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
-    [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
-    [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
-    [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
     [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
+    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
+    [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
     [ "mpl::indexed_block_layout< T >::parameter", "classmpl_1_1indexed__block__layout_1_1parameter.html", null ],
+    [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
+    [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
+    [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
     [ "mpl::detail::request< detail::irequest >", null, [
       [ "mpl::irequest", "classmpl_1_1irequest.html", null ]

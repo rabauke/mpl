@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['layout',['layout',['../classmpl_1_1layout.html',1,'mpl::layout&lt; T &gt;'],['../classmpl_1_1layout.html#a19aa23c63b130d83b6d97ba45f2cf464',1,'mpl::layout::layout(MPI_Datatype new_type)'],['../classmpl_1_1layout.html#ac1edd6042f0c959638583136b00c89db',1,'mpl::layout::layout()'],['../classmpl_1_1layout.html#ad1a727c34eaefc6031a00042b177b9b9',1,'mpl::layout::layout(const layout &amp;l)'],['../classmpl_1_1layout.html#a8ad7eb85d6febc0ed8c51c0501ef6608',1,'mpl::layout::layout(layout &amp;&amp;l)']]],
+  ['layout',['layout',['../classmpl_1_1layout.html',1,'mpl::layout&lt; T &gt;'],['../classmpl_1_1layout.html#a19aa23c63b130d83b6d97ba45f2cf464',1,'mpl::layout::layout(MPI_Datatype new_type)'],['../classmpl_1_1layout.html#ac1edd6042f0c959638583136b00c89db',1,'mpl::layout::layout()'],['../classmpl_1_1layout.html#ad1a727c34eaefc6031a00042b177b9b9',1,'mpl::layout::layout(const layout &amp;l)'],['../classmpl_1_1layout.html#a4247e7ceac8381a08ce49a21370238d2',1,'mpl::layout::layout(layout &amp;&amp;l) noexcept']]],
   ['layout_2ehpp',['layout.hpp',['../layout_8hpp.html',1,'']]],
   ['layout_3c_20void_20_3e',['layout&lt; void &gt;',['../classmpl_1_1layout.html',1,'mpl']]],
   ['layouts',['layouts',['../classmpl_1_1layouts.html',1,'mpl::layouts&lt; T &gt;'],['../classmpl_1_1layouts.html#a04684e1f447ffb8483d9806a30aaf092',1,'mpl::layouts::layouts(size_type n=0)'],['../classmpl_1_1layouts.html#a3b76572f81889e2efafaecc7aeb0f764',1,'mpl::layouts::layouts(size_type n, const layout&lt; T &gt; &amp;l)']]],

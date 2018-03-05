@@ -12,6 +12,7 @@ var layout_8hpp =
     [ "hindexed_block_layout", "classmpl_1_1hindexed__block__layout.html", "classmpl_1_1hindexed__block__layout" ],
     [ "iterator_layout", "classmpl_1_1iterator__layout.html", "classmpl_1_1iterator__layout" ],
     [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
+    [ "contiguous_layouts", "classmpl_1_1contiguous__layouts.html", "classmpl_1_1contiguous__layouts" ],
     [ "layout", "classmpl_1_1layout.html", "classmpl_1_1layout" ],
     [ "null_layout", "classmpl_1_1null__layout.html", "classmpl_1_1null__layout" ],
     [ "empty_layout", "classmpl_1_1empty__layout.html", "classmpl_1_1empty__layout" ],
