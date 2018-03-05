@@ -20,7 +20,6 @@ bool reduce_scatter_block_func_test() {
   std::vector<T> x(N, comm_world.rank()+1);
   T y=-1;
   comm_world.reduce_scatter_block(add<T>, x.data(), y);
-  std::cout << comm_world.rank() << ' ' << y << '\n';
   return (N*N+N)/2==y;
 }
 
@@ -31,7 +30,6 @@ bool reduce_scatter_block_op_test() {
   std::vector<T> x(N, comm_world.rank()+1);
   T y=-1;
   comm_world.reduce_scatter_block(mpl::plus<T>(), x.data(), y);
-  std::cout << comm_world.rank() << ' ' << y << '\n';
   return (N*N+N)/2==y;
 }
 
@@ -42,7 +40,6 @@ bool reduce_scatter_block_lambda_test() {
   std::vector<T> x(N, comm_world.rank()+1);
   T y=-1;
   comm_world.reduce_scatter_block([](T a, T b) { return a+b; }, x.data(), y);
-  std::cout << comm_world.rank() << ' ' << y << '\n';
   return (N*N+N)/2==y;
 }
 
