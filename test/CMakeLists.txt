@@ -28,9 +28,13 @@ add_executable(test_icollective test_icollective.cc)
 add_executable(test_collectivev test_collectivev.cc)
 add_executable(test_icollectivev test_icollectivev.cc)
 add_executable(test_reduce test_reduce.cc)
+add_executable(test_ireduce test_ireduce.cc)
 add_executable(test_scan test_scan.cc)
+add_executable(test_iscan test_iscan.cc)
 add_executable(test_exscan test_exscan.cc)
+add_executable(test_iexscan test_iexscan.cc)
 add_executable(test_reduce_scatter test_reduce_scatter.cc)
+add_executable(test_ireduce_scatter test_ireduce_scatter.cc)
 
 add_custom_target(run_tests
         COMMAND mpiexec -n 8 ./test_send_recv
@@ -49,10 +53,18 @@ add_custom_target(run_tests
         DEPENDS test_icollectivev
         COMMAND mpiexec -n 8 ./test_reduce
         DEPENDS test_reduce
+        COMMAND mpiexec -n 8 ./test_ireduce
+        DEPENDS test_ireduce
         COMMAND mpiexec -n 8 ./test_scan
         DEPENDS test_scan
+        COMMAND mpiexec -n 8 ./test_iscan
+        DEPENDS test_iscan
         COMMAND mpiexec -n 8 ./test_exscan
         DEPENDS test_exscan
+        COMMAND mpiexec -n 8 ./test_iexscan
+        DEPENDS test_iexscan
         COMMAND mpiexec -n 8 ./test_reduce_scatter
         DEPENDS test_reduce_scatter
+        COMMAND mpiexec -n 8 ./test_ireduce_scatter
+        DEPENDS test_ireduce_scatter
         )

@@ -1909,7 +1909,7 @@ namespace mpl {
                                    const T *senddata, T &recvdata) const {
       detail::get_op<T, F>().f=&f;
       MPI_Request req;
-      MPI_Ireduce_scatter_block(&senddata, &recvdata, 1,
+      MPI_Ireduce_scatter_block(senddata, &recvdata, 1,
                                 datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
                                 comm, &req);
       return detail::irequest(req);
