@@ -83,3 +83,6 @@ heat_equation_successive_over-relaxation.cc heat_equation_Jacobi_method.cc
   Solves the two-dimensional time-independent heat equation with fixed
   temperatures at the border via successive over-relaxation and Jacobi
   iterations.  Implementation uses distributed_grid.
+
+sort.cc
+  Parallel sort algorithm.  Requires a C++17 compiler.
