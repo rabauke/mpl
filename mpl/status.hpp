@@ -23,7 +23,7 @@ namespace mpl {
     bool is_cancelled() const {
       int result;
       MPI_Test_cancelled(reinterpret_cast<const MPI_Status *>(this), &result);
-      return result;
+      return result!=0;
     }
 
     bool is_canceled() const {
