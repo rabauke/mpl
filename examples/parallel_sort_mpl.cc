@@ -48,13 +48,13 @@ void parallel_sort(std::vector<T> &v) {
   for (T p : pivots)
     pivot_pos.push_back(std::partition(pivot_pos.back(), end(v), [p](T x) { return x<p; }));
   pivot_pos.push_back(end(v));
-  std::vector<std::size_t> local_block_sizes, block_sizes(size*size);
+  std::vector<int> local_block_sizes, block_sizes(size*size);
   for (std::size_t i=0; i<pivot_pos.size()-1; ++i)
-    local_block_sizes.push_back(std::distance(pivot_pos[i], pivot_pos[i+1]));
-  comm_world.allgather(local_block_sizes.data(), mpl::vector_layout<std::size_t>(size),
-                       block_sizes.data(), mpl::vector_layout<std::size_t>(size));
+    local_block_sizes.push_back(static_cast<int>(std::distance(pivot_pos[i], pivot_pos[i+1])));
+  comm_world.allgather(local_block_sizes.data(), mpl::vector_layout<int>(size),
+                       block_sizes.data(), mpl::vector_layout<int>(size));
   mpl::layouts<T> send_layouts, recv_layouts;
-  std::size_t send_pos{ 0 }, recv_pos{ 0 };
+  int send_pos{ 0 }, recv_pos{ 0 };
   for (int i=0; i<size; ++i) {
     send_layouts.push_back(mpl::indexed_layout<T>({{ block_sizes[rank*size+i], send_pos }}));
     send_pos+=block_sizes[rank*size+i];
@@ -68,15 +68,14 @@ void parallel_sort(std::vector<T> &v) {
 }
 
 int main() {
-  auto comm_world{ mpl::environment::comm_world() };
+  const auto &comm_world{ mpl::environment::comm_world() };
   const int rank{ comm_world.rank() };
   const int size{ comm_world.size() };
 
-  const std::size_t N{ 100000000/size };
+  const std::size_t N{ 100000000/static_cast<std::size_t>(size) };
   std::vector<double> v(N);
   fill_random(v);
   parallel_sort(v);
-
 //  for (int i=0; i<size; ++i) {
 //    if (rank==i) {
 //      std::for_each(begin(v), end(v), [](double x) { std::cout << x << '\n'; });
