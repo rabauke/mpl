@@ -37,7 +37,7 @@ namespace mpl {
       }
 
       bool periodic(size_type i) const {
-        return periodic_[i];
+        return periodic_[i]!=0;
       }
 
       friend class cart_communicator;
@@ -122,7 +122,7 @@ namespace mpl {
     shift_ranks shift(int direction, int disp) const {
       int rank_source, rank_dest;
       MPI_Cart_shift(comm, direction, disp, &rank_source, &rank_dest);
-      return {rank_source, rank_dest};
+      return { rank_source, rank_dest };
     }
 
     // === neighbour collective ========================================
@@ -139,18 +139,18 @@ namespace mpl {
     template<typename T>
     void neighbour_allgather(const T *senddata, const layout <T> &sendl,
                              T *recvdata, const layout <T> &recvl) const {
-      MPI_Neighbour_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
-                              recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
-                              comm);
+      MPI_Neighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+                             recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
+                             comm);
     }
 
     // --- nonblocking neighbour allgather ---
     template<typename T>
     irequest ineighbour_allgather(const T &senddata, T *recvdata) const {
       MPI_Request req;
-      MPI_Ineighbour_allgather(&senddata, 1, datatype_traits<T>::get_datatype(),
-                               recvdata, 1, datatype_traits<T>::get_datatype(),
-                               comm, &req);
+      MPI_Ineighbor_allgather(&senddata, 1, datatype_traits<T>::get_datatype(),
+                              recvdata, 1, datatype_traits<T>::get_datatype(),
+                              comm, &req);
       return irequest(req);
     }
 
@@ -158,9 +158,9 @@ namespace mpl {
     irequest ineighbour_allgather(const T *senddata, const layout <T> &sendl,
                                   T *recvdata, const layout <T> &recvl) const {
       MPI_Request req;
-      MPI_Ineighbour_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
-                               recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
-                               comm, &req);
+      MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+                              recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
+                              comm, &req);
       return irequest(req);
     }
 
@@ -192,26 +192,26 @@ namespace mpl {
     // --- blocking neighbour all-to-all ---
     template<typename T>
     void neighbour_alltoall(const T *senddata, T *recvdata) const {
-      MPI_Neighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
-                             recvdata, 1, datatype_traits<T>::get_datatype(),
-                             comm);
+      MPI_Neighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+                            recvdata, 1, datatype_traits<T>::get_datatype(),
+                            comm);
     }
 
     template<typename T>
     void neighbour_alltoall(const T *senddata, const layout <T> &sendl,
                             T *recvdata, const layout <T> &recvl) const {
-      MPI_Neighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
-                             recvdata, 1, datatype_traits<T>::get_datatype(),
-                             comm);
+      MPI_Neighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+                            recvdata, 1, datatype_traits<T>::get_datatype(),
+                            comm);
     }
 
     // --- nonblocking neighbour all-to-all ---
     template<typename T>
     irequest ineighbour_alltoall(const T *senddata, T *recvdata) const {
       MPI_Request req;
-      MPI_Ineighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
-                              recvdata, 1, datatype_traits<T>::get_datatype(),
-                              comm, &req);
+      MPI_Ineighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+                             recvdata, 1, datatype_traits<T>::get_datatype(),
+                             comm, &req);
       return irequest(req);
     }
 
@@ -219,9 +219,9 @@ namespace mpl {
     irequest ineighbour_alltoall(const T *senddata, const layout <T> &sendl,
                                  T *recvdata, const layout <T> &recvl) const {
       MPI_Request req;
-      MPI_Ineighbour_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
-                              recvdata, 1, datatype_traits<T>::get_datatype(),
-                              comm, &req);
+      MPI_Ineighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(),
+                             recvdata, 1, datatype_traits<T>::get_datatype(),
+                             comm, &req);
       return irequest(req);
     }
 
@@ -231,9 +231,9 @@ namespace mpl {
     void neighbour_alltoallv(const T *senddata, const layouts <T> &sendl, const displacements &senddispls,
                              T *recvdata, const layouts <T> &recvl, const displacements &recvdispls) const {
       std::vector<int> counts(recvl.size(), 1);
-      MPI_Neighbour_alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()),
-                              recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()),
-                              comm);
+      MPI_Neighbor_alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()),
+                             recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()),
+                             comm);
     }
 
     // --- non-blocking neighbour all-to-all ---
@@ -242,9 +242,9 @@ namespace mpl {
                                   T *recvdata, const layouts <T> &recvl, const displacements &recvdispls) const {
       std::vector<int> counts(recvl.size(), 1);
       MPI_Request req;
-      MPI_Ineighbour_alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()),
-                               recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()),
-                               comm, &req);
+      MPI_Ineighbor_alltoallw(senddata, counts.data(), senddispls(), reinterpret_cast<const MPI_Datatype *>(sendl()),
+                              recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()),
+                              comm, &req);
       return irequest(req);
     }
   };
