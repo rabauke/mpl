@@ -47,8 +47,8 @@ namespace mpl {
     group() : gr(MPI_GROUP_EMPTY) {
     }
 
-    group(const communicator &comm);  // define later
-    group(group &&other) {
+    explicit group(const communicator &comm);  // define later
+    group(group &&other) noexcept {
       gr=other.gr;
       other.gr=MPI_GROUP_EMPTY;
     }
@@ -72,7 +72,7 @@ namespace mpl {
 
     void operator=(const group &)= delete;
 
-    group &operator=(group &&other) {
+    group &operator=(group &&other) noexcept {
       if (this!=&other) {
         int result;
         MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
@@ -216,7 +216,7 @@ namespace mpl {
     }
 
   protected:
-    communicator(MPI_Comm comm) : comm(comm) {
+    explicit communicator(MPI_Comm comm) : comm(comm) {
     }
 
   public:
@@ -227,21 +227,21 @@ namespace mpl {
       MPI_Comm_dup(other.comm, &comm);
     }
 
-    communicator(communicator &&other) {
+    communicator(communicator &&other) noexcept {
       comm=other.comm;
       other.comm=MPI_COMM_NULL;
     }
 
-    communicator(comm_collective, const communicator &other, const group &gr) {
+    explicit communicator(comm_collective, const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm, gr.gr, &comm);
     }
 
-    communicator(group_collective, const communicator &other, const group &gr, tag t=tag(0)) {
+    explicit communicator(group_collective, const communicator &other, const group &gr, tag t=tag(0)) {
       MPI_Comm_create_group(other.comm, gr.gr, static_cast<int>(t), &comm);
     }
 
     template<typename color_type, typename key_type=int>
-    communicator(split, const communicator &other, color_type color, key_type key=0) {
+    explicit communicator(split, const communicator &other, color_type color, key_type key=0) {
       static_assert(detail::is_valid_color<color_type>::value,
                     "not an enumeration type or underlying enumeration type too large");
       static_assert(detail::is_valid_key<key_type>::value,
@@ -251,7 +251,7 @@ namespace mpl {
     }
 
     template<typename key_type=int>
-    communicator(split_shared, const communicator &other, key_type key=0) {
+    explicit communicator(split_shared, const communicator &other, key_type key=0) {
       static_assert(detail::is_valid_tag<key_type>::value,
                     "not an enumeration type or underlying enumeration type too large");
       MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED,
@@ -270,7 +270,7 @@ namespace mpl {
 
     void operator=(const communicator &)= delete;
 
-    communicator &operator=(communicator &&other) {
+    communicator &operator=(communicator &&other) noexcept {
       if (this!=&other) {
         if (is_valid()) {
           int result1, result2;

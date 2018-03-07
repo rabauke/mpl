@@ -17,6 +17,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DMPL_DEBUG")
 
 include_directories("../")
 
+add_executable(test_communicator test_communicator.cc)
 add_executable(test_send_recv test_send_recv.cc)
 set_property(TARGET test_send_recv PROPERTY CXX_STANDARD 17)
 add_executable(test_isend_irecv test_isend_irecv.cc)
@@ -37,6 +38,10 @@ add_executable(test_reduce_scatter test_reduce_scatter.cc)
 add_executable(test_ireduce_scatter test_ireduce_scatter.cc)
 
 add_custom_target(run_tests
+        COMMAND mpiexec -n 1 ./test_communicator
+        DEPENDS test_communicator
+        COMMAND mpiexec -n 4 ./test_communicator
+        DEPENDS test_communicator
         COMMAND mpiexec -n 8 ./test_send_recv
         DEPENDS test_send_recv
         COMMAND mpiexec -n 8 ./test_isend_irecv
