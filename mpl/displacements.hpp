@@ -25,7 +25,7 @@ namespace mpl {
     displacements(const displacements &other) : base(other) {
     }
 
-    displacements(displacements &&other) : base(std::move(other)) {
+    displacements(displacements &&other) noexcept : base(std::move(other)) {
     }
 
     using base::operator=;

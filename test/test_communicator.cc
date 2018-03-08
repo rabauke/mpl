@@ -9,6 +9,8 @@
 
 bool communicator_comm_world_test() {
   const mpl::communicator &comm_world=mpl::environment::comm_world();
+  if (not comm_world.is_valid())
+    return false;
   int size{ comm_world.size() };
   int rank{ comm_world.rank() };
   if (rank<0 or rank>=size)
@@ -37,6 +39,8 @@ bool communicator_comm_world_test() {
 
 bool communicator_comm_self_test() {
   const mpl::communicator &comm_self=mpl::environment::comm_self();
+  if (not comm_self.is_valid())
+    return false;
   int size{ comm_self.size() };
   int rank{ comm_self.rank() };
   if (rank!=0 or rank>=size)

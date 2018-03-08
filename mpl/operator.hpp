@@ -241,7 +241,7 @@ namespace mpl {
       op() {
         MPI_Op_create(op::apply, is_commutative, &mpi_op);
       }
-
+    public:
       op(op const &)=delete;
 
       ~op() {

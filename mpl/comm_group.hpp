@@ -33,15 +33,15 @@ namespace mpl {
     enum class equality_type {
       ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL
     };
-    struct Union {
+    class Union {
     };
-    struct intersection {
+    class intersection {
     };
-    struct difference {
+    class difference {
     };
-    struct incl {
+    class incl {
     };
-    struct excl {
+    class excl {
     };
 
     group() : gr(MPI_GROUP_EMPTY) {
@@ -53,16 +53,16 @@ namespace mpl {
       other.gr=MPI_GROUP_EMPTY;
     }
 
-    group(Union,
-          const group &other_1, const group &other_2);  // define later
-    group(intersection,
-          const group &other_1, const group &other_2);  // define later
-    group(difference,
-          const group &other_1, const group &other_2);  // define later
-    group(incl,
-          const group &other, const ranks &rank);  // define later
-    group(excl,
-          const group &other, const ranks &rank);  // define later
+    explicit group(Union,
+                   const group &other_1, const group &other_2);  // define later
+    explicit group(intersection,
+                   const group &other_1, const group &other_2);  // define later
+    explicit group(difference,
+                   const group &other_1, const group &other_2);  // define later
+    explicit group(incl,
+                   const group &other, const ranks &rank);  // define later
+    explicit group(excl,
+                   const group &other, const ranks &rank);  // define later
     ~group() {
       int result;
       MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
@@ -139,6 +139,11 @@ namespace mpl {
     enum class equality_type {
       ident=MPI_IDENT, congruent=MPI_CONGRUENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL
     };
+
+    static constexpr equality_type ident=equality_type::ident;
+    static constexpr equality_type congruent=equality_type::congruent;
+    static constexpr equality_type similar=equality_type::similar;
+    static constexpr equality_type unequal=equality_type::unequal;
 
     class comm_collective {
     };

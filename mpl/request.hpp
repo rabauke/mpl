@@ -61,7 +61,7 @@ namespace mpl {
       request(const T &other) : req(other.req) {
       }
 
-      request(T &&other) : req(other.req) {
+      request(T &&other) noexcept : req(other.req) {
         other.req=MPI_REQUEST_NULL;
       }
 
@@ -72,7 +72,7 @@ namespace mpl {
 
       void operator=(const request &)= delete;
 
-      request &operator=(request &&other) {
+      request &operator=(request &&other) noexcept {
         if (this!=&other) {
           if (req!=MPI_REQUEST_NULL)
             MPI_Request_free(&req);
@@ -117,13 +117,12 @@ namespace mpl {
     public:
       typedef std::vector<MPI_Request>::size_type size_type;
 
-      request_pool() {
-      }
+      request_pool()=default;
 
       request_pool(const request_pool &)=delete;
 
-      request_pool(request_pool &&other) : reqs(std::move(other.reqs)),
-                                           stats(std::move(other.stats)) {
+      request_pool(request_pool &&other) noexcept : reqs(std::move(other.reqs)),
+                                                    stats(std::move(other.stats)) {
       }
 
       ~request_pool() {
@@ -134,7 +133,7 @@ namespace mpl {
 
       void operator=(const request_pool &)= delete;
 
-      request_pool &operator=(request_pool &&other) {
+      request_pool &operator=(request_pool &&other) noexcept {
         if (this!=&other) {
           for (std::vector<MPI_Request>::iterator i(reqs.begin()), i_end(reqs.end()); i!=i_end; ++i)
             if ((*i)!=MPI_REQUEST_NULL)
@@ -239,12 +238,12 @@ namespace mpl {
 
     irequest(const irequest &)=delete;
 
-    irequest(irequest &&r) : base(std::move(r.req)) {
+    irequest(irequest &&r) noexcept : base(std::move(r.req)) {
     }
 
     void operator=(const irequest &)= delete;
 
-    irequest &operator=(irequest &&other) {
+    irequest &operator=(irequest &&other) noexcept {
       if (this!=&other)
         base::operator=(std::move(other));
       return *this;
@@ -258,24 +257,26 @@ namespace mpl {
   class irequest_pool : public detail::request_pool<irequest> {
     typedef detail::request_pool<irequest> base;
   public:
-    irequest_pool() {
-    }
+    irequest_pool()=default;
 
     irequest_pool(const irequest_pool &)=delete;
 
-    irequest_pool(irequest_pool &&r) : base(std::move(r)) {
+    irequest_pool(irequest_pool
+                  &&r) noexcept :
+
+        base(std::move(r)) {
     }
 
     void operator=(const irequest_pool &)= delete;
 
-    irequest_pool &operator=(irequest_pool &&other) {
+    irequest_pool &operator=(irequest_pool &&other) noexcept {
       if (this!=&other)
         base::operator=(std::move(other));
       return *this;
     }
   };
 
-  //--------------------------------------------------------------------
+//--------------------------------------------------------------------
 
   class prequest : public detail::request<detail::prequest> {
     typedef detail::request<detail::prequest> base;
@@ -286,12 +287,12 @@ namespace mpl {
 
     prequest(const prequest &)=delete;
 
-    prequest(prequest &&r) : base(std::move(r.req)) {
+    prequest(prequest &&r) noexcept : base(std::move(r.req)) {
     }
 
     void operator=(const prequest &)= delete;
 
-    prequest &operator=(prequest &&other) {
+    prequest &operator=(prequest &&other) noexcept {
       if (this!=&other)
         base::operator=(std::move(other));
       return *this;
@@ -304,24 +305,23 @@ namespace mpl {
     friend class detail::request_pool<prequest>;
   };
 
-  //--------------------------------------------------------------------
+//--------------------------------------------------------------------
 
   class prequest_pool : public detail::request_pool<prequest> {
     typedef detail::request_pool<prequest> base;
     using base::reqs;
   public:
-    prequest_pool() {
-    }
+    prequest_pool()=default;
 
     void operator=(const prequest_pool &)= delete;
 
-    prequest_pool &operator=(prequest_pool &&other) {
+    prequest_pool &operator=(prequest_pool &&other) noexcept {
       if (this!=&other)
         base::operator=(std::move(other));
       return *this;
     }
 
-    prequest_pool(prequest_pool &&r) : base(std::move(r)) {
+    prequest_pool(prequest_pool &&r) noexcept : base(std::move(r)) {
     }
 
     void startall() {
