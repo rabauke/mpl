@@ -24,10 +24,10 @@ bool communicator_comm_world_test() {
   if (comm_self==comm_world)
     return false;
   if (comm_world.size()==1 and
-      comm_self.compare(comm_world)!=mpl::communicator::equality_type::congruent)
+      comm_self.compare(comm_world)!=mpl::communicator::congruent)
     return false;
   if (comm_world.size()>1 and
-      comm_self.compare(comm_world)!=mpl::communicator::equality_type::unequal)
+      comm_self.compare(comm_world)!=mpl::communicator::unequal)
     return false;
   if (size>1) {
     mpl::communicator comm_new{mpl::communicator::split(), comm_world, rank%2==0};
@@ -54,10 +54,10 @@ bool communicator_comm_self_test() {
   if (comm_self==comm_world)
     return false;
   if (comm_world.size()==1 and
-      comm_self.compare(comm_world)!=mpl::communicator::equality_type::congruent)
+      comm_self.compare(comm_world)!=mpl::communicator::congruent)
     return false;
   if (comm_world.size()>1 and
-      comm_self.compare(comm_world)!=mpl::communicator::equality_type::unequal)
+      comm_self.compare(comm_world)!=mpl::communicator::unequal)
     return false;
   return true;
 }

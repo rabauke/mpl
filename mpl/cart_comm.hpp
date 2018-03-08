@@ -65,7 +65,7 @@ namespace mpl {
 
     void operator=(const cart_communicator &)= delete;
 
-    cart_communicator &operator=(cart_communicator &&other) {
+    cart_communicator &operator=(cart_communicator &&other) noexcept {
       if (this!=&other) {
         int result1, result2;
         MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
