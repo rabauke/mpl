@@ -26,5 +26,10 @@ implementation needs to be installed, e.g.,
 ## Documentation
 
 For documentation see the
-[Doxygen-generated documentation](https://rabauke.github.io/mpl/html/) and
-the files in the `examples` directory of the source.
+[Doxygen-generated documentation](https://rabauke.github.io/mpl/html/), the blog posts
+
+  * [MPL – A message passing library](https://www.numbercrunch.de/blog/2015/08/mpl-a-message-passing-library/)
+  * [MPL – Collective communication](https://www.numbercrunch.de/blog/2015/09/mpl-collective-communication/)
+  * [MPL – Data types](https://www.numbercrunch.de/blog/2015/09/mpl-data-types/)
+
+and the files in the `examples` directory of the source package.
