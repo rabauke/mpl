@@ -1,20 +1,27 @@
 var classmpl_1_1cart__communicator =
 [
+    [ "coords_type", "classmpl_1_1cart__communicator_1_1coords__type.html", "classmpl_1_1cart__communicator_1_1coords__type" ],
+    [ "periodicities_type", "classmpl_1_1cart__communicator_1_1periodicities__type.html", "classmpl_1_1cart__communicator_1_1periodicities__type" ],
     [ "sizes", "classmpl_1_1cart__communicator_1_1sizes.html", "classmpl_1_1cart__communicator_1_1sizes" ],
+    [ "periodicity", "classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916", [
+      [ "periodic", "classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916ae6ffdec5e14fce371eb7ae99edebbbee", null ],
+      [ "nonperiodic", "classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916a80933c2723c461b398409e7db92b107a", null ]
+    ] ],
     [ "cart_communicator", "classmpl_1_1cart__communicator.html#afea087d4e96e8a2851618492c4864f61", null ],
     [ "cart_communicator", "classmpl_1_1cart__communicator.html#a795b337d835a6d5f4814547306a9cf1b", null ],
-    [ "cart_communicator", "classmpl_1_1cart__communicator.html#ac3b7b3922cc591ee5cb83c2499f26698", null ],
+    [ "cart_communicator", "classmpl_1_1cart__communicator.html#adc666ff6ced0f11a798b8d0fd7c036d1", null ],
     [ "cart_communicator", "classmpl_1_1cart__communicator.html#a1421a58e88a29ad6008949d3a399a121", null ],
-    [ "coords", "classmpl_1_1cart__communicator.html#a6006ce8ab19be2eef94feeffa983f7a6", null ],
-    [ "coords", "classmpl_1_1cart__communicator.html#ac41424d7e9542df44739b94b2edc007f", null ],
+    [ "coords", "classmpl_1_1cart__communicator.html#a83658804fa83d47a0124fab5a3024839", null ],
+    [ "coords", "classmpl_1_1cart__communicator.html#aaa3078efb0dafa85bad352cd1b2f5984", null ],
     [ "dim", "classmpl_1_1cart__communicator.html#a87fd240ec4c59b71d6e72a651dd6187b", null ],
-    [ "dims", "classmpl_1_1cart__communicator.html#a44e8b4f5071856a710957d5eeda6bffb", null ],
+    [ "dims", "classmpl_1_1cart__communicator.html#a8cdb6ed3337c623a2b493503a6ff71c2", null ],
     [ "ineighbour_allgather", "classmpl_1_1cart__communicator.html#a23a9f615ae0591eba6e0de234c0f858d", null ],
     [ "ineighbour_allgather", "classmpl_1_1cart__communicator.html#a0b26a8914555d503970da43ce6c71f75", null ],
     [ "ineighbour_allgatherv", "classmpl_1_1cart__communicator.html#aefd4ff3c5f600ed19e87a6abb103f6b6", null ],
     [ "ineighbour_alltoall", "classmpl_1_1cart__communicator.html#a29cb6cc39aac49dddffb19e322f8444e", null ],
     [ "ineighbour_alltoall", "classmpl_1_1cart__communicator.html#ac547db8ce059547501b1dd4cd973d53a", null ],
     [ "ineighbour_alltoallv", "classmpl_1_1cart__communicator.html#a2b975fbad0e6b9bbc12edd8e883f9808", null ],
+    [ "is_periodic", "classmpl_1_1cart__communicator.html#ab80dc688feadc27ad8015fc5ab214f32", null ],
     [ "neighbour_allgather", "classmpl_1_1cart__communicator.html#a767a8b3e1ecce68fc22fd721869f9088", null ],
     [ "neighbour_allgather", "classmpl_1_1cart__communicator.html#aa8d766f2b63784e37783ee63af83d2d3", null ],
     [ "neighbour_allgatherv", "classmpl_1_1cart__communicator.html#ab0dac0b54eb61d14bda03e390b63af4d", null ],
@@ -22,8 +29,7 @@ var classmpl_1_1cart__communicator =
     [ "neighbour_alltoall", "classmpl_1_1cart__communicator.html#ad9045328b8e1cc96bdab7104da964791", null ],
     [ "neighbour_alltoallv", "classmpl_1_1cart__communicator.html#a4cc27434bce8a32a553ef109420ac85c", null ],
     [ "operator=", "classmpl_1_1cart__communicator.html#af9e8700d447ee9bb73915db95147d7af", null ],
-    [ "operator=", "classmpl_1_1cart__communicator.html#a19ef06c34156473a44408e4e6979d3cb", null ],
-    [ "periodic", "classmpl_1_1cart__communicator.html#ae72e93b1d9ddb809b770d28f4b1a84e9", null ],
-    [ "rank", "classmpl_1_1cart__communicator.html#a21fe156fe904409e1a8ed14604710a9b", null ],
+    [ "operator=", "classmpl_1_1cart__communicator.html#a0aad1a73add787551203c2e9b126c9a0", null ],
+    [ "rank", "classmpl_1_1cart__communicator.html#a04b1e63e70f02ed972b7e73025e2f1f1", null ],
     [ "shift", "classmpl_1_1cart__communicator.html#ad88fa2d827dc95e8aff761ee1b71e04a", null ]
 ];

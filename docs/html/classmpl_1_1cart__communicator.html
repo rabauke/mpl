@@ -81,7 +81,9 @@ $(document).ready(function(){initNavTree('classmpl_1_1cart__communicator.html','
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="classmpl_1_1cart__communicator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">mpl::cart_communicator Class Reference</div>  </div>
@@ -108,8 +110,26 @@ Collaboration diagram for mpl::cart_communicator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator_1_1periodicities__type.html">periodicities_type</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator_1_1sizes.html">sizes</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a738d3a01e51b093656ce313a580d3916"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916">periodicity</a> { <a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916ae6ffdec5e14fce371eb7ae99edebbbee">periodicity::periodic</a>, 
+<a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916a80933c2723c461b398409e7db92b107a">periodicity::nonperiodic</a>
+ }</td></tr>
+<tr class="separator:a738d3a01e51b093656ce313a580d3916"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classmpl_1_1communicator"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classmpl_1_1communicator')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classmpl_1_1communicator.html">mpl::communicator</a></td></tr>
+<tr class="memitem:af66054a704ac25557aa25b356e8abd63 inherit pub_types_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63">equality_type</a> { <a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a67217d8b401cf5e72bbf5103d60f3e97">equality_type::ident</a> =MPI_IDENT, 
+<a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63aecf9c13ef0ea0b37562355d0c5f982ac">equality_type::congruent</a> =MPI_CONGRUENT, 
+<a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703">equality_type::similar</a> =MPI_SIMILAR, 
+<a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29">equality_type::unequal</a> =MPI_UNEQUAL
+ }</td></tr>
+<tr class="separator:af66054a704ac25557aa25b356e8abd63 inherit pub_types_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -117,26 +137,26 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afea087d4e96e8a2851618492c4864f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a795b337d835a6d5f4814547306a9cf1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a795b337d835a6d5f4814547306a9cf1b">cart_communicator</a> (const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;old_comm, const <a class="el" href="classmpl_1_1cart__communicator_1_1sizes.html">sizes</a> &amp;par, bool reorder=true)</td></tr>
 <tr class="separator:a795b337d835a6d5f4814547306a9cf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3b7b3922cc591ee5cb83c2499f26698"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#ac3b7b3922cc591ee5cb83c2499f26698">cart_communicator</a> (const <a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;old_comm, const std::vector&lt; int &gt; &amp;remain_dims)</td></tr>
-<tr class="separator:ac3b7b3922cc591ee5cb83c2499f26698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc666ff6ced0f11a798b8d0fd7c036d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#adc666ff6ced0f11a798b8d0fd7c036d1">cart_communicator</a> (const <a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;old_comm, const <a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> &amp;remain_dims)</td></tr>
+<tr class="separator:adc666ff6ced0f11a798b8d0fd7c036d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1421a58e88a29ad6008949d3a399a121"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a1421a58e88a29ad6008949d3a399a121">cart_communicator</a> (<a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:a1421a58e88a29ad6008949d3a399a121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af9e8700d447ee9bb73915db95147d7af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#af9e8700d447ee9bb73915db95147d7af">operator=</a> (const <a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;)=delete</td></tr>
 <tr class="separator:af9e8700d447ee9bb73915db95147d7af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19ef06c34156473a44408e4e6979d3cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a19ef06c34156473a44408e4e6979d3cb">operator=</a> (<a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;&amp;other)</td></tr>
-<tr class="separator:a19ef06c34156473a44408e4e6979d3cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aad1a73add787551203c2e9b126c9a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a0aad1a73add787551203c2e9b126c9a0">operator=</a> (<a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a0aad1a73add787551203c2e9b126c9a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87fd240ec4c59b71d6e72a651dd6187b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a87fd240ec4c59b71d6e72a651dd6187b">dim</a> () const</td></tr>
 <tr class="separator:a87fd240ec4c59b71d6e72a651dd6187b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21fe156fe904409e1a8ed14604710a9b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a21fe156fe904409e1a8ed14604710a9b">rank</a> (const std::vector&lt; int &gt; &amp;<a class="el" href="classmpl_1_1cart__communicator.html#a6006ce8ab19be2eef94feeffa983f7a6">coords</a>) const</td></tr>
-<tr class="separator:a21fe156fe904409e1a8ed14604710a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6006ce8ab19be2eef94feeffa983f7a6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a6006ce8ab19be2eef94feeffa983f7a6">coords</a> (int <a class="el" href="classmpl_1_1cart__communicator.html#a21fe156fe904409e1a8ed14604710a9b">rank</a>) const</td></tr>
-<tr class="separator:a6006ce8ab19be2eef94feeffa983f7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac41424d7e9542df44739b94b2edc007f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#ac41424d7e9542df44739b94b2edc007f">coords</a> () const</td></tr>
-<tr class="separator:ac41424d7e9542df44739b94b2edc007f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44e8b4f5071856a710957d5eeda6bffb"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a44e8b4f5071856a710957d5eeda6bffb">dims</a> () const</td></tr>
-<tr class="separator:a44e8b4f5071856a710957d5eeda6bffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae72e93b1d9ddb809b770d28f4b1a84e9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#ae72e93b1d9ddb809b770d28f4b1a84e9">periodic</a> () const</td></tr>
-<tr class="separator:ae72e93b1d9ddb809b770d28f4b1a84e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04b1e63e70f02ed972b7e73025e2f1f1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a04b1e63e70f02ed972b7e73025e2f1f1">rank</a> (const <a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> &amp;c) const</td></tr>
+<tr class="separator:a04b1e63e70f02ed972b7e73025e2f1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83658804fa83d47a0124fab5a3024839"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a83658804fa83d47a0124fab5a3024839">coords</a> (int <a class="el" href="classmpl_1_1cart__communicator.html#a04b1e63e70f02ed972b7e73025e2f1f1">rank</a>) const</td></tr>
+<tr class="separator:a83658804fa83d47a0124fab5a3024839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3078efb0dafa85bad352cd1b2f5984"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#aaa3078efb0dafa85bad352cd1b2f5984">coords</a> () const</td></tr>
+<tr class="separator:aaa3078efb0dafa85bad352cd1b2f5984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cdb6ed3337c623a2b493503a6ff71c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a8cdb6ed3337c623a2b493503a6ff71c2">dims</a> () const</td></tr>
+<tr class="separator:a8cdb6ed3337c623a2b493503a6ff71c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab80dc688feadc27ad8015fc5ab214f32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cart__communicator_1_1periodicities__type.html">periodicities_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#ab80dc688feadc27ad8015fc5ab214f32">is_periodic</a> () const</td></tr>
+<tr class="separator:ab80dc688feadc27ad8015fc5ab214f32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad88fa2d827dc95e8aff761ee1b71e04a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structmpl_1_1shift__ranks.html">shift_ranks</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#ad88fa2d827dc95e8aff761ee1b71e04a">shift</a> (int direction, int disp) const</td></tr>
 <tr class="separator:ad88fa2d827dc95e8aff761ee1b71e04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a767a8b3e1ecce68fc22fd721869f9088"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
@@ -180,8 +200,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a40a1b555d411dff0fd51ce0f22903dc7 inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaedab51467a9eb38a2aeedb58e357e3d inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#aaedab51467a9eb38a2aeedb58e357e3d">communicator</a> (const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;other)</td></tr>
 <tr class="separator:aaedab51467a9eb38a2aeedb58e357e3d inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a331b0f4efe42657ba812e96b35f68832 inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a331b0f4efe42657ba812e96b35f68832">communicator</a> (<a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&amp;other)</td></tr>
-<tr class="separator:a331b0f4efe42657ba812e96b35f68832 inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61a0bccfa633febde368a29c749368bf inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a61a0bccfa633febde368a29c749368bf">communicator</a> (<a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a61a0bccfa633febde368a29c749368bf inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9323f5f37cf9c9910bdfc82f8636635e inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a9323f5f37cf9c9910bdfc82f8636635e">communicator</a> (<a class="el" href="classmpl_1_1communicator_1_1comm__collective.html">comm_collective</a>, const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;other, const <a class="el" href="classmpl_1_1group.html">group</a> &amp;gr)</td></tr>
 <tr class="separator:a9323f5f37cf9c9910bdfc82f8636635e inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae849181a404980ffbc9caaae08b81681 inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae849181a404980ffbc9caaae08b81681">communicator</a> (<a class="el" href="classmpl_1_1communicator_1_1group__collective.html">group_collective</a>, const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;other, const <a class="el" href="classmpl_1_1group.html">group</a> &amp;gr, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0))</td></tr>
@@ -196,8 +216,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a47df48127ee7c1952d62832748b052cd inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6523242e8650428c94e82b78623226b7 inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a6523242e8650428c94e82b78623226b7">operator=</a> (const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;)=delete</td></tr>
 <tr class="separator:a6523242e8650428c94e82b78623226b7 inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92b56947b89874f8cf4674524683391c inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a92b56947b89874f8cf4674524683391c">operator=</a> (<a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&amp;other)</td></tr>
-<tr class="separator:a92b56947b89874f8cf4674524683391c inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a2be037c0af44d6d20aeb4dad94e110 inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a3a2be037c0af44d6d20aeb4dad94e110">operator=</a> (<a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="separator:a3a2be037c0af44d6d20aeb4dad94e110 inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe1bd8f32c690ee7a31456da2c437bdf inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a> () const</td></tr>
 <tr class="separator:abe1bd8f32c690ee7a31456da2c437bdf inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae07d74b4f28b45e4bf56777d5d2a9789 inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a> () const</td></tr>
@@ -679,15 +699,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acfe387f8694efd0cd7a293d1d4830abd inherit pub_methods_classmpl_1_1communicator"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#acfe387f8694efd0cd7a293d1d4830abd">iexscan</a> (F f, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
 <tr class="separator:acfe387f8694efd0cd7a293d1d4830abd inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a6fc6688d48bd8726b2db7918a0b7b387"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916">periodicity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a6fc6688d48bd8726b2db7918a0b7b387">periodic</a> =periodicity::periodic</td></tr>
+<tr class="separator:a6fc6688d48bd8726b2db7918a0b7b387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66593fb012cd35f73105103b49b4f971"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916">periodicity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cart__communicator.html#a66593fb012cd35f73105103b49b4f971">nonperiodic</a> =periodicity::nonperiodic</td></tr>
+<tr class="separator:a66593fb012cd35f73105103b49b4f971"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_attribs_classmpl_1_1communicator"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classmpl_1_1communicator')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classmpl_1_1communicator.html">mpl::communicator</a></td></tr>
+<tr class="memitem:a558dff20084e2f016dd90403008b42a5 inherit pub_static_attribs_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63">equality_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a558dff20084e2f016dd90403008b42a5">ident</a> =equality_type::ident</td></tr>
+<tr class="separator:a558dff20084e2f016dd90403008b42a5 inherit pub_static_attribs_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec5ab4324f1a084a93edbbab08bc3d91 inherit pub_static_attribs_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63">equality_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#aec5ab4324f1a084a93edbbab08bc3d91">congruent</a> =equality_type::congruent</td></tr>
+<tr class="separator:aec5ab4324f1a084a93edbbab08bc3d91 inherit pub_static_attribs_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe7076a9aaa13cb078e700c0cb616f3f inherit pub_static_attribs_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63">equality_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#abe7076a9aaa13cb078e700c0cb616f3f">similar</a> =equality_type::similar</td></tr>
+<tr class="separator:abe7076a9aaa13cb078e700c0cb616f3f inherit pub_static_attribs_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10097f544da37d6c9c73606409ed151a inherit pub_static_attribs_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">static constexpr <a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63">equality_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a10097f544da37d6c9c73606409ed151a">unequal</a> =equality_type::unequal</td></tr>
+<tr class="separator:a10097f544da37d6c9c73606409ed151a inherit pub_static_attribs_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_classmpl_1_1communicator"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classmpl_1_1communicator')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classmpl_1_1communicator.html">mpl::communicator</a></td></tr>
-<tr class="memitem:af66054a704ac25557aa25b356e8abd63 inherit pub_types_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63">equality_type</a> { <a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a67217d8b401cf5e72bbf5103d60f3e97">equality_type::ident</a> =MPI_IDENT, 
-<a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63aecf9c13ef0ea0b37562355d0c5f982ac">equality_type::congruent</a> =MPI_CONGRUENT, 
-<a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703">equality_type::similar</a> =MPI_SIMILAR, 
-<a class="el" href="classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29">equality_type::unequal</a> =MPI_UNEQUAL
- }</td></tr>
-<tr class="separator:af66054a704ac25557aa25b356e8abd63 inherit pub_types_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classmpl_1_1communicator"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classmpl_1_1communicator')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classmpl_1_1communicator.html">mpl::communicator</a></td></tr>
 <tr class="memitem:a50914521a1d8098388a82acb57ab0651 inherit pro_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a50914521a1d8098388a82acb57ab0651">communicator</a> (MPI_Comm <a class="el" href="classmpl_1_1communicator.html#aef7792cddddaf15f10df108fd751a873">comm</a>)</td></tr>
 <tr class="separator:a50914521a1d8098388a82acb57ab0651 inherit pro_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -698,7 +727,36 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00018">18</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a738d3a01e51b093656ce313a580d3916"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a738d3a01e51b093656ce313a580d3916">&#9670;&nbsp;</a></span>periodicity</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916">mpl::cart_communicator::periodicity</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a738d3a01e51b093656ce313a580d3916ae6ffdec5e14fce371eb7ae99edebbbee"></a>periodic&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a738d3a01e51b093656ce313a580d3916a80933c2723c461b398409e7db92b107a"></a>nonperiodic&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00020">20</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afea087d4e96e8a2851618492c4864f61"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afea087d4e96e8a2851618492c4864f61">&#9670;&nbsp;</a></span>cart_communicator() <span class="overload">[1/4]</span></h2>
 
@@ -759,17 +817,17 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00050">50</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00088">88</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac3b7b3922cc591ee5cb83c2499f26698"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3b7b3922cc591ee5cb83c2499f26698">&#9670;&nbsp;</a></span>cart_communicator() <span class="overload">[3/4]</span></h2>
+<a id="adc666ff6ced0f11a798b8d0fd7c036d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc666ff6ced0f11a798b8d0fd7c036d1">&#9670;&nbsp;</a></span>cart_communicator() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -786,7 +844,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> &amp;&#160;</td>
           <td class="paramname"><em>remain_dims</em>&#160;</td>
         </tr>
         <tr>
@@ -797,12 +855,12 @@ Additional Inherited Members</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00056">56</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00094">94</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -830,13 +888,13 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00061">61</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00099">99</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6006ce8ab19be2eef94feeffa983f7a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6006ce8ab19be2eef94feeffa983f7a6">&#9670;&nbsp;</a></span>coords() <span class="overload">[1/2]</span></h2>
+<a id="a83658804fa83d47a0124fab5a3024839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83658804fa83d47a0124fab5a3024839">&#9670;&nbsp;</a></span>coords() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -845,7 +903,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;int&gt; mpl::cart_communicator::coords </td>
+          <td class="memname"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> mpl::cart_communicator::coords </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>rank</em></td><td>)</td>
@@ -859,12 +917,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00095">95</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00133">133</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac41424d7e9542df44739b94b2edc007f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac41424d7e9542df44739b94b2edc007f">&#9670;&nbsp;</a></span>coords() <span class="overload">[2/2]</span></h2>
+<a id="aaa3078efb0dafa85bad352cd1b2f5984"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa3078efb0dafa85bad352cd1b2f5984">&#9670;&nbsp;</a></span>coords() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -873,7 +931,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;int&gt; mpl::cart_communicator::coords </td>
+          <td class="memname"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> mpl::cart_communicator::coords </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -886,7 +944,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00101">101</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00139">139</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -913,12 +971,12 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00081">81</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00119">119</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a44e8b4f5071856a710957d5eeda6bffb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44e8b4f5071856a710957d5eeda6bffb">&#9670;&nbsp;</a></span>dims()</h2>
+<a id="a8cdb6ed3337c623a2b493503a6ff71c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cdb6ed3337c623a2b493503a6ff71c2">&#9670;&nbsp;</a></span>dims()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -927,7 +985,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::vector&lt;int&gt; mpl::cart_communicator::dims </td>
+          <td class="memname"><a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> mpl::cart_communicator::dims </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -940,7 +998,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00108">108</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00146">146</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -980,7 +1038,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00149">149</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00190">190</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1032,7 +1090,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00158">158</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00199">199</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1090,7 +1148,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00181">181</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00222">222</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1130,7 +1188,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00210">210</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00251">251</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1182,7 +1240,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00219">219</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00260">260</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1246,7 +1304,34 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00241">241</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00282">282</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab80dc688feadc27ad8015fc5ab214f32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab80dc688feadc27ad8015fc5ab214f32">&#9670;&nbsp;</a></span>is_periodic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1cart__communicator_1_1periodicities__type.html">periodicities_type</a> mpl::cart_communicator::is_periodic </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00153">153</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1286,7 +1371,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00133">133</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00174">174</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1338,7 +1423,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00140">140</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00181">181</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1396,7 +1481,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00170">170</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00211">211</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1521,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00194">194</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00235">235</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1488,7 +1573,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00201">201</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00242">242</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1552,7 +1637,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00231">231</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00272">272</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1582,8 +1667,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a19ef06c34156473a44408e4e6979d3cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19ef06c34156473a44408e4e6979d3cb">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+<a id="a0aad1a73add787551203c2e9b126c9a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aad1a73add787551203c2e9b126c9a0">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1601,44 +1686,17 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00068">68</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00106">106</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae72e93b1d9ddb809b770d28f4b1a84e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae72e93b1d9ddb809b770d28f4b1a84e9">&#9670;&nbsp;</a></span>periodic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;int&gt; mpl::cart_communicator::periodic </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00115">115</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a21fe156fe904409e1a8ed14604710a9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21fe156fe904409e1a8ed14604710a9b">&#9670;&nbsp;</a></span>rank()</h2>
+<a id="a04b1e63e70f02ed972b7e73025e2f1f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04b1e63e70f02ed972b7e73025e2f1f1">&#9670;&nbsp;</a></span>rank()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1649,8 +1707,8 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="memname">int mpl::cart_communicator::rank </td>
           <td>(</td>
-          <td class="paramtype">const std::vector&lt; int &gt; &amp;&#160;</td>
-          <td class="paramname"><em>coords</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1cart__communicator_1_1coords__type.html">coords_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -1661,7 +1719,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00089">89</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00127">127</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1699,7 +1757,56 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00122">122</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00163">163</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a66593fb012cd35f73105103b49b4f971"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66593fb012cd35f73105103b49b4f971">&#9670;&nbsp;</a></span>nonperiodic</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916">periodicity</a> mpl::cart_communicator::nonperiodic =periodicity::nonperiodic</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00024">24</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6fc6688d48bd8726b2db7918a0b7b387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc6688d48bd8726b2db7918a0b7b387">&#9670;&nbsp;</a></span>periodic</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916">periodicity</a> mpl::cart_communicator::periodic =periodicity::periodic</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cart__comm_8hpp_source.html#l00023">23</a> of file <a class="el" href="cart__comm_8hpp_source.html">cart_comm.hpp</a>.</p>
 
 </div>
 </div>

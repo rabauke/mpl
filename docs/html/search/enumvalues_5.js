@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unequal',['unequal',['../classmpl_1_1group.html#a78eb3d59b04c2e989ea52c60d39ffa69ab4f45c85d7e3269abe7f894d94bf0f29',1,'mpl::group::unequal()'],['../classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29',1,'mpl::communicator::unequal()']]]
+  ['periodic',['periodic',['../classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916ae6ffdec5e14fce371eb7ae99edebbbee',1,'mpl::cart_communicator']]]
 ];

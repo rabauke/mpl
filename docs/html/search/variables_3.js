@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['source',['source',['../structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b',1,'mpl::shift_ranks']]],
-  ['str',['str',['../classmpl_1_1error.html#a35708be4605961f112a904f979e5ff5c',1,'mpl::error']]]
+  ['nonperiodic',['nonperiodic',['../classmpl_1_1cart__communicator.html#a66593fb012cd35f73105103b49b4f971',1,'mpl::cart_communicator']]]
 ];

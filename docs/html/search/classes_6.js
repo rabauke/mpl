@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['incl',['incl',['../structmpl_1_1group_1_1incl.html',1,'mpl::group']]],
+  ['incl',['incl',['../classmpl_1_1group_1_1incl.html',1,'mpl::group']]],
   ['indexed_5fblock_5flayout',['indexed_block_layout',['../classmpl_1_1indexed__block__layout.html',1,'mpl']]],
   ['indexed_5flayout',['indexed_layout',['../classmpl_1_1indexed__layout.html',1,'mpl']]],
-  ['intersection',['intersection',['../structmpl_1_1group_1_1intersection.html',1,'mpl::group']]],
+  ['intersection',['intersection',['../classmpl_1_1group_1_1intersection.html',1,'mpl::group']]],
   ['invalid_5fdatatype_5fbound',['invalid_datatype_bound',['../classmpl_1_1invalid__datatype__bound.html',1,'mpl']]],
   ['invalid_5fdim',['invalid_dim',['../classmpl_1_1invalid__dim.html',1,'mpl']]],
   ['invalid_5flayout',['invalid_layout',['../classmpl_1_1invalid__layout.html',1,'mpl']]],

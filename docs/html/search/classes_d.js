@@ -1,7 +1,7 @@
 var searchData=
 [
   ['shift_5franks',['shift_ranks',['../structmpl_1_1shift__ranks.html',1,'mpl']]],
-  ['sizes',['sizes',['../classmpl_1_1local__grid_1_1sizes.html',1,'mpl::local_grid&lt; dim, T, A &gt;::sizes'],['../classmpl_1_1cart__communicator_1_1sizes.html',1,'mpl::cart_communicator::sizes'],['../classmpl_1_1distributed__grid_1_1sizes.html',1,'mpl::distributed_grid&lt; dim, T, A &gt;::sizes']]],
+  ['sizes',['sizes',['../classmpl_1_1cart__communicator_1_1sizes.html',1,'mpl::cart_communicator::sizes'],['../classmpl_1_1local__grid_1_1sizes.html',1,'mpl::local_grid&lt; dim, T, A &gt;::sizes'],['../classmpl_1_1distributed__grid_1_1sizes.html',1,'mpl::distributed_grid&lt; dim, T, A &gt;::sizes']]],
   ['split',['split',['../classmpl_1_1communicator_1_1split.html',1,'mpl::communicator']]],
   ['split_5fshared',['split_shared',['../classmpl_1_1communicator_1_1split__shared.html',1,'mpl::communicator']]],
   ['status',['status',['../classmpl_1_1status.html',1,'mpl']]],
