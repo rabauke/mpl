@@ -1,11 +1,6 @@
 #define BOOST_TEST_MODULE collective
 
 #include <boost/test/included/unit_test.hpp>
-#include <iostream>
-#include <vector>
-#include <iterator>
-#include <utility>
-#include <algorithm>
 #include <mpl/mpl.hpp>
 
 bool barrier_test() {

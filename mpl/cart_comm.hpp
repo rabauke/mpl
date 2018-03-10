@@ -12,24 +12,62 @@ namespace mpl {
   struct shift_ranks {
     int source, dest;
   };
-
+  
   //--------------------------------------------------------------------
 
   class cart_communicator : public communicator {
   public:
+    enum class periodicity {
+      periodic, nonperiodic
+    };
+    static constexpr periodicity periodic=periodicity::periodic;
+    static constexpr periodicity nonperiodic=periodicity::nonperiodic;
+
+    class coords_type : private std::vector<int> {
+      typedef std::vector<int> base;
+    public:
+      using value_type=typename base::value_type;
+      using size_type=typename base::size_type;
+      using base::base;
+      using base::size;
+      using base::begin;
+      using base::end;
+      using base::cbegin;
+      using base::cend;
+      using base::data;
+      using base::operator=;
+      using base::operator[];
+    };
+
+    class periodicities_type : private std::vector<periodicity> {
+      typedef std::vector<periodicity> base;
+    public:
+      using value_type=typename base::value_type;
+      using size_type=typename base::size_type;
+      using base::base;
+      using base::size;
+      using base::begin;
+      using base::end;
+      using base::cbegin;
+      using base::cend;
+      using base::data;
+      using base::operator=;
+      using base::operator[];
+    };
+
     class sizes {
       std::vector<int> dims_, periodic_;
     public:
       typedef std::vector<int>::size_type size_type;
 
-      sizes(std::initializer_list<std::pair<int, bool>> list) {
-        for (const std::pair<int, bool> &i : list)
+      sizes(std::initializer_list<std::pair<int, periodicity>> list) {
+        for (const auto &i : list)
           add(i.first, i.second);
       }
 
-      void add(int dim, bool p) {
+      void add(int dim, periodicity p) {
         dims_.push_back(dim);
-        periodic_.push_back(p);
+        periodic_.push_back(p==periodicity::periodic);
       }
 
       int dims(size_type i) const {
@@ -47,14 +85,14 @@ namespace mpl {
 
     cart_communicator()=default;
 
-    cart_communicator(const communicator &old_comm,
-                      const sizes &par,
-                      bool reorder=true) {
+    explicit cart_communicator(const communicator &old_comm,
+                               const sizes &par,
+                               bool reorder=true) {
       MPI_Cart_create(old_comm.comm, par.dims_.size(), par.dims_.data(), par.periodic_.data(), reorder, &comm);
     }
 
-    cart_communicator(const cart_communicator &old_comm,
-                      const std::vector<int> &remain_dims) {
+    explicit cart_communicator(const cart_communicator &old_comm,
+                               const coords_type &remain_dims) {
       MPI_Cart_sub(old_comm.comm, remain_dims.data(), &comm);
     }
 
@@ -86,37 +124,40 @@ namespace mpl {
 
     using communicator::rank;
 
-    int rank(const std::vector<int> &coords) const {
+    int rank(const coords_type &c) const {
       int rank_;
-      MPI_Cart_rank(comm, coords.data(), &rank_);
+      MPI_Cart_rank(comm, c.data(), &rank_);
       return rank_;
     }
 
-    std::vector<int> coords(int rank) const {
-      std::vector<int> coords_(dim());
+    coords_type coords(int rank) const {
+      coords_type coords_(dim());
       MPI_Cart_coords(comm, rank, coords_.size(), coords_.data());
       return coords_;
     }
 
-    std::vector<int> coords() const {
+    coords_type coords() const {
       int ndims(dim());
-      std::vector<int> dims_(ndims), periodic_(ndims), coords_(ndims);
+      coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
       MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
       return coords_;
     }
 
-    std::vector<int> dims() const {
+    coords_type dims() const {
       int ndims(dim());
-      std::vector<int> dims_(ndims), periodic_(ndims), coords_(ndims);
+      coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
       MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
       return dims_;
     }
 
-    std::vector<int> periodic() const {
+    periodicities_type is_periodic() const {
       int ndims(dim());
-      std::vector<int> dims_(ndims), periodic_(ndims), coords_(ndims);
+      coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
       MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
-      return periodic_;
+      periodicities_type periodic(ndims);
+      for (int i=0; i<ndims; ++i)
+        periodic[i]=periodic_[i] ? periodicity::periodic : periodicity::nonperiodic;
+      return periodic;
     }
 
     shift_ranks shift(int direction, int disp) const {
@@ -131,7 +172,7 @@ namespace mpl {
     // --- blocking neighbour allgather ---
     template<typename T>
     void neighbour_allgather(const T &senddata, T *recvdata) const {
-      MPI_Neighbor_allgather(*senddata, 1, datatype_traits<T>::get_datatype(),
+      MPI_Neighbor_allgather(&senddata, 1, datatype_traits<T>::get_datatype(),
                              recvdata, 1, datatype_traits<T>::get_datatype(),
                              comm);
     }

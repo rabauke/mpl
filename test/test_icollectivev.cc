@@ -1,11 +1,6 @@
 #define BOOST_TEST_MODULE icollectivev
 
 #include <boost/test/included/unit_test.hpp>
-#include <iostream>
-#include <vector>
-#include <iterator>
-#include <utility>
-#include <algorithm>
 #include <mpl/mpl.hpp>
 
 template<typename T>

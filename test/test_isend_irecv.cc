@@ -1,7 +1,6 @@
 #define BOOST_TEST_MODULE isend_irecv
 
 #include <boost/test/included/unit_test.hpp>
-#include <iostream>
 #include <limits>
 #include <cstddef>
 #include <complex>

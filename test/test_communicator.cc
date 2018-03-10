@@ -1,10 +1,6 @@
-#define BOOST_TEST_MODULE send_recv
+#define BOOST_TEST_MODULE communicator
 
 #include <boost/test/included/unit_test.hpp>
-#include <iostream>
-#include <limits>
-#include <cstddef>
-#include <complex>
 #include <mpl/mpl.hpp>
 
 bool communicator_comm_world_test() {

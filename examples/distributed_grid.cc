@@ -23,12 +23,12 @@ int main() {
   {
     // build a one-dimensional Cartesian communicator
     // Cartesian is non-cyclic
-    mpl::cart_communicator::sizes sizes({{0, false}});
+    mpl::cart_communicator::sizes sizes({{ 0, mpl::cart_communicator::nonperiodic }});
     mpl::cart_communicator comm_c(comm_world,
                                   mpl::dims_create(comm_world.size(), sizes));
     // create a distributed grid of 31 total grid points and 2 shadow grid points
     // to mirror data between adjacent processes
-    mpl::distributed_grid<1, int> G(comm_c, {{31, 2}});
+    mpl::distributed_grid<1, int> G(comm_c, {{ 31, 2 }});
     // fill local grid including shadow grid points
     for (auto i=G.obegin(0), i_end=G.oend(0); i<i_end; ++i)
       G(i)=comm_c.rank();
@@ -47,15 +47,15 @@ int main() {
   {
     // build a two-dimensional Cartesian communicator
     // Cartesian is cyclic along 1st dimension, non-cyclic along 2nd dimension
-    mpl::cart_communicator::sizes sizes({{0, true},
-                                         {0, false}});
+    mpl::cart_communicator::sizes sizes({{ 0, mpl::cart_communicator::periodic },
+                                         { 0, mpl::cart_communicator::nonperiodic }});
     mpl::cart_communicator comm_c(comm_world,
                                   mpl::dims_create(comm_world.size(), sizes));
     // create a distributed grid of 11x13 total grid points and 2 respectively 1
     // shadow grid points to mirror data between adjacent processes
     mpl::distributed_grid<2, int> G(comm_c,
-                                    {{11, 2},
-                                     {13, 1}});
+                                    {{ 11, 2 },
+                                     { 13, 1 }});
     // fill local grid including shadow grid points
     for (auto j=G.obegin(1), j_end=G.oend(1); j<j_end; ++j)
       for (auto i=G.obegin(0), i_end=G.oend(0); i<i_end; ++i)
