@@ -12,7 +12,7 @@ namespace mpl {
   struct shift_ranks {
     int source, dest;
   };
-  
+
   //--------------------------------------------------------------------
 
   class cart_communicator : public communicator {
@@ -93,6 +93,10 @@ namespace mpl {
 
     explicit cart_communicator(const cart_communicator &old_comm,
                                const coords_type &remain_dims) {
+#if defined MPL_DEBUG
+      if (remain_dims.size()!=old_comm.dim())
+        throw invalid_size();
+#endif
       MPI_Cart_sub(old_comm.comm, remain_dims.data(), &comm);
     }
 
