@@ -37,6 +37,11 @@ var files =
       [ "invalid_datatype_bound", "classmpl_1_1invalid__datatype__bound.html", "classmpl_1_1invalid__datatype__bound" ]
     ] ],
     [ "flat_memory.hpp", "flat__memory_8hpp.html", null ],
+    [ "graph_comm.hpp", "graph__comm_8hpp.html", [
+      [ "graph_communicator", "classmpl_1_1graph__communicator.html", "classmpl_1_1graph__communicator" ],
+      [ "edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", "classmpl_1_1graph__communicator_1_1edge__set" ],
+      [ "node_list", "classmpl_1_1graph__communicator_1_1node__list.html", "classmpl_1_1graph__communicator_1_1node__list" ]
+    ] ],
     [ "layout.hpp", "layout_8hpp.html", "layout_8hpp" ],
     [ "message.hpp", "message_8hpp.html", "message_8hpp" ],
     [ "mpl.hpp", "mpl_8hpp.html", "mpl_8hpp" ],

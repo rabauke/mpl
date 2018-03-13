@@ -187,6 +187,7 @@ var classmpl_1_1communicator =
     [ "ssend_init", "classmpl_1_1communicator.html#a2bd66598d7445b0a466253ccd2ab9e88", null ],
     [ "cart_communicator", "classmpl_1_1communicator.html#a329ae0a6f01aa19eb63db8958ea756ae", null ],
     [ "environment::detail::env", "classmpl_1_1communicator.html#a7c53dda9ff4a482df724cab0edf000b3", null ],
+    [ "graph_communicator", "classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d", null ],
     [ "group", "classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb", null ],
     [ "comm", "classmpl_1_1communicator.html#aef7792cddddaf15f10df108fd751a873", null ]
 ];

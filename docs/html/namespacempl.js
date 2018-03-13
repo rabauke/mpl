@@ -17,6 +17,7 @@ var namespacempl =
     [ "distributed_grid", "classmpl_1_1distributed__grid.html", "classmpl_1_1distributed__grid" ],
     [ "empty_layout", "classmpl_1_1empty__layout.html", "classmpl_1_1empty__layout" ],
     [ "error", "classmpl_1_1error.html", "classmpl_1_1error" ],
+    [ "graph_communicator", "classmpl_1_1graph__communicator.html", "classmpl_1_1graph__communicator" ],
     [ "group", "classmpl_1_1group.html", "classmpl_1_1group" ],
     [ "heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html", "classmpl_1_1heterogeneous__layout" ],
     [ "hindexed_block_layout", "classmpl_1_1hindexed__block__layout.html", "classmpl_1_1hindexed__block__layout" ],

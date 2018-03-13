@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['layout_2ehpp',['layout.hpp',['../layout_8hpp.html',1,'']]]
+  ['graph_5fcomm_2ehpp',['graph_comm.hpp',['../graph__comm_8hpp.html',1,'']]]
 ];

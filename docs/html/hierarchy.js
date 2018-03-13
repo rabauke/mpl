@@ -28,7 +28,8 @@ var hierarchy =
     [ "mpl::bsend_buffer< A >", "classmpl_1_1bsend__buffer.html", null ],
     [ "mpl::communicator::comm_collective", "classmpl_1_1communicator_1_1comm__collective.html", null ],
     [ "mpl::communicator", "classmpl_1_1communicator.html", [
-      [ "mpl::cart_communicator", "classmpl_1_1cart__communicator.html", null ]
+      [ "mpl::cart_communicator", "classmpl_1_1cart__communicator.html", null ],
+      [ "mpl::graph_communicator", "classmpl_1_1graph__communicator.html", null ]
     ] ],
     [ "mpl::datatype_traits< T >", "classmpl_1_1datatype__traits.html", null ],
     [ "mpl::datatype_traits< char16_t >", "classmpl_1_1datatype__traits_3_01char16__t_01_4.html", null ],
@@ -89,12 +90,12 @@ var hierarchy =
     [ "mpl::op_traits< multiplies< T > >", "structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html", null ],
     [ "mpl::op_traits< plus< T > >", "structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html", null ],
     [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
+    [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
     [ "mpl::indexed_block_layout< T >::parameter", "classmpl_1_1indexed__block__layout_1_1parameter.html", null ],
     [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
     [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
-    [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
-    [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
     [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
+    [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
     [ "mpl::detail::request< detail::irequest >", null, [
       [ "mpl::irequest", "classmpl_1_1irequest.html", null ]
@@ -107,6 +108,9 @@ var hierarchy =
     ] ],
     [ "mpl::detail::request_pool< prequest >", null, [
       [ "mpl::prequest_pool", "classmpl_1_1prequest__pool.html", null ]
+    ] ],
+    [ "set", null, [
+      [ "mpl::graph_communicator::edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", null ]
     ] ],
     [ "mpl::shift_ranks", "structmpl_1_1shift__ranks.html", null ],
     [ "mpl::cart_communicator::sizes", "classmpl_1_1cart__communicator_1_1sizes.html", null ],
@@ -130,6 +134,7 @@ var hierarchy =
       [ "mpl::cart_communicator::periodicities_type", "classmpl_1_1cart__communicator_1_1periodicities__type.html", null ],
       [ "mpl::contiguous_layouts< T >", "classmpl_1_1contiguous__layouts.html", null ],
       [ "mpl::displacements", "classmpl_1_1displacements.html", null ],
+      [ "mpl::graph_communicator::node_list", "classmpl_1_1graph__communicator_1_1node__list.html", null ],
       [ "mpl::layouts< T >", "classmpl_1_1layouts.html", null ],
       [ "mpl::ranks", "classmpl_1_1ranks.html", null ]
     ] ]

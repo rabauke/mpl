@@ -1,8 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1cart__communicator_1_1coords__type.html" title="mpl::cart_communicator\l::coords_type" alt="" coords="5,121,196,168"/>
+<area shape="rect" id="node1" href="$classmpl_1_1cart__communicator_1_1coords__type.html" title="mpl::cart_communicator\l::coords_type" alt="" coords="5,153,196,200"/>
 <area shape="rect" id="node2" href="$classmpl_1_1cart__communicator_1_1periodicities__type.html" title="mpl::cart_communicator\l::periodicities_type" alt="" coords="264,5,455,52"/>
 <area shape="rect" id="node3" href="$classmpl_1_1contiguous__layouts.html" title="mpl::contiguous_layouts\&lt; T \&gt;" alt="" coords="244,77,475,106"/>
 <area shape="rect" id="node4" href="$classmpl_1_1displacements.html" title="mpl::displacements" alt="" coords="280,130,439,159"/>
-<area shape="rect" id="node5" href="$classmpl_1_1layouts.html" title="mpl::layouts\&lt; T \&gt;" alt="" coords="288,183,431,213"/>
-<area shape="rect" id="node6" href="$classmpl_1_1ranks.html" title="mpl::ranks" alt="" coords="312,237,407,266"/>
+<area shape="rect" id="node5" href="$classmpl_1_1graph__communicator_1_1node__list.html" title="mpl::graph_communicator\l::node_list" alt="" coords="256,184,463,231"/>
+<area shape="rect" id="node6" href="$classmpl_1_1layouts.html" title="mpl::layouts\&lt; T \&gt;" alt="" coords="288,255,431,285"/>
+<area shape="rect" id="node7" href="$classmpl_1_1ranks.html" title="mpl::ranks" alt="" coords="312,309,407,338"/>
 </map>
