@@ -39,6 +39,7 @@ namespace mpl {
 #include <mpl/comm_group.hpp>
 #include <mpl/environment.hpp>
 #include <mpl/cart_comm.hpp>
+#include <mpl/graph_comm.hpp>
 #include <mpl/distributed_grid.hpp>
 
 #endif

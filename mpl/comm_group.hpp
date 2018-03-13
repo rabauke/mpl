@@ -15,6 +15,8 @@ namespace mpl {
 
   class cart_communicator;
 
+  class graph_communicator;
+
   namespace environment {
 
     namespace detail {
@@ -33,14 +35,19 @@ namespace mpl {
     enum class equality_type {
       ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL
     };
+
     class Union {
     };
+
     class intersection {
     };
+
     class difference {
     };
+
     class incl {
     };
+
     class excl {
     };
 
@@ -331,6 +338,8 @@ namespace mpl {
     friend class group;
 
     friend class cart_communicator;
+
+    friend class graph_communicator;
 
     friend class environment::detail::env;
 
