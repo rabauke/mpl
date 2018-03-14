@@ -166,9 +166,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae5b4c52e9fa99cacf73f2ed63850f62a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ae5b4c52e9fa99cacf73f2ed63850f62a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator.html#ae5b4c52e9fa99cacf73f2ed63850f62a">neighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;senddispls, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
 <tr class="separator:ae5b4c52e9fa99cacf73f2ed63850f62a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5490b590ada573cb0fbcb75fc2053329"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a5490b590ada573cb0fbcb75fc2053329"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator.html#a5490b590ada573cb0fbcb75fc2053329">neighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="separator:a5490b590ada573cb0fbcb75fc2053329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad18d97ea319a87999608d51621e6d6dd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ad18d97ea319a87999608d51621e6d6dd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator.html#ad18d97ea319a87999608d51621e6d6dd">ineighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;senddispls, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
 <tr class="separator:ad18d97ea319a87999608d51621e6d6dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42e78c72f64217cd1876074234d67144"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a42e78c72f64217cd1876074234d67144"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator.html#a42e78c72f64217cd1876074234d67144">ineighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="separator:a42e78c72f64217cd1876074234d67144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classmpl_1_1communicator"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classmpl_1_1communicator')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classmpl_1_1communicator.html">mpl::communicator</a></td></tr>
 <tr class="memitem:a40a1b555d411dff0fd51ce0f22903dc7 inherit pub_methods_classmpl_1_1communicator"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a40a1b555d411dff0fd51ce0f22903dc7">communicator</a> ()</td></tr>
 <tr class="separator:a40a1b555d411dff0fd51ce0f22903dc7 inherit pub_methods_classmpl_1_1communicator"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1043,7 +1049,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ad18d97ea319a87999608d51621e6d6dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad18d97ea319a87999608d51621e6d6dd">&#9670;&nbsp;</a></span>ineighbor_alltoallv()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad18d97ea319a87999608d51621e6d6dd">&#9670;&nbsp;</a></span>ineighbor_alltoallv() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1102,7 +1108,59 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="graph__comm_8hpp_source.html#l00226">226</a> of file <a class="el" href="graph__comm_8hpp_source.html">graph_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="graph__comm_8hpp_source.html#l00234">234</a> of file <a class="el" href="graph__comm_8hpp_source.html">graph_comm.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a42e78c72f64217cd1876074234d67144"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42e78c72f64217cd1876074234d67144">&#9670;&nbsp;</a></span>ineighbor_alltoallv() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::graph_communicator::ineighbor_alltoallv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__comm_8hpp_source.html#l00245">245</a> of file <a class="el" href="graph__comm_8hpp_source.html">graph_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -1349,7 +1407,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="ae5b4c52e9fa99cacf73f2ed63850f62a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5b4c52e9fa99cacf73f2ed63850f62a">&#9670;&nbsp;</a></span>neighbor_alltoallv()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5b4c52e9fa99cacf73f2ed63850f62a">&#9670;&nbsp;</a></span>neighbor_alltoallv() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1409,6 +1467,58 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="graph__comm_8hpp_source.html#l00216">216</a> of file <a class="el" href="graph__comm_8hpp_source.html">graph_comm.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5490b590ada573cb0fbcb75fc2053329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5490b590ada573cb0fbcb75fc2053329">&#9670;&nbsp;</a></span>neighbor_alltoallv() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::graph_communicator::neighbor_alltoallv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__comm_8hpp_source.html#l00225">225</a> of file <a class="el" href="graph__comm_8hpp_source.html">graph_comm.hpp</a>.</p>
 
 </div>
 </div>

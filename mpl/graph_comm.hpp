@@ -110,7 +110,7 @@ namespace mpl {
       return neighbors(rank());
     }
 
-    // === neighbor collective =========================================
+        // === neighbor collective =========================================
     // === neighbor allgather ===
     // === get a signle value from each neighbor and store in contiguous memory
     // --- blocking neighbor allgather ---
@@ -124,8 +124,8 @@ namespace mpl {
     template<typename T>
     void neighbor_allgather(const T *senddata, const layout <T> &sendl,
                             T *recvdata, const layout <T> &recvl) const {
-      MPI_Neighbor_allgather(senddata, 1, datatype_traits<layout<T >>::get_datatype(sendl),
-                             recvdata, 1, datatype_traits<layout<T >>::get_datatype(recvl),
+      MPI_Neighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+                             recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
                              comm);
     }
 
@@ -143,8 +143,8 @@ namespace mpl {
     irequest ineighbor_allgather(const T *senddata, const layout <T> &sendl,
                                  T *recvdata, const layout <T> &recvl) const {
       MPI_Request req;
-      MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T >>::get_datatype(sendl),
-                              recvdata, 1, datatype_traits<layout<T >>::get_datatype(recvl),
+      MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
+                              recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
                               comm, &req);
       return irequest(req);
     }
@@ -221,6 +221,14 @@ namespace mpl {
                              comm);
     }
 
+    template<typename T>
+    void neighbor_alltoallv(const T *senddata, const layouts <T> &sendl,
+                            T *recvdata, const layouts <T> &recvl) const {
+      displacements sendrecvdispls(size());
+      neighbor_alltoallv(senddata, sendl, sendrecvdispls,
+                         recvdata, recvl, sendrecvdispls);
+    }
+
     // --- non-blocking neighbor all-to-all ---
     template<typename T>
     irequest ineighbor_alltoallv(const T *senddata, const layouts <T> &sendl, const displacements &senddispls,
@@ -231,6 +239,14 @@ namespace mpl {
                               recvdata, counts.data(), recvdispls(), reinterpret_cast<const MPI_Datatype *>(recvl()),
                               comm, &req);
       return irequest(req);
+    }
+
+    template<typename T>
+    irequest ineighbor_alltoallv(const T *senddata, const layouts <T> &sendl,
+                                 T *recvdata, const layouts <T> &recvl) const {
+      displacements sendrecvdispls(size());
+      return ineighbor_alltoallv(senddata, sendl, sendrecvdispls,
+                                 recvdata, recvl, sendrecvdispls);
     }
   };
 

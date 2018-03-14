@@ -57,6 +57,26 @@ bool cart_communicator_test() {
     if (n11!=mpl::proc_null and y[3]!=n11+1.)
       return false;
   }
+  {
+    std::vector<double> x(4, rank+1.0);
+    std::vector<double> y(4, 0.0);
+    mpl::layouts<double> ls;
+    ls.push_back(mpl::indexed_layout<double>({{ 1, 0 }}));
+    ls.push_back(mpl::indexed_layout<double>({{ 1, 1 }}));
+    ls.push_back(mpl::indexed_layout<double>({{ 1, 2 }}));
+    ls.push_back(mpl::indexed_layout<double>({{ 1, 3 }}));
+    comm_c.neighbor_alltoallv(x.data(), ls, y.data(), ls);
+    auto[n00, n01]=comm_c.shift(0, 1);
+    auto[n10, n11]=comm_c.shift(1, 1);
+    if (n00!=mpl::proc_null and y[0]!=n00+1.)
+      return false;
+    if (n01!=mpl::proc_null and y[1]!=n01+1.)
+      return false;
+    if (n10!=mpl::proc_null and y[2]!=n10+1.)
+      return false;
+    if (n11!=mpl::proc_null and y[3]!=n11+1.)
+      return false;
+  }
   return true;
 }
 
