@@ -38,14 +38,14 @@ bool cart_communicator_test() {
   {
     double x=1;
     std::vector<double> y(4, 0.);
-    comm_c.neighbour_allgather(x, y.data());
+    comm_c.neighbor_allgather(x, y.data());
     if ((y[0]!=0 and y[0]!=1)or(y[1]!=0 and y[1]!=1)or(y[2]!=0 and y[2]!=1)or(y[3]!=0 and y[3]!=1))
       return false;
   }
   {
     std::vector<double> x(4, rank+1.0);
     std::vector<double> y(4, 0.0);
-    comm_c.neighbour_alltoall(x.data(), y.data());
+    comm_c.neighbor_alltoall(x.data(), y.data());
     auto[n00, n01]=comm_c.shift(0, 1);
     auto[n10, n11]=comm_c.shift(1, 1);
     if (n00!=mpl::proc_null and y[0]!=n00+1.)
