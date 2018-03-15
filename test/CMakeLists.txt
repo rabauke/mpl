@@ -20,6 +20,7 @@ include_directories("../")
 add_executable(test_communicator test_communicator.cc)
 add_executable(test_cart_communicator test_cart_communicator.cc)
 add_executable(test_graph_communicator test_graph_communicator.cc)
+add_executable(test_dist_graph_communicator test_dist_graph_communicator.cc)
 add_executable(test_send_recv test_send_recv.cc)
 set_property(TARGET test_send_recv PROPERTY CXX_STANDARD 17)
 add_executable(test_isend_irecv test_isend_irecv.cc)
@@ -48,6 +49,8 @@ add_custom_target(run_tests
         DEPENDS test_cart_communicator
         COMMAND mpiexec -n 16 ./test_graph_communicator
         DEPENDS test_graph_communicator
+        COMMAND mpiexec -n 16 ./test_dist_graph_communicator
+        DEPENDS test_dist_graph_communicator
         COMMAND mpiexec -n 8 ./test_send_recv
         DEPENDS test_send_recv
         COMMAND mpiexec -n 8 ./test_isend_irecv
