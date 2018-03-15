@@ -23,8 +23,7 @@ bool cart_communicator_test() {
   if (not(p[0]==mpl::cart_communicator::periodic and
           p[1]==mpl::cart_communicator::nonperiodic))
     return false;
-
-  auto[source, dest]=comm_c.shift(0, 1);
+  auto ranks{ comm_c.shift(0, 1) };
   ++coords[0];
   if (coords[0]>=dims[0])
     coords[0]=0;
@@ -33,7 +32,7 @@ bool cart_communicator_test() {
   if (coords[0]<0)
     coords[0]+=dims[0];
   int source1{ comm_c.rank(coords) };
-  if (not(source==source1 and dest==dest1))
+  if (not(ranks.source==source1 and ranks.dest==dest1))
     return false;
   {
     double x=1;
@@ -46,15 +45,15 @@ bool cart_communicator_test() {
     std::vector<double> x(4, rank+1.0);
     std::vector<double> y(4, 0.0);
     comm_c.neighbor_alltoall(x.data(), y.data());
-    auto[n00, n01]=comm_c.shift(0, 1);
-    auto[n10, n11]=comm_c.shift(1, 1);
-    if (n00!=mpl::proc_null and y[0]!=n00+1.)
+    auto ranks0{ comm_c.shift(0, 1) };
+    auto ranks1{ comm_c.shift(1, 1) };
+    if (ranks0.source!=mpl::proc_null and y[0]!=ranks0.source+1.)
       return false;
-    if (n01!=mpl::proc_null and y[1]!=n01+1.)
+    if (ranks0.dest!=mpl::proc_null and y[1]!=ranks0.dest+1.)
       return false;
-    if (n10!=mpl::proc_null and y[2]!=n10+1.)
+    if (ranks1.source!=mpl::proc_null and y[2]!=ranks1.source+1.)
       return false;
-    if (n11!=mpl::proc_null and y[3]!=n11+1.)
+    if (ranks1.dest!=mpl::proc_null and y[3]!=ranks1.dest+1.)
       return false;
   }
   {
@@ -66,15 +65,15 @@ bool cart_communicator_test() {
     ls.push_back(mpl::indexed_layout<double>({{ 1, 2 }}));
     ls.push_back(mpl::indexed_layout<double>({{ 1, 3 }}));
     comm_c.neighbor_alltoallv(x.data(), ls, y.data(), ls);
-    auto[n00, n01]=comm_c.shift(0, 1);
-    auto[n10, n11]=comm_c.shift(1, 1);
-    if (n00!=mpl::proc_null and y[0]!=n00+1.)
+    auto ranks0{ comm_c.shift(0, 1) };
+    auto ranks1{ comm_c.shift(1, 1) };
+    if (ranks0.source!=mpl::proc_null and y[0]!=ranks0.source+1.)
       return false;
-    if (n01!=mpl::proc_null and y[1]!=n01+1.)
+    if (ranks0.dest!=mpl::proc_null and y[1]!=ranks0.dest+1.)
       return false;
-    if (n10!=mpl::proc_null and y[2]!=n10+1.)
+    if (ranks1.source!=mpl::proc_null and y[2]!=ranks1.source+1.)
       return false;
-    if (n11!=mpl::proc_null and y[3]!=n11+1.)
+    if (ranks1.dest!=mpl::proc_null and y[3]!=ranks1.dest+1.)
       return false;
   }
   return true;
