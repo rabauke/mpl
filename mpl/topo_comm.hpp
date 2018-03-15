@@ -12,6 +12,10 @@ namespace mpl {
     class topo_communicator : public mpl::communicator {
     public:
 
+      topo_communicator()=default;
+
+      void operator=(const topo_communicator &)= delete;
+
       // === neighbor collective =========================================
       // === neighbor allgather ===
       // === get a signle value from each neighbor and store in contiguous memory
@@ -26,8 +30,8 @@ namespace mpl {
       template<typename T>
       void neighbor_allgather(const T *senddata, const layout <T> &sendl,
                               T *recvdata, const layout <T> &recvl) const {
-        MPI_Neighbor_allgather(senddata, 1, datatype_traits<layout<T >> ::get_datatype(sendl),
-                               recvdata, 1, datatype_traits<layout<T >> ::get_datatype(recvl),
+        MPI_Neighbor_allgather(senddata, 1, datatype_traits<layout<T >>::get_datatype(sendl),
+                               recvdata, 1, datatype_traits<layout<T >>::get_datatype(recvl),
                                comm);
       }
 
@@ -45,8 +49,8 @@ namespace mpl {
       irequest ineighbor_allgather(const T *senddata, const layout <T> &sendl,
                                    T *recvdata, const layout <T> &recvl) const {
         MPI_Request req;
-        MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T >> ::get_datatype(sendl),
-                                recvdata, 1, datatype_traits<layout<T >> ::get_datatype(recvl),
+        MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T >>::get_datatype(sendl),
+                                recvdata, 1, datatype_traits<layout<T >>::get_datatype(recvl),
                                 comm, &req);
         return irequest(req);
       }
@@ -58,7 +62,7 @@ namespace mpl {
                                T *recvdata, const layouts <T> &recvls, const displacements &recvdispls) const {
         int N(recvdispls.size());
         displacements senddispls(N);
-        layouts <T> sendls(N, sendl);
+        layouts<T> sendls(N, sendl);
         neighbor_alltoallv(senddata, sendls, senddispls,
                            recvdata, recvls, recvdispls);
       }
@@ -69,7 +73,7 @@ namespace mpl {
                                     T *recvdata, const layouts <T> &recvls, const displacements &recvdispls) const {
         int N(recvdispls.size());
         displacements senddispls(N);
-        layouts <T> sendls(N, sendl);
+        layouts<T> sendls(N, sendl);
         return ineighbor_alltoallv(senddata, sendls, senddispls,
                                    recvdata, recvls, recvdispls);
       }
