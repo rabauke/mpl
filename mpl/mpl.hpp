@@ -41,6 +41,7 @@ namespace mpl {
 #include <mpl/topo_comm.hpp>
 #include <mpl/cart_comm.hpp>
 #include <mpl/graph_comm.hpp>
+#include <mpl/dist_graph_comm.hpp>
 #include <mpl/distributed_grid.hpp>
 
 #endif

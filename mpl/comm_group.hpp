@@ -341,6 +341,8 @@ namespace mpl {
 
     friend class graph_communicator;
 
+    friend class dist_graph_communicator;
+
     friend class environment::detail::env;
 
     // === point to point ==============================================
