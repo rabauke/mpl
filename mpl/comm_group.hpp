@@ -891,8 +891,7 @@ namespace mpl {
       return s;
     }
 
-    // --- nonblocking probe ---
-    template<typename T>
+    // --- nonblocking probe ---    
     std::pair<bool, status> iprobe(int source, tag t=tag(0)) const {
       check_source(source);
       check_recv_tag(t);
