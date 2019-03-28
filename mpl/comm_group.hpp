@@ -30,7 +30,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class group {
-    MPI_Group gr;
+    MPI_Group gr{MPI_GROUP_EMPTY};
   public:
     enum class equality_type {
       ident=MPI_IDENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL
@@ -51,8 +51,7 @@ namespace mpl {
     class excl {
     };
 
-    group() : gr(MPI_GROUP_EMPTY) {
-    }
+    group() = default;
 
     explicit group(const communicator &comm);  // define later
     group(group &&other) noexcept {
@@ -141,7 +140,7 @@ namespace mpl {
 
   class communicator {
   protected:
-    MPI_Comm comm;
+    MPI_Comm comm{ MPI_COMM_NULL };
   public:
     enum class equality_type {
       ident=MPI_IDENT, congruent=MPI_CONGRUENT, similar=MPI_SIMILAR, unequal=MPI_UNEQUAL
@@ -232,8 +231,7 @@ namespace mpl {
     }
 
   public:
-    communicator() : comm(MPI_COMM_NULL) {
-    }
+    communicator() = default;
 
     communicator(const communicator &other) {
       MPI_Comm_dup(other.comm, &comm);

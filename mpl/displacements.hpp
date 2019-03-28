@@ -22,11 +22,9 @@ namespace mpl {
     displacements(std::initializer_list<MPI_Aint> init) : base(init) {
     }
 
-    displacements(const displacements &other) : base(other) {
-    }
+    displacements(const displacements &other) = default;
 
-    displacements(displacements &&other) noexcept : base(std::move(other)) {
-    }
+    displacements(displacements &&other) = default;
 
     using base::operator=;
     using base::begin;

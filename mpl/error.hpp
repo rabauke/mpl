@@ -15,7 +15,7 @@ namespace mpl {
 
     ~error() override=default;
 
-    virtual const char *what() const noexcept {
+    const char *what() const noexcept override {
       return str;
     }
   };

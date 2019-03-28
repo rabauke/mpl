@@ -236,7 +236,7 @@ namespace mpl {
           *i2=local_f(*i1, *i2);
       }
 
-      MPI_Op mpi_op;
+      MPI_Op mpi_op{MPI_OP_NULL};
     private:
       op() {
         MPI_Op_create(op::apply, is_commutative, &mpi_op);

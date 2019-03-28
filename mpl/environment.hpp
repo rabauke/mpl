@@ -25,7 +25,7 @@ namespace mpl {
         public:
           initializer() {
             int thread_mode;
-            MPI_Init_thread(0, 0, MPI_THREAD_MULTIPLE, &thread_mode);
+            MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode);
           }
 
           ~initializer() {

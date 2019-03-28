@@ -10,6 +10,7 @@
 #include <limits>
 #include <utility>
 #include <algorithm>
+#include <vector>
 
 namespace mpl {
 
