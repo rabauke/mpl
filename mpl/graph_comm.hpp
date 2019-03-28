@@ -55,12 +55,10 @@ namespace mpl {
       for (const auto &e : es)
         nodes=std::max({ nodes, e.first+1, e.second+1 });
       int node=0;
-      int degree=0;
       std::vector<int> edges, index(nodes, 0);
       for (const auto &e : es) {
         while (e.first>node) {
           ++node;
-          degree=0;
         }
         edges.push_back(e.second);
         index[e.first]+=1;
