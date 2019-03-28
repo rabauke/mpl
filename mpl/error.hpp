@@ -68,6 +68,14 @@ namespace mpl {
     ~invalid_datatype_bound() override=default;
   };
 
+  class invalid_argument : public error {
+  public:
+    invalid_argument() : error("invalid argument") {
+    }
+
+    ~invalid_argument() override=default;
+  };
+
 }
 
 #endif

@@ -49,6 +49,8 @@ add_custom_target(run_tests
         DEPENDS test_cart_communicator
         COMMAND mpiexec -n 16 ./test_graph_communicator
         DEPENDS test_graph_communicator
+        COMMAND mpiexec -n 4 ./test_graph_communicator
+        DEPENDS test_graph_communicator
         COMMAND mpiexec -n 16 ./test_dist_graph_communicator
         DEPENDS test_dist_graph_communicator
         COMMAND mpiexec -n 8 ./test_send_recv

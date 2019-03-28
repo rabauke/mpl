@@ -3,11 +3,9 @@
 #define MPL_GRAPH_COMM_HPP
 
 #include <mpi.h>
-#include <algorithm>
 #include <vector>
 #include <utility>
 #include <set>
-#include <tuple>
 #include <algorithm>
 #include <numeric>
 
@@ -16,7 +14,7 @@ namespace mpl {
   class graph_communicator : public detail::topo_communicator {
   public:
     class edge_set : private std::set<std::pair<int, int>> {
-      typedef std::set<std::pair<int, int>> base;
+      using base=std::set<std::pair<int, int>>;
     public:
       using value_type=typename base::value_type;
       using size_type=typename base::size_type;
@@ -31,7 +29,7 @@ namespace mpl {
     };
 
     class node_list : private std::vector<int> {
-      typedef std::vector<int> base;
+      using base=std::vector<int>;
     public:
       using value_type=typename base::value_type;
       using size_type=typename base::size_type;
@@ -52,18 +50,19 @@ namespace mpl {
                                 const edge_set &es,
                                 bool reorder=true) {
       int nodes=0;
-      for (const auto &e : es)
-        nodes=std::max({ nodes, e.first+1, e.second+1 });
-      int node=0;
-      int degree=0;
-      std::vector<int> edges, index(nodes, 0);
       for (const auto &e : es) {
-        while (e.first>node) {
-          ++node;
-          degree=0;
-        }
+#if defined MPL_DEBUG
+        if (e.first<0 or e.second<0)
+          throw invalid_argument();
+#endif
+        nodes=std::max({ nodes, e.first+1, e.second+1 });
+      }
+      std::vector<int> edges, index(nodes, 0);
+      edges.reserve(es.size());
+      // the following works because the edge set is ordered with respect to the pairs of edge-node numbers
+      for (const auto &e : es) {
         edges.push_back(e.second);
-        index[e.first]+=1;
+        ++index[e.first];
       }
       std::partial_sum(index.begin(), index.end(), index.begin());
       MPI_Graph_create(old_comm.comm, nodes, index.data(), edges.data(), reorder, &comm);
@@ -111,6 +110,15 @@ namespace mpl {
     }
 
   };
+
+
+  inline bool operator==(const graph_communicator::node_list &l1, const graph_communicator::node_list &l2) {
+    return l1.size()==l2.size() and std::equal(l1.begin(), l1.end(), l2.begin());
+  }
+
+  inline bool operator!=(const graph_communicator::node_list &l1, const graph_communicator::node_list &l2) {
+    return not(l1==l2);
+  }
 
 }
 
