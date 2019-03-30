@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1distributed__grid.html" title="mpl::distributed_grid\l\&lt; dim, T, A \&gt;" alt="" coords="5,5,172,52"/>
+<area shape="rect" id="node2" href="$classmpl_1_1dist__graph__communicator_1_1dest__set.html" title="mpl::dist_graph_communicator\l::dest_set" alt="" coords="96,5,336,52"/>
+<area shape="rect" id="node3" href="$classmpl_1_1dist__graph__communicator_1_1source__set.html" title="mpl::dist_graph_communicator\l::source_set" alt="" coords="96,76,336,123"/>
+<area shape="rect" id="node4" href="$classmpl_1_1graph__communicator_1_1edge__set.html" title="mpl::graph_communicator\l::edge_set" alt="" coords="113,147,319,193"/>
 </map>

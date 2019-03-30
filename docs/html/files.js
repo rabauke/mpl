@@ -18,6 +18,11 @@ var files =
     [ "displacements.hpp", "displacements_8hpp.html", [
       [ "displacements", "classmpl_1_1displacements.html", "classmpl_1_1displacements" ]
     ] ],
+    [ "dist_graph_comm.hpp", "dist__graph__comm_8hpp.html", [
+      [ "dist_graph_communicator", "classmpl_1_1dist__graph__communicator.html", "classmpl_1_1dist__graph__communicator" ],
+      [ "source_set", "classmpl_1_1dist__graph__communicator_1_1source__set.html", "classmpl_1_1dist__graph__communicator_1_1source__set" ],
+      [ "dest_set", "classmpl_1_1dist__graph__communicator_1_1dest__set.html", "classmpl_1_1dist__graph__communicator_1_1dest__set" ]
+    ] ],
     [ "distributed_grid.hpp", "distributed__grid_8hpp.html", [
       [ "distributed_grid", "classmpl_1_1distributed__grid.html", "classmpl_1_1distributed__grid" ],
       [ "local_grid", "classmpl_1_1local__grid.html", "classmpl_1_1local__grid" ],
@@ -34,14 +39,11 @@ var files =
       [ "invalid_size", "classmpl_1_1invalid__size.html", "classmpl_1_1invalid__size" ],
       [ "invalid_layout", "classmpl_1_1invalid__layout.html", "classmpl_1_1invalid__layout" ],
       [ "invalid_dim", "classmpl_1_1invalid__dim.html", "classmpl_1_1invalid__dim" ],
-      [ "invalid_datatype_bound", "classmpl_1_1invalid__datatype__bound.html", "classmpl_1_1invalid__datatype__bound" ]
+      [ "invalid_datatype_bound", "classmpl_1_1invalid__datatype__bound.html", "classmpl_1_1invalid__datatype__bound" ],
+      [ "invalid_argument", "classmpl_1_1invalid__argument.html", "classmpl_1_1invalid__argument" ]
     ] ],
     [ "flat_memory.hpp", "flat__memory_8hpp.html", null ],
-    [ "graph_comm.hpp", "graph__comm_8hpp.html", [
-      [ "graph_communicator", "classmpl_1_1graph__communicator.html", "classmpl_1_1graph__communicator" ],
-      [ "edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", "classmpl_1_1graph__communicator_1_1edge__set" ],
-      [ "node_list", "classmpl_1_1graph__communicator_1_1node__list.html", "classmpl_1_1graph__communicator_1_1node__list" ]
-    ] ],
+    [ "graph_comm.hpp", "graph__comm_8hpp.html", "graph__comm_8hpp" ],
     [ "layout.hpp", "layout_8hpp.html", "layout_8hpp" ],
     [ "message.hpp", "message_8hpp.html", "message_8hpp" ],
     [ "mpl.hpp", "mpl_8hpp.html", "mpl_8hpp" ],
@@ -81,5 +83,6 @@ var files =
       [ "status", "classmpl_1_1status.html", "classmpl_1_1status" ]
     ] ],
     [ "tag.hpp", "tag_8hpp.html", "tag_8hpp" ],
+    [ "topo_comm.hpp", "topo__comm_8hpp.html", null ],
     [ "utility.hpp", "utility_8hpp.html", null ]
 ];

@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1communicator.html" title="mpl::communicator" alt="" coords="5,32,161,61"/>
-<area shape="rect" id="node2" href="$classmpl_1_1cart__communicator.html" title="mpl::cart_communicator" alt="" coords="217,5,408,35"/>
-<area shape="rect" id="node3" href="$classmpl_1_1graph__communicator.html" title="mpl::graph_communicator" alt="" coords="209,59,416,88"/>
+<area shape="rect" id="node1" href="$classmpl_1_1communicator.html" title="mpl::communicator" alt="" coords="5,59,161,88"/>
+<area shape="rect" id="node3" href="$classmpl_1_1cart__communicator.html" title="mpl::cart_communicator" alt="" coords="525,5,715,35"/>
+<area shape="rect" id="node4" href="$classmpl_1_1dist__graph__communicator.html" title="mpl::dist_graph_communicator" alt="" coords="500,59,740,88"/>
+<area shape="rect" id="node5" href="$classmpl_1_1graph__communicator.html" title="mpl::graph_communicator" alt="" coords="517,112,723,141"/>
 </map>

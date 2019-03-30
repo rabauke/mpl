@@ -5,6 +5,7 @@ var searchData=
   ['_7ecommunicator',['~communicator',['../classmpl_1_1communicator.html#a47df48127ee7c1952d62832748b052cd',1,'mpl::communicator']]],
   ['_7eerror',['~error',['../classmpl_1_1error.html#ac9aacafacf84413ea01f255bc157c5d9',1,'mpl::error']]],
   ['_7egroup',['~group',['../classmpl_1_1group.html#a4bd2522d5cfecbd2c844e7bad1c0ae36',1,'mpl::group']]],
+  ['_7einvalid_5fargument',['~invalid_argument',['../classmpl_1_1invalid__argument.html#ac8e10b3a3a974fed9f294acc31b61c69',1,'mpl::invalid_argument']]],
   ['_7einvalid_5fdatatype_5fbound',['~invalid_datatype_bound',['../classmpl_1_1invalid__datatype__bound.html#ab0efe9ac75b328d005eedda8a08fec8c',1,'mpl::invalid_datatype_bound']]],
   ['_7einvalid_5fdim',['~invalid_dim',['../classmpl_1_1invalid__dim.html#aebfb2074b197dba3e57f02c210020cda',1,'mpl::invalid_dim']]],
   ['_7einvalid_5flayout',['~invalid_layout',['../classmpl_1_1invalid__layout.html#a1b7092311d0fd10fdede5bb3864e75a1',1,'mpl::invalid_layout']]],

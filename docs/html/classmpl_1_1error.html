@@ -94,12 +94,13 @@ Inheritance diagram for mpl::error:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1error__inherit__graph.png" border="0" usemap="#mpl_1_1error_inherit__map" alt="Inheritance graph"/></div>
 <map name="mpl_1_1error_inherit__map" id="mpl_1_1error_inherit__map">
-<area shape="rect" id="node3" href="classmpl_1_1invalid__datatype__bound.html" title="mpl::invalid_datatype\l_bound" alt="" coords="311,5,484,52"/>
-<area shape="rect" id="node4" href="classmpl_1_1invalid__dim.html" title="mpl::invalid_dim" alt="" coords="328,77,467,106"/>
-<area shape="rect" id="node5" href="classmpl_1_1invalid__layout.html" title="mpl::invalid_layout" alt="" coords="320,130,475,159"/>
-<area shape="rect" id="node6" href="classmpl_1_1invalid__rank.html" title="mpl::invalid_rank" alt="" coords="326,183,469,213"/>
-<area shape="rect" id="node7" href="classmpl_1_1invalid__size.html" title="mpl::invalid_size" alt="" coords="327,237,468,266"/>
-<area shape="rect" id="node8" href="classmpl_1_1invalid__tag.html" title="mpl::invalid_tag" alt="" coords="330,290,465,319"/>
+<area shape="rect" id="node3" href="classmpl_1_1invalid__argument.html" title="mpl::invalid_argument" alt="" coords="311,5,489,35"/>
+<area shape="rect" id="node4" href="classmpl_1_1invalid__datatype__bound.html" title="mpl::invalid_datatype\l_bound" alt="" coords="313,59,487,106"/>
+<area shape="rect" id="node5" href="classmpl_1_1invalid__dim.html" title="mpl::invalid_dim" alt="" coords="331,131,469,160"/>
+<area shape="rect" id="node6" href="classmpl_1_1invalid__layout.html" title="mpl::invalid_layout" alt="" coords="323,184,477,213"/>
+<area shape="rect" id="node7" href="classmpl_1_1invalid__rank.html" title="mpl::invalid_rank" alt="" coords="329,237,471,267"/>
+<area shape="rect" id="node8" href="classmpl_1_1invalid__size.html" title="mpl::invalid_size" alt="" coords="329,291,471,320"/>
+<area shape="rect" id="node9" href="classmpl_1_1invalid__tag.html" title="mpl::invalid_tag" alt="" coords="333,344,467,373"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -114,8 +115,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a63195dd370214a0afa3bd38b59ba7b37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9aacafacf84413ea01f255bc157c5d9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1error.html#ac9aacafacf84413ea01f255bc157c5d9">~error</a> () override=default</td></tr>
 <tr class="separator:ac9aacafacf84413ea01f255bc157c5d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab05fa031b76cc0ba2cd8a10dbb150428"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1error.html#ab05fa031b76cc0ba2cd8a10dbb150428">what</a> () const noexcept</td></tr>
-<tr class="separator:ab05fa031b76cc0ba2cd8a10dbb150428"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4cc150c83fc4fda0ec7f138fb9fe66"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1error.html#aba4cc150c83fc4fda0ec7f138fb9fe66">what</a> () const noexcept override</td></tr>
+<tr class="separator:aba4cc150c83fc4fda0ec7f138fb9fe66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -180,8 +181,8 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab05fa031b76cc0ba2cd8a10dbb150428"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab05fa031b76cc0ba2cd8a10dbb150428">&#9670;&nbsp;</a></span>what()</h2>
+<a id="aba4cc150c83fc4fda0ec7f138fb9fe66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4cc150c83fc4fda0ec7f138fb9fe66">&#9670;&nbsp;</a></span>what()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -190,7 +191,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual const char* mpl::error::what </td>
+          <td class="memname">const char* mpl::error::what </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -198,7 +199,7 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

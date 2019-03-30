@@ -1,8 +1,9 @@
 <map id="mpl::error" name="mpl::error">
-<area shape="rect" id="node3" href="$classmpl_1_1invalid__datatype__bound.html" title="mpl::invalid_datatype\l_bound" alt="" coords="311,5,484,52"/>
-<area shape="rect" id="node4" href="$classmpl_1_1invalid__dim.html" title="mpl::invalid_dim" alt="" coords="328,77,467,106"/>
-<area shape="rect" id="node5" href="$classmpl_1_1invalid__layout.html" title="mpl::invalid_layout" alt="" coords="320,130,475,159"/>
-<area shape="rect" id="node6" href="$classmpl_1_1invalid__rank.html" title="mpl::invalid_rank" alt="" coords="326,183,469,213"/>
-<area shape="rect" id="node7" href="$classmpl_1_1invalid__size.html" title="mpl::invalid_size" alt="" coords="327,237,468,266"/>
-<area shape="rect" id="node8" href="$classmpl_1_1invalid__tag.html" title="mpl::invalid_tag" alt="" coords="330,290,465,319"/>
+<area shape="rect" id="node3" href="$classmpl_1_1invalid__argument.html" title="mpl::invalid_argument" alt="" coords="311,5,489,35"/>
+<area shape="rect" id="node4" href="$classmpl_1_1invalid__datatype__bound.html" title="mpl::invalid_datatype\l_bound" alt="" coords="313,59,487,106"/>
+<area shape="rect" id="node5" href="$classmpl_1_1invalid__dim.html" title="mpl::invalid_dim" alt="" coords="331,131,469,160"/>
+<area shape="rect" id="node6" href="$classmpl_1_1invalid__layout.html" title="mpl::invalid_layout" alt="" coords="323,184,477,213"/>
+<area shape="rect" id="node7" href="$classmpl_1_1invalid__rank.html" title="mpl::invalid_rank" alt="" coords="329,237,471,267"/>
+<area shape="rect" id="node8" href="$classmpl_1_1invalid__size.html" title="mpl::invalid_size" alt="" coords="329,291,471,320"/>
+<area shape="rect" id="node9" href="$classmpl_1_1invalid__tag.html" title="mpl::invalid_tag" alt="" coords="333,344,467,373"/>
 </map>
