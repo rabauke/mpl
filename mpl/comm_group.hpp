@@ -973,22 +973,22 @@ namespace mpl {
         vector_layout<value_type1> l1(std::distance(begin1, end1));
         vector_layout<value_type2> l2(std::distance(begin2, end2));
         return sendrecv(&(*begin1), l1, dest, sendtag,
-                        &(*begin2), l2, dest, recvtag);
+                        &(*begin2), l2, source, recvtag);
       } else if (detail::is_contiguous_iterator<iterT1>::value) {
         vector_layout<value_type1> l1(std::distance(begin1, end1));
         iterator_layout<value_type2> l2(begin2, end2);
         return sendrecv(&(*begin1), l1, dest, sendtag,
-                        &(*begin2), l2, dest, recvtag);
+                        &(*begin2), l2, source, recvtag);
       } else if (detail::is_contiguous_iterator<iterT2>::value) {
         iterator_layout<value_type2> l1(begin1, end1);
         vector_layout<value_type2> l2(std::distance(begin2, end2));
         return sendrecv(&(*begin1), l1, dest, sendtag,
-                        &(*begin2), l2, dest, recvtag);
+                        &(*begin2), l2, source, recvtag);
       } else {
         iterator_layout<value_type1> l1(begin1, end1);
         iterator_layout<value_type2> l2(begin2, end2);
         return sendrecv(&(*begin1), l1, dest, sendtag,
-                        &(*begin2), l2, dest, recvtag);
+                        &(*begin2), l2, source, recvtag);
       }
     }
 
@@ -1032,11 +1032,11 @@ namespace mpl {
       if (detail::is_contiguous_iterator<iterT>::value) {
         vector_layout<value_type> l(std::distance(begin, end));
         return sendrecv_replace(&(*begin), l,
-                                dest, sendtag, dest, recvtag);
+                                dest, sendtag, source, recvtag);
       } else {
         iterator_layout<value_type> l(begin, end);
         return sendrecv_replace(&(*begin), l,
-                                dest, sendtag, dest, recvtag);
+                                dest, sendtag, source, recvtag);
       }
     }
 
