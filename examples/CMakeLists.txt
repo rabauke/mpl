@@ -49,3 +49,15 @@ target_link_libraries(vibrating_string_mpi m)
 add_executable(parallel_sort_mpl parallel_sort_mpl.cc)
 set_property(TARGET parallel_sort_mpl PROPERTY CXX_STANDARD 17)
 add_executable(parallel_sort_mpi parallel_sort_mpi.c)
+
+include(../cmake/PVS-Studio.cmake)
+pvs_studio_add_target(TARGET PVS-Studio_analyze ALL
+                      OUTPUT FORMAT errorfile
+                      RECURSIVE ANALYZE
+                      arrays blocking blocking_vector collective communicator distributed_grid
+                      distributed_grid_scatter_gather gather gatherv
+                      heat_equation_Jacobi_method heat_equation_successive_over-relaxation
+                      hello_world iterators layouts matrix_gather nonblocking nonblocking_mult probe reduce_lcm
+                      reduce_min_loc standard_types struct vibrating_string_mpi vibrating_string_mpl parallel_sort_mpl
+                      parallel_sort_mpi
+                      MODE GA:1,2,3 OP LOG target.err)

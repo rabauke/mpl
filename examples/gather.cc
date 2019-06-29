@@ -24,13 +24,11 @@ int main() {
     int root(0);
     int x(-(C_rank + 1));
     if (C_rank == root) {
-      std::vector<int> y(C_rank == root ? C_size : 0);
+      std::vector<int> y(C_size);
       comm_world.gather(root, x, y.data());
-      if (C_rank == root) {
-        for (int i = 0; i < C_size; ++i)
-          std::cout << y[i] << ' ';
-        std::cout << "\n";
-      }
+      for (int i = 0; i < C_size; ++i)
+        std::cout << y[i] << ' ';
+      std::cout << "\n";
     } else
       comm_world.gather(root, x);
   }

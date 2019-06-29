@@ -258,10 +258,9 @@ namespace mpl {
         auto coords = C.coords(i);
         typename subarray_layout<T>::parameter par;
         for (std::size_t j = dim - 1; true; --j) {
-          par.add(
-              gsize_[j],
-              gend(gsize_[j], C_size[j], coords[j]) - gbegin(gsize_[j], C_size[j], coords[j]),
-              gbegin(gsize_[j], C_size[j], coords[j]));
+          const auto begin = gbegin(gsize_[j], C_size[j], coords[j]);
+          const auto end = gend(gsize_[j], C_size[j], coords[j]);
+          par.add(gsize_[j], end - begin, begin);
           if (j == 0)
             break;
         }
