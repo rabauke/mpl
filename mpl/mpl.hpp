@@ -9,21 +9,21 @@
 
 namespace mpl {
 
-  static constexpr int any_source=MPI_ANY_SOURCE;
+  static constexpr int any_source = MPI_ANY_SOURCE;
 
-  static constexpr int proc_null=MPI_PROC_NULL;
+  static constexpr int proc_null = MPI_PROC_NULL;
 
-  static constexpr int undefined=MPI_UNDEFINED;
+  static constexpr int undefined = MPI_UNDEFINED;
 
-  static constexpr int root=MPI_ROOT;
+  static constexpr int root = MPI_ROOT;
 
-  static constexpr void *absolute=MPI_BOTTOM;
+  static constexpr void *absolute = MPI_BOTTOM;
 
-  static constexpr int bsend_overheadroot=MPI_BSEND_OVERHEAD;
+  static constexpr int bsend_overheadroot = MPI_BSEND_OVERHEAD;
 
   typedef std::size_t size_t;
 
-}
+}  // namespace mpl
 
 #include <mpl/error.hpp>
 #include <mpl/displacements.hpp>

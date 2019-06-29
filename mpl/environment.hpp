@@ -10,10 +10,10 @@
 namespace mpl {
 
   enum class threading_modes {
-    single=MPI_THREAD_SINGLE,
-    funneled=MPI_THREAD_FUNNELED,
-    serialized=MPI_THREAD_SERIALIZED,
-    multiple=MPI_THREAD_MULTIPLE
+    single = MPI_THREAD_SINGLE,
+    funneled = MPI_THREAD_FUNNELED,
+    serialized = MPI_THREAD_SERIALIZED,
+    multiple = MPI_THREAD_MULTIPLE
   };
 
   namespace environment {
@@ -22,27 +22,25 @@ namespace mpl {
 
       class env {
         class initializer {
-        public:
+         public:
           initializer() {
             int thread_mode;
             MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode);
           }
 
-          ~initializer() {
-            MPI_Finalize();
-          }
+          ~initializer() { MPI_Finalize(); }
         };
 
         initializer init;
         mpl::communicator comm_world_, comm_self_;
-      public:
-        env() :
-            init(), comm_world_(MPI_COMM_WORLD), comm_self_(MPI_COMM_SELF) {
+
+       public:
+        env() : init(), comm_world_(MPI_COMM_WORLD), comm_self_(MPI_COMM_SELF) {
           int size;
           MPI_Comm_size(MPI_COMM_WORLD, &size);
         }
 
-        env(const env &)=delete;
+        env(const env &) = delete;
 
         env &operator=(const env &) = delete;
 
@@ -82,13 +80,9 @@ namespace mpl {
           return *reinterpret_cast<int *>(p);
         }
 
-        const communicator &comm_world() const {
-          return comm_world_;
-        }
+        const communicator &comm_world() const { return comm_world_; }
 
-        const communicator &comm_self() const {
-          return comm_self_;
-        }
+        const communicator &comm_self() const { return comm_self_; }
 
         std::string processor_name() const {
           char name[MPI_MAX_PROCESSOR_NAME];
@@ -97,17 +91,11 @@ namespace mpl {
           return std::string(name);
         }
 
-        double wtime() const {
-          return MPI_Wtime();
-        }
+        double wtime() const { return MPI_Wtime(); }
 
-        double wtick() const {
-          return MPI_Wtick();
-        }
+        double wtick() const { return MPI_Wtick(); }
 
-        void buffer_attach(void *buff, int size) const {
-          MPI_Buffer_attach(buff, size);
-        }
+        void buffer_attach(void *buff, int size) const { MPI_Buffer_attach(buff, size); }
 
         std::pair<void *, int> buffer_detach() const {
           void *buff;
@@ -124,75 +112,55 @@ namespace mpl {
         return the_env;
       }
 
-    }
+    }  // namespace detail
 
     //------------------------------------------------------------------
 
-    inline threading_modes threading_mode() {
-      return detail::get_env().threading_mode();
-    }
+    inline threading_modes threading_mode() { return detail::get_env().threading_mode(); }
 
-    inline bool is_thread_main() {
-      return detail::get_env().is_thread_main();
-    }
+    inline bool is_thread_main() { return detail::get_env().is_thread_main(); }
 
-    inline bool wtime_is_global() {
-      return detail::get_env().wtime_is_global();
-    }
+    inline bool wtime_is_global() { return detail::get_env().wtime_is_global(); }
 
-    inline const communicator &comm_world() {
-      return detail::get_env().comm_world();
-    }
+    inline const communicator &comm_world() { return detail::get_env().comm_world(); }
 
-    inline const communicator &comm_self() {
-      return detail::get_env().comm_self();
-    }
+    inline const communicator &comm_self() { return detail::get_env().comm_self(); }
 
-    inline std::string processor_name() {
-      return detail::get_env().processor_name();
-    }
+    inline std::string processor_name() { return detail::get_env().processor_name(); }
 
-    inline double wtime() {
-      return detail::get_env().wtime();
-    }
+    inline double wtime() { return detail::get_env().wtime(); }
 
-    inline double wtick() {
-      return detail::get_env().wtick();
-    }
+    inline double wtick() { return detail::get_env().wtick(); }
 
     inline void buffer_attach(void *buff, int size) {
       return detail::get_env().buffer_attach(buff, size);
     }
 
-    inline std::pair<void *, int> buffer_detach() {
-      return detail::get_env().buffer_detach();
-    }
+    inline std::pair<void *, int> buffer_detach() { return detail::get_env().buffer_detach(); }
 
-  }
+  }  // namespace environment
 
   //--------------------------------------------------------------------
 
-  tag tag::up() {
-    return tag(environment::detail::get_env().tag_up());
-  }
+  tag tag::up() { return tag(environment::detail::get_env().tag_up()); }
 
-  tag tag::any() {
-    return tag(MPI_ANY_TAG);
-  }
+  tag tag::any() { return tag(MPI_ANY_TAG); }
 
   //--------------------------------------------------------------------
 
-  template<typename A=std::allocator<char>>
+  template<typename A = std::allocator<char>>
   class bsend_buffer {
     int size;
     A alloc;
     char *buff;
-  public:
+
+   public:
     explicit bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
 
-    explicit bsend_buffer(int size, A alloc) : size(size), alloc(alloc), buff(alloc.allocate(size)) {
+    explicit bsend_buffer(int size, A alloc)
+        : size(size), alloc(alloc), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
 
@@ -202,6 +170,6 @@ namespace mpl {
     }
   };
 
-}
+}  // namespace mpl
 
 #endif

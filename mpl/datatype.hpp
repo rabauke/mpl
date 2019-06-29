@@ -61,7 +61,8 @@ namespace mpl {
     std::vector<int> blocklengths;
     std::vector<MPI_Aint> displacements;
     std::vector<MPI_Datatype> datatypes;
-  public:
+
+   public:
     struct_layout &register_struct(const S &x) {
       MPI_Get_address(const_cast<S *>(&x), &base);
       return *this;
@@ -70,10 +71,10 @@ namespace mpl {
     template<typename T>
     struct_layout &register_element(T &x) {
       static_assert(not std::is_const<T>::value, "type must not be const");
-      blocklengths.push_back(sizeof(x)/size(x));
+      blocklengths.push_back(sizeof(x) / size(x));
       MPI_Aint address;
       MPI_Get_address(&x, &address);
-      displacements.push_back(address-base);
+      displacements.push_back(address - base);
       datatypes.push_back(get_datatype(x));
       return *this;
     }
@@ -84,7 +85,7 @@ namespace mpl {
       blocklengths.push_back(N);
       MPI_Aint address;
       MPI_Get_address(x, &address);
-      displacements.push_back(address-base);
+      displacements.push_back(address - base);
       datatypes.push_back(get_datatype(x));
       return *this;
     }
@@ -96,30 +97,27 @@ namespace mpl {
 
   template<typename T>
   class base_struct_builder {
-  private:
+   private:
     MPI_Datatype type;
-  public:
+
+   public:
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
-      MPI_Type_create_struct(str.blocklengths.size(),
-                             str.blocklengths.data(),
-                             str.displacements.data(),
-                             str.datatypes.data(), &temp_type);
+      MPI_Type_create_struct(str.blocklengths.size(), str.blocklengths.data(),
+                             str.displacements.data(), str.datatypes.data(), &temp_type);
       MPI_Type_commit(&temp_type);
       MPI_Type_create_resized(temp_type, 0, sizeof(T), &type);
       MPI_Type_commit(&type);
       MPI_Type_free(&temp_type);
     }
 
-    base_struct_builder()=default;
+    base_struct_builder() = default;
 
-    base_struct_builder(const base_struct_builder &)=delete;
+    base_struct_builder(const base_struct_builder &) = delete;
 
-    void operator=(const base_struct_builder &)= delete;
+    void operator=(const base_struct_builder &) = delete;
 
-    ~base_struct_builder() {
-      MPI_Type_free(&type);
-    }
+    ~base_struct_builder() { MPI_Type_free(&type); }
 
     friend class detail::datatype_traits_impl<T, void>;
   };
@@ -130,7 +128,8 @@ namespace mpl {
   class struct_builder<std::pair<T1, T2>> : public base_struct_builder<std::pair<T1, T2>> {
     typedef base_struct_builder<std::pair<T1, T2>> base;
     struct_layout<std::pair<T1, T2>> layout;
-  public:
+
+   public:
     struct_builder() {
       std::pair<T1, T2> pair;
       layout.register_struct(pair);
@@ -147,27 +146,25 @@ namespace mpl {
     template<typename F, typename T, std::size_t n>
     class apply_n {
       F &f;
-    public:
-      explicit apply_n(F &f) : f(f) {
-      }
+
+     public:
+      explicit apply_n(F &f) : f(f) {}
 
       void operator()(T &x) const {
-        apply_n<F, T, n-1> next(f);
+        apply_n<F, T, n - 1> next(f);
         next(x);
-        f(std::get<n-1>(x));
+        f(std::get<n - 1>(x));
       }
     };
 
     template<typename F, typename T>
     struct apply_n<F, T, 1> {
       F &f;
-    public:
-      explicit apply_n(F &f) : f(f) {
-      }
 
-      void operator()(T &x) const {
-        f(std::get<0>(x));
-      }
+     public:
+      explicit apply_n(F &f) : f(f) {}
+
+      void operator()(T &x) const { f(std::get<0>(x)); }
     };
 
     template<typename F, typename... Args>
@@ -179,9 +176,9 @@ namespace mpl {
     template<typename... Ts>
     class register_element {
       struct_layout<std::tuple<Ts...>> &layout;
-    public:
-      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {
-      }
+
+     public:
+      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {}
 
       template<typename T>
       void operator()(T &x) const {
@@ -189,13 +186,14 @@ namespace mpl {
       }
     };
 
-  }
+  }  // namespace detail
 
   template<typename... Ts>
   class struct_builder<std::tuple<Ts...>> : public base_struct_builder<std::tuple<Ts...>> {
     typedef base_struct_builder<std::tuple<Ts...>> base;
     struct_layout<std::tuple<Ts...>> layout;
-  public:
+
+   public:
     struct_builder() {
       std::tuple<Ts...> tuple;
       layout.register_struct(tuple);
@@ -212,7 +210,8 @@ namespace mpl {
   class struct_builder<T[N0]> : public base_struct_builder<T[N0]> {
     typedef base_struct_builder<T[N0]> base;
     struct_layout<T[N0]> layout;
-  public:
+
+   public:
     struct_builder() {
       T array[N0];
       layout.register_struct(array);
@@ -225,11 +224,12 @@ namespace mpl {
   class struct_builder<T[N0][N1]> : public base_struct_builder<T[N0][N1]> {
     typedef base_struct_builder<T[N0][N1]> base;
     struct_layout<T[N0][N1]> layout;
-  public:
+
+   public:
     struct_builder() {
       T array[N0][N1];
       layout.register_struct(array);
-      layout.register_vector(array, N0*N1);
+      layout.register_vector(array, N0 * N1);
       base::define_struct(layout);
     }
   };
@@ -238,11 +238,12 @@ namespace mpl {
   class struct_builder<T[N0][N1][N2]> : public base_struct_builder<T[N0][N1][N2]> {
     typedef base_struct_builder<T[N0][N1][N2]> base;
     struct_layout<T[N0][N1][N2]> layout;
-  public:
+
+   public:
     struct_builder() {
       T array[N0][N1][N2];
       layout.register_struct(array);
-      layout.register_vector(array, N0*N1*N2);
+      layout.register_vector(array, N0 * N1 * N2);
       base::define_struct(layout);
     }
   };
@@ -251,11 +252,12 @@ namespace mpl {
   class struct_builder<T[N0][N1][N2][N3]> : public base_struct_builder<T[N0][N1][N2][N3]> {
     typedef base_struct_builder<T[N0][N1][N2][N3]> base;
     struct_layout<T[N0][N1][N2][N3]> layout;
-  public:
+
+   public:
     struct_builder() {
       T array[N0][N1][N2][N3];
       layout.register_struct(array);
-      layout.register_vector(array, N0*N1*N2*N3);
+      layout.register_vector(array, N0 * N1 * N2 * N3);
       base::define_struct(layout);
     }
   };
@@ -266,7 +268,8 @@ namespace mpl {
   class struct_builder<std::array<T, N>> : public base_struct_builder<std::array<T, N>> {
     typedef base_struct_builder<std::array<T, N>> base;
     struct_layout<std::array<T, N>> layout;
-  public:
+
+   public:
     struct_builder() {
       std::array<T, N> array;
       layout.register_struct(array);
@@ -279,9 +282,9 @@ namespace mpl {
 
   namespace detail {
 
-    template<typename T, typename Enable=void>
+    template<typename T, typename Enable = void>
     class datatype_traits_impl {
-    public:
+     public:
       static MPI_Datatype get_datatype() {
         static struct_builder<T> builder;
         return builder.type;
@@ -290,7 +293,7 @@ namespace mpl {
 
     template<typename T>
     class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
-    public:
+     public:
       static MPI_Datatype get_datatype() {
         return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
       }
@@ -298,34 +301,32 @@ namespace mpl {
 
 #if defined MPL_HOMOGENEOUS
     template<typename T>
-    class datatype_traits_impl<T, typename std::enable_if<std::is_trivially_copyable<T>::value
-                                                          and std::is_copy_assignable<T>::value
-                                                          and not std::is_enum<T>::value
-                                                          and not std::is_array<T>::value>::type> {
-    public:
+    class datatype_traits_impl<
+        T, typename std::enable_if<
+               std::is_trivially_copyable<T>::value and std::is_copy_assignable<T>::value and
+               not std::is_enum<T>::value and not std::is_array<T>::value>::type> {
+     public:
       static MPI_Datatype get_datatype() {
         return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
       }
     };
 #endif
 
-  }
+  }  // namespace detail
 
   template<typename T>
   class datatype_traits {
-  public:
+   public:
     static MPI_Datatype get_datatype() {
       return detail::datatype_traits_impl<T>::get_datatype();
     }
   };
 
-#define MPL_DATATYPE_TRAITS(type, mpi_type)  \
-  template<>                                     \
-  class datatype_traits<type> {              \
-  public:                                    \
-    static MPI_Datatype get_datatype() {     \
-      return mpi_type;                             \
-    }                                             \
+#define MPL_DATATYPE_TRAITS(type, mpi_type)                 \
+  template<>                                                \
+  class datatype_traits<type> {                             \
+   public:                                                  \
+    static MPI_Datatype get_datatype() { return mpi_type; } \
   }
 
   MPL_DATATYPE_TRAITS(char, MPI_CHAR);
@@ -360,7 +361,7 @@ namespace mpl {
 
   MPL_DATATYPE_TRAITS(long double, MPI_LONG_DOUBLE);
 
-#if __cplusplus>=201703L
+#if __cplusplus >= 201703L
   MPL_DATATYPE_TRAITS(std::byte, MPI_BYTE);
 #endif
 
@@ -374,7 +375,7 @@ namespace mpl {
 
   template<>
   class datatype_traits<char16_t> {
-  public:
+   public:
     static MPI_Datatype get_datatype() {
       return datatype_traits<std::uint_least16_t>::get_datatype();
     }
@@ -382,15 +383,23 @@ namespace mpl {
 
   template<>
   class datatype_traits<char32_t> {
-  public:
+   public:
     static MPI_Datatype get_datatype() {
       return datatype_traits<std::uint_least32_t>::get_datatype();
     }
   };
 
-}
+}  // namespace mpl
 
-#define MPL_GET_NTH_ARG(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34, _35, _36, _37, _38, _39, _40, _41, _42, _43, _44, _45, _46, _47, _48, _49, _50, _51, _52, _53, _54, _55, _56, _57, _58, _59, _60, _61, _62, _63, _64, _65, _66, _67, _68, _69, _70, _71, _72, _73, _74, _75, _76, _77, _78, _79, _80, _81, _82, _83, _84, _85, _86, _87, _88, _89, _90, _91, _92, _93, _94, _95, _96, _97, _98, _99, _100, _101, _102, _103, _104, _105, _106, _107, _108, _109, _110, _111, _112, _113, _114, _115, _116, _117, _118, _119, N, ...) N
+#define MPL_GET_NTH_ARG(                                                                      \
+    _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15, _16, _17, _18, _19, \
+    _20, _21, _22, _23, _24, _25, _26, _27, _28, _29, _30, _31, _32, _33, _34, _35, _36, _37, \
+    _38, _39, _40, _41, _42, _43, _44, _45, _46, _47, _48, _49, _50, _51, _52, _53, _54, _55, \
+    _56, _57, _58, _59, _60, _61, _62, _63, _64, _65, _66, _67, _68, _69, _70, _71, _72, _73, \
+    _74, _75, _76, _77, _78, _79, _80, _81, _82, _83, _84, _85, _86, _87, _88, _89, _90, _91, \
+    _92, _93, _94, _95, _96, _97, _98, _99, _100, _101, _102, _103, _104, _105, _106, _107,   \
+    _108, _109, _110, _111, _112, _113, _114, _115, _116, _117, _118, _119, N, ...)           \
+  N
 
 #define MPL_FE_0(MPL_CALL, ...)
 #define MPL_FE_1(MPL_CALL, x) MPL_CALL(x)
@@ -512,24 +521,42 @@ namespace mpl {
 #define MPL_FE_117(MPL_CALL, x, ...) MPL_CALL(x) MPL_FE_116(MPL_CALL, __VA_ARGS__)
 #define MPL_FE_118(MPL_CALL, x, ...) MPL_CALL(x) MPL_FE_117(MPL_CALL, __VA_ARGS__)
 #define MPL_FE_119(MPL_CALL, x, ...) MPL_CALL(x) MPL_FE_118(MPL_CALL, __VA_ARGS__)
-#define MPL_CALL_MACRO_X_FOR_EACH(x, ...) \
-  MPL_GET_NTH_ARG("ignored", ##__VA_ARGS__, MPL_FE_119, MPL_FE_118, MPL_FE_117, MPL_FE_116, MPL_FE_115, MPL_FE_114, MPL_FE_113, MPL_FE_112, MPL_FE_111, MPL_FE_110, MPL_FE_109, MPL_FE_108, MPL_FE_107, MPL_FE_106, MPL_FE_105, MPL_FE_104, MPL_FE_103, MPL_FE_102, MPL_FE_101, MPL_FE_100, MPL_FE_99, MPL_FE_98, MPL_FE_97, MPL_FE_96, MPL_FE_95, MPL_FE_94, MPL_FE_93, MPL_FE_92, MPL_FE_91, MPL_FE_90, MPL_FE_89, MPL_FE_88, MPL_FE_87, MPL_FE_86, MPL_FE_85, MPL_FE_84, MPL_FE_83, MPL_FE_82, MPL_FE_81, MPL_FE_80, MPL_FE_79, MPL_FE_78, MPL_FE_77, MPL_FE_76, MPL_FE_75, MPL_FE_74, MPL_FE_73, MPL_FE_72, MPL_FE_71, MPL_FE_70, MPL_FE_69, MPL_FE_68, MPL_FE_67, MPL_FE_66, MPL_FE_65, MPL_FE_64, MPL_FE_63, MPL_FE_62, MPL_FE_61, MPL_FE_60, MPL_FE_59, MPL_FE_58, MPL_FE_57, MPL_FE_56, MPL_FE_55, MPL_FE_54, MPL_FE_53, MPL_FE_52, MPL_FE_51, MPL_FE_50, MPL_FE_49, MPL_FE_48, MPL_FE_47, MPL_FE_46, MPL_FE_45, MPL_FE_44, MPL_FE_43, MPL_FE_42, MPL_FE_41, MPL_FE_40, MPL_FE_39, MPL_FE_38, MPL_FE_37, MPL_FE_36, MPL_FE_35, MPL_FE_34, MPL_FE_33, MPL_FE_32, MPL_FE_31, MPL_FE_30, MPL_FE_29, MPL_FE_28, MPL_FE_27, MPL_FE_26, MPL_FE_25, MPL_FE_24, MPL_FE_23, MPL_FE_22, MPL_FE_21, MPL_FE_20, MPL_FE_19, MPL_FE_18, MPL_FE_17, MPL_FE_16, MPL_FE_15, MPL_FE_14, MPL_FE_13, MPL_FE_12, MPL_FE_11, MPL_FE_10, MPL_FE_9, MPL_FE_8, MPL_FE_7, MPL_FE_6, MPL_FE_5, MPL_FE_4, MPL_FE_3, MPL_FE_2, MPL_FE_1, MPL_FE_0)(x, ##__VA_ARGS__)
+#define MPL_CALL_MACRO_X_FOR_EACH(x, ...)                                                      \
+  MPL_GET_NTH_ARG(                                                                             \
+      "ignored", ##__VA_ARGS__, MPL_FE_119, MPL_FE_118, MPL_FE_117, MPL_FE_116, MPL_FE_115,    \
+      MPL_FE_114, MPL_FE_113, MPL_FE_112, MPL_FE_111, MPL_FE_110, MPL_FE_109, MPL_FE_108,      \
+      MPL_FE_107, MPL_FE_106, MPL_FE_105, MPL_FE_104, MPL_FE_103, MPL_FE_102, MPL_FE_101,      \
+      MPL_FE_100, MPL_FE_99, MPL_FE_98, MPL_FE_97, MPL_FE_96, MPL_FE_95, MPL_FE_94, MPL_FE_93, \
+      MPL_FE_92, MPL_FE_91, MPL_FE_90, MPL_FE_89, MPL_FE_88, MPL_FE_87, MPL_FE_86, MPL_FE_85,  \
+      MPL_FE_84, MPL_FE_83, MPL_FE_82, MPL_FE_81, MPL_FE_80, MPL_FE_79, MPL_FE_78, MPL_FE_77,  \
+      MPL_FE_76, MPL_FE_75, MPL_FE_74, MPL_FE_73, MPL_FE_72, MPL_FE_71, MPL_FE_70, MPL_FE_69,  \
+      MPL_FE_68, MPL_FE_67, MPL_FE_66, MPL_FE_65, MPL_FE_64, MPL_FE_63, MPL_FE_62, MPL_FE_61,  \
+      MPL_FE_60, MPL_FE_59, MPL_FE_58, MPL_FE_57, MPL_FE_56, MPL_FE_55, MPL_FE_54, MPL_FE_53,  \
+      MPL_FE_52, MPL_FE_51, MPL_FE_50, MPL_FE_49, MPL_FE_48, MPL_FE_47, MPL_FE_46, MPL_FE_45,  \
+      MPL_FE_44, MPL_FE_43, MPL_FE_42, MPL_FE_41, MPL_FE_40, MPL_FE_39, MPL_FE_38, MPL_FE_37,  \
+      MPL_FE_36, MPL_FE_35, MPL_FE_34, MPL_FE_33, MPL_FE_32, MPL_FE_31, MPL_FE_30, MPL_FE_29,  \
+      MPL_FE_28, MPL_FE_27, MPL_FE_26, MPL_FE_25, MPL_FE_24, MPL_FE_23, MPL_FE_22, MPL_FE_21,  \
+      MPL_FE_20, MPL_FE_19, MPL_FE_18, MPL_FE_17, MPL_FE_16, MPL_FE_15, MPL_FE_14, MPL_FE_13,  \
+      MPL_FE_12, MPL_FE_11, MPL_FE_10, MPL_FE_9, MPL_FE_8, MPL_FE_7, MPL_FE_6, MPL_FE_5,       \
+      MPL_FE_4, MPL_FE_3, MPL_FE_2, MPL_FE_1, MPL_FE_0)                                        \
+  (x, ##__VA_ARGS__)
 
 #define MPL_REGISTER(element) layout.register_element(str.element);
 
-#define MPL_REFLECTION(STRUCT, ...) \
-namespace mpl { \
-  template<> \
-  class struct_builder< STRUCT > : public base_struct_builder< STRUCT > { \
-    struct_layout< STRUCT > layout; \
-  public: \
-    struct_builder() { \
-      STRUCT str; \
-      layout.register_struct(str); \
-      MPL_CALL_MACRO_X_FOR_EACH(MPL_REGISTER, __VA_ARGS__) \
-      define_struct(layout); \
-    } \
-  }; \
-}
+#define MPL_REFLECTION(STRUCT, ...)                                     \
+  namespace mpl {                                                       \
+    template<>                                                          \
+    class struct_builder<STRUCT> : public base_struct_builder<STRUCT> { \
+      struct_layout<STRUCT> layout;                                     \
+                                                                        \
+     public:                                                            \
+      struct_builder() {                                                \
+        STRUCT str;                                                     \
+        layout.register_struct(str);                                    \
+        MPL_CALL_MACRO_X_FOR_EACH(MPL_REGISTER, __VA_ARGS__)            \
+        define_struct(layout);                                          \
+      }                                                                 \
+    };                                                                  \
+  }
 
 #endif

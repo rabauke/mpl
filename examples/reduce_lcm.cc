@@ -10,45 +10,47 @@ template<typename T>
 class lcm {
   // helper: calculate greatest common divisor
   T gcd(T a, T b) {
-    T zero=T(), t;
-    if (a<zero) a=-a;
-    if (b<zero) b=-b;
-    while (b>zero) {
-      t=a%b;
-      a=b;
-      b=t;
+    T zero = T(), t;
+    if (a < zero)
+      a = -a;
+    if (b < zero)
+      b = -b;
+    while (b > zero) {
+      t = a % b;
+      a = b;
+      b = t;
     }
     return a;
   }
 
-public:
+ public:
   T operator()(T a, T b) {
-    T zero=T();
-    T t((a/gcd(a, b))*b);
-    if (t<zero)
+    T zero = T();
+    T t((a / gcd(a, b)) * b);
+    if (t < zero)
       return -t;
     return t;
   }
 };
 
 int main() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   // generate data
-  std::srand(std::time(0)*comm_world.rank());  // random seed
-  const int n=8;
+  std::srand(std::time(0) * comm_world.rank());  // random seed
+  const int n = 8;
   // populate vector with random data
   std::vector<int> v(n);
-  std::generate(v.begin(), v.end(), []() -> int { return std::rand()%12+1; });
+  std::generate(v.begin(), v.end(), []() -> int { return std::rand() % 12 + 1; });
   // calculate the least common multiple and send result to rank 0
   mpl::contiguous_layout<int> layout(n);
-  if (comm_world.rank()==0) {
+  if (comm_world.rank() == 0) {
     std::vector<int> result(n);
     // calculate least common multiple
     comm_world.reduce(lcm<int>(), 0, v.data(), result.data(), layout);
     // to check the result display data from all ranks
     std::cout << "Arguments:\n";
-    for (int r=0; r<comm_world.size(); ++r) {
-      if (r>0)
+    for (int r = 0; r < comm_world.size(); ++r) {
+      if (r > 0)
         comm_world.recv(v.data(), layout, r);
       for (auto i : v)
         std::cout << i << '\t';

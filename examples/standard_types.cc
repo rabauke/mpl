@@ -15,13 +15,12 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
 
 // helper function for printing all elements of a tuple/ an array
 template<typename ch, typename tr, typename tuple, std::size_t... is>
-void print_tuple_impl(std::basic_ostream<ch, tr> &out,
-                      const tuple &t,
+void print_tuple_impl(std::basic_ostream<ch, tr> &out, const tuple &t,
                       std::index_sequence<is...> is_) {
-  auto print_element=[&](auto i, auto a) -> void {
-    out << a << (i+1<is_.size() ? "," : "");
+  auto print_element = [&](auto i, auto a) -> void {
+    out << a << (i + 1 < is_.size() ? "," : "");
   };
-  std::initializer_list<int> {(print_element(is, std::get<is>(t)), 0)...};
+  std::initializer_list<int>{(print_element(is, std::get<is>(t)), 0)...};
 }
 
 // print all elements of a tuple
@@ -42,11 +41,10 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   return out << ')';
 }
 
-#if __cplusplus>=201703L
+#if __cplusplus >= 201703L
 // print a byte
 template<typename ch, typename tr>
-std::basic_ostream<ch, tr> & operator<<(std::basic_ostream<ch, tr>& out,
-                                        const std::byte &t) {
+std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out, const std::byte &t) {
   return out << std::to_integer<int>(t);
 }
 #endif
@@ -66,41 +64,41 @@ void recv(const mpl::communicator &comm) {
 }
 
 int main() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   // run the program with two or more processes
-  if (comm_world.size()<2)
+  if (comm_world.size() < 2)
     comm_world.abort(EXIT_FAILURE);
   // process 0 sends
-  if (comm_world.rank()==0) {
-    char t1='A';
+  if (comm_world.rank() == 0) {
+    char t1 = 'A';
     send(comm_world, t1);
-    signed char t2='B';
+    signed char t2 = 'B';
     send(comm_world, t2);
-    unsigned char t3='C';
+    unsigned char t3 = 'C';
     send(comm_world, t3);
-    signed short int t4=-1;
+    signed short int t4 = -1;
     send(comm_world, t4);
-    unsigned short int t5=1;
+    unsigned short int t5 = 1;
     send(comm_world, t5);
-    signed int t6=-10;
+    signed int t6 = -10;
     send(comm_world, t6);
-    unsigned int t7=10;
+    unsigned int t7 = 10;
     send(comm_world, t7);
-    signed long int t8=-100;
+    signed long int t8 = -100;
     send(comm_world, t8);
-    unsigned long int t9=100;
+    unsigned long int t9 = 100;
     send(comm_world, t9);
-    signed long long int t10=-1000;
+    signed long long int t10 = -1000;
     send(comm_world, t10);
-    unsigned long long int t11=1000;
+    unsigned long long int t11 = 1000;
     send(comm_world, t11);
-    bool t12=true;
+    bool t12 = true;
     send(comm_world, t12);
-    float t13=1.2345;
+    float t13 = 1.2345;
     send(comm_world, t13);
-    double t14=2.3456;
+    double t14 = 2.3456;
     send(comm_world, t14);
-    long double t15=3.4567;
+    long double t15 = 3.4567;
     send(comm_world, t15);
     std::complex<float> t16(1.2, -1.2);
     send(comm_world, t16);
@@ -114,12 +112,13 @@ int main() {
     send(comm_world, t20);
     std::array<int, 4> t21{1, 2, 3, 4};
     send(comm_world, t21);
-#if __cplusplus>=201703L
-    std::byte t22{255};                        send(comm_world, t22);
+#if __cplusplus >= 201703L
+    std::byte t22{255};
+    send(comm_world, t22);
 #endif
   }
   // process 1 recieves
-  if (comm_world.rank()==1) {
+  if (comm_world.rank() == 1) {
     recv<char>(comm_world);
     recv<signed char>(comm_world);
     recv<unsigned char>(comm_world);
@@ -141,7 +140,7 @@ int main() {
     recv<std::pair<int, double>>(comm_world);
     recv<std::tuple<int, std::complex<double>>>(comm_world);
     recv<std::array<int, 4>>(comm_world);
-#if __cplusplus>=201703L
+#if __cplusplus >= 201703L
     recv<std::byte>(comm_world);
 #endif
   }

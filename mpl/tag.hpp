@@ -9,10 +9,11 @@
 namespace mpl {
 
   class tag {
-  private:
-    int t=0;
-  public:
-    tag()=default;
+   private:
+    int t = 0;
+
+   public:
+    tag() = default;
 
     template<typename T>
     tag(T t) : t(static_cast<int>(t)) {
@@ -20,12 +21,9 @@ namespace mpl {
                     "not an enumeration type or underlying enumeration type too large");
     }
 
-    explicit tag(int t) : t(t) {
-    }
+    explicit tag(int t) : t(t) {}
 
-    explicit operator int() const {
-      return t;
-    }
+    explicit operator int() const { return t; }
 
     static inline tag up();
 
@@ -33,11 +31,11 @@ namespace mpl {
   };
 
   inline bool operator==(tag t1, tag t2) {
-    return static_cast<int>(t1)==static_cast<int>(t2);
+    return static_cast<int>(t1) == static_cast<int>(t2);
   }
 
   inline bool operator!=(tag t1, tag t2) {
-    return static_cast<int>(t1)!=static_cast<int>(t2);
+    return static_cast<int>(t1) != static_cast<int>(t2);
   }
 
   template<typename CharT, typename Traits>
@@ -50,10 +48,10 @@ namespace mpl {
     int t_;
     is >> t_;
     if (is)
-      t=tag(t_);
+      t = tag(t_);
     return is;
   }
 
-}
+}  // namespace mpl
 
 #endif

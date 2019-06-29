@@ -9,11 +9,11 @@ int main() {
   // gather a single int from all ranks to rank root=0
   {
     int root(0);
-    int x(C_rank+1);
-    std::vector<int> y(C_rank==root ? C_size : 0);
+    int x(C_rank + 1);
+    std::vector<int> y(C_rank == root ? C_size : 0);
     comm_world.gather(root, x, y.data());
-    if (C_rank==root) {
-      for (int i=0; i<C_size; ++i)
+    if (C_rank == root) {
+      for (int i = 0; i < C_size; ++i)
         std::cout << y[i] << ' ';
       std::cout << "\n";
     }
@@ -22,12 +22,12 @@ int main() {
   // root and non-root rank use different function overloads of gather
   {
     int root(0);
-    int x(-(C_rank+1));
-    if (C_rank==root) {
-      std::vector<int> y(C_rank==root ? C_size : 0);
+    int x(-(C_rank + 1));
+    if (C_rank == root) {
+      std::vector<int> y(C_rank == root ? C_size : 0);
       comm_world.gather(root, x, y.data());
-      if (C_rank==root) {
-        for (int i=0; i<C_size; ++i)
+      if (C_rank == root) {
+        for (int i = 0; i < C_size; ++i)
           std::cout << y[i] << ' ';
         std::cout << "\n";
       }
@@ -36,13 +36,13 @@ int main() {
   }
   // gather several ints from all ranks to rank root=0
   {
-    int root(0), n=3;
-    std::vector<int> x(n, C_rank+1);
-    std::vector<int> y(C_rank==root ? n*C_size : 0);
+    int root(0), n = 3;
+    std::vector<int> x(n, C_rank + 1);
+    std::vector<int> y(C_rank == root ? n * C_size : 0);
     mpl::contiguous_layout<int> l(n);
     comm_world.gather(root, x.data(), l, y.data(), l);
-    if (C_rank==root) {
-      for (int i=0; i<C_size*n; ++i)
+    if (C_rank == root) {
+      for (int i = 0; i < C_size * n; ++i)
         std::cout << y[i] << ' ';
       std::cout << "\n";
     }

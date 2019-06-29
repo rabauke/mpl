@@ -10,26 +10,26 @@
 typedef std::pair<double, int> pair_t;
 
 int main() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   // generate data
-  std::srand(std::time(0)*comm_world.rank());  // random seed
-  const int n=8;
+  std::srand(std::time(0) * comm_world.rank());  // random seed
+  const int n = 8;
   // populate vector with random data
   std::vector<pair_t> v(n);
   std::generate(v.begin(), v.end(), [&]() {
-    return std::make_pair(static_cast<double>(std::rand())/RAND_MAX, comm_world.rank());
+    return std::make_pair(static_cast<double>(std::rand()) / RAND_MAX, comm_world.rank());
   });
   // calculate minium and its location and send result to rank root
-  int root=0;
+  int root = 0;
   mpl::contiguous_layout<pair_t> layout(n);
-  if (comm_world.rank()==root) {
+  if (comm_world.rank() == root) {
     std::vector<pair_t> result(n);
     // calculate minimum
     comm_world.reduce(mpl::min<pair_t>(), root, v.data(), result.data(), layout);
     // display data from all ranks
     std::cout << "arguments:\n";
-    for (int r=0; r<comm_world.size(); ++r) {
-      if (r>0)
+    for (int r = 0; r < comm_world.size(); ++r) {
+      if (r > 0)
         comm_world.recv(v.data(), layout, r);
       for (auto i : v)
         std::cout << std::fixed << std::setprecision(5) << i.first << ' ' << i.second << '\t';

@@ -5,19 +5,19 @@
 
 template<typename T>
 T add(const T &a, const T &b) {
-  return a+b;
+  return a + b;
 }
 
 template<typename T>
 bool ireduce_func_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
-  if (comm_world.rank()==0) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
+  if (comm_world.rank() == 0) {
     T y;
     auto r{comm_world.ireduce(add<T>, 0, x, y)};
     r.wait();
-    return y==T((N*N+N)/2);
+    return y == T((N * N + N) / 2);
   } else {
     auto r{comm_world.ireduce(add<T>, 0, x)};
     r.wait();
@@ -27,14 +27,14 @@ bool ireduce_func_test() {
 
 template<typename T>
 bool ireduce_op_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
-  if (comm_world.rank()==0) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
+  if (comm_world.rank() == 0) {
     T y;
     auto r{comm_world.ireduce(mpl::plus<T>(), 0, x, y)};
     r.wait();
-    return y==T((N*N+N)/2);
+    return y == T((N * N + N) / 2);
   } else {
     auto r{comm_world.ireduce(mpl::plus<T>(), 0, x)};
     r.wait();
@@ -44,16 +44,16 @@ bool ireduce_op_test() {
 
 template<typename T>
 bool ireduce_lambda_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
-  if (comm_world.rank()==0) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
+  if (comm_world.rank() == 0) {
     T y;
-    auto r{comm_world.ireduce([](T a, T b) { return a+b; }, 0, x, y)};
+    auto r{comm_world.ireduce([](T a, T b) { return a + b; }, 0, x, y)};
     r.wait();
-    return y==T((N*N+N)/2);
+    return y == T((N * N + N) / 2);
   } else {
-    auto r{comm_world.ireduce([](T a, T b) { return a+b; }, 0, x)};
+    auto r{comm_world.ireduce([](T a, T b) { return a + b; }, 0, x)};
     r.wait();
   }
   return true;
@@ -61,92 +61,92 @@ bool ireduce_lambda_test() {
 
 template<typename T>
 bool ireduce_inplace_func_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
   auto r{comm_world.ireduce(add<T>, 0, x)};
   r.wait();
-  return x==T((N*N+N)/2)or comm_world.rank()>0;
+  return x == T((N * N + N) / 2) or comm_world.rank() > 0;
 }
 
 template<typename T>
 bool ireduce_inplace_op_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
   auto r{comm_world.ireduce(mpl::plus<T>(), 0, x)};
   r.wait();
-  return x==T((N*N+N)/2)or comm_world.rank()>0;
+  return x == T((N * N + N) / 2) or comm_world.rank() > 0;
 }
 
 template<typename T>
 bool ireduce_inplace_lambda_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
-  auto r{comm_world.ireduce([](T a, T b) { return a+b; }, 0, x)};
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
+  auto r{comm_world.ireduce([](T a, T b) { return a + b; }, 0, x)};
   r.wait();
-  return x==T((N*N+N)/2)or comm_world.rank()>0;
+  return x == T((N * N + N) / 2) or comm_world.rank() > 0;
 }
 
 template<typename T>
 bool allireduce_func_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) }, y;
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)}, y;
   auto r{comm_world.iallreduce(add<T>, x, y)};
   r.wait();
-  return y==T((N*N+N)/2);
+  return y == T((N * N + N) / 2);
 }
 
 template<typename T>
 bool allireduce_op_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) }, y;
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)}, y;
   auto r{comm_world.iallreduce(mpl::plus<T>(), x, y)};
   r.wait();
-  return y==T((N*N+N)/2);
+  return y == T((N * N + N) / 2);
 }
 
 template<typename T>
 bool allireduce_lambda_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) }, y;
-  auto r{comm_world.iallreduce([](T a, T b) { return a+b; }, x, y)};
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)}, y;
+  auto r{comm_world.iallreduce([](T a, T b) { return a + b; }, x, y)};
   r.wait();
-  return y==T((N*N+N)/2);
+  return y == T((N * N + N) / 2);
 }
 
 template<typename T>
 bool allireduce_inplace_func_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
   auto r{comm_world.iallreduce(add<T>, x)};
   r.wait();
-  return x==T((N*N+N)/2);
+  return x == T((N * N + N) / 2);
 }
 
 template<typename T>
 bool allireduce_inplace_op_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
   auto r{comm_world.iallreduce(mpl::plus<T>(), x)};
   r.wait();
-  return x==T((N*N+N)/2);
+  return x == T((N * N + N) / 2);
 }
 
 template<typename T>
 bool allireduce_inplace_lambda_test() {
-  const mpl::communicator &comm_world=mpl::environment::comm_world();
-  int N=comm_world.size();
-  T x{ T(comm_world.rank()+1) };
-  auto r{comm_world.iallreduce([](T a, T b) { return a+b; }, x)};
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  int N = comm_world.size();
+  T x{T(comm_world.rank() + 1)};
+  auto r{comm_world.iallreduce([](T a, T b) { return a + b; }, x)};
   r.wait();
-  return x==T((N*N+N)/2);
+  return x == T((N * N + N) / 2);
 }
 
 
