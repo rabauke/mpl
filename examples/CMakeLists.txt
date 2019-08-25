@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-find_package(MPI REQUIRED) 
+find_package(MPI REQUIRED)
 set(CMAKE_C_COMPILER ${MPI_C_COMPILER})
 set(CMAKE_CXX_COMPILER ${MPI_CXX_COMPILER})
 
@@ -50,14 +50,18 @@ add_executable(parallel_sort_mpl parallel_sort_mpl.cc)
 set_property(TARGET parallel_sort_mpl PROPERTY CXX_STANDARD 17)
 add_executable(parallel_sort_mpi parallel_sort_mpi.c)
 
-include(../cmake/PVS-Studio.cmake)
-pvs_studio_add_target(TARGET PVS-Studio_analyze ALL
-                      OUTPUT FORMAT errorfile
-                      RECURSIVE ANALYZE
-                      arrays blocking blocking_vector collective communicator distributed_grid
-                      distributed_grid_scatter_gather gather gatherv
-                      heat_equation_Jacobi_method heat_equation_successive_over-relaxation
-                      hello_world iterators layouts matrix_gather nonblocking nonblocking_mult probe reduce_lcm
-                      reduce_min_loc standard_types struct vibrating_string_mpi vibrating_string_mpl parallel_sort_mpl
-                      parallel_sort_mpi
-                      MODE GA:1,2,3 OP LOG target.err)
+find_program(PVS_STUDIO pvs-studio)
+
+if (PVS_STUDIO)
+    include(../cmake/PVS-Studio.cmake)
+    pvs_studio_add_target(TARGET PVS-Studio_analyze # ALL
+            OUTPUT FORMAT errorfile
+            RECURSIVE ANALYZE
+            arrays blocking blocking_vector collective communicator distributed_grid
+            distributed_grid_scatter_gather gather gatherv
+            heat_equation_Jacobi_method heat_equation_successive_over-relaxation
+            hello_world iterators layouts matrix_gather nonblocking nonblocking_mult probe reduce_lcm
+            reduce_min_loc standard_types struct vibrating_string_mpi vibrating_string_mpl parallel_sort_mpl
+            parallel_sort_mpi
+            MODE GA:1,2,3 OP LOG target.err)
+endif ()
