@@ -22,7 +22,7 @@ namespace mpl {
 
       class env {
         class initializer {
-         public:
+        public:
           initializer() {
             int thread_mode;
             MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode);
@@ -34,7 +34,7 @@ namespace mpl {
         initializer init;
         mpl::communicator comm_world_, comm_self_;
 
-       public:
+      public:
         env() : init(), comm_world_(MPI_COMM_WORLD), comm_self_(MPI_COMM_SELF) {
           int size;
           MPI_Comm_size(MPI_COMM_WORLD, &size);
@@ -154,7 +154,7 @@ namespace mpl {
     A alloc;
     char *buff;
 
-   public:
+  public:
     explicit bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }

@@ -1,6 +1,6 @@
 ﻿---
 BasedOnStyle: Google
-AllowAllParametersOfDeclarationOnNextLine: false
+AccessModifierOffset: -2
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortFunctionsOnASingleLine: InlineOnly

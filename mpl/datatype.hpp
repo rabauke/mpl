@@ -62,7 +62,7 @@ namespace mpl {
     std::vector<MPI_Aint> displacements;
     std::vector<MPI_Datatype> datatypes;
 
-   public:
+  public:
     struct_layout &register_struct(const S &x) {
       MPI_Get_address(const_cast<S *>(&x), &base);
       return *this;
@@ -97,10 +97,10 @@ namespace mpl {
 
   template<typename T>
   class base_struct_builder {
-   private:
+  private:
     MPI_Datatype type;
 
-   public:
+  public:
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
       MPI_Type_create_struct(str.blocklengths.size(), str.blocklengths.data(),
@@ -129,7 +129,7 @@ namespace mpl {
     typedef base_struct_builder<std::pair<T1, T2>> base;
     struct_layout<std::pair<T1, T2>> layout;
 
-   public:
+  public:
     struct_builder() {
       std::pair<T1, T2> pair;
       layout.register_struct(pair);
@@ -147,7 +147,7 @@ namespace mpl {
     class apply_n {
       F &f;
 
-     public:
+    public:
       explicit apply_n(F &f) : f(f) {}
 
       void operator()(T &x) const {
@@ -161,7 +161,7 @@ namespace mpl {
     struct apply_n<F, T, 1> {
       F &f;
 
-     public:
+    public:
       explicit apply_n(F &f) : f(f) {}
 
       void operator()(T &x) const { f(std::get<0>(x)); }
@@ -177,7 +177,7 @@ namespace mpl {
     class register_element {
       struct_layout<std::tuple<Ts...>> &layout;
 
-     public:
+    public:
       explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {}
 
       template<typename T>
@@ -193,7 +193,7 @@ namespace mpl {
     typedef base_struct_builder<std::tuple<Ts...>> base;
     struct_layout<std::tuple<Ts...>> layout;
 
-   public:
+  public:
     struct_builder() {
       std::tuple<Ts...> tuple;
       layout.register_struct(tuple);
@@ -211,7 +211,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0]> base;
     struct_layout<T[N0]> layout;
 
-   public:
+  public:
     struct_builder() {
       T array[N0];
       layout.register_struct(array);
@@ -225,7 +225,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0][N1]> base;
     struct_layout<T[N0][N1]> layout;
 
-   public:
+  public:
     struct_builder() {
       T array[N0][N1];
       layout.register_struct(array);
@@ -239,7 +239,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0][N1][N2]> base;
     struct_layout<T[N0][N1][N2]> layout;
 
-   public:
+  public:
     struct_builder() {
       T array[N0][N1][N2];
       layout.register_struct(array);
@@ -253,7 +253,7 @@ namespace mpl {
     typedef base_struct_builder<T[N0][N1][N2][N3]> base;
     struct_layout<T[N0][N1][N2][N3]> layout;
 
-   public:
+  public:
     struct_builder() {
       T array[N0][N1][N2][N3];
       layout.register_struct(array);
@@ -269,7 +269,7 @@ namespace mpl {
     typedef base_struct_builder<std::array<T, N>> base;
     struct_layout<std::array<T, N>> layout;
 
-   public:
+  public:
     struct_builder() {
       std::array<T, N> array;
       layout.register_struct(array);
@@ -284,7 +284,7 @@ namespace mpl {
 
     template<typename T, typename Enable = void>
     class datatype_traits_impl {
-     public:
+    public:
       static MPI_Datatype get_datatype() {
         static struct_builder<T> builder;
         return builder.type;
@@ -293,7 +293,7 @@ namespace mpl {
 
     template<typename T>
     class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
-     public:
+    public:
       static MPI_Datatype get_datatype() {
         return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
       }
@@ -305,7 +305,7 @@ namespace mpl {
         T, typename std::enable_if<
                std::is_trivially_copyable<T>::value and std::is_copy_assignable<T>::value and
                not std::is_enum<T>::value and not std::is_array<T>::value>::type> {
-     public:
+    public:
       static MPI_Datatype get_datatype() {
         return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
       }
@@ -316,7 +316,7 @@ namespace mpl {
 
   template<typename T>
   class datatype_traits {
-   public:
+  public:
     static MPI_Datatype get_datatype() {
       return detail::datatype_traits_impl<T>::get_datatype();
     }
@@ -325,7 +325,7 @@ namespace mpl {
 #define MPL_DATATYPE_TRAITS(type, mpi_type)                 \
   template<>                                                \
   class datatype_traits<type> {                             \
-   public:                                                  \
+  public:                                                   \
     static MPI_Datatype get_datatype() { return mpi_type; } \
   }
 
@@ -375,7 +375,7 @@ namespace mpl {
 
   template<>
   class datatype_traits<char16_t> {
-   public:
+  public:
     static MPI_Datatype get_datatype() {
       return datatype_traits<std::uint_least16_t>::get_datatype();
     }
@@ -383,7 +383,7 @@ namespace mpl {
 
   template<>
   class datatype_traits<char32_t> {
-   public:
+  public:
     static MPI_Datatype get_datatype() {
       return datatype_traits<std::uint_least32_t>::get_datatype();
     }
@@ -549,7 +549,7 @@ namespace mpl {
     class struct_builder<STRUCT> : public base_struct_builder<STRUCT> { \
       struct_layout<STRUCT> layout;                                     \
                                                                         \
-     public:                                                            \
+    public:                                                             \
       struct_builder() {                                                \
         STRUCT str;                                                     \
         layout.register_struct(str);                                    \

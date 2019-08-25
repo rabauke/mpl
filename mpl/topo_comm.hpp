@@ -10,7 +10,7 @@ namespace mpl {
   namespace detail {
 
     class topo_communicator : public mpl::communicator {
-     public:
+    public:
       topo_communicator() = default;
 
       void operator=(const topo_communicator &) = delete;

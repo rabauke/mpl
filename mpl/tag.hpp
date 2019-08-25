@@ -9,10 +9,10 @@
 namespace mpl {
 
   class tag {
-   private:
+  private:
     int t = 0;
 
-   public:
+  public:
     tag() = default;
 
     template<typename T>

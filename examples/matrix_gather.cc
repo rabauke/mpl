@@ -9,17 +9,17 @@ template<typename T>
 class matrix : private std::vector<T> {
   typedef std::vector<T> base;
 
- public:
+public:
   typedef typename base::size_type size_type;
   typedef typename base::reference reference;
   typedef typename base::const_reference const_reference;
   typedef typename base::iterator iterator;
   typedef typename base::const_iterator const_iterator;
 
- private:
+private:
   size_type nx, ny;
 
- public:
+public:
   matrix(size_type nx, size_type ny) : base(nx * ny), nx(nx), ny(ny) {}
 
   const_reference operator()(size_type ix, size_type iy) const {

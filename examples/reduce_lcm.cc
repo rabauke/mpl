@@ -23,7 +23,7 @@ class lcm {
     return a;
   }
 
- public:
+public:
   T operator()(T a, T b) {
     T zero = T();
     T t((a / gcd(a, b)) * b);

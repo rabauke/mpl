@@ -65,16 +65,16 @@ namespace mpl {
 
   template<typename T>
   class layout {
-   private:
+  private:
     MPI_Datatype type;
 
-   protected:
+  protected:
     explicit layout(MPI_Datatype new_type) : type(new_type) {
       if (type != MPI_DATATYPE_NULL)
         MPI_Type_commit(&type);
     }
 
-   public:
+  public:
     layout() : type(MPI_DATATYPE_NULL) {}
 
     layout(const layout &l) {
@@ -265,7 +265,7 @@ namespace mpl {
   class null_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     null_layout() : layout<T>(MPI_DATATYPE_NULL) {}
 
     void swap(null_layout<T> &other) {}
@@ -292,7 +292,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     empty_layout() : layout<T>(build()) {}
 
     empty_layout(const empty_layout &l) : layout<T>(l) {}
@@ -357,7 +357,7 @@ namespace mpl {
 
     size_t size() const { return count; }
 
-   public:
+  public:
     explicit contiguous_layout(size_t c = 0) : layout<T>(build(c)), count(c) {}
 
     explicit contiguous_layout(size_t c, const contiguous_layout<T> &other)
@@ -435,7 +435,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     explicit vector_layout(size_t c = 0) : layout<T>(build(c)) {}
 
     explicit vector_layout(size_t c, const layout<T> &other)
@@ -489,7 +489,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     strided_vector_layout() : layout<T>(build()) {}
 
     explicit strided_vector_layout(int count, int blocklength, int stride)
@@ -531,11 +531,11 @@ namespace mpl {
   class indexed_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<int> blocklengths, displacements;
 
-     public:
+    public:
       parameter() = default;
 
       template<typename List_T>
@@ -557,7 +557,7 @@ namespace mpl {
       friend class indexed_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
@@ -572,7 +572,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     indexed_layout() : layout<T>(build()) {}
 
     explicit indexed_layout(const parameter &par) : layout<T>(build(par)) {}
@@ -612,12 +612,12 @@ namespace mpl {
   class hindexed_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<int> blocklengths;
       std::vector<MPI_Aint> displacements;
 
-     public:
+    public:
       parameter() = default;
 
       template<typename List_T>
@@ -639,7 +639,7 @@ namespace mpl {
       friend class hindexed_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
@@ -654,7 +654,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     hindexed_layout() : layout<T>(build()) {}
 
     explicit hindexed_layout(const parameter &par) : layout<T>(build(par)) {}
@@ -694,11 +694,11 @@ namespace mpl {
   class indexed_block_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<int> displacements;
 
-     public:
+    public:
       parameter() = default;
 
       template<typename List_T>
@@ -717,7 +717,7 @@ namespace mpl {
       friend class indexed_block_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
@@ -732,7 +732,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     indexed_block_layout() : layout<T>(build()) {}
 
     explicit indexed_block_layout(int blocklengths, const parameter &par)
@@ -774,11 +774,11 @@ namespace mpl {
   class hindexed_block_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<MPI_Aint> displacements;
 
-     public:
+    public:
       parameter() = default;
 
       template<typename List_T>
@@ -797,7 +797,7 @@ namespace mpl {
       friend class hindexed_block_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
@@ -812,7 +812,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     hindexed_block_layout() : layout<T>(build()) {}
 
     explicit hindexed_block_layout(int blocklengths, const parameter &par)
@@ -854,7 +854,7 @@ namespace mpl {
   class iterator_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<MPI_Aint> displacements;
       std::vector<int> blocklengths;
@@ -881,7 +881,7 @@ namespace mpl {
         }
       }
 
-     public:
+    public:
       parameter() = default;
 
       template<typename iter_T>
@@ -897,7 +897,7 @@ namespace mpl {
       friend class iterator_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
@@ -916,7 +916,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     iterator_layout() : layout<T>(build()) {}
 
     template<typename iter_T>
@@ -966,12 +966,12 @@ namespace mpl {
   class subarray_layout : public layout<T> {
     using layout<T>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<int> sizes, subsizes, starts;
       array_orders order_ = array_orders::C_order;
 
-     public:
+    public:
       parameter() = default;
 
       template<typename List_T>
@@ -998,7 +998,7 @@ namespace mpl {
       friend class subarray_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
@@ -1020,7 +1020,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     subarray_layout() : layout<T>(build()) {}
 
     explicit subarray_layout(const parameter &par) : layout<T>(build(par)) {}
@@ -1059,7 +1059,7 @@ namespace mpl {
   class heterogeneous_layout : public layout<void> {
     using layout<void>::type;
 
-   public:
+  public:
     class parameter {
       std::vector<int> blocklengths;
       std::vector<MPI_Aint> displacements;
@@ -1067,7 +1067,7 @@ namespace mpl {
 
       void add() const {}
 
-     public:
+    public:
       parameter() = default;
 
       template<typename... Ts>
@@ -1094,7 +1094,7 @@ namespace mpl {
       friend class heterogeneous_layout;
     };
 
-   private:
+  private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
       MPI_Type_contiguous(0, datatype_traits<char>::get_datatype(), &new_type);
@@ -1108,7 +1108,7 @@ namespace mpl {
       return new_type;
     }
 
-   public:
+  public:
     heterogeneous_layout() : layout<void>(build()) {}
 
     explicit heterogeneous_layout(const parameter &par) : layout<void>(build(par)) {}
@@ -1167,7 +1167,7 @@ namespace mpl {
   class layouts : private std::vector<layout<T>> {
     typedef std::vector<layout<T>> base;
 
-   public:
+  public:
     typedef typename base::size_type size_type;
 
     explicit layouts(size_type n = 0) : base(n, empty_layout<T>()) {}
@@ -1192,7 +1192,7 @@ namespace mpl {
     typedef std::vector<contiguous_layout<T>> base;
     mutable std::vector<int> s;
 
-   public:
+  public:
     typedef typename base::size_type size_type;
 
     explicit contiguous_layouts(size_type n = 0) : base(n, contiguous_layout<T>()), s() {}

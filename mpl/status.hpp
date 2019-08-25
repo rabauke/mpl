@@ -7,7 +7,7 @@
 namespace mpl {
 
   class status : private MPI_Status {
-   public:
+  public:
     int source() const { return MPI_Status::MPI_SOURCE; }
 
     mpl::tag tag() const { return mpl::tag(MPI_Status::MPI_TAG); }

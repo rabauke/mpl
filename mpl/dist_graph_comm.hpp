@@ -14,11 +14,11 @@
 namespace mpl {
 
   class dist_graph_communicator : public detail::topo_communicator {
-   public:
+  public:
     class source_set : private std::set<std::pair<int, int>> {
       typedef std::set<std::pair<int, int>> base;
 
-     public:
+    public:
       using value_type = typename base::value_type;
       using size_type = typename base::size_type;
       using base::base;
@@ -34,7 +34,7 @@ namespace mpl {
     class dest_set : private std::set<std::pair<int, int>> {
       typedef std::set<std::pair<int, int>> base;
 
-     public:
+    public:
       using value_type = typename base::value_type;
       using size_type = typename base::size_type;
       using base::base;

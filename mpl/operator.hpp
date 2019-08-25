@@ -198,7 +198,7 @@ namespace mpl {
 
     template<typename T, typename F>
     class op {
-     public:
+    public:
       typedef F functor;
       typedef get_signature<functor> signature;
       typedef typename std::decay<get_first_argument_type<signature>>::type first_argument_type;
@@ -226,10 +226,10 @@ namespace mpl {
 
       MPI_Op mpi_op{MPI_OP_NULL};
 
-     private:
+    private:
       op() { MPI_Op_create(op::apply, is_commutative, &mpi_op); }
 
-     public:
+    public:
       op(op const &) = delete;
 
       ~op() { MPI_Op_free(&mpi_op); }

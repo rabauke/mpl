@@ -18,7 +18,7 @@ namespace mpl {
 
   template<std::size_t dim, typename T, typename A = std::allocator<T>>
   class distributed_grid {
-   public:
+  public:
     typedef std::vector<T, A> vector_type;
     typedef typename vector_type::value_type value_type;
     typedef typename vector_type::allocator_type allocator_type;
@@ -29,7 +29,7 @@ namespace mpl {
     typedef typename vector_type::pointer pointer;
     typedef typename vector_type::const_pointer const_pointer;
 
-   private:
+  private:
     std::vector<size_type> gsize_, gbegin_, gend_, size_, oend_, overlap_;
     vector_type v;
     std::vector<subarray_layout<T>> left_mirror_layout_, right_mirror_layout_,
@@ -44,11 +44,11 @@ namespace mpl {
       return n * (comm_coord + 1) / comm_size;
     }
 
-   public:
+  public:
     class sizes {
       std::vector<size_type> size_, overlap_;
 
-     public:
+    public:
       sizes(std::initializer_list<std::pair<size_type, size_type>> list) {
         for (const std::pair<size_type, size_type> &i : list)
           add(i.first, i.second);
@@ -205,7 +205,7 @@ namespace mpl {
 
   template<std::size_t dim, typename T, typename A = std::allocator<T>>
   class local_grid {
-   public:
+  public:
     typedef std::vector<T, A> vector_type;
     typedef typename vector_type::value_type value_type;
     typedef typename vector_type::allocator_type allocator_type;
@@ -216,7 +216,7 @@ namespace mpl {
     typedef typename vector_type::pointer pointer;
     typedef typename vector_type::const_pointer const_pointer;
 
-   private:
+  private:
     std::vector<size_type> gsize_;
     vector_type v;
     layouts<T> sub_layout_;
@@ -229,11 +229,11 @@ namespace mpl {
       return n * (comm_coord + 1) / comm_size;
     }
 
-   public:
+  public:
     class sizes {
       std::vector<size_type> size_;
 
-     public:
+    public:
       sizes(std::initializer_list<size_type> list) {
         for (const size_type &i : list)
           add(i);

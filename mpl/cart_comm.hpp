@@ -16,7 +16,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class cart_communicator : public detail::topo_communicator {
-   public:
+  public:
     enum class periodicity { periodic, nonperiodic };
     static constexpr periodicity periodic = periodicity::periodic;
     static constexpr periodicity nonperiodic = periodicity::nonperiodic;
@@ -24,7 +24,7 @@ namespace mpl {
     class coords_type : private std::vector<int> {
       typedef std::vector<int> base;
 
-     public:
+    public:
       using value_type = typename base::value_type;
       using size_type = typename base::size_type;
       using base::base;
@@ -41,7 +41,7 @@ namespace mpl {
     class periodicities_type : private std::vector<periodicity> {
       typedef std::vector<periodicity> base;
 
-     public:
+    public:
       using value_type = typename base::value_type;
       using size_type = typename base::size_type;
       using base::base;
@@ -58,7 +58,7 @@ namespace mpl {
     class sizes {
       std::vector<int> dims_, periodic_;
 
-     public:
+    public:
       typedef std::vector<int>::size_type size_type;
 
       sizes(std::initializer_list<std::pair<int, periodicity>> list) {

@@ -16,14 +16,14 @@ namespace mpl {
 
     template<typename T, typename I>
     class flat_memory_in {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       size_type n;
       T *first;
 
-     public:
+    public:
       flat_memory_in(I i1, I i2) : n(std::distance(i1, i2)), first(new T[n]) {
         std::copy(i1, i2, first);
       }
@@ -39,14 +39,14 @@ namespace mpl {
 
     template<typename T>
     class flat_memory_in<T, T *> {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       size_type n;
       const T *first;
 
-     public:
+    public:
       flat_memory_in(const T *i1, const T *i2) : n(std::distance(i1, i2)), first(i1) {}
 
       ~flat_memory_in() = default;
@@ -62,15 +62,15 @@ namespace mpl {
     // contiguous_iterator_tag of C++17
     template<typename T>
     class flat_memory_in<T, typename std::vector<T>::iterator> {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       typedef typename std::vector<T>::iterator iter;
       size_type n;
       iter first;
 
-     public:
+    public:
       flat_memory_in(iter i1, iter i2) : n(std::distance(i1, i2)), first(i1) {}
 
       ~flat_memory_in() = default;
@@ -84,15 +84,15 @@ namespace mpl {
 
     template<typename T>
     class flat_memory_in<T, typename std::vector<T>::const_iterator> {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       typedef typename std::vector<T>::const_iterator iter;
       size_type n;
       iter first;
 
-     public:
+    public:
       flat_memory_in(iter i1, iter i2) : n(std::distance(i1, i2)), first(i1) {}
 
       ~flat_memory_in() = default;
@@ -108,15 +108,15 @@ namespace mpl {
 
     template<typename T, typename I>
     class flat_memory_out {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       size_type n;
       I first_out;
       T *first;
 
-     public:
+    public:
       flat_memory_out(size_type n, I first_out) : n(n), first_out(first_out), first(new T[n]) {}
 
       ~flat_memory_out() { delete[] first; }
@@ -138,15 +138,15 @@ namespace mpl {
 
     template<typename T>
     class flat_memory_out<T, T *> {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       size_type n;
       T *first_out;
       T *first;
 
-     public:
+    public:
       flat_memory_out(size_type n, T *first_out)
           : n(n), first_out(first_out), first(first_out) {}
 
@@ -169,16 +169,16 @@ namespace mpl {
     // contiguous_iterator_tag of C++17
     template<typename T>
     class flat_memory_out<T, typename std::vector<T>::iterator> {
-     public:
+    public:
       typedef std::ptrdiff_t size_type;
 
-     private:
+    private:
       typedef typename std::vector<T>::iterator iter;
       size_type n;
       iter first_out;
       iter first;
 
-     public:
+    public:
       flat_memory_out(size_type n, iter first_out)
           : n(n), first_out(first_out), first(first_out) {}
 

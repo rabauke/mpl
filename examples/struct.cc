@@ -43,7 +43,7 @@ namespace mpl {
   class struct_builder<structure> : public base_struct_builder<structure> {
     struct_layout<structure> layout;
 
-   public:
+  public:
     struct_builder() {
       structure str;
       layout.register_struct(str);

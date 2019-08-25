@@ -12,11 +12,11 @@
 namespace mpl {
 
   class graph_communicator : public detail::topo_communicator {
-   public:
+  public:
     class edge_set : private std::set<std::pair<int, int>> {
       using base = std::set<std::pair<int, int>>;
 
-     public:
+    public:
       using value_type = typename base::value_type;
       using size_type = typename base::size_type;
       using base::base;
@@ -32,7 +32,7 @@ namespace mpl {
     class node_list : private std::vector<int> {
       using base = std::vector<int>;
 
-     public:
+    public:
       using value_type = typename base::value_type;
       using size_type = typename base::size_type;
       using base::base;

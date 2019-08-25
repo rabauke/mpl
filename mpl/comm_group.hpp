@@ -32,7 +32,7 @@ namespace mpl {
   class group {
     MPI_Group gr{MPI_GROUP_EMPTY};
 
-   public:
+  public:
     enum class equality_type {
       ident = MPI_IDENT,
       similar = MPI_SIMILAR,
@@ -132,10 +132,10 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class communicator {
-   protected:
+  protected:
     MPI_Comm comm{MPI_COMM_NULL};
 
-   public:
+  public:
     enum class equality_type {
       ident = MPI_IDENT,
       congruent = MPI_CONGRUENT,
@@ -156,7 +156,7 @@ namespace mpl {
 
     class split_shared {};
 
-   private:
+  private:
     void check_dest(int dest) const {
 #if defined MPL_DEBUG
       if (dest != proc_null and (dest < 0 or dest >= size()))
@@ -215,10 +215,10 @@ namespace mpl {
 #endif
     }
 
-   protected:
+  protected:
     explicit communicator(MPI_Comm comm) : comm(comm) {}
 
-   public:
+  public:
     communicator() = default;
 
     communicator(const communicator &other) { MPI_Comm_dup(other.comm, &comm); }

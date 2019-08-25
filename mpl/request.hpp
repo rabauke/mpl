@@ -27,7 +27,7 @@ namespace mpl {
     class irequest {
       MPI_Request req = MPI_REQUEST_NULL;
 
-     public:
+    public:
       irequest(MPI_Request req) : req(req) {}
 
       friend class request<irequest>;
@@ -38,7 +38,7 @@ namespace mpl {
     class prequest {
       MPI_Request req = MPI_REQUEST_NULL;
 
-     public:
+    public:
       prequest(MPI_Request req) : req(req) {}
 
       friend class request<prequest>;
@@ -50,8 +50,8 @@ namespace mpl {
 
     template<typename T>
     class request {
-     protected:
-     public:
+    protected:
+    public:
       MPI_Request req;
 
       request() = delete;
@@ -106,11 +106,11 @@ namespace mpl {
 
     template<typename T>
     class request_pool {
-     protected:
+    protected:
       std::vector<MPI_Request> reqs;
       std::vector<status> stats;
 
-     public:
+    public:
       typedef std::vector<MPI_Request>::size_type size_type;
 
       request_pool() = default;
@@ -222,7 +222,7 @@ namespace mpl {
     typedef detail::request<detail::irequest> base;
     using base::req;
 
-   public:
+  public:
     irequest(const detail::irequest &r) : base(r) {}
 
     irequest(const irequest &) = delete;
@@ -245,7 +245,7 @@ namespace mpl {
   class irequest_pool : public detail::request_pool<irequest> {
     typedef detail::request_pool<irequest> base;
 
-   public:
+  public:
     irequest_pool() = default;
 
     irequest_pool(const irequest_pool &) = delete;
@@ -270,7 +270,7 @@ namespace mpl {
     typedef detail::request<detail::prequest> base;
     using base::req;
 
-   public:
+  public:
     prequest(const detail::prequest &r) : base(r) {}
 
     prequest(const prequest &) = delete;
@@ -296,7 +296,7 @@ namespace mpl {
     typedef detail::request_pool<prequest> base;
     using base::reqs;
 
-   public:
+  public:
     prequest_pool() = default;
 
     void operator=(const prequest_pool &) = delete;

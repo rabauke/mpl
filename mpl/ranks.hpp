@@ -11,7 +11,7 @@ namespace mpl {
   class ranks : private std::vector<int> {
     typedef std::vector<int> base;
 
-   public:
+  public:
     typedef base::size_type size_type;
     typedef base::value_type value_type;
     typedef base::iterator iterator;
