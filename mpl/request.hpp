@@ -154,8 +154,9 @@ namespace mpl {
           cancel(i);
       }
 
-      void push(const T &other) {
+      void push(T &&other) {
         reqs.push_back(other.req);
+        other.req = MPI_REQUEST_NULL;
         stats.push_back(status());
       }
 
@@ -250,10 +251,7 @@ namespace mpl {
 
     irequest_pool(const irequest_pool &) = delete;
 
-    irequest_pool(irequest_pool &&r) noexcept
-        :
-
-          base(std::move(r)) {}
+    irequest_pool(irequest_pool &&r) noexcept : base(std::move(r)) {}
 
     void operator=(const irequest_pool &) = delete;
 
