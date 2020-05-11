@@ -1532,28 +1532,25 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root, const T &senddata, T &recvdata) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, root, comm);
+                 detail::get_op<T, F>(f).mpi_op, root, comm);
     }
 
     template<typename T, typename F>
     void reduce(F f, int root, const T *senddata, T *recvdata,
                 const contiguous_layout<T> &l) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, root, comm);
+                 detail::get_op<T, F>(f).mpi_op, root, comm);
     }
 
     // --- non-blocking reduce ---
     template<typename T, typename F>
     irequest ireduce(F f, int root, const T &senddata, T &recvdata) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, root, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1561,10 +1558,9 @@ namespace mpl {
     irequest ireduce(F f, int root, const T *senddata, T *recvdata,
                      const contiguous_layout<T> &l) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, root, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1572,78 +1568,71 @@ namespace mpl {
     template<typename T, typename F>
     void reduce(F f, int root, T &sendrecvdata) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       if (rank() == root)
         MPI_Reduce(MPI_IN_PLACE, &sendrecvdata, 1, datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>().mpi_op, root, comm);
+                   detail::get_op<T, F>(f).mpi_op, root, comm);
       else
         MPI_Reduce(&sendrecvdata, nullptr, 1, datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>().mpi_op, root, comm);
+                   detail::get_op<T, F>(f).mpi_op, root, comm);
     }
 
     template<typename T, typename F>
     void reduce(F f, int root, const T &senddata) const {
       check_nonroot(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce(&senddata, nullptr, 1, datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, root, comm);
+                 detail::get_op<T, F>(f).mpi_op, root, comm);
     }
 
     template<typename T, typename F>
     void reduce(F f, int root, T *sendrecvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       if (rank() == root)
         MPI_Reduce(MPI_IN_PLACE, sendrecvdata, l.size(), datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>().mpi_op, root, comm);
+                   detail::get_op<T, F>(f).mpi_op, root, comm);
       else
         MPI_Reduce(sendrecvdata, nullptr, l.size(), datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>().mpi_op, root, comm);
+                   detail::get_op<T, F>(f).mpi_op, root, comm);
     }
 
     template<typename T, typename F>
     void reduce(F f, int root, const T *sendrecvdata, const contiguous_layout<T> &l) const {
       check_nonroot(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce(sendrecvdata, nullptr, l.size(), datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, root, comm);
+                 detail::get_op<T, F>(f).mpi_op, root, comm);
     }
 
     // --- non-blocking reduce, in place ---
     template<typename T, typename F>
     irequest ireduce(F f, int root, T &sendrecvdata) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       if (rank() == root)
         MPI_Ireduce(MPI_IN_PLACE, &sendrecvdata, 1, datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, root, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       else
         MPI_Ireduce(&sendrecvdata, nullptr, 1, datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, root, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest ireduce(F f, int root, const T &sendrecvdata) const {
       check_nonroot(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce(&sendrecvdata, nullptr, 1, datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, root, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest ireduce(F f, int root, T *sendrecvdata, const contiguous_layout<T> &l) const {
       check_root(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       if (rank() == root)
         MPI_Ireduce(MPI_IN_PLACE, sendrecvdata, l.size(), datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, root, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       else
         MPI_Ireduce(sendrecvdata, nullptr, l.size(), datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, root, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1651,10 +1640,9 @@ namespace mpl {
     irequest ireduce(F f, int root, const T *sendrecvdata,
                      const contiguous_layout<T> &l) const {
       check_nonroot(root);
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce(sendrecvdata, nullptr, l.size(), datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, root, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1662,69 +1650,61 @@ namespace mpl {
     // --- blocking all-reduce ---
     template<typename T, typename F>
     void allreduce(F f, const T &senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Allreduce(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void allreduce(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Allreduce(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking all-reduce ---
     template<typename T, typename F>
     irequest iallreduce(F f, const T &senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iallreduce(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>().mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest iallreduce(F f, const T *senddata, T *recvdata,
                         const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iallreduce(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>().mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     // --- blocking all-reduce, in place ---
     template<typename T, typename F>
     void allreduce(F f, T &sendrecvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Allreduce(MPI_IN_PLACE, &sendrecvdata, 1, datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void allreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(), datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>().mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking all-reduce, in place ---
     template<typename T, typename F>
     irequest iallreduce(F f, T &sendrecvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, &sendrecvdata, 1, datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>().mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest iallreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, sendrecvdata, l.size(), datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>().mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1732,37 +1712,33 @@ namespace mpl {
     // --- blocking reduce-scatter-block ---
     template<typename T, typename F>
     void reduce_scatter_block(F f, const T *senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce_scatter_block(senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                               detail::get_op<T, F>().mpi_op, comm);
+                               detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void reduce_scatter_block(F f, const T *senddata, T *recvdata,
                               const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce_scatter_block(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                               detail::get_op<T, F>().mpi_op, comm);
+                               detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking reduce-scatter-block ---
     template<typename T, typename F>
     irequest ireduce_scatter_block(F f, const T *senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce_scatter_block(senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                                detail::get_op<T, F>().mpi_op, comm, &req);
+                                detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest ireduce_scatter_block(F f, const T *senddata, T *recvdata,
                                    const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce_scatter_block(senddata, recvdata, l.size(),
                                 datatype_traits<T>::get_datatype(),
-                                detail::get_op<T, F>().mpi_op, comm, &req);
+                                detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1771,9 +1747,8 @@ namespace mpl {
     template<typename T, typename F>
     void reduce_scatter(F f, const T *senddata, T *recvdata,
                         const contiguous_layouts<T> &recvcounts) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Reduce_scatter(senddata, recvdata, recvcounts.sizes(),
-                         datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
+                         datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                          comm);
     }
 
@@ -1781,10 +1756,9 @@ namespace mpl {
     template<typename T, typename F>
     irequest ireduce_scatter(F f, const T *senddata, T *recvdata,
                              contiguous_layouts<T> &recvcounts) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Ireduce_scatter(senddata, recvdata, recvcounts.sizes(),
-                          datatype_traits<T>::get_datatype(), detail::get_op<T, F>().mpi_op,
+                          datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                           comm, &req);
       return detail::irequest(req);
     }
@@ -1793,68 +1767,60 @@ namespace mpl {
     // --- blocking scan ---
     template<typename T, typename F>
     void scan(F f, const T &senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Scan(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>().mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void scan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Scan(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>().mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking scan ---
     template<typename T, typename F>
     irequest iscan(F f, const T &senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iscan(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>().mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest iscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iscan(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>().mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     // --- blocking scan, in place ---
     template<typename T, typename F>
     void scan(F f, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Scan(MPI_IN_PLACE, &recvdata, 1, datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>().mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void scan(F f, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Scan(MPI_IN_PLACE, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>().mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking scan, in place ---
     template<typename T, typename F>
     irequest iscan(F f, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>().mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest iscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>().mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
@@ -1862,68 +1828,60 @@ namespace mpl {
     // --- blocking exscan ---
     template<typename T, typename F>
     void exscan(F f, const T &senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Exscan(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void exscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Exscan(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking exscan ---
     template<typename T, typename F>
     irequest iexscan(F f, const T &senddata, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iexscan(&senddata, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest iexscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iexscan(senddata, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     // --- blocking exscan, in place ---
     template<typename T, typename F>
     void exscan(F f, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Exscan(MPI_IN_PLACE, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     template<typename T, typename F>
     void exscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Exscan(MPI_IN_PLACE, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>().mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm);
     }
 
     // --- non-blocking exscan, in place ---
     template<typename T, typename F>
     irequest iexscan(F f, T &recvdata) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, &recvdata, 1, datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
 
     template<typename T, typename F>
     irequest iexscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
-      detail::get_op<T, F>().f = &f;
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, recvdata, l.size(), datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>().mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
   };

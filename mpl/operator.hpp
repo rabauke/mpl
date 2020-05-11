@@ -5,6 +5,7 @@
 #include <mpi.h>
 #include <functional>
 #include <type_traits>
+#include <memory>
 
 namespace mpl {
 
@@ -191,8 +192,8 @@ namespace mpl {
     class op;
 
     template<typename T, typename F>
-    inline op<T, F> &get_op() {
-      static op<T, F> op_;
+    inline op<T, F> &get_op(F f) {
+      static op<T, F> op_(f);
       return op_;
     }
 
@@ -212,22 +213,25 @@ namespace mpl {
                                  T>::value and
               std::is_assignable<T &, result_type>::value,
           "argument type mismatch");
+      static_assert(!std::is_pointer<F>::value, "functor must not be function pointer");
 
       static constexpr bool is_commutative = op_traits<functor>::is_commutative;
-      static functor *f;
+      static std::unique_ptr<functor> f;
 
       static void apply(void *invec, void *inoutvec, int *len, MPI_Datatype *datatype) {
-        functor local_f(*f);
         T *i1 = reinterpret_cast<T *>(invec);
         T *i2 = reinterpret_cast<T *>(inoutvec);
-        for (int i = 0, i_end = *len; i < i_end; ++i, ++i1, ++i2)
-          *i2 = local_f(*i1, *i2);
+        for (int i{0}, i_end{*len}; i < i_end; ++i, ++i1, ++i2)
+          *i2 = (*f)(*i1, *i2);
       }
 
       MPI_Op mpi_op{MPI_OP_NULL};
 
     private:
-      op() { MPI_Op_create(op::apply, is_commutative, &mpi_op); }
+      explicit op(F f_) {
+        f.reset(new F(f_));
+        MPI_Op_create(op::apply, is_commutative, &mpi_op);
+      }
 
     public:
       op(op const &) = delete;
@@ -236,11 +240,11 @@ namespace mpl {
 
       void operator=(op const &) = delete;
 
-      friend op &get_op<>();
+      friend op &get_op<>(F);
     };
 
     template<typename T, typename F>
-    F *op<T, F>::f;
+    std::unique_ptr<F> op<T, F>::f;
 
   }  // namespace detail
 
