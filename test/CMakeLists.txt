@@ -41,46 +41,46 @@ add_executable(test_reduce_scatter test_reduce_scatter.cc)
 add_executable(test_ireduce_scatter test_ireduce_scatter.cc)
 
 add_custom_target(run_tests
-        COMMAND mpiexec -n 1 ./test_communicator
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_communicator ${MPIEXEC_POSTFLAGS}
         DEPENDS test_communicator
-        COMMAND mpiexec -n 4 ./test_communicator
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_communicator
         DEPENDS test_communicator
-        COMMAND mpiexec -n 16 ./test_cart_communicator
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_cart_communicator
         DEPENDS test_cart_communicator
-        COMMAND mpiexec -n 16 ./test_graph_communicator
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_graph_communicator
         DEPENDS test_graph_communicator
-        COMMAND mpiexec -n 4 ./test_graph_communicator
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_graph_communicator
         DEPENDS test_graph_communicator
-        COMMAND mpiexec -n 16 ./test_dist_graph_communicator
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_dist_graph_communicator
         DEPENDS test_dist_graph_communicator
-        COMMAND mpiexec -n 8 ./test_send_recv
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_send_recv
         DEPENDS test_send_recv
-        COMMAND mpiexec -n 8 ./test_isend_irecv
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_isend_irecv
         DEPENDS test_isend_irecv
-        COMMAND mpiexec -n 8 ./test_psend_precv
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_psend_precv
         DEPENDS test_psend_precv
-        COMMAND mpiexec -n 8 ./test_collective
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_collective
         DEPENDS test_collective
-        COMMAND mpiexec -n 8 ./test_icollective
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_icollective
         DEPENDS test_icollective
-        COMMAND mpiexec -n 8 ./test_collectivev
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_collectivev
         DEPENDS test_collectivev
-        COMMAND mpiexec -n 8 ./test_icollectivev
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_icollectivev
         DEPENDS test_icollectivev
-        COMMAND mpiexec -n 8 ./test_reduce
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_reduce
         DEPENDS test_reduce
-        COMMAND mpiexec -n 8 ./test_ireduce
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_ireduce
         DEPENDS test_ireduce
-        COMMAND mpiexec -n 8 ./test_scan
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_scan
         DEPENDS test_scan
-        COMMAND mpiexec -n 8 ./test_iscan
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_iscan
         DEPENDS test_iscan
-        COMMAND mpiexec -n 8 ./test_exscan
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_exscan
         DEPENDS test_exscan
-        COMMAND mpiexec -n 8 ./test_iexscan
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_iexscan
         DEPENDS test_iexscan
-        COMMAND mpiexec -n 8 ./test_reduce_scatter
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_reduce_scatter
         DEPENDS test_reduce_scatter
-        COMMAND mpiexec -n 8 ./test_ireduce_scatter
+        COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./test_ireduce_scatter
         DEPENDS test_ireduce_scatter
         )
