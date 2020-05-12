@@ -9,13 +9,13 @@
 namespace mpl {
 
   class ranks : private std::vector<int> {
-    typedef std::vector<int> base;
+    using base = std::vector<int>;
 
   public:
-    typedef base::size_type size_type;
-    typedef base::value_type value_type;
-    typedef base::iterator iterator;
-    typedef base::const_iterator const_iterator;
+    using base::size_type;
+    using base::value_type;
+    using base::iterator;
+    using base::const_iterator;
 
     explicit ranks(size_type n = 0) : base(n, 0) {}
 

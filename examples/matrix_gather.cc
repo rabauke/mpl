@@ -7,14 +7,14 @@
 // some basic marix class
 template<typename T>
 class matrix : private std::vector<T> {
-  typedef std::vector<T> base;
+  using base = std::vector<T>;
 
 public:
-  typedef typename base::size_type size_type;
-  typedef typename base::reference reference;
-  typedef typename base::const_reference const_reference;
-  typedef typename base::iterator iterator;
-  typedef typename base::const_iterator const_iterator;
+  using typename base::size_type;
+  using typename base::reference;
+  using typename base::const_reference;
+  using typename base::iterator;
+  using typename base::const_iterator;
 
 private:
   size_type nx, ny;

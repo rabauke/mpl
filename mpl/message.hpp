@@ -6,7 +6,7 @@
 
 namespace mpl {
 
-  typedef MPI_Message message;
+  using message = MPI_Message;
 
 }
 

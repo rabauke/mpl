@@ -9,13 +9,13 @@
 namespace mpl {
 
   class displacements : private std::vector<MPI_Aint> {
-    typedef std::vector<MPI_Aint> base;
+    using base = std::vector<MPI_Aint>;
 
   public:
-    typedef base::size_type size_type;
-    typedef base::value_type value_type;
-    typedef base::iterator iterator;
-    typedef base::const_iterator const_iterator;
+    using base::size_type;
+    using base::value_type;
+    using base::iterator;
+    using base::const_iterator;
 
     explicit displacements(size_type n = 0) : base(n, 0) {}
 

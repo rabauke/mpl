@@ -14,13 +14,13 @@ namespace mpl {
 
     template<typename T>
     struct iterator_traits : public std::iterator_traits<T> {
-      typedef typename std::iterator_traits<T>::value_type insert_type;
+      using insert_type = typename std::iterator_traits<T>::value_type;
     };
 
     template<typename T>
     struct iterator_traits<std::back_insert_iterator<T>>
         : public std::iterator_traits<std::back_insert_iterator<T>> {
-      typedef typename T::value_type insert_type;
+      using insert_type = typename T::value_type;
     };
 
     template<typename from_type, typename to_type>
@@ -34,14 +34,14 @@ namespace mpl {
 
     template<typename T>
     struct underlying_type<T, true> {
-      typedef typename std::underlying_type<T>::type type;
+      using type = typename std::underlying_type<T>::type;
 
       static constexpr int value(const T &v) { return static_cast<int>(v); }
     };
 
     template<typename T>
     struct underlying_type<T, false> {
-      typedef T type;
+      using type = T;
 
       static constexpr int value(const T &v) { return static_cast<int>(v); }
     };

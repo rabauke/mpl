@@ -19,15 +19,15 @@ namespace mpl {
   template<std::size_t dim, typename T, typename A = std::allocator<T>>
   class distributed_grid {
   public:
-    typedef std::vector<T, A> vector_type;
-    typedef typename vector_type::value_type value_type;
-    typedef typename vector_type::allocator_type allocator_type;
-    typedef std::ptrdiff_t size_type;
-    typedef typename vector_type::difference_type difference_type;
-    typedef typename vector_type::reference reference;
-    typedef typename vector_type::const_reference const_reference;
-    typedef typename vector_type::pointer pointer;
-    typedef typename vector_type::const_pointer const_pointer;
+    using vector_type = std::vector<T, A>;
+    using value_type = typename vector_type::value_type;
+    using allocator_type = typename vector_type::allocator_type;
+    using size_type = std::ptrdiff_t;
+    using difference_type = typename vector_type::difference_type;
+    using reference = typename vector_type::reference;
+    using const_reference = typename vector_type::const_reference;
+    using pointer = typename vector_type::pointer;
+    using const_pointer = typename vector_type::const_pointer;
 
   private:
     std::vector<size_type> gsize_, gbegin_, gend_, size_, oend_, overlap_;
@@ -206,15 +206,15 @@ namespace mpl {
   template<std::size_t dim, typename T, typename A = std::allocator<T>>
   class local_grid {
   public:
-    typedef std::vector<T, A> vector_type;
-    typedef typename vector_type::value_type value_type;
-    typedef typename vector_type::allocator_type allocator_type;
-    typedef std::ptrdiff_t size_type;
-    typedef typename vector_type::difference_type difference_type;
-    typedef typename vector_type::reference reference;
-    typedef typename vector_type::const_reference const_reference;
-    typedef typename vector_type::pointer pointer;
-    typedef typename vector_type::const_pointer const_pointer;
+    using vector_type = std::vector<T, A>;
+    using value_type = typename vector_type::value_type;
+    using allocator_type = typename vector_type::allocator_type;
+    using size_type = std::ptrdiff_t;
+    using difference_type = typename vector_type::difference_type;
+    using reference = typename vector_type::reference;
+    using const_reference = typename vector_type::const_reference;
+    using pointer = typename vector_type::pointer;
+    using const_pointer = typename vector_type::const_pointer;
 
   private:
     std::vector<size_type> gsize_;

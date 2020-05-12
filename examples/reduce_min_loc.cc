@@ -7,7 +7,7 @@
 #include <mpl/mpl.hpp>
 
 // data type to store data an position of global minimum
-typedef std::pair<double, int> pair_t;
+using pair_t = std::pair<double, int>;
 
 int main() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();

@@ -1165,10 +1165,10 @@ namespace mpl {
 
   template<typename T>
   class layouts : private std::vector<layout<T>> {
-    typedef std::vector<layout<T>> base;
+    using base = std::vector<layout<T>>;
 
   public:
-    typedef typename base::size_type size_type;
+    using typename base::size_type;
 
     explicit layouts(size_type n = 0) : base(n, empty_layout<T>()) {}
 
@@ -1189,11 +1189,11 @@ namespace mpl {
 
   template<typename T>
   class contiguous_layouts : private std::vector<contiguous_layout<T>> {
-    typedef std::vector<contiguous_layout<T>> base;
+    using base = std::vector<contiguous_layout<T>>;
     mutable std::vector<int> s;
 
   public:
-    typedef typename base::size_type size_type;
+    using typename base::size_type;
 
     explicit contiguous_layouts(size_type n = 0) : base(n, contiguous_layout<T>()), s() {}
 

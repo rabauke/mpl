@@ -126,7 +126,7 @@ namespace mpl {
 
   template<typename T1, typename T2>
   class struct_builder<std::pair<T1, T2>> : public base_struct_builder<std::pair<T1, T2>> {
-    typedef base_struct_builder<std::pair<T1, T2>> base;
+    using base = base_struct_builder<std::pair<T1, T2>>;
     struct_layout<std::pair<T1, T2>> layout;
 
   public:
@@ -190,7 +190,7 @@ namespace mpl {
 
   template<typename... Ts>
   class struct_builder<std::tuple<Ts...>> : public base_struct_builder<std::tuple<Ts...>> {
-    typedef base_struct_builder<std::tuple<Ts...>> base;
+    using base = base_struct_builder<std::tuple<Ts...>>;
     struct_layout<std::tuple<Ts...>> layout;
 
   public:
@@ -208,7 +208,7 @@ namespace mpl {
 
   template<typename T, std::size_t N0>
   class struct_builder<T[N0]> : public base_struct_builder<T[N0]> {
-    typedef base_struct_builder<T[N0]> base;
+    using base = base_struct_builder<T[N0]>;
     struct_layout<T[N0]> layout;
 
   public:
@@ -222,7 +222,7 @@ namespace mpl {
 
   template<typename T, std::size_t N0, std::size_t N1>
   class struct_builder<T[N0][N1]> : public base_struct_builder<T[N0][N1]> {
-    typedef base_struct_builder<T[N0][N1]> base;
+    using base = base_struct_builder<T[N0][N1]>;
     struct_layout<T[N0][N1]> layout;
 
   public:
@@ -236,7 +236,7 @@ namespace mpl {
 
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
   class struct_builder<T[N0][N1][N2]> : public base_struct_builder<T[N0][N1][N2]> {
-    typedef base_struct_builder<T[N0][N1][N2]> base;
+    using base = base_struct_builder<T[N0][N1][N2]>;
     struct_layout<T[N0][N1][N2]> layout;
 
   public:
@@ -250,7 +250,7 @@ namespace mpl {
 
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
   class struct_builder<T[N0][N1][N2][N3]> : public base_struct_builder<T[N0][N1][N2][N3]> {
-    typedef base_struct_builder<T[N0][N1][N2][N3]> base;
+    using base = base_struct_builder<T[N0][N1][N2][N3]>;
     struct_layout<T[N0][N1][N2][N3]> layout;
 
   public:
@@ -266,7 +266,7 @@ namespace mpl {
 
   template<typename T, std::size_t N>
   class struct_builder<std::array<T, N>> : public base_struct_builder<std::array<T, N>> {
-    typedef base_struct_builder<std::array<T, N>> base;
+    using base = base_struct_builder<std::array<T, N>>;
     struct_layout<std::array<T, N>> layout;
 
   public:

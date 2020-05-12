@@ -22,7 +22,7 @@ namespace mpl {
     static constexpr periodicity nonperiodic = periodicity::nonperiodic;
 
     class coords_type : private std::vector<int> {
-      typedef std::vector<int> base;
+      using base = std::vector<int>;
 
     public:
       using value_type = typename base::value_type;
@@ -39,7 +39,7 @@ namespace mpl {
     };
 
     class periodicities_type : private std::vector<periodicity> {
-      typedef std::vector<periodicity> base;
+      using base = std::vector<periodicity>;
 
     public:
       using value_type = typename base::value_type;
@@ -59,7 +59,7 @@ namespace mpl {
       std::vector<int> dims_, periodic_;
 
     public:
-      typedef std::vector<int>::size_type size_type;
+      using size_type = std::vector<int>::size_type;
 
       sizes(std::initializer_list<std::pair<int, periodicity>> list) {
         for (const auto &i : list)

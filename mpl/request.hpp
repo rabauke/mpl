@@ -111,7 +111,7 @@ namespace mpl {
       std::vector<status> stats;
 
     public:
-      typedef std::vector<MPI_Request>::size_type size_type;
+      using size_type = std::vector<MPI_Request>::size_type;
 
       request_pool() = default;
 
@@ -220,7 +220,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class irequest : public detail::request<detail::irequest> {
-    typedef detail::request<detail::irequest> base;
+    using base = detail::request<detail::irequest>;
     using base::req;
 
   public:
@@ -265,7 +265,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class prequest : public detail::request<detail::prequest> {
-    typedef detail::request<detail::prequest> base;
+    using base = detail::request<detail::prequest>;
     using base::req;
 
   public:
@@ -291,7 +291,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class prequest_pool : public detail::request_pool<prequest> {
-    typedef detail::request_pool<prequest> base;
+    using base = detail::request_pool<prequest>;
     using base::reqs;
 
   public:

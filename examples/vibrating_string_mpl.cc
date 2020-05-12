@@ -18,7 +18,7 @@ enum : int { left_copy, right_copy };
 // update grid points
 void string(const std::vector<double> &u, const std::vector<double> &u_old,
             std::vector<double> &u_new, double eps) {
-  typedef std::vector<double>::size_type size_type;
+  using size_type = std::vector<double>::size_type;
   size_type N = u.size();
   u_new[0] = u[0];
   for (size_type i = 1; i < N - 1; ++i)

@@ -4,7 +4,7 @@
 #include <tuple>
 #include <mpl/mpl.hpp>
 
-typedef std::tuple<double, double> double_2;
+using double_2 = std::tuple<double, double>;
 
 
 template<std::size_t dim, typename T, typename A>

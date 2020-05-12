@@ -200,12 +200,12 @@ namespace mpl {
     template<typename T, typename F>
     class op {
     public:
-      typedef F functor;
-      typedef get_signature<functor> signature;
-      typedef typename std::decay<get_first_argument_type<signature>>::type first_argument_type;
-      typedef
-          typename std::decay<get_second_argument_type<signature>>::type second_argument_type;
-      typedef typename std::decay<get_result_type<signature>>::type result_type;
+      using functor = F;
+      using signature = get_signature<functor> ;
+      using first_argument_type = typename std::decay<get_first_argument_type<signature>>::type;
+      using second_argument_type =
+          typename std::decay<get_second_argument_type<signature>>::type;
+      using result_type = typename std::decay<get_result_type<signature>>::type;
       static_assert(
           std::is_assignable<typename std::add_lvalue_reference<first_argument_type>::type,
                              T>::value and

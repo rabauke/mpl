@@ -17,7 +17,7 @@ namespace mpl {
     template<typename T, typename I>
     class flat_memory_in {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
       size_type n;
@@ -40,7 +40,7 @@ namespace mpl {
     template<typename T>
     class flat_memory_in<T, T *> {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
       size_type n;
@@ -63,15 +63,15 @@ namespace mpl {
     template<typename T>
     class flat_memory_in<T, typename std::vector<T>::iterator> {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
-      typedef typename std::vector<T>::iterator iter;
+      using iterator = typename std::vector<T>::iterator;
       size_type n;
-      iter first;
+      iterator first;
 
     public:
-      flat_memory_in(iter i1, iter i2) : n(std::distance(i1, i2)), first(i1) {}
+      flat_memory_in(iterator i1, iterator i2) : n(std::distance(i1, i2)), first(i1) {}
 
       ~flat_memory_in() = default;
 
@@ -85,15 +85,15 @@ namespace mpl {
     template<typename T>
     class flat_memory_in<T, typename std::vector<T>::const_iterator> {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
-      typedef typename std::vector<T>::const_iterator iter;
+      using const_iterator = typename std::vector<T>::const_iterator;
       size_type n;
-      iter first;
+      const_iterator first;
 
     public:
-      flat_memory_in(iter i1, iter i2) : n(std::distance(i1, i2)), first(i1) {}
+      flat_memory_in(const_iterator i1, const_iterator i2) : n(std::distance(i1, i2)), first(i1) {}
 
       ~flat_memory_in() = default;
 
@@ -109,7 +109,7 @@ namespace mpl {
     template<typename T, typename I>
     class flat_memory_out {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
       size_type n;
@@ -139,7 +139,7 @@ namespace mpl {
     template<typename T>
     class flat_memory_out<T, T *> {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
       size_type n;
@@ -170,16 +170,16 @@ namespace mpl {
     template<typename T>
     class flat_memory_out<T, typename std::vector<T>::iterator> {
     public:
-      typedef std::ptrdiff_t size_type;
+      using size_type = std::ptrdiff_t;
 
     private:
-      typedef typename std::vector<T>::iterator iter;
+      using iterator = typename std::vector<T>::iterator;
       size_type n;
-      iter first_out;
-      iter first;
+      iterator first_out;
+      iterator first;
 
     public:
-      flat_memory_out(size_type n, iter first_out)
+      flat_memory_out(size_type n, iterator first_out)
           : n(n), first_out(first_out), first(first_out) {}
 
       ~flat_memory_out() = default;
@@ -194,7 +194,7 @@ namespace mpl {
 
       T &operator[](std::size_t i) { return data()[i]; }
 
-      iter copy_back(size_type m) const { return first_out + std::min(m, n); }
+      iterator copy_back(size_type m) const { return first_out + std::min(m, n); }
     };
 
   }  // namespace detail

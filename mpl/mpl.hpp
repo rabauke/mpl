@@ -21,7 +21,7 @@ namespace mpl {
 
   static constexpr int bsend_overheadroot = MPI_BSEND_OVERHEAD;
 
-  typedef std::size_t size_t;
+  using std::size_t;
 
 }  // namespace mpl
 
