@@ -1208,7 +1208,8 @@ namespace mpl {
     const contiguous_layout<T> *operator()() const { return base::data(); }
 
     const int *sizes() const {
-      s.resize(0);
+      s.clear();
+      s.reserve(size());
       for (const auto &i : *this)
         s.push_back(i.size());
       return s.data();

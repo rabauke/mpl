@@ -39,7 +39,7 @@ void parallel_sort(std::vector<T> &v) {
   comm_world.allgather(local_pivots.data(), mpl::vector_layout<T>(size - 1), pivots.data(),
                        mpl::vector_layout<T>(size - 1));
   std::sort(begin(pivots), end(pivots));
-  local_pivots.resize(0);
+  local_pivots.clear();
   for (std::size_t i = 1; i < size; ++i)
     local_pivots.push_back(pivots[i * (size - 1)]);
   swap(local_pivots, pivots);
