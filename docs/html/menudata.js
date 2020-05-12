@@ -12,7 +12,6 @@ var menudata={children:[
 {text:"m",url:"namespacemembers.html#index_m"},
 {text:"o",url:"namespacemembers.html#index_o"},
 {text:"p",url:"namespacemembers.html#index_p"},
-{text:"s",url:"namespacemembers.html#index_s"},
 {text:"t",url:"namespacemembers.html#index_t"},
 {text:"w",url:"namespacemembers.html#index_w"}]},
 {text:"Functions",url:"namespacemembers_func.html",children:[
@@ -79,7 +78,6 @@ var menudata={children:[
 {text:"a",url:"functions_type.html#index_a"},
 {text:"c",url:"functions_type.html#index_c"},
 {text:"d",url:"functions_type.html#index_d"},
-{text:"i",url:"functions_type.html#index_i"},
 {text:"p",url:"functions_type.html#index_p"},
 {text:"r",url:"functions_type.html#index_r"},
 {text:"s",url:"functions_type.html#index_s"},

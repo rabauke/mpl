@@ -11,7 +11,7 @@ var searchData=
   ['dest',['dest',['../structmpl_1_1shift__ranks.html#a48cd0e542bdfb70b779e9267b5043f55',1,'mpl::shift_ranks']]],
   ['dest_5fset',['dest_set',['../classmpl_1_1dist__graph__communicator_1_1dest__set.html',1,'mpl::dist_graph_communicator']]],
   ['difference',['difference',['../classmpl_1_1group_1_1difference.html',1,'mpl::group']]],
-  ['difference_5ftype',['difference_type',['../classmpl_1_1distributed__grid.html#aa39a87c77243ae9d5c3030c354636d84',1,'mpl::distributed_grid::difference_type()'],['../classmpl_1_1local__grid.html#ab07958c6109e7cc61f1cfe5500d782e5',1,'mpl::local_grid::difference_type()']]],
+  ['difference_5ftype',['difference_type',['../classmpl_1_1distributed__grid.html#aef0dc237dc10dbb89f77b95dafa860e0',1,'mpl::distributed_grid::difference_type()'],['../classmpl_1_1local__grid.html#ae475f7494bbd3986b2850906ea360b6d',1,'mpl::local_grid::difference_type()']]],
   ['dim',['dim',['../classmpl_1_1cart__communicator.html#a87fd240ec4c59b71d6e72a651dd6187b',1,'mpl::cart_communicator']]],
   ['dims',['dims',['../classmpl_1_1cart__communicator_1_1sizes.html#aa264ba6eab7a17fcf1427e91ffc8712a',1,'mpl::cart_communicator::sizes::dims()'],['../classmpl_1_1cart__communicator.html#a8cdb6ed3337c623a2b493503a6ff71c2',1,'mpl::cart_communicator::dims()']]],
   ['dims_5fcreate',['dims_create',['../classmpl_1_1cart__communicator_1_1sizes.html#acacb0493b799d53bffcc9cbe11545cee',1,'mpl::cart_communicator::sizes::dims_create()'],['../namespacempl.html#a68761f4fa29575dedc9090eb17fafe2d',1,'mpl::dims_create()']]],
