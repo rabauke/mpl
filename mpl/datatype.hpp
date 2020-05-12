@@ -215,7 +215,7 @@ namespace mpl {
     struct_builder() {
       T array[N0];
       layout.register_struct(array);
-      layout.register_vector(array, N0);
+      layout.register_vector(&array[0], N0);
       base::define_struct(layout);
     }
   };
@@ -229,7 +229,7 @@ namespace mpl {
     struct_builder() {
       T array[N0][N1];
       layout.register_struct(array);
-      layout.register_vector(array, N0 * N1);
+      layout.register_vector(&array[0][0], N0 * N1);
       base::define_struct(layout);
     }
   };
@@ -243,7 +243,7 @@ namespace mpl {
     struct_builder() {
       T array[N0][N1][N2];
       layout.register_struct(array);
-      layout.register_vector(array, N0 * N1 * N2);
+      layout.register_vector(&array[0][0][0], N0 * N1 * N2);
       base::define_struct(layout);
     }
   };
@@ -257,7 +257,7 @@ namespace mpl {
     struct_builder() {
       T array[N0][N1][N2][N3];
       layout.register_struct(array);
-      layout.register_vector(array, N0 * N1 * N2 * N3);
+      layout.register_vector(&array[0][0][0][0], N0 * N1 * N2 * N3);
       base::define_struct(layout);
     }
   };
