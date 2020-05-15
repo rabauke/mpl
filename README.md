@@ -9,7 +9,7 @@ performance computing.
 MPL will neither bring all functions of the C language MPI-API to C++ nor
 provide a direct mapping of the C API to some C++ functions and classes.
 Its focus lies on the MPI core message passing functions, ease of use, type
-safety, and elegance.  This library is must useful for developers who have at 
+safety, and elegance.  This library is most useful for developers who have at 
 least some basic knowledge of the Message Passing Interface and would like to 
 utilize it via a more user friendly interface. 
 
