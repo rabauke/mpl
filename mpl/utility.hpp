@@ -85,8 +85,27 @@ namespace mpl {
         : public std::true_type {};
 
     template<typename T>
+    struct is_contiguous_iterator<
+        T, typename std::enable_if<std::is_same<
+               T, typename std::basic_string<typename T::value_type>::const_iterator>::value>::
+               type> : public std::true_type {};
+
+    template<typename T>
     struct is_contiguous_iterator<T, typename std::enable_if<std::is_pointer<T>::value>::type>
         : public std::true_type {};
+
+    //------------------------------------------------------------------
+
+    template<typename T>
+    struct remove_const_from_members {
+      using type = T;
+    };
+
+    template<typename T1, typename T2>
+    struct remove_const_from_members<std::pair<T1, T2>> {
+      using type =
+          std::pair<typename std::remove_const<T1>::type, typename std::remove_const<T2>::type>;
+    };
 
   }  // namespace detail
 

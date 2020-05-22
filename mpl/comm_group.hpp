@@ -215,6 +215,13 @@ namespace mpl {
 #endif
     }
 
+    void check_count(int count) const {
+#if defined MPL_DEBUG
+      if (count == MPI_UNDEFINED)
+        throw invalid_count();
+#endif
+    }
+
   protected:
     explicit communicator(MPI_Comm comm) : comm(comm) {}
 
@@ -331,11 +338,35 @@ namespace mpl {
 
     // === standard send ===
     // --- blocking standard send ---
+  private:
+    template<typename T>
+    void send(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Send(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+    }
+
+    template<typename T>
+    void send(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      vector_layout<value_type> l(data.size());
+      send(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
+    }
+
+    template<typename T>
+    void send(const T &data, int dest, tag t, detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
+      std::copy(std::begin(data), std::end(data), serial_data.get());
+      vector_layout<value_type> l(data.size());
+      send(serial_data.get(), l, dest, t);
+    }
+
+  public:
     template<typename T>
     void send(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
-      MPI_Send(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+      send(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -441,11 +472,35 @@ namespace mpl {
     }
 
     // --- blocking buffered send ---
+  private:
+    template<typename T>
+    void bsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Bsend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+    }
+
+    template<typename T>
+    void bsend(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      vector_layout<value_type> l(data.size());
+      bsend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
+    }
+
+    template<typename T>
+    void bsend(const T &data, int dest, tag t, detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
+      std::copy(std::begin(data), std::end(data), serial_data.get());
+      vector_layout<value_type> l(data.size());
+      bsend(serial_data.get(), l, dest, t);
+    }
+
+  public:
     template<typename T>
     void bsend(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
-      MPI_Bsend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+      bsend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -536,11 +591,35 @@ namespace mpl {
 
     // === synchronous send ===
     // --- blocking synchronous send ---
+  private:
+    template<typename T>
+    void ssend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Ssend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+    }
+
+    template<typename T>
+    void ssend(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      vector_layout<value_type> l(data.size());
+      ssend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
+    }
+
+    template<typename T>
+    void ssend(const T &data, int dest, tag t, detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
+      std::copy(std::begin(data), std::end(data), serial_data.get());
+      vector_layout<value_type> l(data.size());
+      ssend(serial_data.get(), l, dest, t);
+    }
+
+  public:
     template<typename T>
     void ssend(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
-      MPI_Ssend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+      ssend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -631,11 +710,35 @@ namespace mpl {
 
     // === ready send ===
     // --- blocking ready send ---
+  private:
+    template<typename T>
+    void rsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Rsend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+    }
+
+    template<typename T>
+    void rsend(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      vector_layout<value_type> l(data.size());
+      rsend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
+    }
+
+    template<typename T>
+    void rsend(const T &data, int dest, tag t, detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
+      std::copy(std::begin(data), std::end(data), serial_data.get());
+      vector_layout<value_type> l(data.size());
+      rsend(serial_data.get(), l, dest, t);
+    }
+
+  public:
     template<typename T>
     void rsend(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
-      MPI_Rsend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm);
+      rsend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -726,14 +829,56 @@ namespace mpl {
 
     // === receive ===
     // --- blocking receive ---
+  private:
     template<typename T>
-    status recv(T &data, int source, tag t = tag(0)) const {
-      check_source(source);
-      check_recv_tag(t);
+    status recv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
       status s;
       MPI_Recv(&data, 1, datatype_traits<T>::get_datatype(), source, static_cast<int>(t), comm,
                reinterpret_cast<MPI_Status *>(&s));
       return s;
+    }
+
+    template<typename T>
+    status recv(T &data, int source, tag t, detail::contigous_stl_container) const {
+      using value_type = typename T::value_type;
+      status s;
+      auto *ps{reinterpret_cast<MPI_Status *>(&s)};
+      MPI_Message message;
+      MPI_Mprobe(source, static_cast<int>(t), comm, &message, ps);
+      int count{0};
+      MPI_Get_count(ps, datatype_traits<value_type>::get_datatype(), &count);
+      check_count(count);
+      data.resize(count);
+      MPI_Mrecv(data.size() > 0 ? &data[0] : nullptr, count,
+                datatype_traits<value_type>::get_datatype(), &message, ps);
+      return s;
+    }
+
+    template<typename T>
+    status recv(T &data, int source, tag t, detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      status s;
+      auto *ps{reinterpret_cast<MPI_Status *>(&s)};
+      MPI_Message message;
+      MPI_Mprobe(source, static_cast<int>(t), comm, &message, ps);
+      int count{0};
+      MPI_Get_count(ps, datatype_traits<value_type>::get_datatype(), &count);
+      check_count(count);
+      std::unique_ptr<value_type[]> serial_data{new value_type[count]};
+      MPI_Mrecv(serial_data.get(), count, datatype_traits<value_type>::get_datatype(), &message,
+                ps);
+      T new_data(serial_data.get(), serial_data.get() + count);
+      data.swap(new_data);
+      return s;
+    }
+
+  public:
+    template<typename T>
+    status recv(T &data, int source, tag t = tag(0)) const {
+      check_source(source);
+      check_recv_tag(t);
+      return recv(data, source, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -1884,7 +2029,7 @@ namespace mpl {
                   detail::get_op<T, F>(f).mpi_op, comm, &req);
       return detail::irequest(req);
     }
-  };
+  };  // namespace mpl
 
   //--------------------------------------------------------------------
 

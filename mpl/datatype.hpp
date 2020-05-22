@@ -6,6 +6,15 @@
 #include <cstddef>
 #include <cstdint>
 #include <vector>
+#include <deque>
+#include <forward_list>
+#include <list>
+#include <set>
+#include <map>
+#include <unordered_set>
+#include <unordered_map>
+#include <string>
+#include <valarray>
 #include <complex>
 #include <utility>
 #include <tuple>
@@ -14,6 +23,16 @@
 #include <type_traits>
 
 namespace mpl {
+
+  namespace detail {
+
+    struct unsupported_type {};
+    struct basic_or_fixed_size_type {};
+    struct stl_container {};
+    struct contigous_const_stl_container : public stl_container {};
+    struct contigous_stl_container : public contigous_const_stl_container {};
+
+  }  // namespace detail
 
   //--- forward declarations -------------------------------------------
 
@@ -31,7 +50,10 @@ namespace mpl {
   class base_struct_builder;
 
   template<typename T>
-  class struct_builder;
+  class struct_builder {
+  public:
+    using data_type_category = detail::unsupported_type;
+  };
 
   //--------------------------------------------------------------------
 
@@ -118,6 +140,8 @@ namespace mpl {
     void operator=(const base_struct_builder &) = delete;
 
     ~base_struct_builder() { MPI_Type_free(&type); }
+
+    using data_type_category = detail::basic_or_fixed_size_type;
 
     friend class detail::datatype_traits_impl<T, void>;
   };
@@ -289,14 +313,16 @@ namespace mpl {
         static struct_builder<T> builder;
         return builder.type;
       }
+      using data_type_category = typename struct_builder<T>::data_type_category;
     };
 
     template<typename T>
     class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
+      using underlying = typename std::underlying_type<T>::type;
+
     public:
-      static MPI_Datatype get_datatype() {
-        return datatype_traits<typename std::underlying_type<T>::type>::get_datatype();
-      }
+      static MPI_Datatype get_datatype() { return datatype_traits<underlying>::get_datatype(); }
+      using data_type_category = typename datatype_traits<underlying>::data_type_category;
     };
 
 #if defined MPL_HOMOGENEOUS
@@ -309,6 +335,7 @@ namespace mpl {
       static MPI_Datatype get_datatype() {
         return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
       }
+      using data_type_category = typename datatype_traits_impl<T>::data_type_category;
     };
 #endif
 
@@ -320,13 +347,15 @@ namespace mpl {
     static MPI_Datatype get_datatype() {
       return detail::datatype_traits_impl<T>::get_datatype();
     }
+    using data_type_category = typename detail::datatype_traits_impl<T>::data_type_category;
   };
 
-#define MPL_DATATYPE_TRAITS(type, mpi_type)                 \
-  template<>                                                \
-  class datatype_traits<type> {                             \
-  public:                                                   \
-    static MPI_Datatype get_datatype() { return mpi_type; } \
+#define MPL_DATATYPE_TRAITS(type, mpi_type)                      \
+  template<>                                                     \
+  class datatype_traits<type> {                                  \
+  public:                                                        \
+    static MPI_Datatype get_datatype() { return mpi_type; }      \
+    using data_type_category = detail::basic_or_fixed_size_type; \
   }
 
   MPL_DATATYPE_TRAITS(char, MPI_CHAR);
@@ -379,6 +408,7 @@ namespace mpl {
     static MPI_Datatype get_datatype() {
       return datatype_traits<std::uint_least16_t>::get_datatype();
     }
+    using data_type_category = detail::basic_or_fixed_size_type;
   };
 
   template<>
@@ -387,6 +417,97 @@ namespace mpl {
     static MPI_Datatype get_datatype() {
       return datatype_traits<std::uint_least32_t>::get_datatype();
     }
+    using data_type_category = detail::basic_or_fixed_size_type;
+  };
+
+  template<typename T, typename A>
+  class datatype_traits<std::vector<T, A>> {
+  public:
+    using data_type_category = detail::contigous_stl_container;
+  };
+
+  template<typename A>
+  class datatype_traits<std::vector<bool, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename A>
+  class datatype_traits<std::deque<T, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename A>
+  class datatype_traits<std::forward_list<T, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename A>
+  class datatype_traits<std::list<T, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::set<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::map<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::multiset<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::multimap<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::unordered_set<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::unordered_map<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::unordered_multiset<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename C, typename A>
+  class datatype_traits<std::unordered_multimap<T, C, A>> {
+  public:
+    using data_type_category = detail::stl_container;
+  };
+
+  template<typename T, typename Trait, typename Char>
+  class datatype_traits<std::basic_string<T, Trait, Char>> {
+  public:
+    using data_type_category = detail::contigous_const_stl_container;
+  };
+
+  template<typename T>
+  class datatype_traits<std::valarray<T>> {
+  public:
+    using data_type_category = detail::contigous_stl_container;
   };
 
 }  // namespace mpl

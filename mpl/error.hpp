@@ -39,6 +39,13 @@ namespace mpl {
     ~invalid_size() override = default;
   };
 
+  class invalid_count : public error {
+  public:
+    invalid_count() : error("invalid count") {}
+
+    ~invalid_count() override = default;
+  };
+
   class invalid_layout : public error {
   public:
     invalid_layout() : error("invalid layout") {}
