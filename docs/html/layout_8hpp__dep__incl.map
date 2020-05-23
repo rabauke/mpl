@@ -1,5 +1,6 @@
 <map id="layout.hpp" name="layout.hpp">
-<area shape="rect" id="node2" href="$comm__group_8hpp.html" title="comm_group.hpp" alt="" coords="5,83,152,112"/>
-<area shape="rect" id="node3" href="$mpl_8hpp.html" title="mpl.hpp" alt="" coords="150,160,229,189"/>
-<area shape="rect" id="node4" href="$distributed__grid_8hpp.html" title="distributed_grid.hpp" alt="" coords="227,83,389,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="141,5,237,35"/>
+<area shape="rect" id="node2" href="$comm__group_8hpp.html" title=" " alt="" coords="5,83,152,112"/>
+<area shape="rect" id="node3" href="$mpl_8hpp.html" title=" " alt="" coords="150,160,229,189"/>
+<area shape="rect" id="node4" href="$distributed__grid_8hpp.html" title=" " alt="" coords="227,83,389,112"/>
 </map>

@@ -11,16 +11,16 @@ var hierarchy =
       [ "mpl::struct_builder< std::tuple< Ts... > >", "classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html", null ]
     ] ],
     [ "mpl::base_struct_builder< T[N0]>", "classmpl_1_1base__struct__builder.html", [
-      [ "mpl::struct_builder< T[N0]>", "classmpl_1_1struct__builder_3_01_t[_n0]_4.html", null ]
+      [ "mpl::struct_builder< T[N0]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html", null ]
     ] ],
     [ "mpl::base_struct_builder< T[N0][N1]>", "classmpl_1_1base__struct__builder.html", [
-      [ "mpl::struct_builder< T[N0][N1]>", "classmpl_1_1struct__builder_3_01_t[_n0][_n1]_4.html", null ]
+      [ "mpl::struct_builder< T[N0][N1]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4.html", null ]
     ] ],
     [ "mpl::base_struct_builder< T[N0][N1][N2]>", "classmpl_1_1base__struct__builder.html", [
-      [ "mpl::struct_builder< T[N0][N1][N2]>", "classmpl_1_1struct__builder_3_01_t[_n0][_n1][_n2]_4.html", null ]
+      [ "mpl::struct_builder< T[N0][N1][N2]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4.html", null ]
     ] ],
     [ "mpl::base_struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1base__struct__builder.html", [
-      [ "mpl::struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1struct__builder_3_01_t[_n0][_n1][_n2][_n3]_4.html", null ]
+      [ "mpl::struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html", null ]
     ] ],
     [ "mpl::bit_and< T >", "structmpl_1_1bit__and.html", null ],
     [ "mpl::bit_or< T >", "structmpl_1_1bit__or.html", null ],
@@ -34,15 +34,34 @@ var hierarchy =
         [ "mpl::graph_communicator", "classmpl_1_1graph__communicator.html", null ]
       ] ]
     ] ],
+    [ "mpl::contiguous_layout< T >", "classmpl_1_1contiguous__layout.html", null ],
+    [ "mpl::contiguous_layouts< T >", "classmpl_1_1contiguous__layouts.html", null ],
     [ "mpl::datatype_traits< T >", "classmpl_1_1datatype__traits.html", null ],
     [ "mpl::datatype_traits< char16_t >", "classmpl_1_1datatype__traits_3_01char16__t_01_4.html", null ],
     [ "mpl::datatype_traits< char32_t >", "classmpl_1_1datatype__traits_3_01char32__t_01_4.html", null ],
     [ "mpl::datatype_traits< layout< T > >", "structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::basic_string< T, Trait, Char > >", "classmpl_1_1datatype__traits_3_01std_1_1basic__string_3_01_t_00_01_trait_00_01_char_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::deque< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1deque_3_01_t_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::forward_list< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1forward__list_3_01_t_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::list< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1list_3_01_t_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::map< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1map_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::multimap< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1multimap_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::multiset< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1multiset_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::set< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1set_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::unordered_map< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__map_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::unordered_multimap< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__multimap_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::unordered_multiset< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__multiset_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::unordered_set< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__set_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::valarray< T > >", "classmpl_1_1datatype__traits_3_01std_1_1valarray_3_01_t_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::vector< bool, A > >", "classmpl_1_1datatype__traits_3_01std_1_1vector_3_01bool_00_01_a_01_4_01_4.html", null ],
+    [ "mpl::datatype_traits< std::vector< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1vector_3_01_t_00_01_a_01_4_01_4.html", null ],
     [ "mpl::group::difference", "classmpl_1_1group_1_1difference.html", null ],
     [ "mpl::distributed_grid< dim, T, A >", "classmpl_1_1distributed__grid.html", null ],
+    [ "mpl::empty_layout< T >", "classmpl_1_1empty__layout.html", null ],
     [ "exception", null, [
       [ "mpl::error", "classmpl_1_1error.html", [
         [ "mpl::invalid_argument", "classmpl_1_1invalid__argument.html", null ],
+        [ "mpl::invalid_count", "classmpl_1_1invalid__count.html", null ],
         [ "mpl::invalid_datatype_bound", "classmpl_1_1invalid__datatype__bound.html", null ],
         [ "mpl::invalid_dim", "classmpl_1_1invalid__dim.html", null ],
         [ "mpl::invalid_layout", "classmpl_1_1invalid__layout.html", null ],
@@ -54,21 +73,14 @@ var hierarchy =
     [ "mpl::group::excl", "classmpl_1_1group_1_1excl.html", null ],
     [ "mpl::group", "classmpl_1_1group.html", null ],
     [ "mpl::communicator::group_collective", "classmpl_1_1communicator_1_1group__collective.html", null ],
+    [ "mpl::hindexed_block_layout< T >", "classmpl_1_1hindexed__block__layout.html", null ],
+    [ "mpl::hindexed_layout< T >", "classmpl_1_1hindexed__layout.html", null ],
     [ "mpl::group::incl", "classmpl_1_1group_1_1incl.html", null ],
+    [ "mpl::indexed_block_layout< T >", "classmpl_1_1indexed__block__layout.html", null ],
+    [ "mpl::indexed_layout< T >", "classmpl_1_1indexed__layout.html", null ],
     [ "mpl::group::intersection", "classmpl_1_1group_1_1intersection.html", null ],
-    [ "mpl::layout< T >", "classmpl_1_1layout.html", [
-      [ "mpl::contiguous_layout< T >", "classmpl_1_1contiguous__layout.html", null ],
-      [ "mpl::empty_layout< T >", "classmpl_1_1empty__layout.html", null ],
-      [ "mpl::hindexed_block_layout< T >", "classmpl_1_1hindexed__block__layout.html", null ],
-      [ "mpl::hindexed_layout< T >", "classmpl_1_1hindexed__layout.html", null ],
-      [ "mpl::indexed_block_layout< T >", "classmpl_1_1indexed__block__layout.html", null ],
-      [ "mpl::indexed_layout< T >", "classmpl_1_1indexed__layout.html", null ],
-      [ "mpl::iterator_layout< T >", "classmpl_1_1iterator__layout.html", null ],
-      [ "mpl::null_layout< T >", "classmpl_1_1null__layout.html", null ],
-      [ "mpl::strided_vector_layout< T >", "classmpl_1_1strided__vector__layout.html", null ],
-      [ "mpl::subarray_layout< T >", "classmpl_1_1subarray__layout.html", null ],
-      [ "mpl::vector_layout< T >", "classmpl_1_1vector__layout.html", null ]
-    ] ],
+    [ "mpl::iterator_layout< T >", "classmpl_1_1iterator__layout.html", null ],
+    [ "mpl::layout< T >", "classmpl_1_1layout.html", null ],
     [ "mpl::layout< void >", "classmpl_1_1layout.html", [
       [ "mpl::heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html", null ]
     ] ],
@@ -82,6 +94,7 @@ var hierarchy =
       [ "mpl::status", "classmpl_1_1status.html", null ]
     ] ],
     [ "mpl::multiplies< T >", "structmpl_1_1multiplies.html", null ],
+    [ "mpl::null_layout< T >", "classmpl_1_1null__layout.html", null ],
     [ "mpl::op_traits< F >", "structmpl_1_1op__traits.html", null ],
     [ "mpl::op_traits< bit_and< T > >", "structmpl_1_1op__traits_3_01bit__and_3_01_t_01_4_01_4.html", null ],
     [ "mpl::op_traits< bit_or< T > >", "structmpl_1_1op__traits_3_01bit__or_3_01_t_01_4_01_4.html", null ],
@@ -94,12 +107,12 @@ var hierarchy =
     [ "mpl::op_traits< multiplies< T > >", "structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html", null ],
     [ "mpl::op_traits< plus< T > >", "structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html", null ],
     [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
-    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
-    [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
-    [ "mpl::indexed_block_layout< T >::parameter", "classmpl_1_1indexed__block__layout_1_1parameter.html", null ],
-    [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
-    [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
     [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
+    [ "mpl::indexed_block_layout< T >::parameter", "classmpl_1_1indexed__block__layout_1_1parameter.html", null ],
+    [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
+    [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
+    [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
+    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
     [ "mpl::detail::request< detail::irequest >", null, [
       [ "mpl::irequest", "classmpl_1_1irequest.html", null ]
@@ -119,11 +132,12 @@ var hierarchy =
       [ "mpl::graph_communicator::edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", null ]
     ] ],
     [ "mpl::shift_ranks", "structmpl_1_1shift__ranks.html", null ],
-    [ "mpl::distributed_grid< dim, T, A >::sizes", "classmpl_1_1distributed__grid_1_1sizes.html", null ],
     [ "mpl::cart_communicator::sizes", "classmpl_1_1cart__communicator_1_1sizes.html", null ],
+    [ "mpl::distributed_grid< dim, T, A >::sizes", "classmpl_1_1distributed__grid_1_1sizes.html", null ],
     [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
     [ "mpl::communicator::split", "classmpl_1_1communicator_1_1split.html", null ],
     [ "mpl::communicator::split_shared", "classmpl_1_1communicator_1_1split__shared.html", null ],
+    [ "mpl::strided_vector_layout< T >", "classmpl_1_1strided__vector__layout.html", null ],
     [ "mpl::struct_builder< T >", "classmpl_1_1struct__builder.html", null ],
     [ "mpl::struct_layout< S >", "classmpl_1_1struct__layout.html", null ],
     [ "mpl::struct_layout< std::array< T, N > >", "classmpl_1_1struct__layout.html", null ],
@@ -133,15 +147,16 @@ var hierarchy =
     [ "mpl::struct_layout< T[N0][N1]>", "classmpl_1_1struct__layout.html", null ],
     [ "mpl::struct_layout< T[N0][N1][N2]>", "classmpl_1_1struct__layout.html", null ],
     [ "mpl::struct_layout< T[N0][N1][N2][N3]>", "classmpl_1_1struct__layout.html", null ],
+    [ "mpl::subarray_layout< T >", "classmpl_1_1subarray__layout.html", null ],
     [ "mpl::tag", "classmpl_1_1tag.html", null ],
     [ "mpl::group::Union", "classmpl_1_1group_1_1_union.html", null ],
     [ "vector", null, [
       [ "mpl::cart_communicator::coords_type", "classmpl_1_1cart__communicator_1_1coords__type.html", null ],
       [ "mpl::cart_communicator::periodicities_type", "classmpl_1_1cart__communicator_1_1periodicities__type.html", null ],
-      [ "mpl::contiguous_layouts< T >", "classmpl_1_1contiguous__layouts.html", null ],
       [ "mpl::displacements", "classmpl_1_1displacements.html", null ],
       [ "mpl::graph_communicator::node_list", "classmpl_1_1graph__communicator_1_1node__list.html", null ],
       [ "mpl::layouts< T >", "classmpl_1_1layouts.html", null ],
       [ "mpl::ranks", "classmpl_1_1ranks.html", null ]
-    ] ]
+    ] ],
+    [ "mpl::vector_layout< T >", "classmpl_1_1vector__layout.html", null ]
 ];

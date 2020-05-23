@@ -1,0 +1,4 @@
+var classmpl_1_1datatype__traits_3_01std_1_1basic__string_3_01_t_00_01_trait_00_01_char_01_4_01_4 =
+[
+    [ "data_type_category", "classmpl_1_1datatype__traits_3_01std_1_1basic__string_3_01_t_00_01_trait_00_01_char_01_4_01_4.html#a98d04acae05c1bc692f7e13dc8fdaedd", null ]
+];

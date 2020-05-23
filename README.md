@@ -30,8 +30,12 @@ built on MPI, an MPI implementation needs to be installed, e.g.,
 For documentation see the
 [Doxygen-generated documentation](https://rabauke.github.io/mpl/html/), the blog posts
 
-  * [MPL – A message passing library](https://www.numbercrunch.de/blog/2015/08/mpl-a-message-passing-library/)
-  * [MPL – Collective communication](https://www.numbercrunch.de/blog/2015/09/mpl-collective-communication/)
-  * [MPL – Data types](https://www.numbercrunch.de/blog/2015/09/mpl-data-types/)
+  * [MPL – A message passing library](https://www.numbercrunch.de/blog/2015/08/mpl-a-message-passing-library/),
+  * [MPL – Collective communication](https://www.numbercrunch.de/blog/2015/09/mpl-collective-communication/),
+  * [MPL – Data types](https://www.numbercrunch.de/blog/2015/09/mpl-data-types/),
+
+the presentation
+
+  * [Message Passing mit modernem C++](https://rabauke.github.io/mpl/mpl_parallel_2018.pdf) (German only),
 
 and the files in the `examples` directory of the source package.

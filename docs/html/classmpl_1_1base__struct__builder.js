@@ -1,5 +1,6 @@
 var classmpl_1_1base__struct__builder =
 [
+    [ "data_type_category", "classmpl_1_1base__struct__builder.html#a5d3e78579a898c5042bfbbcf98b4f413", null ],
     [ "base_struct_builder", "classmpl_1_1base__struct__builder.html#a5f3bf258376f33c5121e79b9bf3de42e", null ],
     [ "base_struct_builder", "classmpl_1_1base__struct__builder.html#a3138dac289f89c80ea2e7f0467f7a7c3", null ],
     [ "~base_struct_builder", "classmpl_1_1base__struct__builder.html#a422ca86095a3ce069737d5c368dff52f", null ],

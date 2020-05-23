@@ -1,5 +1,7 @@
 <map id="mpl::communicator" name="mpl::communicator">
-<area shape="rect" id="node3" href="$classmpl_1_1cart__communicator.html" title="mpl::cart_communicator" alt="" coords="5,160,196,189"/>
-<area shape="rect" id="node4" href="$classmpl_1_1dist__graph__communicator.html" title="mpl::dist_graph_communicator" alt="" coords="221,160,461,189"/>
-<area shape="rect" id="node5" href="$classmpl_1_1graph__communicator.html" title="mpl::graph_communicator" alt="" coords="485,160,692,189"/>
+<area shape="rect" id="node1" title=" " alt="" coords="263,5,419,35"/>
+<area shape="rect" id="node2" title=" " alt="" coords="219,83,462,112"/>
+<area shape="rect" id="node3" href="$classmpl_1_1cart__communicator.html" title=" " alt="" coords="5,160,196,189"/>
+<area shape="rect" id="node4" href="$classmpl_1_1dist__graph__communicator.html" title=" " alt="" coords="221,160,461,189"/>
+<area shape="rect" id="node5" href="$classmpl_1_1graph__communicator.html" title=" " alt="" coords="485,160,692,189"/>
 </map>

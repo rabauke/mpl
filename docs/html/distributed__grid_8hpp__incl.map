@@ -1,4 +1,15 @@
 <map id="distributed_grid.hpp" name="distributed_grid.hpp">
-<area shape="rect" id="node3" href="$cart__comm_8hpp.html" title="mpl/cart_comm.hpp" alt="" coords="101,83,263,112"/>
-<area shape="rect" id="node7" href="$layout_8hpp.html" title="mpl/layout.hpp" alt="" coords="396,83,523,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="101,5,263,35"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,160,71,189"/>
+<area shape="rect" id="node3" href="$cart__comm_8hpp.html" title=" " alt="" coords="101,83,263,112"/>
+<area shape="rect" id="node7" href="$layout_8hpp.html" title=" " alt="" coords="396,83,523,112"/>
+<area shape="rect" id="node4" title=" " alt="" coords="177,160,238,189"/>
+<area shape="rect" id="node5" title=" " alt="" coords="262,160,350,189"/>
+<area shape="rect" id="node6" title=" " alt="" coords="95,160,152,189"/>
+<area shape="rect" id="node8" title=" " alt="" coords="375,160,448,189"/>
+<area shape="rect" id="node9" title=" " alt="" coords="472,160,543,189"/>
+<area shape="rect" id="node10" title=" " alt="" coords="567,160,682,189"/>
+<area shape="rect" id="node11" title=" " alt="" coords="707,160,801,189"/>
+<area shape="rect" id="node12" title=" " alt="" coords="826,160,885,189"/>
+<area shape="rect" id="node13" title=" " alt="" coords="909,160,967,189"/>
 </map>
