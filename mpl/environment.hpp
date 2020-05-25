@@ -22,13 +22,28 @@ namespace mpl {
 
       class env {
         class initializer {
+          int thread_mode_;
+
         public:
           initializer() {
-            int thread_mode;
-            MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode);
+            MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
           }
 
           ~initializer() { MPI_Finalize(); }
+
+          threading_modes thread_mode() const {
+            switch (thread_mode_) {
+              case MPI_THREAD_SINGLE:
+                return threading_modes::single;
+              case MPI_THREAD_FUNNELED:
+                return threading_modes::funneled;
+              case MPI_THREAD_SERIALIZED:
+                return threading_modes::serialized;
+              case MPI_THREAD_MULTIPLE:
+                return threading_modes::multiple;
+            }
+            return threading_modes::single;  // make compiler happy
+          }
         };
 
         initializer init;
@@ -52,19 +67,7 @@ namespace mpl {
         }
 
         threading_modes threading_mode() const {
-          int provided;
-          MPI_Query_thread(&provided);
-          switch (provided) {
-            case MPI_THREAD_SINGLE:
-              return threading_modes::single;
-            case MPI_THREAD_FUNNELED:
-              return threading_modes::funneled;
-            case MPI_THREAD_SERIALIZED:
-              return threading_modes::serialized;
-            case MPI_THREAD_MULTIPLE:
-              return threading_modes::multiple;
-          }
-          return threading_modes::single;  // make compiler happy
+          return init.thread_mode();
         }
 
         bool is_thread_main() const {
