@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <tuple>
 #include <mpl/layout.hpp>
+#include <mpl/vector.hpp>
 
 namespace mpl {
 
@@ -355,10 +356,9 @@ namespace mpl {
     void send(const T &data, int dest, tag t, detail::stl_container) const {
       using value_type =
           typename detail::remove_const_from_members<typename T::value_type>::type;
-      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
-      std::copy(std::begin(data), std::end(data), serial_data.get());
-      vector_layout<value_type> l(data.size());
-      send(serial_data.get(), l, dest, t);
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      vector_layout<value_type> l(serial_data.size());
+      send(serial_data.data(), l, dest, t);
     }
 
   public:
@@ -489,10 +489,9 @@ namespace mpl {
     void bsend(const T &data, int dest, tag t, detail::stl_container) const {
       using value_type =
           typename detail::remove_const_from_members<typename T::value_type>::type;
-      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
-      std::copy(std::begin(data), std::end(data), serial_data.get());
-      vector_layout<value_type> l(data.size());
-      bsend(serial_data.get(), l, dest, t);
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      vector_layout<value_type> l(serial_data.size());
+      bsend(serial_data.data(), l, dest, t);
     }
 
   public:
@@ -608,10 +607,9 @@ namespace mpl {
     void ssend(const T &data, int dest, tag t, detail::stl_container) const {
       using value_type =
           typename detail::remove_const_from_members<typename T::value_type>::type;
-      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
-      std::copy(std::begin(data), std::end(data), serial_data.get());
-      vector_layout<value_type> l(data.size());
-      ssend(serial_data.get(), l, dest, t);
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      vector_layout<value_type> l(serial_data.size());
+      ssend(serial_data.data(), l, dest, t);
     }
 
   public:
@@ -727,10 +725,9 @@ namespace mpl {
     void rsend(const T &data, int dest, tag t, detail::stl_container) const {
       using value_type =
           typename detail::remove_const_from_members<typename T::value_type>::type;
-      std::unique_ptr<value_type[]> serial_data{new value_type[data.size()]};
-      std::copy(std::begin(data), std::end(data), serial_data.get());
-      vector_layout<value_type> l(data.size());
-      rsend(serial_data.get(), l, dest, t);
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      vector_layout<value_type> l(serial_data.size());
+      rsend(serial_data.data(), l, dest, t);
     }
 
   public:
@@ -865,10 +862,10 @@ namespace mpl {
       int count{0};
       MPI_Get_count(ps, datatype_traits<value_type>::get_datatype(), &count);
       check_count(count);
-      std::unique_ptr<value_type[]> serial_data{new value_type[count]};
-      MPI_Mrecv(serial_data.get(), count, datatype_traits<value_type>::get_datatype(), &message,
+      detail::vector<value_type> serial_data(count, detail::uninitialized{});
+      MPI_Mrecv(serial_data.data(), count, datatype_traits<value_type>::get_datatype(), &message,
                 ps);
-      T new_data(serial_data.get(), serial_data.get() + count);
+      T new_data(serial_data.begin(), serial_data.end());
       data.swap(new_data);
       return s;
     }
