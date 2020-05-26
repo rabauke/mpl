@@ -36,6 +36,9 @@ namespace mpl {
 
       explicit vector(size_type size, uninitialized)
           : size_{size}, data_{reinterpret_cast<pointer>(operator new(size_ * sizeof(T)))} {
+        if (not std::is_trivially_copyable<value_type>::value)
+          for (size_type i{0}; i < size; ++i)
+            new (&data_[i]) value_type();
       }
 
       template<typename IterT>
