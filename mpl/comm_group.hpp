@@ -5,6 +5,7 @@
 #include <mpi.h>
 #include <type_traits>
 #include <tuple>
+#include <thread>
 #include <mpl/layout.hpp>
 #include <mpl/vector.hpp>
 
@@ -133,6 +134,31 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   class communicator {
+    struct isend_irecv_state {
+      MPI_Request req{};
+      int source{MPI_ANY_SOURCE};
+      int tag{MPI_ANY_TAG};
+      MPI_Datatype datatype{MPI_DATATYPE_NULL};
+      int count{MPI_UNDEFINED};
+    };
+
+    static int isend_irecv_query(void *state, MPI_Status *s) {
+      isend_irecv_state *sendrecv_state = reinterpret_cast<isend_irecv_state *>(state);
+      MPI_Status_set_elements(s, sendrecv_state->datatype, sendrecv_state->count);
+      MPI_Status_set_cancelled(s, 0);
+      s->MPI_SOURCE = sendrecv_state->source;
+      s->MPI_TAG = sendrecv_state->tag;
+      return MPI_SUCCESS;
+    }
+
+    static int isend_irecv_free(void *state) {
+      isend_irecv_state *sendrecv_state = reinterpret_cast<isend_irecv_state *>(state);
+      delete sendrecv_state;
+      return MPI_SUCCESS;
+    }
+
+    static int isend_irecv_cancel(void *state, int complete) { return MPI_SUCCESS; }
+
   protected:
     MPI_Comm comm{MPI_COMM_NULL};
 
@@ -221,6 +247,22 @@ namespace mpl {
       if (count == MPI_UNDEFINED)
         throw invalid_count();
 #endif
+    }
+
+    template<typename T>
+    void check_container_size(const T &container, detail::basic_or_fixed_size_type) const {}
+
+    template<typename T>
+    void check_container_size(const T &container, detail::stl_container) const {
+#if defined MPL_DEBUG
+      if (container.size() > std::numeric_limits<int>::max())
+        throw invalid_count();
+#endif
+    }
+
+    template<typename T>
+    void check_container_size(const T &container) const {
+      check_container_size(container, typename datatype_traits<T>::data_type_category{});
     }
 
   protected:
@@ -366,6 +408,7 @@ namespace mpl {
     void send(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
+      check_container_size(data);
       send(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
@@ -390,14 +433,62 @@ namespace mpl {
     }
 
     // --- nonblocking standard send ---
+  private:
     template<typename T>
-    irequest isend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
+    irequest isend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Isend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm,
                 &req);
       return detail::irequest(req);
+    }
+
+    template<typename T>
+    void isend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+               detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      const int count(data.size());
+      MPI_Datatype datatype{datatype_traits<value_type>::get_datatype()};
+      MPI_Request req;
+      MPI_Isend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+                static_cast<int>(t), comm, &req);
+      MPI_Status s;
+      MPI_Wait(&req, &s);
+      isend_state->source = s.MPI_SOURCE;
+      isend_state->tag = s.MPI_TAG;
+      isend_state->datatype = datatype;
+      isend_state->count = 0;
+      MPI_Grequest_complete(isend_state->req);
+    }
+
+    template<typename T>
+    void isend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+               detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      isend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+    }
+
+    template<typename T, typename C>
+    irequest isend(const T &data, int dest, tag t, C) const {
+      isend_irecv_state *send_state = new isend_irecv_state();
+      MPI_Request req;
+      MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
+                         &req);
+      send_state->req = req;
+      std::thread thread(
+          [this, &data, dest, t, send_state]() { isend(data, dest, t, send_state, C{}); });
+      thread.detach();
+      return detail::irequest(req);
+    }
+
+  public:
+    template<typename T>
+    irequest isend(const T &data, int dest, tag t = tag(0)) const {
+      check_dest(dest);
+      check_send_tag(t);
+      check_container_size(data);
+      return isend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -499,6 +590,7 @@ namespace mpl {
     void bsend(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
+      check_container_size(data);
       bsend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
@@ -523,14 +615,62 @@ namespace mpl {
     }
 
     // --- nonblocking buffered send ---
+  private:
     template<typename T>
-    irequest ibsend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
+    irequest ibsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Ibsend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm,
                  &req);
       return detail::irequest(req);
+    }
+
+    template<typename T>
+    void ibsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+                detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      const int count(data.size());
+      MPI_Datatype datatype{datatype_traits<value_type>::get_datatype()};
+      MPI_Request req;
+      MPI_Ibsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+                 static_cast<int>(t), comm, &req);
+      MPI_Status s;
+      MPI_Wait(&req, &s);
+      isend_state->source = s.MPI_SOURCE;
+      isend_state->tag = s.MPI_TAG;
+      isend_state->datatype = datatype;
+      isend_state->count = 0;
+      MPI_Grequest_complete(isend_state->req);
+    }
+
+    template<typename T>
+    void ibsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+                detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      ibsend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+    }
+
+    template<typename T, typename C>
+    irequest ibsend(const T &data, int dest, tag t, C) const {
+      isend_irecv_state *send_state = new isend_irecv_state();
+      MPI_Request req;
+      MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
+                         &req);
+      send_state->req = req;
+      std::thread thread(
+          [this, &data, dest, t, send_state]() { ibsend(data, dest, t, send_state, C{}); });
+      thread.detach();
+      return detail::irequest(req);
+    }
+
+  public:
+    template<typename T>
+    irequest ibsend(const T &data, int dest, tag t = tag(0)) const {
+      check_dest(dest);
+      check_send_tag(t);
+      check_container_size(data);
+      return ibsend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -641,14 +781,62 @@ namespace mpl {
     }
 
     // --- nonblocking synchronous send ---
+  private:
     template<typename T>
-    irequest issend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
+    irequest issend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Issend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm,
                  &req);
       return detail::irequest(req);
+    }
+
+    template<typename T>
+    void issend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+                detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      const int count(data.size());
+      MPI_Datatype datatype{datatype_traits<value_type>::get_datatype()};
+      MPI_Request req;
+      MPI_Issend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+                 static_cast<int>(t), comm, &req);
+      MPI_Status s;
+      MPI_Wait(&req, &s);
+      isend_state->source = s.MPI_SOURCE;
+      isend_state->tag = s.MPI_TAG;
+      isend_state->datatype = datatype;
+      isend_state->count = 0;
+      MPI_Grequest_complete(isend_state->req);
+    }
+
+    template<typename T>
+    void issend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+                detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      issend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+    }
+
+    template<typename T, typename C>
+    irequest issend(const T &data, int dest, tag t, C) const {
+      isend_irecv_state *send_state = new isend_irecv_state();
+      MPI_Request req;
+      MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
+                         &req);
+      send_state->req = req;
+      std::thread thread(
+          [this, &data, dest, t, send_state]() { issend(data, dest, t, send_state, C{}); });
+      thread.detach();
+      return detail::irequest(req);
+    }
+
+  public:
+    template<typename T>
+    irequest issend(const T &data, int dest, tag t = tag(0)) const {
+      check_dest(dest);
+      check_send_tag(t);
+      check_container_size(data);
+      return issend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -735,6 +923,7 @@ namespace mpl {
     void rsend(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
       check_send_tag(t);
+      check_container_size(data);
       rsend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
@@ -759,14 +948,62 @@ namespace mpl {
     }
 
     // --- nonblocking ready send ---
+  private:
     template<typename T>
-    irequest irsend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
+    irequest irsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Irsend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm,
                  &req);
       return detail::irequest(req);
+    }
+
+    template<typename T>
+    void irsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+                detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      const int count(data.size());
+      MPI_Datatype datatype{datatype_traits<value_type>::get_datatype()};
+      MPI_Request req;
+      MPI_Irsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+                 static_cast<int>(t), comm, &req);
+      MPI_Status s;
+      MPI_Wait(&req, &s);
+      isend_state->source = s.MPI_SOURCE;
+      isend_state->tag = s.MPI_TAG;
+      isend_state->datatype = datatype;
+      isend_state->count = 0;
+      MPI_Grequest_complete(isend_state->req);
+    }
+
+    template<typename T>
+    void irsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+                detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      irsend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+    }
+
+    template<typename T, typename C>
+    irequest irsend(const T &data, int dest, tag t, C) const {
+      isend_irecv_state *send_state = new isend_irecv_state();
+      MPI_Request req;
+      MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
+                         &req);
+      send_state->req = req;
+      std::thread thread(
+          [this, &data, dest, t, send_state]() { irsend(data, dest, t, send_state, C{}); });
+      thread.detach();
+      return detail::irequest(req);
+    }
+
+  public:
+    template<typename T>
+    irequest irsend(const T &data, int dest, tag t = tag(0)) const {
+      check_dest(dest);
+      check_send_tag(t);
+      check_container_size(data);
+      return irsend(data, dest, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>
@@ -863,8 +1100,8 @@ namespace mpl {
       MPI_Get_count(ps, datatype_traits<value_type>::get_datatype(), &count);
       check_count(count);
       detail::vector<value_type> serial_data(count, detail::uninitialized{});
-      MPI_Mrecv(serial_data.data(), count, datatype_traits<value_type>::get_datatype(), &message,
-                ps);
+      MPI_Mrecv(serial_data.data(), count, datatype_traits<value_type>::get_datatype(),
+                &message, ps);
       T new_data(serial_data.begin(), serial_data.end());
       data.swap(new_data);
       return s;
@@ -901,14 +1138,47 @@ namespace mpl {
     }
 
     // --- nonblocking receive ---
+  private:
     template<typename T>
-    irequest irecv(T &data, int source, tag t = tag(0)) const {
-      check_source(source);
-      check_recv_tag(t);
+    irequest irecv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Irecv(&data, 1, datatype_traits<T>::get_datatype(), source, static_cast<int>(t), comm,
                 &req);
       return detail::irequest(req);
+    }
+
+    template<typename T>
+    void irecv(T &data, int source, tag t, isend_irecv_state *irecv_state,
+               detail::stl_container) const {
+      using value_type =
+          typename detail::remove_const_from_members<typename T::value_type>::type;
+      const status s{recv(data, source, t)};
+      irecv_state->source = s.source();
+      irecv_state->tag = static_cast<int>(s.tag());
+      irecv_state->datatype = datatype_traits<value_type>::get_datatype();
+      irecv_state->count = s.get_count<value_type>();
+      MPI_Grequest_complete(irecv_state->req);
+    }
+
+    template<typename T, typename C>
+    irequest irecv(T &data, int source, tag t, C) const {
+      isend_irecv_state *recv_state = new isend_irecv_state();
+      MPI_Request req;
+      MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, recv_state,
+                         &req);
+      recv_state->req = req;
+      std::thread thread(
+          [this, &data, source, t, recv_state]() { irecv(data, source, t, recv_state, C{}); });
+      thread.detach();
+      return detail::irequest(req);
+    }
+
+  public:
+    template<typename T>
+    irequest irecv(T &data, int source, tag t = tag(0)) const {
+      check_source(source);
+      check_recv_tag(t);
+      return irecv(data, source, t, typename datatype_traits<T>::data_type_category{});
     }
 
     template<typename T>

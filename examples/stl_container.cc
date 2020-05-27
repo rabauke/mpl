@@ -6,6 +6,7 @@
 #include <map>
 #include <string>
 #include <utility>
+#include <cmath>
 #include <mpl/mpl.hpp>
 
 // print elements of a pair
@@ -55,18 +56,38 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   return print_container(out, v);
 }
 
-// send some item of a standard type
+// send an stl container
 template<typename T>
 void send(const mpl::communicator &comm, const T &x) {
   comm.send(x, 1);
 }
 
-// receive some item of a standard type
+// send an stl container
+template<typename T>
+void isend(const mpl::communicator &comm, const T &x) {
+  mpl::irequest r{comm.isend(x, 1)};
+  r.wait();
+}
+
+// receive an stl container
 template<typename T>
 void recv(const mpl::communicator &comm) {
+  using value_type =
+      typename mpl::detail::remove_const_from_members<typename T::value_type>::type;
   T x;
-  comm.recv(x, 0);
-  std::cout << "x = " << x << '\n';
+  auto s = comm.recv(x, 0);
+  std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
+}
+
+// receive an stl container
+template<typename T>
+void irecv(const mpl::communicator &comm) {
+  using value_type =
+      typename mpl::detail::remove_const_from_members<typename T::value_type>::type;
+  T x;
+  mpl::irequest r{comm.irecv(x, 0)};
+  mpl::status s{r.wait()};
+  std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
 
 int main() {
@@ -78,22 +99,32 @@ int main() {
   if (comm_world.rank() == 0) {
     std::string t1{"Hello World!"};
     send(comm_world, t1);
+    isend(comm_world, t1);
     std::vector<int> t2{0, 1, 2, 3, 4, 5, 6, 77, 42};
     send(comm_world, t2);
+    isend(comm_world, t2);
     std::vector<std::tuple<int, double>> t3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
     send(comm_world, t3);
+    isend(comm_world, t3);
     std::vector<bool> t4{false, true, false, true, true};
     send(comm_world, t4);
-    std::valarray<double> t5{1, 2, 3, 4, 42};
+    isend(comm_world, t4);
+    std::valarray<double> t5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};
     send(comm_world, t5);
+    isend(comm_world, t5);
   }
   // process 1 recieves
   if (comm_world.rank() == 1) {
     recv<std::string>(comm_world);
+    irecv<std::string>(comm_world);
     recv<std::list<int>>(comm_world);
+    irecv<std::list<int>>(comm_world);
     recv<std::map<int, double>>(comm_world);
+    irecv<std::map<int, double>>(comm_world);
     recv<std::vector<bool>>(comm_world);
+    irecv<std::vector<bool>>(comm_world);
     recv<std::valarray<double>>(comm_world);
+    irecv<std::valarray<double>>(comm_world);
   }
   return EXIT_SUCCESS;
 }
