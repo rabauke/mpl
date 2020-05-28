@@ -85,5 +85,6 @@ var files_dup =
     ] ],
     [ "tag.hpp", "tag_8hpp.html", "tag_8hpp" ],
     [ "topo_comm.hpp", "topo__comm_8hpp.html", null ],
-    [ "utility.hpp", "utility_8hpp.html", null ]
+    [ "utility.hpp", "utility_8hpp.html", null ],
+    [ "vector.hpp", "vector_8hpp.html", null ]
 ];

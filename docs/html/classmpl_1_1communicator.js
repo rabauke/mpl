@@ -10,7 +10,6 @@ var classmpl_1_1communicator =
       [ "similar", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703", null ],
       [ "unequal", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29", null ]
     ] ],
-    [ "communicator", "classmpl_1_1communicator.html#a50914521a1d8098388a82acb57ab0651", null ],
     [ "communicator", "classmpl_1_1communicator.html#ae8dcb108a058800f583f92d8bc2d369f", null ],
     [ "communicator", "classmpl_1_1communicator.html#aaedab51467a9eb38a2aeedb58e357e3d", null ],
     [ "communicator", "classmpl_1_1communicator.html#a61a0bccfa633febde368a29c749368bf", null ],
@@ -189,6 +188,5 @@ var classmpl_1_1communicator =
     [ "dist_graph_communicator", "classmpl_1_1communicator.html#ae999dbc8b2f970040afb57ca86175d4b", null ],
     [ "environment::detail::env", "classmpl_1_1communicator.html#a7c53dda9ff4a482df724cab0edf000b3", null ],
     [ "graph_communicator", "classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d", null ],
-    [ "group", "classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb", null ],
-    [ "comm", "classmpl_1_1communicator.html#aef7792cddddaf15f10df108fd751a873", null ]
+    [ "group", "classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb", null ]
 ];
