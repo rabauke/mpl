@@ -10,7 +10,7 @@ template<typename T>
 bool isend_irecv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
-    false;
+    return false;
   if (comm_world.rank() == 0) {
     auto r{comm_world.isend(data, 1)};
     r.wait();
@@ -29,7 +29,7 @@ template<typename T>
 bool ibsend_irecv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
-    false;
+    return false;
   if (comm_world.rank() == 0) {
     const int size{comm_world.bsend_size<T>()};
     mpl::bsend_buffer<> buff(size);
@@ -50,7 +50,7 @@ template<typename T>
 bool issend_irecv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
-    false;
+    return false;
   if (comm_world.rank() == 0) {
     auto r{comm_world.issend(data, 1)};
     r.wait();
@@ -69,18 +69,20 @@ template<typename T>
 bool irsend_irecv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
-    false;
+    return false;
   if (comm_world.rank() == 0) {
+    comm_world.barrier();
     auto r{comm_world.irsend(data, 1)};
     r.wait();
-  }
-  if (comm_world.rank() == 1) {
+  } else if (comm_world.rank() == 1) {
     T data_r;
     auto r{comm_world.irecv(data_r, 0)};
+    comm_world.barrier();
     while (not r.test().first) {
     }
     return data_r == data;
-  }
+  } else
+    comm_world.barrier();
   return true;
 }
 

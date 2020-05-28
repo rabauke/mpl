@@ -25,8 +25,15 @@ bool communicator_comm_world_test() {
     return false;
   if (size > 1) {
     mpl::communicator comm_new{mpl::communicator::split(), comm_world, rank % 2 == 0};
-    if (comm_new.size() != (size + rank % 2) / 2)
-      return false;
+    if (comm_world.size() % 2 == 0) {
+      if (comm_new.size() != size / 2)
+        return false;
+    } else {
+      if (rank % 2 == 0 && comm_new.size() != (size + 1) / 2)
+        return false;
+      if (rank % 2 == 1 && comm_new.size() != (size - 1) / 2)
+        return false;
+    }
   }
   return true;
 }
