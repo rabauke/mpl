@@ -42,7 +42,7 @@ about each process:
 If there are two or more processes, a message is sent from process 0 to process 1, 
 which is also printed.
  
-```
+```C++
 #include <cstdlib>
 #include <iostream>
 // include MPL header file
