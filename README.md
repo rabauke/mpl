@@ -27,17 +27,17 @@ built on MPI, an MPI implementation needs to be installed, e.g.,
 
 ## Hello World
 
-MPL is build on top of the Message Passing Interface (MPI) standard.  Therefore, 
+MPL is built on top of the Message Passing Interface (MPI) standard.  Therefore, 
 MPL shares many concepts known from the MPI standard, e.g., the concept of a
-communicator.  Communicators manage communication between processes.  
-Messages are sent and received with the help of a communicator.  
+communicator.  Communicators manage the message exchange between different processes, i.e.,  
+messages are sent and received with the help of a communicator.  
 
 The MPL envirionment provides a global default communicator `comm_world`, which will 
-be used in the following Hello-World program.  The program prints out some infomation 
+be used in the following Hello-World program.  The program prints out some information 
 about each process:
 * its rank, 
 * the total number of processes and 
-* the computer name the process is running on.
+* the computer's name the process is running on.
 
 If there are two or more processes, a message is sent from process 0 to process 1, 
 which is also printed.
