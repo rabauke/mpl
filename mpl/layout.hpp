@@ -77,17 +77,12 @@ namespace mpl {
   public:
     layout() : type(MPI_DATATYPE_NULL) {}
 
-    layout(const layout &l) {
+    layout(const layout &l) : type(MPI_DATATYPE_NULL) {
       if (l.type != MPI_DATATYPE_NULL)
         MPI_Type_dup(l.type, &type);
-      else
-        type = MPI_DATATYPE_NULL;
     }
 
-    layout(layout &&l) noexcept {
-      type = l.type;
-      l.type = MPI_DATATYPE_NULL;
-    }
+    layout(layout &&l) noexcept : type(l.type) { l.type = MPI_DATATYPE_NULL; }
 
     layout &operator=(const layout &l) {
       if (this != &l) {
@@ -1170,7 +1165,9 @@ namespace mpl {
   public:
     using typename base::size_type;
 
-    explicit layouts(size_type n = 0) : base(n, empty_layout<T>()) {}
+    layouts() : base() {}
+
+    explicit layouts(size_type n) : base(n, empty_layout<T>()) {}
 
     explicit layouts(size_type n, const layout<T> &l) : base(n, l) {}
 
