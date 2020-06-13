@@ -60,7 +60,7 @@ namespace mpl {
 
       request(const T &other) : req(other.req) {}
 
-      request(T &&other) noexcept : req(other.req) { other.req = MPI_REQUEST_NULL; }
+      request(request &&other) noexcept : req(other.req) { other.req = MPI_REQUEST_NULL; }
 
       ~request() {
         if (req != MPI_REQUEST_NULL)
@@ -228,7 +228,7 @@ namespace mpl {
 
     irequest(const irequest &) = delete;
 
-    irequest(irequest &&r) noexcept : base(std::move(r.req)) {}
+    irequest(irequest &&r) noexcept : base(std::move(r)) {}
 
     void operator=(const irequest &) = delete;
 
