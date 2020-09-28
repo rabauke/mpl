@@ -131,21 +131,21 @@ namespace mpl {
     }
 
     std::ptrdiff_t extent() const {
-      std::ptrdiff_t res = byte_extent();
+      const std::ptrdiff_t res{byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
     std::ptrdiff_t lower_bound() const {
-      std::ptrdiff_t res = byte_lower_bound();
+      const std::ptrdiff_t res{byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
     std::ptrdiff_t upper_bound() const {
-      std::ptrdiff_t res = byte_upper_bound();
+      const std::ptrdiff_t res{byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
@@ -176,21 +176,21 @@ namespace mpl {
     }
 
     std::ptrdiff_t true_extent() const {
-      std::ptrdiff_t res = true_byte_extent();
+      const std::ptrdiff_t res{true_byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
     std::ptrdiff_t true_lower_bound() const {
-      std::ptrdiff_t res = true_byte_lower_bound();
+      const std::ptrdiff_t res{true_byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
     std::ptrdiff_t true_upper_bound() const {
-      std::ptrdiff_t res = true_byte_upper_bound();
+      const std::ptrdiff_t res{true_byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
@@ -534,7 +534,7 @@ namespace mpl {
       parameter() = default;
 
       template<typename List_T>
-      parameter(const List_T &V) {
+      explicit parameter(const List_T &V) {
         for (const auto &i : V)
           add(i[0], i[1]);
       }
@@ -616,7 +616,7 @@ namespace mpl {
       parameter() = default;
 
       template<typename List_T>
-      parameter(const List_T &V) {
+      explicit parameter(const List_T &V) {
         for (const auto &i : V)
           add(i.first, i.second);
       }
@@ -697,7 +697,7 @@ namespace mpl {
       parameter() = default;
 
       template<typename List_T>
-      parameter(const List_T &V) {
+      explicit parameter(const List_T &V) {
         for (const auto &i : V)
           add(i);
       }
@@ -777,7 +777,7 @@ namespace mpl {
       parameter() = default;
 
       template<typename List_T>
-      parameter(const List_T &V) {
+      explicit parameter(const List_T &V) {
         for (const auto &i : V)
           add(i);
       }
@@ -970,7 +970,7 @@ namespace mpl {
       parameter() = default;
 
       template<typename List_T>
-      parameter(const List_T &V) {
+      explicit parameter(const List_T &V) {
         for (const auto &i : V)
           add(i[0], i[1], i[2]);
       }
@@ -1066,7 +1066,7 @@ namespace mpl {
       parameter() = default;
 
       template<typename... Ts>
-      parameter(const Ts &... xs) {
+      explicit parameter(const Ts &... xs) {
         add(xs...);
       }
 
@@ -1207,8 +1207,8 @@ namespace mpl {
     const int *sizes() const {
       s.clear();
       s.reserve(size());
-      for (const auto &i : *this)
-        s.push_back(i.size());
+      std::transform(begin(), end(), std::back_inserter(s),
+                     [](const contiguous_layout<T> &l) { return l.size(); });
       return s.data();
     }
   };

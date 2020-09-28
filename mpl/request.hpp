@@ -28,7 +28,7 @@ namespace mpl {
       MPI_Request req = MPI_REQUEST_NULL;
 
     public:
-      irequest(MPI_Request req) : req(req) {}
+      explicit irequest(MPI_Request req) : req(req) {}
 
       friend class request<irequest>;
 
@@ -39,7 +39,7 @@ namespace mpl {
       MPI_Request req = MPI_REQUEST_NULL;
 
     public:
-      prequest(MPI_Request req) : req(req) {}
+      explicit prequest(MPI_Request req) : req(req) {}
 
       friend class request<prequest>;
 
@@ -58,7 +58,8 @@ namespace mpl {
 
       request(const request &) = delete;
 
-      request(const T &other) : req(other.req) {}
+      explicit request(const irequest &req) : req{req.req} {}
+      explicit request(const prequest &req) : req{req.req} {}
 
       request(request &&other) noexcept : req(other.req) { other.req = MPI_REQUEST_NULL; }
 
@@ -273,7 +274,7 @@ namespace mpl {
 
     prequest(const prequest &) = delete;
 
-    prequest(prequest &&r) noexcept : base(std::move(r.req)) {}
+    prequest(prequest &&r) noexcept : base(std::move(r)) {}
 
     void operator=(const prequest &) = delete;
 

@@ -6,6 +6,7 @@
 #include <functional>
 #include <type_traits>
 #include <memory>
+#include <ciso646>
 
 namespace mpl {
 
@@ -16,7 +17,7 @@ namespace mpl {
 
   template<typename T>
   struct min {
-    T operator()(const T &x, const T &y) const { return !(y < x) ? x : y; }
+    T operator()(const T &x, const T &y) const { return not(y < x) ? x : y; }
   };
 
   template<typename T>
