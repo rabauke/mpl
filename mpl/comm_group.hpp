@@ -140,7 +140,7 @@ namespace mpl {
     };
 
     static int isend_irecv_query(void *state, MPI_Status *s) {
-      isend_irecv_state *sendrecv_state = reinterpret_cast<isend_irecv_state *>(state);
+      isend_irecv_state *sendrecv_state{reinterpret_cast<isend_irecv_state *>(state)};
       MPI_Status_set_elements(s, sendrecv_state->datatype, sendrecv_state->count);
       MPI_Status_set_cancelled(s, 0);
       s->MPI_SOURCE = sendrecv_state->source;
@@ -149,7 +149,7 @@ namespace mpl {
     }
 
     static int isend_irecv_free(void *state) {
-      isend_irecv_state *sendrecv_state = reinterpret_cast<isend_irecv_state *>(state);
+      isend_irecv_state *sendrecv_state{reinterpret_cast<isend_irecv_state *>(state)};
       delete sendrecv_state;
       return MPI_SUCCESS;
     }
@@ -431,7 +431,8 @@ namespace mpl {
     // --- nonblocking standard send ---
   private:
     template<typename T>
-    detail::irequest isend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+    detail::irequest isend(const T &data, int dest, tag t,
+                           detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Isend(&data, 1, datatype_traits<T>::get_datatype(), dest, static_cast<int>(t), comm,
                 &req);
@@ -467,7 +468,7 @@ namespace mpl {
 
     template<typename T, typename C>
     detail::irequest isend(const T &data, int dest, tag t, C) const {
-      isend_irecv_state *send_state = new isend_irecv_state();
+      isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
@@ -649,7 +650,7 @@ namespace mpl {
 
     template<typename T, typename C>
     irequest ibsend(const T &data, int dest, tag t, C) const {
-      isend_irecv_state *send_state = new isend_irecv_state();
+      isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
@@ -815,7 +816,7 @@ namespace mpl {
 
     template<typename T, typename C>
     irequest issend(const T &data, int dest, tag t, C) const {
-      isend_irecv_state *send_state = new isend_irecv_state();
+      isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
@@ -982,7 +983,7 @@ namespace mpl {
 
     template<typename T, typename C>
     irequest irsend(const T &data, int dest, tag t, C) const {
-      isend_irecv_state *send_state = new isend_irecv_state();
+      isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
@@ -1158,7 +1159,7 @@ namespace mpl {
 
     template<typename T, typename C>
     irequest irecv(T &data, int source, tag t, C) const {
-      isend_irecv_state *recv_state = new isend_irecv_state();
+      isend_irecv_state *recv_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, recv_state,
                          &req);
@@ -1873,6 +1874,70 @@ namespace mpl {
     }
 
     // --- non-blocking all-to-all ---
+  private:
+    template<typename T>
+    struct ialltoallv_state {
+      MPI_Request req{};
+      layouts<T> sendl;
+      layouts<T> recvl;
+      std::vector<int> counts;
+      std::vector<int> senddispls_int;
+      std::vector<int> recvdispls_int;
+      MPI_Status status{};
+      ialltoallv_state(const layouts<T> &sendl, const layouts<T> &recvl,
+                       std::vector<int> &&counts, std::vector<int> &&senddispls_int,
+                       std::vector<int> &&recvdispls_int)
+          : sendl{sendl},
+            recvl{recvl},
+            counts{counts},
+            senddispls_int{senddispls_int},
+            recvdispls_int{recvdispls_int} {}
+      ialltoallv_state(const layouts<T> &recvl, std::vector<int> &&counts,
+                       std::vector<int> &&recvdispls_int)
+          : sendl{},
+            recvl{recvl},
+            counts{counts},
+            senddispls_int{},
+            recvdispls_int{recvdispls_int} {}
+    };
+
+    template<typename T>
+    static int ialltoallv_query(void *state, MPI_Status *s) {
+      ialltoallv_state<T> *sendrecv_state{reinterpret_cast<ialltoallv_state<T> *>(state)};
+      const int error_backup{s->MPI_ERROR};
+      *s = sendrecv_state->status;
+      s->MPI_ERROR = error_backup;
+      return MPI_SUCCESS;
+    }
+
+    template<typename T>
+    static int ialltoallv_free(void *state) {
+      ialltoallv_state<T> *sendrecv_state{reinterpret_cast<ialltoallv_state<T> *>(state)};
+      delete sendrecv_state;
+      return MPI_SUCCESS;
+    }
+
+    static int ialltoallv_cancel(void *state, int complete) { return MPI_SUCCESS; }
+
+    template<typename T>
+    void ialltoallv(const T *senddata, T *recvdata, ialltoallv_state<T> *state) const {
+      MPI_Request req;
+      if (senddata != nullptr)
+        MPI_Ialltoallw(senddata, state->counts.data(), state->senddispls_int.data(),
+                       reinterpret_cast<const MPI_Datatype *>(state->sendl()), recvdata,
+                       state->counts.data(), state->recvdispls_int.data(),
+                       reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm, &req);
+      else
+        MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, state->counts.data(),
+                       state->recvdispls_int.data(),
+                       reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm, &req);
+      MPI_Status s;
+      MPI_Wait(&req, &s);
+      state->status = s;
+      MPI_Grequest_complete(state->req);
+    }
+
+  public:
     template<typename T>
     irequest ialltoallv(const T *senddata, const layouts<T> &sendl,
                         const displacements &senddispls, T *recvdata, const layouts<T> &recvl,
@@ -1881,14 +1946,17 @@ namespace mpl {
       check_size(sendl);
       check_size(recvdispls);
       check_size(recvl);
-      std::vector<int> counts(recvl.size(), 1);
-      std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
-      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
+      ialltoallv_state<T> *state{
+          new ialltoallv_state<T>(sendl, recvl, std::vector<int>(recvl.size(), 1),
+                                  std::vector<int>(senddispls.begin(), senddispls.end()),
+                                  std::vector<int>(recvdispls.begin(), recvdispls.end()))};
       MPI_Request req;
-      MPI_Ialltoallw(senddata, counts.data(), senddispls_int.data(),
-                     reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata, counts.data(),
-                     recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
-                     comm, &req);
+      MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
+                         &req);
+      state->req = req;
+      std::thread thread(
+          [this, senddata, recvdata, state]() { ialltoallv(senddata, recvdata, state); });
+      thread.detach();
       return detail::irequest(req);
     }
 
@@ -1922,11 +1990,15 @@ namespace mpl {
                         const displacements &recvdispls) const {
       check_size(recvdispls);
       check_size(recvl);
-      std::vector<int> counts(recvl.size(), 1);
-      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
+      ialltoallv_state<T> *state{
+          new ialltoallv_state<T>(recvl, std::vector<int>(recvl.size(), 1),
+                                  std::vector<int>(recvdispls.begin(), recvdispls.end()))};
       MPI_Request req;
-      MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, counts.data(), recvdispls_int.data(),
-                     reinterpret_cast<const MPI_Datatype *>(recvl()), comm, &req);
+      MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
+                         &req);
+      state->req = req;
+      std::thread thread([this, recvdata, state]() { ialltoallv(nullptr, recvdata, state); });
+      thread.detach();
       return detail::irequest(req);
     }
 
@@ -2002,7 +2074,8 @@ namespace mpl {
     }
 
     template<typename T, typename F>
-    void reduce(F f, int root_rank, const T *sendrecvdata, const contiguous_layout<T> &l) const {
+    void reduce(F f, int root_rank, const T *sendrecvdata,
+                const contiguous_layout<T> &l) const {
       check_nonroot(root_rank);
       MPI_Reduce(sendrecvdata, nullptr, l.size(), datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm);
