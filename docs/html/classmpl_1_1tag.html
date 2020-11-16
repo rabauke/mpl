@@ -90,6 +90,9 @@ $(document).ready(function(){initNavTree('classmpl_1_1tag.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 
+<p>Class for representing tag parameters in communication operations.  
+ <a href="classmpl_1_1tag.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="tag_8hpp_source.html">tag.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -112,8 +115,9 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a44d0e0dd1f1f0357a6e80ec5e9e300bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00011">11</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
+<div class="textblock"><p>Class for representing tag parameters in communication operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00012">12</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa566206e5410af90197e7884b8ff1840"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa566206e5410af90197e7884b8ff1840">&#9670;&nbsp;</a></span>tag() <span class="overload">[1/3]</span></h2>
@@ -165,8 +169,14 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Initializes tag from an enum value. The enum's underlying type must be convertible to int without loss of precession (narrowing). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>tag value </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00019">19</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00023">23</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
 
 </div>
 </div>
@@ -193,8 +203,14 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Initializes tag from an int value. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">t</td><td>tag value </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00024">24</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00030">30</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
 
 </div>
 </div>
@@ -221,8 +237,9 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>wildcard tag to be used in receive operations to indicate acceptance of a message with any tag value </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00150">150</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00156">156</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -248,8 +265,9 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>tag value as int </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00026">26</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00033">33</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
 
 </div>
 </div>
@@ -275,8 +293,9 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>tag with largest value when converted to int </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00148">148</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00154">154</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>

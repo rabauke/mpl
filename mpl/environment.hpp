@@ -9,6 +9,8 @@
 
 namespace mpl {
 
+  /// Represents the various levels of thread support that the underlying MPI implementation may
+  /// provide.
   enum class threading_modes {
     single = MPI_THREAD_SINGLE,
     funneled = MPI_THREAD_FUNNELED,
@@ -66,9 +68,7 @@ namespace mpl {
           return *reinterpret_cast<int *>(p);
         }
 
-        threading_modes threading_mode() const {
-          return init.thread_mode();
-        }
+        threading_modes threading_mode() const { return init.thread_mode(); }
 
         bool is_thread_main() const {
           int res;
@@ -119,8 +119,14 @@ namespace mpl {
 
     //------------------------------------------------------------------
 
+    /// Determines the highest level of thread support that is provided by the underlying MPI
+    /// implementation.
+    /// \return supported threading level
     inline threading_modes threading_mode() { return detail::get_env().threading_mode(); }
 
+    /// Determines if the current thread is the main thread, i.e., the thread that has
+    /// initialized the MPI environment of the underlying MPI implementation.
+    /// \return true if current thread is the main thread
     inline bool is_thread_main() { return detail::get_env().is_thread_main(); }
 
     inline bool wtime_is_global() { return detail::get_env().wtime_is_global(); }

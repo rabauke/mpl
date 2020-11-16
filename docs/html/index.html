@@ -89,8 +89,46 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. Its focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface and would like to utilize it via a more user friendly interface.</p>
 <h1>Installation</h1>
 <p>MPL is a header-only library. Just download the <a href="https://github.com/rabauke/mpl">source</a> and copy the <code>mpl</code> directory containing all header files to a place, where the compiler will find it, e.g., <code>/usr/local/include</code> on a typical Unix/Linux system. As MPL is built on MPI, an MPI implementation needs to be installed, e.g., <a href="https://www.open-mpi.org/">Open MPI</a> or <a href="https://www.mpich.org/">MPICH</a>.</p>
-<h1>Documentation</h1>
-<p>For documentation see the <a href="https://rabauke.github.io/mpl/html/">Doxygen-generated documentation</a>, the blog posts</p>
+<h1>Hello World</h1>
+<p>MPL is built on top of the Message Passing Interface (MPI) standard. Therefore, MPL shares many concepts known from the MPI standard, e.g., the concept of a communicator. Communicators manage the message exchange between different processes, i.e., <br  />
+ messages are sent and received with the help of a communicator. <br  />
+</p>
+<p>The MPL envirionment provides a global default communicator <code>comm_world</code>, which will be used in the following Hello-World program. The program prints out some information about each process:</p><ul>
+<li>its rank,</li>
+<li>the total number of processes and</li>
+<li>the computer's name the process is running on.</li>
+</ul>
+<p>If there are two or more processes, a message is sent from process 0 to process 1, which is also printed.</p>
+<div class="fragment"><div class="line"> {C++}</div>
+<div class="line">#include &lt;cstdlib&gt;</div>
+<div class="line">#include &lt;iostream&gt;</div>
+<div class="line">// include MPL header file</div>
+<div class="line">#include &lt;mpl/mpl.hpp&gt;</div>
+<div class="line"> </div>
+<div class="line">int main() {</div>
+<div class="line">  // get a reference to communicator &quot;world&quot;</div>
+<div class="line">  const mpl::communicator &amp;comm_world(mpl::environment::comm_world());</div>
+<div class="line">  // each process prints a message containing the processor name, the rank</div>
+<div class="line">  // in communicator world and the size of communicator world</div>
+<div class="line">  // output may depend on MPI implementation</div>
+<div class="line">  std::cout &lt;&lt; &quot;Hello world! I am running on \&quot;&quot; &lt;&lt; mpl::environment::processor_name()</div>
+<div class="line">            &lt;&lt; &quot;\&quot;. My rank is &quot; &lt;&lt; comm_world.rank() &lt;&lt; &quot; out of &quot; &lt;&lt; comm_world.size()</div>
+<div class="line">            &lt;&lt; &quot; processes.\n&quot;;</div>
+<div class="line">  // if there are two or more processes send a message from process 0 to process 1</div>
+<div class="line">  if (comm_world.size() &gt;= 2) {</div>
+<div class="line">    if (comm_world.rank() == 0) {</div>
+<div class="line">      std::string message{&quot;Hello world!&quot;};</div>
+<div class="line">      comm_world.send(message, 1);  // send message to rank 1</div>
+<div class="line">    } else if (comm_world.rank() == 1) {</div>
+<div class="line">      std::string message;</div>
+<div class="line">      comm_world.recv(message, 0);  // receive message from rank 0</div>
+<div class="line">      std::cout &lt;&lt; &quot;got: \&quot;&quot; &lt;&lt; message &lt;&lt; &quot;\&quot;\n&quot;;</div>
+<div class="line">    }</div>
+<div class="line">  }</div>
+<div class="line">  return EXIT_SUCCESS;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h1>Documentation</h1>
+<p>For further documentation see the <a href="https://rabauke.github.io/mpl/html/">Doxygen-generated documentation</a>, the blog posts</p>
 <ul>
 <li><a href="https://www.numbercrunch.de/blog/2015/08/mpl-a-message-passing-library/">MPL – A message passing library</a>,</li>
 <li><a href="https://www.numbercrunch.de/blog/2015/09/mpl-collective-communication/">MPL – Collective communication</a>,</li>

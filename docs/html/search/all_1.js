@@ -10,7 +10,7 @@ var searchData=
   ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_5bn1_5d_3e_17',['base_struct_builder&lt; T[N0][N1]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
   ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_5bn1_5d_5bn2_5d_3e_18',['base_struct_builder&lt; T[N0][N1][N2]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
   ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_5bn1_5d_5bn2_5d_5bn3_5d_3e_19',['base_struct_builder&lt; T[N0][N1][N2][N3]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
-  ['bcast_20',['bcast',['../classmpl_1_1communicator.html#a1afaef75cd16c3ca54a481574236df04',1,'mpl::communicator::bcast(int root, T &amp;data) const'],['../classmpl_1_1communicator.html#abf464c3a0998c4ddb48c424bcd04c4b9',1,'mpl::communicator::bcast(int root, T *data, const layout&lt; T &gt; &amp;l) const']]],
+  ['bcast_20',['bcast',['../classmpl_1_1communicator.html#ac4a94a9f873d03588857a3a8ded2d2e5',1,'mpl::communicator::bcast(int root_rank, T &amp;data) const'],['../classmpl_1_1communicator.html#a719512973bc590402ac30b10e5227d2b',1,'mpl::communicator::bcast(int root_rank, T *data, const layout&lt; T &gt; &amp;l) const']]],
   ['begin_21',['begin',['../classmpl_1_1distributed__grid.html#a82adfb3638ace78e13b3803933f46585',1,'mpl::distributed_grid::begin()'],['../classmpl_1_1local__grid.html#a49ea125a5efe80df775f8dc62acaa2f2',1,'mpl::local_grid::begin()']]],
   ['bit_5fand_22',['bit_and',['../structmpl_1_1bit__and.html',1,'mpl']]],
   ['bit_5for_23',['bit_or',['../structmpl_1_1bit__or.html',1,'mpl']]],

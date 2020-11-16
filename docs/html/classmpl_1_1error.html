@@ -89,21 +89,24 @@ $(document).ready(function(){initNavTree('classmpl_1_1error.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 
+<p>Base class for all MPL exception classes that will be thrown in case of run-time errors.  
+ <a href="classmpl_1_1error.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="error_8hpp_source.html">error.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mpl::error:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1error__inherit__graph.png" border="0" usemap="#mpl_1_1error_inherit__map" alt="Inheritance graph"/></div>
 <map name="mpl_1_1error_inherit__map" id="mpl_1_1error_inherit__map">
-<area shape="rect" title=" " alt="" coords="173,211,263,240"/>
-<area shape="rect" href="classmpl_1_1invalid__argument.html" title=" " alt="" coords="311,5,489,35"/>
-<area shape="rect" href="classmpl_1_1invalid__count.html" title=" " alt="" coords="325,59,475,88"/>
-<area shape="rect" href="classmpl_1_1invalid__datatype__bound.html" title=" " alt="" coords="313,113,487,159"/>
-<area shape="rect" href="classmpl_1_1invalid__dim.html" title=" " alt="" coords="331,184,469,213"/>
-<area shape="rect" href="classmpl_1_1invalid__layout.html" title=" " alt="" coords="323,237,477,267"/>
-<area shape="rect" href="classmpl_1_1invalid__rank.html" title=" " alt="" coords="329,291,471,320"/>
-<area shape="rect" href="classmpl_1_1invalid__size.html" title=" " alt="" coords="329,344,471,373"/>
-<area shape="rect" href="classmpl_1_1invalid__tag.html" title=" " alt="" coords="333,397,467,427"/>
+<area shape="rect" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="173,211,263,240"/>
+<area shape="rect" href="classmpl_1_1invalid__argument.html" title="Will be thrown in case of invalid arguments." alt="" coords="311,5,489,35"/>
+<area shape="rect" href="classmpl_1_1invalid__count.html" title="Will be thrown in case of invalid count argument." alt="" coords="325,59,475,88"/>
+<area shape="rect" href="classmpl_1_1invalid__datatype__bound.html" title="Will be thrown when an error occurs while manipulating layouts." alt="" coords="313,113,487,159"/>
+<area shape="rect" href="classmpl_1_1invalid__dim.html" title="Will be thrown in case of invalid dimension." alt="" coords="331,184,469,213"/>
+<area shape="rect" href="classmpl_1_1invalid__layout.html" title="Will be thrown in case of invalid layout argument." alt="" coords="323,237,477,267"/>
+<area shape="rect" href="classmpl_1_1invalid__rank.html" title="Will be thrown in case of invalid rank argument." alt="" coords="329,291,471,320"/>
+<area shape="rect" href="classmpl_1_1invalid__size.html" title="Will be thrown in case of invalid size argument." alt="" coords="329,344,471,373"/>
+<area shape="rect" href="classmpl_1_1invalid__tag.html" title="Will be thrown in case of invalid tag argument." alt="" coords="333,397,467,427"/>
 <area shape="rect" title=" " alt="" coords="5,211,125,240"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -112,7 +115,7 @@ Collaboration diagram for mpl::error:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1error__coll__graph.png" border="0" usemap="#mpl_1_1error_coll__map" alt="Collaboration graph"/></div>
 <map name="mpl_1_1error_coll__map" id="mpl_1_1error_coll__map">
-<area shape="rect" title=" " alt="" coords="21,83,110,112"/>
+<area shape="rect" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="21,83,110,112"/>
 <area shape="rect" title=" " alt="" coords="5,5,125,35"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
@@ -125,8 +128,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aba4cc150c83fc4fda0ec7f138fb9fe66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00009">9</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+<div class="textblock"><p>Base class for all MPL exception classes that will be thrown in case of run-time errors. </p>
+
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00010">10</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a63195dd370214a0afa3bd38b59ba7b37"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a63195dd370214a0afa3bd38b59ba7b37">&#9670;&nbsp;</a></span>error()</h2>
@@ -151,8 +155,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>error message that will be returned by <a class="el" href="classmpl_1_1error.html#aba4cc150c83fc4fda0ec7f138fb9fe66">what</a> method </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00014">14</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00016">16</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
 
 </div>
 </div>
@@ -179,8 +189,9 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>character pointer to error message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00016">16</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="error_8hpp_source.html#l00019">19</a> of file <a class="el" href="error_8hpp_source.html">error.hpp</a>.</p>
 
 </div>
 </div>

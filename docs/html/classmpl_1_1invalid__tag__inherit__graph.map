@@ -1,5 +1,5 @@
 <map id="mpl::invalid_tag" name="mpl::invalid_tag">
-<area shape="rect" id="node1" title=" " alt="" coords="5,160,140,189"/>
-<area shape="rect" id="node2" href="$classmpl_1_1error.html" title=" " alt="" coords="28,83,117,112"/>
+<area shape="rect" id="node1" title="Will be thrown in case of invalid tag argument." alt="" coords="5,160,140,189"/>
+<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="28,83,117,112"/>
 <area shape="rect" id="node3" title=" " alt="" coords="13,5,133,35"/>
 </map>
