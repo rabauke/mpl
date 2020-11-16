@@ -49,7 +49,7 @@ namespace mpl {
 
   /// \param t1 first tag to compare
   /// \param t2 second tag to compare
-  /// \return true if bot tags are not convertible to the same int value
+  /// \return true if both tags are not convertible to the same int value
   inline bool operator!=(tag t1, tag t2) {
     return static_cast<int>(t1) != static_cast<int>(t2);
   }
