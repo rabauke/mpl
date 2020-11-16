@@ -44,7 +44,7 @@ namespace mpl {
   }
 
   template<typename CharT, typename Traits>
-  std::basic_istream<CharT, Traits> &operator<<(std::basic_istream<CharT, Traits> &is, tag &t) {
+  std::basic_istream<CharT, Traits> &operator>>(std::basic_istream<CharT, Traits> &is, tag &t) {
     int t_;
     is >> t_;
     if (is)
