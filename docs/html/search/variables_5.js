@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['similar_802',['similar',['../classmpl_1_1communicator.html#abe7076a9aaa13cb078e700c0cb616f3f',1,'mpl::communicator']]],
-  ['source_803',['source',['../structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b',1,'mpl::shift_ranks']]]
+  ['nonperiodic_809',['nonperiodic',['../classmpl_1_1cart__communicator.html#a66593fb012cd35f73105103b49b4f971',1,'mpl::cart_communicator']]]
 ];

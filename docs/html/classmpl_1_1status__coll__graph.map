@@ -1,4 +1,4 @@
 <map id="mpl::status" name="mpl::status">
-<area shape="rect" id="node1" title=" " alt="" coords="8,83,107,112"/>
+<area shape="rect" id="node1" title="Class that represents the status of a received message." alt="" coords="8,83,107,112"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,109,35"/>
 </map>

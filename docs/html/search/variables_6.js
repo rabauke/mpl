@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['unequal_804',['unequal',['../classmpl_1_1communicator.html#a10097f544da37d6c9c73606409ed151a',1,'mpl::communicator']]]
+  ['periodic_810',['periodic',['../classmpl_1_1cart__communicator.html#a6fc6688d48bd8726b2db7918a0b7b387',1,'mpl::cart_communicator']]],
+  ['proc_5fnull_811',['proc_null',['../namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c',1,'mpl']]]
 ];

@@ -10,53 +10,93 @@
 
 namespace mpl {
 
+  /// Function object for calculating the maximum of two values.
   template<typename T>
   struct max {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return maximum of the two arguments
     T operator()(const T &x, const T &y) const { return (x < y) ? y : x; }
   };
 
+  /// Function object for calculating the minimum of two values.
   template<typename T>
   struct min {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return minimum of the two arguments
     T operator()(const T &x, const T &y) const { return not(y < x) ? x : y; }
   };
 
+  /// Function object for calculating the sum of two values.
   template<typename T>
   struct plus {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return sum of the two arguments
     T operator()(const T &x, const T &y) const { return x + y; }
   };
 
+  /// Function object for calculating the product of two values.
   template<typename T>
   struct multiplies {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return product of the two arguments
     T operator()(const T &x, const T &y) const { return x * y; }
   };
 
+  /// Function object for calculating the logical conjunction of two values.
   template<typename T>
   struct logical_and {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return logical conjunction of the two arguments
     T operator()(const T &x, const T &y) const { return x and y; }
   };
 
+  /// Function object for calculating the logical (inclusive) disjunction of two values.
   template<typename T>
   struct logical_or {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return logical (inclusive) disjunction of the two arguments
     T operator()(const T &x, const T &y) const { return x or y; }
   };
 
+  /// Function object for calculating the logical exclusive disjunction of two values.
   template<typename T>
   struct logical_xor {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return logical exclusive disjunction of the two arguments
     T operator()(const T &x, const T &y) const { return x xor y; }
   };
 
+  /// Function object for calculating the bitwise conjunction of two values.
   template<typename T>
   struct bit_and {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return bitwise conjunction of the two arguments
     T operator()(const T &x, const T &y) const { return x & y; }
   };
 
+  /// Function object for calculating the bitwise (inclusive) disjunction of two values.
   template<typename T>
   struct bit_or {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return bitwise (inclusive) disjunction of the two arguments
     T operator()(const T &x, const T &y) const { return x | y; }
   };
 
+  /// Function object for calculating the bitwise exclusive disjunction of two values.
   template<typename T>
   struct bit_xor {
+    /// \param x first argument
+    /// \param y second argument
+    /// \return bitwise exclusive disjunction of the two arguments
     T operator()(const T &x, const T &y) const { return x ^ y; }
   };
 
@@ -202,7 +242,7 @@ namespace mpl {
     class op {
     public:
       using functor = F;
-      using signature = get_signature<functor> ;
+      using signature = get_signature<functor>;
       using first_argument_type = typename std::decay<get_first_argument_type<signature>>::type;
       using second_argument_type =
           typename std::decay<get_second_argument_type<signature>>::type;
