@@ -583,6 +583,7 @@ namespace mpl {
     }
 
   public:
+    /// \anchor communicator_bsend
     template<typename T>
     void bsend(const T &data, int dest, tag t = tag(0)) const {
       check_dest(dest);
@@ -1105,6 +1106,7 @@ namespace mpl {
     }
 
   public:
+    /// \anchor communicator_recv
     template<typename T>
     status recv(T &data, int source, tag t = tag(0)) const {
       check_source(source);

@@ -85,60 +85,59 @@ $(document).ready(function(){initNavTree('ranks_8hpp_source.html',''); initResiz
 <div class="title">ranks.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="ranks_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><span class="preprocessor">(</span><span class="preprocessor">defined</span> <span class="preprocessor">MPL_RANKS_HPP</span><span class="preprocessor">)</span></div>
+<a href="ranks_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#if !(defined MPL_RANKS_HPP)</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">MPL_RANKS_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define MPL_RANKS_HPP</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">cstddef</span><span class="preprocessor">&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">vector</span><span class="preprocessor">&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">utility</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span> <a class="code" href="structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html#ad1acf1d75d38c78497ce52fcf6baff75">mpl</a> {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacempl.html">mpl</a> {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html">   11</a></span>&#160;  <span class="keyword">class</span> <a class="code" href="classmpl_1_1ranks.html">ranks</a> : <span class="keyword">private</span> std::vector&lt;<span class="keywordtype">int</span>&gt; {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">using</span> base = std::vector&lt;<span class="keywordtype">int</span>&gt;;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">using</span> base::size_type;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">using</span> base::value_type;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">using</span> base::iterator;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">using</span> base::const_iterator;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">   20</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">ranks</a>(size_type n = 0) : base(n, 0) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html">   13</a></span>&#160;  <span class="keyword">class </span><a class="code" href="classmpl_1_1ranks.html">ranks</a> : <span class="keyword">private</span> std::vector&lt;int&gt; {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">using</span> base = std::vector&lt;int&gt;;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">using</span> base::size_type;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">using</span> base::value_type;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">using</span> base::iterator;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">using</span> base::const_iterator;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a78f75166b8370635c0e845452599db80">   22</a></span>&#160;    <a class="code" href="classmpl_1_1ranks.html#a78f75166b8370635c0e845452599db80">ranks</a>(std::initializer_list&lt;<span class="keywordtype">int</span>&gt; init) : base(init) {}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classmpl_1_1ranks.html#a5a849ed7e37368988037974e10bdfd81">ranks</a>(<span class="keyword">const</span> <a class="code" href="classmpl_1_1ranks.html">ranks</a> &amp;other) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">   24</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">ranks</a>(size_type n = 0) : base(n, 0) {}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a1fbed6a868f8b6c5e64cbbf09143e26f">   26</a></span>&#160;    <a class="code" href="classmpl_1_1ranks.html#a1fbed6a868f8b6c5e64cbbf09143e26f">ranks</a>(<a class="code" href="classmpl_1_1ranks.html">ranks</a> &amp;&amp;other) <span class="keyword">noexcept</span> : base(std::move(other)) {}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">using</span> base::operator=;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">using</span> base::begin;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">using</span> base::end;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">using</span> base::cbegin;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">using</span> base::cend;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">using</span> base::operator[];</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">using</span> base::size;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">using</span> base::push_back;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#ab64254cac4b65b5d0b997b187d47d8db">   37</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> *<a class="code" href="classmpl_1_1ranks.html#ab64254cac4b65b5d0b997b187d47d8db">operator</a>()() <span class="keyword">const</span> { <span class="keywordflow">return</span> base::data(); }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a01c526c0a08535d7d2bcddf0a6ffd02d">   39</a></span>&#160;    <span class="keywordtype">int</span> *<a class="code" href="classmpl_1_1ranks.html#a01c526c0a08535d7d2bcddf0a6ffd02d">operator</a>()() { <span class="keywordflow">return</span> base::data(); }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  };</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}  <span class="comment">// namespace mpl</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a78f75166b8370635c0e845452599db80">   28</a></span>&#160;    <a class="code" href="classmpl_1_1ranks.html#a78f75166b8370635c0e845452599db80">ranks</a>(std::initializer_list&lt;int&gt; init) : base(init) {}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">ranks</a>(<span class="keyword">const</span> <a class="code" href="classmpl_1_1ranks.html">ranks</a> &amp;other) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a1fbed6a868f8b6c5e64cbbf09143e26f">   36</a></span>&#160;    <a class="code" href="classmpl_1_1ranks.html#a1fbed6a868f8b6c5e64cbbf09143e26f">ranks</a>(<a class="code" href="classmpl_1_1ranks.html">ranks</a> &amp;&amp;other) noexcept : base(std::move(other)) {}</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">using</span> base::operator=;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">using</span> base::begin;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">using</span> base::end;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">using</span> base::cbegin;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">using</span> base::cend;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">using</span> base::operator[];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">using</span> base::size;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">using</span> base::push_back;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#ab64254cac4b65b5d0b997b187d47d8db">   49</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> *<a class="code" href="classmpl_1_1ranks.html#ab64254cac4b65b5d0b997b187d47d8db">operator()</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> base::data(); }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classmpl_1_1ranks.html#a01c526c0a08535d7d2bcddf0a6ffd02d">   53</a></span>&#160;    <span class="keywordtype">int</span> *<a class="code" href="classmpl_1_1ranks.html#a01c526c0a08535d7d2bcddf0a6ffd02d">operator()</a>() { <span class="keywordflow">return</span> base::data(); }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}  <span class="comment">// namespace mpl</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassmpl_1_1ranks_html_a26a4953810763dec408121b213b8d9ee"><div class="ttname"><a href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(size_type n=0)</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00020">ranks.hpp:20</a></div></div>
-<div class="ttc" id="aclassmpl_1_1ranks_html_a5a849ed7e37368988037974e10bdfd81"><div class="ttname"><a href="classmpl_1_1ranks.html#a5a849ed7e37368988037974e10bdfd81">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(const ranks &amp;other)=default</div></div>
-<div class="ttc" id="aclassmpl_1_1ranks_html_a1fbed6a868f8b6c5e64cbbf09143e26f"><div class="ttname"><a href="classmpl_1_1ranks.html#a1fbed6a868f8b6c5e64cbbf09143e26f">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(ranks &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00026">ranks.hpp:26</a></div></div>
-<div class="ttc" id="astructmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4_html_ad1acf1d75d38c78497ce52fcf6baff75"><div class="ttname"><a href="structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html#ad1acf1d75d38c78497ce52fcf6baff75">mpl::datatype_traits&lt; layout&lt; T &gt; &gt;::get_datatype</a></div><div class="ttdeci">static MPI_Datatype get_datatype(const layout&lt; T &gt; &amp;l)</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l01156">layout.hpp:1156</a></div></div>
-<div class="ttc" id="aclassmpl_1_1ranks_html"><div class="ttname"><a href="classmpl_1_1ranks.html">mpl::ranks</a></div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00011">ranks.hpp:11</a></div></div>
-<div class="ttc" id="aclassmpl_1_1ranks_html_a01c526c0a08535d7d2bcddf0a6ffd02d"><div class="ttname"><a href="classmpl_1_1ranks.html#a01c526c0a08535d7d2bcddf0a6ffd02d">mpl::ranks::operator()</a></div><div class="ttdeci">int * operator()()</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00039">ranks.hpp:39</a></div></div>
-<div class="ttc" id="aclassmpl_1_1ranks_html_a78f75166b8370635c0e845452599db80"><div class="ttname"><a href="classmpl_1_1ranks.html#a78f75166b8370635c0e845452599db80">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(std::initializer_list&lt; int &gt; init)</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00022">ranks.hpp:22</a></div></div>
-<div class="ttc" id="aclassmpl_1_1ranks_html_ab64254cac4b65b5d0b997b187d47d8db"><div class="ttname"><a href="classmpl_1_1ranks.html#ab64254cac4b65b5d0b997b187d47d8db">mpl::ranks::operator()</a></div><div class="ttdeci">const int * operator()() const</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00037">ranks.hpp:37</a></div></div>
+<div class="ttc" id="aclassmpl_1_1ranks_html_a26a4953810763dec408121b213b8d9ee"><div class="ttname"><a href="classmpl_1_1ranks.html#a26a4953810763dec408121b213b8d9ee">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(size_type n=0)</div><div class="ttdoc">Constructs collection of ranks with all ranks having value zero.</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00024">ranks.hpp:24</a></div></div>
+<div class="ttc" id="aclassmpl_1_1ranks_html_a1fbed6a868f8b6c5e64cbbf09143e26f"><div class="ttname"><a href="classmpl_1_1ranks.html#a1fbed6a868f8b6c5e64cbbf09143e26f">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(ranks &amp;&amp;other) noexcept</div><div class="ttdoc">Move-constructs collection of ranks from another collection.</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00036">ranks.hpp:36</a></div></div>
+<div class="ttc" id="aclassmpl_1_1ranks_html"><div class="ttname"><a href="classmpl_1_1ranks.html">mpl::ranks</a></div><div class="ttdoc">Represents a collection of ranks.</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00013">ranks.hpp:13</a></div></div>
+<div class="ttc" id="aclassmpl_1_1ranks_html_a01c526c0a08535d7d2bcddf0a6ffd02d"><div class="ttname"><a href="classmpl_1_1ranks.html#a01c526c0a08535d7d2bcddf0a6ffd02d">mpl::ranks::operator()</a></div><div class="ttdeci">int * operator()()</div><div class="ttdoc">Gives access to internal data.</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00053">ranks.hpp:53</a></div></div>
+<div class="ttc" id="anamespacempl_html"><div class="ttname"><a href="namespacempl.html">mpl</a></div><div class="ttdef"><b>Definition:</b> <a href="cart__comm_8hpp_source.html#l00010">cart_comm.hpp:10</a></div></div>
+<div class="ttc" id="aclassmpl_1_1ranks_html_a78f75166b8370635c0e845452599db80"><div class="ttname"><a href="classmpl_1_1ranks.html#a78f75166b8370635c0e845452599db80">mpl::ranks::ranks</a></div><div class="ttdeci">ranks(std::initializer_list&lt; int &gt; init)</div><div class="ttdoc">Constructs collection of ranks from a braces expression of integers.</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00028">ranks.hpp:28</a></div></div>
+<div class="ttc" id="aclassmpl_1_1ranks_html_ab64254cac4b65b5d0b997b187d47d8db"><div class="ttname"><a href="classmpl_1_1ranks.html#ab64254cac4b65b5d0b997b187d47d8db">mpl::ranks::operator()</a></div><div class="ttdeci">const int * operator()() const</div><div class="ttdoc">Gives access to internal data.</div><div class="ttdef"><b>Definition:</b> <a href="ranks_8hpp_source.html#l00049">ranks.hpp:49</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

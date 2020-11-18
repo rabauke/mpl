@@ -10,7 +10,9 @@
 
 namespace mpl {
 
-  /// Function object for calculating the maximum of two values.
+  /// \brief Function object for calculating the maximum of two values in reduction operations
+  /// as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct max {
     /// \param x first argument
@@ -19,7 +21,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return (x < y) ? y : x; }
   };
 
-  /// Function object for calculating the minimum of two values.
+  /// \brief Function object for calculating the minimum of two values in reduction operations
+  /// as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct min {
     /// \param x first argument
@@ -28,7 +32,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return not(y < x) ? x : y; }
   };
 
-  /// Function object for calculating the sum of two values.
+  /// \brief Function object for calculating the sum of two values in reduction operations as
+  /// communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct plus {
     /// \param x first argument
@@ -37,7 +43,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x + y; }
   };
 
-  /// Function object for calculating the product of two values.
+  /// \brief Function object for calculating the product of two values in reduction operations
+  /// as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct multiplies {
     /// \param x first argument
@@ -46,7 +54,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x * y; }
   };
 
-  /// Function object for calculating the logical conjunction of two values.
+  /// \brief Function object for calculating the logical conjunction of two values in reduction
+  /// operations as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct logical_and {
     /// \param x first argument
@@ -55,7 +65,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x and y; }
   };
 
-  /// Function object for calculating the logical (inclusive) disjunction of two values.
+  /// \brief Function object for calculating the logical (inclusive) disjunction of two values
+  /// in reduction operations as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct logical_or {
     /// \param x first argument
@@ -64,7 +76,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x or y; }
   };
 
-  /// Function object for calculating the logical exclusive disjunction of two values.
+  /// \brief Function object for calculating the logical exclusive disjunction of two values in
+  /// reduction operations as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct logical_xor {
     /// \param x first argument
@@ -73,7 +87,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x xor y; }
   };
 
-  /// Function object for calculating the bitwise conjunction of two values.
+  /// \brief Function object for calculating the bitwise conjunction of two values in reduction
+  /// operations as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct bit_and {
     /// \param x first argument
@@ -82,7 +98,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x & y; }
   };
 
-  /// Function object for calculating the bitwise (inclusive) disjunction of two values.
+  /// \brief Function object for calculating the bitwise (inclusive) disjunction of two values
+  /// in reduction operations as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct bit_or {
     /// \param x first argument
@@ -91,7 +109,9 @@ namespace mpl {
     T operator()(const T &x, const T &y) const { return x | y; }
   };
 
-  /// Function object for calculating the bitwise exclusive disjunction of two values.
+  /// \brief Function object for calculating the bitwise exclusive disjunction of two values in
+  /// reduction operations as communicator::reduce.
+  /// \param T data type of the reduction operation's arguments and its result
   template<typename T>
   struct bit_xor {
     /// \param x first argument
@@ -102,58 +122,91 @@ namespace mpl {
 
   // -------------------------------------------------------------------
 
+  /// \brief Traits class for storing meta information about reduction operations.
+  /// \param F function object type
   template<typename F>
   struct op_traits {
+    /// Is true if reduction operation specified in the template parameter F is commutative.
     static constexpr bool is_commutative = false;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref max reduction operation.
   template<typename T>
   struct op_traits<max<T>> {
+    /// The \ref max reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits\ref op_traits for storing meta
+  /// information about the \ref min reduction operation.
   template<typename T>
   struct op_traits<min<T>> {
+    /// The \ref min reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref plus reduction operation.
   template<typename T>
   struct op_traits<plus<T>> {
+    /// The \ref plus reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref multiplies reduction operation.
   template<typename T>
   struct op_traits<multiplies<T>> {
+    /// The \ref multiplies reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref logical_and reduction operation.
   template<typename T>
   struct op_traits<logical_and<T>> {
+    /// The \ref logical_and reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref logical_or reduction operation.
   template<typename T>
   struct op_traits<logical_or<T>> {
+    /// The \ref logical_or reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref logical_xor reduction operation.
   template<typename T>
   struct op_traits<logical_xor<T>> {
+    /// The \ref logical_xor reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref bit_and reduction operation.
   template<typename T>
   struct op_traits<bit_and<T>> {
+    /// The \ref bit_and reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref bit_or reduction operation.
   template<typename T>
   struct op_traits<bit_or<T>> {
+    /// The \ref bit_or reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref bit_xor reduction operation.
   template<typename T>
   struct op_traits<bit_xor<T>> {
+    /// The \ref bit_xor reduction operation is commutative.
     static constexpr bool is_commutative = true;
   };
 

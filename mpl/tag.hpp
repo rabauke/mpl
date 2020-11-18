@@ -35,8 +35,9 @@ namespace mpl {
     /// \return tag with largest value when converted to int
     static inline tag up();
 
-    /// \return wildcard tag to be used in receive operations to indicate acceptance of a
-    /// message with any tag value
+    /// \return wildcard tag to be used in receive operations, e.g., \ref communicator_recv
+    /// "communicator::recv", to indicate acceptance of a message with any tag value
+    /// \see any_source
     static inline tag any();
   };
 

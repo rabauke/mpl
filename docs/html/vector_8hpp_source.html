@@ -85,21 +85,21 @@ $(document).ready(function(){initNavTree('vector_8hpp_source.html',''); initResi
 <div class="title">vector.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="vector_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">if</span> <span class="preprocessor">!</span><span class="preprocessor">(</span><span class="preprocessor">defined</span> <span class="preprocessor">MPL_VECTOR_HPP</span><span class="preprocessor">)</span></div>
+<a href="vector_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#if !(defined MPL_VECTOR_HPP)</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">MPL_VECTOR_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define MPL_VECTOR_HPP</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">cstdlib</span><span class="preprocessor">&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">iterator</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;iterator&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace</span> <a class="code" href="structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html#ad1acf1d75d38c78497ce52fcf6baff75">mpl</a> {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacempl.html">mpl</a> {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">namespace</span> detail {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;  <span class="keyword">namespace </span>detail {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">struct</span> uninitialized {};</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">struct </span>uninitialized {};</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">class</span> vector {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">class </span>vector {</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;      <span class="keyword">using</span> value_type = T;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;      <span class="keyword">using</span> pointer = T *;</div>
@@ -112,25 +112,25 @@ $(document).ready(function(){initNavTree('vector_8hpp_source.html',''); initResi
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;      size_type size_{0};</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      T *data_{<span class="keywordtype">nullptr</span>};</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      T *data_{<span class="keyword">nullptr</span>};</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      <span class="keyword">explicit</span> vector(size_type size)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;          : size_{size}, data_{<span class="keyword">reinterpret_cast</span>&lt;pointer&gt;(operator <span class="keyword">new</span>(size_ * <span class="keyword">sizeof</span>(T)))} {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;          : size_{size}, data_{<span class="keyword">reinterpret_cast&lt;</span>pointer<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(size_ * <span class="keyword">sizeof</span>(T)))} {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">for</span> (size_type i{0}; i &lt; size; ++i)</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;          <span class="keyword">new</span> (&amp;data_[i]) value_type();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;      <span class="keyword">explicit</span> vector(size_type size, uninitialized)</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;          : size_{size}, data_{<span class="keyword">reinterpret_cast</span>&lt;pointer&gt;(operator <span class="keyword">new</span>(size_ * <span class="keyword">sizeof</span>(T)))} {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">not</span> std::is_trivially_copyable&lt;value_type&gt;::value)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;          : size_{size}, data_{<span class="keyword">reinterpret_cast&lt;</span>pointer<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(size_ * <span class="keyword">sizeof</span>(T)))} {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (not std::is_trivially_copyable&lt;value_type&gt;::value)</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;          <span class="keywordflow">for</span> (size_type i{0}; i &lt; size; ++i)</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keyword">new</span> (&amp;data_[i]) value_type();</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;      }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;      <span class="keyword">template</span>&lt;<span class="keyword">typename</span> IterT&gt;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;      <span class="keyword">explicit</span> vector(size_type size, IterT iter)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;          : size_{size}, data_{<span class="keyword">reinterpret_cast</span>&lt;pointer&gt;(operator <span class="keyword">new</span>(size_ * <span class="keyword">sizeof</span>(T)))} {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;          : size_{size}, data_{<span class="keyword">reinterpret_cast&lt;</span>pointer<span class="keyword">&gt;</span>(<span class="keyword">operator</span> <span class="keyword">new</span>(size_ * <span class="keyword">sizeof</span>(T)))} {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">for</span> (size_type i{0}; i &lt; size; ++i) {</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;          <span class="keyword">new</span> (&amp;data_[i]) value_type(*iter);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;          ++iter;</div>
@@ -140,23 +140,23 @@ $(document).ready(function(){initNavTree('vector_8hpp_source.html',''); initResi
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;      vector(<span class="keyword">const</span> vector &amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      vector &amp;operator=(<span class="keyword">const</span> vector &amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      size_type size() <span class="keyword">const</span> { <span class="keywordflow">return</span> size_; }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordtype">bool</span> empty() <span class="keyword">const</span> { <span class="keywordflow">return</span> size_ == 0; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> size_; }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordtype">bool</span> empty()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> size_ == 0; }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      pointer data() { <span class="keywordflow">return</span> data_; }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      const_pointer data() <span class="keyword">const</span> { <span class="keywordflow">return</span> data_; }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      const_pointer data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data_; }</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;      reference operator[](size_type i) { <span class="keywordflow">return</span> data_[i]; }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      const_reference operator[](size_type i) <span class="keyword">const</span> { <span class="keywordflow">return</span> data_[i]; }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;      const_reference operator[](size_type i)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data_[i]; }</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      iterator begin() { <span class="keywordflow">return</span> data_; }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      const_iterator begin() <span class="keyword">const</span> { <span class="keywordflow">return</span> data_; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;      const_iterator begin()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data_; }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      iterator end() { <span class="keywordflow">return</span> data_ + size_; }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      const_iterator end() <span class="keyword">const</span> { <span class="keywordflow">return</span> data_ + size_; }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;      const_iterator end()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data_ + size_; }</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      ~vector() {</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;val : *<span class="keyword">this</span>)</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;          val.~T();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        operator <span class="keyword">delete</span>(data_);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">operator</span> <span class="keyword">delete</span>(data_);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;      }</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
@@ -164,10 +164,10 @@ $(document).ready(function(){initNavTree('vector_8hpp_source.html',''); initResi
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}  <span class="comment">// namespace mpl</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span>  <span class="comment">// MPL_VECTOR_HPP</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif  // MPL_VECTOR_HPP</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="astructmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4_html_ad1acf1d75d38c78497ce52fcf6baff75"><div class="ttname"><a href="structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html#ad1acf1d75d38c78497ce52fcf6baff75">mpl::datatype_traits&lt; layout&lt; T &gt; &gt;::get_datatype</a></div><div class="ttdeci">static MPI_Datatype get_datatype(const layout&lt; T &gt; &amp;l)</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l01156">layout.hpp:1156</a></div></div>
+<div class="ttc" id="anamespacempl_html"><div class="ttname"><a href="namespacempl.html">mpl</a></div><div class="ttdef"><b>Definition:</b> <a href="cart__comm_8hpp_source.html#l00010">cart_comm.hpp:10</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
