@@ -1,12 +1,12 @@
 <map id="layout.hpp" name="layout.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="423,5,519,35"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,83,67,112"/>
-<area shape="rect" id="node3" title=" " alt="" coords="91,83,165,112"/>
-<area shape="rect" id="node4" title=" " alt="" coords="189,83,259,112"/>
-<area shape="rect" id="node5" title=" " alt="" coords="284,83,399,112"/>
-<area shape="rect" id="node6" title=" " alt="" coords="423,83,518,112"/>
-<area shape="rect" id="node7" title=" " alt="" coords="543,83,601,112"/>
-<area shape="rect" id="node8" title=" " alt="" coords="625,83,684,112"/>
-<area shape="rect" id="node9" title=" " alt="" coords="708,83,796,112"/>
-<area shape="rect" id="node10" title=" " alt="" coords="821,83,886,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="556,5,679,35"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,83,77,112"/>
+<area shape="rect" id="node3" title=" " alt="" coords="102,83,194,112"/>
+<area shape="rect" id="node4" title=" " alt="" coords="218,83,321,112"/>
+<area shape="rect" id="node5" title=" " alt="" coords="345,83,527,112"/>
+<area shape="rect" id="node6" title=" " alt="" coords="551,83,683,112"/>
+<area shape="rect" id="node7" title=" " alt="" coords="708,83,791,112"/>
+<area shape="rect" id="node8" title=" " alt="" coords="815,83,907,112"/>
+<area shape="rect" id="node9" title=" " alt="" coords="932,83,1044,112"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1068,83,1151,112"/>
 </map>

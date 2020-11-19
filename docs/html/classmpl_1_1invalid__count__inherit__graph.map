@@ -1,5 +1,5 @@
 <map id="mpl::invalid_count" name="mpl::invalid_count">
-<area shape="rect" id="node1" title="Will be thrown in case of invalid count argument." alt="" coords="5,160,156,189"/>
-<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="36,83,125,112"/>
-<area shape="rect" id="node3" title=" " alt="" coords="21,5,141,35"/>
+<area shape="rect" id="node1" title="Will be thrown in case of invalid count argument." alt="" coords="5,160,208,189"/>
+<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="45,83,168,112"/>
+<area shape="rect" id="node3" title=" " alt="" coords="25,5,188,35"/>
 </map>

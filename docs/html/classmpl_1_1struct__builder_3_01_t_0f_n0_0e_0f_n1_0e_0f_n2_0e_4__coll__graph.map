@@ -1,4 +1,4 @@
 <map id="mpl::struct_builder&lt; T[N0][N1][N2]&gt;" name="mpl::struct_builder&lt; T[N0][N1][N2]&gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="27,100,179,147"/>
-<area shape="rect" id="node2" href="$classmpl_1_1base__struct__builder.html" title=" " alt="" coords="5,5,201,52"/>
+<area shape="rect" id="node1" title="Specialization of struct_builder for fixed&#45;size three&#45;dimensional C&#45;style arrays." alt="" coords="31,100,243,147"/>
+<area shape="rect" id="node2" href="$classmpl_1_1base__struct__builder.html" title=" " alt="" coords="5,5,268,52"/>
 </map>

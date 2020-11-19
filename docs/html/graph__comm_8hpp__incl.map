@@ -1,9 +1,9 @@
 <map id="graph_comm.hpp" name="graph_comm.hpp">
-<area shape="rect" id="node1" title=" " alt="" coords="175,5,321,35"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,83,67,112"/>
-<area shape="rect" id="node3" title=" " alt="" coords="91,83,157,112"/>
-<area shape="rect" id="node4" title=" " alt="" coords="181,83,240,112"/>
-<area shape="rect" id="node5" title=" " alt="" coords="264,83,307,112"/>
-<area shape="rect" id="node6" title=" " alt="" coords="331,83,419,112"/>
-<area shape="rect" id="node7" title=" " alt="" coords="443,83,522,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="221,5,384,35"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,83,77,112"/>
+<area shape="rect" id="node3" title=" " alt="" coords="101,83,184,112"/>
+<area shape="rect" id="node4" title=" " alt="" coords="209,83,301,112"/>
+<area shape="rect" id="node5" title=" " alt="" coords="325,83,377,112"/>
+<area shape="rect" id="node6" title=" " alt="" coords="401,83,513,112"/>
+<area shape="rect" id="node7" title=" " alt="" coords="538,83,630,112"/>
 </map>

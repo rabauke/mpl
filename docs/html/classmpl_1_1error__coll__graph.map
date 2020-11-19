@@ -1,4 +1,4 @@
 <map id="mpl::error" name="mpl::error">
-<area shape="rect" id="node1" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="21,83,110,112"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,125,35"/>
+<area shape="rect" id="node1" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="25,83,148,112"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,5,168,35"/>
 </map>
