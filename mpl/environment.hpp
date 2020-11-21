@@ -9,8 +9,8 @@
 
 namespace mpl {
 
-  /// Represents the various levels of thread support that the underlying MPI implementation may
-  /// provide.
+  /// \brief Represents the various levels of thread support that the underlying MPI
+  /// implementation may provide.
   enum class threading_modes {
     single = MPI_THREAD_SINGLE,
     funneled = MPI_THREAD_FUNNELED,
@@ -119,32 +119,60 @@ namespace mpl {
 
     //------------------------------------------------------------------
 
-    /// Determines the highest level of thread support that is provided by the underlying MPI
-    /// implementation.
+    /// \brief Determines the highest level of thread support that is provided by the underlying
+    /// MPI implementation.
     /// \return supported threading level
     inline threading_modes threading_mode() { return detail::get_env().threading_mode(); }
 
-    /// Determines if the current thread is the main thread, i.e., the thread that has
+    /// \brief Determines if the current thread is the main thread, i.e., the thread that has
     /// initialized the MPI environment of the underlying MPI implementation.
     /// \return true if current thread is the main thread
     inline bool is_thread_main() { return detail::get_env().is_thread_main(); }
 
+    /// \brief Determines if time values given by \ref wtime are synchronized with each other
+    /// for all processes of the communicator given in \ref comm_world.
+    /// \return true if times are  synchronized
+    /// \see \ref wtime
     inline bool wtime_is_global() { return detail::get_env().wtime_is_global(); }
 
+    /// \brief Provides access to a predefined \ref communicator that allows communication with
+    /// all processes.
+    /// \return communicator to communicate with any other process
     inline const communicator &comm_world() { return detail::get_env().comm_world(); }
 
+    /// \brief Provides access to a predefined \ref communicator includes only the calling
+    /// process itself.
+    /// \return communicator including only the precess itself
     inline const communicator &comm_self() { return detail::get_env().comm_self(); }
 
+    /// \brief Gives a unique specifier, the processor name, for the actual (physical) node.
+    /// \return name of the node
+    /// \note The name is determined by the underlying MPI implementation, i.e., it is
+    /// implementation defined and may be different for different MPI implementations.
     inline std::string processor_name() { return detail::get_env().processor_name(); }
 
+    /// \brief Get time.
+    /// \return number of seconds of elapsed wall-clock time since some time in the past
     inline double wtime() { return detail::get_env().wtime(); }
 
+    /// \brief Get resolution of time given by \ref wtime.
+    /// \return resolution of \ref wtime in seconds.
+    /// \see \ref wtime
     inline double wtick() { return detail::get_env().wtick(); }
 
+    /// \brief Provides to MPL a buffer in the user's memory to be used for buffering outgoing
+    /// messages.
+    /// \param buff pointer to user-provided buffer
+    /// \param size size of the buffer in bytes, must be non-negative
+    /// \see \ref buffer_detach
     inline void buffer_attach(void *buff, int size) {
       return detail::get_env().buffer_attach(buff, size);
     }
 
+    /// \brief Detach the buffer currently associated with MPL.
+    /// \return pair representing the buffer location and size, i.e., the parameters provided to
+    /// \ref buffer_attach
+    /// \see \ref buffer_attach
     inline std::pair<void *, int> buffer_detach() { return detail::get_env().buffer_detach(); }
 
   }  // namespace environment
@@ -157,6 +185,8 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Buffer manager for buffered  send operations.
+  /// \param A allocator for allocating buffer memory
   template<typename A = std::allocator<char>>
   class bsend_buffer {
     int size;
@@ -164,15 +194,29 @@ namespace mpl {
     char *buff;
 
   public:
+    /// allocates buffer with specific size using a default-constructed allocator
+    /// \param size buffer size in bytes
+    /// \note The size given should be the sum of the sizes of all outstanding buffered send
+    /// operations will be sent during the lifetime of the \ref bsend_buffer object, plus
+    /// \ref bsend_overhead for each buffered send operation.
+    /// \see communicator_bsend
     explicit bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
 
+    /// allocates buffer with specific size using the provided allocator
+    /// \param size buffer size in bytes
+    /// \param A allocator
+    /// \note The size given should be the sum of the sizes of all outstanding buffered send
+    /// operations will be sent during the lifetime of the \ref bsend_buffer object, plus
+    /// \ref bsend_overhead for each buffered send operation.
+    /// \see communicator_bsend
     explicit bsend_buffer(int size, A alloc)
         : size(size), alloc(alloc), buff(alloc.allocate(size)) {
       environment::buffer_attach(buff, size);
     }
 
+    /// frees the buffer
     ~bsend_buffer() {
       environment::buffer_detach();
       alloc.deallocate(buff, size);

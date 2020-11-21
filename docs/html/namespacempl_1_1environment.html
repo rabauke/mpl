@@ -92,24 +92,34 @@ $(document).ready(function(){initNavTree('namespacempl_1_1environment.html','');
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:ac623e48336fe65e098fb56ebd16dba33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828">threading_modes</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33">threading_mode</a> ()</td></tr>
+<tr class="memdesc:ac623e48336fe65e098fb56ebd16dba33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the highest level of thread support that is provided by the underlying MPI implementation.  <a href="namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33">More...</a><br /></td></tr>
 <tr class="separator:ac623e48336fe65e098fb56ebd16dba33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bf5f93d0014124492bffd5b2df1f571"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a9bf5f93d0014124492bffd5b2df1f571">is_thread_main</a> ()</td></tr>
+<tr class="memdesc:a9bf5f93d0014124492bffd5b2df1f571"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if the current thread is the main thread, i.e., the thread that has initialized the MPI environment of the underlying MPI implementation.  <a href="namespacempl_1_1environment.html#a9bf5f93d0014124492bffd5b2df1f571">More...</a><br /></td></tr>
 <tr class="separator:a9bf5f93d0014124492bffd5b2df1f571"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8df37b1fb318ae7efa867d9eda6b99b9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a8df37b1fb318ae7efa867d9eda6b99b9">wtime_is_global</a> ()</td></tr>
+<tr class="memdesc:a8df37b1fb318ae7efa867d9eda6b99b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines if time values given by <a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a> are synchronized with each other for all processes of the communicator given in <a class="el" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.  <a href="namespacempl_1_1environment.html#a8df37b1fb318ae7efa867d9eda6b99b9">More...</a><br /></td></tr>
 <tr class="separator:a8df37b1fb318ae7efa867d9eda6b99b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f9437d7f0d154894deb2eed19852062"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> ()</td></tr>
+<tr class="memdesc:a1f9437d7f0d154894deb2eed19852062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides access to a predefined <a class="el" href="classmpl_1_1communicator.html">communicator</a> that allows communication with all processes.  <a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">More...</a><br /></td></tr>
 <tr class="separator:a1f9437d7f0d154894deb2eed19852062"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b7be400be79d12401cc7a59691ec9db"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a7b7be400be79d12401cc7a59691ec9db">comm_self</a> ()</td></tr>
+<tr class="memdesc:a7b7be400be79d12401cc7a59691ec9db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides access to a predefined <a class="el" href="classmpl_1_1communicator.html">communicator</a> includes only the calling process itself.  <a href="namespacempl_1_1environment.html#a7b7be400be79d12401cc7a59691ec9db">More...</a><br /></td></tr>
 <tr class="separator:a7b7be400be79d12401cc7a59691ec9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89bda4aaa36251049ffdecdbe79a4322"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a89bda4aaa36251049ffdecdbe79a4322">processor_name</a> ()</td></tr>
+<tr class="memdesc:a89bda4aaa36251049ffdecdbe79a4322"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gives a unique specifier, the processor name, for the actual (physical) node.  <a href="namespacempl_1_1environment.html#a89bda4aaa36251049ffdecdbe79a4322">More...</a><br /></td></tr>
 <tr class="separator:a89bda4aaa36251049ffdecdbe79a4322"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18e3982cf7b547d30b3f7f1236a079f6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a> ()</td></tr>
+<tr class="memdesc:a18e3982cf7b547d30b3f7f1236a079f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get time.  <a href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">More...</a><br /></td></tr>
 <tr class="separator:a18e3982cf7b547d30b3f7f1236a079f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5d86a31e41363a7b326baaa9dd32edb"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#ad5d86a31e41363a7b326baaa9dd32edb">wtick</a> ()</td></tr>
+<tr class="memdesc:ad5d86a31e41363a7b326baaa9dd32edb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get resolution of time given by <a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a>.  <a href="namespacempl_1_1environment.html#ad5d86a31e41363a7b326baaa9dd32edb">More...</a><br /></td></tr>
 <tr class="separator:ad5d86a31e41363a7b326baaa9dd32edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab112324f29c5e0a131f1863ab11f2ff5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#ab112324f29c5e0a131f1863ab11f2ff5">buffer_attach</a> (void *buff, int size)</td></tr>
+<tr class="memdesc:ab112324f29c5e0a131f1863ab11f2ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides to MPL a buffer in the user's memory to be used for buffering outgoing messages.  <a href="namespacempl_1_1environment.html#ab112324f29c5e0a131f1863ab11f2ff5">More...</a><br /></td></tr>
 <tr class="separator:ab112324f29c5e0a131f1863ab11f2ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b39acbf5f26920fe80e55f7786a0c1d"><td class="memItemLeft" align="right" valign="top">std::pair&lt; void *, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl_1_1environment.html#a0b39acbf5f26920fe80e55f7786a0c1d">buffer_detach</a> ()</td></tr>
+<tr class="memdesc:a0b39acbf5f26920fe80e55f7786a0c1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Detach the buffer currently associated with MPL.  <a href="namespacempl_1_1environment.html#a0b39acbf5f26920fe80e55f7786a0c1d">More...</a><br /></td></tr>
 <tr class="separator:a0b39acbf5f26920fe80e55f7786a0c1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -147,7 +157,17 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00144">144</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Provides to MPL a buffer in the user's memory to be used for buffering outgoing messages. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buff</td><td>pointer to user-provided buffer </td></tr>
+    <tr><td class="paramname">size</td><td>size of the buffer in bytes, must be non-negative </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacempl_1_1environment.html#a0b39acbf5f26920fe80e55f7786a0c1d">buffer_detach</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00168">168</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -174,7 +194,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00148">148</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Detach the buffer currently associated with MPL. </p>
+<dl class="section return"><dt>Returns</dt><dd>pair representing the buffer location and size, i.e., the parameters provided to <a class="el" href="namespacempl_1_1environment.html#ab112324f29c5e0a131f1863ab11f2ff5">buffer_attach</a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacempl_1_1environment.html#ab112324f29c5e0a131f1863ab11f2ff5">buffer_attach</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00176">176</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -201,7 +225,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00136">136</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Provides access to a predefined <a class="el" href="classmpl_1_1communicator.html">communicator</a> includes only the calling process itself. </p>
+<dl class="section return"><dt>Returns</dt><dd>communicator including only the precess itself </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00146">146</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -228,7 +255,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00134">134</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Provides access to a predefined <a class="el" href="classmpl_1_1communicator.html">communicator</a> that allows communication with all processes. </p>
+<dl class="section return"><dt>Returns</dt><dd>communicator to communicate with any other process </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00141">141</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -254,7 +284,9 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Determines if the current thread is the main thread, i.e., the thread that has initialized the MPI environment of the underlying MPI implementation. </p><dl class="section return"><dt>Returns</dt><dd>true if current thread is the main thread </dd></dl>
+
+<p>Determines if the current thread is the main thread, i.e., the thread that has initialized the MPI environment of the underlying MPI implementation. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if current thread is the main thread </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00130">130</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
@@ -283,7 +315,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00138">138</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Gives a unique specifier, the processor name, for the actual (physical) node. </p>
+<dl class="section return"><dt>Returns</dt><dd>name of the node </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>The name is determined by the underlying MPI implementation, i.e., it is implementation defined and may be different for different MPI implementations. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00152">152</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -309,7 +345,9 @@ Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Determines the highest level of thread support that is provided by the underlying MPI implementation. </p><dl class="section return"><dt>Returns</dt><dd>supported threading level </dd></dl>
+
+<p>Determines the highest level of thread support that is provided by the underlying MPI implementation. </p>
+<dl class="section return"><dt>Returns</dt><dd>supported threading level </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00125">125</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
@@ -338,7 +376,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00142">142</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Get resolution of time given by <a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>resolution of <a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a> in seconds. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00161">161</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -365,7 +407,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00140">140</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Get time. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of seconds of elapsed wall-clock time since some time in the past </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00156">156</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
@@ -392,7 +437,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00132">132</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
+<p>Determines if time values given by <a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a> are synchronized with each other for all processes of the communicator given in <a class="el" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if times are synchronized </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6">wtime</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00136">136</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
 
 </div>
 </div>
