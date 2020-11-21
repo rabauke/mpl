@@ -31,7 +31,7 @@ namespace mpl {
   /// \brief Special constant representing an upper bound on the additional space consumed when
   /// buffering messages.
   /// \see \ref communicator_bsend "communicator::bsend"
-  constexpr int bsend_overheadroot = MPI_BSEND_OVERHEAD;
+  constexpr int bsend_overhead = MPI_BSEND_OVERHEAD;
 
   using std::size_t;
 
