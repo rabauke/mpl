@@ -206,7 +206,7 @@ namespace mpl {
 
     /// allocates buffer with specific size using the provided allocator
     /// \param size buffer size in bytes
-    /// \param A allocator
+    /// \param alloc allocator
     /// \note The size given should be the sum of the sizes of all outstanding buffered send
     /// operations will be sent during the lifetime of the \ref bsend_buffer object, plus
     /// \ref bsend_overhead for each buffered send operation.
