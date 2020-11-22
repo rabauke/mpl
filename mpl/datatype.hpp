@@ -36,15 +36,15 @@ namespace mpl {
 
   //--- forward declarations -------------------------------------------
 
-  template<typename T>
-  class datatype_traits;
-
   namespace detail {
 
     template<typename T, typename E>
     class datatype_traits_impl;
 
-  }
+    template<typename T>
+    class datatype_traits;
+
+  }  // namespace detail
 
   template<typename T>
   class base_struct_builder;
@@ -54,26 +54,68 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief layout class for storing meta information about the public members of structures
+  /// \param S the struct or class type, the public members of which are managed
   template<typename S>
   class struct_layout {
     template<typename T>
-    inline std::size_t size(T) {
-      return sizeof(T);
+    inline constexpr std::size_t size(const T &) const {
+      return 1;
+    }
+
+    template<typename T, std::size_t N0>
+    inline constexpr std::size_t size(const std::array<T, N0> &) const {
+      return N0;
+    }
+
+    template<typename T, std::size_t N0>
+    inline constexpr std::size_t size(const T (&)[N0]) const {
+      return N0;
+    }
+
+    template<typename T, std::size_t N0, std::size_t N1>
+    inline constexpr std::size_t size(const T (&)[N0][N1]) const {
+      return N0 * N1;
+    }
+
+    template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
+    inline constexpr std::size_t size(const T (&)[N0][N1][N2]) const {
+      return N0 * N1 * N2;
+    }
+
+    template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
+    inline constexpr std::size_t size(const T (&)[N0][N1][N2][N3]) const {
+      return N0 * N1 * N2 * N3;
     }
 
     template<typename T>
-    inline std::size_t size(T *) {
-      return sizeof(T);
+    inline MPI_Datatype get_datatype(const T &) const {
+      return detail::datatype_traits<T>().get_datatype();
     }
 
-    template<typename T>
-    inline MPI_Datatype get_datatype(T) {
-      return datatype_traits<T>().get_datatype();
+    template<typename T, std::size_t N0>
+    inline MPI_Datatype get_datatype(const std::array<T, N0> &) const {
+      return detail::datatype_traits<T>().get_datatype();
     }
 
-    template<typename T>
-    inline MPI_Datatype get_datatype(T *) {
-      return datatype_traits<T>().get_datatype();
+    template<typename T, std::size_t N0>
+    inline MPI_Datatype get_datatype(const T (&)[N0]) const {
+      return detail::datatype_traits<T>().get_datatype();
+    }
+
+    template<typename T, std::size_t N0, std::size_t N1>
+    inline MPI_Datatype get_datatype(const T (&)[N0][N1]) const {
+      return detail::datatype_traits<T>().get_datatype();
+    }
+
+    template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
+    inline MPI_Datatype get_datatype(const T (&)[N0][N1][N2]) const {
+      return detail::datatype_traits<T>().get_datatype();
+    }
+
+    template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
+    inline MPI_Datatype get_datatype(const T (&)[N0][N1][N2][N3]) const {
+      return detail::datatype_traits<T>().get_datatype();
     }
 
     MPI_Aint base;
@@ -82,28 +124,25 @@ namespace mpl {
     std::vector<MPI_Datatype> datatypes;
 
   public:
+    /// \brief starts to register a struct type
+    /// \param x an instance of type S (the template parameter of class \ref struct_layout
+    /// \return reference to this struct_layout object (allows chaining)
     struct_layout &register_struct(const S &x) {
       MPI_Get_address(const_cast<S *>(&x), &base);
       return *this;
     }
 
+    /// \brief registers a struct member
+    /// \param x a member of an instance of type S (the template parameter of class \ref
+    /// struct_layout
+    /// \return reference to this struct_layout object (allows chaining)
     template<typename T>
     struct_layout &register_element(T &x) {
       static_assert(not std::is_const<T>::value, "type must not be const");
-      blocklengths.push_back(sizeof(x) / size(x));
+      static_assert(not std::is_pointer<T>::value, "type must not be pointer");
+      blocklengths.push_back(size(x));
       MPI_Aint address;
       MPI_Get_address(&x, &address);
-      displacements.push_back(address - base);
-      datatypes.push_back(get_datatype(x));
-      return *this;
-    }
-
-    template<typename T>
-    struct_layout &register_vector(T *x, std::ptrdiff_t N) {
-      static_assert(not std::is_const<T>::value, "type must not be const");
-      blocklengths.push_back(N);
-      MPI_Aint address;
-      MPI_Get_address(x, &address);
       displacements.push_back(address - base);
       datatypes.push_back(get_datatype(x));
       return *this;
@@ -123,7 +162,7 @@ namespace mpl {
   private:
     MPI_Datatype type;
 
-  public:
+  protected:
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
       MPI_Type_create_struct(str.blocklengths.size(), str.blocklengths.data(),
@@ -267,7 +306,7 @@ namespace mpl {
     struct_builder() {
       T array[N0];
       layout.register_struct(array);
-      layout.register_vector(&array[0], N0);
+      layout.register_element(array);
       base::define_struct(layout);
     }
   };
@@ -287,7 +326,7 @@ namespace mpl {
     struct_builder() {
       T array[N0][N1];
       layout.register_struct(array);
-      layout.register_vector(&array[0][0], N0 * N1);
+      layout.register_element(array);
       base::define_struct(layout);
     }
   };
@@ -308,7 +347,7 @@ namespace mpl {
     struct_builder() {
       T array[N0][N1][N2];
       layout.register_struct(array);
-      layout.register_vector(&array[0][0][0], N0 * N1 * N2);
+      layout.register_element(array);
       base::define_struct(layout);
     }
   };
@@ -330,7 +369,7 @@ namespace mpl {
     struct_builder() {
       T array[N0][N1][N2][N3];
       layout.register_struct(array);
-      layout.register_vector(&array[0][0][0][0], N0 * N1 * N2 * N3);
+      layout.register_element(array);
       base::define_struct(layout);
     }
   };
@@ -350,7 +389,7 @@ namespace mpl {
     struct_builder() {
       std::array<T, N> array;
       layout.register_struct(array);
-      layout.register_vector(array.data(), N);
+      layout.register_element(array);
       base::define_struct(layout);
     }
   };
@@ -392,16 +431,15 @@ namespace mpl {
     };
 #endif
 
-  }  // namespace detail
 
-  template<typename T>
-  class datatype_traits {
-  public:
-    static MPI_Datatype get_datatype() {
-      return detail::datatype_traits_impl<T>::get_datatype();
-    }
-    using data_type_category = typename detail::datatype_traits_impl<T>::data_type_category;
-  };
+    template<typename T>
+    class datatype_traits {
+    public:
+      static MPI_Datatype get_datatype() {
+        return detail::datatype_traits_impl<T>::get_datatype();
+      }
+      using data_type_category = typename detail::datatype_traits_impl<T>::data_type_category;
+    };
 
 #define MPL_DATATYPE_TRAITS(type, mpi_type)                      \
   template<>                                                     \
@@ -411,157 +449,159 @@ namespace mpl {
     using data_type_category = detail::basic_or_fixed_size_type; \
   }
 
-  MPL_DATATYPE_TRAITS(char, MPI_CHAR);
+    MPL_DATATYPE_TRAITS(char, MPI_CHAR);
 
-  MPL_DATATYPE_TRAITS(signed char, MPI_SIGNED_CHAR);
+    MPL_DATATYPE_TRAITS(signed char, MPI_SIGNED_CHAR);
 
-  MPL_DATATYPE_TRAITS(unsigned char, MPI_UNSIGNED_CHAR);
+    MPL_DATATYPE_TRAITS(unsigned char, MPI_UNSIGNED_CHAR);
 
-  MPL_DATATYPE_TRAITS(wchar_t, MPI_WCHAR);
+    MPL_DATATYPE_TRAITS(wchar_t, MPI_WCHAR);
 
-  MPL_DATATYPE_TRAITS(signed short int, MPI_SHORT);
+    MPL_DATATYPE_TRAITS(signed short int, MPI_SHORT);
 
-  MPL_DATATYPE_TRAITS(unsigned short int, MPI_UNSIGNED_SHORT);
+    MPL_DATATYPE_TRAITS(unsigned short int, MPI_UNSIGNED_SHORT);
 
-  MPL_DATATYPE_TRAITS(signed int, MPI_INT);
+    MPL_DATATYPE_TRAITS(signed int, MPI_INT);
 
-  MPL_DATATYPE_TRAITS(unsigned int, MPI_UNSIGNED);
+    MPL_DATATYPE_TRAITS(unsigned int, MPI_UNSIGNED);
 
-  MPL_DATATYPE_TRAITS(signed long, MPI_LONG);
+    MPL_DATATYPE_TRAITS(signed long, MPI_LONG);
 
-  MPL_DATATYPE_TRAITS(unsigned long, MPI_UNSIGNED_LONG);
+    MPL_DATATYPE_TRAITS(unsigned long, MPI_UNSIGNED_LONG);
 
-  MPL_DATATYPE_TRAITS(signed long long, MPI_LONG_LONG);
+    MPL_DATATYPE_TRAITS(signed long long, MPI_LONG_LONG);
 
-  MPL_DATATYPE_TRAITS(unsigned long long, MPI_UNSIGNED_LONG_LONG);
+    MPL_DATATYPE_TRAITS(unsigned long long, MPI_UNSIGNED_LONG_LONG);
 
-  MPL_DATATYPE_TRAITS(bool, MPI_CXX_BOOL);
+    MPL_DATATYPE_TRAITS(bool, MPI_CXX_BOOL);
 
-  MPL_DATATYPE_TRAITS(float, MPI_FLOAT);
+    MPL_DATATYPE_TRAITS(float, MPI_FLOAT);
 
-  MPL_DATATYPE_TRAITS(double, MPI_DOUBLE);
+    MPL_DATATYPE_TRAITS(double, MPI_DOUBLE);
 
-  MPL_DATATYPE_TRAITS(long double, MPI_LONG_DOUBLE);
+    MPL_DATATYPE_TRAITS(long double, MPI_LONG_DOUBLE);
 
 #if __cplusplus >= 201703L
-  MPL_DATATYPE_TRAITS(std::byte, MPI_BYTE);
+    MPL_DATATYPE_TRAITS(std::byte, MPI_BYTE);
 #endif
 
-  MPL_DATATYPE_TRAITS(std::complex<float>, MPI_CXX_FLOAT_COMPLEX);
+    MPL_DATATYPE_TRAITS(std::complex<float>, MPI_CXX_FLOAT_COMPLEX);
 
-  MPL_DATATYPE_TRAITS(std::complex<double>, MPI_CXX_DOUBLE_COMPLEX);
+    MPL_DATATYPE_TRAITS(std::complex<double>, MPI_CXX_DOUBLE_COMPLEX);
 
-  MPL_DATATYPE_TRAITS(std::complex<long double>, MPI_CXX_LONG_DOUBLE_COMPLEX);
+    MPL_DATATYPE_TRAITS(std::complex<long double>, MPI_CXX_LONG_DOUBLE_COMPLEX);
 
 #undef MPL_DATATYPE_TRAITS
 
-  template<>
-  class datatype_traits<char16_t> {
-  public:
-    static MPI_Datatype get_datatype() {
-      return datatype_traits<std::uint_least16_t>::get_datatype();
-    }
-    using data_type_category = detail::basic_or_fixed_size_type;
-  };
+    template<>
+    class datatype_traits<char16_t> {
+    public:
+      static MPI_Datatype get_datatype() {
+        return datatype_traits<std::uint_least16_t>::get_datatype();
+      }
+      using data_type_category = detail::basic_or_fixed_size_type;
+    };
 
-  template<>
-  class datatype_traits<char32_t> {
-  public:
-    static MPI_Datatype get_datatype() {
-      return datatype_traits<std::uint_least32_t>::get_datatype();
-    }
-    using data_type_category = detail::basic_or_fixed_size_type;
-  };
+    template<>
+    class datatype_traits<char32_t> {
+    public:
+      static MPI_Datatype get_datatype() {
+        return datatype_traits<std::uint_least32_t>::get_datatype();
+      }
+      using data_type_category = detail::basic_or_fixed_size_type;
+    };
 
-  template<typename T, typename A>
-  class datatype_traits<std::vector<T, A>> {
-  public:
-    using data_type_category = detail::contigous_stl_container;
-  };
+    template<typename T, typename A>
+    class datatype_traits<std::vector<T, A>> {
+    public:
+      using data_type_category = detail::contigous_stl_container;
+    };
 
-  template<typename A>
-  class datatype_traits<std::vector<bool, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename A>
+    class datatype_traits<std::vector<bool, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename A>
-  class datatype_traits<std::deque<T, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename A>
+    class datatype_traits<std::deque<T, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename A>
-  class datatype_traits<std::forward_list<T, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename A>
+    class datatype_traits<std::forward_list<T, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename A>
-  class datatype_traits<std::list<T, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename A>
+    class datatype_traits<std::list<T, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::set<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::set<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::map<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::map<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::multiset<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::multiset<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::multimap<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::multimap<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::unordered_set<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::unordered_set<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::unordered_map<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::unordered_map<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::unordered_multiset<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::unordered_multiset<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename C, typename A>
-  class datatype_traits<std::unordered_multimap<T, C, A>> {
-  public:
-    using data_type_category = detail::stl_container;
-  };
+    template<typename T, typename C, typename A>
+    class datatype_traits<std::unordered_multimap<T, C, A>> {
+    public:
+      using data_type_category = detail::stl_container;
+    };
 
-  template<typename T, typename Trait, typename Char>
-  class datatype_traits<std::basic_string<T, Trait, Char>> {
-  public:
-    using data_type_category = detail::contigous_const_stl_container;
-  };
+    template<typename T, typename Trait, typename Char>
+    class datatype_traits<std::basic_string<T, Trait, Char>> {
+    public:
+      using data_type_category = detail::contigous_const_stl_container;
+    };
 
-  template<typename T>
-  class datatype_traits<std::valarray<T>> {
-  public:
-    using data_type_category = detail::contigous_stl_container;
-  };
+    template<typename T>
+    class datatype_traits<std::valarray<T>> {
+    public:
+      using data_type_category = detail::contigous_stl_container;
+    };
+
+  }  // namespace detail
 
 }  // namespace mpl
 

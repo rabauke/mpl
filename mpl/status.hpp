@@ -33,7 +33,7 @@ namespace mpl {
     int get_count() const {
       int result;
       MPI_Get_count(reinterpret_cast<const MPI_Status *>(this),
-                    datatype_traits<T>::get_datatype(), &result);
+                    detail::datatype_traits<T>::get_datatype(), &result);
       return result;
     }
 
@@ -43,7 +43,7 @@ namespace mpl {
     int get_count(const layout<T> &l) const {
       int result;
       MPI_Get_count(reinterpret_cast<const MPI_Status *>(this),
-                    datatype_traits<layout<T>>::get_datatype(l), &result);
+                    detail::datatype_traits<layout<T>>::get_datatype(l), &result);
       return result;
     }
 

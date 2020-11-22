@@ -223,7 +223,7 @@ namespace mpl {
         MPI_Type_free(&type);
     }
 
-    friend class datatype_traits<layout<T>>;
+    friend class detail::datatype_traits<layout<T>>;
 
     friend class null_layout<T>;
 
@@ -283,7 +283,7 @@ namespace mpl {
 
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
@@ -322,8 +322,8 @@ namespace mpl {
   class contiguous_layout : public layout<T> {
     using layout<T>::type;
 
-    static MPI_Datatype build(size_t count,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       if (count <= std::numeric_limits<int>::max()) {
         MPI_Type_contiguous(static_cast<int>(count), old_type, &new_type);
@@ -404,8 +404,8 @@ namespace mpl {
   class vector_layout : public layout<T> {
     using layout<T>::type;
 
-    static MPI_Datatype build(size_t count,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       if (count <= std::numeric_limits<int>::max()) {
         MPI_Type_contiguous(static_cast<int>(count), old_type, &new_type);
@@ -473,12 +473,13 @@ namespace mpl {
 
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(int count, int blocklength, int stride,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        int count, int blocklength, int stride,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_vector(count, blocklength, stride, old_type, &new_type);
       return new_type;
@@ -555,12 +556,13 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(const parameter &par,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        const parameter &par,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_indexed(par.displacements.size(), par.blocklengths.data(),
                        par.displacements.data(), old_type, &new_type);
@@ -637,12 +639,13 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(const parameter &par,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        const parameter &par,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_create_hindexed(par.displacements.size(), par.blocklengths.data(),
                                par.displacements.data(), old_type, &new_type);
@@ -715,12 +718,13 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(int blocklengths, const parameter &par,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        int blocklengths, const parameter &par,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_create_indexed_block(par.displacements.size(), blocklengths,
                                     par.displacements.data(), old_type, &new_type);
@@ -795,12 +799,13 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(int blocklengths, const parameter &par,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        int blocklengths, const parameter &par,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       MPI_Type_create_hindexed_block(par.displacements.size(), blocklengths,
                                      par.displacements.data(), old_type, &new_type);
@@ -882,7 +887,7 @@ namespace mpl {
       template<typename iter_T>
       parameter(iter_T first, iter_T end) {
         MPI_Count lb_, extent_;
-        MPI_Type_get_extent_x(datatype_traits<T>::get_datatype(), &lb_, &extent_);
+        MPI_Type_get_extent_x(detail::datatype_traits<T>::get_datatype(), &lb_, &extent_);
         if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
           throw invalid_datatype_bound();
         for (iter_T i = first; i != end; ++i)
@@ -895,12 +900,13 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(const parameter &par,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        const parameter &par,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
 #if defined MPL_DEBUG
       if (par.displacements.size() > std::numeric_limits<int>::max())
@@ -996,12 +1002,13 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<T>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<T>::get_datatype(), &new_type);
       return new_type;
     }
 
-    static MPI_Datatype build(const parameter &par,
-                              MPI_Datatype old_type = datatype_traits<T>::get_datatype()) {
+    static MPI_Datatype build(
+        const parameter &par,
+        MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       int total_size = 1;
       for (std::vector<int>::size_type i = 0; i < par.sizes.size(); ++i)
@@ -1074,7 +1081,7 @@ namespace mpl {
       void add(const T &x, const Ts &... xs) {
         blocklengths.push_back(1);
         displacements.push_back(reinterpret_cast<MPI_Aint>(&x));
-        types.push_back(datatype_traits<T>::get_datatype());
+        types.push_back(detail::datatype_traits<T>::get_datatype());
         add(xs...);
       }
 
@@ -1092,7 +1099,7 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous(0, datatype_traits<char>::get_datatype(), &new_type);
+      MPI_Type_contiguous(0, detail::datatype_traits<char>::get_datatype(), &new_type);
       return new_type;
     }
 
@@ -1151,10 +1158,14 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  template<typename T>
-  struct datatype_traits<layout<T>> {
-    static MPI_Datatype get_datatype(const layout<T> &l) { return l.type; }
-  };
+  namespace detail {
+
+    template<typename T>
+    struct datatype_traits<layout<T>> {
+      static MPI_Datatype get_datatype(const layout<T> &l) { return l.type; }
+    };
+
+  }  // namespace detail
 
   //--------------------------------------------------------------------
 
