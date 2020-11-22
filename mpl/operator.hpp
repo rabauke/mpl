@@ -138,8 +138,8 @@ namespace mpl {
     static constexpr bool is_commutative = true;
   };
 
-  /// \brief Specialization of traits class \ref op_traits\ref op_traits for storing meta
-  /// information about the \ref min reduction operation.
+  /// \brief Specialization of traits class \ref op_traits for storing meta information about
+  /// the \ref min reduction operation.
   template<typename T>
   struct op_traits<min<T>> {
     /// The \ref min reduction operation is commutative.
