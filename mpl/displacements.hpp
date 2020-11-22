@@ -12,8 +12,8 @@ namespace mpl {
     using base = std::vector<MPI_Aint>;
 
   public:
-    using base::size_type;
-    using base::value_type;
+    using size_type = base::size_type;
+    using value_type = base::value_type;
     using base::iterator;
     using base::const_iterator;
 
