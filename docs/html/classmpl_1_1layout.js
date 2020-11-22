@@ -22,7 +22,7 @@ var classmpl_1_1layout =
     [ "true_upper_bound", "classmpl_1_1layout.html#a0313abfcc1a89bbf52e9f27583b55773", null ],
     [ "upper_bound", "classmpl_1_1layout.html#acd32754b897e8deca4408b915d8624f0", null ],
     [ "contiguous_layout< T >", "classmpl_1_1layout.html#a24fd43f71dcacaaa7f11f25121d457d6", null ],
-    [ "datatype_traits< layout< T > >", "classmpl_1_1layout.html#afd892e23c41bde5ea01a7a73131e776a", null ],
+    [ "detail::datatype_traits< layout< T > >", "classmpl_1_1layout.html#ab05bcf7aebbf27c0d719ce8348a73a20", null ],
     [ "empty_layout< T >", "classmpl_1_1layout.html#a7841d5d18df3df9d49003cdddb7e0b88", null ],
     [ "heterogeneous_layout", "classmpl_1_1layout.html#a345f190da284e84ef033bec2677fdd5f", null ],
     [ "hindexed_block_layout< T >", "classmpl_1_1layout.html#ab5519bf73c4607f6ec61588e7d7f0aad", null ],

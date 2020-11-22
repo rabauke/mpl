@@ -91,18 +91,20 @@ $(document).ready(function(){initNavTree('classmpl_1_1struct__layout.html',''); 
 </div><!--header-->
 <div class="contents">
 
+<p>layout class for storing meta information about the public members of structures  
+ <a href="classmpl_1_1struct__layout.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa93dd992975ec97a773ade096418a8ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1struct__layout.html">struct_layout</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1struct__layout.html#aa93dd992975ec97a773ade096418a8ed">register_struct</a> (const S &amp;x)</td></tr>
+<tr class="memdesc:aa93dd992975ec97a773ade096418a8ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">starts to register a struct type  <a href="classmpl_1_1struct__layout.html#aa93dd992975ec97a773ade096418a8ed">More...</a><br /></td></tr>
 <tr class="separator:aa93dd992975ec97a773ade096418a8ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8487da67decc91431c9acd54b35132e9"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a8487da67decc91431c9acd54b35132e9"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1struct__layout.html">struct_layout</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1struct__layout.html#a8487da67decc91431c9acd54b35132e9">register_element</a> (T &amp;x)</td></tr>
+<tr class="memdesc:a8487da67decc91431c9acd54b35132e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">registers a struct member  <a href="classmpl_1_1struct__layout.html#a8487da67decc91431c9acd54b35132e9">More...</a><br /></td></tr>
 <tr class="separator:a8487da67decc91431c9acd54b35132e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab50d4f0b806d403b9df7bf8f08a40173"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ab50d4f0b806d403b9df7bf8f08a40173"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1struct__layout.html">struct_layout</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1struct__layout.html#ab50d4f0b806d403b9df7bf8f08a40173">register_vector</a> (T *x, std::ptrdiff_t N)</td></tr>
-<tr class="separator:ab50d4f0b806d403b9df7bf8f08a40173"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -113,8 +115,15 @@ Friends</h2></td></tr>
 <div class="textblock"><h3>template&lt;typename S&gt;<br />
 class mpl::struct_layout&lt; S &gt;</h3>
 
+<p>layout class for storing meta information about the public members of structures </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">S</td><td>the struct or class type, the public members of which are managed </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00058">58</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00060">60</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8487da67decc91431c9acd54b35132e9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8487da67decc91431c9acd54b35132e9">&#9670;&nbsp;</a></span>register_element()</h2>
@@ -144,7 +153,16 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00091">91</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
+<p>registers a struct member </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>a member of an instance of type S (the template parameter of class <a class="el" href="classmpl_1_1struct__layout.html">struct_layout</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference to this <a class="el" href="classmpl_1_1struct__layout.html" title="layout class for storing meta information about the public members of structures">struct_layout</a> object (allows chaining) </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00140">140</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
 
 </div>
 </div>
@@ -174,49 +192,16 @@ template&lt;typename S &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00085">85</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
+<p>starts to register a struct type </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>an instance of type S (the template parameter of class <a class="el" href="classmpl_1_1struct__layout.html">struct_layout</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference to this <a class="el" href="classmpl_1_1struct__layout.html" title="layout class for storing meta information about the public members of structures">struct_layout</a> object (allows chaining) </dd></dl>
 
-</div>
-</div>
-<a id="ab50d4f0b806d403b9df7bf8f08a40173"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab50d4f0b806d403b9df7bf8f08a40173">&#9670;&nbsp;</a></span>register_vector()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename S &gt; </div>
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1struct__layout.html">struct_layout</a>&amp; <a class="el" href="classmpl_1_1struct__layout.html">mpl::struct_layout</a>&lt; S &gt;::register_vector </td>
-          <td>(</td>
-          <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::ptrdiff_t&#160;</td>
-          <td class="paramname"><em>N</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00102">102</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00130">130</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
 
 </div>
 </div>
@@ -243,7 +228,7 @@ template&lt;typename S &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00112">112</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="datatype_8hpp_source.html#l00151">151</a> of file <a class="el" href="datatype_8hpp_source.html">datatype.hpp</a>.</p>
 
 </div>
 </div>

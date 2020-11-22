@@ -33,7 +33,6 @@ var layout_8hpp =
     [ "parameter", "classmpl_1_1subarray__layout_1_1parameter.html", "classmpl_1_1subarray__layout_1_1parameter" ],
     [ "heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html", "classmpl_1_1heterogeneous__layout" ],
     [ "parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", "classmpl_1_1heterogeneous__layout_1_1parameter" ],
-    [ "datatype_traits< layout< T > >", "structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html", null ],
     [ "layouts", "classmpl_1_1layouts.html", "classmpl_1_1layouts" ],
     [ "contiguous_layouts", "classmpl_1_1contiguous__layouts.html", "classmpl_1_1contiguous__layouts" ],
     [ "array_orders", "layout_8hpp.html#a7fd33fa3d7b9a6f095cd55710c3b2dbf", [

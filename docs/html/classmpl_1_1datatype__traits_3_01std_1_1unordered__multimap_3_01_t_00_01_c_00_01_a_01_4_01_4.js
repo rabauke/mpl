@@ -1,4 +1,0 @@
-var classmpl_1_1datatype__traits_3_01std_1_1unordered__multimap_3_01_t_00_01_c_00_01_a_01_4_01_4 =
-[
-    [ "data_type_category", "classmpl_1_1datatype__traits_3_01std_1_1unordered__multimap_3_01_t_00_01_c_00_01_a_01_4_01_4.html#a46d33af8a59f98854ee2761620278ce4", null ]
-];

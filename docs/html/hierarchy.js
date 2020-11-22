@@ -36,25 +36,6 @@ var hierarchy =
     ] ],
     [ "mpl::contiguous_layout< T >", "classmpl_1_1contiguous__layout.html", null ],
     [ "mpl::contiguous_layouts< T >", "classmpl_1_1contiguous__layouts.html", null ],
-    [ "mpl::datatype_traits< T >", "classmpl_1_1datatype__traits.html", null ],
-    [ "mpl::datatype_traits< char16_t >", "classmpl_1_1datatype__traits_3_01char16__t_01_4.html", null ],
-    [ "mpl::datatype_traits< char32_t >", "classmpl_1_1datatype__traits_3_01char32__t_01_4.html", null ],
-    [ "mpl::datatype_traits< layout< T > >", "structmpl_1_1datatype__traits_3_01layout_3_01_t_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::basic_string< T, Trait, Char > >", "classmpl_1_1datatype__traits_3_01std_1_1basic__string_3_01_t_00_01_trait_00_01_char_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::deque< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1deque_3_01_t_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::forward_list< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1forward__list_3_01_t_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::list< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1list_3_01_t_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::map< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1map_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::multimap< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1multimap_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::multiset< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1multiset_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::set< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1set_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::unordered_map< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__map_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::unordered_multimap< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__multimap_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::unordered_multiset< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__multiset_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::unordered_set< T, C, A > >", "classmpl_1_1datatype__traits_3_01std_1_1unordered__set_3_01_t_00_01_c_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::valarray< T > >", "classmpl_1_1datatype__traits_3_01std_1_1valarray_3_01_t_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::vector< bool, A > >", "classmpl_1_1datatype__traits_3_01std_1_1vector_3_01bool_00_01_a_01_4_01_4.html", null ],
-    [ "mpl::datatype_traits< std::vector< T, A > >", "classmpl_1_1datatype__traits_3_01std_1_1vector_3_01_t_00_01_a_01_4_01_4.html", null ],
     [ "mpl::group::difference", "classmpl_1_1group_1_1difference.html", null ],
     [ "mpl::distributed_grid< dim, T, A >", "classmpl_1_1distributed__grid.html", null ],
     [ "mpl::empty_layout< T >", "classmpl_1_1empty__layout.html", null ],
@@ -120,7 +101,7 @@ var hierarchy =
     [ "mpl::detail::request< detail::prequest >", null, [
       [ "mpl::prequest", "classmpl_1_1prequest.html", null ]
     ] ],
-    [ "mpl::detail::request_pool< irequest >", null, [
+    [ "mpl::detail::request_pool< T >", null, [
       [ "mpl::irequest_pool", "classmpl_1_1irequest__pool.html", null ]
     ] ],
     [ "mpl::detail::request_pool< prequest >", null, [

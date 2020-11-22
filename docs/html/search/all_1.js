@@ -1,7 +1,7 @@
 var searchData=
 [
   ['barrier_12',['barrier',['../classmpl_1_1communicator.html#a5df6a6f331aa4c60b7b5664c5260c0ec',1,'mpl::communicator']]],
-  ['base_5fstruct_5fbuilder_13',['base_struct_builder',['../classmpl_1_1base__struct__builder.html',1,'mpl::base_struct_builder&lt; T &gt;'],['../classmpl_1_1base__struct__builder.html#a5f3bf258376f33c5121e79b9bf3de42e',1,'mpl::base_struct_builder::base_struct_builder()=default'],['../classmpl_1_1base__struct__builder.html#a3138dac289f89c80ea2e7f0467f7a7c3',1,'mpl::base_struct_builder::base_struct_builder(const base_struct_builder &amp;)=delete']]],
+  ['base_5fstruct_5fbuilder_13',['base_struct_builder',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
   ['base_5fstruct_5fbuilder_3c_20s_20_3e_14',['base_struct_builder&lt; S &gt;',['../classmpl_1_1struct__layout.html#a1b10f2e35ead013aab50cab5e5aee21a',1,'mpl::struct_layout']]],
   ['base_5fstruct_5fbuilder_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e_15',['base_struct_builder&lt; std::array&lt; T, N &gt; &gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
   ['base_5fstruct_5fbuilder_3c_20std_3a_3apair_3c_20t1_2c_20t2_20_3e_20_3e_16',['base_struct_builder&lt; std::pair&lt; T1, T2 &gt; &gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
