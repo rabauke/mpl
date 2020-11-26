@@ -63,6 +63,9 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Base class for a family of classes that describe where objects are located in
+  /// memory when several objects of the same type T are exchanged in a single message.
+  /// \param T type of the objects that the layout refers to
   template<typename T>
   class layout {
   private:
@@ -75,15 +78,25 @@ namespace mpl {
     }
 
   public:
+    /// \brief Default constructor creates a layout of zero objects.
     layout() : type(MPI_DATATYPE_NULL) {}
 
+    /// \brief Copy constructor creates a new layout that describes the same memory layout as
+    /// the other one.
+    /// \param l the layout to copy from
     layout(const layout &l) : type(MPI_DATATYPE_NULL) {
       if (l.type != MPI_DATATYPE_NULL)
         MPI_Type_dup(l.type, &type);
     }
 
+    /// \brief Move constructor creates a new layout that describes the same memory layout as
+    /// the other one.
+    /// \param l the layout to move from
     layout(layout &&l) noexcept : type(l.type) { l.type = MPI_DATATYPE_NULL; }
 
+    /// \brief Mopy assignment operator creates a new layout that describes the same memory
+    /// layout as the other one.
+    /// \param l the layout to copy from
     layout &operator=(const layout &l) {
       if (this != &l) {
         if (type != MPI_DATATYPE_NULL)
@@ -96,6 +109,9 @@ namespace mpl {
       return *this;
     }
 
+    /// \brief Move assignment operator creates a new layout that describes the same memory
+    /// layout as the other one.
+    /// \param l the layout to move from
     layout &operator=(layout &&l) noexcept {
       if (this != &l) {
         if (type != MPI_DATATYPE_NULL)
@@ -106,7 +122,12 @@ namespace mpl {
       return *this;
     }
 
-    std::ptrdiff_t byte_extent() const {
+    /// \brief Get the byte extent of the layout.
+    /// \return the extent in bytes
+    /// \note The extent of a layout correspondents to the extent of the underlying MPI
+    /// datatype.  See MPI documentation for details.
+    /// \see \ref extent
+    ssize_t byte_extent() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -114,7 +135,13 @@ namespace mpl {
       return extent_;
     }
 
-    std::ptrdiff_t byte_lower_bound() const {
+    /// \brief Get the byte lower bound of the layout.
+    /// \return the lower bound in bytes
+    /// \note The lower bound of a layout correspondents to the lower bound of the underlying
+    /// MPI datatype.  See MPI documentation for details.
+    /// \see \ref byte_upper_bound
+    /// \see \ref lower_bound
+    ssize_t byte_lower_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -122,7 +149,13 @@ namespace mpl {
       return lb_;
     }
 
-    std::ptrdiff_t byte_upper_bound() const {
+    /// \brief Get the byte upper bound of the layout.
+    /// \return the upper bound in bytes
+    /// \note The upper bound of a layout correspondents to the upper bound of the underlying
+    /// MPI datatype.  See MPI documentation for details.
+    /// \see \ref byte_lower_bound
+    /// \see \ref upper_bound
+    ssize_t byte_upper_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -130,28 +163,50 @@ namespace mpl {
       return extent_ - lb_;
     }
 
-    std::ptrdiff_t extent() const {
-      const std::ptrdiff_t res{byte_extent()};
+    /// \brief Get the extent of the layout.
+    /// \return the extent
+    /// \note The extent of a layout correspondents to the extent of the underlying MPI
+    /// datatype.  See MPI documentation for details.
+    /// \see \ref byte_extent
+    ssize_t extent() const {
+      const ssize_t res{byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
-    std::ptrdiff_t lower_bound() const {
-      const std::ptrdiff_t res{byte_lower_bound()};
+    /// \brief Get the lower bound of the layout.
+    /// \return the lower bound
+    /// \note The lower bound of a layout correspondents to the lower bound of the underlying
+    /// MPI datatype.  See MPI documentation for details.
+    /// \see \ref byte_lower_bound
+    /// \see \ref upper_bound
+    ssize_t lower_bound() const {
+      const ssize_t res{byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
-    std::ptrdiff_t upper_bound() const {
-      const std::ptrdiff_t res{byte_upper_bound()};
+    /// \brief Get the upper bound of the layout.
+    /// \return the upper bound in bytes
+    /// \note The upper bound of a layout correspondents to the upper bound of the underlying
+    /// MPI datatype.  See MPI documentation for details.
+    /// \see \ref byte_upper_bound
+    /// \see \ref lower_bound
+    ssize_t upper_bound() const {
+      const ssize_t res{byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
-    std::ptrdiff_t true_byte_extent() const {
+    /// \brief Get the true byte extent of the layout.
+    /// \return the true extent in bytes
+    /// \note The true extent of a layout correspondents to the extent of the underlying MPI
+    /// datatype.  See MPI documentation for details.
+    /// \see \ref true_extent
+    ssize_t true_byte_extent() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -159,7 +214,13 @@ namespace mpl {
       return extent_;
     }
 
-    std::ptrdiff_t true_byte_lower_bound() const {
+    /// \brief Get the true byte lower bound of the layout.
+    /// \return the true lower bound in bytes
+    /// \note The true lower bound of a layout correspondents to the lower bound of the
+    /// underlying MPI datatype.  See MPI documentation for details.
+    /// \see \ref true_byte_upper_bound
+    /// \see \ref true_lower_bound
+    ssize_t true_byte_lower_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -167,7 +228,13 @@ namespace mpl {
       return lb_;
     }
 
-    std::ptrdiff_t true_byte_upper_bound() const {
+    /// \brief Get the true byte upper bound of the layout.
+    /// \return the true upper bound in bytes
+    /// \note The true upper bound of a layout correspondents to the upper bound of the
+    /// underlying MPI datatype.  See MPI documentation for details.
+    /// \see \ref true_byte_lower_bound
+    /// \see \ref true_upper_bound
+    ssize_t true_byte_upper_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -175,28 +242,48 @@ namespace mpl {
       return extent_ - lb_;
     }
 
-    std::ptrdiff_t true_extent() const {
-      const std::ptrdiff_t res{true_byte_extent()};
+    /// \brief Get the true extent of the layout.
+    /// \return the true extent
+    /// \note The true extent of a layout correspondents to the extent of the underlying MPI
+    /// datatype.  See MPI documentation for details.
+    /// \see \ref true_byte_extent
+    ssize_t true_extent() const {
+      const ssize_t res{true_byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
-    std::ptrdiff_t true_lower_bound() const {
-      const std::ptrdiff_t res{true_byte_lower_bound()};
+    /// \brief Get the true lower bound of the layout.
+    /// \return the true lower bound
+    /// \note The true lower bound of a layout correspondents to the lower bound of the
+    /// underlying MPI datatype.  See MPI documentation for details. \see \ref
+    /// true_byte_lower_bound
+    /// \see \ref true_upper_bound
+    ssize_t true_lower_bound() const {
+      const ssize_t res{true_byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
-    std::ptrdiff_t true_upper_bound() const {
-      const std::ptrdiff_t res{true_byte_upper_bound()};
+    /// \brief Get the true upper bound of the layout.
+    /// \return the true upper bound in bytes
+    /// \note The true upper bound of a layout correspondents to the upper bound of the
+    /// underlying MPI datatype.  See MPI documentation for details.
+    /// \see \ref true_byte_upper_bound
+    /// \see \ref true_lower_bound
+    ssize_t true_upper_bound() const {
+      const ssize_t res{true_byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
 
-    void byte_resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
+    /// \brief Resize the layout.
+    /// \param lb the layout's new true byte lower bound
+    /// \param extent the layout's new true byte extent
+    void byte_resize(ssize_t lb, ssize_t extent) {
       if (type != MPI_DATATYPE_NULL) {
         MPI_Datatype newtype;
         MPI_Type_create_resized(type, lb, extent, &newtype);
@@ -206,18 +293,19 @@ namespace mpl {
       }
     }
 
-    void resize(std::ptrdiff_t lb, std::ptrdiff_t extent) {
-      if (type != MPI_DATATYPE_NULL) {
-        MPI_Datatype newtype;
-        MPI_Type_create_resized(type, lb * sizeof(T), extent * sizeof(T), &newtype);
-        MPI_Type_commit(&newtype);
-        MPI_Type_free(&type);
-        type = newtype;
-      }
+    /// \brief Resize the layout.
+    /// \param lb the layout's new true lower bound
+    /// \param extent the layout's new true extent
+    void resize(ssize_t lb, ssize_t extent) {
+      byte_resize(static_cast<ssize_t>(sizeof(T)) * lb,
+                  static_cast<ssize_t>(sizeof(T)) * extent);
     }
 
+    /// \brief Swap with other layout.
+    /// \param l other layout
     void swap(layout &l) { std::swap(type, l.type); }
 
+    /// \brief Destroy layout.
     ~layout() {
       if (type != MPI_DATATYPE_NULL)
         MPI_Type_free(&type);
@@ -256,6 +344,8 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Layout with zero elements.
+  /// \param T element type
   template<typename T>
   class null_layout : public layout<T> {
     using layout<T>::type;

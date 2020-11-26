@@ -11,5 +11,5 @@ var searchData=
   ['error_2ehpp_84',['error.hpp',['../error_8hpp.html',1,'']]],
   ['excl_85',['excl',['../classmpl_1_1group_1_1excl.html',1,'mpl::group']]],
   ['exscan_86',['exscan',['../classmpl_1_1communicator.html#adb0ada85d9fbc0a7f7355be5cf53262d',1,'mpl::communicator::exscan(F f, const T &amp;senddata, T &amp;recvdata) const'],['../classmpl_1_1communicator.html#a832be63c2e97542cc35c4ced9e5ba3b9',1,'mpl::communicator::exscan(F f, const T *senddata, T *recvdata, const contiguous_layout&lt; T &gt; &amp;l) const'],['../classmpl_1_1communicator.html#a451dc480fa9b2d1e562442f7affe719f',1,'mpl::communicator::exscan(F f, T &amp;recvdata) const'],['../classmpl_1_1communicator.html#ad71d3c1ac7358869b40ffff08ae6dce7',1,'mpl::communicator::exscan(F f, T *recvdata, const contiguous_layout&lt; T &gt; &amp;l) const']]],
-  ['extent_87',['extent',['../classmpl_1_1layout.html#a842fa8bfb4fc65ea1557d041fb185622',1,'mpl::layout']]]
+  ['extent_87',['extent',['../classmpl_1_1layout.html#abce0f3197d6b2252c951535b443d7d5e',1,'mpl::layout']]]
 ];

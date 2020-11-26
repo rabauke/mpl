@@ -180,6 +180,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layout.html">layout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for a family of classes that describe where objects are located in memory when several objects of the same type T are exchanged in a single message.  <a href="classmpl_1_1layout.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layouts.html">layouts</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -204,6 +205,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the product of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">communicator::reduce</a>.  <a href="structmpl_1_1multiplies.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html">null_layout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout with zero elements.  <a href="classmpl_1_1null__layout.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1op__traits.html">op_traits</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Traits class for storing meta information about reduction operations.  <a href="structmpl_1_1op__traits.html#details">More...</a><br /></td></tr>
@@ -294,6 +296,10 @@ Classes</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:abb5e06add345f42e91dbfb17fe40dfea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#abb5e06add345f42e91dbfb17fe40dfea">message</a> = MPI_Message</td></tr>
 <tr class="separator:abb5e06add345f42e91dbfb17fe40dfea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cd70ef6c91cacaf9265de4c9dd93ddf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">size_t</a> = std::size_t</td></tr>
+<tr class="separator:a3cd70ef6c91cacaf9265de4c9dd93ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf6b82700b0f144cbcd49b1233e1083d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">ssize_t</a> = std::ptrdiff_t</td></tr>
+<tr class="separator:acf6b82700b0f144cbcd49b1233e1083d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
@@ -372,6 +378,38 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a3cd70ef6c91cacaf9265de4c9dd93ddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd70ef6c91cacaf9265de4c9dd93ddf">&#9670;&nbsp;</a></span>size_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">mpl::size_t</a> = typedef std::size_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mpl_8hpp_source.html#l00036">36</a> of file <a class="el" href="mpl_8hpp_source.html">mpl.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acf6b82700b0f144cbcd49b1233e1083d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf6b82700b0f144cbcd49b1233e1083d">&#9670;&nbsp;</a></span>ssize_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">mpl::ssize_t</a> = typedef std::ptrdiff_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="mpl_8hpp_source.html#l00037">37</a> of file <a class="el" href="mpl_8hpp_source.html">mpl.hpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
 <a id="a7fd33fa3d7b9a6f095cd55710c3b2dbf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7fd33fa3d7b9a6f095cd55710c3b2dbf">&#9670;&nbsp;</a></span>array_orders</h2>
@@ -397,7 +435,7 @@ Variables</h2></td></tr>
 <tr><td class="fieldname"><a id="a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097"></a>Fortran_order&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00964">964</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01054">1054</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +546,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01155">1155</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01245">1245</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -548,7 +586,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01150">1150</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01240">1240</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>

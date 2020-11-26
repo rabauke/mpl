@@ -13,7 +13,7 @@ var searchData=
   ['register_5felement_357',['register_element',['../classmpl_1_1struct__layout.html#a8487da67decc91431c9acd54b35132e9',1,'mpl::struct_layout']]],
   ['register_5fstruct_358',['register_struct',['../classmpl_1_1struct__layout.html#aa93dd992975ec97a773ade096418a8ed',1,'mpl::struct_layout']]],
   ['request_2ehpp_359',['request.hpp',['../request_8hpp.html',1,'']]],
-  ['resize_360',['resize',['../classmpl_1_1layout.html#a36cb6025e8a9fda3c2be25d1b9c76edd',1,'mpl::layout']]],
+  ['resize_360',['resize',['../classmpl_1_1layout.html#ab0a15251c4fd7bc10630bb9f00a392c4',1,'mpl::layout']]],
   ['right_5fborder_5flayout_361',['right_border_layout',['../classmpl_1_1distributed__grid.html#a3488dfec844fd0edbfd4a3f4a65c3fc7',1,'mpl::distributed_grid']]],
   ['right_5fmirror_5flayout_362',['right_mirror_layout',['../classmpl_1_1distributed__grid.html#a87d511a44d4a3475e8af04d0c34d536d',1,'mpl::distributed_grid']]],
   ['root_363',['root',['../namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc',1,'mpl']]],

@@ -33,7 +33,8 @@ namespace mpl {
   /// \see \ref communicator_bsend "communicator::bsend"
   constexpr int bsend_overhead = MPI_BSEND_OVERHEAD;
 
-  using std::size_t;
+  using size_t = std::size_t;
+  using ssize_t = std::ptrdiff_t;
 
 }  // namespace mpl
 
