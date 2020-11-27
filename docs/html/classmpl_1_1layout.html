@@ -108,7 +108,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a4247e7ceac8381a08ce49a21370238d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor creates a new layout that describes the same memory layout as the other one.  <a href="classmpl_1_1layout.html#a4247e7ceac8381a08ce49a21370238d2">More...</a><br /></td></tr>
 <tr class="separator:a4247e7ceac8381a08ce49a21370238d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00910b3694edf8c659c2be78bd315caf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1layout.html">layout</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layout.html#a00910b3694edf8c659c2be78bd315caf">operator=</a> (const <a class="el" href="classmpl_1_1layout.html">layout</a> &amp;l)</td></tr>
-<tr class="memdesc:a00910b3694edf8c659c2be78bd315caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mopy assignment operator creates a new layout that describes the same memory layout as the other one.  <a href="classmpl_1_1layout.html#a00910b3694edf8c659c2be78bd315caf">More...</a><br /></td></tr>
+<tr class="memdesc:a00910b3694edf8c659c2be78bd315caf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment operator creates a new layout that describes the same memory layout as the other one.  <a href="classmpl_1_1layout.html#a00910b3694edf8c659c2be78bd315caf">More...</a><br /></td></tr>
 <tr class="separator:a00910b3694edf8c659c2be78bd315caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a5a76badec422e13c4840088849a974"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1layout.html">layout</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layout.html#a8a5a76badec422e13c4840088849a974">operator=</a> (<a class="el" href="classmpl_1_1layout.html">layout</a> &amp;&amp;l) noexcept</td></tr>
 <tr class="memdesc:a8a5a76badec422e13c4840088849a974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment operator creates a new layout that describes the same memory layout as the other one.  <a href="classmpl_1_1layout.html#a8a5a76badec422e13c4840088849a974">More...</a><br /></td></tr>
@@ -202,7 +202,7 @@ class mpl::layout&lt; T &gt;</h3>
 <p>Base class for a family of classes that describe where objects are located in memory when several objects of the same type T are exchanged in a single message. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">T</td><td>type of the objects that the layout refers to </td></tr>
+    <tr><td class="paramname">T</td><td>type of the objects that the layout refers to (the base element type) </td></tr>
   </table>
   </dd>
 </dl>
@@ -599,7 +599,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Mopy assignment operator creates a new layout that describes the same memory layout as the other one. </p>
+<p>Copy assignment operator creates a new layout that describes the same memory layout as the other one. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">l</td><td>the layout to copy from </td></tr>
@@ -1255,7 +1255,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01245">1245</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01351">1351</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -1295,7 +1295,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01240">1240</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01346">1346</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>

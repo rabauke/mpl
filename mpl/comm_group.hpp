@@ -2030,6 +2030,7 @@ namespace mpl {
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm);
     }
 
+    /// \anchor communicator_reduce_contiguous_layout
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T *senddata, T *recvdata,
                 const contiguous_layout<T> &l) const {

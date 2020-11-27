@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"datatype_8hpp.html#ac0dc0caca9fec3c5c64ad1b49762260c":[3,0,2,126],
 "datatype_8hpp.html#ac6e5dde6745083b0243d74a342901213":[3,0,2,116],
 "datatype_8hpp.html#acd3f9024f3dc51ae91481117e14cabff":[3,0,2,23],
 "datatype_8hpp.html#acf2301e4c6f27ad745b0cb13d5a8ea5a":[3,0,2,71],
@@ -59,8 +60,8 @@ var NAVTREEINDEX3 =
 "functions_d.html":[2,3,0,3],
 "functions_e.html":[2,3,0,4],
 "functions_enum.html":[2,3,4],
-"functions_func.html":[2,3,1],
 "functions_func.html":[2,3,1,0],
+"functions_func.html":[2,3,1],
 "functions_func_b.html":[2,3,1,1],
 "functions_func_c.html":[2,3,1,2],
 "functions_func_d.html":[2,3,1,3],

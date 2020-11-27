@@ -97,9 +97,16 @@ $(document).ready(function(){initNavTree('classmpl_1_1null__layout.html',''); in
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2ec98d79f8163ad847bfab002f710431"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html#a2ec98d79f8163ad847bfab002f710431">null_layout</a> ()</td></tr>
-<tr class="separator:a2ec98d79f8163ad847bfab002f710431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac7c25a8345ee4860f372efb0528159"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html#acac7c25a8345ee4860f372efb0528159">null_layout</a> () noexcept</td></tr>
+<tr class="memdesc:acac7c25a8345ee4860f372efb0528159"><td class="mdescLeft">&#160;</td><td class="mdescRight">default constructor  <a href="classmpl_1_1null__layout.html#acac7c25a8345ee4860f372efb0528159">More...</a><br /></td></tr>
+<tr class="separator:acac7c25a8345ee4860f372efb0528159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e3a1fc89a2e4cc97313b09613a19fbb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html#a1e3a1fc89a2e4cc97313b09613a19fbb">null_layout</a> (const <a class="el" href="classmpl_1_1null__layout.html">null_layout</a> &amp;l) noexcept</td></tr>
+<tr class="memdesc:a1e3a1fc89a2e4cc97313b09613a19fbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy constructor  <a href="classmpl_1_1null__layout.html#a1e3a1fc89a2e4cc97313b09613a19fbb">More...</a><br /></td></tr>
+<tr class="separator:a1e3a1fc89a2e4cc97313b09613a19fbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a870ae11bff01c96d3a71028826c8d477"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html#a870ae11bff01c96d3a71028826c8d477">null_layout</a> (<a class="el" href="classmpl_1_1null__layout.html">null_layout</a> &amp;&amp;l) noexcept</td></tr>
+<tr class="separator:a870ae11bff01c96d3a71028826c8d477"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa902f79f8f54981548bfd7d74c11ec44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html#aa902f79f8f54981548bfd7d74c11ec44">swap</a> (<a class="el" href="classmpl_1_1null__layout.html">null_layout</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="memdesc:aa902f79f8f54981548bfd7d74c11ec44"><td class="mdescLeft">&#160;</td><td class="mdescRight">swap two instances of <a class="el" href="classmpl_1_1null__layout.html" title="Layout with zero elements.">null_layout</a>  <a href="classmpl_1_1null__layout.html#aa902f79f8f54981548bfd7d74c11ec44">More...</a><br /></td></tr>
 <tr class="separator:aa902f79f8f54981548bfd7d74c11ec44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -109,15 +116,17 @@ class mpl::null_layout&lt; T &gt;</h3>
 <p>Layout with zero elements. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">T</td><td>element type </td></tr>
+    <tr><td class="paramname">T</td><td>base element type </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>This type corresponds to the MPI datatype MPI_DATATYPE_NULL. The template parameter T is required for syntactical reasons but does not affect the class' behaviour. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>inherits all member methods of <a class="el" href="classmpl_1_1layout.html">layout</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00021">21</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2ec98d79f8163ad847bfab002f710431"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ec98d79f8163ad847bfab002f710431">&#9670;&nbsp;</a></span>null_layout()</h2>
+<a id="acac7c25a8345ee4860f372efb0528159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac7c25a8345ee4860f372efb0528159">&#9670;&nbsp;</a></span>null_layout() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,12 +145,76 @@ template&lt;typename T &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00354">354</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>default constructor </p>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00358">358</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1e3a1fc89a2e4cc97313b09613a19fbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e3a1fc89a2e4cc97313b09613a19fbb">&#9670;&nbsp;</a></span>null_layout() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1null__layout.html">mpl::null_layout</a>&lt; T &gt;::<a class="el" href="classmpl_1_1null__layout.html">null_layout</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1null__layout.html">null_layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>copy constructor </p>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00361">361</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a870ae11bff01c96d3a71028826c8d477"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a870ae11bff01c96d3a71028826c8d477">&#9670;&nbsp;</a></span>null_layout() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1null__layout.html">mpl::null_layout</a>&lt; T &gt;::<a class="el" href="classmpl_1_1null__layout.html">null_layout</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1null__layout.html">null_layout</a>&lt; T &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00363">363</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -172,7 +245,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00356">356</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>swap two instances of <a class="el" href="classmpl_1_1null__layout.html" title="Layout with zero elements.">null_layout</a> </p>
+<dl class="section note"><dt>Note</dt><dd>This a no-op, as all instances of <a class="el" href="classmpl_1_1null__layout.html" title="Layout with zero elements.">null_layout</a> are equal. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00367">367</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>

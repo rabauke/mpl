@@ -65,7 +65,7 @@ namespace mpl {
 
   /// \brief Base class for a family of classes that describe where objects are located in
   /// memory when several objects of the same type T are exchanged in a single message.
-  /// \param T type of the objects that the layout refers to
+  /// \param T type of the objects that the layout refers to (the base element type)
   template<typename T>
   class layout {
   private:
@@ -94,7 +94,7 @@ namespace mpl {
     /// \param l the layout to move from
     layout(layout &&l) noexcept : type(l.type) { l.type = MPI_DATATYPE_NULL; }
 
-    /// \brief Mopy assignment operator creates a new layout that describes the same memory
+    /// \brief Copy assignment operator creates a new layout that describes the same memory
     /// layout as the other one.
     /// \param l the layout to copy from
     layout &operator=(const layout &l) {
@@ -345,14 +345,25 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// \brief Layout with zero elements.
-  /// \param T element type
+  /// \param T base element type
+  /// \note This type corresponds to the MPI datatype MPI_DATATYPE_NULL.  The template parameter
+  /// T is required for syntactical reasons but does not affect the class' behaviour.
+  /// \see inherits all member methods of \ref layout
   template<typename T>
   class null_layout : public layout<T> {
     using layout<T>::type;
 
   public:
-    null_layout() : layout<T>(MPI_DATATYPE_NULL) {}
+    /// \brief default constructor
+    null_layout() noexcept : layout<T>(MPI_DATATYPE_NULL) {}
 
+    /// \brief copy constructor
+    null_layout(const null_layout &l) noexcept : null_layout() {}
+
+    null_layout(null_layout &&l) noexcept : null_layout() {}
+
+    /// \brief swap two instances of null_layout
+    /// \note This a no-op, as all instances of null_layout are equal.
     void swap(null_layout<T> &other) {}
 
     using layout<T>::byte_extent;
@@ -367,6 +378,9 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Layout with zero elements.
+  /// \param T base element type
+  /// \see inherits all member methods of \ref layout
   template<typename T>
   class empty_layout : public layout<T> {
     using layout<T>::type;
@@ -378,22 +392,35 @@ namespace mpl {
     }
 
   public:
+    /// \brief default constructor
     empty_layout() : layout<T>(build()) {}
 
+    /// \brief copy constructor
+    /// \param l layout to copy from
     empty_layout(const empty_layout &l) : layout<T>(l) {}
 
+    /// \brief move constructor
+    /// \param l layout to move from
     empty_layout(empty_layout &&l) noexcept : layout<T>(std::move(l)) {}
 
+    /// \brief copy assignment operator
+    /// \param l layout to copy from
+    /// \return reference to this object
     empty_layout<T> &operator=(const empty_layout<T> &l) {
       layout<T>::operator=(l);
       return *this;
     }
 
+    /// \brief move assignment operator
+    /// \param l layout to move from
+    /// \return reference to this object
     empty_layout<T> &operator=(empty_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
 
+    /// exchanges two empty layouts
+    /// \param other the layout to swap with
     void swap(empty_layout<T> &other) { std::swap(type, other.type); }
 
     using layout<T>::byte_extent;
@@ -408,6 +435,17 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Layout representing contiguous storage several objects.
+  /// \param T base element type
+  /// \note Both types \ref contiguous_layout and \ref vector_layout represent contiguous
+  /// storage.  \ref contiguous_layout implements some additional bookkeeping as one important
+  /// difference between both classes.  The class \ref vector_layout is slightly more flexible
+  /// and should be used to represent contiguous storage unless the MPL library _requires_ the
+  /// usage of \ref contiguous_layout, e.g., in \ref
+  /// communicator_reduce_contiguous_layout "communicator::reduce".
+  /// \see inherits all member methods of \ref layout
+  /// \see \ref vector_layout
+  /// \see \ref contiguous_layouts
   template<typename T>
   class contiguous_layout : public layout<T> {
     using layout<T>::type;
@@ -443,24 +481,40 @@ namespace mpl {
     size_t size() const { return count; }
 
   public:
+    /// constructs layout for contiguous storage several objects of type T
+    /// \param c number of objects
     explicit contiguous_layout(size_t c = 0) : layout<T>(build(c)), count(c) {}
 
-    explicit contiguous_layout(size_t c, const contiguous_layout<T> &other)
-        : layout<T>(build(c, other.type)), count(other.c * c) {}
+    /// constructs layout for data with memory layout that is a homogenous sequence of some
+    /// other contiguous layout
+    /// \param c number of layouts in sequence
+    /// \param l the layout of a single element
+    explicit contiguous_layout(size_t c, const contiguous_layout<T> &l)
+        : layout<T>(build(c, l.type)), count(l.c * c) {}
 
+    /// \brief copy constructor
+    /// \param l layout to copy from
     contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count(l.count) {}
 
+    /// \brief move constructor
+    /// \param l layout to move from
     contiguous_layout(contiguous_layout &&l) noexcept
         : layout<T>(std::move(l)), count(l.count) {
       l.count = 0;
     }
 
+    /// \brief copy assignment operator
+    /// \param l layout to copy from
+    /// \return reference to this object
     contiguous_layout<T> &operator=(const contiguous_layout<T> &l) {
       layout<T>::operator=(l);
       count = l.count;
       return *this;
     }
 
+    /// \brief move assignment operator
+    /// \param l layout to move from
+    /// \return reference to this object
     contiguous_layout<T> &operator=(contiguous_layout<T> &&l) noexcept {
       if (this != &l) {
         layout<T>::operator=(std::move(l));
@@ -470,6 +524,8 @@ namespace mpl {
       return *this;
     }
 
+    /// \brief exchanges two contiguous layouts
+    /// \param other the layout to swap with
     void swap(contiguous_layout<T> &other) {
       std::swap(type, other.type);
       std::swap(count, other.count);
@@ -490,6 +546,16 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Layout representing contiguous storage several objects.
+  /// \param T base element type
+  /// \note Both types \ref contiguous_layout and \ref vector_layout represent contiguous
+  /// storage.  \ref contiguous_layout implements some additional bookkeeping as one important
+  /// difference between both classes.  The class \ref vector_layout is slightly more flexible
+  /// and should be used to represent contiguous storage unless the MPL library _requires_ the
+  /// usage of \ref contiguous_layout, e.g., in \ref
+  /// communicator_reduce_contiguous_layout "communicator::reduce".
+  /// \see inherits all member methods of \ref layout
+  /// \see \ref contiguous_layout
   template<typename T>
   class vector_layout : public layout<T> {
     using layout<T>::type;
@@ -521,28 +587,42 @@ namespace mpl {
     }
 
   public:
+    /// constructs layout for contiguous storage several objects of type T
+    /// \param c number of objects
     explicit vector_layout(size_t c = 0) : layout<T>(build(c)) {}
 
-    explicit vector_layout(size_t c, const layout<T> &other)
-        : layout<T>(build(c, other.type)) {}
+    /// constructs layout for data with memory layout that is a homogenous sequence of some
+    /// other layout
+    /// \param c number of layouts in sequence
+    /// \param l the layout of a single element
+    explicit vector_layout(size_t c, const layout<T> &l) : layout<T>(build(c, l.type)) {}
 
-    explicit vector_layout(size_t c, const vector_layout<T> &other)
-        : layout<T>(build(c, other.type)) {}
-
+    /// \brief copy constructor
+    /// \param l layout to copy from
     vector_layout(const vector_layout<T> &l) : layout<T>(l) {}
 
+    /// \brief move constructor
+    /// \param l layout to move from
     vector_layout(vector_layout &&l) noexcept : layout<T>(std::move(l)) {}
 
+    /// \brief copy assignment operator
+    /// \param l layout to copy from
+    /// \return reference to this object
     vector_layout<T> &operator=(const vector_layout<T> &l) {
       layout<T>::operator=(l);
       return *this;
     }
 
+    /// \brief move assignment operator
+    /// \param l layout to move from
+    /// \return reference to this object
     vector_layout<T> &operator=(vector_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
 
+    /// \brief exchanges two contiguous layouts
+    /// \param other the layout to swap with
     void swap(vector_layout<T> &other) { std::swap(type, other.type); }
 
     using layout<T>::byte_extent;
@@ -557,6 +637,10 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Layout representing uniform storage of several objects with a possibly non-zero
+  /// stride between consecutive elements.
+  /// \param T base base element type
+  /// \see inherits all member methods of \ref layout
   template<typename T>
   class strided_vector_layout : public layout<T> {
     using layout<T>::type;
@@ -576,29 +660,51 @@ namespace mpl {
     }
 
   public:
+    /// \brief constructs a layout with no data
     strided_vector_layout() : layout<T>(build()) {}
 
+    /// \brief constructs a layout with several strided objects of type T
+    /// \param count the number of blocks (non-negative)
+    /// \param blocklength number of data elements in each block (non-negative)
+    /// \param stride number or elements between start of each block
     explicit strided_vector_layout(int count, int blocklength, int stride)
         : layout<T>(build(count, blocklength, stride)) {}
 
-    explicit strided_vector_layout(int count, int blocklength, int stride,
-                                   const layout<T> &other)
-        : layout<T>(build(count, blocklength, stride, other.type)) {}
+    /// \brief constructs a layout with several strided objects of some other layout
+    /// \param count the number of blocks (non-negative)
+    /// \param blocklength number of data elements in each block (non-negative)
+    /// \param stride number or elements between start of each block, each element having the
+    /// size given by the extend of the layout given by parameter l
+    /// \param l the layout of a single element in each block
+    explicit strided_vector_layout(int count, int blocklength, int stride, const layout<T> &l)
+        : layout<T>(build(count, blocklength, stride, l.type)) {}
 
+    /// \brief copy constructor
+    /// \param l layout to copy from
     strided_vector_layout(const strided_vector_layout<T> &l) : layout<T>(l) {}
 
+    /// \brief move constructor
+    /// \param l layout to move from
     strided_vector_layout(strided_vector_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
 
+    /// \brief copy assignment operator
+    /// \param l layout to copy from
+    /// \return reference to this object
     strided_vector_layout<T> &operator=(const strided_vector_layout<T> &l) {
       layout<T>::operator=(l);
       return *this;
     }
 
+    /// \brief move assignment operator
+    /// \param l layout to move from
+    /// \return reference to this object
     strided_vector_layout<T> &operator=(strided_vector_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
 
+    /// \brief exchanges two contiguous layouts
+    /// \param other the layout to swap with
     void swap(strided_vector_layout<T> &other) { std::swap(type, other.type); }
 
     using layout<T>::byte_extent;
