@@ -155,7 +155,7 @@ namespace mpl {
 
   /// \brief Base class used to manage information about structures/classes and their public
   /// members.
-  /// \param T the structure or class type
+  /// \tparam T the structure or class type
   /// \see struct_builder
   template<typename T>
   class base_struct_builder {
@@ -190,7 +190,7 @@ namespace mpl {
 
   /// \brief Template class used to manage information about structures/classes and their public
   /// members
-  /// \param T the structure or class type
+  /// \tparam T the structure or class type
   /// \note This template class needs to be specialized for each structure/class type that shall
   /// be used in message passing operations.  Specializations must derive from class \ref
   /// base_struct_builder. MPL provides some specializations for common types.
@@ -204,8 +204,8 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// \brief Specialization of \ref struct_builder for STL pairs.
-  /// \param T1 type of first member of the STL pair
-  /// \param T2 type of second member of the STL pair
+  /// \tparam T1 type of first member of the STL pair
+  /// \tparam T2 type of second member of the STL pair
   /// \see struct_builder
   template<typename T1, typename T2>
   class struct_builder<std::pair<T1, T2>> : public base_struct_builder<std::pair<T1, T2>> {
@@ -272,7 +272,7 @@ namespace mpl {
   }  // namespace detail
 
   /// \brief Specialization of \ref struct_builder for STL tuples.
-  /// \param Ts parameter pack representing the types of the members of the STL tuple
+  /// \tparam Ts parameter pack representing the types of the members of the STL tuple
   /// \see struct_builder
   template<typename... Ts>
   class struct_builder<std::tuple<Ts...>> : public base_struct_builder<std::tuple<Ts...>> {
@@ -294,8 +294,8 @@ namespace mpl {
 
   /// \brief Specialization of \ref struct_builder for fixed-size one-dimensional C-style
   /// arrays.
-  /// \param T type of the array elements
-  /// \param N0 array size
+  /// \tparam T type of the array elements
+  /// \tparam N0 array size
   /// \see struct_builder
   template<typename T, std::size_t N0>
   class struct_builder<T[N0]> : public base_struct_builder<T[N0]> {
@@ -313,9 +313,9 @@ namespace mpl {
 
   /// \brief Specialization of \ref struct_builder for fixed-size two-dimensional C-style
   /// arrays.
-  /// \param T type of the array elements
-  /// \param N0 array size, first dimension
-  /// \param N1 array size, second dimension
+  /// \tparam T type of the array elements
+  /// \tparam N0 array size, first dimension
+  /// \tparam N1 array size, second dimension
   /// \see struct_builder
   template<typename T, std::size_t N0, std::size_t N1>
   class struct_builder<T[N0][N1]> : public base_struct_builder<T[N0][N1]> {
@@ -333,10 +333,10 @@ namespace mpl {
 
   /// \brief Specialization of \ref struct_builder for fixed-size three-dimensional C-style
   /// arrays.
-  /// \param T type of the array elements
-  /// \param N0 array size, first dimension
-  /// \param N1 array size, second dimension
-  /// \param N2 array size, third dimension
+  /// \tparam T type of the array elements
+  /// \tparam N0 array size, first dimension
+  /// \tparam N1 array size, second dimension
+  /// \tparam N2 array size, third dimension
   /// \see struct_builder
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
   class struct_builder<T[N0][N1][N2]> : public base_struct_builder<T[N0][N1][N2]> {
@@ -354,11 +354,11 @@ namespace mpl {
 
   /// \brief Specialization of \ref struct_builder for fixed-size four-dimensional C-style
   /// arrays.
-  /// \param T type of the array elements
-  /// \param N0 array size, first dimension
-  /// \param N1 array size, second dimension
-  /// \param N2 array size, third dimension
-  /// \param N3 array size, fourth dimension
+  /// \tparam T type of the array elements
+  /// \tparam N0 array size, first dimension
+  /// \tparam N1 array size, second dimension
+  /// \tparam N2 array size, third dimension
+  /// \tparam N3 array size, fourth dimension
   /// \see struct_builder
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
   class struct_builder<T[N0][N1][N2][N3]> : public base_struct_builder<T[N0][N1][N2][N3]> {
@@ -377,8 +377,8 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// \brief Specialization of \ref struct_builder for fixed-size one-dimensional STL arrays.
-  /// \param T type of the array elements
-  /// \param N array size
+  /// \tparam T type of the array elements
+  /// \tparam N array size
   /// \see struct_builder
   template<typename T, std::size_t N>
   class struct_builder<std::array<T, N>> : public base_struct_builder<std::array<T, N>> {

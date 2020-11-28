@@ -12,7 +12,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the maximum of two values in reduction operations
   /// as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct max {
     /// \param x first argument
@@ -23,7 +23,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the minimum of two values in reduction operations
   /// as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct min {
     /// \param x first argument
@@ -34,7 +34,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the sum of two values in reduction operations as
   /// communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct plus {
     /// \param x first argument
@@ -45,7 +45,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the product of two values in reduction operations
   /// as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct multiplies {
     /// \param x first argument
@@ -56,7 +56,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the logical conjunction of two values in reduction
   /// operations as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct logical_and {
     /// \param x first argument
@@ -67,7 +67,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the logical (inclusive) disjunction of two values
   /// in reduction operations as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct logical_or {
     /// \param x first argument
@@ -78,7 +78,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the logical exclusive disjunction of two values in
   /// reduction operations as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct logical_xor {
     /// \param x first argument
@@ -89,7 +89,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the bitwise conjunction of two values in reduction
   /// operations as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct bit_and {
     /// \param x first argument
@@ -100,7 +100,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the bitwise (inclusive) disjunction of two values
   /// in reduction operations as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct bit_or {
     /// \param x first argument
@@ -111,7 +111,7 @@ namespace mpl {
 
   /// \brief Function object for calculating the bitwise exclusive disjunction of two values in
   /// reduction operations as communicator::reduce.
-  /// \param T data type of the reduction operation's arguments and its result
+  /// \tparam T data type of the reduction operation's arguments and its result
   template<typename T>
   struct bit_xor {
     /// \param x first argument
@@ -123,7 +123,7 @@ namespace mpl {
   // -------------------------------------------------------------------
 
   /// \brief Traits class for storing meta information about reduction operations.
-  /// \param F function object type
+  /// \tparam F function object type
   template<typename F>
   struct op_traits {
     /// Is true if reduction operation specified in the template parameter F is commutative.
