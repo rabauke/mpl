@@ -135,12 +135,12 @@ namespace mpl {
     /// \see \ref wtime
     inline bool wtime_is_global() { return detail::get_env().wtime_is_global(); }
 
-    /// \brief Provides access to a predefined \ref communicator that allows communication with
+    /// \brief Provides access to a predefined communicator that allows communication with
     /// all processes.
     /// \return communicator to communicate with any other process
     inline const communicator &comm_world() { return detail::get_env().comm_world(); }
 
-    /// \brief Provides access to a predefined \ref communicator includes only the calling
+    /// \brief Provides access to a predefined communicator that includes only the calling
     /// process itself.
     /// \return communicator including only the precess itself
     inline const communicator &comm_self() { return detail::get_env().comm_self(); }

@@ -736,7 +736,7 @@ namespace mpl {
       /// \brief creates parameters for an indexed layout representing an empty sequence
       parameter() = default;
 
-      /// \brief converts a container into a parameters
+      /// \brief converts a container into an indexed layout parameter
       /// \tparam List_T container type, must work with range-based for loops, value type must
       /// have two elements (the block length and the displacement), each convertible to int
       /// \param list container
@@ -789,13 +789,11 @@ namespace mpl {
 
     /// constructs indexed layout for data of type T
     /// \param par parameter containing information abut the layout
-    /// \note displacements are given in multiples of the extent of T
     explicit indexed_layout(const parameter &par) : layout<T>(build(par)) {}
 
     /// constructs indexed layout for data with some other layout
     /// \param par parameter containing information abut the layout
     /// \param l the layout of a single element
-    /// \note displacements are given in multiples of the extent of l
     explicit indexed_layout(const parameter &par, const layout<T> &l)
         : layout<T>(build(par, l.type)) {}
 
@@ -858,7 +856,7 @@ namespace mpl {
       /// \brief creates parameters for an empty sequence
       parameter() = default;
 
-      /// \brief converts a container into a parameters
+      /// \brief converts a container into a hindexed layout parameter
       /// \tparam List_T container type, must work with range-based for loops, value type must
       /// have two elements (the block length and the displacement), each convertible to int
       /// \param list container
@@ -869,7 +867,7 @@ namespace mpl {
           add(get<0>(i), get<1>(i));
       }
 
-      /// \brief converts an initializer list into a parameters
+      /// \brief converts an initializer list into a hindexed layout parameter
       /// \param list initializer list with two-element tuples of block lengths and
       /// displacements
       parameter(std::initializer_list<std::tuple<int, ssize_t>> list) {
@@ -982,7 +980,7 @@ namespace mpl {
       /// \brief creates parameters for an indexed layout representing an empty sequence
       parameter() = default;
 
-      /// \brief converts a container into a parameters
+      /// \brief converts a container into an indexed block layout parameter
       /// \tparam List_T container type, must work with range-based for loops, value type must
       /// have a single element (the displacement), convertible to int
       /// \param list container
@@ -992,7 +990,7 @@ namespace mpl {
           add(i);
       }
 
-      /// \brief converts an initializer list into a parameters
+      /// \brief converts an initializer list into an indexed block layout parameter
       /// \param list initializer list with integers representing displacements
       parameter(std::initializer_list<int> list) {
         for (int i : list)
@@ -1096,7 +1094,7 @@ namespace mpl {
       std::vector<MPI_Aint> displacements;
 
     public:
-      /// \brief creates parameters for an empty sequence
+      /// \brief creates an hindexed block layout parameter for an empty sequence
       parameter() = default;
 
       /// \brief converts a container into a parameters
@@ -1109,7 +1107,7 @@ namespace mpl {
           add(i);
       }
 
-      /// \brief converts an initializer list into a parameters
+      /// \brief converts an initializer list into an hindexed block layout parameter
       /// \param list initializer list with integers representing the displacements
       parameter(std::initializer_list<ssize_t> list) {
         for (const ssize_t &i : list)
@@ -1204,11 +1202,18 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Layout representing data at non-consecutive memory locations, which can be
+  /// addressed via an iterator.
+  /// \tparam T base base element type
+  /// \note Iterators that have been used to create objects of this type must not become invalid
+  /// during the object's life time.
+  /// \see inherits all member methods of \ref layout
   template<typename T>
   class iterator_layout : public layout<T> {
     using layout<T>::type;
 
   public:
+    /// \brief Class representing the parameters to characterize an iterator layout.
     class parameter {
       std::vector<MPI_Aint> displacements;
       std::vector<int> blocklengths;
@@ -1236,15 +1241,20 @@ namespace mpl {
       }
 
     public:
+      /// \brief creates parameters for an iterator layout representing an empty sequence
       parameter() = default;
 
+      /// \brief converts an iterator pair into an iterator layout  parameter
+      /// \tparam itert_T iterator type
+      /// \param first iterator to the first element
+      /// \param last iterator pointing after the last element
       template<typename iter_T>
-      parameter(iter_T first, iter_T end) {
+      parameter(iter_T first, iter_T last) {
         MPI_Count lb_, extent_;
         MPI_Type_get_extent_x(detail::datatype_traits<T>::get_datatype(), &lb_, &extent_);
         if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
           throw invalid_datatype_bound();
-        for (iter_T i = first; i != end; ++i)
+        for (iter_T i = first; i != last; ++i)
           add(*first, *i, extent_);
       }
 
@@ -1272,35 +1282,62 @@ namespace mpl {
     }
 
   public:
+    /// \brief constructs a layout with no data
     iterator_layout() : layout<T>(build()) {}
 
+    /// constructs iterator layout for data of type T
+    /// \tparam itert_T iterator type
+    /// \param first iterator to the first element
+    /// \param last iterator pointing after the last element
     template<typename iter_T>
     explicit iterator_layout(iter_T first, iter_T end)
         : layout<T>(build(parameter(first, end))) {}
 
+    /// constructs iterator layout for data of type T
+    /// \param par parameter containing information abut the layout
     explicit iterator_layout(const parameter &par) : layout<T>(build(par)) {}
 
+    /// constructs iterator layout for data with some other layout
+    /// \tparam itert_T iterator type
+    /// \param first iterator to the first element
+    /// \param last iterator pointing after the last element
+    /// \param l the layout of a single element
     template<typename iter_T>
     explicit iterator_layout(iter_T first, iter_T end, const layout<T> &other)
         : layout<T>(build(parameter(first, end), other.type)) {}
 
+    /// constructs iterator layout for data with some other layout
+    /// \param par parameter containing information abut the layout
+    /// \param l the layout of a single element
     explicit iterator_layout(const parameter &par, const layout<T> &other)
         : layout<T>(build(par, other.type)) {}
 
+    /// \brief copy constructor
+    /// \param l layout to copy from
     iterator_layout(const iterator_layout<T> &l) : layout<T>(l) {}
 
+    /// \brief move constructor
+    /// \param l layout to move from
     iterator_layout(iterator_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
 
+    /// \brief copy assignment operator
+    /// \param l layout to copy from
+    /// \return reference to this object
     iterator_layout<T> &operator=(const iterator_layout<T> &l) {
       layout<T>::operator=(l);
       return *this;
     }
 
+    /// \brief move assignment operator
+    /// \param l layout to move from
+    /// \return reference to this object
     iterator_layout<T> &operator=(iterator_layout<T> &&l) noexcept {
       layout<T>::operator=(std::move(l));
       return *this;
     }
 
+    /// \brief exchanges two iterator layouts
+    /// \param other the layout to swap with
     void swap(iterator_layout<T> &other) { std::swap(type, other.type); }
 
     using layout<T>::byte_extent;
@@ -1315,7 +1352,15 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  enum class array_orders { C_order = MPI_ORDER_C, Fortran_order = MPI_ORDER_FORTRAN };
+  /// \brief Represents order of elements in a multi dimensional array
+  /// \see subarray_layout
+  enum class array_orders {
+    /// \brief row-major order, also known as lexographical access order or as C order
+    C_order = MPI_ORDER_C,
+    /// \brief column-major order, also known as colexographical access order or as Fortran
+    /// order
+    Fortran_order = MPI_ORDER_FORTRAN
+  };
 
   template<typename T>
   class subarray_layout : public layout<T> {
@@ -1427,12 +1472,12 @@ namespace mpl {
       parameter() = default;
 
       template<typename... Ts>
-      explicit parameter(const Ts &... xs) {
+      explicit parameter(const Ts &...xs) {
         add(xs...);
       }
 
       template<typename T, typename... Ts>
-      void add(const T &x, const Ts &... xs) {
+      void add(const T &x, const Ts &...xs) {
         blocklengths.push_back(1);
         displacements.push_back(reinterpret_cast<MPI_Aint>(&x));
         types.push_back(detail::datatype_traits<T>::get_datatype());
@@ -1440,7 +1485,7 @@ namespace mpl {
       }
 
       template<typename T, typename... Ts>
-      void add(const std::pair<T *, MPI_Datatype> &x, const Ts &... xs) {
+      void add(const std::pair<T *, MPI_Datatype> &x, const Ts &...xs) {
         blocklengths.push_back(1);
         displacements.push_back(reinterpret_cast<MPI_Aint>(x.first));
         types.push_back(x.second);
@@ -1470,7 +1515,7 @@ namespace mpl {
     explicit heterogeneous_layout(const parameter &par) : layout<void>(build(par)) {}
 
     template<typename T, typename... Ts>
-    explicit heterogeneous_layout(const T &x, const Ts &... xs)
+    explicit heterogeneous_layout(const T &x, const Ts &...xs)
         : layout<void>(build(parameter(x, xs...))) {}
 
     heterogeneous_layout(const heterogeneous_layout &l) : layout<void>(l) {}

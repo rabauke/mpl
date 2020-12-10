@@ -91,16 +91,21 @@ $(document).ready(function(){initNavTree('classmpl_1_1iterator__layout.html','')
 </div><!--header-->
 <div class="contents">
 
+<p>Layout representing data at non-consecutive memory locations, which can be addressed via an iterator.  
+ <a href="classmpl_1_1iterator__layout.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="layout_8hpp_source.html">layout.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout_1_1parameter.html">parameter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class representing the parameters to characterize an iterator layout.  <a href="classmpl_1_1iterator__layout_1_1parameter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9845f240dca4a7f7cfee5ac8f8c4cb09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#a9845f240dca4a7f7cfee5ac8f8c4cb09">iterator_layout</a> ()</td></tr>
+<tr class="memdesc:a9845f240dca4a7f7cfee5ac8f8c4cb09"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs a layout with no data  <a href="classmpl_1_1iterator__layout.html#a9845f240dca4a7f7cfee5ac8f8c4cb09">More...</a><br /></td></tr>
 <tr class="separator:a9845f240dca4a7f7cfee5ac8f8c4cb09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a47657acf91370b61f562a3fd9b60d8a8"><td class="memTemplParams" colspan="2">template&lt;typename iter_T &gt; </td></tr>
 <tr class="memitem:a47657acf91370b61f562a3fd9b60d8a8"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#a47657acf91370b61f562a3fd9b60d8a8">iterator_layout</a> (iter_T first, iter_T end)</td></tr>
@@ -113,20 +118,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa1a183491e3ccdb962010cf0142c7f2d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#aa1a183491e3ccdb962010cf0142c7f2d">iterator_layout</a> (const <a class="el" href="classmpl_1_1iterator__layout_1_1parameter.html">parameter</a> &amp;par, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;other)</td></tr>
 <tr class="separator:aa1a183491e3ccdb962010cf0142c7f2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a89ead1f759da22664d13f1c915dc8cd8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#a89ead1f759da22664d13f1c915dc8cd8">iterator_layout</a> (const <a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;l)</td></tr>
+<tr class="memdesc:a89ead1f759da22664d13f1c915dc8cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy constructor  <a href="classmpl_1_1iterator__layout.html#a89ead1f759da22664d13f1c915dc8cd8">More...</a><br /></td></tr>
 <tr class="separator:a89ead1f759da22664d13f1c915dc8cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac26e4b99081e901b36cd89329ac22ffe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#ac26e4b99081e901b36cd89329ac22ffe">iterator_layout</a> (<a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;&amp;l) noexcept</td></tr>
+<tr class="memdesc:ac26e4b99081e901b36cd89329ac22ffe"><td class="mdescLeft">&#160;</td><td class="mdescRight">move constructor  <a href="classmpl_1_1iterator__layout.html#ac26e4b99081e901b36cd89329ac22ffe">More...</a><br /></td></tr>
 <tr class="separator:ac26e4b99081e901b36cd89329ac22ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a4d8dd5e725223cbc18b1ac102da2a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#a0a4d8dd5e725223cbc18b1ac102da2a5">operator=</a> (const <a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;l)</td></tr>
+<tr class="memdesc:a0a4d8dd5e725223cbc18b1ac102da2a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy assignment operator  <a href="classmpl_1_1iterator__layout.html#a0a4d8dd5e725223cbc18b1ac102da2a5">More...</a><br /></td></tr>
 <tr class="separator:a0a4d8dd5e725223cbc18b1ac102da2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a19163067f9912f7f6b66cb1f3a3c9981"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#a19163067f9912f7f6b66cb1f3a3c9981">operator=</a> (<a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;&amp;l) noexcept</td></tr>
+<tr class="memdesc:a19163067f9912f7f6b66cb1f3a3c9981"><td class="mdescLeft">&#160;</td><td class="mdescRight">move assignment operator  <a href="classmpl_1_1iterator__layout.html#a19163067f9912f7f6b66cb1f3a3c9981">More...</a><br /></td></tr>
 <tr class="separator:a19163067f9912f7f6b66cb1f3a3c9981"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa065b1d83d11439b548ca9c67ce2b55a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html#aa065b1d83d11439b548ca9c67ce2b55a">swap</a> (<a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a>&lt; T &gt; &amp;other)</td></tr>
+<tr class="memdesc:aa065b1d83d11439b548ca9c67ce2b55a"><td class="mdescLeft">&#160;</td><td class="mdescRight">exchanges two iterator layouts  <a href="classmpl_1_1iterator__layout.html#aa065b1d83d11439b548ca9c67ce2b55a">More...</a><br /></td></tr>
 <tr class="separator:aa065b1d83d11439b548ca9c67ce2b55a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class mpl::iterator_layout&lt; T &gt;</h3>
 
+<p>Layout representing data at non-consecutive memory locations, which can be addressed via an iterator. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>base base element type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Iterators that have been used to create objects of this type must not become invalid during the object's life time. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>inherits all member methods of <a class="el" href="classmpl_1_1layout.html">layout</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00048">48</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -155,7 +174,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01275">1275</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>constructs a layout with no data </p>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01286">1286</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -196,8 +217,21 @@ template&lt;typename iter_T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructs iterator layout for data of type T </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">itert_T</td><td>iterator type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">first</td><td>iterator to the first element </td></tr>
+    <tr><td class="paramname">last</td><td>iterator pointing after the last element </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01278">1278</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01293">1293</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -226,8 +260,14 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructs iterator layout for data of type T </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">par</td><td>parameter containing information abut the layout </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01281">1281</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01298">1298</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -274,8 +314,22 @@ template&lt;typename iter_T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructs iterator layout for data with some other layout </p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">itert_T</td><td>iterator type </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">first</td><td>iterator to the first element </td></tr>
+    <tr><td class="paramname">last</td><td>iterator pointing after the last element </td></tr>
+    <tr><td class="paramname">l</td><td>the layout of a single element </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01284">1284</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01306">1306</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -314,8 +368,15 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>constructs iterator layout for data with some other layout </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">par</td><td>parameter containing information abut the layout </td></tr>
+    <tr><td class="paramname">l</td><td>the layout of a single element </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01287">1287</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01312">1312</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -345,7 +406,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01290">1290</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>copy constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>layout to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01317">1317</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -375,7 +444,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01292">1292</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>move constructor </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>layout to move from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01321">1321</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -406,7 +483,16 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01294">1294</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>copy assignment operator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>layout to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01326">1326</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -436,7 +522,16 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01299">1299</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>move assignment operator </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>layout to move from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>reference to this object </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01334">1334</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -466,7 +561,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01304">1304</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>exchanges two iterator layouts </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the layout to swap with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01341">1341</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>

@@ -184,6 +184,7 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest__pool.html">irequest_pool</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1iterator__layout.html">iterator_layout</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout representing data at non-consecutive memory locations, which can be addressed via an iterator.  <a href="classmpl_1_1iterator__layout.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layout.html">layout</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for a family of classes that describe where objects are located in memory when several objects of the same type T are exchanged in a single message.  <a href="classmpl_1_1layout.html#details">More...</a><br /></td></tr>
@@ -321,6 +322,7 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a7fd33fa3d7b9a6f095cd55710c3b2dbf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbf">array_orders</a> { <a class="el" href="namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfaadf55cfbf8cf8671022d5210c4eccaa8">array_orders::C_order</a> = MPI_ORDER_C, 
 <a class="el" href="namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097">array_orders::Fortran_order</a> = MPI_ORDER_FORTRAN
  }</td></tr>
+<tr class="memdesc:a7fd33fa3d7b9a6f095cd55710c3b2dbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents order of elements in a multi dimensional array.  <a href="namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbf">More...</a><br /></td></tr>
 <tr class="separator:a7fd33fa3d7b9a6f095cd55710c3b2dbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -438,12 +440,17 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Represents order of elements in a multi dimensional array. </p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1subarray__layout.html">subarray_layout</a> </dd></dl>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7fd33fa3d7b9a6f095cd55710c3b2dbfaadf55cfbf8cf8671022d5210c4eccaa8"></a>C_order&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097"></a>Fortran_order&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7fd33fa3d7b9a6f095cd55710c3b2dbfaadf55cfbf8cf8671022d5210c4eccaa8"></a>C_order&#160;</td><td class="fielddoc"><p>row-major order, also known as lexographical access order or as C order </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097"></a>Fortran_order&#160;</td><td class="fielddoc"><p>column-major order, also known as colexographical access order or as Fortran order </p>
+</td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01318">1318</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01357">1357</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -546,7 +553,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01509">1509</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01554">1554</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -578,7 +585,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01504">1504</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01549">1549</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
