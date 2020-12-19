@@ -20,6 +20,7 @@ int main() {
   // run the program with two or more processes
   if (comm_world.size() < 2)
     return EXIT_FAILURE;
+
   // test layout for a piece of contiguous memory
   if (comm_world.rank() == 0) {
     std::vector<int> v(20);
@@ -33,8 +34,9 @@ int main() {
     comm_world.recv(v.data(), l, 0);    // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+
   // test layout for a piece of contiguous memory
-  // contiguous_layout and vector_layout almost equvalent
+  // contiguous_layout and vector_layout almost equivalent
   // contiguous_layout has some additional internal bookkeeping
   if (comm_world.rank() == 0) {
     std::vector<int> v(20);
@@ -48,6 +50,7 @@ int main() {
     comm_world.recv(v.data(), l, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+
   // test layout for pieces of contiguous memory (equally spaced blocks of constant size)
   // layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
@@ -64,6 +67,7 @@ int main() {
     comm_world.recv(v.data(), l, 0);       // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+
   // test layout for a sequence of blocks of memory of varying block length
   // layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
@@ -82,6 +86,7 @@ int main() {
     comm_world.recv(v.data(), l, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+
   // test layout for a sequence of blocks of memory of constant block length
   // layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
@@ -98,23 +103,31 @@ int main() {
     comm_world.recv(v.data(), l, 0);  // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+
   // test layouts of layouts
   // layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
     std::vector<int> v(3 * 3 * 4);
     std::iota(v.begin(), v.end(), 1);          // fill vector with some data
-    mpl::contiguous_layout<int> l(3 * 3 * 4);  // contiguous_layout with 9 elements
+    mpl::contiguous_layout<int> l(3 * 3 * 4);  // contiguous_layout with 36 elements
     comm_world.send(v.data(), l, 1);           // send data to rank 1
   }
   if (comm_world.rank() == 1) {
     std::vector<int> v(15 * 4, 0);
+    // layout consists of 3 blocks of length 3 (3 * 3 = 9 ints in total)
     mpl::indexed_block_layout<int> l1(3,          // block length
                                       {1, 8, 12}  // block displacements
     );
+    // the layout l1 starts with a hole, by default this hole is ignored when combining
+    // several versions of l1, thus we explicitly set its lower bound to 0 and its
+    // extent to 15 (= start of last block plus block length)
+    l1.resize(0, 15);
+    // concatenate 4 indexed layouts, the resulting layout holds 3 * 3 * 4 ints
     mpl::vector_layout<int> l2(4, l1);  // vector layout of l1
     comm_world.recv(v.data(), l2, 0);   // receive data from rank 0
     print_range("v = ", v.begin(), v.end());
   }
+
   // test layout for a sequence of items
   // layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
