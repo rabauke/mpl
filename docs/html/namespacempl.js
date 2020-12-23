@@ -1,5 +1,8 @@
 var namespacempl =
 [
+    [ "absolute_data", "classmpl_1_1absolute__data.html", null ],
+    [ "absolute_data< const T * >", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4" ],
+    [ "absolute_data< T * >", "classmpl_1_1absolute__data_3_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01_t_01_5_01_4" ],
     [ "base_struct_builder", "classmpl_1_1base__struct__builder.html", "classmpl_1_1base__struct__builder" ],
     [ "bit_and", "structmpl_1_1bit__and.html", "structmpl_1_1bit__and" ],
     [ "bit_or", "structmpl_1_1bit__or.html", "structmpl_1_1bit__or" ],

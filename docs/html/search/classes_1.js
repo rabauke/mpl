@@ -1,9 +1,15 @@
 var searchData=
 [
-  ['cart_5fcommunicator_459',['cart_communicator',['../classmpl_1_1cart__communicator.html',1,'mpl']]],
-  ['comm_5fcollective_460',['comm_collective',['../classmpl_1_1communicator_1_1comm__collective.html',1,'mpl::communicator']]],
-  ['communicator_461',['communicator',['../classmpl_1_1communicator.html',1,'mpl']]],
-  ['contiguous_5flayout_462',['contiguous_layout',['../classmpl_1_1contiguous__layout.html',1,'mpl']]],
-  ['contiguous_5flayouts_463',['contiguous_layouts',['../classmpl_1_1contiguous__layouts.html',1,'mpl']]],
-  ['coords_5ftype_464',['coords_type',['../classmpl_1_1cart__communicator_1_1coords__type.html',1,'mpl::cart_communicator']]]
+  ['base_5fstruct_5fbuilder_454',['base_struct_builder',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20std_3a_3aarray_3c_20t_2c_20n_20_3e_20_3e_455',['base_struct_builder&lt; std::array&lt; T, N &gt; &gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20std_3a_3apair_3c_20t1_2c_20t2_20_3e_20_3e_456',['base_struct_builder&lt; std::pair&lt; T1, T2 &gt; &gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20std_3a_3atuple_3c_20ts_2e_2e_2e_20_3e_20_3e_457',['base_struct_builder&lt; std::tuple&lt; Ts... &gt; &gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_3e_458',['base_struct_builder&lt; T[N0]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_5bn1_5d_3e_459',['base_struct_builder&lt; T[N0][N1]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_5bn1_5d_5bn2_5d_3e_460',['base_struct_builder&lt; T[N0][N1][N2]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['base_5fstruct_5fbuilder_3c_20t_5bn0_5d_5bn1_5d_5bn2_5d_5bn3_5d_3e_461',['base_struct_builder&lt; T[N0][N1][N2][N3]&gt;',['../classmpl_1_1base__struct__builder.html',1,'mpl']]],
+  ['bit_5fand_462',['bit_and',['../structmpl_1_1bit__and.html',1,'mpl']]],
+  ['bit_5for_463',['bit_or',['../structmpl_1_1bit__or.html',1,'mpl']]],
+  ['bit_5fxor_464',['bit_xor',['../structmpl_1_1bit__xor.html',1,'mpl']]],
+  ['bsend_5fbuffer_465',['bsend_buffer',['../classmpl_1_1bsend__buffer.html',1,'mpl']]]
 ];

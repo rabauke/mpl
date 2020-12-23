@@ -1,5 +1,8 @@
 var hierarchy =
 [
+    [ "mpl::absolute_data< T >", "classmpl_1_1absolute__data.html", null ],
+    [ "mpl::absolute_data< const T * >", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4.html", null ],
+    [ "mpl::absolute_data< T * >", "classmpl_1_1absolute__data_3_01_t_01_5_01_4.html", null ],
     [ "mpl::base_struct_builder< T >", "classmpl_1_1base__struct__builder.html", null ],
     [ "mpl::base_struct_builder< std::array< T, N > >", "classmpl_1_1base__struct__builder.html", [
       [ "mpl::struct_builder< std::array< T, N > >", "classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html", null ]
@@ -88,12 +91,12 @@ var hierarchy =
     [ "mpl::op_traits< multiplies< T > >", "structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html", null ],
     [ "mpl::op_traits< plus< T > >", "structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html", null ],
     [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
-    [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
+    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
     [ "mpl::indexed_block_layout< T >::parameter", "classmpl_1_1indexed__block__layout_1_1parameter.html", null ],
+    [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
     [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
     [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
     [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
-    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
     [ "mpl::detail::request< detail::irequest >", null, [
       [ "mpl::irequest", "classmpl_1_1irequest.html", null ]
@@ -113,9 +116,9 @@ var hierarchy =
       [ "mpl::graph_communicator::edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", null ]
     ] ],
     [ "mpl::shift_ranks", "structmpl_1_1shift__ranks.html", null ],
-    [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
     [ "mpl::cart_communicator::sizes", "classmpl_1_1cart__communicator_1_1sizes.html", null ],
     [ "mpl::distributed_grid< dim, T, A >::sizes", "classmpl_1_1distributed__grid_1_1sizes.html", null ],
+    [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
     [ "mpl::communicator::split", "classmpl_1_1communicator_1_1split.html", null ],
     [ "mpl::communicator::split_shared", "classmpl_1_1communicator_1_1split__shared.html", null ],
     [ "mpl::strided_vector_layout< T >", "classmpl_1_1strided__vector__layout.html", null ],

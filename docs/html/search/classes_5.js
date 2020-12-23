@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['heterogeneous_5flayout_477',['heterogeneous_layout',['../classmpl_1_1heterogeneous__layout.html',1,'mpl']]],
-  ['hindexed_5fblock_5flayout_478',['hindexed_block_layout',['../classmpl_1_1hindexed__block__layout.html',1,'mpl']]],
-  ['hindexed_5flayout_479',['hindexed_layout',['../classmpl_1_1hindexed__layout.html',1,'mpl']]]
+  ['graph_5fcommunicator_481',['graph_communicator',['../classmpl_1_1graph__communicator.html',1,'mpl']]],
+  ['group_482',['group',['../classmpl_1_1group.html',1,'mpl']]],
+  ['group_5fcollective_483',['group_collective',['../classmpl_1_1communicator_1_1group__collective.html',1,'mpl::communicator']]]
 ];

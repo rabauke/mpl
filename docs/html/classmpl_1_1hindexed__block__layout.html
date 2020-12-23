@@ -108,8 +108,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5f5f55079a3ef89bcd395dae67a2206d"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs a layout with no data  <a href="classmpl_1_1hindexed__block__layout.html#a5f5f55079a3ef89bcd395dae67a2206d">More...</a><br /></td></tr>
 <tr class="separator:a5f5f55079a3ef89bcd395dae67a2206d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cbc07359787a6d3472a29c8b0deec93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1hindexed__block__layout.html#a5cbc07359787a6d3472a29c8b0deec93">hindexed_block_layout</a> (int blocklength, const <a class="el" href="classmpl_1_1hindexed__block__layout_1_1parameter.html">parameter</a> &amp;par)</td></tr>
+<tr class="memdesc:a5cbc07359787a6d3472a29c8b0deec93"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs heterogeneously indexed layout for data of type T  <a href="classmpl_1_1hindexed__block__layout.html#a5cbc07359787a6d3472a29c8b0deec93">More...</a><br /></td></tr>
 <tr class="separator:a5cbc07359787a6d3472a29c8b0deec93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58ef3baba410d7e6699ba6a1e2daa907"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1hindexed__block__layout.html#a58ef3baba410d7e6699ba6a1e2daa907">hindexed_block_layout</a> (int blocklength, const <a class="el" href="classmpl_1_1hindexed__block__layout_1_1parameter.html">parameter</a> &amp;par, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l)</td></tr>
+<tr class="memdesc:a58ef3baba410d7e6699ba6a1e2daa907"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs heterogeneously indexed layout for data with some other layout  <a href="classmpl_1_1hindexed__block__layout.html#a58ef3baba410d7e6699ba6a1e2daa907">More...</a><br /></td></tr>
 <tr class="separator:a58ef3baba410d7e6699ba6a1e2daa907"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb1c8663c6f16128cf8055d08761a5b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1hindexed__block__layout.html#aeb1c8663c6f16128cf8055d08761a5b9">hindexed_block_layout</a> (const <a class="el" href="classmpl_1_1hindexed__block__layout.html">hindexed_block_layout</a>&lt; T &gt; &amp;l)</td></tr>
 <tr class="memdesc:aeb1c8663c6f16128cf8055d08761a5b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy constructor  <a href="classmpl_1_1hindexed__block__layout.html#aeb1c8663c6f16128cf8055d08761a5b9">More...</a><br /></td></tr>
@@ -134,7 +136,7 @@ class mpl::hindexed_block_layout&lt; T &gt;</h3>
 <p>Layout representing data in a sequence of consecutive homogenous blocks of uniform lengths. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
-    <tr><td class="paramname">T</td><td>base base element type </td></tr>
+    <tr><td class="paramname">T</td><td>base element type </td></tr>
   </table>
   </dd>
 </dl>
@@ -169,7 +171,7 @@ template&lt;typename T &gt; </div>
 
 <p>constructs a layout with no data </p>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01148">1148</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01157">1157</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -208,16 +210,18 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>constructs heterogeneously indexed layout for data of type T </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>constructs heterogeneously indexed layout for data of type T </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">blocklength</td><td>the length of each block </td></tr>
-    <tr><td class="paramname">par</td><td>parameter containing information abut the layout </td></tr>
+    <tr><td class="paramname">par</td><td>parameter containing information about the layout </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>displacements are given in bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01154">1154</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01163">1163</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -262,17 +266,19 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>constructs heterogeneously indexed layout for data with some other layout </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>constructs heterogeneously indexed layout for data with some other layout </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">blocklength</td><td>the length of each block </td></tr>
-    <tr><td class="paramname">par</td><td>parameter containing information abut the layout </td></tr>
+    <tr><td class="paramname">par</td><td>parameter containing information about the layout </td></tr>
     <tr><td class="paramname">l</td><td>the layout of a single element </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>displacements are given bytes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01162">1162</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01171">1171</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -310,7 +316,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01167">1167</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01176">1176</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -348,7 +354,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01171">1171</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01180">1180</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -388,7 +394,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>reference to this object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01176">1176</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01185">1185</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -427,7 +433,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>reference to this object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01184">1184</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01193">1193</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -465,7 +471,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01191">1191</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01200">1200</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['node_5flist_505',['node_list',['../classmpl_1_1graph__communicator_1_1node__list.html',1,'mpl::graph_communicator']]],
-  ['null_5flayout_506',['null_layout',['../classmpl_1_1null__layout.html',1,'mpl']]]
+  ['max_509',['max',['../structmpl_1_1max.html',1,'mpl']]],
+  ['min_510',['min',['../structmpl_1_1min.html',1,'mpl']]],
+  ['multiplies_511',['multiplies',['../structmpl_1_1multiplies.html',1,'mpl']]]
 ];

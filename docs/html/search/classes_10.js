@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vector_5flayout_550',['vector_layout',['../classmpl_1_1vector__layout.html',1,'mpl']]]
+  ['union_556',['Union',['../classmpl_1_1group_1_1_union.html',1,'mpl::group']]]
 ];

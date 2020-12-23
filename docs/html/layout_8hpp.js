@@ -12,6 +12,7 @@ var layout_8hpp =
     [ "hindexed_block_layout", "classmpl_1_1hindexed__block__layout.html", "classmpl_1_1hindexed__block__layout" ],
     [ "iterator_layout", "classmpl_1_1iterator__layout.html", "classmpl_1_1iterator__layout" ],
     [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
+    [ "absolute_data", "classmpl_1_1absolute__data.html", null ],
     [ "contiguous_layouts", "classmpl_1_1contiguous__layouts.html", "classmpl_1_1contiguous__layouts" ],
     [ "layout", "classmpl_1_1layout.html", "classmpl_1_1layout" ],
     [ "null_layout", "classmpl_1_1null__layout.html", "classmpl_1_1null__layout" ],
@@ -31,6 +32,9 @@ var layout_8hpp =
     [ "parameter", "classmpl_1_1iterator__layout_1_1parameter.html", "classmpl_1_1iterator__layout_1_1parameter" ],
     [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
     [ "parameter", "classmpl_1_1subarray__layout_1_1parameter.html", "classmpl_1_1subarray__layout_1_1parameter" ],
+    [ "absolute_data", "classmpl_1_1absolute__data.html", null ],
+    [ "absolute_data< T * >", "classmpl_1_1absolute__data_3_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01_t_01_5_01_4" ],
+    [ "absolute_data< const T * >", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4" ],
     [ "heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html", "classmpl_1_1heterogeneous__layout" ],
     [ "parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", "classmpl_1_1heterogeneous__layout_1_1parameter" ],
     [ "layouts", "classmpl_1_1layouts.html", "classmpl_1_1layouts" ],
@@ -39,6 +43,6 @@ var layout_8hpp =
       [ "C_order", "layout_8hpp.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfaadf55cfbf8cf8671022d5210c4eccaa8", null ],
       [ "Fortran_order", "layout_8hpp.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097", null ]
     ] ],
-    [ "make_absolute", "layout_8hpp.html#a26f71f8155fc67af51ba3b6345bf0a75", null ],
-    [ "make_absolute", "layout_8hpp.html#af0b7a10cdfd34ecaadf5263c431a797a", null ]
+    [ "make_absolute", "layout_8hpp.html#a118b145797198062151e6f43ee52046b", null ],
+    [ "make_absolute", "layout_8hpp.html#a6481521478393b302a549178d93b8503", null ]
 ];

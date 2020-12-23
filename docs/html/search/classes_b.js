@@ -1,8 +1,14 @@
 var searchData=
 [
-  ['parameter_518',['parameter',['../classmpl_1_1hindexed__layout_1_1parameter.html',1,'mpl::hindexed_layout&lt; T &gt;::parameter'],['../classmpl_1_1hindexed__block__layout_1_1parameter.html',1,'mpl::hindexed_block_layout&lt; T &gt;::parameter'],['../classmpl_1_1indexed__block__layout_1_1parameter.html',1,'mpl::indexed_block_layout&lt; T &gt;::parameter'],['../classmpl_1_1iterator__layout_1_1parameter.html',1,'mpl::iterator_layout&lt; T &gt;::parameter'],['../classmpl_1_1subarray__layout_1_1parameter.html',1,'mpl::subarray_layout&lt; T &gt;::parameter'],['../classmpl_1_1heterogeneous__layout_1_1parameter.html',1,'mpl::heterogeneous_layout::parameter'],['../classmpl_1_1indexed__layout_1_1parameter.html',1,'mpl::indexed_layout&lt; T &gt;::parameter']]],
-  ['periodicities_5ftype_519',['periodicities_type',['../classmpl_1_1cart__communicator_1_1periodicities__type.html',1,'mpl::cart_communicator']]],
-  ['plus_520',['plus',['../structmpl_1_1plus.html',1,'mpl']]],
-  ['prequest_521',['prequest',['../classmpl_1_1prequest.html',1,'mpl']]],
-  ['prequest_5fpool_522',['prequest_pool',['../classmpl_1_1prequest__pool.html',1,'mpl']]]
+  ['op_5ftraits_514',['op_traits',['../structmpl_1_1op__traits.html',1,'mpl']]],
+  ['op_5ftraits_3c_20bit_5fand_3c_20t_20_3e_20_3e_515',['op_traits&lt; bit_and&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01bit__and_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20bit_5for_3c_20t_20_3e_20_3e_516',['op_traits&lt; bit_or&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01bit__or_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20bit_5fxor_3c_20t_20_3e_20_3e_517',['op_traits&lt; bit_xor&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01bit__xor_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20logical_5fand_3c_20t_20_3e_20_3e_518',['op_traits&lt; logical_and&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01logical__and_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20logical_5for_3c_20t_20_3e_20_3e_519',['op_traits&lt; logical_or&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01logical__or_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20logical_5fxor_3c_20t_20_3e_20_3e_520',['op_traits&lt; logical_xor&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01logical__xor_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20max_3c_20t_20_3e_20_3e_521',['op_traits&lt; max&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01max_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20min_3c_20t_20_3e_20_3e_522',['op_traits&lt; min&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01min_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20multiplies_3c_20t_20_3e_20_3e_523',['op_traits&lt; multiplies&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html',1,'mpl']]],
+  ['op_5ftraits_3c_20plus_3c_20t_20_3e_20_3e_524',['op_traits&lt; plus&lt; T &gt; &gt;',['../structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html',1,'mpl']]]
 ];

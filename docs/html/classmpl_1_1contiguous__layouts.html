@@ -84,32 +84,81 @@ $(document).ready(function(){initNavTree('classmpl_1_1contiguous__layouts.html',
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classmpl_1_1contiguous__layouts-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">mpl::contiguous_layouts&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
+<p>container for storing contiguous layouts  
+ <a href="classmpl_1_1contiguous__layouts.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="layout_8hpp_source.html">layout.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a76fb12e11cb8dc54ae37e8f9c570e4d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#a76fb12e11cb8dc54ae37e8f9c570e4d7">contiguous_layouts</a> (size_type n=0)</td></tr>
-<tr class="separator:a76fb12e11cb8dc54ae37e8f9c570e4d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac25694cdf1ec063515c3b8037ae01a3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#aac25694cdf1ec063515c3b8037ae01a3">operator()</a> () const</td></tr>
-<tr class="separator:aac25694cdf1ec063515c3b8037ae01a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6bc4b11d1eeff2cde2dfd9aee79e458"><td class="memItemLeft" align="right" valign="top">const int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#ad6bc4b11d1eeff2cde2dfd9aee79e458">sizes</a> () const</td></tr>
-<tr class="separator:ad6bc4b11d1eeff2cde2dfd9aee79e458"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ef8713bb2454de686381fd012e2845"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#a51ef8713bb2454de686381fd012e2845">contiguous_layouts</a> ()</td></tr>
+<tr class="memdesc:a51ef8713bb2454de686381fd012e2845"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs a layout container with no data  <a href="classmpl_1_1contiguous__layouts.html#a51ef8713bb2454de686381fd012e2845">More...</a><br /></td></tr>
+<tr class="separator:a51ef8713bb2454de686381fd012e2845"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7201b2a4367597aac88ccfcbb9b797"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#a7c7201b2a4367597aac88ccfcbb9b797">contiguous_layouts</a> (size_type n)</td></tr>
+<tr class="memdesc:a7c7201b2a4367597aac88ccfcbb9b797"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs a layout container of empty layouts  <a href="classmpl_1_1contiguous__layouts.html#a7c7201b2a4367597aac88ccfcbb9b797">More...</a><br /></td></tr>
+<tr class="separator:a7c7201b2a4367597aac88ccfcbb9b797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a28e4940a8d711c15cada064a12ba0788"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#a28e4940a8d711c15cada064a12ba0788">communicator</a></td></tr>
+<tr class="separator:a28e4940a8d711c15cada064a12ba0788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b9aa2c6bdda45100f540d4bcd2fa39b"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1contiguous__layouts.html#a0b9aa2c6bdda45100f540d4bcd2fa39b">detail::topo_communicator</a></td></tr>
+<tr class="separator:a0b9aa2c6bdda45100f540d4bcd2fa39b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class mpl::contiguous_layouts&lt; T &gt;</h3>
 
+<p>container for storing contiguous layouts </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>base element type of the contiguous layouts </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00062">62</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00065">65</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a76fb12e11cb8dc54ae37e8f9c570e4d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76fb12e11cb8dc54ae37e8f9c570e4d7">&#9670;&nbsp;</a></span>contiguous_layouts()</h2>
+<a id="a51ef8713bb2454de686381fd012e2845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51ef8713bb2454de686381fd012e2845">&#9670;&nbsp;</a></span>contiguous_layouts() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1contiguous__layouts.html">mpl::contiguous_layouts</a>&lt; T &gt;::<a class="el" href="classmpl_1_1contiguous__layouts.html">contiguous_layouts</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>constructs a layout container with no data </p>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01755">1755</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c7201b2a4367597aac88ccfcbb9b797"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7201b2a4367597aac88ccfcbb9b797">&#9670;&nbsp;</a></span>contiguous_layouts() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -123,7 +172,7 @@ template&lt;typename T &gt; </div>
           <td class="memname"><a class="el" href="classmpl_1_1contiguous__layouts.html">mpl::contiguous_layouts</a>&lt; T &gt;::<a class="el" href="classmpl_1_1contiguous__layouts.html">contiguous_layouts</a> </td>
           <td>(</td>
           <td class="paramtype">size_type&#160;</td>
-          <td class="paramname"><em>n</em> = <code>0</code></td><td>)</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -134,13 +183,21 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01605">1605</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p>constructs a layout container of empty layouts </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>number of initial layouts in container </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01759">1759</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aac25694cdf1ec063515c3b8037ae01a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aac25694cdf1ec063515c3b8037ae01a3">&#9670;&nbsp;</a></span>operator()()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a28e4940a8d711c15cada064a12ba0788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28e4940a8d711c15cada064a12ba0788">&#9670;&nbsp;</a></span>communicator</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -151,25 +208,22 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt;T&gt;* <a class="el" href="classmpl_1_1contiguous__layouts.html">mpl::contiguous_layouts</a>&lt; T &gt;::operator() </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1communicator.html">communicator</a></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01615">1615</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01769">1769</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad6bc4b11d1eeff2cde2dfd9aee79e458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6bc4b11d1eeff2cde2dfd9aee79e458">&#9670;&nbsp;</a></span>sizes()</h2>
+<a id="a0b9aa2c6bdda45100f540d4bcd2fa39b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b9aa2c6bdda45100f540d4bcd2fa39b">&#9670;&nbsp;</a></span>detail::topo_communicator</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,20 +234,17 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const int* <a class="el" href="classmpl_1_1contiguous__layouts.html">mpl::contiguous_layouts</a>&lt; T &gt;::sizes </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">friend class detail::topo_communicator</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01617">1617</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01770">1770</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
