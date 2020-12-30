@@ -1,0 +1,83 @@
+/// \example arrays.cc
+/// Sends and receives arrays (C arrays ans std::array) of fixed size, which must be known at compile time.  The types of the array elements must be suited for communication.  These rules may be applied recursively.
+
+/// \example blocking.cc
+/// Demonstrates various blocking send and receive modes of standard data types.
+
+/// \example blocking_vector.cc
+/// Demonstrates blocking send and receive of a vector of standard data types.
+
+/// \example collective.cc
+/// Demonstrates various modes of collective communication.
+
+/// \example communicator.cc
+/// Demonstrates some basic communicator management.
+
+/// \example distributed_grid.cc
+/// Data type mpl::distributed_grid in action.
+
+/// \example distributed_grid_scatter_gather.cc
+/// Scatter and gather operations with data type mpl::distributed_grid.
+
+/// \example gather.cc
+/// Gathers data to a single process.
+
+/// \example gatherv.cc
+/// Gathers data if varying size to a single process.
+
+/// \example heat_equation_Jacobi_method.cc
+/// Solves the two-dimensional time-independent heat equation with fixed temperatures at the border via Jacobi iterations.  Implementation uses mpl::distributed_grid.
+
+/// \example heat_equation_successive_over-relaxation.cc
+/// Solves the two-dimensional time-independent heat equation with fixed temperatures at the border via successive over-relaxation.  Implementation uses mpl::distributed_grid.
+
+/// \example hello_world.cc
+/// Simple hello-world program.  Initializes the message passing environment and determines the number of processes and rank.
+
+/// \example iterators.cc
+/// Sends and receives containers (std::vector, std::list, etc.) given by their iterators.  The types of the array elements must be suited for communication.  On the receiving side, there must be sufficent preallocated memory, i.e., sending and receiving containers must be of the same size.  Furthermore, traking the address of a dereferenced iteratir must result a non-const pointer on the receiving side.
+
+/// \example layouts.cc
+/// Construction and usage of various data layouts.
+
+/// \example matrix_gather.cc
+/// Demonstrates gathering of a distributed matrix as it may used in domain partitioning applications.
+
+/// \example nonblocking.cc
+/// Demonstrates nonblocking send and receive of standard data types and vectors of standard data types and different waiting methods.
+
+/// \example nonblocking_mult.cc
+/// Utilizes nonblocking send and receive of standard data types to implement a gather operation.
+
+/// \example parallel_sort_mpi.c
+/// Parallel sort algorithm, MPI version.
+
+/// \example parallel_sort_mpl.cc
+/// Parallel sort algorithm, MPL version.  Requires a C++17 compiler.
+
+/// \example probe.cc
+/// Demonstrates how to probe data and to receive a message of unknown size.
+
+/// \example reduce_lcm.cc
+/// Demonstrates use of custom reduction functions.
+
+/// \example reduce_min_loc.cc
+/// Demonstrates use of reduction functions for std::pair to determine a minimum as its location.
+
+/// \example standard_types.cc
+/// Sends and receives data of various standard types.
+
+/// \example stl_container.cc
+/// Sends and receives stl containers.
+
+/// \example struct.cc
+/// Demonstrates how to use class mpl::struct_builder to enable communication using structures and classes.  Class members must be of fixed size (no dynamic memory allocation).  All types of the class members must be suited for communication.  These rules may be applied recursively.
+
+/// \example subarray.cc
+/// Construction and usage of subarray layouts.
+
+/// \example vibrating_string_mpi.c
+/// Solves the one-dimensional wave equation via finite differences, MPI version.
+
+/// \example vibrating_string_mpl.cc
+/// Solves the one-dimensional wave equation via finite differences, MPL version.

@@ -1,6 +1,9 @@
 var NAVTREEINDEX0 =
 {
 "annotated.html":[2,0],
+"arrays_8cc-example.html":[4,0],
+"blocking_8cc-example.html":[4,1],
+"blocking_vector_8cc-example.html":[4,2],
 "cart__comm_8hpp.html":[3,0,0],
 "cart__comm_8hpp.html#a68761f4fa29575dedc9090eb17fafe2d":[3,0,0,5],
 "cart__comm_8hpp_source.html":[3,0,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "classmpl_1_1contiguous__layout.html#a3d0d28fdc0b29e06d3780a00b2d9cf7f":[2,0,0,10,6],
 "classmpl_1_1contiguous__layout.html#a52268d8595fc53bfb6efa9e5ebdd1c11":[2,0,0,10,3],
 "classmpl_1_1contiguous__layout.html#a5e3a7905347b5a3be2927085a597440a":[2,0,0,10,5],
-"classmpl_1_1contiguous__layout.html#a8eda4ba99bfdf30d9773842d90616fd7":[2,0,0,10,2],
-"classmpl_1_1contiguous__layout.html#adda8d9c92a93fd7e1c7dddf5cd113403":[2,0,0,10,8],
-"classmpl_1_1contiguous__layout.html#af3dcbacdfc73332c6e4324c0216e8d4d":[2,0,0,10,0],
-"classmpl_1_1contiguous__layouts.html":[2,0,0,11]
+"classmpl_1_1contiguous__layout.html#a8eda4ba99bfdf30d9773842d90616fd7":[2,0,0,10,2]
 };

@@ -106,4 +106,5 @@ var menudata={children:[
 {text:"All",url:"globals.html",children:[
 {text:"m",url:"globals.html#index_m"}]},
 {text:"Macros",url:"globals_defs.html",children:[
-{text:"m",url:"globals_defs.html#index_m"}]}]}]}]}
+{text:"m",url:"globals_defs.html#index_m"}]}]}]},
+{text:"Examples",url:"examples.html"}]}

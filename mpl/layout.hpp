@@ -1295,12 +1295,12 @@ namespace mpl {
     iterator_layout() : layout<T>(build()) {}
 
     /// \brief constructs iterator layout for data of type T
-    /// \tparam itert_T iterator type
+    /// \tparam iter_T iterator type
     /// \param first iterator to the first element
     /// \param last iterator pointing after the last element
     template<typename iter_T>
-    explicit iterator_layout(iter_T first, iter_T end)
-        : layout<T>(build(parameter(first, end))) {}
+    explicit iterator_layout(iter_T first, iter_T last)
+        : layout<T>(build(parameter(first, last))) {}
 
     /// \brief constructs iterator layout for data of type T
     /// \param par parameter containing information about the layout
@@ -1312,14 +1312,14 @@ namespace mpl {
     /// \param last iterator pointing after the last element
     /// \param l the layout of a single element
     template<typename iter_T>
-    explicit iterator_layout(iter_T first, iter_T end, const layout<T> &other)
-        : layout<T>(build(parameter(first, end), other.type)) {}
+    explicit iterator_layout(iter_T first, iter_T last, const layout<T> &l)
+        : layout<T>(build(parameter(first, last), l.type)) {}
 
     /// \brief constructs iterator layout for data with some other layout
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
-    explicit iterator_layout(const parameter &par, const layout<T> &other)
-        : layout<T>(build(par, other.type)) {}
+    explicit iterator_layout(const parameter &par, const layout<T> &l)
+        : layout<T>(build(par, l.type)) {}
 
     /// \brief copy constructor
     /// \param l layout to copy from

@@ -43,6 +43,7 @@ var files_dup =
       [ "invalid_datatype_bound", "classmpl_1_1invalid__datatype__bound.html", "classmpl_1_1invalid__datatype__bound" ],
       [ "invalid_argument", "classmpl_1_1invalid__argument.html", "classmpl_1_1invalid__argument" ]
     ] ],
+    [ "examples.doxy", "examples_8doxy.html", null ],
     [ "flat_memory.hpp", "flat__memory_8hpp.html", null ],
     [ "graph_comm.hpp", "graph__comm_8hpp.html", "graph__comm_8hpp" ],
     [ "layout.hpp", "layout_8hpp.html", "layout_8hpp" ],
