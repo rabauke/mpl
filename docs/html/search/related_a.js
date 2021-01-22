@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['strided_5fvector_5flayout_3c_20t_20_3e_841',['strided_vector_layout&lt; T &gt;',['../classmpl_1_1layout.html#a12753d9d9517a88356cc3d1fc6e1c571',1,'mpl::layout']]],
-  ['subarray_5flayout_842',['subarray_layout',['../classmpl_1_1subarray__layout_1_1parameter.html#a44e33f146bbe2cb7692c6fd9eeefdfc4',1,'mpl::subarray_layout::parameter']]],
-  ['subarray_5flayout_3c_20t_20_3e_843',['subarray_layout&lt; T &gt;',['../classmpl_1_1layout.html#ad86a2fab89091a3c1e2cf8d0775c9d7b',1,'mpl::layout']]]
+  ['request_3c_20irequest_20_3e_891',['request&lt; irequest &gt;',['../classmpl_1_1impl_1_1irequest.html#afc6c0627314f63682b958c13cf936247',1,'mpl::impl::irequest']]],
+  ['request_3c_20prequest_20_3e_892',['request&lt; prequest &gt;',['../classmpl_1_1impl_1_1prequest.html#a8c7c30bf6b0c6ffc75d78caeac645230',1,'mpl::impl::prequest']]],
+  ['request_5fpool_3c_20mpl_3a_3airequest_20_3e_893',['request_pool&lt; mpl::irequest &gt;',['../classmpl_1_1impl_1_1irequest.html#aa9403354e473e9978d6e49bc4389c9fe',1,'mpl::impl::irequest']]],
+  ['request_5fpool_3c_20mpl_3a_3aprequest_20_3e_894',['request_pool&lt; mpl::prequest &gt;',['../classmpl_1_1impl_1_1prequest.html#a99278de2244bd4d9129a7a07c40dd721',1,'mpl::impl::prequest']]]
 ];

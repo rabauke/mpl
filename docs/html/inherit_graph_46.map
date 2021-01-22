@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1iterator__layout.html" title="Layout representing data at non&#45;consecutive memory locations, which can be addressed via an iterator." alt="" coords="5,5,277,35"/>
+<area shape="rect" id="node1" href="$classmpl_1_1impl_1_1request__pool.html" title=" " alt="" coords="5,5,208,52"/>
+<area shape="rect" id="node2" href="$classmpl_1_1prequest__pool.html" title="Container for managing a list of persisting communication requests." alt="" coords="256,14,459,43"/>
 </map>

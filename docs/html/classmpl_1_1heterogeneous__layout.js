@@ -6,7 +6,22 @@ var classmpl_1_1heterogeneous__layout =
     [ "heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html#a893948e465f7ef673612c94395eebd70", null ],
     [ "heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html#a524077ca6472606d67559231b1244535", null ],
     [ "heterogeneous_layout", "classmpl_1_1heterogeneous__layout.html#a88c3d691f1a29dad48d9f517391307c8", null ],
+    [ "byte_extent", "classmpl_1_1heterogeneous__layout.html#a808408eaf18cfd04f8fc0e43ad8abece", null ],
+    [ "byte_lower_bound", "classmpl_1_1heterogeneous__layout.html#aa391a934f031693cf985dcd1c675d8e4", null ],
+    [ "byte_resize", "classmpl_1_1heterogeneous__layout.html#a05cc59346d0b585b92a266ac7e4512eb", null ],
+    [ "byte_upper_bound", "classmpl_1_1heterogeneous__layout.html#a9aea61b5ce92681aee5df4a61672c02b", null ],
+    [ "extent", "classmpl_1_1heterogeneous__layout.html#abce0f3197d6b2252c951535b443d7d5e", null ],
+    [ "lower_bound", "classmpl_1_1heterogeneous__layout.html#a5eb103b30a8ddabfa28e70030a7c8e11", null ],
     [ "operator=", "classmpl_1_1heterogeneous__layout.html#adb84476ba04e1cdaecc71089dbdd7ccb", null ],
     [ "operator=", "classmpl_1_1heterogeneous__layout.html#a9fbc9cc749a0ee860eab4fffb1d99674", null ],
-    [ "swap", "classmpl_1_1heterogeneous__layout.html#a72a2fe2e326f5bfc1dd9b188acd07072", null ]
+    [ "resize", "classmpl_1_1heterogeneous__layout.html#ab0a15251c4fd7bc10630bb9f00a392c4", null ],
+    [ "swap", "classmpl_1_1heterogeneous__layout.html#a72a2fe2e326f5bfc1dd9b188acd07072", null ],
+    [ "swap", "classmpl_1_1heterogeneous__layout.html#ab57eff0aeed0dee1e02bcfbec750d79f", null ],
+    [ "true_byte_extent", "classmpl_1_1heterogeneous__layout.html#a45840e6936914baef876a0b67a8bb499", null ],
+    [ "true_byte_lower_bound", "classmpl_1_1heterogeneous__layout.html#a245932be5b4d58bb00a05b29208ab7c4", null ],
+    [ "true_byte_upper_bound", "classmpl_1_1heterogeneous__layout.html#adf592d9e08a92314cc086bd51d643953", null ],
+    [ "true_extent", "classmpl_1_1heterogeneous__layout.html#a0890ec4684e6a465170f88932e116d30", null ],
+    [ "true_lower_bound", "classmpl_1_1heterogeneous__layout.html#a4b0e56adef2f212d061f971b2ecafd0a", null ],
+    [ "true_upper_bound", "classmpl_1_1heterogeneous__layout.html#a80713f15de3244b019294ee277c8c650", null ],
+    [ "upper_bound", "classmpl_1_1heterogeneous__layout.html#a2c768cf5cbbcf2dcf50a03a809df457f", null ]
 ];

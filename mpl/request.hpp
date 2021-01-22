@@ -16,7 +16,7 @@ namespace mpl {
 
   class rrequest_pool;
 
-  namespace detail {
+  namespace impl {
 
     template<typename T>
     class request;
@@ -51,9 +51,9 @@ namespace mpl {
     template<typename T>
     class request {
     protected:
-    public:
       MPI_Request req;
 
+    public:
       request() = delete;
 
       request(const request &) = delete;
@@ -195,7 +195,7 @@ namespace mpl {
 
       template<typename I>
       I waitsome(I iter) {
-        flat_memory_out<int, I> indices(size(), iter);
+        mpl::detail::flat_memory_out<int, I> indices(size(), iter);
         int count;
         MPI_Waitsome(size(), &reqs[0], &count, indices.data(),
                      reinterpret_cast<MPI_Status *>(&stats[0]));
@@ -206,7 +206,7 @@ namespace mpl {
 
       template<typename I>
       I testsome(I iter) {
-        flat_memory_out<int, I> indices(size(), iter);
+        mpl::detail::flat_memory_out<int, I> indices(size(), iter);
         int count;
         MPI_Testsome(size(), &reqs[0], &count, indices.data(),
                      reinterpret_cast<MPI_Status *>(&stats[0]));
@@ -216,16 +216,17 @@ namespace mpl {
       }
     };
 
-  }  // namespace detail
+  }  // namespace impl
 
   //--------------------------------------------------------------------
 
-  class irequest : public detail::request<detail::irequest> {
-    using base = detail::request<detail::irequest>;
+  /// \brief Represents a non-blocking communication request.
+  class irequest : public impl::request<impl::irequest> {
+    using base = impl::request<impl::irequest>;
     using base::req;
 
   public:
-    irequest(const detail::irequest &r) : base(r) {}
+    irequest(const impl::irequest &r) : base(r) {}
 
     irequest(const irequest &) = delete;
 
@@ -239,13 +240,14 @@ namespace mpl {
       return *this;
     }
 
-    friend class detail::request_pool<irequest>;
+    friend class impl::request_pool<irequest>;
   };
 
   //--------------------------------------------------------------------
 
-  class irequest_pool : public detail::request_pool<irequest> {
-    typedef detail::request_pool<irequest> base;
+  /// \brief Container for managing a list of non-blocking communication requests.
+  class irequest_pool : public impl::request_pool<irequest> {
+    using base = impl::request_pool<irequest>;
 
   public:
     irequest_pool() = default;
@@ -265,12 +267,13 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  class prequest : public detail::request<detail::prequest> {
-    using base = detail::request<detail::prequest>;
+  /// \brief Represents a persistent communication request.
+  class prequest : public impl::request<impl::prequest> {
+    using base = impl::request<impl::prequest>;
     using base::req;
 
   public:
-    prequest(const detail::prequest &r) : base(r) {}
+    prequest(const impl::prequest &r) : base(r) {}
 
     prequest(const prequest &) = delete;
 
@@ -286,13 +289,14 @@ namespace mpl {
 
     void start() { MPI_Start(&req); }
 
-    friend class detail::request_pool<prequest>;
+    friend class impl::request_pool<prequest>;
   };
 
   //--------------------------------------------------------------------
 
-  class prequest_pool : public detail::request_pool<prequest> {
-    using base = detail::request_pool<prequest>;
+  /// \brief Container for managing a list of persisting communication requests.
+  class prequest_pool : public impl::request_pool<prequest> {
+    using base = impl::request_pool<prequest>;
     using base::reqs;
 
   public:

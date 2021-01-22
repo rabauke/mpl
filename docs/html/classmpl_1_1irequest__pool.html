@@ -83,6 +83,7 @@ $(document).ready(function(){initNavTree('classmpl_1_1irequest__pool.html',''); 
 
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classmpl_1_1irequest__pool-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -90,14 +91,17 @@ $(document).ready(function(){initNavTree('classmpl_1_1irequest__pool.html',''); 
 </div><!--header-->
 <div class="contents">
 
+<p>Container for managing a list of non-blocking communication requests.  
+ <a href="classmpl_1_1irequest__pool.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="request_8hpp_source.html">request.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mpl::irequest_pool:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1irequest__pool__inherit__graph.png" border="0" usemap="#mpl_1_1irequest__pool_inherit__map" alt="Inheritance graph"/></div>
 <map name="mpl_1_1irequest__pool_inherit__map" id="mpl_1_1irequest__pool_inherit__map">
-<area shape="rect" title=" " alt="" coords="15,100,218,129"/>
-<area shape="rect" title=" " alt="" coords="5,5,228,52"/>
+<area shape="rect" title="Container for managing a list of non&#45;blocking communication requests." alt="" coords="5,100,208,129"/>
+<area shape="rect" href="classmpl_1_1impl_1_1request__pool.html" title=" " alt="" coords="5,5,208,52"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -105,11 +109,16 @@ Collaboration diagram for mpl::irequest_pool:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1irequest__pool__coll__graph.png" border="0" usemap="#mpl_1_1irequest__pool_coll__map" alt="Collaboration graph"/></div>
 <map name="mpl_1_1irequest__pool_coll__map" id="mpl_1_1irequest__pool_coll__map">
-<area shape="rect" title=" " alt="" coords="15,100,218,129"/>
-<area shape="rect" title=" " alt="" coords="5,5,228,52"/>
+<area shape="rect" title="Container for managing a list of non&#45;blocking communication requests." alt="" coords="5,100,208,129"/>
+<area shape="rect" href="classmpl_1_1impl_1_1request__pool.html" title=" " alt="" coords="5,5,208,52"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a5b3f8f3986dc6bc5852939446531c767"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> = std::vector&lt; MPI_Request &gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a></td></tr>
+<tr class="separator:a5b3f8f3986dc6bc5852939446531c767"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae02a4f735ff77cf1e85ae79c399e5b8a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest__pool.html#ae02a4f735ff77cf1e85ae79c399e5b8a">irequest_pool</a> ()=default</td></tr>
@@ -122,13 +131,67 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a79a2d05644a537414fdfdb90de9dd7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a724a4b366511677979ad9bafac660a8a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest__pool.html">irequest_pool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest__pool.html#a724a4b366511677979ad9bafac660a8a">operator=</a> (<a class="el" href="classmpl_1_1irequest__pool.html">irequest_pool</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:a724a4b366511677979ad9bafac660a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40b2e7f51521f6cbf1ba99c26547dade"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a40b2e7f51521f6cbf1ba99c26547dade">size</a> () const</td></tr>
+<tr class="separator:a40b2e7f51521f6cbf1ba99c26547dade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd1055b70611cd8796d0c22ccfb2397"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#acdd1055b70611cd8796d0c22ccfb2397">empty</a> () const</td></tr>
+<tr class="separator:acdd1055b70611cd8796d0c22ccfb2397"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fad3234ec56e526727786bd3eabd1e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmpl_1_1status.html">status</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a4fad3234ec56e526727786bd3eabd1e2">get_status</a> (<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> i) const</td></tr>
+<tr class="separator:a4fad3234ec56e526727786bd3eabd1e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09521b62f5b53546c854e89644245b70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a09521b62f5b53546c854e89644245b70">cancel</a> (<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> i)</td></tr>
+<tr class="separator:a09521b62f5b53546c854e89644245b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4191612db45d53cab3a294f3ac2f9018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a4191612db45d53cab3a294f3ac2f9018">cancelall</a> ()</td></tr>
+<tr class="separator:a4191612db45d53cab3a294f3ac2f9018"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b2ce42dc5ec15f8875673e07f6d77bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a> (T &amp;&amp;other)</td></tr>
+<tr class="separator:a9b2ce42dc5ec15f8875673e07f6d77bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c1d9f510ffeefad91f8b75886db9243"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a7c1d9f510ffeefad91f8b75886db9243">waitany</a> ()</td></tr>
+<tr class="separator:a7c1d9f510ffeefad91f8b75886db9243"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2e54f8cce60ca595e8a80d40b9a09c7"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#ab2e54f8cce60ca595e8a80d40b9a09c7">testany</a> ()</td></tr>
+<tr class="separator:ab2e54f8cce60ca595e8a80d40b9a09c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e864f5b3e62bb28db94bec090235401"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a1e864f5b3e62bb28db94bec090235401">waitall</a> ()</td></tr>
+<tr class="separator:a1e864f5b3e62bb28db94bec090235401"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ebba7b0471ba84cf591abace463072f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5ebba7b0471ba84cf591abace463072f">testall</a> ()</td></tr>
+<tr class="separator:a5ebba7b0471ba84cf591abace463072f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab076cdb8feb7b1270497af73430e4fde"><td class="memTemplParams" colspan="2">template&lt;typename I &gt; </td></tr>
+<tr class="memitem:ab076cdb8feb7b1270497af73430e4fde"><td class="memTemplItemLeft" align="right" valign="top">I&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a> (I iter)</td></tr>
+<tr class="separator:ab076cdb8feb7b1270497af73430e4fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0adfe04dd4bf29535b6687562fb88989"><td class="memTemplParams" colspan="2">template&lt;typename I &gt; </td></tr>
+<tr class="memitem:a0adfe04dd4bf29535b6687562fb88989"><td class="memTemplItemLeft" align="right" valign="top">I&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989">testsome</a> (I iter)</td></tr>
+<tr class="separator:a0adfe04dd4bf29535b6687562fb88989"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#_a0">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#_a4">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#_a12">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#_a6">nonblocking_mult.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#_a4">vibrating_string_mpl.cc</a>.</dd>
+<div class="textblock"><p>Container for managing a list of non-blocking communication requests. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#_a0">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#_a4">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#_a13">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#_a6">nonblocking_mult.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#_a4">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00247">247</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00249">249</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5b3f8f3986dc6bc5852939446531c767"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b3f8f3986dc6bc5852939446531c767">&#9670;&nbsp;</a></span>size_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> =  std::vector&lt;MPI_Request&gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00115">115</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae02a4f735ff77cf1e85ae79c399e5b8a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae02a4f735ff77cf1e85ae79c399e5b8a">&#9670;&nbsp;</a></span>irequest_pool() <span class="overload">[1/3]</span></h2>
 
@@ -204,11 +267,129 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00255">255</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00257">257</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a09521b62f5b53546c854e89644245b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09521b62f5b53546c854e89644245b70">&#9670;&nbsp;</a></span>cancel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::cancel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00151">151</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4191612db45d53cab3a294f3ac2f9018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4191612db45d53cab3a294f3ac2f9018">&#9670;&nbsp;</a></span>cancelall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::cancelall </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00153">153</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acdd1055b70611cd8796d0c22ccfb2397"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd1055b70611cd8796d0c22ccfb2397">&#9670;&nbsp;</a></span>empty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::empty </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00147">147</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4fad3234ec56e526727786bd3eabd1e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fad3234ec56e526727786bd3eabd1e2">&#9670;&nbsp;</a></span>get_status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classmpl_1_1status.html">status</a>&amp; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::get_status </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00149">149</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a79a2d05644a537414fdfdb90de9dd7ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79a2d05644a537414fdfdb90de9dd7ab">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
@@ -259,7 +440,252 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00259">259</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00261">261</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b2ce42dc5ec15f8875673e07f6d77bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b2ce42dc5ec15f8875673e07f6d77bf">&#9670;&nbsp;</a></span>push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::push </td>
+          <td>(</td>
+          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#a7">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a7">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a14">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a7">nonblocking_mult.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a5">vibrating_string_mpl.cc</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00158">158</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a40b2e7f51521f6cbf1ba99c26547dade"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40b2e7f51521f6cbf1ba99c26547dade">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00145">145</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ebba7b0471ba84cf591abace463072f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ebba7b0471ba84cf591abace463072f">&#9670;&nbsp;</a></span>testall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::testall </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00190">190</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab2e54f8cce60ca595e8a80d40b9a09c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2e54f8cce60ca595e8a80d40b9a09c7">&#9670;&nbsp;</a></span>testany()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::testany </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00175">175</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0adfe04dd4bf29535b6687562fb88989"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0adfe04dd4bf29535b6687562fb88989">&#9670;&nbsp;</a></span>testsome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename I &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">I <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::testsome </td>
+          <td>(</td>
+          <td class="paramtype">I&#160;</td>
+          <td class="paramname"><em>iter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00208">208</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1e864f5b3e62bb28db94bec090235401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e864f5b3e62bb28db94bec090235401">&#9670;&nbsp;</a></span>waitall()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::waitall </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a17">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a15">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a9">nonblocking_mult.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a9">vibrating_string_mpl.cc</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00186">186</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c1d9f510ffeefad91f8b75886db9243"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c1d9f510ffeefad91f8b75886db9243">&#9670;&nbsp;</a></span>waitany()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::waitany </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00164">164</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab076cdb8feb7b1270497af73430e4fde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab076cdb8feb7b1270497af73430e4fde">&#9670;&nbsp;</a></span>waitsome()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<div class="memtemplate">
+template&lt;typename I &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">I <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::waitsome </td>
+          <td>(</td>
+          <td class="paramtype">I&#160;</td>
+          <td class="paramname"><em>iter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="nonblocking_8cc-example.html#a16">nonblocking.cc</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00197">197</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
 </div>
 </div>

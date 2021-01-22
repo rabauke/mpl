@@ -63,6 +63,7 @@ var hierarchy =
     [ "mpl::indexed_block_layout< T >", "classmpl_1_1indexed__block__layout.html", null ],
     [ "mpl::indexed_layout< T >", "classmpl_1_1indexed__layout.html", null ],
     [ "mpl::group::intersection", "classmpl_1_1group_1_1intersection.html", null ],
+    [ "mpl::impl::irequest", "classmpl_1_1impl_1_1irequest.html", null ],
     [ "mpl::iterator_layout< T >", "classmpl_1_1iterator__layout.html", null ],
     [ "mpl::layout< T >", "classmpl_1_1layout.html", null ],
     [ "mpl::layout< void >", "classmpl_1_1layout.html", [
@@ -98,16 +99,19 @@ var hierarchy =
     [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
     [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
-    [ "mpl::detail::request< detail::irequest >", null, [
+    [ "mpl::impl::prequest", "classmpl_1_1impl_1_1prequest.html", null ],
+    [ "mpl::impl::request< T >", "classmpl_1_1impl_1_1request.html", null ],
+    [ "mpl::impl::request< impl::irequest >", "classmpl_1_1impl_1_1request.html", [
       [ "mpl::irequest", "classmpl_1_1irequest.html", null ]
     ] ],
-    [ "mpl::detail::request< detail::prequest >", null, [
+    [ "mpl::impl::request< impl::prequest >", "classmpl_1_1impl_1_1request.html", [
       [ "mpl::prequest", "classmpl_1_1prequest.html", null ]
     ] ],
-    [ "mpl::detail::request_pool< T >", null, [
+    [ "mpl::impl::request_pool< T >", "classmpl_1_1impl_1_1request__pool.html", [
       [ "mpl::irequest_pool", "classmpl_1_1irequest__pool.html", null ]
     ] ],
-    [ "mpl::detail::request_pool< prequest >", null, [
+    [ "mpl::impl::request_pool< irequest >", "classmpl_1_1impl_1_1request__pool.html", null ],
+    [ "mpl::impl::request_pool< prequest >", "classmpl_1_1impl_1_1request__pool.html", [
       [ "mpl::prequest_pool", "classmpl_1_1prequest__pool.html", null ]
     ] ],
     [ "set", null, [

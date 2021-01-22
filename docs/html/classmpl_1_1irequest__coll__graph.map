@@ -1,4 +1,4 @@
 <map id="mpl::irequest" name="mpl::irequest">
-<area shape="rect" id="node1" title=" " alt="" coords="41,100,193,129"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,5,228,52"/>
+<area shape="rect" id="node1" title="Represents a non&#45;blocking communication request." alt="" coords="31,100,183,129"/>
+<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1request.html" title=" " alt="" coords="5,5,208,52"/>
 </map>

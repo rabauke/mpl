@@ -76,6 +76,12 @@ var files_dup =
       [ "ranks", "classmpl_1_1ranks.html", "classmpl_1_1ranks" ]
     ] ],
     [ "request.hpp", "request_8hpp.html", [
+      [ "request", "classmpl_1_1impl_1_1request.html", "classmpl_1_1impl_1_1request" ],
+      [ "request_pool", "classmpl_1_1impl_1_1request__pool.html", "classmpl_1_1impl_1_1request__pool" ],
+      [ "irequest", "classmpl_1_1impl_1_1irequest.html", "classmpl_1_1impl_1_1irequest" ],
+      [ "prequest", "classmpl_1_1impl_1_1prequest.html", "classmpl_1_1impl_1_1prequest" ],
+      [ "request", "classmpl_1_1impl_1_1request.html", "classmpl_1_1impl_1_1request" ],
+      [ "request_pool", "classmpl_1_1impl_1_1request__pool.html", "classmpl_1_1impl_1_1request__pool" ],
       [ "irequest", "classmpl_1_1irequest.html", "classmpl_1_1irequest" ],
       [ "irequest_pool", "classmpl_1_1irequest__pool.html", "classmpl_1_1irequest__pool" ],
       [ "prequest", "classmpl_1_1prequest.html", "classmpl_1_1prequest" ],

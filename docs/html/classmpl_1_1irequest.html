@@ -91,14 +91,17 @@ $(document).ready(function(){initNavTree('classmpl_1_1irequest.html',''); initRe
 </div><!--header-->
 <div class="contents">
 
+<p>Represents a non-blocking communication request.  
+ <a href="classmpl_1_1irequest.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="request_8hpp_source.html">request.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for mpl::irequest:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1irequest__inherit__graph.png" border="0" usemap="#mpl_1_1irequest_inherit__map" alt="Inheritance graph"/></div>
 <map name="mpl_1_1irequest_inherit__map" id="mpl_1_1irequest_inherit__map">
-<area shape="rect" title=" " alt="" coords="41,100,193,129"/>
-<area shape="rect" title=" " alt="" coords="5,5,228,52"/>
+<area shape="rect" title="Represents a non&#45;blocking communication request." alt="" coords="31,100,183,129"/>
+<area shape="rect" href="classmpl_1_1impl_1_1request.html" title=" " alt="" coords="5,5,208,52"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -106,15 +109,15 @@ Collaboration diagram for mpl::irequest:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1irequest__coll__graph.png" border="0" usemap="#mpl_1_1irequest_coll__map" alt="Collaboration graph"/></div>
 <map name="mpl_1_1irequest_coll__map" id="mpl_1_1irequest_coll__map">
-<area shape="rect" title=" " alt="" coords="41,100,193,129"/>
-<area shape="rect" title=" " alt="" coords="5,5,228,52"/>
+<area shape="rect" title="Represents a non&#45;blocking communication request." alt="" coords="31,100,183,129"/>
+<area shape="rect" href="classmpl_1_1impl_1_1request.html" title=" " alt="" coords="5,5,208,52"/>
 </map>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae0a6b3a2703a7737a13d54912b2efd6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#ae0a6b3a2703a7737a13d54912b2efd6f">irequest</a> (const detail::irequest &amp;r)</td></tr>
-<tr class="separator:ae0a6b3a2703a7737a13d54912b2efd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67a88cdd06a34645ed430bbd6922a8b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#a67a88cdd06a34645ed430bbd6922a8b9">irequest</a> (const <a class="el" href="classmpl_1_1impl_1_1irequest.html">impl::irequest</a> &amp;r)</td></tr>
+<tr class="separator:a67a88cdd06a34645ed430bbd6922a8b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4f7b65e9d801916ac0cb47c3c379de2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#ae4f7b65e9d801916ac0cb47c3c379de2">irequest</a> (const <a class="el" href="classmpl_1_1irequest.html">irequest</a> &amp;)=delete</td></tr>
 <tr class="separator:ae4f7b65e9d801916ac0cb47c3c379de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aad342024a6c6fe73177850401fe2130d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#aad342024a6c6fe73177850401fe2130d">irequest</a> (<a class="el" href="classmpl_1_1irequest.html">irequest</a> &amp;&amp;r) noexcept</td></tr>
@@ -123,20 +126,29 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af5b70e2988f99a85b17ce3e4f80fee36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a83bc19f4ce51533ab8985c31aa585ffb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#a83bc19f4ce51533ab8985c31aa585ffb">operator=</a> (<a class="el" href="classmpl_1_1irequest.html">irequest</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="separator:a83bc19f4ce51533ab8985c31aa585ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2ddcfa49b35df4120235692fdebdef2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request.html#ad2ddcfa49b35df4120235692fdebdef2">cancel</a> ()</td></tr>
+<tr class="separator:ad2ddcfa49b35df4120235692fdebdef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a133c164a5485296a1a07245a71596cb7"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classmpl_1_1status.html">status</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request.html#a133c164a5485296a1a07245a71596cb7">test</a> ()</td></tr>
+<tr class="separator:a133c164a5485296a1a07245a71596cb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8b50888aa3582ff66ab07c7dd4a5ee4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1status.html">status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request.html#ab8b50888aa3582ff66ab07c7dd4a5ee4">wait</a> ()</td></tr>
+<tr class="separator:ab8b50888aa3582ff66ab07c7dd4a5ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7509c00ba9916fbc277acdd3e4318de7"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classmpl_1_1status.html">status</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request.html#a7509c00ba9916fbc277acdd3e4318de7">get_status</a> ()</td></tr>
+<tr class="separator:a7509c00ba9916fbc277acdd3e4318de7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:ac015d11dfaa08b7016176163f7e7d7ca"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#ac015d11dfaa08b7016176163f7e7d7ca">detail::request_pool&lt; irequest &gt;</a></td></tr>
-<tr class="separator:ac015d11dfaa08b7016176163f7e7d7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac0fb8b83ea79062c37d219742c871bcc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1irequest.html#ac0fb8b83ea79062c37d219742c871bcc">impl::request_pool&lt; irequest &gt;</a></td></tr>
+<tr class="separator:ac0fb8b83ea79062c37d219742c871bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="matrix_gather_8cc-example.html#_a6">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#_a5">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#_a3">nonblocking_mult.cc</a>, and <a class="el" href="stl_container_8cc-example.html#_a3">stl_container.cc</a>.</dd>
+<div class="textblock"><p>Represents a non-blocking communication request. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="matrix_gather_8cc-example.html#_a6">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#_a5">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#_a3">nonblocking_mult.cc</a>, and <a class="el" href="stl_container_8cc-example.html#_a3">stl_container.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00223">223</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00224">224</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae0a6b3a2703a7737a13d54912b2efd6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0a6b3a2703a7737a13d54912b2efd6f">&#9670;&nbsp;</a></span>irequest() <span class="overload">[1/3]</span></h2>
+<a id="a67a88cdd06a34645ed430bbd6922a8b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67a88cdd06a34645ed430bbd6922a8b9">&#9670;&nbsp;</a></span>irequest() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -147,7 +159,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">mpl::irequest::irequest </td>
           <td>(</td>
-          <td class="paramtype">const detail::irequest &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1impl_1_1irequest.html">impl::irequest</a> &amp;&#160;</td>
           <td class="paramname"><em>r</em></td><td>)</td>
           <td></td>
         </tr>
@@ -159,7 +171,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00228">228</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00229">229</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
 </div>
 </div>
@@ -213,11 +225,59 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00232">232</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00233">233</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad2ddcfa49b35df4120235692fdebdef2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ddcfa49b35df4120235692fdebdef2">&#9670;&nbsp;</a></span>cancel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request.html">mpl::impl::request</a>&lt; <a class="el" href="classmpl_1_1impl_1_1irequest.html">impl::irequest</a>  &gt;::cancel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00083">83</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7509c00ba9916fbc277acdd3e4318de7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7509c00ba9916fbc277acdd3e4318de7">&#9670;&nbsp;</a></span>get_status()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1status.html">status</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request.html">mpl::impl::request</a>&lt; <a class="el" href="classmpl_1_1impl_1_1irequest.html">impl::irequest</a>  &gt;::get_status</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00098">98</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
 <a id="af5b70e2988f99a85b17ce3e4f80fee36"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af5b70e2988f99a85b17ce3e4f80fee36">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
@@ -268,13 +328,12 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00236">236</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00237">237</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="ac015d11dfaa08b7016176163f7e7d7ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac015d11dfaa08b7016176163f7e7d7ca">&#9670;&nbsp;</a></span>detail::request_pool&lt; irequest &gt;</h2>
+<a id="a133c164a5485296a1a07245a71596cb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a133c164a5485296a1a07245a71596cb7">&#9670;&nbsp;</a></span>test()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +342,58 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class detail::request_pool&lt; <a class="el" href="classmpl_1_1irequest.html">irequest</a> &gt;</td>
+          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1status.html">status</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request.html">mpl::impl::request</a>&lt; <a class="el" href="classmpl_1_1impl_1_1irequest.html">impl::irequest</a>  &gt;::test</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00085">85</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab8b50888aa3582ff66ab07c7dd4a5ee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8b50888aa3582ff66ab07c7dd4a5ee4">&#9670;&nbsp;</a></span>wait()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1status.html">status</a> <a class="el" href="classmpl_1_1impl_1_1request.html">mpl::impl::request</a>&lt; <a class="el" href="classmpl_1_1impl_1_1irequest.html">impl::irequest</a>  &gt;::wait</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="nonblocking_8cc-example.html#a10">nonblocking.cc</a>, and <a class="el" href="nonblocking_mult_8cc-example.html#a10">nonblocking_mult.cc</a>.</dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00092">92</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac0fb8b83ea79062c37d219742c871bcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0fb8b83ea79062c37d219742c871bcc">&#9670;&nbsp;</a></span>impl::request_pool&lt; irequest &gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1impl_1_1request__pool.html">impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1irequest.html">irequest</a> &gt;</td>
         </tr>
       </table>
   </td>
@@ -293,7 +403,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00242">242</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00243">243</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
 </div>
 </div>

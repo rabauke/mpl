@@ -1,5 +1,6 @@
 var namespacempl =
 [
+    [ "impl", "namespacempl_1_1impl.html", "namespacempl_1_1impl" ],
     [ "absolute_data", "classmpl_1_1absolute__data.html", null ],
     [ "absolute_data< const T * >", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4" ],
     [ "absolute_data< T * >", "classmpl_1_1absolute__data_3_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01_t_01_5_01_4" ],
