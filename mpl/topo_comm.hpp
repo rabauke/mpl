@@ -17,7 +17,7 @@ namespace mpl {
 
       // === neighbor collective =========================================
       // === neighbor allgather ===
-      // === get a signle value from each neighbor and store in contiguous memory
+      // === get a single value from each neighbor and store in contiguous memory
       // --- blocking neighbor allgather ---
       template<typename T>
       void neighbor_allgather(const T &senddata, T *recvdata) const {
@@ -76,7 +76,7 @@ namespace mpl {
       }
 
       // === neighbor all-to-all ===
-      // === each rank sends a signle value to each neighbor
+      // === each rank sends a single value to each neighbor
       // --- blocking neighbor all-to-all ---
       template<typename T>
       void neighbor_alltoall(const T *senddata, T *recvdata) const {
