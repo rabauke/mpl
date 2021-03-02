@@ -51,19 +51,19 @@ namespace mpl {
 
     explicit dist_graph_communicator(const communicator &old_comm, const source_set &ss,
                                      const dest_set &ds, bool reorder = true) {
-      std::vector<int> sources, sourceweigths;
+      std::vector<int> sources, sourceweights;
       for (auto x : ss) {
         sources.push_back(x.first);
-        sourceweigths.push_back(x.second);
+        sourceweights.push_back(x.second);
       }
-      std::vector<int> destinations, destinationweigths;
+      std::vector<int> destinations, destinationweights;
       for (auto x : ds) {
         destinations.push_back(x.first);
-        destinationweigths.push_back(x.second);
+        destinationweights.push_back(x.second);
       }
       MPI_Dist_graph_create_adjacent(old_comm.comm, sources.size(), sources.data(),
-                                     sourceweigths.data(), destinations.size(),
-                                     destinations.data(), destinationweigths.data(),
+                                     sourceweights.data(), destinations.size(),
+                                     destinations.data(), destinationweights.data(),
                                      MPI_INFO_NULL, reorder, &comm);
     }
 
@@ -101,27 +101,27 @@ namespace mpl {
 
     source_set inneighbors() const {
       int indeg{indegree()};
-      std::vector<int> sources(indeg), sourceweigths(indeg);
+      std::vector<int> sources(indeg), sourceweights(indeg);
       int outdeg{outdegree()};
-      std::vector<int> destinations(outdeg), destinationweigths(outdeg);
-      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweigths.data(), outdeg,
-                               destinations.data(), destinationweigths.data());
+      std::vector<int> destinations(outdeg), destinationweights(outdeg);
+      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweights.data(), outdeg,
+                               destinations.data(), destinationweights.data());
       source_set ss;
       for (int i = 0; i < indeg; ++i)
-        ss.insert({sources[i], sourceweigths[i]});
+        ss.insert({sources[i], sourceweights[i]});
       return ss;
     }
 
     dest_set outneighbors() const {
       int indeg{indegree()};
-      std::vector<int> sources(indeg), sourceweigths(indeg);
+      std::vector<int> sources(indeg), sourceweights(indeg);
       int outdeg{outdegree()};
-      std::vector<int> destinations(outdeg), destinationweigths(outdeg);
-      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweigths.data(), outdeg,
-                               destinations.data(), destinationweigths.data());
+      std::vector<int> destinations(outdeg), destinationweights(outdeg);
+      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweights.data(), outdeg,
+                               destinations.data(), destinationweights.data());
       dest_set ds;
       for (int i = 0; i < indeg; ++i)
-        ds.insert({sources[i], sourceweigths[i]});
+        ds.insert({sources[i], sourceweights[i]});
       return ds;
     }
   };

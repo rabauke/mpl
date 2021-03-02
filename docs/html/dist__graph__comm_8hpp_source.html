@@ -139,19 +139,19 @@ $(document).ready(function(){initNavTree('dist__graph__comm_8hpp_source.html',''
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classmpl_1_1dist__graph__communicator.html#a384852618a7190b1736533240046df98">   52</a></span>&#160;    <span class="keyword">explicit</span> <a class="code" href="classmpl_1_1dist__graph__communicator.html#a384852618a7190b1736533240046df98">dist_graph_communicator</a>(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">communicator</a> &amp;old_comm, <span class="keyword">const</span> <a class="code" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a> &amp;ss,</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;                                     <span class="keyword">const</span> <a class="code" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a> &amp;ds, <span class="keywordtype">bool</span> reorder = <span class="keyword">true</span>) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      std::vector&lt;int&gt; sources, sourceweigths;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      std::vector&lt;int&gt; sources, sourceweights;</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> x : ss) {</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        sources.push_back(x.first);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        sourceweigths.push_back(x.second);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        sourceweights.push_back(x.second);</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;      }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      std::vector&lt;int&gt; destinations, destinationweigths;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;      std::vector&lt;int&gt; destinations, destinationweights;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      <span class="keywordflow">for</span> (<span class="keyword">auto</span> x : ds) {</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        destinations.push_back(x.first);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        destinationweigths.push_back(x.second);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        destinationweights.push_back(x.second);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;      }</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;      MPI_Dist_graph_create_adjacent(old_comm.comm, sources.size(), sources.data(),</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                     sourceweigths.data(), destinations.size(),</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                     destinations.data(), destinationweigths.data(),</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                     sourceweights.data(), destinations.size(),</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                     destinations.data(), destinationweights.data(),</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                                     MPI_INFO_NULL, reorder, &amp;comm);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
@@ -189,27 +189,27 @@ $(document).ready(function(){initNavTree('dist__graph__comm_8hpp_source.html',''
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
 <div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="classmpl_1_1dist__graph__communicator.html#a5c679aa19524bbb205c8f3eb83118a21">  102</a></span>&#160;    <a class="code" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a> <a class="code" href="classmpl_1_1dist__graph__communicator.html#a5c679aa19524bbb205c8f3eb83118a21">inneighbors</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      <span class="keywordtype">int</span> indeg{<a class="code" href="classmpl_1_1dist__graph__communicator.html#a5d75868ed36f9dcd194e57bec87e60f0">indegree</a>()};</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      std::vector&lt;int&gt; sources(indeg), sourceweigths(indeg);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;      std::vector&lt;int&gt; sources(indeg), sourceweights(indeg);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      <span class="keywordtype">int</span> outdeg{<a class="code" href="classmpl_1_1dist__graph__communicator.html#a85c549d095d935de374341bf63cd739c">outdegree</a>()};</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      std::vector&lt;int&gt; destinations(outdeg), destinationweigths(outdeg);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweigths.data(), outdeg,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                               destinations.data(), destinationweigths.data());</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      std::vector&lt;int&gt; destinations(outdeg), destinationweights(outdeg);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweights.data(), outdeg,</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                               destinations.data(), destinationweights.data());</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;      <a class="code" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a> ss;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; indeg; ++i)</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        ss.insert({sources[i], sourceweigths[i]});</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        ss.insert({sources[i], sourceweights[i]});</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;      <span class="keywordflow">return</span> ss;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    }</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
 <div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classmpl_1_1dist__graph__communicator.html#a960359d044987b63600292aff3ddb597">  115</a></span>&#160;    <a class="code" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a> <a class="code" href="classmpl_1_1dist__graph__communicator.html#a960359d044987b63600292aff3ddb597">outneighbors</a>()<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;      <span class="keywordtype">int</span> indeg{<a class="code" href="classmpl_1_1dist__graph__communicator.html#a5d75868ed36f9dcd194e57bec87e60f0">indegree</a>()};</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      std::vector&lt;int&gt; sources(indeg), sourceweigths(indeg);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;      std::vector&lt;int&gt; sources(indeg), sourceweights(indeg);</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;      <span class="keywordtype">int</span> outdeg{<a class="code" href="classmpl_1_1dist__graph__communicator.html#a85c549d095d935de374341bf63cd739c">outdegree</a>()};</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      std::vector&lt;int&gt; destinations(outdeg), destinationweigths(outdeg);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweigths.data(), outdeg,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                               destinations.data(), destinationweigths.data());</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      std::vector&lt;int&gt; destinations(outdeg), destinationweights(outdeg);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweights.data(), outdeg,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                               destinations.data(), destinationweights.data());</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      <a class="code" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a> ds;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; indeg; ++i)</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        ds.insert({sources[i], sourceweigths[i]});</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        ds.insert({sources[i], sourceweights[i]});</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      <span class="keywordflow">return</span> ds;</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  };</div>
