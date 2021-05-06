@@ -39,7 +39,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Ineighbor_allgather(&senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
                                 datatype_traits<T>::get_datatype(), comm, &req);
-        return irequest(req);
+        return impl::irequest(req);
       }
 
       template<typename T>
@@ -49,7 +49,7 @@ namespace mpl {
         MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
                                 recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
                                 comm, &req);
-        return irequest(req);
+        return impl::irequest(req);
       }
 
       // === get varying amount of data from each neighbor and stores in noncontiguous memory
@@ -97,7 +97,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Ineighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
                                datatype_traits<T>::get_datatype(), comm, &req);
-        return irequest(req);
+        return impl::irequest(req);
       }
 
       template<typename T>
@@ -106,7 +106,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Ineighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
                                datatype_traits<T>::get_datatype(), comm, &req);
-        return irequest(req);
+        return impl::irequest(req);
       }
 
       // === each rank sends a varying number of values to each neighbor with possibly different
@@ -142,7 +142,7 @@ namespace mpl {
                                 reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata,
                                 counts.data(), recvdispls(),
                                 reinterpret_cast<const MPI_Datatype *>(recvl()), comm, &req);
-        return irequest(req);
+        return impl::irequest(req);
       }
 
       template<typename T>
