@@ -5,6 +5,7 @@ cmake_minimum_required(VERSION 3.9)
 # but semantic versioning should be considered
 project(mpl VERSION 0.0.1 LANGUAGES CXX C)
 
+option(BUILD_TESTING "" OFF)
 include(CTest)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
@@ -28,7 +29,7 @@ target_include_directories(mpl
 add_library(mpl::mpl ALIAS mpl)
 target_link_libraries(mpl INTERFACE Threads::Threads MPI::MPI_CXX)
 
-option(MPL_BUILD_EXAMPLES ON "build the mpl examples")
+option(MPL_BUILD_EXAMPLES OFF "build the mpl examples")
 if(MPL_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()
