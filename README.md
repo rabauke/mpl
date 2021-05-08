@@ -11,26 +11,118 @@ provide a direct mapping of the C API to some C++ functions and classes.
 Its focus lies on the MPI core message passing functions, ease of use, type
 safety, and elegance.  This library is most useful for developers who have at 
 least some basic knowledge of the Message Passing Interface and would like to 
-utilize it via a more user friendly interface. 
+utilize it via a more user-friendly interface. 
 
 
 ## Installation
 
-MPL is a header-only library.  Just download the
-[source](https://github.com/rabauke/mpl) and copy the `mpl` directory
-containing all header files to a place, where the compiler will find
-it, e.g., `/usr/local/include` on a typical Unix/Linux system.  As MPL is 
-built on MPI, an MPI implementation needs to be installed, e.g.,
-[Open MPI](https://www.open-mpi.org/) or
-[MPICH](https://www.mpich.org/).
+MPL is built on MPI.  An MPI implementation needs to be installed as a 
+prerequisite, e.g., [Open MPI](https://www.open-mpi.org/) or
+[MPICH](https://www.mpich.org/).  As MPL is a header-only library, 
+it suffices to download the [source](https://github.com/rabauke/mpl) 
+and copy the `mpl` directory, which contains all header files to a place, 
+where the compiler will find it, e.g., `/usr/local/include` on a typical 
+Unix/Linux system.  
+
+For convinance and better integration into various IDEs, MPL also comes 
+with CMake support.  To install MPL via CMake get the sources and create
+a new `build` folder in the MPL source directory, e.g.,
+```shell
+user@host:~/mpl$ mkdir build
+user@host:~/mpl$ cd build
+```
+Then, call the CMake tool to detect all dependencies and to generate the
+project configuration for your build system or IDE, e.g.
+```shell
+user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
+```
+The option `-DCMAKE_INSTALL_PREFIX:PATH` specifies the installaztion path. 
+Cmake can also be utilized to install the MPL header files.  Just call
+CMake a second time and specify the `--install` option now, e.g.,
+```shell
+user@host:~/mpl/build$ cmake --install .
+```
+
+A set of unit tests and a collection of exmaples that illustrate the 
+usage of MPL can be complied via CMake, too, if required.  To build the
+MPL unit tests add the option `-DBUILD_TESTING=ON` to the initial CMake
+call.  Similarily, `-DMPL_BUILD_EXAMPLES=ON` enables building example
+codes. Thus,
+```shell
+user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
+```
+enables both, building unit tests and examples.  MPL unit tests utilize
+the [Boost Test](https://www.boost.org/doc/libs/1_76_0/libs/test/doc/html/index.html) 
+library.  Finally, build the unit tests and/or the example code via
+```shell
+user@host:~/mpl/build$ cmake --build .
+```
+After the unit test have been build successfully, they can be run 
+conviniently by utilizing the CTest tool, i.e., via
+```shell
+user@host:~/mpl/build$ ctest
+Test project /home/user/mpl/build
+      Start  1: test_communicator
+ 1/19 Test  #1: test_communicator ................   Passed    0.45 sec
+      Start  2: test_cart_communicator
+ 2/19 Test  #2: test_cart_communicator ...........   Passed    0.35 sec
+      Start  3: test_graph_communicator
+ 3/19 Test  #3: test_graph_communicator ..........   Passed    0.36 sec
+      Start  4: test_dist_graph_communicator
+ 4/19 Test  #4: test_dist_graph_communicator .....   Passed    0.31 sec
+      Start  5: test_send_recv
+ 5/19 Test  #5: test_send_recv ...................   Passed    0.34 sec
+      Start  6: test_isend_irecv
+ 6/19 Test  #6: test_isend_irecv .................   Passed    0.34 sec
+      Start  7: test_psend_precv
+ 7/19 Test  #7: test_psend_precv .................   Passed    0.36 sec
+      Start  8: test_collective
+ 8/19 Test  #8: test_collective ..................   Passed    0.37 sec
+      Start  9: test_icollective
+ 9/19 Test  #9: test_icollective .................   Passed    0.31 sec
+      Start 10: test_collectivev
+10/19 Test #10: test_collectivev .................   Passed    0.28 sec
+      Start 11: test_icollectivev
+11/19 Test #11: test_icollectivev ................   Passed    0.34 sec
+      Start 12: test_reduce
+12/19 Test #12: test_reduce ......................   Passed    0.40 sec
+      Start 13: test_ireduce
+13/19 Test #13: test_ireduce .....................   Passed    0.36 sec
+      Start 14: test_scan
+14/19 Test #14: test_scan ........................   Passed    0.36 sec
+      Start 15: test_iscan
+15/19 Test #15: test_iscan .......................   Passed    0.34 sec
+      Start 16: test_exscan
+16/19 Test #16: test_exscan ......................   Passed    0.44 sec
+      Start 17: test_iexscan
+17/19 Test #17: test_iexscan .....................   Passed    0.30 sec
+      Start 18: test_reduce_scatter
+18/19 Test #18: test_reduce_scatter ..............   Passed    0.36 sec
+      Start 19: test_ireduce_scatter
+19/19 Test #19: test_ireduce_scatter .............   Passed    0.36 sec
+
+100% tests passed, 0 tests failed out of 19
+
+Total Test time (real) =   6.75 sec
+```
+or via your IDE if it features support for CTest.
+
+Usually, CMake will find the required MPI installation as well as the 
+Boost Test library automatically.  Depending on the local setu, however, 
+CMake may need some hints to find these dependencies.  See the CMake 
+documantation on 
+[FindMPI](https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi) 
+and 
+[FindBoost](https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints)
+for further details.
 
 
 ## Hello World
 
 MPL is built on top of the Message Passing Interface (MPI) standard.  Therefore, 
 MPL shares many concepts known from the MPI standard, e.g., the concept of a
-communicator.  Communicators manage the message exchange between different processes, i.e.,  
-messages are sent and received with the help of a communicator.  
+communicator.  Communicators manage the message exchange between different processes, 
+i.e., messages are sent and received with the help of a communicator.  
 
 The MPL envirionment provides a global default communicator `comm_world`, which will 
 be used in the following Hello-World program.  The program prints out some information 
