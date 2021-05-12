@@ -97,9 +97,7 @@ bool prsend_precv_test(const T &data) {
 
 BOOST_AUTO_TEST_CASE(psend_precv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(psend_precv_test(std::byte(77)));
-#endif
   BOOST_TEST(psend_precv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(psend_precv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(psend_precv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -131,9 +129,7 @@ BOOST_AUTO_TEST_CASE(psend_precv) {
 
 BOOST_AUTO_TEST_CASE(pbsend_precv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(pbsend_precv_test(std::byte(77)));
-#endif
   BOOST_TEST(pbsend_precv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(pbsend_precv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(pbsend_precv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -165,9 +161,7 @@ BOOST_AUTO_TEST_CASE(pbsend_precv) {
 
 BOOST_AUTO_TEST_CASE(pssend_precv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(pssend_precv_test(std::byte(77)));
-#endif
   BOOST_TEST(pssend_precv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(pssend_precv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(pssend_precv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -199,9 +193,7 @@ BOOST_AUTO_TEST_CASE(pssend_precv) {
 
 BOOST_AUTO_TEST_CASE(prsend_precv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(prsend_precv_test(std::byte(77)));
-#endif
   BOOST_TEST(prsend_precv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(prsend_precv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(prsend_precv_test(std::numeric_limits<unsigned char>::max() - 1));

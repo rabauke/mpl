@@ -88,9 +88,7 @@ bool irsend_irecv_test(const T &data) {
 
 BOOST_AUTO_TEST_CASE(isend_irecv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(isend_irecv_test(std::byte(77)));
-#endif
   BOOST_TEST(isend_irecv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(isend_irecv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(isend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -122,9 +120,7 @@ BOOST_AUTO_TEST_CASE(isend_irecv) {
 
 BOOST_AUTO_TEST_CASE(ibsend_irecv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(ibsend_irecv_test(std::byte(77)));
-#endif
   BOOST_TEST(ibsend_irecv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(ibsend_irecv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(ibsend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -156,9 +152,7 @@ BOOST_AUTO_TEST_CASE(ibsend_irecv) {
 
 BOOST_AUTO_TEST_CASE(issend_irecv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(issend_irecv_test(std::byte(77)));
-#endif
   BOOST_TEST(issend_irecv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(issend_irecv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(issend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -190,9 +184,7 @@ BOOST_AUTO_TEST_CASE(issend_irecv) {
 
 BOOST_AUTO_TEST_CASE(irsend_irecv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(irsend_irecv_test(std::byte(77)));
-#endif
   BOOST_TEST(irsend_irecv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(irsend_irecv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(irsend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));

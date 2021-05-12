@@ -99,9 +99,7 @@ bool sendrecv_replace_test() {
 
 BOOST_AUTO_TEST_CASE(send_recv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(send_recv_test(std::byte(77)));
-#endif
   BOOST_TEST(send_recv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(send_recv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(send_recv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -133,9 +131,7 @@ BOOST_AUTO_TEST_CASE(send_recv) {
 
 BOOST_AUTO_TEST_CASE(bsend_recv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(bsend_recv_test(std::byte(77)));
-#endif
   BOOST_TEST(bsend_recv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(bsend_recv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(bsend_recv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -167,9 +163,7 @@ BOOST_AUTO_TEST_CASE(bsend_recv) {
 
 BOOST_AUTO_TEST_CASE(ssend_recv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(ssend_recv_test(std::byte(77)));
-#endif
   BOOST_TEST(ssend_recv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(ssend_recv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(ssend_recv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -201,9 +195,7 @@ BOOST_AUTO_TEST_CASE(ssend_recv) {
 
 BOOST_AUTO_TEST_CASE(rsend_recv) {
   // integer types
-#if __cplusplus >= 201703L
-//  BOOST_TEST(rsend_recv_test(std::byte(77)));
-#endif
+  BOOST_TEST(rsend_recv_test(std::byte(77)));
   BOOST_TEST(rsend_recv_test(std::numeric_limits<char>::max() - 1));
   BOOST_TEST(rsend_recv_test(std::numeric_limits<signed char>::max() - 1));
   BOOST_TEST(rsend_recv_test(std::numeric_limits<unsigned char>::max() - 1));
@@ -235,9 +227,7 @@ BOOST_AUTO_TEST_CASE(rsend_recv) {
 
 BOOST_AUTO_TEST_CASE(sendrecv) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(sendrecv_test<std::byte>());
-#endif
   BOOST_TEST(sendrecv_test<char>());
   BOOST_TEST(sendrecv_test<signed char>());
   BOOST_TEST(sendrecv_test<unsigned char>());
@@ -266,9 +256,7 @@ BOOST_AUTO_TEST_CASE(sendrecv) {
 
 BOOST_AUTO_TEST_CASE(sendrecv_replace) {
   // integer types
-#if __cplusplus >= 201703L
   BOOST_TEST(sendrecv_replace_test<std::byte>());
-#endif
   BOOST_TEST(sendrecv_replace_test<char>());
   BOOST_TEST(sendrecv_replace_test<signed char>());
   BOOST_TEST(sendrecv_replace_test<unsigned char>());

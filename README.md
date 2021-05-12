@@ -1,6 +1,6 @@
 # MPL - A message passing library
 
-MPL is a message passing library written in C++11 based on the
+MPL is a message passing library written in C++17 based on the
 [Message Passing Interface](http://mpi-forum.org/) (MPI) standard.  Since
 the C++ API has been dropped from the MPI standard in version 3.0 it is the
 aim of MPL to provide a modern C++ message passing library for high

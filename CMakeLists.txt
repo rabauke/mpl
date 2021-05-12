@@ -10,8 +10,8 @@ include(CTest)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
-# project requires c++11 to build
-set(CMAKE_CXX_STANDARD 11)
+# project requires c++17 to build
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 

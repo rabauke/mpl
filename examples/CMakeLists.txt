@@ -31,19 +31,8 @@ add_mpl_executable(stl_container stl_container.cc)
 add_mpl_executable(struct struct.cc)
 add_mpl_executable(subarray subarray.cc)
 add_mpl_executable(vibrating_string_mpl vibrating_string_mpl.cc)
-
-# only add c++14 the tests if the compiler has c++14 support
-if (cxx_std_14 IN_LIST CMAKE_CXX_COMPILE_FEATURES)
-  add_mpl_executable(standard_types standard_types.cc)
-  set_property(TARGET standard_types PROPERTY CXX_STANDARD 14)
-endif()
-
-# only add c++17 the tests if the compiler has c++17 support
-if (cxx_std_17 IN_LIST CMAKE_CXX_COMPILE_FEATURES)
-  add_mpl_executable(parallel_sort_mpl parallel_sort_mpl.cc)
-  set_property(TARGET parallel_sort_mpl PROPERTY CXX_STANDARD 17)
-endif()
-
+add_mpl_executable(standard_types standard_types.cc)
+add_mpl_executable(parallel_sort_mpl parallel_sort_mpl.cc)
 
 # c only examples
 add_executable(vibrating_string_mpi vibrating_string_mpi.c)

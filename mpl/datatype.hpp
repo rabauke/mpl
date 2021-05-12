@@ -481,9 +481,7 @@ namespace mpl {
 
     MPL_DATATYPE_TRAITS(long double, MPI_LONG_DOUBLE);
 
-#if __cplusplus >= 201703L
     MPL_DATATYPE_TRAITS(std::byte, MPI_BYTE);
-#endif
 
     MPL_DATATYPE_TRAITS(std::complex<float>, MPI_CXX_FLOAT_COMPLEX);
 
