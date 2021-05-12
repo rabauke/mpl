@@ -16,7 +16,8 @@ void fill_random(vector v) {
 }
 
 static int cmp_double(const void *p1_, const void *p2_) {
-  const double const *p1 = p1_, *p2 = p2_;
+  const double *const p1 = p1_;
+  const double *const p2 = p2_;
   return (*p1 == *p2) ? 0 : (*p1 < *p2 ? -1 : 1);
 }
 

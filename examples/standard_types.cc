@@ -20,7 +20,7 @@ void print_tuple_impl(std::basic_ostream<ch, tr> &out, const tuple &t,
   auto print_element = [&](auto i, auto a) -> void {
     out << a << (i + 1 < is_.size() ? "," : "");
   };
-  std::initializer_list<int>{(print_element(is, std::get<is>(t)), 0)...};
+  std::initializer_list<int> _{(print_element(is, std::get<is>(t)), 0)...};
 }
 
 // print all elements of a tuple
