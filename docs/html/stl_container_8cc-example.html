@@ -161,8 +161,7 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"><span class="comment">// receive an stl container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> recv(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
-<div class="line">  <span class="keyword">using</span> value_type =</div>
-<div class="line">      <span class="keyword">typename</span> mpl::detail::remove_const_from_members&lt;typename T::value_type&gt;::type;</div>
+<div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
 <div class="line">  T x;</div>
 <div class="line">  <span class="keyword">auto</span> s = comm.<a name="a5"></a>recv(x, 0);</div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; with &quot;</span> &lt;&lt; s.template get_count&lt;value_type&gt;() &lt;&lt; <span class="stringliteral">&quot; elements\n&quot;</span>;</div>
@@ -171,8 +170,7 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"><span class="comment">// receive an stl container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> irecv(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
-<div class="line">  <span class="keyword">using</span> value_type =</div>
-<div class="line">      <span class="keyword">typename</span> mpl::detail::remove_const_from_members&lt;typename T::value_type&gt;::type;</div>
+<div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
 <div class="line">  T x;</div>
 <div class="line">  <a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r{comm.<a name="a6"></a>irecv(x, 0)};</div>
 <div class="line">  <a name="_a7"></a><a class="code" href="classmpl_1_1status.html">mpl::status</a> s{r.wait()};</div>

@@ -35,7 +35,7 @@
 /// Simple hello-world program.  Initializes the message passing environment and determines the number of processes and rank.
 
 /// \example iterators.cc
-/// Sends and receives containers (std::vector, std::list, etc.) given by their iterators.  The types of the array elements must be suited for communication.  On the receiving side, there must be sufficent preallocated memory, i.e., sending and receiving containers must be of the same size.  Furthermore, traking the address of a dereferenced iteratir must result a non-const pointer on the receiving side.
+/// Sends and receives containers (std::vector, std::list, etc.) given by their iterators.  The types of the array elements must be suited for communication.  On the receiving side, there must be sufficient preallocated memory, i.e., sending and receiving containers must be of the same size.  Furthermore, tracking the address of a dereferenced iterator must result a non-const pointer on the receiving side.
 
 /// \example layouts.cc
 /// Construction and usage of various data layouts.
@@ -44,10 +44,10 @@
 /// Demonstrates gathering of a distributed matrix as it may used in domain partitioning applications.
 
 /// \example nonblocking.cc
-/// Demonstrates nonblocking send and receive of standard data types and vectors of standard data types and different waiting methods.
+/// Demonstrates non-blocking send and receive of standard data types and vectors of standard data types and different waiting methods.
 
 /// \example nonblocking_mult.cc
-/// Utilizes nonblocking send and receive of standard data types to implement a gather operation.
+/// Utilizes non-blocking send and receive of standard data types to implement a gather operation.
 
 /// \example parallel_sort_mpi.c
 /// Parallel sort algorithm, MPI version.

@@ -86,7 +86,7 @@ $(document).ready(function(){initNavTree('iterators_8cc-example.html',''); initR
 <div class="title">iterators.cc</div>  </div>
 </div><!--header-->
 <div class="contents">
-<p>Sends and receives containers (std::vector, std::list, etc.) given by their iterators. The types of the array elements must be suited for communication. On the receiving side, there must be sufficent preallocated memory, i.e., sending and receiving containers must be of the same size. Furthermore, traking the address of a dereferenced iteratir must result a non-const pointer on the receiving side.</p>
+<p>Sends and receives containers (std::vector, std::list, etc.) given by their iterators. The types of the array elements must be suited for communication. On the receiving side, there must be sufficient preallocated memory, i.e., sending and receiving containers must be of the same size. Furthermore, tracking the address of a dereferenced iterator must result a non-const pointer on the receiving side.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;list&gt;</span></div>

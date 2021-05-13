@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('tag_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classmpl_1_1tag.html#a714f04e80bea46788025d6bd018a047a">   23</a></span>&#160;    <a class="code" href="classmpl_1_1tag.html#a714f04e80bea46788025d6bd018a047a">tag</a>(T t) : t(static_cast&lt;int&gt;(t)) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      static_assert(detail::is_valid_tag&lt;T&gt;::value,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;      static_assert(detail::is_valid_tag_v&lt;T&gt;,</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;                    <span class="stringliteral">&quot;not an enumeration type or underlying enumeration type too large&quot;</span>);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
