@@ -99,8 +99,8 @@ $(document).ready(function(){initNavTree('subarray_8cc-example.html',''); initRe
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
 <div class="line">  <span class="comment">// test layout for a subarry</span></div>
 <div class="line">  <span class="comment">// layouts on sending and receiving side may differ but must be compatible</span></div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n0 = 20, n1 = 8;  <span class="comment">// size of two-dimesional array</span></div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> s0 = 11, s1 = 3;  <span class="comment">// size of two-dimesional subarray</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n0 = 20, n1 = 8;  <span class="comment">// size of two-dimensional array</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> s0 = 11, s1 = 3;  <span class="comment">// size of two-dimensional subarray</span></div>
 <div class="line">  <span class="comment">// process 0 sends</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    <span class="comment">// C order matrix with two-dimensional C arrays</span></div>
@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('subarray_8cc-example.html',''); initRe
 <div class="line">    });</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a>send(&amp;A[0][0], subarray, 1);</div>
 <div class="line">  }</div>
-<div class="line">  <span class="comment">// process 1 recieves</span></div>
+<div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">    <span class="keywordtype">double</span> A[s1][s0];</div>
 <div class="line">    <a name="_a6"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> array(s0 * s1);</div>

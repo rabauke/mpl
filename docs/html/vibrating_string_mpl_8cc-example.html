@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('vibrating_string_mpl_8cc-example.html'
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> N = 1001;        <span class="comment">// total number of gridpoints</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> N = 1001;        <span class="comment">// total number of grid points</span></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> L = 1;        <span class="comment">// lengths of domain</span></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> c = 1;        <span class="comment">// speed of sound</span></div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> dt = 0.001;   <span class="comment">// temporal step width</span></div>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('vibrating_string_mpl_8cc-example.html'
 <div class="line">  std::vector&lt;double&gt; u_l(N_l[C_rank]);</div>
 <div class="line">  std::vector&lt;double&gt; u_new_l(N_l[C_rank]);</div>
 <div class="line">  <span class="comment">// 1st propagation step uses current elongation and velocity</span></div>
-<div class="line">  <span class="comment">// calcuate all grid points including ovlapping border data</span></div>
+<div class="line">  <span class="comment">// calculate all grid points including overlapping border data</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; N_l[C_rank]; ++i) {</div>
 <div class="line">    <span class="keywordtype">double</span> x = (i + N0_l[C_rank]) * dx;</div>
 <div class="line">    u_old_l[i] = u_0(x);</div>

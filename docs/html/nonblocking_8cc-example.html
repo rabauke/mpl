@@ -162,7 +162,7 @@ $(document).ready(function(){initNavTree('nonblocking_8cc-example.html',''); ini
 <div class="line">        <span class="keyword">auto</span> i = r.<a name="a16"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a>(finished.begin());  <span class="comment">// wait until one ore more sends have finished</span></div>
 <div class="line">        <span class="keywordflow">if</span> (i == finished.begin())              <span class="comment">// there have been no pending sends</span></div>
 <div class="line">          <span class="keywordflow">break</span>;</div>
-<div class="line">        <span class="comment">// print indces of finished sends</span></div>
+<div class="line">        <span class="comment">// print indices of finished sends</span></div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;send finished : &quot;</span>;</div>
 <div class="line">        std::for_each(finished.begin(), i,</div>
 <div class="line">                      [](<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">mpl::irequest_pool::size_type</a> j) { std::cout &lt;&lt; j &lt;&lt; <span class="stringliteral">&#39; &#39;</span>; });</div>
@@ -170,7 +170,7 @@ $(document).ready(function(){initNavTree('nonblocking_8cc-example.html',''); ini
 <div class="line">      }</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
-<div class="line">  <span class="comment">// process 1 recieves</span></div>
+<div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">    <span class="keywordtype">double</span> x;</div>
 <div class="line">    <a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a17"></a>irecv(x, 0));  <span class="comment">// receive x from rank 0</span></div>
@@ -210,7 +210,7 @@ $(document).ready(function(){initNavTree('nonblocking_8cc-example.html',''); ini
 <div class="line">            r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a>(finished.begin());  <span class="comment">// wait until one ore more receives have finished</span></div>
 <div class="line">        <span class="keywordflow">if</span> (i == finished.begin())         <span class="comment">// there have been no pending receives</span></div>
 <div class="line">          <span class="keywordflow">break</span>;</div>
-<div class="line">        <span class="comment">// print indces of finished receives</span></div>
+<div class="line">        <span class="comment">// print indices of finished receives</span></div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;recv finished : &quot;</span>;</div>
 <div class="line">        std::for_each(finished.begin(), i,</div>
 <div class="line">                      [](<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">mpl::irequest_pool::size_type</a> j) { std::cout &lt;&lt; j &lt;&lt; <span class="stringliteral">&#39; &#39;</span>; });</div>

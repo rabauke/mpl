@@ -7,7 +7,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
-const int N = 1001;        // total number of gridpoints
+const int N = 1001;        // total number of grid points
 const double L = 1;        // lengths of domain
 const double c = 1;        // speed of sound
 const double dt = 0.001;   // temporal step width
@@ -56,7 +56,7 @@ int main() {
   std::vector<double> u_l(N_l[C_rank]);
   std::vector<double> u_new_l(N_l[C_rank]);
   // 1st propagation step uses current elongation and velocity
-  // calcuate all grid points including ovlapping border data
+  // calculate all grid points including overlapping border data
   for (int i = 0; i < N_l[C_rank]; ++i) {
     double x = (i + N0_l[C_rank]) * dx;
     u_old_l[i] = u_0(x);

@@ -35,11 +35,11 @@ int main() {
     // decode the number of elements, the source and the tag
     int n(s.get_count<int>()), source(s.source());
     mpl::tag tag(s.tag());
-    std::cerr << "souce : " << s.source() << '\n'
-              << "tag   : " << s.tag() << '\n'
-              << "error : " << s.error() << '\n'
-              << "count : " << n << '\n';
-    // reserve sufficinet amount of memory to receive the message
+    std::cerr << "source : " << s.source() << '\n'
+              << "tag    : " << s.tag() << '\n'
+              << "error  : " << s.error() << '\n'
+              << "count  : " << n << '\n';
+    // reserve sufficient amount of memory to receive the message
     std::vector<int> v(n);
     mpl::contiguous_layout<int> l(n);
     // finally receive the message

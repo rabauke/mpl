@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line">  std::generate(v.begin(), v.end(), [&amp;]() {</div>
 <div class="line">    return std::make_pair(static_cast&lt;double&gt;(std::rand()) / RAND_MAX, comm_world.rank());</div>
 <div class="line">  });</div>
-<div class="line">  <span class="comment">// calculate minium and its location and send result to rank root</span></div>
+<div class="line">  <span class="comment">// calculate minimum and its location and send result to rank root</span></div>
 <div class="line">  <span class="keywordtype">int</span> <a name="a3"></a><a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
 <div class="line">  <a name="_a4"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;pair_t&gt;</a> layout(n);</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
@@ -130,7 +130,7 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line">      std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(5) &lt;&lt; i.first &lt;&lt; <span class="charliteral">&#39; &#39;</span> &lt;&lt; i.second &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
 <div class="line">    std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  } <span class="keywordflow">else</span> {</div>
-<div class="line">    <span class="comment">// calculate minium and its location and send result to rank 0</span></div>
+<div class="line">    <span class="comment">// calculate minimum and its location and send result to rank 0</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">reduce</a>(<a class="code" href="structmpl_1_1min.html">mpl::min&lt;pair_t&gt;</a>(), <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, v.data(), layout);</div>
 <div class="line">    <span class="comment">// send data to rank 0 for display</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a9"></a>send(v.data(), layout, <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>);</div>

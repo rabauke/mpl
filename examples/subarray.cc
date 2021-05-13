@@ -10,8 +10,8 @@ int main() {
     return EXIT_FAILURE;
   // test layout for a subarry
   // layouts on sending and receiving side may differ but must be compatible
-  const int n0 = 20, n1 = 8;  // size of two-dimesional array
-  const int s0 = 11, s1 = 3;  // size of two-dimesional subarray
+  const int n0 = 20, n1 = 8;  // size of two-dimensional array
+  const int s0 = 11, s1 = 3;  // size of two-dimensional subarray
   // process 0 sends
   if (comm_world.rank() == 0) {
     // C order matrix with two-dimensional C arrays
@@ -25,7 +25,7 @@ int main() {
     });
     comm_world.send(&A[0][0], subarray, 1);
   }
-  // process 1 recieves
+  // process 1 receives
   if (comm_world.rank() == 1) {
     double A[s1][s0];
     mpl::contiguous_layout<double> array(s0 * s1);

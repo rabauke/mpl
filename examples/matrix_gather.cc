@@ -4,7 +4,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
-// some basic marix class
+// some basic matrix class
 template<typename T>
 class matrix : private std::vector<T> {
   using base = std::vector<T>;
@@ -47,7 +47,7 @@ int main() {
   matrix<int> nx_0(px, py), ny_0(px, py);  // starts of sub matrices for both dimensions
   // matrix of layouts
   matrix<mpl::subarray_layout<int>> sub_matrix_l(px, py);
-  // calulate all indices and sizes, generate layouts
+  // calculate all indices and sizes, generate layouts
   for (int iy = 0; iy < py; ++iy) {
     for (int ix = 0; ix < px; ++ix) {
       nx_l(ix, iy) = nx * (ix + 1) / px - nx * ix / px;

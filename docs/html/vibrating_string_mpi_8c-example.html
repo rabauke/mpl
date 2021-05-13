@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('vibrating_string_mpi_8c-example.html',
 <div class="line">  <span class="keywordflow">return</span> p;</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// initial eleongation</span></div>
+<div class="line"><span class="comment">// initial elongation</span></div>
 <div class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">double</span> u_0(<span class="keywordtype">double</span> x) {</div>
 <div class="line">  <span class="keywordflow">if</span> (x &lt;= 0 || x &gt;= L)</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('vibrating_string_mpi_8c-example.html',
 <div class="line">  N_l = secure_malloc(C_size * <span class="keyword">sizeof</span>(*N_l));</div>
 <div class="line">  N0_l = secure_malloc(C_size * <span class="keyword">sizeof</span>(*N0_l));</div>
 <div class="line">  <span class="comment">// calculate size and position of local grids</span></div>
-<div class="line">  <span class="comment">// local grids include one mirror grid point at each end or the bondary condition</span></div>
+<div class="line">  <span class="comment">// local grids include one mirror grid point at each end or the boundary condition</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i) {</div>
 <div class="line">    <span class="comment">// number of local grid points is N_l[C_rank]</span></div>
 <div class="line">    N_l[i] = (i + 1) * (N - 2) / C_size - i * (N - 2) / C_size + 2;</div>

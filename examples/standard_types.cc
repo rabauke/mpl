@@ -113,7 +113,7 @@ int main() {
     std::byte t22{255};
     send(comm_world, t22);
   }
-  // process 1 recieves
+  // process 1 receives
   if (comm_world.rank() == 1) {
     recv<char>(comm_world);
     recv<signed char>(comm_world);

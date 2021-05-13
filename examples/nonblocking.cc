@@ -73,7 +73,7 @@ int main() {
         auto i = r.waitsome(finished.begin());  // wait until one ore more sends have finished
         if (i == finished.begin())              // there have been no pending sends
           break;
-        // print indces of finished sends
+        // print indices of finished sends
         std::cout << "send finished : ";
         std::for_each(finished.begin(), i,
                       [](mpl::irequest_pool::size_type j) { std::cout << j << ' '; });
@@ -81,7 +81,7 @@ int main() {
       }
     }
   }
-  // process 1 recieves
+  // process 1 receives
   if (comm_world.rank() == 1) {
     double x;
     mpl::irequest r(comm_world.irecv(x, 0));  // receive x from rank 0
@@ -121,7 +121,7 @@ int main() {
             r.waitsome(finished.begin());  // wait until one ore more receives have finished
         if (i == finished.begin())         // there have been no pending receives
           break;
-        // print indces of finished receives
+        // print indices of finished receives
         std::cout << "recv finished : ";
         std::for_each(finished.begin(), i,
                       [](mpl::irequest_pool::size_type j) { std::cout << j << ' '; });

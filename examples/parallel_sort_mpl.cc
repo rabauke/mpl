@@ -17,8 +17,8 @@ void fill_random(std::vector<double> &v) {
 
 // parallel sort algorithm for distributed memory computers
 //
-// algorith works as follows:
-//   1) ecah process draws (size-1) random samples from its local data
+// algorithm works as follows:
+//   1) each process draws (size-1) random samples from its local data
 //   2) all processes gather local random samples => size*(size-1) samples
 //   3) size*(size-1) samples are sorted locally
 //   4) pick (size-1) pivot elements from the globally sorted sample

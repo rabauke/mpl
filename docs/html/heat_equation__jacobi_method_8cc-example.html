@@ -154,10 +154,10 @@ $(document).ready(function(){initNavTree('heat_equation__jacobi_method_8cc-examp
 <div class="line">  <span class="comment">// grid lengths and grid spacings</span></div>
 <div class="line">  <span class="keywordtype">double</span> l_x = 1.5, l_y = 1, dx = l_x / (Nx + 1), dy = l_y / (Ny + 1);</div>
 <div class="line">  <span class="comment">// distributed grids that hold each processor&#39;s subgrid plus one row and</span></div>
-<div class="line">  <span class="comment">// one collumn  of neighboring data</span></div>
+<div class="line">  <span class="comment">// one column  of neighboring data</span></div>
 <div class="line">  <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;2, double&gt;</a> u_d1(comm_c, {{Nx, 1}, {Ny, 1}});</div>
 <div class="line">  <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;2, double&gt;</a> u_d2(comm_c, {{Nx, 1}, {Ny, 1}});</div>
-<div class="line">  <span class="comment">// rank 0 inializes with some random data</span></div>
+<div class="line">  <span class="comment">// rank 0 initializes with some random data</span></div>
 <div class="line">  <span class="keywordflow">if</span> (comm_c.rank() == 0) {</div>
 <div class="line">    <span class="comment">// local grid to store the whole set of inner grid points</span></div>
 <div class="line">    <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;2, double&gt;</a> u(comm_c, {Nx, Ny});</div>
@@ -168,7 +168,7 @@ $(document).ready(function(){initNavTree('heat_equation__jacobi_method_8cc-examp
 <div class="line">    scatter(comm_c, 0, u, u_d1);</div>
 <div class="line">  } <span class="keywordflow">else</span></div>
 <div class="line">    scatter(comm_c, 0, u_d1);</div>
-<div class="line">  <span class="comment">// initiallize boundary data, loop with obegin and oend over all</span></div>
+<div class="line">  <span class="comment">// initialize boundary data, loop with obegin and oend over all</span></div>
 <div class="line">  <span class="comment">// data including the overlap, initialize if local border is global border</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keyword">auto</span> j : {u_d1.obegin(1), u_d1.oend(1) - 1})</div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = u_d1.obegin(0), i_end = u_d1.oend(0); i &lt; i_end; ++i) {</div>

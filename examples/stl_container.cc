@@ -111,7 +111,7 @@ int main() {
     send(comm_world, t5);
     isend(comm_world, t5);
   }
-  // process 1 recieves
+  // process 1 receives
   if (comm_world.rank() == 1) {
     recv<std::string>(comm_world);
     irecv<std::string>(comm_world);

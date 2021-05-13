@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// some basic marix class</span></div>
+<div class="line"><span class="comment">// some basic matrix class</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keyword">class </span>matrix : <span class="keyword">private</span> std::vector&lt;T&gt; {</div>
 <div class="line">  <span class="keyword">using</span> base = std::vector&lt;T&gt;;</div>
@@ -136,7 +136,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">  matrix&lt;int&gt; nx_0(px, py), ny_0(px, py);  <span class="comment">// starts of sub matrices for both dimensions</span></div>
 <div class="line">  <span class="comment">// matrix of layouts</span></div>
 <div class="line">  matrix&lt;mpl::subarray_layout&lt;int&gt;&gt; sub_matrix_l(px, py);</div>
-<div class="line">  <span class="comment">// calulate all indices and sizes, generate layouts</span></div>
+<div class="line">  <span class="comment">// calculate all indices and sizes, generate layouts</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; py; ++iy) {</div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; px; ++ix) {</div>
 <div class="line">      nx_l(ix, iy) = nx * (ix + 1) / px - nx * ix / px;</div>

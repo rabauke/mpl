@@ -19,7 +19,7 @@ int main() {
   std::generate(v.begin(), v.end(), [&]() {
     return std::make_pair(static_cast<double>(std::rand()) / RAND_MAX, comm_world.rank());
   });
-  // calculate minium and its location and send result to rank root
+  // calculate minimum and its location and send result to rank root
   int root = 0;
   mpl::contiguous_layout<pair_t> layout(n);
   if (comm_world.rank() == root) {
@@ -41,7 +41,7 @@ int main() {
       std::cout << std::fixed << std::setprecision(5) << i.first << ' ' << i.second << '\t';
     std::cout << '\n';
   } else {
-    // calculate minium and its location and send result to rank 0
+    // calculate minimum and its location and send result to rank 0
     comm_world.reduce(mpl::min<pair_t>(), root, v.data(), layout);
     // send data to rank 0 for display
     comm_world.send(v.data(), layout, root);

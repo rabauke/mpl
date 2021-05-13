@@ -65,10 +65,10 @@ int main() {
   // grid lengths and grid spacings
   double l_x = 1.5, l_y = 1, dx = l_x / (Nx + 1), dy = l_y / (Ny + 1);
   // distributed grids that hold each processor's subgrid plus one row and
-  // one collumn  of neighboring data
+  // one column  of neighboring data
   mpl::distributed_grid<2, double> u_d1(comm_c, {{Nx, 1}, {Ny, 1}});
   mpl::distributed_grid<2, double> u_d2(comm_c, {{Nx, 1}, {Ny, 1}});
-  // rank 0 inializes with some random data
+  // rank 0 initializes with some random data
   if (comm_c.rank() == 0) {
     // local grid to store the whole set of inner grid points
     mpl::local_grid<2, double> u(comm_c, {Nx, Ny});
@@ -79,7 +79,7 @@ int main() {
     scatter(comm_c, 0, u, u_d1);
   } else
     scatter(comm_c, 0, u_d1);
-  // initiallize boundary data, loop with obegin and oend over all
+  // initialize boundary data, loop with obegin and oend over all
   // data including the overlap, initialize if local border is global border
   for (auto j : {u_d1.obegin(1), u_d1.oend(1) - 1})
     for (auto i = u_d1.obegin(0), i_end = u_d1.oend(0); i < i_end; ++i) {

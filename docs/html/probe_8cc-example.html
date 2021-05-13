@@ -124,11 +124,11 @@ $(document).ready(function(){initNavTree('probe_8cc-example.html',''); initResiz
 <div class="line">    <span class="comment">// decode the number of elements, the source and the tag</span></div>
 <div class="line">    <span class="keywordtype">int</span> n(s.get_count&lt;<span class="keywordtype">int</span>&gt;()), source(s.source());</div>
 <div class="line">    <a name="_a10"></a><a class="code" href="classmpl_1_1tag.html">mpl::tag</a> tag(s.tag());</div>
-<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;souce : &quot;</span> &lt;&lt; s.source() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
-<div class="line">              &lt;&lt; <span class="stringliteral">&quot;tag   : &quot;</span> &lt;&lt; s.tag() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
-<div class="line">              &lt;&lt; <span class="stringliteral">&quot;error : &quot;</span> &lt;&lt; s.error() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
-<div class="line">              &lt;&lt; <span class="stringliteral">&quot;count : &quot;</span> &lt;&lt; n &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
-<div class="line">    <span class="comment">// reserve sufficinet amount of memory to receive the message</span></div>
+<div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;source : &quot;</span> &lt;&lt; s.source() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot;tag    : &quot;</span> &lt;&lt; s.tag() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot;error  : &quot;</span> &lt;&lt; s.error() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
+<div class="line">              &lt;&lt; <span class="stringliteral">&quot;count  : &quot;</span> &lt;&lt; n &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line">    <span class="comment">// reserve sufficient amount of memory to receive the message</span></div>
 <div class="line">    std::vector&lt;int&gt; v(n);</div>
 <div class="line">    <a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);</div>
 <div class="line">    <span class="comment">// finally receive the message</span></div>
