@@ -23,18 +23,22 @@ namespace mpl {
       using insert_type = typename T::value_type;
     };
 
-    template<typename from_type, typename to_type>
-    struct is_narrowing {
-      static constexpr bool value = std::numeric_limits<from_type>::max() >
-                                    std::numeric_limits<to_type>::max();
-    };
+    template<typename from_type, typename to_type,
+             typename enable = std::enable_if_t<std::is_integral_v<from_type> and
+                                                std::is_integral_v<to_type>>>
+    struct is_narrowing
+        : public std::integral_constant<bool, (std::numeric_limits<from_type>::max() >
+                                               std::numeric_limits<to_type>::max())> {};
 
-    template<typename T, bool is_enum = std::is_enum<T>::value>
+    template<typename from_type, typename to_type>
+    inline constexpr bool is_narrowing_v = is_narrowing<from_type, to_type>::value;
+
+    template<typename T, bool is_enum = std::is_enum_v<T>>
     struct underlying_type;
 
     template<typename T>
     struct underlying_type<T, true> {
-      using type = typename std::underlying_type<T>::type;
+      using type = std::underlying_type_t<T>;
 
       static constexpr int value(const T &v) { return static_cast<int>(v); }
     };
@@ -47,25 +51,31 @@ namespace mpl {
     };
 
     template<typename T>
-    struct is_valid_tag {
-      static constexpr bool value =
-          (std::is_enum<T>::value) and
-          (not is_narrowing<typename underlying_type<T>::type, int>::value);
-    };
+    using underlying_type_t = typename underlying_type<T>::type;
 
     template<typename T>
-    struct is_valid_color {
-      static constexpr bool value =
-          (std::is_integral<T>::value or std::is_enum<T>::value) and
-          (not is_narrowing<typename underlying_type<T>::type, int>::value);
-    };
+    struct is_valid_tag
+        : public std::integral_constant<
+              bool, std::is_enum_v<T> and not is_narrowing_v<underlying_type_t<T>, int>> {};
 
     template<typename T>
-    struct is_valid_key {
-      static constexpr bool value =
-          (std::is_integral<T>::value or std::is_enum<T>::value) and
-          (not is_narrowing<typename underlying_type<T>::type, int>::value);
-    };
+    inline constexpr bool is_valid_tag_v = is_valid_tag<T>::value;
+
+    template<typename T>
+    struct is_valid_color
+        : public std::integral_constant<
+              bool, (std::is_integral_v<T> or std::is_enum_v<T>) and not is_narrowing_v<underlying_type_t<T>, int>> {};
+
+    template<typename T>
+    inline constexpr bool is_valid_color_v = is_valid_color<T>::value;
+
+    template<typename T>
+    struct is_valid_key
+        : public std::integral_constant<
+              bool, (std::is_integral_v<T> or std::is_enum_v<T>) and not is_narrowing_v<underlying_type_t<T>, int>> {};
+
+    template<typename T>
+    inline constexpr bool is_valid_key_v = is_valid_key<T>::value;
 
     //------------------------------------------------------------------
 
@@ -74,25 +84,28 @@ namespace mpl {
 
     template<typename T>
     struct is_contiguous_iterator<
-        T, typename std::enable_if<std::is_same<
-               T, typename std::vector<typename T::value_type>::iterator>::value>::type>
+        T, std::enable_if_t<
+               std::is_same_v<T, typename std::vector<typename T::value_type>::iterator>>>
         : public std::true_type {};
 
     template<typename T>
     struct is_contiguous_iterator<
-        T, typename std::enable_if<std::is_same<
-               T, typename std::vector<typename T::value_type>::const_iterator>::value>::type>
+        T, std::enable_if_t<
+               std::is_same_v<T, typename std::vector<typename T::value_type>::const_iterator>>>
         : public std::true_type {};
 
     template<typename T>
     struct is_contiguous_iterator<
-        T, typename std::enable_if<std::is_same<
-               T, typename std::basic_string<typename T::value_type>::const_iterator>::value>::
-               type> : public std::true_type {};
+        T, std::enable_if_t<std::is_same_v<
+               T, typename std::basic_string<typename T::value_type>::const_iterator>>>
+        : public std::true_type {};
 
     template<typename T>
-    struct is_contiguous_iterator<T, typename std::enable_if<std::is_pointer<T>::value>::type>
+    struct is_contiguous_iterator<T, std::enable_if_t<std::is_pointer_v<T>>>
         : public std::true_type {};
+
+    template<typename T>
+    inline constexpr bool is_contiguous_iterator_v = is_contiguous_iterator<T>::value;
 
     //------------------------------------------------------------------
 
@@ -104,8 +117,11 @@ namespace mpl {
     template<typename T1, typename T2>
     struct remove_const_from_members<std::pair<T1, T2>> {
       using type =
-          std::pair<typename std::remove_const<T1>::type, typename std::remove_const<T2>::type>;
+          std::pair<std::remove_const_t<T1>, std::remove_const_t<T2>>;
     };
+
+    template<typename T>
+    using remove_const_from_members_t = typename remove_const_from_members<T>::type;
 
   }  // namespace detail
 

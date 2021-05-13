@@ -21,7 +21,7 @@ namespace mpl {
     /// \param t tag value
     template<typename T>
     tag(T t) : t(static_cast<int>(t)) {
-      static_assert(detail::is_valid_tag<T>::value,
+      static_assert(detail::is_valid_tag_v<T>,
                     "not an enumeration type or underlying enumeration type too large");
     }
 

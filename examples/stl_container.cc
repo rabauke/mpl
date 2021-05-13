@@ -72,8 +72,7 @@ void isend(const mpl::communicator &comm, const T &x) {
 // receive an stl container
 template<typename T>
 void recv(const mpl::communicator &comm) {
-  using value_type =
-      typename mpl::detail::remove_const_from_members<typename T::value_type>::type;
+  using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;
   T x;
   auto s = comm.recv(x, 0);
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
@@ -82,8 +81,7 @@ void recv(const mpl::communicator &comm) {
 // receive an stl container
 template<typename T>
 void irecv(const mpl::communicator &comm) {
-  using value_type =
-      typename mpl::detail::remove_const_from_members<typename T::value_type>::type;
+  using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;
   T x;
   mpl::irequest r{comm.irecv(x, 0)};
   mpl::status s{r.wait()};
