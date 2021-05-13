@@ -1,4 +1,5 @@
 <map id="mpl::impl::request_pool&lt; T &gt;" name="mpl::impl::request_pool&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,208,52"/>
+<area shape="rect" id="node1" title=" " alt="" coords="119,5,321,52"/>
 <area shape="rect" id="node2" href="$classmpl_1_1irequest__pool.html" title="Container for managing a list of non&#45;blocking communication requests." alt="" coords="5,100,208,147"/>
+<area shape="rect" id="node3" href="$classmpl_1_1prequest__pool.html" title="Container for managing a list of persisting communication requests." alt="" coords="232,100,435,147"/>
 </map>

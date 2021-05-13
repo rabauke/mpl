@@ -31,36 +31,90 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Represents a group of processes.
   class group {
     MPI_Group gr{MPI_GROUP_EMPTY};
 
   public:
+    /// \brief Group equality types.
     enum class equality_type {
-      ident = MPI_IDENT,
+      /// groups are identical, i.e., groups have same the members in same order
+      identical = MPI_IDENT,
+      /// groups are similar, i.e., groups have same tha members in different order
       similar = MPI_SIMILAR,
+      /// groups are unequal, i.e., have different sets of members
       unequal = MPI_UNEQUAL
     };
 
-    class Union {};
+    /// \brief Indicates the creation of a union of two groups.
+    class Union_tag {};
+    /// \brief Indicates the creation of a union of two groups.
+    static inline Union_tag Union;
 
-    class intersection {};
+    /// \brief Indicates the creation of an intersection of two groups.
+    class intersection_tag {};
+    /// \brief Indicates the creation of an intersection of two groups.
+    static inline intersection_tag intersection;
 
-    class difference {};
+    /// \brief Indicates the creation of a difference of two groups.
+    class difference_tag {};
+    /// \brief Indicates the creation of a difference of two groups.
+    static inline difference_tag difference;
 
-    class incl {};
+    /// \brief Indicates the creation of a subgroup by including members of an existing group.
+    class include_tag {};
+    /// \brief Indicates the creation of a subgroup by including members of an existing group.
+    static inline include_tag include;
 
-    class excl {};
+    /// \brief Indicates the creation of a subgroup by excluding members of an existing group.
+    class exclude_tag {};
+    /// \brief Indicates the creation of a subgroup by excluding members of an existing group.
+    static inline exclude_tag exclude;
 
+    /// \brief Creates an empty group.
     group() = default;
 
-    explicit group(const communicator &comm);  // define later
+    /// \brief Creates a new group that consists of all processes of the given communicator.
+    /// \param comm the communicator
+    explicit group(const communicator &comm);
+
+    /// \brief Move-constructs a process group.
+    /// \param other the other group to move from
     group(group &&other) noexcept : gr{other.gr} { other.gr = MPI_GROUP_EMPTY; }
 
-    explicit group(Union, const group &other_1, const group &other_2);         // define later
-    explicit group(intersection, const group &other_1, const group &other_2);  // define later
-    explicit group(difference, const group &other_1, const group &other_2);    // define later
-    explicit group(incl, const group &other, const ranks &rank);               // define later
-    explicit group(excl, const group &other, const ranks &rank);               // define later
+    /// \brief Creates a new group that consists of the union of two existing process groups.
+    /// \param tag indicates the unification of two existing process groups
+    /// \param other_1 first existing process group
+    /// \param other_2 second existing process group
+    explicit group(Union_tag, const group &other_1, const group &other_2);
+
+    /// \brief Creates a new group that consists of the intersection of two existing process
+    /// groups.
+    /// \param tag indicates the intersection of two existing process groups
+    /// \param other_1 first existing process group
+    /// \param other_2 second existing process group
+    explicit group(intersection_tag tag, const group &other_1, const group &other_2);
+
+    /// \brief Creates a new group that consists of the difference of two existing process
+    /// groups.
+    /// \param tag indicates the difference of two existing process groups
+    /// \param other_1 first existing process group
+    /// \param other_2 second existing process group
+    explicit group(difference_tag, const group &other_1, const group &other_2);
+
+    /// \brief Creates a new group by including members of an existing process group.
+    /// \param tag indicates inclusion from an existing process group
+    /// \param other existing process group
+    /// \param ranks set of ranks to include
+    explicit group(include_tag, const group &other, const ranks &rank);
+
+    /// \brief Creates a new group by excluding members of an existing process group.
+    /// \param tag indicates exclusion from an existing process group
+    /// \param other existing process group
+    /// \param ranks set of ranks to exclude
+    explicit group(exclude_tag, const group &other, const ranks &rank);
+
+    /// \brief Destructs a process group.
     ~group() {
       int result;
       MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
@@ -68,8 +122,9 @@ namespace mpl {
         MPI_Group_free(&gr);
     }
 
-    void operator=(const group &) = delete;
-
+    /// \brief Move-assigns a process group.
+    /// \param other the other group to move from
+    /// \return this group
     group &operator=(group &&other) noexcept {
       if (this != &other) {
         int result;
@@ -82,24 +137,36 @@ namespace mpl {
       return *this;
     }
 
+    /// \brief Determines the size of a process group.
+    /// \return the size of the group
     int size() const {
       int result;
       MPI_Group_size(gr, &result);
       return result;
     }
 
+    /// \brief Determines the rank within a process group.
+    /// \return the rank of the calling process in the group
     int rank() const {
       int result;
       MPI_Group_rank(gr, &result);
       return result;
     }
 
+    /// \brief Determines the relative numbering of the same process in two different groups.
+    /// \param rank a valid rank in the given process group
+    /// \param other process group
+    /// \return corresponding rank in this process group
     int translate(int rank, const group &other) const {
       int other_rank;
       MPI_Group_translate_ranks(gr, 1, &rank, other.gr, &other_rank);
       return other_rank;
     }
 
+    /// \brief Determines the relative numbering of the same process in two different groups.
+    /// \param rank a set valid ranks in the given process group
+    /// \param other process group
+    /// \return corresponding ranks in this process group
     ranks translate(const ranks &rank, const group &other) const {
       ranks other_rank;
       MPI_Group_translate_ranks(gr, static_cast<int>(rank.size()), rank(), other.gr,
@@ -107,18 +174,24 @@ namespace mpl {
       return other_rank;
     }
 
+    /// \brief Tests for identity of process groups.
+    /// \return true if identical
     bool operator==(const group &other) const {
       int result;
       MPI_Group_compare(gr, other.gr, &result);
       return result == MPI_IDENT;
     }
 
+    /// \brief Tests for identity of process groups.
+    /// \return true if not identical
     bool operator!=(const group &other) const {
       int result;
       MPI_Group_compare(gr, other.gr, &result);
       return result != MPI_IDENT;
     }
 
+    /// \brief Compares to another process group.
+    /// \return equality type
     equality_type compare(const group &other) const {
       int result;
       MPI_Group_compare(gr, other.gr, &result);
@@ -2393,23 +2466,23 @@ namespace mpl {
 
   inline group::group(const communicator &comm) { MPI_Comm_group(comm.comm, &gr); }
 
-  inline group::group(group::Union, const group &other_1, const group &other_2) {
+  inline group::group(group::Union_tag, const group &other_1, const group &other_2) {
     MPI_Group_union(other_1.gr, other_2.gr, &gr);
   }
 
-  inline group::group(group::intersection, const group &other_1, const group &other_2) {
+  inline group::group(group::intersection_tag, const group &other_1, const group &other_2) {
     MPI_Group_intersection(other_1.gr, other_2.gr, &gr);
   }
 
-  inline group::group(group::difference, const group &other_1, const group &other_2) {
+  inline group::group(group::difference_tag, const group &other_1, const group &other_2) {
     MPI_Group_difference(other_1.gr, other_2.gr, &gr);
   }
 
-  inline group::group(group::incl, const group &other, const ranks &rank) {
+  inline group::group(group::include_tag, const group &other, const ranks &rank) {
     MPI_Group_incl(other.gr, rank.size(), rank(), &gr);
   }
 
-  inline group::group(group::excl, const group &other, const ranks &rank) {
+  inline group::group(group::exclude_tag, const group &other, const ranks &rank) {
     MPI_Group_excl(other.gr, rank.size(), rank(), &gr);
   }
 

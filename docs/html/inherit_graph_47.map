@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1impl_1_1request__pool.html" title=" " alt="" coords="5,5,208,52"/>
-<area shape="rect" id="node2" href="$classmpl_1_1irequest__pool.html" title="Container for managing a list of non&#45;blocking communication requests." alt="" coords="256,14,459,43"/>
+<area shape="rect" id="node1" href="$classmpl_1_1impl_1_1request__pool.html" title=" " alt="" coords="5,23,208,70"/>
+<area shape="rect" id="node2" href="$classmpl_1_1irequest__pool.html" title="Container for managing a list of non&#45;blocking communication requests." alt="" coords="256,5,459,35"/>
+<area shape="rect" id="node3" href="$classmpl_1_1prequest__pool.html" title="Container for managing a list of persisting communication requests." alt="" coords="256,59,459,88"/>
 </map>

@@ -105,7 +105,8 @@ $(document).ready(function(){initNavTree('parallel_sort_mpi_8c-example.html','')
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> <span class="keywordtype">int</span> cmp_double(<span class="keyword">const</span> <span class="keywordtype">void</span> *p1_, <span class="keyword">const</span> <span class="keywordtype">void</span> *p2_) {</div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> <span class="keyword">const</span> *p1 = p1_, *p2 = p2_;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> *<span class="keyword">const</span> p1 = p1_;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> *<span class="keyword">const</span> p2 = p2_;</div>
 <div class="line">  <span class="keywordflow">return</span> (*p1 == *p2) ? 0 : (*p1 &lt; *p2 ? -1 : 1);</div>
 <div class="line">}</div>
 <div class="line"> </div>

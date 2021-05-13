@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line">  <span class="keyword">auto</span> print_element = [&amp;](<span class="keyword">auto</span> i, <span class="keyword">auto</span> a) -&gt; <span class="keywordtype">void</span> {</div>
 <div class="line">    out &lt;&lt; a &lt;&lt; (i + 1 &lt; is_.size() ? <span class="stringliteral">&quot;,&quot;</span> : <span class="stringliteral">&quot;&quot;</span>);</div>
 <div class="line">  };</div>
-<div class="line">  std::initializer_list&lt;int&gt;{(print_element(is, std::get&lt;is&gt;(t)), 0)...};</div>
+<div class="line">  std::initializer_list&lt;int&gt; _{(print_element(is, std::get&lt;is&gt;(t)), 0)...};</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of a tuple</span></div>
@@ -130,13 +130,11 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="charliteral">&#39;)&#39;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#if __cplusplus &gt;= 201703L</span></div>
 <div class="line"><span class="comment">// print a byte</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr&gt;</div>
 <div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> std::byte &amp;t) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; std::to_integer&lt;int&gt;(t);</div>
 <div class="line">}</div>
-<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// send some item of a standard type</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
@@ -201,10 +199,8 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t20);</div>
 <div class="line">    std::array&lt;int, 4&gt; t21{1, 2, 3, 4};</div>
 <div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t21);</div>
-<div class="line"><span class="preprocessor">#if __cplusplus &gt;= 201703L</span></div>
 <div class="line">    std::byte t22{255};</div>
 <div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t22);</div>
-<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// process 1 recieves</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
@@ -229,9 +225,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line">    recv&lt;std::pair&lt;int, double&gt;&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
 <div class="line">    recv&lt;std::tuple&lt;int, std::complex&lt;double&gt;&gt;&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
 <div class="line">    recv&lt;std::array&lt;int, 4&gt;&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
-<div class="line"><span class="preprocessor">#if __cplusplus &gt;= 201703L</span></div>
 <div class="line">    recv&lt;std::byte&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
-<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
 <div class="line">}</div>
@@ -240,11 +234,11 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="ttc" id="anamespacempl_html_a448fea066aa1780bcbeb1a1f975827aa"><div class="ttname"><a href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00063">tag.hpp:63</a></div></div>
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
 <div class="ttc" id="ampl_8hpp_html"><div class="ttname"><a href="mpl_8hpp.html">mpl.hpp</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00339">comm_group.hpp:339</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html_abe1bd8f32c690ee7a31456da2c437bdf"><div class="ttname"><a href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">mpl::communicator::size</a></div><div class="ttdeci">int size() const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00333">comm_group.hpp:333</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00412">comm_group.hpp:412</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html_abe1bd8f32c690ee7a31456da2c437bdf"><div class="ttname"><a href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">mpl::communicator::size</a></div><div class="ttdeci">int size() const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00406">comm_group.hpp:406</a></div></div>
 <div class="ttc" id="anamespacempl_html_a3cd70ef6c91cacaf9265de4c9dd93ddf"><div class="ttname"><a href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">mpl::size_t</a></div><div class="ttdeci">std::size_t size_t</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00036">mpl.hpp:36</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html_a27f12a9cb7b591f63db98cf7a2b32cfe"><div class="ttname"><a href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">mpl::communicator::abort</a></div><div class="ttdeci">void abort(int err) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00365">comm_group.hpp:365</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html"><div class="ttname"><a href="classmpl_1_1communicator.html">mpl::communicator</a></div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00133">comm_group.hpp:133</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html_a27f12a9cb7b591f63db98cf7a2b32cfe"><div class="ttname"><a href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">mpl::communicator::abort</a></div><div class="ttdeci">void abort(int err) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00438">comm_group.hpp:438</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html"><div class="ttname"><a href="classmpl_1_1communicator.html">mpl::communicator</a></div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00206">comm_group.hpp:206</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

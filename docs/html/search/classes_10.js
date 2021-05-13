@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['union_589',['Union',['../classmpl_1_1group_1_1_union.html',1,'mpl::group']]]
+  ['union_5ftag_595',['Union_tag',['../classmpl_1_1group_1_1_union__tag.html',1,'mpl::group']]]
 ];
