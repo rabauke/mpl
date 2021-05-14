@@ -88,6 +88,24 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="contents">
 <div class="textblock"><p>MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.0 it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
 <p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. Its focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface and would like to utilize it via a more user-friendly interface.</p>
+<h1>Supported features</h1>
+<p>The Message Passing Library gives currently access via a convinient C++ interface to the following features of the Message Passing Interface standard:</p>
+<ul>
+<li>environmental management (implicit initialization and finalization, timers, but no error handlig).</li>
+<li>point-to-point communication (blocking and non-blocking),</li>
+<li>collective communication (blocking and non-blocking),</li>
+<li>derived data types (happens automatically for many custom datatypes or via the <code>base_struct_builder</code> helper class and the layout classes of MPL),</li>
+<li>communicator- and group-management and</li>
+<li>process topolgies (cartesian and graph topologies),</li>
+</ul>
+<p>Currently, the following MPI features are not yet suppoted by MPL:</p>
+<ul>
+<li>error handling,</li>
+<li>process creation and management,</li>
+<li>one-sided communication and</li>
+<li>I/O.</li>
+</ul>
+<p>MPL assumes that the underlaying MPI implementation supports the <a href="https://www.mpi-forum.org/docs/">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the upcoming version 4.0 or later MPI versions.</p>
 <h1>Installation</h1>
 <p>MPL is built on MPI. An MPI implementation needs to be installed as a prerequisite, e.g., <a href="https://www.open-mpi.org/">Open MPI</a> or <a href="https://www.mpich.org/">MPICH</a>. As MPL is a header-only library, it suffices to download the <a href="https://github.com/rabauke/mpl">source</a> and copy the <code>mpl</code> directory, which contains all header files to a place, where the compiler will find it, e.g., <code>/usr/local/include</code> on a typical Unix/Linux system. <br  />
 </p>

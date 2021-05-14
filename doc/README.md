@@ -14,6 +14,31 @@ least some basic knowledge of the Message Passing Interface and would like to
 utilize it via a more user-friendly interface. 
 
 
+## Supported features
+
+The Message Passing Library gives currently access via a convinient C++ 
+interface to the following features of the Message Passing Interface standard:
+
+* environmental management (implicit initialization and finalization, timers, but no error handlig).
+* point-to-point communication (blocking and non-blocking),
+* collective communication (blocking and non-blocking),
+* derived data types (happens automatically for many custom datatypes or via the `base_struct_builder` helper class and the layout classes of MPL),
+* communicator- and group-management and
+* process topolgies (cartesian and graph topologies),
+
+Currently, the following MPI features are not yet suppoted by MPL:
+
+* error handling,
+* process creation and management,
+* one-sided communication and
+* I/O.
+
+MPL assumes that the underlaying MPI implementation supports the 
+[version 3.1](https://www.mpi-forum.org/docs/) of the Message Passing 
+Interface standard.  Future versions of MPL may also employ features of 
+the upcoming version 4.0 or later MPI versions.
+
+
 ## Installation
 
 MPL is built on MPI.  An MPI implementation needs to be installed as a 
