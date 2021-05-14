@@ -10,7 +10,7 @@ const double L = 1, c = 1, dt = 0.001, t_end = 2.4;
 enum { left_copy, right_copy };
 
 // update string elongation
-void string(double *u, double *u_old, double *u_new, int N, double eps) {
+void string(const double *u, const double *u_old, double *u_new, int N, double eps) {
   u_new[0] = u[0];
   for (int i = 1; i < N - 1; ++i)
     u_new[i] = eps * (u[i - 1] + u[i + 1]) + 2.0 * (1.0 - eps) * u[i] - u_old[i];

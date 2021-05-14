@@ -92,13 +92,13 @@ int main() {
     send(comm_world, t11);
     bool t12 = true;
     send(comm_world, t12);
-    float t13 = 1.2345;
+    float t13 = 1.2345f;
     send(comm_world, t13);
     double t14 = 2.3456;
     send(comm_world, t14);
     long double t15 = 3.4567;
     send(comm_world, t15);
-    std::complex<float> t16(1.2, -1.2);
+    std::complex<float> t16(1.2f, -1.2f);
     send(comm_world, t16);
     std::complex<double> t17(2.3, -2.3);
     send(comm_world, t17);
