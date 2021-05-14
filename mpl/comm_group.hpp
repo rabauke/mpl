@@ -38,49 +38,60 @@ namespace mpl {
   public:
     /// \brief Group equality types.
     enum class equality_type {
-      /// groups are identical, i.e., groups have same the members in same order
+      /// groups are identical, i.e., groups have same the members in same rank order
       identical = MPI_IDENT,
-      /// groups are similar, i.e., groups have same tha members in different order
+      /// groups are similar, i.e., groups have same tha members in different rank order
       similar = MPI_SIMILAR,
-      /// groups are unequal, i.e., have different sets of members
+      /// groups are unequal, i.e., groups have different sets of members
       unequal = MPI_UNEQUAL
     };
+
+    /// indicates that groups are identical, i.e., groups have same the members in same rank order
+    static constexpr equality_type identical = equality_type::identical;
+    /// indicates that groups are similar, i.e., groups have same tha members in different rank order
+    static constexpr equality_type similar = equality_type::similar;
+    /// indicates that groups are unequal, i.e., groups have different sets of members
+    static constexpr equality_type unequal = equality_type::unequal;
 
     /// \brief Indicates the creation of a union of two groups.
     class Union_tag {};
     /// \brief Indicates the creation of a union of two groups.
-    static inline Union_tag Union;
+    static constexpr Union_tag Union{};
 
     /// \brief Indicates the creation of an intersection of two groups.
     class intersection_tag {};
     /// \brief Indicates the creation of an intersection of two groups.
-    static inline intersection_tag intersection;
+    static constexpr intersection_tag intersection{};
 
     /// \brief Indicates the creation of a difference of two groups.
     class difference_tag {};
     /// \brief Indicates the creation of a difference of two groups.
-    static inline difference_tag difference;
+    static constexpr difference_tag difference{};
 
     /// \brief Indicates the creation of a subgroup by including members of an existing group.
     class include_tag {};
     /// \brief Indicates the creation of a subgroup by including members of an existing group.
-    static inline include_tag include;
+    static constexpr include_tag include{};
 
     /// \brief Indicates the creation of a subgroup by excluding members of an existing group.
     class exclude_tag {};
     /// \brief Indicates the creation of a subgroup by excluding members of an existing group.
-    static inline exclude_tag exclude;
+    static constexpr exclude_tag exclude{};
 
-    /// \brief Creates an empty group.
+    /// \brief Creates an empty process group.
     group() = default;
 
-    /// \brief Creates a new group that consists of all processes of the given communicator.
-    /// \param comm the communicator
-    explicit group(const communicator &comm);
+    /// \brief Creates a new process group by copying an existing one.
+    /// \note Deleted constructor. Process groups cannot be copied, just moved.
+    group(const group &) = delete;
 
     /// \brief Move-constructs a process group.
     /// \param other the other group to move from
     group(group &&other) noexcept : gr{other.gr} { other.gr = MPI_GROUP_EMPTY; }
+
+    /// \brief Creates a new group that consists of all processes of the given communicator.
+    /// \param comm the communicator
+    explicit group(const communicator &comm);
 
     /// \brief Creates a new group that consists of the union of two existing process groups.
     /// \param tag indicates the unification of two existing process groups
@@ -121,6 +132,10 @@ namespace mpl {
       if (result != MPI_IDENT)
         MPI_Group_free(&gr);
     }
+
+    /// \brief Copy-assigns a process group.
+    /// \note Deleted assignment operator. Process groups cannot be copied, just moved.
+    void operator=(const group &) = delete;
 
     /// \brief Move-assigns a process group.
     /// \param other the other group to move from

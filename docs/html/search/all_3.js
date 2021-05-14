@@ -7,7 +7,7 @@ var searchData=
   ['datatype_5ftraits_5fimpl_3c_20t_2c_20void_20_3e_65',['datatype_traits_impl&lt; T, void &gt;',['../classmpl_1_1base__struct__builder.html#adff83dea1d51c8281fbf5ca3717206fa',1,'mpl::base_struct_builder']]],
   ['dest_66',['dest',['../structmpl_1_1shift__ranks.html#a48cd0e542bdfb70b779e9267b5043f55',1,'mpl::shift_ranks']]],
   ['dest_5fset_67',['dest_set',['../classmpl_1_1dist__graph__communicator_1_1dest__set.html',1,'mpl::dist_graph_communicator']]],
-  ['difference_68',['difference',['../classmpl_1_1group.html#a9c224e1d1a0560b7adf2c9cf3b7a9800',1,'mpl::group']]],
+  ['difference_68',['difference',['../classmpl_1_1group.html#a4990d6c5ee84cc8640d88a26e2bdc480',1,'mpl::group']]],
   ['difference_5ftag_69',['difference_tag',['../classmpl_1_1group_1_1difference__tag.html',1,'mpl::group']]],
   ['difference_5ftype_70',['difference_type',['../classmpl_1_1distributed__grid.html#aef0dc237dc10dbb89f77b95dafa860e0',1,'mpl::distributed_grid::difference_type()'],['../classmpl_1_1local__grid.html#ae475f7494bbd3986b2850906ea360b6d',1,'mpl::local_grid::difference_type()']]],
   ['dim_71',['dim',['../classmpl_1_1cart__communicator.html#a87fd240ec4c59b71d6e72a651dd6187b',1,'mpl::cart_communicator']]],
