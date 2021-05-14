@@ -296,18 +296,15 @@ namespace mpl {
     public:
       using functor = F;
       using signature = get_signature<functor>;
-      using first_argument_type = typename std::decay<get_first_argument_type<signature>>::type;
-      using second_argument_type =
-          typename std::decay<get_second_argument_type<signature>>::type;
-      using result_type = typename std::decay<get_result_type<signature>>::type;
+      using first_argument_type = std::decay_t<get_first_argument_type<signature>>;
+      using second_argument_type = std::decay_t<get_second_argument_type<signature>>;
+      using result_type = std::decay_t<get_result_type<signature>>;
       static_assert(
-          std::is_assignable<typename std::add_lvalue_reference<first_argument_type>::type,
-                             T>::value and
-              std::is_assignable<typename std::add_lvalue_reference<second_argument_type>::type,
-                                 T>::value and
-              std::is_assignable<T &, result_type>::value,
+          std::is_assignable_v<std::add_lvalue_reference_t<first_argument_type>, T> and
+              std::is_assignable_v<std::add_lvalue_reference_t<second_argument_type>, T> and
+              std::is_assignable_v<T &, result_type>,
           "argument type mismatch");
-      static_assert(!std::is_pointer<F>::value, "functor must not be function pointer");
+      static_assert(not std::is_pointer_v<F>, "functor must not be function pointer");
 
       static constexpr bool is_commutative = op_traits<functor>::is_commutative;
       static std::unique_ptr<functor> f;
