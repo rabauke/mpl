@@ -3,7 +3,7 @@ var classmpl_1_1graph__communicator =
     [ "edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", "classmpl_1_1graph__communicator_1_1edge__set" ],
     [ "node_list", "classmpl_1_1graph__communicator_1_1node__list.html", "classmpl_1_1graph__communicator_1_1node__list" ],
     [ "equality_type", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63", [
-      [ "ident", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63a67217d8b401cf5e72bbf5103d60f3e97", null ],
+      [ "identical", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63aee0cbdbacdada19376449799774976e8", null ],
       [ "congruent", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63aecf9c13ef0ea0b37562355d0c5f982ac", null ],
       [ "similar", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703", null ],
       [ "unequal", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29", null ]

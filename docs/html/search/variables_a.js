@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['undefined_840',['undefined',['../namespacempl.html#a551ed45948e628d93f6669b4cb01e750',1,'mpl']]],
-  ['unequal_841',['unequal',['../classmpl_1_1group.html#a1d1766424b26d5f157ff02a0044aaafd',1,'mpl::group::unequal()'],['../classmpl_1_1communicator.html#a10097f544da37d6c9c73606409ed151a',1,'mpl::communicator::unequal()']]],
-  ['union_842',['Union',['../classmpl_1_1group.html#a048489f7dcb5dfd61ed0d874dabeb4c7',1,'mpl::group']]]
+  ['similar_842',['similar',['../classmpl_1_1group.html#a0611c7cf397e6b98529ed9596b2c62f6',1,'mpl::group::similar()'],['../classmpl_1_1communicator.html#abe7076a9aaa13cb078e700c0cb616f3f',1,'mpl::communicator::similar()']]],
+  ['source_843',['source',['../structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b',1,'mpl::shift_ranks']]],
+  ['split_844',['split',['../classmpl_1_1communicator.html#a8b95f2880fc6fb1b32fe5896f9af15a9',1,'mpl::communicator']]],
+  ['split_5fshared_5fmemory_845',['split_shared_memory',['../classmpl_1_1communicator.html#ad2c339d4e6a55d6f5d1c9c030a5175a3',1,'mpl::communicator']]]
 ];

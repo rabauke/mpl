@@ -9,10 +9,10 @@ var files_dup =
       [ "include_tag", "classmpl_1_1group_1_1include__tag.html", null ],
       [ "exclude_tag", "classmpl_1_1group_1_1exclude__tag.html", null ],
       [ "communicator", "classmpl_1_1communicator.html", "classmpl_1_1communicator" ],
-      [ "comm_collective", "classmpl_1_1communicator_1_1comm__collective.html", null ],
-      [ "group_collective", "classmpl_1_1communicator_1_1group__collective.html", null ],
-      [ "split", "classmpl_1_1communicator_1_1split.html", null ],
-      [ "split_shared", "classmpl_1_1communicator_1_1split__shared.html", null ]
+      [ "comm_collective_tag", "classmpl_1_1communicator_1_1comm__collective__tag.html", null ],
+      [ "group_collective_tag", "classmpl_1_1communicator_1_1group__collective__tag.html", null ],
+      [ "split_tag", "classmpl_1_1communicator_1_1split__tag.html", null ],
+      [ "split_shared_memory_tag", "classmpl_1_1communicator_1_1split__shared__memory__tag.html", null ]
     ] ],
     [ "datatype.hpp", "datatype_8hpp.html", "datatype_8hpp" ],
     [ "displacements.hpp", "displacements_8hpp.html", [

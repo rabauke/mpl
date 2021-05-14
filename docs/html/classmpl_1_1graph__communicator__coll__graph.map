@@ -1,5 +1,9 @@
 <map id="mpl::graph_communicator" name="mpl::graph_communicator">
-<area shape="rect" id="node1" title=" " alt="" coords="41,160,293,189"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,83,328,112"/>
-<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title=" " alt="" coords="71,5,263,35"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1120,121,1372,150"/>
+<area shape="rect" id="node2" title=" " alt="" coords="748,121,1071,150"/>
+<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="507,121,699,150"/>
+<area shape="rect" id="node4" href="$classmpl_1_1communicator_1_1split__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="25,5,237,52"/>
+<area shape="rect" id="node5" href="$classmpl_1_1communicator_1_1split__shared__memory__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="5,76,257,123"/>
+<area shape="rect" id="node6" href="$classmpl_1_1communicator_1_1group__collective__tag.html" title="Indicates the creation of a new communicator by a call that in collective for all processes in the gi..." alt="" coords="20,147,243,193"/>
+<area shape="rect" id="node7" href="$classmpl_1_1communicator_1_1comm__collective__tag.html" title="Indicates the creation of a new communicator by a call that in collective for all processes in the gi..." alt="" coords="25,217,237,264"/>
 </map>

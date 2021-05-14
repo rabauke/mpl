@@ -24,7 +24,7 @@ bool communicator_comm_world_test() {
   if (comm_world.size() > 1 and comm_self.compare(comm_world) != mpl::communicator::unequal)
     return false;
   if (size > 1) {
-    mpl::communicator comm_new{mpl::communicator::split(), comm_world, rank % 2 == 0};
+    mpl::communicator comm_new{mpl::communicator::split, comm_world, rank % 2 == 0};
     if (comm_world.size() % 2 == 0) {
       if (comm_new.size() != size / 2)
         return false;

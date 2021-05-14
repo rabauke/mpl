@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['graph_5fcommunicator_514',['graph_communicator',['../classmpl_1_1graph__communicator.html',1,'mpl']]],
-  ['group_515',['group',['../classmpl_1_1group.html',1,'mpl']]],
-  ['group_5fcollective_516',['group_collective',['../classmpl_1_1communicator_1_1group__collective.html',1,'mpl::communicator']]]
+  ['graph_5fcommunicator_517',['graph_communicator',['../classmpl_1_1graph__communicator.html',1,'mpl']]],
+  ['group_518',['group',['../classmpl_1_1group.html',1,'mpl']]],
+  ['group_5fcollective_5ftag_519',['group_collective_tag',['../classmpl_1_1communicator_1_1group__collective__tag.html',1,'mpl::communicator']]]
 ];

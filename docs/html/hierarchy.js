@@ -29,7 +29,7 @@ var hierarchy =
     [ "mpl::bit_or< T >", "structmpl_1_1bit__or.html", null ],
     [ "mpl::bit_xor< T >", "structmpl_1_1bit__xor.html", null ],
     [ "mpl::bsend_buffer< A >", "classmpl_1_1bsend__buffer.html", null ],
-    [ "mpl::communicator::comm_collective", "classmpl_1_1communicator_1_1comm__collective.html", null ],
+    [ "mpl::communicator::comm_collective_tag", "classmpl_1_1communicator_1_1comm__collective__tag.html", null ],
     [ "mpl::communicator", "classmpl_1_1communicator.html", [
       [ "mpl::detail::topo_communicator", null, [
         [ "mpl::cart_communicator", "classmpl_1_1cart__communicator.html", null ],
@@ -56,7 +56,7 @@ var hierarchy =
     ] ],
     [ "mpl::group::exclude_tag", "classmpl_1_1group_1_1exclude__tag.html", null ],
     [ "mpl::group", "classmpl_1_1group.html", null ],
-    [ "mpl::communicator::group_collective", "classmpl_1_1communicator_1_1group__collective.html", null ],
+    [ "mpl::communicator::group_collective_tag", "classmpl_1_1communicator_1_1group__collective__tag.html", null ],
     [ "mpl::hindexed_block_layout< T >", "classmpl_1_1hindexed__block__layout.html", null ],
     [ "mpl::hindexed_layout< T >", "classmpl_1_1hindexed__layout.html", null ],
     [ "mpl::group::include_tag", "classmpl_1_1group_1_1include__tag.html", null ],
@@ -122,8 +122,8 @@ var hierarchy =
     [ "mpl::cart_communicator::sizes", "classmpl_1_1cart__communicator_1_1sizes.html", null ],
     [ "mpl::distributed_grid< dim, T, A >::sizes", "classmpl_1_1distributed__grid_1_1sizes.html", null ],
     [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
-    [ "mpl::communicator::split", "classmpl_1_1communicator_1_1split.html", null ],
-    [ "mpl::communicator::split_shared", "classmpl_1_1communicator_1_1split__shared.html", null ],
+    [ "mpl::communicator::split_shared_memory_tag", "classmpl_1_1communicator_1_1split__shared__memory__tag.html", null ],
+    [ "mpl::communicator::split_tag", "classmpl_1_1communicator_1_1split__tag.html", null ],
     [ "mpl::strided_vector_layout< T >", "classmpl_1_1strided__vector__layout.html", null ],
     [ "mpl::struct_builder< T >", "classmpl_1_1struct__builder.html", null ],
     [ "mpl::struct_layout< S >", "classmpl_1_1struct__layout.html", null ],

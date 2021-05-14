@@ -1,11 +1,11 @@
 var classmpl_1_1communicator =
 [
-    [ "comm_collective", "classmpl_1_1communicator_1_1comm__collective.html", null ],
-    [ "group_collective", "classmpl_1_1communicator_1_1group__collective.html", null ],
-    [ "split", "classmpl_1_1communicator_1_1split.html", null ],
-    [ "split_shared", "classmpl_1_1communicator_1_1split__shared.html", null ],
+    [ "comm_collective_tag", "classmpl_1_1communicator_1_1comm__collective__tag.html", null ],
+    [ "group_collective_tag", "classmpl_1_1communicator_1_1group__collective__tag.html", null ],
+    [ "split_shared_memory_tag", "classmpl_1_1communicator_1_1split__shared__memory__tag.html", null ],
+    [ "split_tag", "classmpl_1_1communicator_1_1split__tag.html", null ],
     [ "equality_type", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63", [
-      [ "ident", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a67217d8b401cf5e72bbf5103d60f3e97", null ],
+      [ "identical", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63aee0cbdbacdada19376449799774976e8", null ],
       [ "congruent", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63aecf9c13ef0ea0b37562355d0c5f982ac", null ],
       [ "similar", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703", null ],
       [ "unequal", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29", null ]
@@ -13,10 +13,10 @@ var classmpl_1_1communicator =
     [ "communicator", "classmpl_1_1communicator.html#ae8dcb108a058800f583f92d8bc2d369f", null ],
     [ "communicator", "classmpl_1_1communicator.html#aaedab51467a9eb38a2aeedb58e357e3d", null ],
     [ "communicator", "classmpl_1_1communicator.html#a61a0bccfa633febde368a29c749368bf", null ],
-    [ "communicator", "classmpl_1_1communicator.html#a9323f5f37cf9c9910bdfc82f8636635e", null ],
-    [ "communicator", "classmpl_1_1communicator.html#ae849181a404980ffbc9caaae08b81681", null ],
-    [ "communicator", "classmpl_1_1communicator.html#a6f30dcdcf8b578e1cd4861a438b4f582", null ],
-    [ "communicator", "classmpl_1_1communicator.html#a37f9c77d251ba5e9ffa5e19c4e0c36a9", null ],
+    [ "communicator", "classmpl_1_1communicator.html#ab082b5c443bf7db3fd803e723510d533", null ],
+    [ "communicator", "classmpl_1_1communicator.html#ad8d7378c15a1b22d91e4fe6761f8b6e9", null ],
+    [ "communicator", "classmpl_1_1communicator.html#aef00e3ea7dcd56ab1c5fca19222af822", null ],
+    [ "communicator", "classmpl_1_1communicator.html#a615ca7d0551e964ca92c2d6f246bb595", null ],
     [ "~communicator", "classmpl_1_1communicator.html#a47df48127ee7c1952d62832748b052cd", null ],
     [ "abort", "classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe", null ],
     [ "allgather", "classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344", null ],

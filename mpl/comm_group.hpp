@@ -46,9 +46,11 @@ namespace mpl {
       unequal = MPI_UNEQUAL
     };
 
-    /// indicates that groups are identical, i.e., groups have same the members in same rank order
+    /// indicates that groups are identical, i.e., groups have same the members in same rank
+    /// order
     static constexpr equality_type identical = equality_type::identical;
-    /// indicates that groups are similar, i.e., groups have same tha members in different rank order
+    /// indicates that groups are similar, i.e., groups have same tha members in different rank
+    /// order
     static constexpr equality_type similar = equality_type::similar;
     /// indicates that groups are unequal, i.e., groups have different sets of members
     static constexpr equality_type unequal = equality_type::unequal;
@@ -82,8 +84,8 @@ namespace mpl {
     group() = default;
 
     /// \brief Creates a new process group by copying an existing one.
-    /// \note Deleted constructor. Process groups cannot be copied, just moved.
-    group(const group &) = delete;
+    /// \param other the other group to copy from
+    group(const group &other);
 
     /// \brief Move-constructs a process group.
     /// \param other the other group to move from
@@ -134,8 +136,18 @@ namespace mpl {
     }
 
     /// \brief Copy-assigns a process group.
-    /// \note Deleted assignment operator. Process groups cannot be copied, just moved.
-    void operator=(const group &) = delete;
+    /// \param other the other group to move from
+    /// \return this group
+    group &operator=(const group &other) {
+      if (this != &other) {
+        int result;
+        MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+        if (result != MPI_IDENT)
+          MPI_Group_free(&gr);
+        MPI_Group_excl(other.gr, 0, nullptr, &gr);
+      }
+      return *this;
+    }
 
     /// \brief Move-assigns a process group.
     /// \param other the other group to move from
@@ -218,6 +230,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Specifies the communication context for a communication operation.
   class communicator {
     struct isend_irecv_state {
       MPI_Request req{};
@@ -248,25 +261,61 @@ namespace mpl {
     MPI_Comm comm{MPI_COMM_NULL};
 
   public:
+    /// \brief Equality types for communicator comparison.
     enum class equality_type {
-      ident = MPI_IDENT,
+      /// communicators are identical, i.e., communicators represent the same communication
+      /// context
+      identical = MPI_IDENT,
+      /// communicators are identical, i.e., communicators have same the members in same rank
+      /// order but different context
       congruent = MPI_CONGRUENT,
+      /// communicators are similar, i.e., communicators have same tha members in different rank
+      /// order
       similar = MPI_SIMILAR,
+      /// communicators are unequal, i.e., communicators have different sets of members
       unequal = MPI_UNEQUAL
     };
 
-    static constexpr equality_type ident = equality_type::ident;
+    /// indicates that communicators are identical, i.e., communicators represent the same
+    /// communication context
+    static constexpr equality_type identical = equality_type::identical;
+    /// indicates that communicators are identical, i.e., communicators have same the members in
+    /// same rank order but different context
     static constexpr equality_type congruent = equality_type::congruent;
+    /// indicates that communicators are similar, i.e., communicators have same tha members in
+    /// different rank order
     static constexpr equality_type similar = equality_type::similar;
+    /// indicates that communicators are unequal, i.e., communicators have different sets of
+    /// members
     static constexpr equality_type unequal = equality_type::unequal;
 
-    class comm_collective {};
+    /// \brief Indicates the creation of a new communicator by a call that in collective for all
+    /// processes in the given communicator.
+    class comm_collective_tag {};
+    /// \brief Indicates the creation of a new communicator by a call that in collective for all
+    /// processes in the given communicator.
+    static constexpr comm_collective_tag comm_collective{};
 
-    class group_collective {};
+    /// \brief Indicates the creation of a new communicator by a call that in collective for all
+    /// processes in the given group.
+    class group_collective_tag {};
+    /// \brief Indicates the creation of a new communicator by a call that in collective for all
+    /// processes in the given group.
+    static constexpr group_collective_tag group_collective{};
 
-    class split {};
+    /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+    /// into disjoint subgroups.
+    class split_tag {};
+    /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+    /// into disjoint subgroups.
+    static constexpr split_tag split{};
 
-    class split_shared {};
+    /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+    /// into disjoint subgroups each of which can create a shared memory region.
+    class split_shared_memory_tag {};
+    /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+    /// into disjoint subgroups each of which can create a shared memory region.
+    static constexpr split_shared_memory_tag split_shared_memory{};
 
   private:
     void check_dest(int dest) const {
@@ -355,25 +404,48 @@ namespace mpl {
     explicit communicator(MPI_Comm comm) : comm(comm) {}
 
   public:
+    /// \brief Creates an empty communicator with no associated process.
     communicator() = default;
 
+    /// \brief Creates a new communicator which is equivalent to an existing one.
+    /// \param other the other communicator to copy from
     communicator(const communicator &other) { MPI_Comm_dup(other.comm, &comm); }
 
+    /// \brief Move-constructs a communicator.
+    /// \param other the other communicator to move from
     communicator(communicator &&other) noexcept : comm{other.comm} {
       other.comm = MPI_COMM_NULL;
     }
 
-    explicit communicator(comm_collective, const communicator &other, const group &gr) {
+    /// \brief Constructs a new communicator from an existing one with a specified communication group.
+    /// \param comm_collective tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param gr the group that determines the new communicator's structure
+    /// \note This is a collective operation that needs to be carried out by all processes of the communicator other.
+    explicit communicator(comm_collective_tag comm_collective, const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm, gr.gr, &comm);
     }
 
-    explicit communicator(group_collective, const communicator &other, const group &gr,
+    /// \brief Constructs a new communicator from an existing one with a specified communication group.
+    /// \param group_collective tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param gr the group that determines the new communicator's structure
+    /// \param t tag to distinguish between different parallel operations in different threads
+    /// \note This is a collective operation that needs to be carried out by all processes of the given group.
+    explicit communicator(group_collective_tag group_collective, const communicator &other, const group &gr,
                           tag t = tag(0)) {
       MPI_Comm_create_group(other.comm, gr.gr, static_cast<int>(t), &comm);
     }
 
+    /// \brief Constructs a new communicator from an existing one with a specified communication group.
+    /// \param split tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param color control of subset assignment
+    /// \param key  control of rank assignment
+    /// \tparam color_type color type, must be integral type
+    /// \tparam key_type key type, must be integral type
     template<typename color_type, typename key_type = int>
-    explicit communicator(split, const communicator &other, color_type color,
+    explicit communicator(split_tag split, const communicator &other, color_type color,
                           key_type key = 0) {
       static_assert(detail::is_valid_color_v<color_type>,
                     "not an enumeration type or underlying enumeration type too large");
@@ -383,18 +455,26 @@ namespace mpl {
                      detail::underlying_type<key_type>::value(key), &comm);
     }
 
+    /// \brief Constructs a new communicator from an existing one by spitting the communicator into disjoint subgroups each of which can create a shared memory region.
+    /// \param split_shared_memory tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param key  control of rank assignment
+    /// \tparam color_type color type, must be integral type
     template<typename key_type = int>
-    explicit communicator(split_shared, const communicator &other, key_type key = 0) {
+    explicit communicator(split_shared_memory_tag split_shared_memory, const communicator &other,
+                          key_type key = 0) {
       static_assert(detail::is_valid_tag_v<key_type>,
                     "not an enumeration type or underlying enumeration type too large");
       MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED,
                           detail::underlying_type<key_type>::value(key), MPI_INFO_NULL, &comm);
     }
 
+    /// \brief Destructs a communicator.
     ~communicator() {
       if (is_valid()) {
-        int result1, result2;
+        int result1;
         MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+        int result2;
         MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
         if (result1 != MPI_IDENT and result2 != MPI_IDENT)
           MPI_Comm_free(&comm);
@@ -406,8 +486,9 @@ namespace mpl {
     communicator &operator=(communicator &&other) noexcept {
       if (this != &other) {
         if (is_valid()) {
-          int result1, result2;
+          int result1;
           MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+          int result2;
           MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
           if (result1 != MPI_IDENT and result2 != MPI_IDENT)
             MPI_Comm_free(&comm);
@@ -521,7 +602,7 @@ namespace mpl {
   private:
     template<typename T>
     impl::irequest isend(const T &data, int dest, tag t,
-                           detail::basic_or_fixed_size_type) const {
+                         detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Isend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
                 comm, &req);
@@ -2468,6 +2549,8 @@ namespace mpl {
   };  // namespace mpl
 
   //--------------------------------------------------------------------
+
+  inline group::group(const group &other) { MPI_Group_excl(other.gr, 0, nullptr, &gr); }
 
   inline group::group(const communicator &comm) { MPI_Comm_group(comm.comm, &gr); }
 
