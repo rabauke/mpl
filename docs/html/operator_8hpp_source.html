@@ -291,55 +291,52 @@ $(document).ready(function(){initNavTree('operator_8hpp_source.html',''); initRe
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;      <span class="keyword">using</span> functor = F;</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;      <span class="keyword">using</span> signature = get_signature&lt;functor&gt;;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;      <span class="keyword">using</span> first_argument_type = <span class="keyword">typename</span> std::decay&lt;get_first_argument_type&lt;signature&gt;&gt;::type;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      <span class="keyword">using</span> second_argument_type =</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;          <span class="keyword">typename</span> std::decay&lt;get_second_argument_type&lt;signature&gt;&gt;::type;</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      <span class="keyword">using</span> result_type = <span class="keyword">typename</span> std::decay&lt;get_result_type&lt;signature&gt;&gt;::type;</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;      static_assert(</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;          std::is_assignable&lt;<span class="keyword">typename</span> std::add_lvalue_reference&lt;first_argument_type&gt;::type,</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                             T&gt;::value and</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;              std::is_assignable&lt;<span class="keyword">typename</span> std::add_lvalue_reference&lt;second_argument_type&gt;::type,</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                                 T&gt;::value and</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;              std::is_assignable&lt;T &amp;, result_type&gt;::value,</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;          <span class="stringliteral">&quot;argument type mismatch&quot;</span>);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      static_assert(!std::is_pointer&lt;F&gt;::value, <span class="stringliteral">&quot;functor must not be function pointer&quot;</span>);</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;      <span class="keyword">using</span> first_argument_type = std::decay_t&lt;get_first_argument_type&lt;signature&gt;&gt;;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;      <span class="keyword">using</span> second_argument_type = std::decay_t&lt;get_second_argument_type&lt;signature&gt;&gt;;</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;      <span class="keyword">using</span> result_type = std::decay_t&lt;get_result_type&lt;signature&gt;&gt;;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;      static_assert(</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;          std::is_assignable_v&lt;std::add_lvalue_reference_t&lt;first_argument_type&gt;, T&gt; and</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;              std::is_assignable_v&lt;std::add_lvalue_reference_t&lt;second_argument_type&gt;, T&gt; and</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;              std::is_assignable_v&lt;T &amp;, result_type&gt;,</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;          <span class="stringliteral">&quot;argument type mismatch&quot;</span>);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;      static_assert(not std::is_pointer_v&lt;F&gt;, <span class="stringliteral">&quot;functor must not be function pointer&quot;</span>);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160; </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;      <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> is_commutative = <a class="code" href="structmpl_1_1op__traits.html#a24504be97499aae191b2850a712d40c0">op_traits&lt;functor&gt;::is_commutative</a>;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      <span class="keyword">static</span> std::unique_ptr&lt;functor&gt; f;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> is_commutative = <a class="code" href="structmpl_1_1op__traits.html#a24504be97499aae191b2850a712d40c0">op_traits&lt;functor&gt;::is_commutative</a>;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;      <span class="keyword">static</span> std::unique_ptr&lt;functor&gt; f;</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;      <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keywordtype">void</span> *invec, <span class="keywordtype">void</span> *inoutvec, <span class="keywordtype">int</span> *len, MPI_Datatype *datatype) {</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        T *i1 = <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(invec);</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        T *i2 = <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(inoutvec);</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}, i_end{*len}; i &lt; i_end; ++i, ++i1, ++i2)</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;          *i2 = (*f)(*i1, *i2);</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      }</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;      MPI_Op mpi_op{MPI_OP_NULL};</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160; </div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      <span class="keyword">explicit</span> op(F f_) {</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        f.reset(<span class="keyword">new</span> F(f_));</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;        MPI_Op_create(op::apply, is_commutative, &amp;mpi_op);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;      }</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keywordtype">void</span> *invec, <span class="keywordtype">void</span> *inoutvec, <span class="keywordtype">int</span> *len, MPI_Datatype *datatype) {</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        T *i1 = <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(invec);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        T *i2 = <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(inoutvec);</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}, i_end{*len}; i &lt; i_end; ++i, ++i1, ++i2)</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;          *i2 = (*f)(*i1, *i2);</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;      }</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;      MPI_Op mpi_op{MPI_OP_NULL};</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160; </div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;      <span class="keyword">explicit</span> op(F f_) {</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        f.reset(<span class="keyword">new</span> F(f_));</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        MPI_Op_create(op::apply, is_commutative, &amp;mpi_op);</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;      }</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;      op(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;      op(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;      ~op() { MPI_Op_free(&amp;mpi_op); }</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160; </div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;      <span class="keywordtype">void</span> operator=(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;      ~op() { MPI_Op_free(&amp;mpi_op); }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160; </div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;      <span class="keywordtype">void</span> operator=(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160; </div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;      <span class="keyword">friend</span> op &amp;get_op&lt;&gt;(F);</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    };</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;      <span class="keyword">friend</span> op &amp;get_op&lt;&gt;(F);</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    };</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    std::unique_ptr&lt;F&gt; op&lt;T, F&gt;::f;</div>
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    std::unique_ptr&lt;F&gt; op&lt;T, F&gt;::f;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160; </div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;  }  <span class="comment">// namespace detail</span></div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;}  <span class="comment">// namespace mpl</span></div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  }  <span class="comment">// namespace detail</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160; </div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;}  <span class="comment">// namespace mpl</span></div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructmpl_1_1op__traits_html_a24504be97499aae191b2850a712d40c0"><div class="ttname"><a href="structmpl_1_1op__traits.html#a24504be97499aae191b2850a712d40c0">mpl::op_traits::is_commutative</a></div><div class="ttdeci">static constexpr bool is_commutative</div><div class="ttdoc">Is true if reduction operation specified in the template parameter F is commutative.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8hpp_source.html#l00130">operator.hpp:130</a></div></div>

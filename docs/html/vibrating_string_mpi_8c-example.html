@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('vibrating_string_mpi_8c-example.html',
 <div class="line"><span class="keyword">enum</span> { left_copy, right_copy };</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// update string elongation</span></div>
-<div class="line"><span class="keywordtype">void</span> string(<span class="keywordtype">double</span> *u, <span class="keywordtype">double</span> *u_old, <span class="keywordtype">double</span> *u_new, <span class="keywordtype">int</span> N, <span class="keywordtype">double</span> eps) {</div>
+<div class="line"><span class="keywordtype">void</span> string(<span class="keyword">const</span> <span class="keywordtype">double</span> *u, <span class="keyword">const</span> <span class="keywordtype">double</span> *u_old, <span class="keywordtype">double</span> *u_new, <span class="keywordtype">int</span> N, <span class="keywordtype">double</span> eps) {</div>
 <div class="line">  u_new[0] = u[0];</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; N - 1; ++i)</div>
 <div class="line">    u_new[i] = eps * (u[i - 1] + u[i + 1]) + 2.0 * (1.0 - eps) * u[i] - u_old[i];</div>

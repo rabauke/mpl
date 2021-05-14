@@ -178,4 +178,8 @@ the presentation
 
   * [Message Passing mit modernem C++](https://rabauke.github.io/mpl/mpl_parallel_2018.pdf) (German only),
 
+the book
+
+  * [Parallel Programming for Science and Engineering](https://pages.tacc.utexas.edu/~eijkhout/pdf/pcse/EijkhoutParComp.pdf) by Victor Eijkhout
+
 and the files in the `examples` directory of the source package.
