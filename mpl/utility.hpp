@@ -23,15 +23,17 @@ namespace mpl {
       using insert_type = typename T::value_type;
     };
 
-    template<typename from_type, typename to_type,
-             typename enable = std::enable_if_t<std::is_integral_v<from_type> and
-                                                std::is_integral_v<to_type>>>
-    struct is_narrowing
-        : public std::integral_constant<bool, (std::numeric_limits<from_type>::max() >
-                                               std::numeric_limits<to_type>::max())> {};
+    template<typename from_type, typename to_type>
+    struct is_not_narrowing
+        : public std::integral_constant<bool, std::is_integral_v<from_type> and
+                                                  std::is_integral_v<to_type> and
+                                                  (std::numeric_limits<to_type>::min() <=
+                                                   std::numeric_limits<from_type>::min()) and
+                                                  (std::numeric_limits<from_type>::max() <=
+                                                   std::numeric_limits<to_type>::max())> {};
 
     template<typename from_type, typename to_type>
-    inline constexpr bool is_narrowing_v = is_narrowing<from_type, to_type>::value;
+    inline constexpr bool is_not_narrowing_v = is_not_narrowing<from_type, to_type>::value;
 
     template<typename T, bool is_enum = std::is_enum_v<T>>
     struct underlying_type;
@@ -56,7 +58,7 @@ namespace mpl {
     template<typename T>
     struct is_valid_tag
         : public std::integral_constant<
-              bool, std::is_enum_v<T> and not is_narrowing_v<underlying_type_t<T>, int>> {};
+              bool, std::is_enum_v<T> and is_not_narrowing_v<underlying_type_t<T>, int>> {};
 
     template<typename T>
     inline constexpr bool is_valid_tag_v = is_valid_tag<T>::value;
@@ -64,7 +66,7 @@ namespace mpl {
     template<typename T>
     struct is_valid_color
         : public std::integral_constant<
-              bool, (std::is_integral_v<T> or std::is_enum_v<T>) and not is_narrowing_v<underlying_type_t<T>, int>> {};
+              bool, (std::is_integral_v<T> or std::is_enum_v<T>) and is_not_narrowing_v<underlying_type_t<T>, int>> {};
 
     template<typename T>
     inline constexpr bool is_valid_color_v = is_valid_color<T>::value;
@@ -72,7 +74,7 @@ namespace mpl {
     template<typename T>
     struct is_valid_key
         : public std::integral_constant<
-              bool, (std::is_integral_v<T> or std::is_enum_v<T>) and not is_narrowing_v<underlying_type_t<T>, int>> {};
+              bool, (std::is_integral_v<T> or std::is_enum_v<T>) and is_not_narrowing_v<underlying_type_t<T>, int>> {};
 
     template<typename T>
     inline constexpr bool is_valid_key_v = is_valid_key<T>::value;
@@ -116,8 +118,7 @@ namespace mpl {
 
     template<typename T1, typename T2>
     struct remove_const_from_members<std::pair<T1, T2>> {
-      using type =
-          std::pair<std::remove_const_t<T1>, std::remove_const_t<T2>>;
+      using type = std::pair<std::remove_const_t<T1>, std::remove_const_t<T2>>;
     };
 
     template<typename T>
