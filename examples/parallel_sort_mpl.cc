@@ -77,13 +77,5 @@ int main() {
   std::vector<double> v(N);
   fill_random(v);
   parallel_sort(v);
-  //  for (int i=0; i<size; ++i) {
-  //    if (rank==i) {
-  //      std::for_each(begin(v), end(v), [](double x) { std::cout << x << '\n'; });
-  //      std::cout << std::flush;
-  //    }
-  //    comm_world.barrier();
-  //    usleep(50000);
-  //  }
   return EXIT_SUCCESS;
 }

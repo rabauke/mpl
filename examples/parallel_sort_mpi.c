@@ -109,15 +109,6 @@ int main(int argc, char *argv[]) {
     MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
   fill_random((vector){v, N});
   vector sorted = parallel_sort((vector){v, N});
-  //  for (int i=0; i<size; ++i) {
-  //    if (rank==i) {
-  //      for (size_t j=0; j<sorted.N; ++j)
-  //        printf("%g\n", sorted.data[j]);
-  //      fflush(stdout);
-  //    }
-  //    MPI_Barrier(MPI_COMM_WORLD);
-  //    usleep(50000);
-  //  }
   free(sorted.data);
   MPI_Finalize();
   return EXIT_SUCCESS;
