@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <vector>
 #include <algorithm>
+#include <random>
 #include <mpl/mpl.hpp>
 
 // data type to store data an position of global minimum
@@ -12,12 +13,13 @@ using pair_t = std::pair<double, int>;
 int main() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   // generate data
-  std::srand(std::time(0) * comm_world.rank());  // random seed
+  std::mt19937_64 g(std::time(nullptr) * comm_world.rank());  // random seed
+  std::uniform_real_distribution<> uniform;
   const int n = 8;
   // populate vector with random data
   std::vector<pair_t> v(n);
-  std::generate(v.begin(), v.end(), [&]() {
-    return std::make_pair(static_cast<double>(std::rand()) / RAND_MAX, comm_world.rank());
+  std::generate(v.begin(), v.end(), [&comm_world, &g, &uniform]() {
+    return std::make_pair(uniform(g), comm_world.rank());
   });
   // calculate minimum and its location and send result to rank root
   int root = 0;

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <random>
 #include <mpl/mpl.hpp>
 
 // calculate least common multiple of two arguments
@@ -36,11 +37,12 @@ public:
 int main() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   // generate data
-  std::srand(std::time(0) * comm_world.rank());  // random seed
+  std::mt19937_64 g(std::time(nullptr) * comm_world.rank());  // random seed
+  std::uniform_int_distribution uniform(1, 12);
   const int n = 8;
   // populate vector with random data
   std::vector<int> v(n);
-  std::generate(v.begin(), v.end(), []() -> int { return std::rand() % 12 + 1; });
+  std::generate(v.begin(), v.end(), [&g, &uniform]() { return uniform(g); });
   // calculate the least common multiple and send result to rank 0
   mpl::contiguous_layout<int> layout(n);
   if (comm_world.rank() == 0) {

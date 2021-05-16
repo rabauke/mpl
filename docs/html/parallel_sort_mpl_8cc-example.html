@@ -93,10 +93,9 @@ $(document).ready(function(){initNavTree('parallel_sort_mpl_8cc-example.html',''
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
-<div class="line"><span class="comment">// #include &lt;unistd.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">static</span> std::random_device rd;</div>
-<div class="line"><span class="keyword">static</span> std::mt19937 mt(rd());</div>
+<div class="line"><span class="keyword">static</span> std::mt19937_64 mt(rd());</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> fill_random(std::vector&lt;double&gt; &amp;v) {</div>
 <div class="line">  std::uniform_real_distribution&lt;double&gt; dist(0, 1);</div>

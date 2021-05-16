@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line"><span class="preprocessor">#include &lt;iomanip&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;random&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// data type to store data an position of global minimum</span></div>
@@ -101,12 +102,13 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
 <div class="line">  <span class="comment">// generate data</span></div>
-<div class="line">  std::srand(std::time(0) * <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>());  <span class="comment">// random seed</span></div>
+<div class="line">  std::mt19937_64 g(std::time(<span class="keyword">nullptr</span>) * <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>());  <span class="comment">// random seed</span></div>
+<div class="line">  std::uniform_real_distribution&lt;&gt; uniform;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n = 8;</div>
 <div class="line">  <span class="comment">// populate vector with random data</span></div>
 <div class="line">  std::vector&lt;pair_t&gt; v(n);</div>
-<div class="line">  std::generate(v.begin(), v.end(), [&amp;]() {</div>
-<div class="line">    return std::make_pair(static_cast&lt;double&gt;(std::rand()) / RAND_MAX, comm_world.rank());</div>
+<div class="line">  std::generate(v.begin(), v.end(), [&amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, &amp;g, &amp;uniform]() {</div>
+<div class="line">    return std::make_pair(uniform(g), comm_world.rank());</div>
 <div class="line">  });</div>
 <div class="line">  <span class="comment">// calculate minimum and its location and send result to rank root</span></div>
 <div class="line">  <span class="keywordtype">int</span> <a name="a3"></a><a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
