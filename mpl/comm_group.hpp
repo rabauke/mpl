@@ -195,7 +195,7 @@ namespace mpl {
     /// \param other process group
     /// \return corresponding ranks in this process group
     [[nodiscard]] ranks translate(const ranks &rank, const group &other) const {
-      ranks other_rank;
+      ranks other_rank(rank.size());
       MPI_Group_translate_ranks(gr, static_cast<int>(rank.size()), rank(), other.gr,
                                 other_rank());
       return other_rank;
