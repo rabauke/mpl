@@ -14,7 +14,7 @@ bool exscan_func_test() {
   int N = comm_world.rank() + 1;
   T x{T(N)}, y{};
   comm_world.exscan(add<T>(), x, y);
-  return comm_world.rank() == 0 ? true : y == T((N * N - N) / 2);
+  return comm_world.rank() == 0 || y == T((N * N - N) / 2);
 }
 
 template<typename T>
@@ -23,7 +23,7 @@ bool exscan_op_test() {
   int N = comm_world.rank() + 1;
   T x{T(N)}, y{};
   comm_world.exscan(mpl::plus<T>(), x, y);
-  return comm_world.rank() == 0 ? true : y == T((N * N - N) / 2);
+  return comm_world.rank() == 0 || y == T((N * N - N) / 2);
 }
 
 template<typename T>
@@ -32,7 +32,7 @@ bool exscan_lambda_test() {
   int N = comm_world.rank() + 1;
   T x{T(N)}, y{};
   comm_world.exscan([](T a, T b) { return a + b; }, x, y);
-  return comm_world.rank() == 0 ? true : y == T((N * N - N) / 2);
+  return comm_world.rank() == 0 || y == T((N * N - N) / 2);
 }
 
 template<typename T>
@@ -41,7 +41,7 @@ bool exscan_inplace_func_test() {
   int N = comm_world.rank() + 1;
   T x{T(N)};
   comm_world.exscan(add<T>(), x);
-  return comm_world.rank() == 0 ? true : x == T((N * N - N) / 2);
+  return comm_world.rank() == 0 || x == T((N * N - N) / 2);
 }
 
 template<typename T>
@@ -50,7 +50,7 @@ bool exscan_inplace_op_test() {
   int N = comm_world.rank() + 1;
   T x{T(N)};
   comm_world.exscan(mpl::plus<T>(), x);
-  return comm_world.rank() == 0 ? true : x == T((N * N - N) / 2);
+  return comm_world.rank() == 0 || x == T((N * N - N) / 2);
 }
 
 template<typename T>
@@ -59,7 +59,7 @@ bool exscan_inplace_lambda_test() {
   int N = comm_world.rank() + 1;
   T x{T(N)};
   comm_world.exscan([](T a, T b) { return a + b; }, x);
-  return comm_world.rank() == 0 ? true : x == T((N * N - N) / 2);
+  return comm_world.rank() == 0 || x == T((N * N - N) / 2);
 }
 
 
