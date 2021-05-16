@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('blocking_vector_8cc-example.html','');
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
 <div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n = 12;</div>
-<div class="line">  std::vector&lt;int&gt; v(n);             <span class="comment">// vector of n elements lieing contiguously in memory</span></div>
+<div class="line">  std::vector&lt;int&gt; v(n);             <span class="comment">// vector of n elements lying contiguously in memory</span></div>
 <div class="line">  <a name="_a3"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);  <span class="comment">// corresponding memory layout</span></div>
 <div class="line">  <span class="comment">// process 0 sends</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('blocking_vector_8cc-example.html','');
 <div class="line">    std::transform(v.begin(), v.end(), v.begin(), add_one);  <span class="comment">// update data</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a>rsend(v.data(), l, 1);                        <span class="comment">// send x to rank 1 via ready send</span></div>
 <div class="line">  }</div>
-<div class="line">  <span class="comment">// process 1 recieves</span></div>
+<div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a11"></a>recv(v.data(), l, 0);  <span class="comment">// receive vector from rank 0</span></div>
 <div class="line">    print_range(<span class="stringliteral">&quot;v = &quot;</span>, v.begin(), v.end());</div>

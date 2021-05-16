@@ -116,7 +116,7 @@ $(document).ready(function(){initNavTree('blocking_8cc-example.html',''); initRe
 <div class="line">    ++x;</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a9"></a>rsend(x, 1);  <span class="comment">// send x to rank 1 via ready send</span></div>
 <div class="line">  }</div>
-<div class="line">  <span class="comment">// process 1 recieves</span></div>
+<div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">    <span class="keywordtype">double</span> x;</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a>recv(x, 0, tag_enum::tag);  <span class="comment">// receive x from rank 0</span></div>

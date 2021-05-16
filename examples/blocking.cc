@@ -27,7 +27,7 @@ int main() {
     ++x;
     comm_world.rsend(x, 1);  // send x to rank 1 via ready send
   }
-  // process 1 recieves
+  // process 1 receives
   if (comm_world.rank() == 1) {
     double x;
     comm_world.recv(x, 0, tag_enum::tag);  // receive x from rank 0

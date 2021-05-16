@@ -101,7 +101,7 @@ $(document).ready(function(){initNavTree('gatherv_8cc-example.html',''); initRes
 <div class="line">  <span class="comment">// root rank will send and receive in gather operation</span></div>
 <div class="line">  <span class="keywordflow">if</span> (C_rank == 0) {</div>
 <div class="line">    <span class="comment">// messages of varying size will be received</span></div>
-<div class="line">    <span class="comment">// need to specify appopiate memory layouts to define how many elements</span></div>
+<div class="line">    <span class="comment">// need to specify appropriate memory layouts to define how many elements</span></div>
 <div class="line">    <span class="comment">// will be received and where to store them</span></div>
 <div class="line">    <a name="_a5"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> ls;</div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i)</div>

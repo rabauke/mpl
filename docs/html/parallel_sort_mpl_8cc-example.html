@@ -166,14 +166,6 @@ $(document).ready(function(){initNavTree('parallel_sort_mpl_8cc-example.html',''
 <div class="line">  std::vector&lt;double&gt; v(N);</div>
 <div class="line">  fill_random(v);</div>
 <div class="line">  parallel_sort(v);</div>
-<div class="line">  <span class="comment">//  for (int i=0; i&lt;size; ++i) {</span></div>
-<div class="line">  <span class="comment">//    if (rank==i) {</span></div>
-<div class="line">  <span class="comment">//      std::for_each(begin(v), end(v), [](double x) { std::cout &lt;&lt; x &lt;&lt; &#39;\n&#39;; });</span></div>
-<div class="line">  <span class="comment">//      std::cout &lt;&lt; std::flush;</span></div>
-<div class="line">  <span class="comment">//    }</span></div>
-<div class="line">  <span class="comment">//    comm_world.barrier();</span></div>
-<div class="line">  <span class="comment">//    usleep(50000);</span></div>
-<div class="line">  <span class="comment">//  }</span></div>
 <div class="line">  <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->

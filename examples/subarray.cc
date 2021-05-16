@@ -8,7 +8,7 @@ int main() {
   // run the program with two or more processes
   if (comm_world.size() < 2)
     return EXIT_FAILURE;
-  // test layout for a subarry
+  // test layout for a subarray
   // layouts on sending and receiving side may differ but must be compatible
   const int n0 = 20, n1 = 8;  // size of two-dimensional array
   const int s0 = 11, s1 = 3;  // size of two-dimensional subarray

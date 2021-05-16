@@ -12,7 +12,7 @@ int main() {
   // root rank will send and receive in gather operation
   if (C_rank == 0) {
     // messages of varying size will be received
-    // need to specify appopiate memory layouts to define how many elements
+    // need to specify appropriate memory layouts to define how many elements
     // will be received and where to store them
     mpl::layouts<int> ls;
     for (int i = 0; i < C_size; ++i)

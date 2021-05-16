@@ -68,7 +68,7 @@ int main() {
       r.push(comm_world.issend(v3.data(), l, 1));  // send v3 to rank 1 via synchronous send
       r.push(comm_world.irsend(v4.data(), l, 1));  // send v4 to rank 1 via ready send
       std::array<mpl::irequest_pool::size_type, 4>
-          finished;  // memory to store indices of finished send operatons
+          finished;  // memory to store indices of finished send operations
       while (true) {
         auto i = r.waitsome(finished.begin());  // wait until one ore more sends have finished
         if (i == finished.begin())              // there have been no pending sends
@@ -116,7 +116,7 @@ int main() {
       r.push(comm_world.irecv(v4.data(), l, 0));  // receive v4 from rank 0
       while (true) {
         std::array<mpl::irequest_pool::size_type, 4>
-            finished;  // memory to store indices of finished recv operatons
+            finished;  // memory to store indices of finished recv operations
         auto i =
             r.waitsome(finished.begin());  // wait until one ore more receives have finished
         if (i == finished.begin())         // there have been no pending receives

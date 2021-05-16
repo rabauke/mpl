@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('nonblocking_8cc-example.html',''); ini
 <div class="line">      r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.issend(v3.data(), l, 1));  <span class="comment">// send v3 to rank 1 via synchronous send</span></div>
 <div class="line">      r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.irsend(v4.data(), l, 1));  <span class="comment">// send v4 to rank 1 via ready send</span></div>
 <div class="line">      std::array&lt;mpl::irequest_pool::size_type, 4&gt;</div>
-<div class="line">          finished;  <span class="comment">// memory to store indices of finished send operatons</span></div>
+<div class="line">          finished;  <span class="comment">// memory to store indices of finished send operations</span></div>
 <div class="line">      <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
 <div class="line">        <span class="keyword">auto</span> i = r.<a name="a16"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a>(finished.begin());  <span class="comment">// wait until one ore more sends have finished</span></div>
 <div class="line">        <span class="keywordflow">if</span> (i == finished.begin())              <span class="comment">// there have been no pending sends</span></div>
@@ -205,7 +205,7 @@ $(document).ready(function(){initNavTree('nonblocking_8cc-example.html',''); ini
 <div class="line">      r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.irecv(v4.data(), l, 0));  <span class="comment">// receive v4 from rank 0</span></div>
 <div class="line">      <span class="keywordflow">while</span> (<span class="keyword">true</span>) {</div>
 <div class="line">        std::array&lt;mpl::irequest_pool::size_type, 4&gt;</div>
-<div class="line">            finished;  <span class="comment">// memory to store indices of finished recv operatons</span></div>
+<div class="line">            finished;  <span class="comment">// memory to store indices of finished recv operations</span></div>
 <div class="line">        <span class="keyword">auto</span> i =</div>
 <div class="line">            r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a>(finished.begin());  <span class="comment">// wait until one ore more receives have finished</span></div>
 <div class="line">        <span class="keywordflow">if</span> (i == finished.begin())         <span class="comment">// there have been no pending receives</span></div>
