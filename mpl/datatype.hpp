@@ -409,8 +409,8 @@ namespace mpl {
     };
 
     template<typename T>
-    class datatype_traits_impl<T, typename std::enable_if<std::is_enum<T>::value>::type> {
-      using underlying = typename std::underlying_type<T>::type;
+    class datatype_traits_impl<T, std::enable_if_t<std::is_enum<T>::value>> {
+      using underlying = std::underlying_type_t<T>;
 
     public:
       static MPI_Datatype get_datatype() { return datatype_traits<underlying>::get_datatype(); }
@@ -420,9 +420,9 @@ namespace mpl {
 #if defined MPL_HOMOGENEOUS
     template<typename T>
     class datatype_traits_impl<
-        T, typename std::enable_if<
-               std::is_trivially_copyable<T>::value and std::is_copy_assignable<T>::value and
-               not std::is_enum<T>::value and not std::is_array<T>::value>::type> {
+        T, std::enable_if_t<
+               std::is_trivially_copyable_v<T> and std::is_copy_assignable_v<T> and
+               not std::is_enum_v<T> and not std::is_array_v<T>>> {
     public:
       static MPI_Datatype get_datatype() {
         return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
