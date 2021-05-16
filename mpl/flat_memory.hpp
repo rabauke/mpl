@@ -30,7 +30,7 @@ namespace mpl {
 
       ~flat_memory_in() { delete[] first; }
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return first; }
 
@@ -51,7 +51,7 @@ namespace mpl {
 
       ~flat_memory_in() = default;
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return first; }
 
@@ -75,7 +75,7 @@ namespace mpl {
 
       ~flat_memory_in() = default;
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return &(*first); }
 
@@ -97,7 +97,7 @@ namespace mpl {
 
       ~flat_memory_in() = default;
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return &(*first); }
 
@@ -121,7 +121,7 @@ namespace mpl {
 
       ~flat_memory_out() { delete[] first; }
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return first; }
 
@@ -152,7 +152,7 @@ namespace mpl {
 
       ~flat_memory_out() = default;
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return first; }
 
@@ -184,7 +184,7 @@ namespace mpl {
 
       ~flat_memory_out() = default;
 
-      size_type size() const { return n; }
+      [[nodiscard]] size_type size() const { return n; }
 
       const T *data() const { return &(*first); }
 

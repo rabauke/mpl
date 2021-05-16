@@ -166,7 +166,7 @@ namespace mpl {
 
     /// \brief Determines the size of a process group.
     /// \return the size of the group
-    int size() const {
+    [[nodiscard]] int size() const {
       int result;
       MPI_Group_size(gr, &result);
       return result;
@@ -174,7 +174,7 @@ namespace mpl {
 
     /// \brief Determines the rank within a process group.
     /// \return the rank of the calling process in the group
-    int rank() const {
+    [[nodiscard]] int rank() const {
       int result;
       MPI_Group_rank(gr, &result);
       return result;
@@ -184,7 +184,7 @@ namespace mpl {
     /// \param rank a valid rank in the given process group
     /// \param other process group
     /// \return corresponding rank in this process group
-    int translate(int rank, const group &other) const {
+    [[nodiscard]] int translate(int rank, const group &other) const {
       int other_rank;
       MPI_Group_translate_ranks(gr, 1, &rank, other.gr, &other_rank);
       return other_rank;
@@ -194,7 +194,7 @@ namespace mpl {
     /// \param rank a set valid ranks in the given process group
     /// \param other process group
     /// \return corresponding ranks in this process group
-    ranks translate(const ranks &rank, const group &other) const {
+    [[nodiscard]] ranks translate(const ranks &rank, const group &other) const {
       ranks other_rank;
       MPI_Group_translate_ranks(gr, static_cast<int>(rank.size()), rank(), other.gr,
                                 other_rank());
@@ -219,7 +219,7 @@ namespace mpl {
 
     /// \brief Compares to another process group.
     /// \return equality type
-    equality_type compare(const group &other) const {
+    [[nodiscard]] equality_type compare(const group &other) const {
       int result;
       MPI_Group_compare(gr, other.gr, &result);
       return static_cast<equality_type>(result);
@@ -499,13 +499,13 @@ namespace mpl {
       return *this;
     }
 
-    int size() const {
+    [[nodiscard]] int size() const {
       int result;
       MPI_Comm_size(comm, &result);
       return result;
     }
 
-    int rank() const {
+    [[nodiscard]] int rank() const {
       int result;
       MPI_Comm_rank(comm, &result);
       return result;
@@ -523,13 +523,13 @@ namespace mpl {
       return result != MPI_IDENT;
     }
 
-    equality_type compare(const communicator &other) const {
+    [[nodiscard]] equality_type compare(const communicator &other) const {
       int result;
       MPI_Comm_compare(comm, other.comm, &result);
       return static_cast<equality_type>(result);
     }
 
-    bool is_valid() const { return comm != MPI_COMM_NULL; }
+    [[nodiscard]] bool is_valid() const { return comm != MPI_COMM_NULL; }
 
     void abort(int err) const { MPI_Abort(comm, err); }
 
@@ -715,7 +715,7 @@ namespace mpl {
     // === buffered send ===
     // --- determine buffer size ---
     template<typename T>
-    int bsend_size() const {
+    [[nodiscard]] int bsend_size() const {
       int pack_size{0};
       MPI_Pack_size(1, detail::datatype_traits<T>::get_datatype(), comm, &pack_size);
       return pack_size + MPI_BSEND_OVERHEAD;
@@ -1401,7 +1401,7 @@ namespace mpl {
 
     // === probe ===
     // --- blocking probe ---
-    status probe(int source, tag t = tag(0)) const {
+    [[nodiscard]] status probe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       status s;
@@ -1410,7 +1410,7 @@ namespace mpl {
     }
 
     // --- nonblocking probe ---
-    std::pair<bool, status> iprobe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::pair<bool, status> iprobe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       int result;
@@ -1422,7 +1422,7 @@ namespace mpl {
 
     // === matching probe ===
     // --- blocking matching probe ---
-    std::pair<message, status> mprobe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::pair<message, status> mprobe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       status s;
@@ -1432,7 +1432,7 @@ namespace mpl {
     }
 
     // --- nonblocking matching probe ---
-    std::tuple<bool, message, status> improbe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::tuple<bool, message, status> improbe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       int result;
@@ -1552,7 +1552,7 @@ namespace mpl {
     void barrier() const { MPI_Barrier(comm); }
 
     // --- nonblocking barrier ---
-    irequest ibarrier() const {
+    [[nodiscard]] irequest ibarrier() const {
       MPI_Request req;
       MPI_Ibarrier(comm, &req);
       return impl::irequest(req);

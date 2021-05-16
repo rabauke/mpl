@@ -36,11 +36,11 @@ namespace mpl {
         left_border_layout_, right_border_layout_;
     subarray_layout<T> interior_layout_;
 
-    size_type gbegin(size_type n, int comm_size, int comm_coord) const {
+    [[nodiscard]] size_type gbegin(size_type n, int comm_size, int comm_coord) const {
       return n * comm_coord / comm_size;
     }
 
-    size_type gend(size_type n, int comm_size, int comm_coord) const {
+    [[nodiscard]] size_type gend(size_type n, int comm_size, int comm_coord) const {
       return n * (comm_coord + 1) / comm_size;
     }
 
@@ -115,23 +115,23 @@ namespace mpl {
       }
     }
 
-    size_type gsize(size_type d) const { return gsize_[d]; }
+    [[nodiscard]] size_type gsize(size_type d) const { return gsize_[d]; }
 
-    size_type gbegin(size_type d) const { return gbegin_[d]; };
+    [[nodiscard]] size_type gbegin(size_type d) const { return gbegin_[d]; };
 
-    size_type gend(size_type d) const { return gend_[d]; };
+    [[nodiscard]] size_type gend(size_type d) const { return gend_[d]; };
 
-    size_type size(size_type d) const { return size_[d]; }
+    [[nodiscard]] size_type size(size_type d) const { return size_[d]; }
 
-    size_type begin(size_type d) const { return overlap_[d]; };
+    [[nodiscard]] size_type begin(size_type d) const { return overlap_[d]; };
 
-    size_type end(size_type d) const { return size_[d] + overlap_[d]; };
+    [[nodiscard]] size_type end(size_type d) const { return size_[d] + overlap_[d]; };
 
-    size_type obegin(size_type d) const { return 0; };
+    [[nodiscard]] size_type obegin(size_type d) const { return 0; };
 
-    size_type oend(size_type d) const { return oend_[d]; };
+    [[nodiscard]] size_type oend(size_type d) const { return oend_[d]; };
 
-    size_type gindex(size_type d, size_type i) const { return gbegin(d) + i - begin(d); }
+    [[nodiscard]] size_type gindex(size_type d, size_type i) const { return gbegin(d) + i - begin(d); }
 
     reference operator()(size_type x) {
       static_assert(dim == 1, "invalid dimension");
@@ -221,11 +221,11 @@ namespace mpl {
     vector_type v;
     layouts<T> sub_layout_;
 
-    size_type gbegin(size_type n, int comm_size, int comm_coord) const {
+    [[nodiscard]] size_type gbegin(size_type n, int comm_size, int comm_coord) const {
       return n * comm_coord / comm_size;
     }
 
-    size_type gend(size_type n, int comm_size, int comm_coord) const {
+    [[nodiscard]] size_type gend(size_type n, int comm_size, int comm_coord) const {
       return n * (comm_coord + 1) / comm_size;
     }
 
@@ -268,11 +268,11 @@ namespace mpl {
       }
     }
 
-    size_type size(size_type d) const { return gsize_[d]; }
+    [[nodiscard]] size_type size(size_type d) const { return gsize_[d]; }
 
-    size_type begin(size_type d) const { return 0; };
+    [[nodiscard]] size_type begin(size_type d) const { return 0; };
 
-    size_type end(size_type d) const { return gsize_[d]; };
+    [[nodiscard]] size_type end(size_type d) const { return gsize_[d]; };
 
     const_reference operator()(size_type x) const {
       static_assert(dim == 1, "invalid dimension");

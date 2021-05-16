@@ -87,19 +87,19 @@ namespace mpl {
       return *this;
     }
 
-    int indegree() const {
+    [[nodiscard]] int indegree() const {
       int _indegree, _outdegree, _weighted;
       MPI_Dist_graph_neighbors_count(comm, &_indegree, &_outdegree, &_weighted);
       return _indegree;
     };
 
-    int outdegree() const {
+    [[nodiscard]] int outdegree() const {
       int _indegree, _outdegree, _weighted;
       MPI_Dist_graph_neighbors_count(comm, &_indegree, &_outdegree, &_weighted);
       return _outdegree;
     };
 
-    source_set inneighbors() const {
+    [[nodiscard]] source_set inneighbors() const {
       int indeg{indegree()};
       std::vector<int> sources(indeg), sourceweights(indeg);
       int outdeg{outdegree()};
@@ -112,7 +112,7 @@ namespace mpl {
       return ss;
     }
 
-    dest_set outneighbors() const {
+    [[nodiscard]] dest_set outneighbors() const {
       int indeg{indegree()};
       std::vector<int> sources(indeg), sourceweights(indeg);
       int outdeg{outdegree()};

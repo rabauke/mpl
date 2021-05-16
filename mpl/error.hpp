@@ -16,7 +16,7 @@ namespace mpl {
     explicit error(const char *const str = "unknown") : str(str) {}
 
     /// \return character pointer to error message
-    const char *what() const noexcept override { return str; }
+    [[nodiscard]] const char *what() const noexcept override { return str; }
   };
 
   /// Will be thrown in case of invalid rank argument.

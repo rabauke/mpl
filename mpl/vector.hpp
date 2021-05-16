@@ -53,8 +53,8 @@ namespace mpl {
       vector(const vector &) = delete;
       vector &operator=(const vector &) = delete;
 
-      size_type size() const { return size_; }
-      bool empty() const { return size_ == 0; }
+      [[nodiscard]] size_type size() const { return size_; }
+      [[nodiscard]] bool empty() const { return size_ == 0; }
       pointer data() { return data_; }
       const_pointer data() const { return data_; }
 

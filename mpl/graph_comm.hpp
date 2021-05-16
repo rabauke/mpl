@@ -90,22 +90,22 @@ namespace mpl {
       return *this;
     }
 
-    int neighbors_count(int rank) const {
+    [[nodiscard]] int neighbors_count(int rank) const {
       int nneighbors;
       MPI_Graph_neighbors_count(comm, rank, &nneighbors);
       return nneighbors;
     };
 
-    int neighbors_count() const { return neighbors_count(rank()); };
+    [[nodiscard]] int neighbors_count() const { return neighbors_count(rank()); };
 
-    node_list neighbors(int rank) const {
+    [[nodiscard]] node_list neighbors(int rank) const {
       int maxneighbors = neighbors_count(rank);
       node_list nl(maxneighbors);
       MPI_Graph_neighbors(comm, rank, maxneighbors, nl.data());
       return nl;
     }
 
-    node_list neighbors() const { return neighbors(rank()); }
+    [[nodiscard]] node_list neighbors() const { return neighbors(rank()); }
   };
 
 

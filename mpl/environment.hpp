@@ -33,7 +33,7 @@ namespace mpl {
 
           ~initializer() { MPI_Finalize(); }
 
-          threading_modes thread_mode() const {
+          [[nodiscard]] threading_modes thread_mode() const {
             switch (thread_mode_) {
               case MPI_THREAD_SINGLE:
                 return threading_modes::single;
@@ -61,46 +61,46 @@ namespace mpl {
 
         env &operator=(const env &) = delete;
 
-        int tag_up() const {
+        [[nodiscard]] int tag_up() const {
           void *p;
           int flag;
           MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &p, &flag);
           return *reinterpret_cast<int *>(p);
         }
 
-        threading_modes threading_mode() const { return init.thread_mode(); }
+        [[nodiscard]] threading_modes threading_mode() const { return init.thread_mode(); }
 
-        bool is_thread_main() const {
+        [[nodiscard]] bool is_thread_main() const {
           int res;
           MPI_Is_thread_main(&res);
           return static_cast<bool>(res);
         }
 
-        bool wtime_is_global() const {
+        [[nodiscard]] bool wtime_is_global() const {
           void *p;
           int flag;
           MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &p, &flag);
           return *reinterpret_cast<int *>(p);
         }
 
-        const communicator &comm_world() const { return comm_world_; }
+        [[nodiscard]] const communicator &comm_world() const { return comm_world_; }
 
-        const communicator &comm_self() const { return comm_self_; }
+        [[nodiscard]] const communicator &comm_self() const { return comm_self_; }
 
-        std::string processor_name() const {
+        [[nodiscard]] std::string processor_name() const {
           char name[MPI_MAX_PROCESSOR_NAME];
           int len;
           MPI_Get_processor_name(name, &len);
           return std::string(name);
         }
 
-        double wtime() const { return MPI_Wtime(); }
+        [[nodiscard]] double wtime() const { return MPI_Wtime(); }
 
-        double wtick() const { return MPI_Wtick(); }
+        [[nodiscard]] double wtick() const { return MPI_Wtick(); }
 
         void buffer_attach(void *buff, int size) const { MPI_Buffer_attach(buff, size); }
 
-        std::pair<void *, int> buffer_detach() const {
+        [[nodiscard]] std::pair<void *, int> buffer_detach() const {
           void *buff;
           int size;
           MPI_Buffer_detach(&buff, &size);

@@ -118,7 +118,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      ~flat_memory_in() { <span class="keyword">delete</span>[] first; }</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> first; }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
@@ -139,7 +139,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;      ~flat_memory_in() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> first; }</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      ~flat_memory_in() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;(*first); }</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
@@ -185,7 +185,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;      ~flat_memory_in() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;(*first); }</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
@@ -209,7 +209,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      ~flat_memory_out() { <span class="keyword">delete</span>[] first; }</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> first; }</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
@@ -240,7 +240,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;      ~flat_memory_out() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> first; }</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
@@ -272,7 +272,7 @@ $(document).ready(function(){initNavTree('flat__memory_8hpp_source.html',''); in
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;      ~flat_memory_out() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;      [[nodiscard]] size_type size()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> n; }</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;      <span class="keyword">const</span> T *data()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;(*first); }</div>
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>

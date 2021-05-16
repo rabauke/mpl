@@ -71,9 +71,9 @@ namespace mpl {
         periodic_.push_back(p == periodicity::periodic);
       }
 
-      int dims(size_type i) const { return dims_[i]; }
+      [[nodiscard]] int dims(size_type i) const { return dims_[i]; }
 
-      bool periodic(size_type i) const { return periodic_[i] != 0; }
+      [[nodiscard]] bool periodic(size_type i) const { return periodic_[i] != 0; }
 
       friend class cart_communicator;
 
@@ -117,7 +117,7 @@ namespace mpl {
       return *this;
     }
 
-    int dim() const {
+    [[nodiscard]] int dim() const {
       int ndims;
       MPI_Cartdim_get(comm, &ndims);
       return ndims;
@@ -125,33 +125,33 @@ namespace mpl {
 
     using communicator::rank;
 
-    int rank(const coords_type &c) const {
+    [[nodiscard]] int rank(const coords_type &c) const {
       int rank_;
       MPI_Cart_rank(comm, c.data(), &rank_);
       return rank_;
     }
 
-    coords_type coords(int rank) const {
+    [[nodiscard]] coords_type coords(int rank) const {
       coords_type coords_(dim());
       MPI_Cart_coords(comm, rank, coords_.size(), coords_.data());
       return coords_;
     }
 
-    coords_type coords() const {
+    [[nodiscard]] coords_type coords() const {
       int ndims(dim());
       coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
       MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
       return coords_;
     }
 
-    coords_type dims() const {
+    [[nodiscard]] coords_type dims() const {
       int ndims(dim());
       coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
       MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
       return dims_;
     }
 
-    periodicities_type is_periodic() const {
+    [[nodiscard]] periodicities_type is_periodic() const {
       int ndims(dim());
       coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
       MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
@@ -161,7 +161,7 @@ namespace mpl {
       return periodic;
     }
 
-    shift_ranks shift(int direction, int disp) const {
+    [[nodiscard]] shift_ranks shift(int direction, int disp) const {
       int rank_source, rank_dest;
       MPI_Cart_shift(comm, direction, disp, &rank_source, &rank_dest);
       return {rank_source, rank_dest};

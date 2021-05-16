@@ -10,27 +10,27 @@ namespace mpl {
   class status : private MPI_Status {
   public:
     /// \return source of the message
-    int source() const { return MPI_Status::MPI_SOURCE; }
+    [[nodiscard]] int source() const { return MPI_Status::MPI_SOURCE; }
 
     /// \return tag value of the message
-    mpl::tag tag() const { return mpl::tag(MPI_Status::MPI_TAG); }
+    [[nodiscard]] mpl::tag tag() const { return mpl::tag(MPI_Status::MPI_TAG); }
 
     /// \return error code associated with the message
-    int error() const { return MPI_Status::MPI_ERROR; }
+    [[nodiscard]] int error() const { return MPI_Status::MPI_ERROR; }
 
     /// \return true if associated request has been been canceled
-    bool is_cancelled() const {
+    [[nodiscard]] bool is_cancelled() const {
       int result;
       MPI_Test_cancelled(reinterpret_cast<const MPI_Status *>(this), &result);
       return result != 0;
     }
 
     /// \return true if associated request has been been canceled
-    bool is_canceled() const { return is_cancelled(); }
+    [[nodiscard]] bool is_canceled() const { return is_cancelled(); }
 
     /// \return number of top level elements of type T received in associated message
     template<typename T>
-    int get_count() const {
+    [[nodiscard]] int get_count() const {
       int result;
       MPI_Get_count(reinterpret_cast<const MPI_Status *>(this),
                     detail::datatype_traits<T>::get_datatype(), &result);
@@ -40,7 +40,7 @@ namespace mpl {
     /// \param l layout used in associated message
     /// \return number of top level elements of type T received in associated message
     template<typename T>
-    int get_count(const layout<T> &l) const {
+    [[nodiscard]] int get_count(const layout<T> &l) const {
       int result;
       MPI_Get_count(reinterpret_cast<const MPI_Status *>(this),
                     detail::datatype_traits<layout<T>>::get_datatype(l), &result);

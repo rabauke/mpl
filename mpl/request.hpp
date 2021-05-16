@@ -142,11 +142,11 @@ namespace mpl {
         return *this;
       }
 
-      size_type size() const { return reqs.size(); }
+      [[nodiscard]] size_type size() const { return reqs.size(); }
 
-      bool empty() const { return reqs.empty(); }
+      [[nodiscard]] bool empty() const { return reqs.empty(); }
 
-      const status &get_status(size_type i) const { return stats[i]; }
+      [[nodiscard]] const status &get_status(size_type i) const { return stats[i]; }
 
       void cancel(size_type i) { MPI_Cancel(&reqs[i]); }
 

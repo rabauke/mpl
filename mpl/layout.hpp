@@ -136,7 +136,7 @@ namespace mpl {
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \ref extent
-    ssize_t byte_extent() const {
+    [[nodiscard]] ssize_t byte_extent() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -150,7 +150,7 @@ namespace mpl {
     /// MPI datatype.  See MPI documentation for details.
     /// \see \ref byte_upper_bound
     /// \see \ref lower_bound
-    ssize_t byte_lower_bound() const {
+    [[nodiscard]] ssize_t byte_lower_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -164,7 +164,7 @@ namespace mpl {
     /// MPI datatype.  See MPI documentation for details.
     /// \see \ref byte_lower_bound
     /// \see \ref upper_bound
-    ssize_t byte_upper_bound() const {
+    [[nodiscard]] ssize_t byte_upper_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -177,7 +177,7 @@ namespace mpl {
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \ref byte_extent
-    ssize_t extent() const {
+    [[nodiscard]] ssize_t extent() const {
       const ssize_t res{byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
@@ -190,7 +190,7 @@ namespace mpl {
     /// MPI datatype.  See MPI documentation for details.
     /// \see \ref byte_lower_bound
     /// \see \ref upper_bound
-    ssize_t lower_bound() const {
+    [[nodiscard]] ssize_t lower_bound() const {
       const ssize_t res{byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
@@ -203,7 +203,7 @@ namespace mpl {
     /// MPI datatype.  See MPI documentation for details.
     /// \see \ref byte_upper_bound
     /// \see \ref lower_bound
-    ssize_t upper_bound() const {
+    [[nodiscard]] ssize_t upper_bound() const {
       const ssize_t res{byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
@@ -215,7 +215,7 @@ namespace mpl {
     /// \note The true extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \ref true_extent
-    ssize_t true_byte_extent() const {
+    [[nodiscard]] ssize_t true_byte_extent() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -229,7 +229,7 @@ namespace mpl {
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \ref true_byte_upper_bound
     /// \see \ref true_lower_bound
-    ssize_t true_byte_lower_bound() const {
+    [[nodiscard]] ssize_t true_byte_lower_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -243,7 +243,7 @@ namespace mpl {
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \ref true_byte_lower_bound
     /// \see \ref true_upper_bound
-    ssize_t true_byte_upper_bound() const {
+    [[nodiscard]] ssize_t true_byte_upper_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type, &lb_, &extent_);
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -256,7 +256,7 @@ namespace mpl {
     /// \note The true extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \ref true_byte_extent
-    ssize_t true_extent() const {
+    [[nodiscard]] ssize_t true_extent() const {
       const ssize_t res{true_byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
@@ -269,7 +269,7 @@ namespace mpl {
     /// underlying MPI datatype.  See MPI documentation for details. \see \ref
     /// true_byte_lower_bound
     /// \see \ref true_upper_bound
-    ssize_t true_lower_bound() const {
+    [[nodiscard]] ssize_t true_lower_bound() const {
       const ssize_t res{true_byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
@@ -282,7 +282,7 @@ namespace mpl {
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \ref true_byte_upper_bound
     /// \see \ref true_lower_bound
-    ssize_t true_upper_bound() const {
+    [[nodiscard]] ssize_t true_upper_bound() const {
       const ssize_t res{true_byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
@@ -487,7 +487,7 @@ namespace mpl {
 
     size_t count;
 
-    size_t size() const { return count; }
+    [[nodiscard]] size_t size() const { return count; }
 
   public:
     /// \brief constructs layout for contiguous storage several objects of type T
@@ -1429,7 +1429,7 @@ namespace mpl {
 
       /// \brief get the array order
       /// \return array order
-      array_orders order() const { return order_; }
+      [[nodiscard]] array_orders order() const { return order_; }
 
       friend class subarray_layout;
     };
