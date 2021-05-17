@@ -55,7 +55,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// \brief layout class for storing meta information about the public members of structures
-  /// \param S the struct or class type, the public members of which are managed
+  /// \tparam S the struct or class type, the public members of which are managed
   template<typename S>
   class struct_layout {
     template<typename T>

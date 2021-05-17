@@ -56,10 +56,10 @@ namespace mpl {
   class absolute_data;
 
   template<typename T>
-  absolute_data<T *> make_absolute(T *, const layout<T> &);
+  absolute_data<T *> make_absolute(T *x, const layout<T> &l);
 
   template<typename T>
-  absolute_data<const T *> make_absolute(const T *, const layout<T> &);
+  absolute_data<const T *> make_absolute(const T *x, const layout<T> &l);
 
   template<typename T>
   class contiguous_layouts;
@@ -1522,6 +1522,7 @@ namespace mpl {
   class absolute_data;
 
   /// \brief helper class for \ref heterogeneous_layout and \ref make_absolute
+  /// \brief T data type
   template<typename T>
   class absolute_data<T *> {
     T *address{nullptr};

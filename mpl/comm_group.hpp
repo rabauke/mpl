@@ -99,7 +99,7 @@ namespace mpl {
     /// \param tag indicates the unification of two existing process groups
     /// \param other_1 first existing process group
     /// \param other_2 second existing process group
-    explicit group(Union_tag, const group &other_1, const group &other_2);
+    explicit group(Union_tag tag, const group &other_1, const group &other_2);
 
     /// \brief Creates a new group that consists of the intersection of two existing process
     /// groups.
@@ -113,19 +113,19 @@ namespace mpl {
     /// \param tag indicates the difference of two existing process groups
     /// \param other_1 first existing process group
     /// \param other_2 second existing process group
-    explicit group(difference_tag, const group &other_1, const group &other_2);
+    explicit group(difference_tag tag, const group &other_1, const group &other_2);
 
     /// \brief Creates a new group by including members of an existing process group.
     /// \param tag indicates inclusion from an existing process group
     /// \param other existing process group
-    /// \param ranks set of ranks to include
-    explicit group(include_tag, const group &other, const ranks &rank);
+    /// \param rank set of ranks to include
+    explicit group(include_tag tag, const group &other, const ranks &rank);
 
     /// \brief Creates a new group by excluding members of an existing process group.
     /// \param tag indicates exclusion from an existing process group
     /// \param other existing process group
-    /// \param ranks set of ranks to exclude
-    explicit group(exclude_tag, const group &other, const ranks &rank);
+    /// \param rank set of ranks to exclude
+    explicit group(exclude_tag tag, const group &other, const ranks &rank);
 
     /// \brief Destructs a process group.
     ~group() {

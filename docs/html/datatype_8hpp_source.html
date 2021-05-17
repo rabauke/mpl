@@ -440,8 +440,8 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    };</div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
 <div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keyword">class </span>datatype_traits_impl&lt;T, typename std::enable_if&lt;std::is_enum&lt;T&gt;::value&gt;::type&gt; {</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;      <span class="keyword">using</span> underlying = <span class="keyword">typename</span> std::underlying_type&lt;T&gt;::type;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keyword">class </span>datatype_traits_impl&lt;T, std::enable_if_t&lt;std::is_enum&lt;T&gt;::value&gt;&gt; {</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;      <span class="keyword">using</span> underlying = std::underlying_type_t&lt;T&gt;;</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;      <span class="keyword">static</span> MPI_Datatype get_datatype() { <span class="keywordflow">return</span> datatype_traits&lt;underlying&gt;::get_datatype(); }</div>
@@ -451,9 +451,9 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="preprocessor">#if defined MPL_HOMOGENEOUS</span></div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    <span class="keyword">class </span>datatype_traits_impl&lt;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        T, typename std::enable_if&lt;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;               std::is_trivially_copyable&lt;T&gt;::value and std::is_copy_assignable&lt;T&gt;::value and</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;               not std::is_enum&lt;T&gt;::value and not std::is_array&lt;T&gt;::value&gt;::type&gt; {</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        T, std::enable_if_t&lt;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;               std::is_trivially_copyable_v&lt;T&gt; and std::is_copy_assignable_v&lt;T&gt; and</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;               not std::is_enum_v&lt;T&gt; and not std::is_array_v&lt;T&gt;&gt;&gt; {</div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;      <span class="keyword">static</span> MPI_Datatype get_datatype() {</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        <span class="keywordflow">return</span> datatype_traits_impl&lt;<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[<span class="keyword">sizeof</span>(T)]&gt;::get_datatype();</div>
