@@ -84,8 +84,8 @@ namespace mpl {
 
     explicit cart_communicator(const communicator &old_comm, const sizes &par,
                                bool reorder = true) {
-      MPI_Cart_create(old_comm.comm, par.dims_.size(), par.dims_.data(), par.periodic_.data(),
-                      reorder, &comm);
+      MPI_Cart_create(old_comm.comm_, par.dims_.size(), par.dims_.data(), par.periodic_.data(),
+                      reorder, &comm_);
     }
 
     explicit cart_communicator(const cart_communicator &old_comm,
@@ -94,12 +94,12 @@ namespace mpl {
       if (remain_dims.size() != old_comm.dim())
         throw invalid_size();
 #endif
-      MPI_Cart_sub(old_comm.comm, remain_dims.data(), &comm);
+      MPI_Cart_sub(old_comm.comm_, remain_dims.data(), &comm_);
     }
 
     cart_communicator(cart_communicator &&other) noexcept {
-      comm = other.comm;
-      other.comm = MPI_COMM_SELF;
+      comm_ = other.comm_;
+      other.comm_ = MPI_COMM_SELF;
     }
 
     void operator=(const cart_communicator &) = delete;
@@ -107,19 +107,19 @@ namespace mpl {
     cart_communicator &operator=(cart_communicator &&other) noexcept {
       if (this != &other) {
         int result1, result2;
-        MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
-        MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
+        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
         if (result1 != MPI_IDENT and result2 != MPI_IDENT)
-          MPI_Comm_free(&comm);
-        comm = other.comm;
-        other.comm = MPI_COMM_SELF;
+          MPI_Comm_free(&comm_);
+        comm_ = other.comm_;
+        other.comm_ = MPI_COMM_SELF;
       }
       return *this;
     }
 
     [[nodiscard]] int dim() const {
       int ndims;
-      MPI_Cartdim_get(comm, &ndims);
+      MPI_Cartdim_get(comm_, &ndims);
       return ndims;
     }
 
@@ -127,34 +127,34 @@ namespace mpl {
 
     [[nodiscard]] int rank(const coords_type &c) const {
       int rank_;
-      MPI_Cart_rank(comm, c.data(), &rank_);
+      MPI_Cart_rank(comm_, c.data(), &rank_);
       return rank_;
     }
 
     [[nodiscard]] coords_type coords(int rank) const {
       coords_type coords_(dim());
-      MPI_Cart_coords(comm, rank, coords_.size(), coords_.data());
+      MPI_Cart_coords(comm_, rank, coords_.size(), coords_.data());
       return coords_;
     }
 
     [[nodiscard]] coords_type coords() const {
       int ndims(dim());
       coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
-      MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
+      MPI_Cart_get(comm_, ndims, dims_.data(), periodic_.data(), coords_.data());
       return coords_;
     }
 
     [[nodiscard]] coords_type dims() const {
       int ndims(dim());
       coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
-      MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
+      MPI_Cart_get(comm_, ndims, dims_.data(), periodic_.data(), coords_.data());
       return dims_;
     }
 
     [[nodiscard]] periodicities_type is_periodic() const {
       int ndims(dim());
       coords_type dims_(ndims), periodic_(ndims), coords_(ndims);
-      MPI_Cart_get(comm, ndims, dims_.data(), periodic_.data(), coords_.data());
+      MPI_Cart_get(comm_, ndims, dims_.data(), periodic_.data(), coords_.data());
       periodicities_type periodic(ndims);
       for (int i = 0; i < ndims; ++i)
         periodic[i] = periodic_[i] ? periodicity::periodic : periodicity::nonperiodic;
@@ -163,7 +163,7 @@ namespace mpl {
 
     [[nodiscard]] shift_ranks shift(int direction, int disp) const {
       int rank_source, rank_dest;
-      MPI_Cart_shift(comm, direction, disp, &rank_source, &rank_dest);
+      MPI_Cart_shift(comm_, direction, disp, &rank_source, &rank_dest);
       return {rank_source, rank_dest};
     }
   };

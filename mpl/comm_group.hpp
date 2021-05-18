@@ -33,7 +33,7 @@ namespace mpl {
 
   /// \brief Represents a group of processes.
   class group {
-    MPI_Group gr{MPI_GROUP_EMPTY};
+    MPI_Group gr_{MPI_GROUP_EMPTY};
 
   public:
     /// \brief Group equality types.
@@ -85,11 +85,14 @@ namespace mpl {
 
     /// \brief Creates a new process group by copying an existing one.
     /// \param other the other group to copy from
+    /// \note Process groups should not be copied unless a new independent group is wanted.
+    /// Process groups should be passed via references to functions to avoid unnecessary
+    /// copying.
     group(const group &other);
 
     /// \brief Move-constructs a process group.
     /// \param other the other group to move from
-    group(group &&other) noexcept : gr{other.gr} { other.gr = MPI_GROUP_EMPTY; }
+    group(group &&other) noexcept : gr_{other.gr_} { other.gr_ = MPI_GROUP_EMPTY; }
 
     /// \brief Creates a new group that consists of all processes of the given communicator.
     /// \param comm the communicator
@@ -130,21 +133,24 @@ namespace mpl {
     /// \brief Destructs a process group.
     ~group() {
       int result;
-      MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+      MPI_Group_compare(gr_, MPI_GROUP_EMPTY, &result);
       if (result != MPI_IDENT)
-        MPI_Group_free(&gr);
+        MPI_Group_free(&gr_);
     }
 
     /// \brief Copy-assigns a process group.
     /// \param other the other group to move from
     /// \return this group
+    /// \note Process groups should not be copied unless a new independent group is wanted.
+    /// Process groups should be passed via references to functions to avoid unnecessary
+    /// copying.
     group &operator=(const group &other) {
       if (this != &other) {
         int result;
-        MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+        MPI_Group_compare(gr_, MPI_GROUP_EMPTY, &result);
         if (result != MPI_IDENT)
-          MPI_Group_free(&gr);
-        MPI_Group_excl(other.gr, 0, nullptr, &gr);
+          MPI_Group_free(&gr_);
+        MPI_Group_excl(other.gr_, 0, nullptr, &gr_);
       }
       return *this;
     }
@@ -155,20 +161,20 @@ namespace mpl {
     group &operator=(group &&other) noexcept {
       if (this != &other) {
         int result;
-        MPI_Group_compare(gr, MPI_GROUP_EMPTY, &result);
+        MPI_Group_compare(gr_, MPI_GROUP_EMPTY, &result);
         if (result != MPI_IDENT)
-          MPI_Group_free(&gr);
-        gr = other.gr;
-        other.gr = MPI_GROUP_EMPTY;
+          MPI_Group_free(&gr_);
+        gr_ = other.gr_;
+        other.gr_ = MPI_GROUP_EMPTY;
       }
       return *this;
     }
 
-    /// \brief Determines the size of a process group.
-    /// \return the size of the group
+    /// \brief Determines the total number of processes in a process group.
+    /// \return number of processes
     [[nodiscard]] int size() const {
       int result;
-      MPI_Group_size(gr, &result);
+      MPI_Group_size(gr_, &result);
       return result;
     }
 
@@ -176,7 +182,7 @@ namespace mpl {
     /// \return the rank of the calling process in the group
     [[nodiscard]] int rank() const {
       int result;
-      MPI_Group_rank(gr, &result);
+      MPI_Group_rank(gr_, &result);
       return result;
     }
 
@@ -186,7 +192,7 @@ namespace mpl {
     /// \return corresponding rank in this process group
     [[nodiscard]] int translate(int rank, const group &other) const {
       int other_rank;
-      MPI_Group_translate_ranks(gr, 1, &rank, other.gr, &other_rank);
+      MPI_Group_translate_ranks(gr_, 1, &rank, other.gr_, &other_rank);
       return other_rank;
     }
 
@@ -196,7 +202,7 @@ namespace mpl {
     /// \return corresponding ranks in this process group
     [[nodiscard]] ranks translate(const ranks &rank, const group &other) const {
       ranks other_rank(rank.size());
-      MPI_Group_translate_ranks(gr, static_cast<int>(rank.size()), rank(), other.gr,
+      MPI_Group_translate_ranks(gr_, static_cast<int>(rank.size()), rank(), other.gr_,
                                 other_rank());
       return other_rank;
     }
@@ -205,7 +211,7 @@ namespace mpl {
     /// \return true if identical
     bool operator==(const group &other) const {
       int result;
-      MPI_Group_compare(gr, other.gr, &result);
+      MPI_Group_compare(gr_, other.gr_, &result);
       return result == MPI_IDENT;
     }
 
@@ -213,7 +219,7 @@ namespace mpl {
     /// \return true if not identical
     bool operator!=(const group &other) const {
       int result;
-      MPI_Group_compare(gr, other.gr, &result);
+      MPI_Group_compare(gr_, other.gr_, &result);
       return result != MPI_IDENT;
     }
 
@@ -221,7 +227,7 @@ namespace mpl {
     /// \return equality type
     [[nodiscard]] equality_type compare(const group &other) const {
       int result;
-      MPI_Group_compare(gr, other.gr, &result);
+      MPI_Group_compare(gr_, other.gr_, &result);
       return static_cast<equality_type>(result);
     }
 
@@ -258,7 +264,7 @@ namespace mpl {
     static int isend_irecv_cancel(void *state, int complete) { return MPI_SUCCESS; }
 
   protected:
-    MPI_Comm comm{MPI_COMM_NULL};
+    MPI_Comm comm_{MPI_COMM_NULL};
 
   public:
     /// \brief Equality types for communicator comparison.
@@ -401,7 +407,7 @@ namespace mpl {
     }
 
   protected:
-    explicit communicator(MPI_Comm comm) : comm(comm) {}
+    explicit communicator(MPI_Comm comm) : comm_(comm) {}
 
   public:
     /// \brief Creates an empty communicator with no associated process.
@@ -409,12 +415,15 @@ namespace mpl {
 
     /// \brief Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
-    communicator(const communicator &other) { MPI_Comm_dup(other.comm, &comm); }
+    /// \note Communicators should not be copied unless a new independent communicator is
+    /// wanted. Communicators should be passed via references to functions to avoid unnecessary
+    /// copying.
+    communicator(const communicator &other) { MPI_Comm_dup(other.comm_, &comm_); }
 
     /// \brief Move-constructs a communicator.
     /// \param other the other communicator to move from
-    communicator(communicator &&other) noexcept : comm{other.comm} {
-      other.comm = MPI_COMM_NULL;
+    communicator(communicator &&other) noexcept : comm_{other.comm_} {
+      other.comm_ = MPI_COMM_NULL;
     }
 
     /// \brief Constructs a new communicator from an existing one with a specified communication group.
@@ -423,7 +432,7 @@ namespace mpl {
     /// \param gr the group that determines the new communicator's structure
     /// \note This is a collective operation that needs to be carried out by all processes of the communicator other.
     explicit communicator(comm_collective_tag comm_collective, const communicator &other, const group &gr) {
-      MPI_Comm_create(other.comm, gr.gr, &comm);
+      MPI_Comm_create(other.comm_, gr.gr_, &comm_);
     }
 
     /// \brief Constructs a new communicator from an existing one with a specified communication group.
@@ -434,7 +443,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of the given group.
     explicit communicator(group_collective_tag group_collective, const communicator &other, const group &gr,
                           tag t = tag(0)) {
-      MPI_Comm_create_group(other.comm, gr.gr, static_cast<int>(t), &comm);
+      MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
 
     /// \brief Constructs a new communicator from an existing one with a specified communication group.
@@ -451,8 +460,8 @@ namespace mpl {
                     "not an enumeration type or underlying enumeration type too large");
       static_assert(detail::is_valid_key_v<key_type>,
                     "not an enumeration type or underlying enumeration type too large");
-      MPI_Comm_split(other.comm, detail::underlying_type<color_type>::value(color),
-                     detail::underlying_type<key_type>::value(key), &comm);
+      MPI_Comm_split(other.comm_, detail::underlying_type<color_type>::value(color),
+                     detail::underlying_type<key_type>::value(key), &comm_);
     }
 
     /// \brief Constructs a new communicator from an existing one by spitting the communicator into disjoint subgroups each of which can create a shared memory region.
@@ -465,73 +474,111 @@ namespace mpl {
                           key_type key = 0) {
       static_assert(detail::is_valid_tag_v<key_type>,
                     "not an enumeration type or underlying enumeration type too large");
-      MPI_Comm_split_type(other.comm, MPI_COMM_TYPE_SHARED,
-                          detail::underlying_type<key_type>::value(key), MPI_INFO_NULL, &comm);
+      MPI_Comm_split_type(other.comm_, MPI_COMM_TYPE_SHARED,
+                          detail::underlying_type<key_type>::value(key), MPI_INFO_NULL, &comm_);
     }
 
     /// \brief Destructs a communicator.
     ~communicator() {
       if (is_valid()) {
         int result1;
-        MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
         int result2;
-        MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
         if (result1 != MPI_IDENT and result2 != MPI_IDENT)
-          MPI_Comm_free(&comm);
+          MPI_Comm_free(&comm_);
       }
     }
 
-    void operator=(const communicator &) = delete;
-
-    communicator &operator=(communicator &&other) noexcept {
+    /// \brief Copy-assigns and creates a new communicator which is equivalent to an existing
+    /// one.
+    /// \param other the other communicator to copy from
+    /// \note Communicators should not be copied unless a new independent communicator is
+    /// wanted. Communicators should be passed via references to functions to avoid unnecessary
+    /// copying.
+    communicator &operator=(const communicator &other)  noexcept {
       if (this != &other) {
         if (is_valid()) {
           int result1;
-          MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
+          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
           int result2;
-          MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
           if (result1 != MPI_IDENT and result2 != MPI_IDENT)
-            MPI_Comm_free(&comm);
+            MPI_Comm_free(&comm_);
         }
-        comm = other.comm;
-        other.comm = MPI_COMM_NULL;
+        MPI_Comm_dup(other.comm_, &comm_);
       }
       return *this;
     }
 
+    /// \brief Move-assigns a communicator.
+    /// \param other the other communicator to move from
+    communicator &operator=(communicator &&other) noexcept {
+      if (this != &other) {
+        if (is_valid()) {
+          int result1;
+          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
+          int result2;
+          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
+          if (result1 != MPI_IDENT and result2 != MPI_IDENT)
+            MPI_Comm_free(&comm_);
+        }
+        comm_ = other.comm_;
+        other.comm_ = MPI_COMM_NULL;
+      }
+      return *this;
+    }
+
+    /// \brief Determines the total number of processes in a communicator.
+    /// \return number of processes
     [[nodiscard]] int size() const {
       int result;
-      MPI_Comm_size(comm, &result);
+      MPI_Comm_size(comm_, &result);
       return result;
     }
 
+    /// \brief Determines the rank within a communicator.
+    /// \return the rank of the calling process in the communicator
     [[nodiscard]] int rank() const {
       int result;
-      MPI_Comm_rank(comm, &result);
+      MPI_Comm_rank(comm_, &result);
       return result;
     }
 
+    /// \brief Tests for identity of communicators.
+    /// \return true if identical
     bool operator==(const communicator &other) const {
       int result;
-      MPI_Comm_compare(comm, other.comm, &result);
+      MPI_Comm_compare(comm_, other.comm_, &result);
       return result == MPI_IDENT;
     }
 
+    /// \brief Tests for identity of communicators.
+    /// \return true if not identical
     bool operator!=(const communicator &other) const {
       int result;
-      MPI_Comm_compare(comm, other.comm, &result);
+      MPI_Comm_compare(comm_, other.comm_, &result);
       return result != MPI_IDENT;
     }
 
+    /// \brief Compares to another communicator.
+    /// \return equality type
     [[nodiscard]] equality_type compare(const communicator &other) const {
       int result;
-      MPI_Comm_compare(comm, other.comm, &result);
+      MPI_Comm_compare(comm_, other.comm_, &result);
       return static_cast<equality_type>(result);
     }
 
-    [[nodiscard]] bool is_valid() const { return comm != MPI_COMM_NULL; }
+   /// \brief Checks if a communicator is valid, i.e., is not an empty communicator with no
+   /// associated process.
+   /// \return true if communicator is valid
+   /// \note A default constructed communicator is a non valid communicator.
+    [[nodiscard]] bool is_valid() const { return comm_ != MPI_COMM_NULL; }
 
-    void abort(int err) const { MPI_Abort(comm, err); }
+    /// \brief Aborts all processes associated to the communicator.
+    /// \param err error code, becomes the return code of the main program
+    /// \note Method provides just a "best attempt" to abort processes.
+    void abort(int err) const { MPI_Abort(comm_, err); }
 
     friend class group;
 
@@ -551,7 +598,7 @@ namespace mpl {
     template<typename T>
     void send(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Send(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-               comm);
+               comm_);
     }
 
     template<typename T>
@@ -583,7 +630,7 @@ namespace mpl {
       check_dest(dest);
       check_send_tag(t);
       MPI_Send(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-               static_cast<int>(t), comm);
+               static_cast<int>(t), comm_);
     }
 
     template<typename iterT>
@@ -605,7 +652,7 @@ namespace mpl {
                          detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Isend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm, &req);
+                comm_, &req);
       return impl::irequest(req);
     }
 
@@ -617,7 +664,7 @@ namespace mpl {
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
       MPI_Isend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
-                static_cast<int>(t), comm, &req);
+                static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
       isend_state->source = s.MPI_SOURCE;
@@ -663,7 +710,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Isend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                static_cast<int>(t), comm, &req);
+                static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -686,7 +733,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Send_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                    static_cast<int>(t), comm, &req);
+                    static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -696,7 +743,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Send_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                    static_cast<int>(t), comm, &req);
+                    static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -717,14 +764,14 @@ namespace mpl {
     template<typename T>
     [[nodiscard]] int bsend_size() const {
       int pack_size{0};
-      MPI_Pack_size(1, detail::datatype_traits<T>::get_datatype(), comm, &pack_size);
+      MPI_Pack_size(1, detail::datatype_traits<T>::get_datatype(), comm_, &pack_size);
       return pack_size + MPI_BSEND_OVERHEAD;
     }
 
     template<typename T>
     int bsend_size(const layout<T> &l) const {
       int pack_size{0};
-      MPI_Pack_size(1, detail::datatype_traits<layout<T>>::get_datatype(l), comm, &pack_size);
+      MPI_Pack_size(1, detail::datatype_traits<layout<T>>::get_datatype(l), comm_, &pack_size);
       return pack_size + MPI_BSEND_OVERHEAD;
     }
 
@@ -733,7 +780,7 @@ namespace mpl {
     template<typename T>
     void bsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Bsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm);
+                comm_);
     }
 
     template<typename T>
@@ -766,7 +813,7 @@ namespace mpl {
       check_dest(dest);
       check_send_tag(t);
       MPI_Bsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                static_cast<int>(t), comm);
+                static_cast<int>(t), comm_);
     }
 
     template<typename iterT>
@@ -787,7 +834,7 @@ namespace mpl {
     irequest ibsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Ibsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -799,7 +846,7 @@ namespace mpl {
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
       MPI_Ibsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
       isend_state->source = s.MPI_SOURCE;
@@ -845,7 +892,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Ibsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -868,7 +915,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Bsend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                     static_cast<int>(t), comm, &req);
+                     static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -878,7 +925,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Bsend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                     static_cast<int>(t), comm, &req);
+                     static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -900,7 +947,7 @@ namespace mpl {
     template<typename T>
     void ssend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Ssend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm);
+                comm_);
     }
 
     template<typename T>
@@ -931,7 +978,7 @@ namespace mpl {
       check_dest(dest);
       check_send_tag(t);
       MPI_Ssend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                static_cast<int>(t), comm);
+                static_cast<int>(t), comm_);
     }
 
     template<typename iterT>
@@ -952,7 +999,7 @@ namespace mpl {
     irequest issend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Issend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -964,7 +1011,7 @@ namespace mpl {
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
       MPI_Issend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
       isend_state->source = s.MPI_SOURCE;
@@ -1010,7 +1057,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Issend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1033,7 +1080,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Ssend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                     static_cast<int>(t), comm, &req);
+                     static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -1043,7 +1090,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Ssend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                     static_cast<int>(t), comm, &req);
+                     static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -1065,7 +1112,7 @@ namespace mpl {
     template<typename T>
     void rsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Rsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm);
+                comm_);
     }
 
     template<typename T>
@@ -1097,7 +1144,7 @@ namespace mpl {
       check_dest(dest);
       check_send_tag(t);
       MPI_Rsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                static_cast<int>(t), comm);
+                static_cast<int>(t), comm_);
     }
 
     template<typename iterT>
@@ -1118,7 +1165,7 @@ namespace mpl {
     irequest irsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Irsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1130,7 +1177,7 @@ namespace mpl {
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
       MPI_Irsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
       isend_state->source = s.MPI_SOURCE;
@@ -1176,7 +1223,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Irsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                 static_cast<int>(t), comm, &req);
+                 static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1199,7 +1246,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Rsend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                     static_cast<int>(t), comm, &req);
+                     static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -1209,7 +1256,7 @@ namespace mpl {
       check_send_tag(t);
       MPI_Request req;
       MPI_Rsend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                     static_cast<int>(t), comm, &req);
+                     static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -1232,7 +1279,7 @@ namespace mpl {
     status recv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
       status s;
       MPI_Recv(&data, 1, detail::datatype_traits<T>::get_datatype(), source,
-               static_cast<int>(t), comm, reinterpret_cast<MPI_Status *>(&s));
+               static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -1242,7 +1289,7 @@ namespace mpl {
       status s;
       auto *ps{reinterpret_cast<MPI_Status *>(&s)};
       MPI_Message message;
-      MPI_Mprobe(source, static_cast<int>(t), comm, &message, ps);
+      MPI_Mprobe(source, static_cast<int>(t), comm_, &message, ps);
       int count{0};
       MPI_Get_count(ps, detail::datatype_traits<value_type>::get_datatype(), &count);
       check_count(count);
@@ -1258,7 +1305,7 @@ namespace mpl {
       status s;
       auto *ps{reinterpret_cast<MPI_Status *>(&s)};
       MPI_Message message;
-      MPI_Mprobe(source, static_cast<int>(t), comm, &message, ps);
+      MPI_Mprobe(source, static_cast<int>(t), comm_, &message, ps);
       int count{0};
       MPI_Get_count(ps, detail::datatype_traits<value_type>::get_datatype(), &count);
       check_count(count);
@@ -1285,7 +1332,7 @@ namespace mpl {
       check_recv_tag(t);
       status s;
       MPI_Recv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), source,
-               static_cast<int>(t), comm, reinterpret_cast<MPI_Status *>(&s));
+               static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -1307,7 +1354,7 @@ namespace mpl {
     irequest irecv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
       MPI_Request req;
       MPI_Irecv(&data, 1, detail::datatype_traits<T>::get_datatype(), source,
-                static_cast<int>(t), comm, &req);
+                static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1350,7 +1397,7 @@ namespace mpl {
       check_recv_tag(t);
       MPI_Request req;
       MPI_Irecv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), source,
-                static_cast<int>(t), comm, &req);
+                static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1373,7 +1420,7 @@ namespace mpl {
       check_recv_tag(t);
       MPI_Request req;
       MPI_Recv_init(&data, 1, detail::datatype_traits<T>::get_datatype(), source,
-                    static_cast<int>(t), comm, &req);
+                    static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -1383,7 +1430,7 @@ namespace mpl {
       check_recv_tag(t);
       MPI_Request req;
       MPI_Recv_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), source,
-                    static_cast<int>(t), comm, &req);
+                    static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
@@ -1405,7 +1452,7 @@ namespace mpl {
       check_source(source);
       check_recv_tag(t);
       status s;
-      MPI_Probe(source, static_cast<int>(t), comm, reinterpret_cast<MPI_Status *>(&s));
+      MPI_Probe(source, static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -1415,7 +1462,7 @@ namespace mpl {
       check_recv_tag(t);
       int result;
       status s;
-      MPI_Iprobe(source, static_cast<int>(t), comm, &result,
+      MPI_Iprobe(source, static_cast<int>(t), comm_, &result,
                  reinterpret_cast<MPI_Status *>(&s));
       return std::make_pair(static_cast<bool>(result), s);
     }
@@ -1427,7 +1474,7 @@ namespace mpl {
       check_recv_tag(t);
       status s;
       message m;
-      MPI_Mprobe(source, static_cast<int>(t), comm, &m, reinterpret_cast<MPI_Status *>(&s));
+      MPI_Mprobe(source, static_cast<int>(t), comm_, &m, reinterpret_cast<MPI_Status *>(&s));
       return std::make_pair(m, s);
     }
 
@@ -1438,7 +1485,7 @@ namespace mpl {
       int result;
       status s;
       message m;
-      MPI_Improbe(source, static_cast<int>(t), comm, &result, &m,
+      MPI_Improbe(source, static_cast<int>(t), comm_, &result, &m,
                   reinterpret_cast<MPI_Status *>(&s));
       return std::make_tuple(static_cast<bool>(result), m, s);
     }
@@ -1461,7 +1508,7 @@ namespace mpl {
       MPI_Sendrecv(&senddata, 1, detail::datatype_traits<T>::get_datatype(), dest,
                    static_cast<int>(sendtag), &recvdata, 1,
                    detail::datatype_traits<T>::get_datatype(), source,
-                   static_cast<int>(recvtag), comm, reinterpret_cast<MPI_Status *>(&s));
+                   static_cast<int>(recvtag), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -1476,7 +1523,7 @@ namespace mpl {
       MPI_Sendrecv(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), dest,
                    static_cast<int>(sendtag), recvdata, 1,
                    detail::datatype_traits<layout<T>>::get_datatype(recvl), source,
-                   static_cast<int>(recvtag), comm, reinterpret_cast<MPI_Status *>(&s));
+                   static_cast<int>(recvtag), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -1514,7 +1561,7 @@ namespace mpl {
       check_recv_tag(recvtag);
       status s;
       MPI_Sendrecv_replace(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
-                           static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm,
+                           static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
                            reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
@@ -1528,7 +1575,7 @@ namespace mpl {
       check_recv_tag(recvtag);
       status s;
       MPI_Sendrecv_replace(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
-                           static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm,
+                           static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
                            reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
@@ -1549,12 +1596,12 @@ namespace mpl {
     // === collective ==================================================
     // === barrier ===
     // --- blocking barrier ---
-    void barrier() const { MPI_Barrier(comm); }
+    void barrier() const { MPI_Barrier(comm_); }
 
     // --- nonblocking barrier ---
     [[nodiscard]] irequest ibarrier() const {
       MPI_Request req;
-      MPI_Ibarrier(comm, &req);
+      MPI_Ibarrier(comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1563,13 +1610,13 @@ namespace mpl {
     template<typename T>
     void bcast(int root_rank, T &data) const {
       check_root(root_rank);
-      MPI_Bcast(&data, 1, detail::datatype_traits<T>::get_datatype(), root_rank, comm);
+      MPI_Bcast(&data, 1, detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
     }
 
     template<typename T>
     void bcast(int root_rank, T *data, const layout<T> &l) const {
       check_root(root_rank);
-      MPI_Bcast(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), root_rank, comm);
+      MPI_Bcast(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), root_rank, comm_);
     }
 
     // --- nonblocking broadcast ---
@@ -1577,7 +1624,7 @@ namespace mpl {
     irequest ibcast(int root_rank, T &data) const {
       check_root(root_rank);
       MPI_Request req;
-      MPI_Ibcast(&data, 1, detail::datatype_traits<T>::get_datatype(), root_rank, comm, &req);
+      MPI_Ibcast(&data, 1, detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1585,7 +1632,7 @@ namespace mpl {
     irequest ibcast(int root_rank, T *data, const layout<T> &l) const {
       check_root(root_rank);
       MPI_Request req;
-      MPI_Ibcast(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), root_rank, comm,
+      MPI_Ibcast(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), root_rank, comm_,
                  &req);
       return impl::irequest(req);
     }
@@ -1597,7 +1644,7 @@ namespace mpl {
     void gather(int root_rank, const T &senddata, T *recvdata) const {
       check_root(root_rank);
       MPI_Gather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
-                 detail::datatype_traits<T>::get_datatype(), root_rank, comm);
+                 detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
     }
 
     template<typename T>
@@ -1605,7 +1652,7 @@ namespace mpl {
                 const layout<T> &recvl) const {
       check_root(root_rank);
       MPI_Gather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata,
-                 1, detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm);
+                 1, detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_);
     }
 
     // --- nonblocking gather ---
@@ -1614,7 +1661,7 @@ namespace mpl {
       check_root(root_rank);
       MPI_Request req;
       MPI_Igather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
-                  detail::datatype_traits<T>::get_datatype(), root_rank, comm, &req);
+                  detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1625,7 +1672,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Igather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
                   recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
-                  root_rank, comm, &req);
+                  root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1634,14 +1681,14 @@ namespace mpl {
     void gather(int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
       MPI_Gather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
-                 MPI_DATATYPE_NULL, root_rank, comm);
+                 MPI_DATATYPE_NULL, root_rank, comm_);
     }
 
     template<typename T>
     void gather(int root_rank, const T *senddata, const layout<T> &sendl) const {
       check_nonroot(root_rank);
       MPI_Gather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
-                 MPI_DATATYPE_NULL, root_rank, comm);
+                 MPI_DATATYPE_NULL, root_rank, comm_);
     }
 
     // --- nonblocking gather, non-root variant ---
@@ -1650,7 +1697,7 @@ namespace mpl {
       check_nonroot(root_rank);
       MPI_Request req;
       MPI_Igather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
-                  MPI_DATATYPE_NULL, root_rank, comm, &req);
+                  MPI_DATATYPE_NULL, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1659,7 +1706,7 @@ namespace mpl {
       check_nonroot(root_rank);
       MPI_Request req;
       MPI_Igather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
-                  MPI_DATATYPE_NULL, root_rank, comm, &req);
+                  MPI_DATATYPE_NULL, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1741,14 +1788,15 @@ namespace mpl {
     template<typename T>
     void allgather(const T &senddata, T *recvdata) const {
       MPI_Allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
-                    detail::datatype_traits<T>::get_datatype(), comm);
+                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
     template<typename T>
     void allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                    const layout<T> &recvl) const {
       MPI_Allgather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                    recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl), comm);
+                    recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+                    comm_);
     }
 
     // --- nonblocking allgather ---
@@ -1756,7 +1804,7 @@ namespace mpl {
     irequest iallgather(const T &senddata, T *recvdata) const {
       MPI_Request req;
       MPI_Iallgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
-                     detail::datatype_traits<T>::get_datatype(), comm, &req);
+                     detail::datatype_traits<T>::get_datatype(), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1765,7 +1813,8 @@ namespace mpl {
                         const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Iallgather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                     recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl), comm,
+                     recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+                     comm_,
                      &req);
       return impl::irequest(req);
     }
@@ -1814,7 +1863,7 @@ namespace mpl {
     void scatter(int root_rank, const T *senddata, T &recvdata) const {
       check_root(root_rank);
       MPI_Scatter(senddata, 1, detail::datatype_traits<T>::get_datatype(), &recvdata, 1,
-                  detail::datatype_traits<T>::get_datatype(), root_rank, comm);
+                  detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
     }
 
     template<typename T>
@@ -1823,7 +1872,7 @@ namespace mpl {
       check_root(root_rank);
       MPI_Scatter(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
                   recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
-                  root_rank, comm);
+                  root_rank, comm_);
     }
 
     // --- nonblocking scatter ---
@@ -1832,7 +1881,7 @@ namespace mpl {
       check_root(root_rank);
       MPI_Request req;
       MPI_Iscatter(senddata, 1, detail::datatype_traits<T>::get_datatype(), &recvdata, 1,
-                   detail::datatype_traits<T>::get_datatype(), root_rank, comm, &req);
+                   detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1843,7 +1892,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Iscatter(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
                    recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
-                   root_rank, comm, &req);
+                   root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1852,14 +1901,14 @@ namespace mpl {
     void scatter(int root_rank, T &recvdata) const {
       check_nonroot(root_rank);
       MPI_Scatter(0, 0, MPI_DATATYPE_NULL, &recvdata, 1,
-                  detail::datatype_traits<T>::get_datatype(), root_rank, comm);
+                  detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
     }
 
     template<typename T>
     void scatter(int root_rank, T *recvdata, const layout<T> &recvl) const {
       check_root(root_rank);
       MPI_Scatter(0, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                  detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm);
+                  detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_);
     }
 
     // --- nonblocking scatter, non-root variant ---
@@ -1868,7 +1917,7 @@ namespace mpl {
       check_nonroot(root_rank);
       MPI_Request req;
       MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, &recvdata, 1,
-                   detail::datatype_traits<T>::get_datatype(), root_rank, comm, &req);
+                   detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1877,7 +1926,7 @@ namespace mpl {
       check_nonroot(root_rank);
       MPI_Request req;
       MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                   detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm,
+                   detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_,
                    &req);
       return impl::irequest(req);
     }
@@ -1961,14 +2010,14 @@ namespace mpl {
     template<typename T>
     void alltoall(const T *senddata, T *recvdata) const {
       MPI_Alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
-                   detail::datatype_traits<T>::get_datatype(), comm);
+                   detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
     template<typename T>
     void alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                   const layout<T> &recvl) const {
       MPI_Alltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(), recvdata, 1,
-                   detail::datatype_traits<layout<T>>::get_datatype(), comm);
+                   detail::datatype_traits<layout<T>>::get_datatype(), comm_);
     }
 
     // --- nonblocking all-to-all ---
@@ -1976,7 +2025,7 @@ namespace mpl {
     irequest ialltoall(const T *senddata, T *recvdata) const {
       MPI_Request req;
       MPI_Ialltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
-                    detail::datatype_traits<T>::get_datatype(), comm, &req);
+                    detail::datatype_traits<T>::get_datatype(), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1985,7 +2034,7 @@ namespace mpl {
                        const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Ialltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(), recvdata,
-                    1, detail::datatype_traits<layout<T>>::get_datatype(), comm, &req);
+                    1, detail::datatype_traits<layout<T>>::get_datatype(), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -1993,13 +2042,13 @@ namespace mpl {
     template<typename T>
     void alltoall(T *recvdata) const {
       MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                   detail::datatype_traits<T>::get_datatype(), comm);
+                   detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
     template<typename T>
     void alltoall(T *recvdata, const layout<T> &recvl) const {
       MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                   detail::datatype_traits<layout<T>>::get_datatype(), comm);
+                   detail::datatype_traits<layout<T>>::get_datatype(), comm_);
     }
 
     // --- nonblocking all-to-all, in place ---
@@ -2007,7 +2056,7 @@ namespace mpl {
     irequest ialltoall(T *recvdata) const {
       MPI_Request req;
       MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                    detail::datatype_traits<T>::get_datatype(), comm, &req);
+                    detail::datatype_traits<T>::get_datatype(), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2015,7 +2064,7 @@ namespace mpl {
     irequest ialltoall(T *recvdata, const layout<T> &recvl) const {
       MPI_Request req;
       MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                    detail::datatype_traits<layout<T>>::get_datatype(), comm, &req);
+                    detail::datatype_traits<layout<T>>::get_datatype(), comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2036,7 +2085,7 @@ namespace mpl {
       MPI_Alltoallw(senddata, counts.data(), senddispls_int.data(),
                     reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata, counts.data(),
                     recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
-                    comm);
+                    comm_);
     }
 
     template<typename T>
@@ -2099,11 +2148,11 @@ namespace mpl {
         MPI_Ialltoallw(senddata, state->counts.data(), state->senddispls_int.data(),
                        reinterpret_cast<const MPI_Datatype *>(state->sendl()), recvdata,
                        state->counts.data(), state->recvdispls_int.data(),
-                       reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm, &req);
+                       reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
       else
         MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, state->counts.data(),
                        state->recvdispls_int.data(),
-                       reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm, &req);
+                       reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
       state->status = s;
@@ -2149,7 +2198,7 @@ namespace mpl {
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, counts.data(), recvdispls_int.data(),
-                    reinterpret_cast<const MPI_Datatype *>(recvl()), comm);
+                    reinterpret_cast<const MPI_Datatype *>(recvl()), comm_);
     }
 
     template<typename T>
@@ -2186,7 +2235,7 @@ namespace mpl {
     void reduce(F f, int root_rank, const T &senddata, T &recvdata) const {
       check_root(root_rank);
       MPI_Reduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                 detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     /// \anchor communicator_reduce_contiguous_layout
@@ -2195,7 +2244,7 @@ namespace mpl {
                 const contiguous_layout<T> &l) const {
       check_root(root_rank);
       MPI_Reduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                 detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     // --- non-blocking reduce ---
@@ -2204,7 +2253,7 @@ namespace mpl {
       check_root(root_rank);
       MPI_Request req;
       MPI_Ireduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2214,7 +2263,7 @@ namespace mpl {
       check_root(root_rank);
       MPI_Request req;
       MPI_Ireduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2224,17 +2273,17 @@ namespace mpl {
       check_root(root_rank);
       if (rank() == root_rank)
         MPI_Reduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
       else
         MPI_Reduce(&sendrecvdata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
       MPI_Reduce(&senddata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                 detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     template<typename T, typename F>
@@ -2242,10 +2291,10 @@ namespace mpl {
       if (rank() == root_rank)
         MPI_Reduce(MPI_IN_PLACE, sendrecvdata, l.size(),
                    detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
-                   root_rank, comm);
+                   root_rank, comm_);
       else
         MPI_Reduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
-                   detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     template<typename T, typename F>
@@ -2253,7 +2302,7 @@ namespace mpl {
                 const contiguous_layout<T> &l) const {
       check_nonroot(root_rank);
       MPI_Reduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, root_rank, comm);
+                 detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     // --- non-blocking reduce, in place ---
@@ -2263,10 +2312,10 @@ namespace mpl {
       MPI_Request req;
       if (rank() == root_rank)
         MPI_Ireduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       else
         MPI_Ireduce(&sendrecvdata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2275,7 +2324,7 @@ namespace mpl {
       check_nonroot(root_rank);
       MPI_Request req;
       MPI_Ireduce(&sendrecvdata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2286,10 +2335,10 @@ namespace mpl {
       if (rank() == root_rank)
         MPI_Ireduce(MPI_IN_PLACE, sendrecvdata, l.size(),
                     detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
-                    root_rank, comm, &req);
+                    root_rank, comm_, &req);
       else
         MPI_Ireduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2299,7 +2348,7 @@ namespace mpl {
       check_nonroot(root_rank);
       MPI_Request req;
       MPI_Ireduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, root_rank, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2308,13 +2357,13 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f, const T &senddata, T &recvdata) const {
       MPI_Allreduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
     void allreduce(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Allreduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking all-reduce ---
@@ -2322,7 +2371,7 @@ namespace mpl {
     irequest iallreduce(F f, const T &senddata, T &recvdata) const {
       MPI_Request req;
       MPI_Iallreduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>(f).mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2331,7 +2380,7 @@ namespace mpl {
                         const contiguous_layout<T> &l) const {
       MPI_Request req;
       MPI_Iallreduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>(f).mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2339,14 +2388,14 @@ namespace mpl {
     template<typename T, typename F>
     void allreduce(F f, T &sendrecvdata) const {
       MPI_Allreduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, comm);
+                    detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
     void allreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
       MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(),
                     detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
-                    comm);
+                    comm_);
     }
 
     // --- non-blocking all-reduce, in place ---
@@ -2354,7 +2403,7 @@ namespace mpl {
     irequest iallreduce(F f, T &sendrecvdata) const {
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>(f).mpi_op, comm, &req);
+                     detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2363,7 +2412,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Iallreduce(MPI_IN_PLACE, sendrecvdata, l.size(),
                      detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
-                     comm, &req);
+                     comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2373,7 +2422,7 @@ namespace mpl {
     void reduce_scatter_block(F f, const T *senddata, T &recvdata) const {
       MPI_Reduce_scatter_block(senddata, &recvdata, 1,
                                detail::datatype_traits<T>::get_datatype(),
-                               detail::get_op<T, F>(f).mpi_op, comm);
+                               detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
@@ -2381,7 +2430,7 @@ namespace mpl {
                               const contiguous_layout<T> &l) const {
       MPI_Reduce_scatter_block(senddata, recvdata, l.size(),
                                detail::datatype_traits<T>::get_datatype(),
-                               detail::get_op<T, F>(f).mpi_op, comm);
+                               detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking reduce-scatter-block ---
@@ -2390,7 +2439,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Ireduce_scatter_block(senddata, &recvdata, 1,
                                 detail::datatype_traits<T>::get_datatype(),
-                                detail::get_op<T, F>(f).mpi_op, comm, &req);
+                                detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2400,7 +2449,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Ireduce_scatter_block(senddata, recvdata, l.size(),
                                 detail::datatype_traits<T>::get_datatype(),
-                                detail::get_op<T, F>(f).mpi_op, comm, &req);
+                                detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2411,7 +2460,7 @@ namespace mpl {
                         const contiguous_layouts<T> &recvcounts) const {
       MPI_Reduce_scatter(senddata, recvdata, recvcounts.sizes(),
                          detail::datatype_traits<T>::get_datatype(),
-                         detail::get_op<T, F>(f).mpi_op, comm);
+                         detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking reduce-scatter ---
@@ -2421,7 +2470,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Ireduce_scatter(senddata, recvdata, recvcounts.sizes(),
                           detail::datatype_traits<T>::get_datatype(),
-                          detail::get_op<T, F>(f).mpi_op, comm, &req);
+                          detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2430,13 +2479,13 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f, const T &senddata, T &recvdata) const {
       MPI_Scan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>(f).mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
     void scan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Scan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>(f).mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking scan ---
@@ -2444,7 +2493,7 @@ namespace mpl {
     irequest iscan(F f, const T &senddata, T &recvdata) const {
       MPI_Request req;
       MPI_Iscan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>(f).mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2452,7 +2501,7 @@ namespace mpl {
     irequest iscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
       MPI_Iscan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>(f).mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2460,13 +2509,13 @@ namespace mpl {
     template<typename T, typename F>
     void scan(F f, T &recvdata) const {
       MPI_Scan(MPI_IN_PLACE, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>(f).mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
     void scan(F f, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Scan(MPI_IN_PLACE, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>(f).mpi_op, comm);
+               detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking scan, in place ---
@@ -2474,7 +2523,7 @@ namespace mpl {
     irequest iscan(F f, T &recvdata) const {
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>(f).mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2482,7 +2531,7 @@ namespace mpl {
     irequest iscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
       MPI_Iscan(MPI_IN_PLACE, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                detail::get_op<T, F>(f).mpi_op, comm, &req);
+                detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2491,13 +2540,13 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f, const T &senddata, T &recvdata) const {
       MPI_Exscan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
     void exscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Exscan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking exscan ---
@@ -2505,7 +2554,7 @@ namespace mpl {
     irequest iexscan(F f, const T &senddata, T &recvdata) const {
       MPI_Request req;
       MPI_Iexscan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2513,7 +2562,7 @@ namespace mpl {
     irequest iexscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
       MPI_Iexscan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2521,13 +2570,13 @@ namespace mpl {
     template<typename T, typename F>
     void exscan(F f, T &recvdata) const {
       MPI_Exscan(MPI_IN_PLACE, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     template<typename T, typename F>
     void exscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Exscan(MPI_IN_PLACE, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                 detail::get_op<T, F>(f).mpi_op, comm);
+                 detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking exscan, in place ---
@@ -2535,7 +2584,7 @@ namespace mpl {
     irequest iexscan(F f, T &recvdata) const {
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
 
@@ -2543,35 +2592,35 @@ namespace mpl {
     irequest iexscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
       MPI_Iexscan(MPI_IN_PLACE, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, comm, &req);
+                  detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
   };  // namespace mpl
 
   //--------------------------------------------------------------------
 
-  inline group::group(const group &other) { MPI_Group_excl(other.gr, 0, nullptr, &gr); }
+  inline group::group(const group &other) { MPI_Group_excl(other.gr_, 0, nullptr, &gr_); }
 
-  inline group::group(const communicator &comm) { MPI_Comm_group(comm.comm, &gr); }
+  inline group::group(const communicator &comm) { MPI_Comm_group(comm.comm_, &gr_); }
 
   inline group::group(group::Union_tag, const group &other_1, const group &other_2) {
-    MPI_Group_union(other_1.gr, other_2.gr, &gr);
+    MPI_Group_union(other_1.gr_, other_2.gr_, &gr_);
   }
 
   inline group::group(group::intersection_tag, const group &other_1, const group &other_2) {
-    MPI_Group_intersection(other_1.gr, other_2.gr, &gr);
+    MPI_Group_intersection(other_1.gr_, other_2.gr_, &gr_);
   }
 
   inline group::group(group::difference_tag, const group &other_1, const group &other_2) {
-    MPI_Group_difference(other_1.gr, other_2.gr, &gr);
+    MPI_Group_difference(other_1.gr_, other_2.gr_, &gr_);
   }
 
   inline group::group(group::include_tag, const group &other, const ranks &rank) {
-    MPI_Group_incl(other.gr, rank.size(), rank(), &gr);
+    MPI_Group_incl(other.gr_, rank.size(), rank(), &gr_);
   }
 
   inline group::group(group::exclude_tag, const group &other, const ranks &rank) {
-    MPI_Group_excl(other.gr, rank.size(), rank(), &gr);
+    MPI_Group_excl(other.gr_, rank.size(), rank(), &gr_);
   }
 
 }  // namespace mpl

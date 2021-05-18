@@ -67,12 +67,12 @@ namespace mpl {
         ++index[e.first];
       }
       std::partial_sum(index.begin(), index.end(), index.begin());
-      MPI_Graph_create(old_comm.comm, nodes, index.data(), edges.data(), reorder, &comm);
+      MPI_Graph_create(old_comm.comm_, nodes, index.data(), edges.data(), reorder, &comm_);
     }
 
     graph_communicator(graph_communicator &&other) noexcept {
-      comm = other.comm;
-      other.comm = MPI_COMM_SELF;
+      comm_ = other.comm_;
+      other.comm_ = MPI_COMM_SELF;
     }
 
     void operator=(const graph_communicator &) = delete;
@@ -80,19 +80,19 @@ namespace mpl {
     graph_communicator &operator=(graph_communicator &&other) noexcept {
       if (this != &other) {
         int result1, result2;
-        MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
-        MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
+        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
         if (result1 != MPI_IDENT and result2 != MPI_IDENT)
-          MPI_Comm_free(&comm);
-        comm = other.comm;
-        other.comm = MPI_COMM_SELF;
+          MPI_Comm_free(&comm_);
+        comm_ = other.comm_;
+        other.comm_ = MPI_COMM_SELF;
       }
       return *this;
     }
 
     [[nodiscard]] int neighbors_count(int rank) const {
       int nneighbors;
-      MPI_Graph_neighbors_count(comm, rank, &nneighbors);
+      MPI_Graph_neighbors_count(comm_, rank, &nneighbors);
       return nneighbors;
     };
 
@@ -101,7 +101,7 @@ namespace mpl {
     [[nodiscard]] node_list neighbors(int rank) const {
       int maxneighbors = neighbors_count(rank);
       node_list nl(maxneighbors);
-      MPI_Graph_neighbors(comm, rank, maxneighbors, nl.data());
+      MPI_Graph_neighbors(comm_, rank, maxneighbors, nl.data());
       return nl;
     }
 

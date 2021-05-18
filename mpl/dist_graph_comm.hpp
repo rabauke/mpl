@@ -61,15 +61,15 @@ namespace mpl {
         destinations.push_back(x.first);
         destinationweights.push_back(x.second);
       }
-      MPI_Dist_graph_create_adjacent(old_comm.comm, sources.size(), sources.data(),
+      MPI_Dist_graph_create_adjacent(old_comm.comm_, sources.size(), sources.data(),
                                      sourceweights.data(), destinations.size(),
                                      destinations.data(), destinationweights.data(),
-                                     MPI_INFO_NULL, reorder, &comm);
+                                     MPI_INFO_NULL, reorder, &comm_);
     }
 
     dist_graph_communicator(dist_graph_communicator &&other) noexcept {
-      comm = other.comm;
-      other.comm = MPI_COMM_SELF;
+      comm_ = other.comm_;
+      other.comm_ = MPI_COMM_SELF;
     }
 
     void operator=(const dist_graph_communicator &) = delete;
@@ -77,25 +77,25 @@ namespace mpl {
     dist_graph_communicator &operator=(dist_graph_communicator &&other) noexcept {
       if (this != &other) {
         int result1, result2;
-        MPI_Comm_compare(comm, MPI_COMM_WORLD, &result1);
-        MPI_Comm_compare(comm, MPI_COMM_SELF, &result2);
+        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
+        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
         if (result1 != MPI_IDENT and result2 != MPI_IDENT)
-          MPI_Comm_free(&comm);
-        comm = other.comm;
-        other.comm = MPI_COMM_SELF;
+          MPI_Comm_free(&comm_);
+        comm_ = other.comm_;
+        other.comm_ = MPI_COMM_SELF;
       }
       return *this;
     }
 
     [[nodiscard]] int indegree() const {
       int _indegree, _outdegree, _weighted;
-      MPI_Dist_graph_neighbors_count(comm, &_indegree, &_outdegree, &_weighted);
+      MPI_Dist_graph_neighbors_count(comm_, &_indegree, &_outdegree, &_weighted);
       return _indegree;
     };
 
     [[nodiscard]] int outdegree() const {
       int _indegree, _outdegree, _weighted;
-      MPI_Dist_graph_neighbors_count(comm, &_indegree, &_outdegree, &_weighted);
+      MPI_Dist_graph_neighbors_count(comm_, &_indegree, &_outdegree, &_weighted);
       return _outdegree;
     };
 
@@ -104,7 +104,7 @@ namespace mpl {
       std::vector<int> sources(indeg), sourceweights(indeg);
       int outdeg{outdegree()};
       std::vector<int> destinations(outdeg), destinationweights(outdeg);
-      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweights.data(), outdeg,
+      MPI_Dist_graph_neighbors(comm_, indeg, sources.data(), sourceweights.data(), outdeg,
                                destinations.data(), destinationweights.data());
       source_set ss;
       for (int i = 0; i < indeg; ++i)
@@ -117,7 +117,7 @@ namespace mpl {
       std::vector<int> sources(indeg), sourceweights(indeg);
       int outdeg{outdegree()};
       std::vector<int> destinations(outdeg), destinationweights(outdeg);
-      MPI_Dist_graph_neighbors(comm, indeg, sources.data(), sourceweights.data(), outdeg,
+      MPI_Dist_graph_neighbors(comm_, indeg, sources.data(), sourceweights.data(), outdeg,
                                destinations.data(), destinationweights.data());
       dest_set ds;
       for (int i = 0; i < indeg; ++i)

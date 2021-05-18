@@ -178,7 +178,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5e0f8cccb86679df1e68125ae4b18e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns a process group.  <a href="classmpl_1_1group.html#a5e0f8cccb86679df1e68125ae4b18e6b">More...</a><br /></td></tr>
 <tr class="separator:a5e0f8cccb86679df1e68125ae4b18e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58537237d16d0ac6ecb5680e33997f26"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1group.html#a58537237d16d0ac6ecb5680e33997f26">size</a> () const</td></tr>
-<tr class="memdesc:a58537237d16d0ac6ecb5680e33997f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the size of a process group.  <a href="classmpl_1_1group.html#a58537237d16d0ac6ecb5680e33997f26">More...</a><br /></td></tr>
+<tr class="memdesc:a58537237d16d0ac6ecb5680e33997f26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the total number of processes in a process group.  <a href="classmpl_1_1group.html#a58537237d16d0ac6ecb5680e33997f26">More...</a><br /></td></tr>
 <tr class="separator:a58537237d16d0ac6ecb5680e33997f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac820bf356be8b94134cb08f8efa087ba"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1group.html#ac820bf356be8b94134cb08f8efa087ba">rank</a> () const</td></tr>
 <tr class="memdesc:ac820bf356be8b94134cb08f8efa087ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the rank within a process group.  <a href="classmpl_1_1group.html#ac820bf356be8b94134cb08f8efa087ba">More...</a><br /></td></tr>
@@ -327,8 +327,9 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section note"><dt>Note</dt><dd>Process groups should not be copied unless a new independent group is wanted. Process groups should be passed via references to functions to avoid unnecessary copying. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02553">2553</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02602">2602</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -364,7 +365,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00092">92</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00095">95</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -400,7 +401,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02555">2555</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02604">2604</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -454,7 +455,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02557">2557</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02606">2606</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -508,7 +509,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02561">2561</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02610">2610</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -562,7 +563,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02565">2565</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02614">2614</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -616,7 +617,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02569">2569</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02618">2618</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -670,7 +671,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02573">2573</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02622">2622</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -699,7 +700,7 @@ Friends</h2></td></tr>
 
 <p>Destructs a process group. </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00131">131</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00134">134</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -731,7 +732,7 @@ Friends</h2></td></tr>
 <p>Compares to another process group. </p>
 <dl class="section return"><dt>Returns</dt><dd>equality type </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00222">222</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00228">228</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -762,7 +763,7 @@ Friends</h2></td></tr>
 <p>Tests for identity of process groups. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if not identical </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00214">214</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00220">220</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -798,8 +799,9 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>this group </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Process groups should not be copied unless a new independent group is wanted. Process groups should be passed via references to functions to avoid unnecessary copying. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00141">141</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00147">147</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -836,7 +838,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>this group </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00155">155</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00161">161</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -867,7 +869,7 @@ Friends</h2></td></tr>
 <p>Tests for identity of process groups. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if identical </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00206">206</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00212">212</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -897,7 +899,7 @@ Friends</h2></td></tr>
 <p>Determines the rank within a process group. </p>
 <dl class="section return"><dt>Returns</dt><dd>the rank of the calling process in the group </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00177">177</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00183">183</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -924,10 +926,10 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Determines the size of a process group. </p>
-<dl class="section return"><dt>Returns</dt><dd>the size of the group </dd></dl>
+<p>Determines the total number of processes in a process group. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of processes </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00169">169</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00175">175</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -975,7 +977,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>corresponding ranks in this process group </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00197">197</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00203">203</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1023,7 +1025,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>corresponding rank in this process group </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00187">187</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00193">193</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1048,7 +1050,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00228">228</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00234">234</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
