@@ -2111,16 +2111,16 @@ namespace mpl {
                        std::vector<int> &&recvdispls_int)
           : sendl{sendl},
             recvl{recvl},
-            counts{counts},
-            senddispls_int{senddispls_int},
-            recvdispls_int{recvdispls_int} {}
+            counts{std::move(counts)},
+            senddispls_int{std::move(senddispls_int)},
+            recvdispls_int{std::move(recvdispls_int)} {}
       ialltoallv_state(const layouts<T> &recvl, std::vector<int> &&counts,
                        std::vector<int> &&recvdispls_int)
           : sendl{},
             recvl{recvl},
-            counts{counts},
+            counts{std::move(counts)},
             senddispls_int{},
-            recvdispls_int{recvdispls_int} {}
+            recvdispls_int{std::move(recvdispls_int)} {}
     };
 
     template<typename T>
