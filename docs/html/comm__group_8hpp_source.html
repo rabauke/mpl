@@ -2027,16 +2027,16 @@ $(document).ready(function(){initNavTree('comm__group_8hpp_source.html',''); ini
 <div class="line"><a name="l02111"></a><span class="lineno"> 2111</span>&#160;                       std::vector&lt;int&gt; &amp;&amp;recvdispls_int)</div>
 <div class="line"><a name="l02112"></a><span class="lineno"> 2112</span>&#160;          : sendl{sendl},</div>
 <div class="line"><a name="l02113"></a><span class="lineno"> 2113</span>&#160;            recvl{recvl},</div>
-<div class="line"><a name="l02114"></a><span class="lineno"> 2114</span>&#160;            counts{counts},</div>
-<div class="line"><a name="l02115"></a><span class="lineno"> 2115</span>&#160;            senddispls_int{senddispls_int},</div>
-<div class="line"><a name="l02116"></a><span class="lineno"> 2116</span>&#160;            recvdispls_int{recvdispls_int} {}</div>
+<div class="line"><a name="l02114"></a><span class="lineno"> 2114</span>&#160;            counts{std::move(counts)},</div>
+<div class="line"><a name="l02115"></a><span class="lineno"> 2115</span>&#160;            senddispls_int{std::move(senddispls_int)},</div>
+<div class="line"><a name="l02116"></a><span class="lineno"> 2116</span>&#160;            recvdispls_int{std::move(recvdispls_int)} {}</div>
 <div class="line"><a name="l02117"></a><span class="lineno"> 2117</span>&#160;      ialltoallv_state(<span class="keyword">const</span> layouts&lt;T&gt; &amp;recvl, std::vector&lt;int&gt; &amp;&amp;counts,</div>
 <div class="line"><a name="l02118"></a><span class="lineno"> 2118</span>&#160;                       std::vector&lt;int&gt; &amp;&amp;recvdispls_int)</div>
 <div class="line"><a name="l02119"></a><span class="lineno"> 2119</span>&#160;          : sendl{},</div>
 <div class="line"><a name="l02120"></a><span class="lineno"> 2120</span>&#160;            recvl{recvl},</div>
-<div class="line"><a name="l02121"></a><span class="lineno"> 2121</span>&#160;            counts{counts},</div>
+<div class="line"><a name="l02121"></a><span class="lineno"> 2121</span>&#160;            counts{std::move(counts)},</div>
 <div class="line"><a name="l02122"></a><span class="lineno"> 2122</span>&#160;            senddispls_int{},</div>
-<div class="line"><a name="l02123"></a><span class="lineno"> 2123</span>&#160;            recvdispls_int{recvdispls_int} {}</div>
+<div class="line"><a name="l02123"></a><span class="lineno"> 2123</span>&#160;            recvdispls_int{std::move(recvdispls_int)} {}</div>
 <div class="line"><a name="l02124"></a><span class="lineno"> 2124</span>&#160;    };</div>
 <div class="line"><a name="l02125"></a><span class="lineno"> 2125</span>&#160; </div>
 <div class="line"><a name="l02126"></a><span class="lineno"> 2126</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>

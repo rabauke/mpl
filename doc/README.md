@@ -2,7 +2,7 @@
 
 MPL is a message passing library written in C++17 based on the
 [Message Passing Interface](http://mpi-forum.org/) (MPI) standard.  Since
-the C++ API has been dropped from the MPI standard in version 3.0 it is the
+the C++ API has been dropped from the MPI standard in version 3.1 it is the
 aim of MPL to provide a modern C++ message passing library for high
 performance computing.
 
@@ -16,24 +16,24 @@ utilize it via a more user-friendly interface.
 
 ## Supported features
 
-The Message Passing Library gives currently access via a convinient C++ 
+The Message Passing Library gives currently access via a convenient C++ 
 interface to the following features of the Message Passing Interface standard:
 
 * environmental management (implicit initialization and finalization, timers, but no error handlig).
 * point-to-point communication (blocking and non-blocking),
 * collective communication (blocking and non-blocking),
-* derived data types (happens automatically for many custom datatypes or via the `base_struct_builder` helper class and the layout classes of MPL),
+* derived data types (happens automatically for many custom data types or via the `base_struct_builder` helper class and the layout classes of MPL),
 * communicator- and group-management and
-* process topolgies (cartesian and graph topologies),
+* process topologies (cartesian and graph topologies),
 
-Currently, the following MPI features are not yet suppoted by MPL:
+Currently, the following MPI features are not yet supported by MPL:
 
 * error handling,
 * process creation and management,
 * one-sided communication and
 * I/O.
 
-MPL assumes that the underlaying MPI implementation supports the 
+MPL assumes that the underlying MPI implementation supports the 
 [version 3.1](https://www.mpi-forum.org/docs/) of the Message Passing 
 Interface standard.  Future versions of MPL may also employ features of 
 the upcoming version 4.0 or later MPI versions.
@@ -49,7 +49,7 @@ and copy the `mpl` directory, which contains all header files to a place,
 where the compiler will find it, e.g., `/usr/local/include` on a typical 
 Unix/Linux system.  
 
-For convinance and better integration into various IDEs, MPL also comes 
+For convenience and better integration into various IDEs, MPL also comes 
 with CMake support.  To install MPL via CMake get the sources and create
 a new `build` folder in the MPL source directory, e.g.,
 ```shell
@@ -61,17 +61,17 @@ project configuration for your build system or IDE, e.g.
 ```shell
 user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..
 ```
-The option `-DCMAKE_INSTALL_PREFIX:PATH` specifies the installaztion path. 
+The option `-DCMAKE_INSTALL_PREFIX:PATH` specifies the installation path. 
 Cmake can also be utilized to install the MPL header files.  Just call
 CMake a second time and specify the `--install` option now, e.g.,
 ```shell
 user@host:~/mpl/build$ cmake --install .
 ```
 
-A set of unit tests and a collection of exmaples that illustrate the 
+A set of unit tests and a collection of examples that illustrate the 
 usage of MPL can be complied via CMake, too, if required.  To build the
 MPL unit tests add the option `-DBUILD_TESTING=ON` to the initial CMake
-call.  Similarily, `-DMPL_BUILD_EXAMPLES=ON` enables building example
+call.  Similarly, `-DMPL_BUILD_EXAMPLES=ON` enables building example
 codes. Thus,
 ```shell
 user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
@@ -83,7 +83,7 @@ library.  Finally, build the unit tests and/or the example code via
 user@host:~/mpl/build$ cmake --build .
 ```
 After the unit test have been build successfully, they can be run 
-conviniently by utilizing the CTest tool, i.e., via
+conveniently by utilizing the CTest tool, i.e., via
 ```shell
 user@host:~/mpl/build$ ctest
 Test project /home/user/mpl/build
@@ -133,9 +133,9 @@ Total Test time (real) =   6.75 sec
 or via your IDE if it features support for CTest.
 
 Usually, CMake will find the required MPI installation as well as the 
-Boost Test library automatically.  Depending on the local setu, however, 
+Boost Test library automatically.  Depending on the local setup, however, 
 CMake may need some hints to find these dependencies.  See the CMake 
-documantation on 
+documentation on 
 [FindMPI](https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi) 
 and 
 [FindBoost](https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints)
@@ -149,7 +149,7 @@ MPL shares many concepts known from the MPI standard, e.g., the concept of a
 communicator.  Communicators manage the message exchange between different processes, 
 i.e., messages are sent and received with the help of a communicator.  
 
-The MPL envirionment provides a global default communicator `comm_world`, which will 
+The MPL environment provides a global default communicator `comm_world`, which will 
 be used in the following Hello-World program.  The program prints out some information 
 about each process:
 * its rank, 

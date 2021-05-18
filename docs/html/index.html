@@ -86,36 +86,36 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">MPL - A message passing library </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.0 it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
+<div class="textblock"><p>MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.1 it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
 <p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. Its focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface and would like to utilize it via a more user-friendly interface.</p>
 <h1>Supported features</h1>
-<p>The Message Passing Library gives currently access via a convinient C++ interface to the following features of the Message Passing Interface standard:</p>
+<p>The Message Passing Library gives currently access via a convenient C++ interface to the following features of the Message Passing Interface standard:</p>
 <ul>
 <li>environmental management (implicit initialization and finalization, timers, but no error handlig).</li>
 <li>point-to-point communication (blocking and non-blocking),</li>
 <li>collective communication (blocking and non-blocking),</li>
-<li>derived data types (happens automatically for many custom datatypes or via the <code>base_struct_builder</code> helper class and the layout classes of MPL),</li>
+<li>derived data types (happens automatically for many custom data types or via the <code>base_struct_builder</code> helper class and the layout classes of MPL),</li>
 <li>communicator- and group-management and</li>
-<li>process topolgies (cartesian and graph topologies),</li>
+<li>process topologies (cartesian and graph topologies),</li>
 </ul>
-<p>Currently, the following MPI features are not yet suppoted by MPL:</p>
+<p>Currently, the following MPI features are not yet supported by MPL:</p>
 <ul>
 <li>error handling,</li>
 <li>process creation and management,</li>
 <li>one-sided communication and</li>
 <li>I/O.</li>
 </ul>
-<p>MPL assumes that the underlaying MPI implementation supports the <a href="https://www.mpi-forum.org/docs/">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the upcoming version 4.0 or later MPI versions.</p>
+<p>MPL assumes that the underlying MPI implementation supports the <a href="https://www.mpi-forum.org/docs/">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the upcoming version 4.0 or later MPI versions.</p>
 <h1>Installation</h1>
 <p>MPL is built on MPI. An MPI implementation needs to be installed as a prerequisite, e.g., <a href="https://www.open-mpi.org/">Open MPI</a> or <a href="https://www.mpich.org/">MPICH</a>. As MPL is a header-only library, it suffices to download the <a href="https://github.com/rabauke/mpl">source</a> and copy the <code>mpl</code> directory, which contains all header files to a place, where the compiler will find it, e.g., <code>/usr/local/include</code> on a typical Unix/Linux system. <br  />
 </p>
-<p>For convinance and better integration into various IDEs, MPL also comes with CMake support. To install MPL via CMake get the sources and create a new <code>build</code> folder in the MPL source directory, e.g., </p><div class="fragment"><div class="line">user@host:~/mpl$ mkdir build</div>
+<p>For convenience and better integration into various IDEs, MPL also comes with CMake support. To install MPL via CMake get the sources and create a new <code>build</code> folder in the MPL source directory, e.g., </p><div class="fragment"><div class="line">user@host:~/mpl$ mkdir build</div>
 <div class="line">user@host:~/mpl$ cd build</div>
 </div><!-- fragment --><p>Then, call the CMake tool to detect all dependencies and to generate the project configuration for your build system or IDE, e.g. </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..</div>
-</div><!-- fragment --><p>The option <code>-DCMAKE_INSTALL_PREFIX:PATH</code> specifies the installaztion path. Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code>--install</code> option now, e.g., </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake --install .</div>
-</div><!-- fragment --><p>A set of unit tests and a collection of exmaples that illustrate the usage of MPL can be complied via CMake, too, if required. To build the MPL unit tests add the option <code>-DBUILD_TESTING=ON</code> to the initial CMake call. Similarily, <code>-DMPL_BUILD_EXAMPLES=ON</code> enables building example codes. Thus, </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..</div>
+</div><!-- fragment --><p>The option <code>-DCMAKE_INSTALL_PREFIX:PATH</code> specifies the installation path. Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code>--install</code> option now, e.g., </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake --install .</div>
+</div><!-- fragment --><p>A set of unit tests and a collection of examples that illustrate the usage of MPL can be complied via CMake, too, if required. To build the MPL unit tests add the option <code>-DBUILD_TESTING=ON</code> to the initial CMake call. Similarly, <code>-DMPL_BUILD_EXAMPLES=ON</code> enables building example codes. Thus, </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..</div>
 </div><!-- fragment --><p>enables both, building unit tests and examples. MPL unit tests utilize the <a href="https://www.boost.org/doc/libs/1_76_0/libs/test/doc/html/index.html">Boost Test</a> library. Finally, build the unit tests and/or the example code via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake --build .</div>
-</div><!-- fragment --><p>After the unit test have been build successfully, they can be run conviniently by utilizing the CTest tool, i.e., via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ ctest</div>
+</div><!-- fragment --><p>After the unit test have been build successfully, they can be run conveniently by utilizing the CTest tool, i.e., via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ ctest</div>
 <div class="line">Test project /home/user/mpl/build</div>
 <div class="line">      Start  1: test_communicator</div>
 <div class="line"> 1/19 Test  #1: test_communicator ................   Passed    0.45 sec</div>
@@ -160,11 +160,11 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="line"> </div>
 <div class="line">Total Test time (real) =   6.75 sec</div>
 </div><!-- fragment --><p>or via your IDE if it features support for CTest.</p>
-<p>Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setu, however, CMake may need some hints to find these dependencies. See the CMake documantation on <a href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
+<p>Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on <a href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
 <h1>Hello World</h1>
 <p>MPL is built on top of the Message Passing Interface (MPI) standard. Therefore, MPL shares many concepts known from the MPI standard, e.g., the concept of a communicator. Communicators manage the message exchange between different processes, i.e., messages are sent and received with the help of a communicator. <br  />
 </p>
-<p>The MPL envirionment provides a global default communicator <code>comm_world</code>, which will be used in the following Hello-World program. The program prints out some information about each process:</p><ul>
+<p>The MPL environment provides a global default communicator <code>comm_world</code>, which will be used in the following Hello-World program. The program prints out some information about each process:</p><ul>
 <li>its rank,</li>
 <li>the total number of processes and</li>
 <li>the computer's name the process is running on.</li>

@@ -264,7 +264,7 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordtype">int</span> index, flag;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="classmpl_1_1status.html">status</a> s;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        MPI_Testany(size(), &amp;reqs[0], &amp;index, &amp;flag, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">if</span> (flag and index != MPI_UNDEFINED) {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">if</span> (flag != 0 and index != MPI_UNDEFINED) {</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;          stats[index] = s;</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<span class="keyword">true</span>, <span class="keyword">static_cast&lt;</span><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a><span class="keyword">&gt;</span>(index));</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        }</div>
