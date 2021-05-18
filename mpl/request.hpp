@@ -176,7 +176,7 @@ namespace mpl {
         int index, flag;
         status s;
         MPI_Testany(size(), &reqs[0], &index, &flag, reinterpret_cast<MPI_Status *>(&s));
-        if (flag and index != MPI_UNDEFINED) {
+        if (flag != 0 and index != MPI_UNDEFINED) {
           stats[index] = s;
           return std::make_pair(true, static_cast<size_type>(index));
         }
