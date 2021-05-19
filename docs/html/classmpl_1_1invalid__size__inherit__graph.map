@@ -1,5 +1,5 @@
 <map id="mpl::invalid_size" name="mpl::invalid_size">
-<area shape="rect" id="node1" title="Will be thrown in case of invalid size argument." alt="" coords="5,160,197,189"/>
-<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="40,83,163,112"/>
-<area shape="rect" id="node3" title=" " alt="" coords="20,5,183,35"/>
+<area shape="rect" id="node1" title="Will be thrown in case of invalid size argument." alt="" coords="5,289,197,375"/>
+<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="40,139,163,241"/>
+<area shape="rect" id="node3" title=" " alt="" coords="20,5,183,91"/>
 </map>

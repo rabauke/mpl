@@ -96,11 +96,11 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;utility&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of a pair</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a name="a0"></a><a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::pair&lt;T1, T2&gt; &amp;p) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; p.first &lt;&lt; <span class="charliteral">&#39;,&#39;</span> &lt;&lt; p.second &lt;&lt; <span class="charliteral">&#39;)&#39;</span>;</div>
 <div class="line">}</div>
@@ -147,14 +147,14 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"> </div>
 <div class="line"><span class="comment">// send an stl container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keywordtype">void</span> send(<span class="keyword">const</span> <a name="_a1"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm, <span class="keyword">const</span> T &amp;x) {</div>
-<div class="line">  comm.<a name="a2"></a>send(x, 1);</div>
+<div class="line"><span class="keywordtype">void</span> send(<span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm, <span class="keyword">const</span> T &amp;x) {</div>
+<div class="line">  comm.<a name="a1"></a>send(x, 1);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// send an stl container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> isend(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm, <span class="keyword">const</span> T &amp;x) {</div>
-<div class="line">  <a name="_a3"></a><a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r{comm.<a name="a4"></a>isend(x, 1)};</div>
+<div class="line">  <a name="_a2"></a><a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r{comm.<a name="a3"></a>isend(x, 1)};</div>
 <div class="line">  r.wait();</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"><span class="keywordtype">void</span> recv(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
 <div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
 <div class="line">  T x;</div>
-<div class="line">  <span class="keyword">auto</span> s = comm.<a name="a5"></a>recv(x, 0);</div>
+<div class="line">  <span class="keyword">auto</span> s = comm.<a name="a4"></a>recv(x, 0);</div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; with &quot;</span> &lt;&lt; s.template get_count&lt;value_type&gt;() &lt;&lt; <span class="stringliteral">&quot; elements\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -172,38 +172,38 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"><span class="keywordtype">void</span> irecv(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
 <div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
 <div class="line">  T x;</div>
-<div class="line">  <a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r{comm.<a name="a6"></a>irecv(x, 0)};</div>
-<div class="line">  <a name="_a7"></a><a class="code" href="classmpl_1_1status.html">mpl::status</a> s{r.wait()};</div>
+<div class="line">  <a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r{comm.<a name="a5"></a>irecv(x, 0)};</div>
+<div class="line">  <a name="_a6"></a><a class="code" href="classmpl_1_1status.html">mpl::status</a> s{r.wait()};</div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; with &quot;</span> &lt;&lt; s.template get_count&lt;value_type&gt;() &lt;&lt; <span class="stringliteral">&quot; elements\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a name="a8"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a7"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
-<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a9"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
-<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a><a class="code" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a8"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
+<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a9"></a><a class="code" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
 <div class="line">  <span class="comment">// process 0 sends</span></div>
-<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a11"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    std::string t1{<span class="stringliteral">&quot;Hello World!&quot;</span>};</div>
-<div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t1);</div>
-<div class="line">    isend(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t1);</div>
+<div class="line">    send(comm_world, t1);</div>
+<div class="line">    isend(comm_world, t1);</div>
 <div class="line">    std::vector&lt;int&gt; t2{0, 1, 2, 3, 4, 5, 6, 77, 42};</div>
-<div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t2);</div>
-<div class="line">    isend(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t2);</div>
+<div class="line">    send(comm_world, t2);</div>
+<div class="line">    isend(comm_world, t2);</div>
 <div class="line">    std::vector&lt;std::tuple&lt;int, double&gt;&gt; t3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};</div>
-<div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t3);</div>
-<div class="line">    isend(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t3);</div>
+<div class="line">    send(comm_world, t3);</div>
+<div class="line">    isend(comm_world, t3);</div>
 <div class="line">    std::vector&lt;bool&gt; t4{<span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">true</span>};</div>
-<div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t4);</div>
-<div class="line">    isend(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t4);</div>
+<div class="line">    send(comm_world, t4);</div>
+<div class="line">    isend(comm_world, t4);</div>
 <div class="line">    std::valarray&lt;double&gt; t5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};</div>
-<div class="line">    send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t5);</div>
-<div class="line">    isend(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, t5);</div>
+<div class="line">    send(comm_world, t5);</div>
+<div class="line">    isend(comm_world, t5);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
-<div class="line">    recv&lt;std::string&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
-<div class="line">    irecv&lt;std::string&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
+<div class="line">    recv&lt;std::string&gt;(comm_world);</div>
+<div class="line">    irecv&lt;std::string&gt;(comm_world);</div>
 <div class="line">    recv&lt;std::list&lt;int&gt;&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
 <div class="line">    irecv&lt;std::list&lt;int&gt;&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
 <div class="line">    recv&lt;std::map&lt;int, double&gt;&gt;(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>);</div>
@@ -219,7 +219,6 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 </div><!-- doc-content -->
 <div class="ttc" id="anamespacempl_html_a448fea066aa1780bcbeb1a1f975827aa"><div class="ttname"><a href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00063">tag.hpp:63</a></div></div>
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
-<div class="ttc" id="ampl_8hpp_html"><div class="ttname"><a href="mpl_8hpp.html">mpl.hpp</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00542">comm_group.hpp:542</a></div></div>
 <div class="ttc" id="aclassmpl_1_1status_html"><div class="ttname"><a href="classmpl_1_1status.html">mpl::status</a></div><div class="ttdoc">Class that represents the status of a received message.</div><div class="ttdef"><b>Definition:</b> <a href="status_8hpp_source.html#l00010">status.hpp:10</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_abe1bd8f32c690ee7a31456da2c437bdf"><div class="ttname"><a href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">mpl::communicator::size</a></div><div class="ttdeci">int size() const</div><div class="ttdoc">Determines the total number of processes in a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00534">comm_group.hpp:534</a></div></div>

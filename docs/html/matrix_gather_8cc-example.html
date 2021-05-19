@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// some basic matrix class</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
@@ -123,7 +123,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
 <div class="line">  <span class="keywordtype">int</span> p = {<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};  <span class="comment">// total numbers of processors</span></div>
 <div class="line">  <span class="keywordtype">int</span> p_l = {<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
 <div class="line">  <span class="comment">// find integer px and py such that px*py=p and px and py as close as possible</span></div>
@@ -182,14 +182,14 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">    matrix&lt;int&gt; M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
 <div class="line">    std::fill(M_l.begin(), M_l.end(), p_l);</div>
 <div class="line">    <span class="comment">// build the layouts for the gatherv operation</span></div>
-<div class="line">    <span class="keywordtype">int</span> <a name="a9"></a><a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
+<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
 <div class="line">    <a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> matrix_l(nx_l(px_l, py_l) * ny_l(px_l, py_l));</div>
-<div class="line">    <span class="keywordflow">if</span> (p_l == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
-<div class="line">      <a name="_a10"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> recvl;</div>
+<div class="line">    <span class="keywordflow">if</span> (p_l == root) {</div>
+<div class="line">      <a name="_a9"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> recvl;</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i)</div>
 <div class="line">        recvl.push_back(sub_matrix_l(i % px, i / px));</div>
 <div class="line">      matrix&lt;int&gt; M(nx, ny);</div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a11"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(<a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, M_l.data(), matrix_l, M.data(), recvl);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, M_l.data(), matrix_l, M.data(), recvl);</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; ny; ++iy) {</div>
 <div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; nx; ++ix)</div>
 <div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(M(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
@@ -197,7 +197,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">      }</div>
 <div class="line">      std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    } <span class="keywordflow">else</span></div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(<a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, M_l.data(), matrix_l);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, M_l.data(), matrix_l);</div>
 <div class="line">  }</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// gather via alltoallv</span></div>
@@ -209,16 +209,16 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
 <div class="line">    <a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> sendl, recvl;</div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i) {</div>
-<div class="line">      <span class="keywordflow">if</span> (i == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>)</div>
+<div class="line">      <span class="keywordflow">if</span> (i == root)</div>
 <div class="line">        sendl.push_back(<a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a>(nx_l(px_l, py_l) * ny_l(px_l, py_l)));</div>
 <div class="line">      <span class="keywordflow">else</span></div>
-<div class="line">        sendl.push_back(<a name="_a12"></a><a class="code" href="classmpl_1_1empty__layout.html">mpl::empty_layout&lt;int&gt;</a>());</div>
+<div class="line">        sendl.push_back(<a name="_a11"></a><a class="code" href="classmpl_1_1empty__layout.html">mpl::empty_layout&lt;int&gt;</a>());</div>
 <div class="line">    }</div>
-<div class="line">    <span class="keywordflow">if</span> (p_l == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
+<div class="line">    <span class="keywordflow">if</span> (p_l == root) {</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i)</div>
 <div class="line">        recvl.push_back(sub_matrix_l(i % px, i / px));</div>
 <div class="line">      matrix&lt;int&gt; M(nx, ny);</div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a13"></a><a class="code" href="classmpl_1_1communicator.html#a18fe368f4ad60c858aa2798c8ade2539">alltoallv</a>(M_l.data(), sendl, M.data(), recvl);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a12"></a><a class="code" href="classmpl_1_1communicator.html#a18fe368f4ad60c858aa2798c8ade2539">alltoallv</a>(M_l.data(), sendl, M.data(), recvl);</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; ny; ++iy) {</div>
 <div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; nx; ++ix)</div>
 <div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(M(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
@@ -237,8 +237,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
-<div class="ttc" id="ampl_8hpp_html"><div class="ttname"><a href="mpl_8hpp.html">mpl.hpp</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html_a18fe368f4ad60c858aa2798c8ade2539"><div class="ttname"><a href="classmpl_1_1communicator.html#a18fe368f4ad60c858aa2798c8ade2539">mpl::communicator::alltoallv</a></div><div class="ttdeci">void alltoallv(const T *senddata, const layouts&lt; T &gt; &amp;sendl, const displacements &amp;senddispls, T *recvdata, const layouts&lt; T &gt; &amp;recvl, const displacements &amp;recvdispls) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l02075">comm_group.hpp:2075</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html_a18fe368f4ad60c858aa2798c8ade2539"><div class="ttname"><a href="classmpl_1_1communicator.html#a18fe368f4ad60c858aa2798c8ade2539">mpl::communicator::alltoallv</a></div><div class="ttdeci">void alltoallv(const T *senddata, const layouts&lt; T &gt; &amp;sendl, const displacements &amp;senddispls, T *recvdata, const layouts&lt; T &gt; &amp;recvl, const displacements &amp;recvdispls) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l02105">comm_group.hpp:2105</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00542">comm_group.hpp:542</a></div></div>
 <div class="ttc" id="aclassmpl_1_1contiguous__layout_html"><div class="ttname"><a href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout</a></div><div class="ttdoc">Layout representing contiguous storage several objects.</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l00027">layout.hpp:27</a></div></div>
 <div class="ttc" id="aclassmpl_1_1subarray__layout_html"><div class="ttname"><a href="classmpl_1_1subarray__layout.html">mpl::subarray_layout</a></div><div class="ttdoc">Layout representing data of a subset multi dimensional array.</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l00051">layout.hpp:51</a></div></div>
@@ -246,7 +245,7 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="ttc" id="aclassmpl_1_1layouts_html"><div class="ttname"><a href="classmpl_1_1layouts.html">mpl::layouts</a></div><div class="ttdoc">container for storing layouts</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l01715">layout.hpp:1715</a></div></div>
 <div class="ttc" id="anamespacempl_html_a580d63de8f272555e40bb7ea90f23ccc"><div class="ttname"><a href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">mpl::root</a></div><div class="ttdeci">constexpr int root</div><div class="ttdoc">Special value to indicate the root process in some intercommunicator collective operations.</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00026">mpl.hpp:26</a></div></div>
 <div class="ttc" id="aclassmpl_1_1empty__layout_html"><div class="ttname"><a href="classmpl_1_1empty__layout.html">mpl::empty_layout</a></div><div class="ttdoc">Layout with zero elements.</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l00024">layout.hpp:24</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html_a32881aa49f5e9c71792e98629a131822"><div class="ttname"><a href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">mpl::communicator::gatherv</a></div><div class="ttdeci">void gatherv(int root_rank, const T *senddata, const layout&lt; T &gt; &amp;sendl, T *recvdata, const layouts&lt; T &gt; &amp;recvls, const displacements &amp;recvdispls) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l01716">comm_group.hpp:1716</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html_a32881aa49f5e9c71792e98629a131822"><div class="ttname"><a href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">mpl::communicator::gatherv</a></div><div class="ttdeci">void gatherv(int root_rank, const T *senddata, const layout&lt; T &gt; &amp;sendl, T *recvdata, const layouts&lt; T &gt; &amp;recvls, const displacements &amp;recvdispls) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l01746">comm_group.hpp:1746</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html"><div class="ttname"><a href="classmpl_1_1communicator.html">mpl::communicator</a></div><div class="ttdoc">Specifies the communication context for a communication operation.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00240">comm_group.hpp:240</a></div></div>
 <div class="ttc" id="aclassmpl_1_1irequest_html"><div class="ttname"><a href="classmpl_1_1irequest.html">mpl::irequest</a></div><div class="ttdoc">Represents a non-blocking communication request.</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00224">request.hpp:224</a></div></div>
 <!-- start footer part -->

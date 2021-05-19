@@ -91,7 +91,7 @@ $(document).ready(function(){initNavTree('probe_8cc-example.html',''); initResiz
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;numeric&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;</div>
 <div class="line"><span class="keywordtype">void</span> print_range(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> str, I i1, I i2) {</div>
@@ -104,7 +104,7 @@ $(document).ready(function(){initNavTree('probe_8cc-example.html',''); initResiz
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
@@ -140,9 +140,8 @@ $(document).ready(function(){initNavTree('probe_8cc-example.html',''); initResiz
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassmpl_1_1tag_html_a44d0e0dd1f1f0357a6e80ec5e9e300bc"><div class="ttname"><a href="classmpl_1_1tag.html#a44d0e0dd1f1f0357a6e80ec5e9e300bc">mpl::tag::any</a></div><div class="ttdeci">static tag any()</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00184">environment.hpp:184</a></div></div>
-<div class="ttc" id="aclassmpl_1_1communicator_html_af522f6b770325ef723e5a5cdae5a2b5a"><div class="ttname"><a href="classmpl_1_1communicator.html#af522f6b770325ef723e5a5cdae5a2b5a">mpl::communicator::probe</a></div><div class="ttdeci">status probe(int source, tag t=tag(0)) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l01451">comm_group.hpp:1451</a></div></div>
+<div class="ttc" id="aclassmpl_1_1communicator_html_af522f6b770325ef723e5a5cdae5a2b5a"><div class="ttname"><a href="classmpl_1_1communicator.html#af522f6b770325ef723e5a5cdae5a2b5a">mpl::communicator::probe</a></div><div class="ttdeci">status probe(int source, tag t=tag(0)) const</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l01481">comm_group.hpp:1481</a></div></div>
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
-<div class="ttc" id="ampl_8hpp_html"><div class="ttname"><a href="mpl_8hpp.html">mpl.hpp</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00542">comm_group.hpp:542</a></div></div>
 <div class="ttc" id="aclassmpl_1_1contiguous__layout_html"><div class="ttname"><a href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout</a></div><div class="ttdoc">Layout representing contiguous storage several objects.</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l00027">layout.hpp:27</a></div></div>
 <div class="ttc" id="aclassmpl_1_1tag_html"><div class="ttname"><a href="classmpl_1_1tag.html">mpl::tag</a></div><div class="ttdoc">Class for representing tag parameters in communication operations.</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00012">tag.hpp:12</a></div></div>

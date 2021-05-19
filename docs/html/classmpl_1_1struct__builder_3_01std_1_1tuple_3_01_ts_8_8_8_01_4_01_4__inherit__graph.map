@@ -1,4 +1,4 @@
 <map id="mpl::struct_builder&lt; std::tuple&lt; Ts... &gt; &gt;" name="mpl::struct_builder&lt; std::tuple&lt; Ts... &gt; &gt;">
-<area shape="rect" id="node1" title="Specialization of struct_builder for STL tuples." alt="" coords="11,100,263,147"/>
-<area shape="rect" id="node2" href="$classmpl_1_1base__struct__builder.html" title=" " alt="" coords="5,5,268,52"/>
+<area shape="rect" id="node1" title="Specialization of struct_builder for STL tuples." alt="" coords="11,156,263,259"/>
+<area shape="rect" id="node2" href="$classmpl_1_1base__struct__builder.html" title=" " alt="" coords="5,5,268,108"/>
 </map>

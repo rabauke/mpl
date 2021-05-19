@@ -441,13 +441,13 @@ namespace mpl {
       using data_type_category = typename detail::datatype_traits_impl<T>::data_type_category;
     };
 
-#define MPL_DATATYPE_TRAITS(type, mpi_type)                      \
-  template<>                                                     \
-  class datatype_traits<type> {                                  \
-  public:                                                        \
-    static MPI_Datatype get_datatype() { return mpi_type; }      \
-    using data_type_category = detail::basic_or_fixed_size_type; \
-  }
+#define MPL_DATATYPE_TRAITS(type, mpi_type)                        \
+    template<>                                                     \
+    class datatype_traits<type> {                                  \
+    public:                                                        \
+      static MPI_Datatype get_datatype() { return mpi_type; }      \
+      using data_type_category = detail::basic_or_fixed_size_type; \
+    }
 
     MPL_DATATYPE_TRAITS(char, MPI_CHAR);
 
@@ -490,6 +490,17 @@ namespace mpl {
     MPL_DATATYPE_TRAITS(std::complex<long double>, MPI_CXX_LONG_DOUBLE_COMPLEX);
 
 #undef MPL_DATATYPE_TRAITS
+
+#if __cplusplus >= 202002L
+    template<>
+    class datatype_traits<char8_t> {
+    public:
+      static MPI_Datatype get_datatype() {
+        return datatype_traits<unsigned char>::get_datatype();
+      }
+      using data_type_category = detail::basic_or_fixed_size_type;
+    };
+#endif
 
     template<>
     class datatype_traits<char16_t> {

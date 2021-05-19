@@ -86,7 +86,7 @@ $(document).ready(function(){initNavTree('mpl_8hpp_source.html',''); initResizab
 <div class="title">mpl.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="mpl_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#if !(defined MPL_HPP)</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#if !(defined MPL_HPP)</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define MPL_HPP</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
@@ -107,64 +107,45 @@ $(document).ready(function(){initNavTree('mpl_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="namespacempl.html#a4bc7e110094061c98ce0bf2b136ff19a">   34</a></span>&#160;  constexpr <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a4bc7e110094061c98ce0bf2b136ff19a">bsend_overhead</a> = MPI_BSEND_OVERHEAD;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">   36</a></span>&#160;  <span class="keyword">using</span> <span class="keywordtype">size_t</span> = <a class="code" href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">std::size_t</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">   36</a></span>&#160;  <span class="keyword">using</span> <span class="keywordtype">size_t</span> = std::size_t;</div>
 <div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">   37</a></span>&#160;  <span class="keyword">using</span> <a class="code" href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">ssize_t</a> = std::ptrdiff_t;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}  <span class="comment">// namespace mpl</span></div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="error_8hpp.html">mpl/error.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="displacements_8hpp.html">mpl/displacements.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="tag_8hpp.html">mpl/tag.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="ranks_8hpp.html">mpl/ranks.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="flat__memory_8hpp.html">mpl/flat_memory.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="datatype_8hpp.html">mpl/datatype.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="layout_8hpp.html">mpl/layout.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="status_8hpp.html">mpl/status.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="message_8hpp.html">mpl/message.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="operator_8hpp.html">mpl/operator.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="request_8hpp.html">mpl/request.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="comm__group_8hpp.html">mpl/comm_group.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="environment_8hpp.html">mpl/environment.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="topo__comm_8hpp.html">mpl/topo_comm.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="cart__comm_8hpp.html">mpl/cart_comm.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="graph__comm_8hpp.html">mpl/graph_comm.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="dist__graph__comm_8hpp.html">mpl/dist_graph_comm.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="distributed__grid_8hpp.html">mpl/distributed_grid.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;mpl/error.hpp&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;mpl/displacements.hpp&gt;</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;mpl/tag.hpp&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &lt;mpl/ranks.hpp&gt;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#include &lt;mpl/flat_memory.hpp&gt;</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#include &lt;mpl/datatype.hpp&gt;</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#include &lt;mpl/layout.hpp&gt;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#include &lt;mpl/status.hpp&gt;</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#include &lt;mpl/message.hpp&gt;</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#include &lt;mpl/operator.hpp&gt;</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#include &lt;mpl/request.hpp&gt;</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#include &lt;mpl/comm_group.hpp&gt;</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#include &lt;mpl/environment.hpp&gt;</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#include &lt;mpl/topo_comm.hpp&gt;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#include &lt;mpl/cart_comm.hpp&gt;</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#include &lt;mpl/graph_comm.hpp&gt;</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#include &lt;mpl/dist_graph_comm.hpp&gt;</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#include &lt;mpl/distributed_grid.hpp&gt;</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespacempl_html_af7799eb8fd405a1f2f1f226fe24626f5"><div class="ttname"><a href="namespacempl.html#af7799eb8fd405a1f2f1f226fe24626f5">mpl::absolute</a></div><div class="ttdeci">constexpr void * absolute</div><div class="ttdoc">Special constant to indicate the start of the address range of message buffers.</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00029">mpl.hpp:29</a></div></div>
-<div class="ttc" id="amessage_8hpp_html"><div class="ttname"><a href="message_8hpp.html">message.hpp</a></div></div>
-<div class="ttc" id="acart__comm_8hpp_html"><div class="ttname"><a href="cart__comm_8hpp.html">cart_comm.hpp</a></div></div>
-<div class="ttc" id="aflat__memory_8hpp_html"><div class="ttname"><a href="flat__memory_8hpp.html">flat_memory.hpp</a></div></div>
-<div class="ttc" id="aranks_8hpp_html"><div class="ttname"><a href="ranks_8hpp.html">ranks.hpp</a></div></div>
-<div class="ttc" id="atag_8hpp_html"><div class="ttname"><a href="tag_8hpp.html">tag.hpp</a></div></div>
-<div class="ttc" id="adatatype_8hpp_html"><div class="ttname"><a href="datatype_8hpp.html">datatype.hpp</a></div></div>
-<div class="ttc" id="alayout_8hpp_html"><div class="ttname"><a href="layout_8hpp.html">layout.hpp</a></div></div>
 <div class="ttc" id="anamespacempl_html_a50a0f0b35e2150b88de70497e424ab4c"><div class="ttname"><a href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a></div><div class="ttdeci">constexpr int proc_null</div><div class="ttdoc">Special value that can be used instead of a rank wherever a source or a destination argument is requi...</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00018">mpl.hpp:18</a></div></div>
-<div class="ttc" id="aoperator_8hpp_html"><div class="ttname"><a href="operator_8hpp.html">operator.hpp</a></div></div>
-<div class="ttc" id="adisplacements_8hpp_html"><div class="ttname"><a href="displacements_8hpp.html">displacements.hpp</a></div></div>
-<div class="ttc" id="astatus_8hpp_html"><div class="ttname"><a href="status_8hpp.html">status.hpp</a></div></div>
-<div class="ttc" id="atopo__comm_8hpp_html"><div class="ttname"><a href="topo__comm_8hpp.html">topo_comm.hpp</a></div></div>
-<div class="ttc" id="acomm__group_8hpp_html"><div class="ttname"><a href="comm__group_8hpp.html">comm_group.hpp</a></div></div>
-<div class="ttc" id="adist__graph__comm_8hpp_html"><div class="ttname"><a href="dist__graph__comm_8hpp.html">dist_graph_comm.hpp</a></div></div>
-<div class="ttc" id="agraph__comm_8hpp_html"><div class="ttname"><a href="graph__comm_8hpp.html">graph_comm.hpp</a></div></div>
 <div class="ttc" id="anamespacempl_html_a4bc7e110094061c98ce0bf2b136ff19a"><div class="ttname"><a href="namespacempl.html#a4bc7e110094061c98ce0bf2b136ff19a">mpl::bsend_overhead</a></div><div class="ttdeci">constexpr int bsend_overhead</div><div class="ttdoc">Special constant representing an upper bound on the additional space consumed when buffering messages...</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00034">mpl.hpp:34</a></div></div>
 <div class="ttc" id="anamespacempl_html_a580d63de8f272555e40bb7ea90f23ccc"><div class="ttname"><a href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">mpl::root</a></div><div class="ttdeci">constexpr int root</div><div class="ttdoc">Special value to indicate the root process in some intercommunicator collective operations.</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00026">mpl.hpp:26</a></div></div>
 <div class="ttc" id="anamespacempl_html"><div class="ttname"><a href="namespacempl.html">mpl</a></div><div class="ttdef"><b>Definition:</b> <a href="cart__comm_8hpp_source.html#l00010">cart_comm.hpp:10</a></div></div>
 <div class="ttc" id="anamespacempl_html_a410d15ee027fbbc82e25bce740d4c69b"><div class="ttname"><a href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b">mpl::any_source</a></div><div class="ttdeci">constexpr int any_source</div><div class="ttdoc">Wildcard value to indicate in a receive operation, e.g., communicator::recv, that any source is accep...</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00013">mpl.hpp:13</a></div></div>
-<div class="ttc" id="adistributed__grid_8hpp_html"><div class="ttname"><a href="distributed__grid_8hpp.html">distributed_grid.hpp</a></div></div>
 <div class="ttc" id="anamespacempl_html_acf6b82700b0f144cbcd49b1233e1083d"><div class="ttname"><a href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">mpl::ssize_t</a></div><div class="ttdeci">std::ptrdiff_t ssize_t</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00037">mpl.hpp:37</a></div></div>
-<div class="ttc" id="anamespacempl_html_a3cd70ef6c91cacaf9265de4c9dd93ddf"><div class="ttname"><a href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">mpl::size_t</a></div><div class="ttdeci">std::size_t size_t</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00036">mpl.hpp:36</a></div></div>
 <div class="ttc" id="anamespacempl_html_a551ed45948e628d93f6669b4cb01e750"><div class="ttname"><a href="namespacempl.html#a551ed45948e628d93f6669b4cb01e750">mpl::undefined</a></div><div class="ttdeci">constexpr int undefined</div><div class="ttdoc">Special value that is used to indicate an invalid return value or function parameter in some function...</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00022">mpl.hpp:22</a></div></div>
-<div class="ttc" id="aerror_8hpp_html"><div class="ttname"><a href="error_8hpp.html">error.hpp</a></div></div>
-<div class="ttc" id="aenvironment_8hpp_html"><div class="ttname"><a href="environment_8hpp.html">environment.hpp</a></div></div>
-<div class="ttc" id="arequest_8hpp_html"><div class="ttname"><a href="request_8hpp.html">request.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_eb33f6710b5cd34ac8f41e1b51ea9fbe.html">mpl</a></li><li class="navelem"><a class="el" href="mpl_8hpp.html">mpl.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_eb33f6710b5cd34ac8f41e1b51ea9fbe.html">mpl</a></li><li class="navelem"><b>mpl.hpp</b></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.17 </li>

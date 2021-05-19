@@ -24,6 +24,7 @@ var NAVTREE =
 [
   [ "Message Passing Library", "index.html", [
     [ "MPL - A message passing library", "index.html", null ],
+    [ "Data types", "md_data_types.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -47,13 +48,6 @@ var NAVTREE =
         [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Macros", "globals_defs.html", null ]
-      ] ]
-    ] ],
     [ "Examples", "examples.html", "examples" ]
   ] ]
 ];
@@ -61,12 +55,11 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classmpl_1_1communicator.html#a2906f6f537491fb8afc3ca2fe7c90ed5",
-"classmpl_1_1dist__graph__communicator.html#a5d75868ed36f9dcd194e57bec87e60f0",
-"classmpl_1_1graph__communicator.html#a72d2639f200e5a36f1f81df5c499f06f",
-"classmpl_1_1indexed__layout.html#a4814730ccbda9d2c8f4a00c76466bcf4",
-"classmpl_1_1subarray__layout_1_1parameter.html#af2302f44eaa2c2550f0a7cdbdcb35b92",
-"message_8hpp_source.html"
+"classmpl_1_1communicator.html#a2bd66598d7445b0a466253ccd2ab9e88",
+"classmpl_1_1dist__graph__communicator.html#a5df6a6f331aa4c60b7b5664c5260c0ec",
+"classmpl_1_1graph__communicator.html#a73df8f569865237bc58e2445c7d07742",
+"classmpl_1_1indexed__layout.html#a91ad5d974413ad678d1bfd10e403f31f",
+"classmpl_1_1tag.html#aa566206e5410af90197e7884b8ff1840"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -596,52 +596,82 @@ namespace mpl {
     // --- blocking standard send ---
   private:
     template<typename T>
-    void send(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
-      MPI_Send(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-               comm_);
-    }
-
-    template<typename T>
-    void send(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
-      using value_type = typename T::value_type;
-      vector_layout<value_type> l(data.size());
-      send(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
-    }
-
-    template<typename T>
-    void send(const T &data, int dest, tag t, detail::stl_container) const {
-      using value_type = detail::remove_const_from_members_t<typename T::value_type>;
-      detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      vector_layout<value_type> l(serial_data.size());
-      send(serial_data.data(), l, dest, t);
-    }
-
-  public:
-    template<typename T>
-    void send(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
-      check_container_size(data);
-      send(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
-    }
-
-    template<typename T>
-    void send(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
-      MPI_Send(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+    void send(const T &data, int destination, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Send(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                static_cast<int>(t), comm_);
     }
 
+    template<typename T>
+    void send(const T &data, int destination, tag t,
+              detail::contigous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      vector_layout<value_type> l(data.size());
+      send(data.size() > 0 ? &data[0] : nullptr, l, destination, t);
+    }
+
+    template<typename T>
+    void send(const T &data, int destination, tag t, detail::stl_container) const {
+      using value_type = detail::remove_const_from_members_t<typename T::value_type>;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      vector_layout<value_type> l(serial_data.size());
+      send(serial_data.data(), l, destination, t);
+    }
+
+  public:
+    /// \brief Sends a message with a single value via a blocking standard send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section or an STL container that holds elements that comply with
+    /// the mentioned requirements
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code sections.
+    template<typename T>
+    void send(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
+      check_send_tag(t);
+      check_container_size(data);
+      send(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
+    }
+
+    /// \brief Sends a message with a several values having a specific memory layout via a
+    /// blocking standard send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    template<typename T>
+    void send(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
+      check_send_tag(t);
+      MPI_Send(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
+               static_cast<int>(t), comm_);
+    }
+
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// blocking standard send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    void send(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    void send(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       if (detail::is_contiguous_iterator_v<iterT>) {
         vector_layout<value_type> l(std::distance(begin, end));
-        send(&(*begin), l, dest, t);
+        send(&(*begin), l, destination, t);
       } else {
         iterator_layout<value_type> l(begin, end);
-        send(&(*begin), l, dest, t);
+        send(&(*begin), l, destination, t);
       }
     }
 

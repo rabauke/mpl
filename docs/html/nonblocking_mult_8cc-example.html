@@ -90,10 +90,10 @@ $(document).ready(function(){initNavTree('nonblocking_mult_8cc-example.html','')
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="mpl_8hpp.html">mpl/mpl.hpp</a>&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
 <div class="line">  <span class="keywordtype">double</span> x = 1.23456 + <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>();</div>
 <div class="line">  <a name="_a3"></a><a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r_send(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a>isend(x, 0));  <span class="comment">// nonblocking send to rank 0</span></div>
 <div class="line">  <span class="comment">// rank 0 receives data from all ranks</span></div>
@@ -112,7 +112,6 @@ $(document).ready(function(){initNavTree('nonblocking_mult_8cc-example.html','')
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
-<div class="ttc" id="ampl_8hpp_html"><div class="ttname"><a href="mpl_8hpp.html">mpl.hpp</a></div></div>
 <div class="ttc" id="aclassmpl_1_1irequest__pool_html"><div class="ttname"><a href="classmpl_1_1irequest__pool.html">mpl::irequest_pool</a></div><div class="ttdoc">Container for managing a list of non-blocking communication requests.</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00249">request.hpp:249</a></div></div>
 <div class="ttc" id="aclassmpl_1_1impl_1_1request_html_ab8b50888aa3582ff66ab07c7dd4a5ee4"><div class="ttname"><a href="classmpl_1_1impl_1_1request.html#ab8b50888aa3582ff66ab07c7dd4a5ee4">mpl::impl::request::wait</a></div><div class="ttdeci">status wait()</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00092">request.hpp:92</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00542">comm_group.hpp:542</a></div></div>

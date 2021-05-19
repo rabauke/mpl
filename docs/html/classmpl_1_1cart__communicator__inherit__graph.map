@@ -1,5 +1,5 @@
 <map id="mpl::cart_communicator" name="mpl::cart_communicator">
-<area shape="rect" id="node1" title=" " alt="" coords="45,160,288,189"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,83,328,112"/>
-<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="71,5,263,35"/>
+<area shape="rect" id="node1" title=" " alt="" coords="45,671,288,999"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,537,328,623"/>
+<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="51,5,283,489"/>
 </map>

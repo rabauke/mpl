@@ -1,5 +1,5 @@
 <map id="mpl::invalid_datatype_bound" name="mpl::invalid_datatype_bound">
-<area shape="rect" id="node1" title="Will be thrown when an error occurs while manipulating layouts." alt="" coords="5,160,237,207"/>
-<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="60,83,183,112"/>
-<area shape="rect" id="node3" title=" " alt="" coords="40,5,203,35"/>
+<area shape="rect" id="node1" title="Will be thrown when an error occurs while manipulating layouts." alt="" coords="5,289,288,392"/>
+<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="85,139,208,241"/>
+<area shape="rect" id="node3" title=" " alt="" coords="65,5,228,91"/>
 </map>
