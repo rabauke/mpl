@@ -1,10 +1,22 @@
-#define BOOST_TEST_MODULE send_recv
+#define BOOST_TEST_MODULE communicator_send_recv
 
 #include <boost/test/included/unit_test.hpp>
 #include <limits>
 #include <cstddef>
 #include <complex>
+#include <string>
+#include <vector>
+#include <list>
+#include <set>
 #include <mpl/mpl.hpp>
+
+
+template <typename, typename = void>
+struct has_size : std::false_type {};
+
+template<typename T>
+struct has_size<T, std::void_t<decltype(T().size())>> : std::true_type {};
+
 
 template<typename T>
 bool send_recv_test(const T &data) {
@@ -21,13 +33,18 @@ bool send_recv_test(const T &data) {
   return true;
 }
 
+
 template<typename T>
 bool bsend_recv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0) {
-    const int size{comm_world.bsend_size<T>()};
+    int size;
+    if constexpr (has_size<T>::value)
+      size = comm_world.bsend_size<typename T::value_type>(data.size());
+    else
+      size = comm_world.bsend_size<T>();
     mpl::bsend_buffer<> buff(size);
     comm_world.bsend(data, 1);
   }
@@ -38,6 +55,7 @@ bool bsend_recv_test(const T &data) {
   }
   return true;
 }
+
 
 template<typename T>
 bool ssend_recv_test(const T &data) {
@@ -53,6 +71,7 @@ bool ssend_recv_test(const T &data) {
   }
   return true;
 }
+
 
 template<typename T>
 bool rsend_recv_test(const T &data) {
@@ -103,7 +122,14 @@ BOOST_AUTO_TEST_CASE(send_recv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(send_recv_test(my_enum::val));
+  // strings and STL containers
+  BOOST_TEST(send_recv_test(std::string{"Hello World"}));
+  BOOST_TEST(send_recv_test(std::wstring{L"Hello World"}));
+  BOOST_TEST(send_recv_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(send_recv_test(std::list<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(send_recv_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
 
 BOOST_AUTO_TEST_CASE(bsend_recv) {
   // integer types
@@ -135,7 +161,14 @@ BOOST_AUTO_TEST_CASE(bsend_recv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(bsend_recv_test(my_enum::val));
+  // strings and STL containers
+  BOOST_TEST(bsend_recv_test(std::string{"Hello World"}));
+  BOOST_TEST(bsend_recv_test(std::wstring{L"Hello World"}));
+  BOOST_TEST(bsend_recv_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(bsend_recv_test(std::list<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(bsend_recv_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
 
 BOOST_AUTO_TEST_CASE(ssend_recv) {
   // integer types
@@ -167,7 +200,14 @@ BOOST_AUTO_TEST_CASE(ssend_recv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(ssend_recv_test(my_enum::val));
+  // strings and STL containers
+  BOOST_TEST(ssend_recv_test(std::string{"Hello World"}));
+  BOOST_TEST(ssend_recv_test(std::wstring{L"Hello World"}));
+  BOOST_TEST(ssend_recv_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(ssend_recv_test(std::list<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(ssend_recv_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
 
 BOOST_AUTO_TEST_CASE(rsend_recv) {
   // integer types

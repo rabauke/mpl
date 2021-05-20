@@ -1,10 +1,22 @@
-#define BOOST_TEST_MODULE isend_irecv
+#define BOOST_TEST_MODULE communicator_isend_irecv
 
 #include <boost/test/included/unit_test.hpp>
 #include <limits>
 #include <cstddef>
 #include <complex>
+#include <string>
+#include <vector>
+#include <list>
+#include <set>
 #include <mpl/mpl.hpp>
+
+
+template <typename, typename = void>
+struct has_size : std::false_type {};
+
+template<typename T>
+struct has_size<T, std::void_t<decltype(T().size())>> : std::true_type {};
+
 
 template<typename T>
 bool isend_irecv_test(const T &data) {
@@ -25,13 +37,18 @@ bool isend_irecv_test(const T &data) {
   return true;
 }
 
+
 template<typename T>
 bool ibsend_irecv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0) {
-    const int size{comm_world.bsend_size<T>()};
+    int size;
+    if constexpr (has_size<T>::value)
+      size = comm_world.bsend_size<typename T::value_type>(data.size());
+    else
+      size = comm_world.bsend_size<T>();
     mpl::bsend_buffer<> buff(size);
     auto r{comm_world.ibsend(data, 1)};
     r.wait();
@@ -45,6 +62,7 @@ bool ibsend_irecv_test(const T &data) {
   }
   return true;
 }
+
 
 template<typename T>
 bool issend_irecv_test(const T &data) {
@@ -86,6 +104,7 @@ bool irsend_irecv_test(const T &data) {
   return true;
 }
 
+
 BOOST_AUTO_TEST_CASE(isend_irecv) {
   // integer types
   BOOST_TEST(isend_irecv_test(std::byte(77)));
@@ -116,7 +135,14 @@ BOOST_AUTO_TEST_CASE(isend_irecv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(isend_irecv_test(my_enum::val));
+ // strings and STL containers
+  BOOST_TEST(isend_irecv_test(std::string{"Hello World"}));
+  BOOST_TEST(isend_irecv_test(std::wstring{L"Hello World"}));
+  BOOST_TEST(isend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(isend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(isend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
 
 BOOST_AUTO_TEST_CASE(ibsend_irecv) {
   // integer types
@@ -148,7 +174,14 @@ BOOST_AUTO_TEST_CASE(ibsend_irecv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(ibsend_irecv_test(my_enum::val));
+ // strings and STL containers
+  BOOST_TEST(ibsend_irecv_test(std::string{"Hello World"}));
+  BOOST_TEST(ibsend_irecv_test(std::wstring{L"Hello World"}));
+  BOOST_TEST(ibsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(ibsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(ibsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
 
 BOOST_AUTO_TEST_CASE(issend_irecv) {
   // integer types
@@ -181,6 +214,7 @@ BOOST_AUTO_TEST_CASE(issend_irecv) {
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(issend_irecv_test(my_enum::val));
 }
+
 
 BOOST_AUTO_TEST_CASE(irsend_irecv) {
   // integer types
