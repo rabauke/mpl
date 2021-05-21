@@ -16,14 +16,22 @@ bool send_init_recv_init_test(const T &data) {
     auto r{comm_world.send_init(data, 1)};
     r.start();
     r.wait();
+    r.start();
+    r.wait();
   }
   if (comm_world.rank() == 1) {
+    bool ok{true};
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
     while (not r.test().first) {
     }
-    return data_r == data;
+    ok = ok and data_r == data;
+    r.start();
+    while (not r.test().first) {
+    }
+    ok = ok and data_r == data;
+    return ok;
   }
   return true;
 }
@@ -40,14 +48,22 @@ bool bsend_init_recv_init_test(const T &data) {
     auto r{comm_world.bsend_init(data, 1)};
     r.start();
     r.wait();
+    r.start();
+    r.wait();
   }
   if (comm_world.rank() == 1) {
+    bool ok{true};
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
     while (not r.test().first) {
     }
-    return data_r == data;
+    ok = ok and data_r == data;
+    r.start();
+    while (not r.test().first) {
+    }
+    ok = ok and data_r == data;
+    return ok;
   }
   return true;
 }
@@ -62,14 +78,22 @@ bool ssend_init_recv_init_test(const T &data) {
     auto r{comm_world.ssend_init(data, 1)};
     r.start();
     r.wait();
+    r.start();
+    r.wait();
   }
   if (comm_world.rank() == 1) {
+    bool ok{true};
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
     while (not r.test().first) {
     }
-    return data_r == data;
+    ok = ok and data_r == data;
+    r.start();
+    while (not r.test().first) {
+    }
+    ok = ok and data_r == data;
+    return ok;
   }
   return true;
 }
@@ -81,20 +105,32 @@ bool rsend_init_recv_init_test(const T &data) {
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0) {
-    comm_world.barrier();
     auto r{comm_world.rsend_init(data, 1)};
+    comm_world.barrier();
+    r.start();
+    r.wait();
+    comm_world.barrier();
     r.start();
     r.wait();
   } else if (comm_world.rank() == 1) {
+    bool ok{true};
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
     comm_world.barrier();
     while (not r.test().first) {
     }
-    return data_r == data;
-  } else
+    ok = ok and data_r == data;
     comm_world.barrier();
+    r.start();
+    while (not r.test().first) {
+    }
+    ok = ok and data_r == data;
+    return ok;
+  } else {
+    comm_world.barrier();
+    comm_world.barrier();
+  }
   return true;
 }
 
