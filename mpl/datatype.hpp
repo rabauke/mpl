@@ -29,8 +29,8 @@ namespace mpl {
     struct unsupported_type {};
     struct basic_or_fixed_size_type {};
     struct stl_container {};
-    struct contigous_const_stl_container : public stl_container {};
-    struct contigous_stl_container : public contigous_const_stl_container {};
+    struct contiguous_const_stl_container : public stl_container {};
+    struct contiguous_stl_container : public contiguous_const_stl_container {};
 
   }  // namespace detail
 
@@ -523,7 +523,7 @@ namespace mpl {
     template<typename T, typename A>
     class datatype_traits<std::vector<T, A>> {
     public:
-      using data_type_category = detail::contigous_stl_container;
+      using data_type_category = detail::contiguous_stl_container;
     };
 
     template<typename A>
@@ -601,13 +601,13 @@ namespace mpl {
     template<typename T, typename Trait, typename Char>
     class datatype_traits<std::basic_string<T, Trait, Char>> {
     public:
-      using data_type_category = detail::contigous_const_stl_container;
+      using data_type_category = detail::contiguous_const_stl_container;
     };
 
     template<typename T>
     class datatype_traits<std::valarray<T>> {
     public:
-      using data_type_category = detail::contigous_stl_container;
+      using data_type_category = detail::contiguous_stl_container;
     };
 
   }  // namespace detail

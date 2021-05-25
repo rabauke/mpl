@@ -603,7 +603,7 @@ namespace mpl {
 
     template<typename T>
     void send(const T &data, int destination, tag t,
-              detail::contigous_const_stl_container) const {
+              detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const vector_layout<value_type> l(data.size());
       send(data.size() > 0 ? &data[0] : nullptr, l, destination, t);
@@ -666,6 +666,8 @@ namespace mpl {
     template<typename iterT>
     void send(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         send(&(*begin), l, destination, t);
@@ -688,7 +690,7 @@ namespace mpl {
 
     template<typename T>
     void isend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
-               detail::contigous_const_stl_container) const {
+               detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
@@ -709,7 +711,7 @@ namespace mpl {
                detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       const detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      isend(serial_data, destination, t, isend_state, detail::contigous_const_stl_container{});
+      isend(serial_data, destination, t, isend_state, detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
@@ -781,6 +783,8 @@ namespace mpl {
     template<typename iterT>
     irequest isend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return isend(&(*begin), l, destination, t);
@@ -881,7 +885,7 @@ namespace mpl {
     }
 
     template<typename T>
-    void bsend(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+    void bsend(const T &data, int dest, tag t, detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const vector_layout<value_type> l(data.size());
       bsend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
@@ -916,6 +920,8 @@ namespace mpl {
     template<typename iterT>
     void bsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         bsend(&(*begin), l, dest, t);
@@ -937,7 +943,7 @@ namespace mpl {
 
     template<typename T>
     void ibsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
-                detail::contigous_const_stl_container) const {
+                detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
@@ -958,7 +964,7 @@ namespace mpl {
                 detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      ibsend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+      ibsend(serial_data, dest, t, isend_state, detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
@@ -996,6 +1002,8 @@ namespace mpl {
     template<typename iterT>
     irequest ibsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return ibsend(&(*begin), l, dest, t);
@@ -1029,6 +1037,8 @@ namespace mpl {
     template<typename iterT>
     prequest bsend_init(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return bsend_init(&(*begin), l, dest, t);
@@ -1048,7 +1058,7 @@ namespace mpl {
     }
 
     template<typename T>
-    void ssend(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+    void ssend(const T &data, int dest, tag t, detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const vector_layout<value_type> l(data.size());
       ssend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
@@ -1081,6 +1091,8 @@ namespace mpl {
     template<typename iterT>
     void ssend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         ssend(&(*begin), l, dest, t);
@@ -1102,7 +1114,7 @@ namespace mpl {
 
     template<typename T>
     void issend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
-                detail::contigous_const_stl_container) const {
+                detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
@@ -1123,7 +1135,7 @@ namespace mpl {
                 detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      issend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+      issend(serial_data, dest, t, isend_state, detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
@@ -1161,6 +1173,8 @@ namespace mpl {
     template<typename iterT>
     irequest issend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return issend(&(*begin), l, dest, t);
@@ -1194,6 +1208,8 @@ namespace mpl {
     template<typename iterT>
     prequest ssend_init(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return ssend_init(&(*begin), l, dest, t);
@@ -1213,7 +1229,7 @@ namespace mpl {
     }
 
     template<typename T>
-    void rsend(const T &data, int dest, tag t, detail::contigous_const_stl_container) const {
+    void rsend(const T &data, int dest, tag t, detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const vector_layout<value_type> l(data.size());
       rsend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
@@ -1247,6 +1263,8 @@ namespace mpl {
     template<typename iterT>
     void rsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         rsend(&(*begin), l, dest, t);
@@ -1268,7 +1286,7 @@ namespace mpl {
 
     template<typename T>
     void irsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
-                detail::contigous_const_stl_container) const {
+                detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
@@ -1289,7 +1307,7 @@ namespace mpl {
                 detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      irsend(serial_data, dest, t, isend_state, detail::contigous_const_stl_container{});
+      irsend(serial_data, dest, t, isend_state, detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
@@ -1327,6 +1345,8 @@ namespace mpl {
     template<typename iterT>
     irequest irsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return irsend(&(*begin), l, dest, t);
@@ -1360,6 +1380,8 @@ namespace mpl {
     template<typename iterT>
     prequest rsend_init(iterT begin, iterT end, int dest, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return rsend_init(&(*begin), l, dest, t);
@@ -1381,7 +1403,7 @@ namespace mpl {
     }
 
     template<typename T>
-    status recv(T &data, int source, tag t, detail::contigous_stl_container) const {
+    status recv(T &data, int source, tag t, detail::contiguous_stl_container) const {
       using value_type = typename T::value_type;
       status s;
       auto *ps{reinterpret_cast<MPI_Status *>(&s)};
@@ -1436,6 +1458,8 @@ namespace mpl {
     template<typename iterT>
     status recv(iterT begin, iterT end, int source, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return recv(&(*begin), l, source, t);
@@ -1501,6 +1525,8 @@ namespace mpl {
     template<typename iterT>
     irequest irecv(iterT begin, iterT end, int source, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_lvalue_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
         return irecv(&(*begin), l, source, t);

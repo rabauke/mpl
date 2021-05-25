@@ -87,14 +87,15 @@ namespace mpl {
     template<typename T>
     struct is_contiguous_iterator<
         T, std::enable_if_t<
-               std::is_same_v<T, typename std::vector<typename T::value_type>::iterator>>>
-        : public std::true_type {};
+               std::is_same_v<T, typename std::vector<typename T::value_type>::iterator> and
+               not std::is_same_v<typename T::value_type, bool>>> : public std::true_type {};
 
     template<typename T>
     struct is_contiguous_iterator<
-        T, std::enable_if_t<
-               std::is_same_v<T, typename std::vector<typename T::value_type>::const_iterator>>>
-        : public std::true_type {};
+        T,
+        std::enable_if_t<
+            std::is_same_v<T, typename std::vector<typename T::value_type>::const_iterator> and
+            not std::is_same_v<typename T::value_type, bool>>> : public std::true_type {};
 
     template<typename T>
     struct is_contiguous_iterator<
