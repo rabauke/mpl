@@ -35,7 +35,7 @@ int main() {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
       int size = {comm_world.bsend_size<decltype(x)>()};
-      mpl::bsend_buffer<> buff(size);
+      mpl::bsend_buffer buff(size);
       r = comm_world.ibsend(x, 1);  // send x to rank 1 via buffered send
       r.wait();                     // wait until send has finished
     }
@@ -53,7 +53,7 @@ int main() {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
       int size = {comm_world.bsend_size(l)};
-      mpl::bsend_buffer<> buff(size);
+      mpl::bsend_buffer buff(size);
       mpl::irequest_pool r;
       r.push(comm_world.isend(v1.data(), l, 1));   // send x to rank 1 via standard send
       r.push(comm_world.ibsend(v2.data(), l, 1));  // send x to rank 1 via buffered send

@@ -108,7 +108,7 @@ bool bsend_init_recv_init_test(const T &data) {
     return false;
   if (comm_world.rank() == 0) {
     const int size{comm_world.bsend_size<T>()};
-    mpl::bsend_buffer<> buff(size);
+    mpl::bsend_buffer buff(size);
     auto r{comm_world.bsend_init(data, 1)};
     r.start();
     r.wait();
@@ -144,7 +144,7 @@ bool bsend_init_recv_init_iter_test(const T &data) {
       size = comm_world.bsend_size<typename T::value_type>(data.size());
     else
       size = comm_world.bsend_size<T>();
-    mpl::bsend_buffer<> buff(size);
+    mpl::bsend_buffer buff(size);
     auto r{comm_world.bsend_init(std::begin(data), std::end(data), 1)};
     r.start();
     r.wait();

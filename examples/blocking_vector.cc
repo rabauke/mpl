@@ -35,7 +35,7 @@ int main() {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
       int size = {comm_world.bsend_size(l)};
-      mpl::bsend_buffer<> buff(size);
+      mpl::bsend_buffer buff(size);
       comm_world.bsend(v.data(), l, 1);  // send x to rank 1 via buffered send
     }
     std::transform(v.begin(), v.end(), v.begin(), add_one);  // update data

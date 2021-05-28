@@ -77,7 +77,7 @@ bool bsend_recv_test(const T &data) {
       size = comm_world.bsend_size<typename T::value_type>(data.size());
     else
       size = comm_world.bsend_size<T>();
-    mpl::bsend_buffer<> buff(size);
+    mpl::bsend_buffer buff(size);
     comm_world.bsend(data, 1);
   }
   if (comm_world.rank() == 1) {
@@ -100,7 +100,7 @@ bool bsend_recv_iter_test(const T &data) {
       size = comm_world.bsend_size<typename T::value_type>(data.size());
     else
       size = comm_world.bsend_size<T>();
-    mpl::bsend_buffer<> buff(size);
+    mpl::bsend_buffer buff(size);
     comm_world.bsend(std::begin(data), std::end(data), 1);
   }
   if (comm_world.rank() == 1) {

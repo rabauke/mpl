@@ -19,7 +19,7 @@ int main() {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
       int size = {comm_world.bsend_size<decltype(x)>()};
-      mpl::bsend_buffer<> buff(size);
+      mpl::bsend_buffer buff(size);
       comm_world.bsend(x, 1);  // send x to rank 1 via buffered send
     }
     ++x;

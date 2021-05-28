@@ -185,42 +185,51 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Buffer manager for buffered  send operations.
-  /// \param A allocator for allocating buffer memory
-  template<typename A = std::allocator<char>>
+  /// \brief Buffer manager for buffered send operations.
+  /// \note There must be not more than one instance of the class bsend_buffer at any time per
+  /// process.
   class bsend_buffer {
-    int size;
-    A alloc;
-    char *buff;
+    void *buff_;
 
   public:
-    /// allocates buffer with specific size using a default-constructed allocator
+    /// \brief deleted default constructor
+    bsend_buffer() = delete;
+
+    /// \brief deleted copy constructor
+    /// \param other buffer manager to copy from
+    bsend_buffer(const bsend_buffer &other) = delete;
+
+    /// \brief deleted move constructor
+    /// \param other buffer manager to move from
+    bsend_buffer(bsend_buffer &&other) = delete;
+
+    /// \brief allocates buffer with specific size using a default-constructed allocator
     /// \param size buffer size in bytes
     /// \note The size given should be the sum of the sizes of all outstanding buffered send
-    /// operations will be sent during the lifetime of the \ref bsend_buffer object, plus
-    /// \ref bsend_overhead for each buffered send operation.
-    /// \see communicator_bsend
-    explicit bsend_buffer(int size) : size(size), alloc(), buff(alloc.allocate(size)) {
-      environment::buffer_attach(buff, size);
+    /// operations that will be sent during the lifetime of the \ref bsend_buffer object, plus
+    /// \ref bsend_overhead for each buffered send operation.  Use communicator_bsend_size to
+    /// calculate the required buffer size.
+    /// \see \ref communicator_bsend "communicator::bsend" and \ref communicator_ibsend
+    /// "communicator::ibsend"
+    explicit bsend_buffer(int size) : buff_{operator new(size)} {
+      environment::buffer_attach(buff_, size);
     }
 
-    /// allocates buffer with specific size using the provided allocator
-    /// \param size buffer size in bytes
-    /// \param alloc allocator
-    /// \note The size given should be the sum of the sizes of all outstanding buffered send
-    /// operations will be sent during the lifetime of the \ref bsend_buffer object, plus
-    /// \ref bsend_overhead for each buffered send operation.
-    /// \see communicator_bsend
-    explicit bsend_buffer(int size, A alloc)
-        : size(size), alloc(alloc), buff(alloc.allocate(size)) {
-      environment::buffer_attach(buff, size);
-    }
-
-    /// frees the buffer
+    /// \brief waits for uncompleted message transfers and frees the buffer
+    /// \note A blocking communication operation is performed when an object of type
+    /// bsend_buffer goes out of scope.
     ~bsend_buffer() {
       environment::buffer_detach();
-      alloc.deallocate(buff, size);
+      operator delete(buff_);
     }
+
+    /// \brief deleted copy assignment operator
+    /// \param other buffer manager to copy-assign from
+    void operator=(const bsend_buffer &other) = delete;
+
+    /// \brief deleted move assignment operator
+    /// \param other buffer manager to move-assign from
+    void operator=(bsend_buffer &&other) = delete;
   };
 
 }  // namespace mpl
