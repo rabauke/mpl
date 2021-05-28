@@ -117,8 +117,8 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">struct </span>unsupported_type {};</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">struct </span>basic_or_fixed_size_type {};</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">struct </span>stl_container {};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">struct </span>contigous_const_stl_container : <span class="keyword">public</span> stl_container {};</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">struct </span>contigous_stl_container : <span class="keyword">public</span> contigous_const_stl_container {};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">struct </span>contiguous_const_stl_container : <span class="keyword">public</span> stl_container {};</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">struct </span>contiguous_stl_container : <span class="keyword">public</span> contiguous_const_stl_container {};</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  }  <span class="comment">// namespace detail</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
@@ -554,7 +554,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
 <div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;    <span class="keyword">class </span>datatype_traits&lt;std::vector&lt;T, A&gt;&gt; {</div>
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;      <span class="keyword">using</span> data_type_category = detail::contigous_stl_container;</div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;      <span class="keyword">using</span> data_type_category = detail::contiguous_stl_container;</div>
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;    };</div>
 <div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160; </div>
 <div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> A&gt;</div>
@@ -632,13 +632,13 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Trait, <span class="keyword">typename</span> Char&gt;</div>
 <div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;    <span class="keyword">class </span>datatype_traits&lt;std::basic_string&lt;T, Trait, Char&gt;&gt; {</div>
 <div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      <span class="keyword">using</span> data_type_category = detail::contigous_const_stl_container;</div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;      <span class="keyword">using</span> data_type_category = detail::contiguous_const_stl_container;</div>
 <div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;    };</div>
 <div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160; </div>
 <div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;    <span class="keyword">class </span>datatype_traits&lt;std::valarray&lt;T&gt;&gt; {</div>
 <div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;      <span class="keyword">using</span> data_type_category = detail::contigous_stl_container;</div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160;      <span class="keyword">using</span> data_type_category = detail::contiguous_stl_container;</div>
 <div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;    };</div>
 <div class="line"><a name="l00612"></a><span class="lineno">  612</span>&#160; </div>
 <div class="line"><a name="l00613"></a><span class="lineno">  613</span>&#160;  }  <span class="comment">// namespace detail</span></div>

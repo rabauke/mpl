@@ -216,7 +216,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad80d8516466734de97670671a2259f1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a67d01bee18f0c91ae6808dfb0d39d4a6"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
 <tr class="memitem:a67d01bee18f0c91ae6808dfb0d39d4a6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a67d01bee18f0c91ae6808dfb0d39d4a6">isend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="memdesc:a67d01bee18f0c91ae6808dfb0d39d4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a blocking standard send operation.  <a href="classmpl_1_1communicator.html#a67d01bee18f0c91ae6808dfb0d39d4a6">More...</a><br /></td></tr>
+<tr class="memdesc:a67d01bee18f0c91ae6808dfb0d39d4a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a non-blocking standard send operation.  <a href="classmpl_1_1communicator.html#a67d01bee18f0c91ae6808dfb0d39d4a6">More...</a><br /></td></tr>
 <tr class="separator:a67d01bee18f0c91ae6808dfb0d39d4a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a622bf19c6fa10a93de1ca0f7565f00"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a5a622bf19c6fa10a93de1ca0f7565f00"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a5a622bf19c6fa10a93de1ca0f7565f00">send_init</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
@@ -232,91 +232,120 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5bb3cfe7a67f4d6ae452193be3c849a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ac75dc1695c441e9e8faa185a458cc3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a4ac75dc1695c441e9e8faa185a458cc3"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a4ac75dc1695c441e9e8faa185a458cc3">bsend_size</a> (int number=1) const</td></tr>
+<tr class="memdesc:a4ac75dc1695c441e9e8faa185a458cc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">determines the message buffer size  <a href="classmpl_1_1communicator.html#a4ac75dc1695c441e9e8faa185a458cc3">More...</a><br /></td></tr>
 <tr class="separator:a4ac75dc1695c441e9e8faa185a458cc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a21c5bb2a8553bdaeaa4ae27e936c43fb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a21c5bb2a8553bdaeaa4ae27e936c43fb"><td class="memTemplItemLeft" align="right" valign="top">int&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a21c5bb2a8553bdaeaa4ae27e936c43fb">bsend_size</a> (const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int number=1) const</td></tr>
+<tr class="memdesc:a21c5bb2a8553bdaeaa4ae27e936c43fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">determines the message buffer size  <a href="classmpl_1_1communicator.html#a21c5bb2a8553bdaeaa4ae27e936c43fb">More...</a><br /></td></tr>
 <tr class="separator:a21c5bb2a8553bdaeaa4ae27e936c43fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47c6f97df28dbdab82e27ca76677c375"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a47c6f97df28dbdab82e27ca76677c375"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a47c6f97df28dbdab82e27ca76677c375">bsend</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a47c6f97df28dbdab82e27ca76677c375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6903902ae6b286e3cbb61263074c61b2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6903902ae6b286e3cbb61263074c61b2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a6903902ae6b286e3cbb61263074c61b2">bsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a6903902ae6b286e3cbb61263074c61b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf688253fcb07385cfe7363087519d86"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:adf688253fcb07385cfe7363087519d86"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#adf688253fcb07385cfe7363087519d86">bsend</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:adf688253fcb07385cfe7363087519d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50dfab5e08487af9961f2eab5f294b2e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a50dfab5e08487af9961f2eab5f294b2e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a50dfab5e08487af9961f2eab5f294b2e">ibsend</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a50dfab5e08487af9961f2eab5f294b2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ce9bd4a475b24073864d49724d4823a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6ce9bd4a475b24073864d49724d4823a"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a6ce9bd4a475b24073864d49724d4823a">ibsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a6ce9bd4a475b24073864d49724d4823a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5ab52487d9cd77066c0a5a7798af373"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:ac5ab52487d9cd77066c0a5a7798af373"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ac5ab52487d9cd77066c0a5a7798af373">ibsend</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:ac5ab52487d9cd77066c0a5a7798af373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac89b1f98c9a58ab32ee9ffc88a9f4ebb"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac89b1f98c9a58ab32ee9ffc88a9f4ebb"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ac89b1f98c9a58ab32ee9ffc88a9f4ebb">bsend_init</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:ac89b1f98c9a58ab32ee9ffc88a9f4ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66ae1745bfae6b91061d68d3b8fd9268"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a66ae1745bfae6b91061d68d3b8fd9268"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a66ae1745bfae6b91061d68d3b8fd9268">bsend_init</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a66ae1745bfae6b91061d68d3b8fd9268"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa0df190450401a4c8c87ac1d10eb619"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:aaa0df190450401a4c8c87ac1d10eb619"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#aaa0df190450401a4c8c87ac1d10eb619">bsend_init</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:aaa0df190450401a4c8c87ac1d10eb619"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd3842d948c76a59590d5a2c7cf9f426"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:abd3842d948c76a59590d5a2c7cf9f426"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#abd3842d948c76a59590d5a2c7cf9f426">ssend</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:abd3842d948c76a59590d5a2c7cf9f426"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5d79398eb73d1e0c6a9d51ba4b7a82d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ae5d79398eb73d1e0c6a9d51ba4b7a82d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae5d79398eb73d1e0c6a9d51ba4b7a82d">ssend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:ae5d79398eb73d1e0c6a9d51ba4b7a82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e07ae531ac9965bfae7aae22f2ec528"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:a4e07ae531ac9965bfae7aae22f2ec528"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a4e07ae531ac9965bfae7aae22f2ec528">ssend</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a4e07ae531ac9965bfae7aae22f2ec528"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac00467deb43532704645be9785c0dfe4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ac00467deb43532704645be9785c0dfe4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ac00467deb43532704645be9785c0dfe4">issend</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:ac00467deb43532704645be9785c0dfe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9369352248ff501f3035ff471315bfd"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:af9369352248ff501f3035ff471315bfd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#af9369352248ff501f3035ff471315bfd">issend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:af9369352248ff501f3035ff471315bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c93193da21059de5fdcd22ab14dd077"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:a9c93193da21059de5fdcd22ab14dd077"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a9c93193da21059de5fdcd22ab14dd077">issend</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a9c93193da21059de5fdcd22ab14dd077"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fa16b72ae9aab551f7437dc9e390b65"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6fa16b72ae9aab551f7437dc9e390b65"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a6fa16b72ae9aab551f7437dc9e390b65">ssend_init</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a6fa16b72ae9aab551f7437dc9e390b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ad36ce562f0542819c12d8557c145a3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a9ad36ce562f0542819c12d8557c145a3"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a9ad36ce562f0542819c12d8557c145a3">ssend_init</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a9ad36ce562f0542819c12d8557c145a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bd66598d7445b0a466253ccd2ab9e88"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:a2bd66598d7445b0a466253ccd2ab9e88"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a2bd66598d7445b0a466253ccd2ab9e88">ssend_init</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a2bd66598d7445b0a466253ccd2ab9e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3192e2264b9d8a41df58e669ac7f0b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:ade3192e2264b9d8a41df58e669ac7f0b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ade3192e2264b9d8a41df58e669ac7f0b">rsend</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:ade3192e2264b9d8a41df58e669ac7f0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a536d25bb6a26dbc97e4bf209397ca5a1"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a536d25bb6a26dbc97e4bf209397ca5a1"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a536d25bb6a26dbc97e4bf209397ca5a1">rsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a536d25bb6a26dbc97e4bf209397ca5a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c4bc4ed91b873ca246a4d8cf0ef79c7"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:a0c4bc4ed91b873ca246a4d8cf0ef79c7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a0c4bc4ed91b873ca246a4d8cf0ef79c7">rsend</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a0c4bc4ed91b873ca246a4d8cf0ef79c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28d14fd54bea4293e5bbddfa4bc06eb5"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a28d14fd54bea4293e5bbddfa4bc06eb5"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a28d14fd54bea4293e5bbddfa4bc06eb5">irsend</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a28d14fd54bea4293e5bbddfa4bc06eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a069f197c698d224efab97152fb929f77"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a069f197c698d224efab97152fb929f77"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a069f197c698d224efab97152fb929f77">irsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a069f197c698d224efab97152fb929f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa04fb2e11aff722f13dea5cab23cd8e7"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:aa04fb2e11aff722f13dea5cab23cd8e7"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#aa04fb2e11aff722f13dea5cab23cd8e7">irsend</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:aa04fb2e11aff722f13dea5cab23cd8e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33a965d8220fd3d77c3ac4694abd88e8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a33a965d8220fd3d77c3ac4694abd88e8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a33a965d8220fd3d77c3ac4694abd88e8">rsend_init</a> (const T &amp;data, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a33a965d8220fd3d77c3ac4694abd88e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7587c578d3ebc2e9dd93bc9e6f767257"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a7587c578d3ebc2e9dd93bc9e6f767257"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a7587c578d3ebc2e9dd93bc9e6f767257">rsend_init</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:a7587c578d3ebc2e9dd93bc9e6f767257"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3d1ec8f5d1bb2d2692ebb41b3d51325"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
-<tr class="memitem:af3d1ec8f5d1bb2d2692ebb41b3d51325"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#af3d1ec8f5d1bb2d2692ebb41b3d51325">rsend_init</a> (iterT begin, iterT end, int dest, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
-<tr class="separator:af3d1ec8f5d1bb2d2692ebb41b3d51325"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5c8778af6bd148b5d64665a1cdf1b63"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab5c8778af6bd148b5d64665a1cdf1b63"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ab5c8778af6bd148b5d64665a1cdf1b63">bsend</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:ab5c8778af6bd148b5d64665a1cdf1b63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a single value via a buffered send operation.  <a href="classmpl_1_1communicator.html#ab5c8778af6bd148b5d64665a1cdf1b63">More...</a><br /></td></tr>
+<tr class="separator:ab5c8778af6bd148b5d64665a1cdf1b63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6ef5c13299ada33e6e524d41f48857e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ae6ef5c13299ada33e6e524d41f48857e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae6ef5c13299ada33e6e524d41f48857e">bsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:ae6ef5c13299ada33e6e524d41f48857e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values having a specific memory layout via a buffered send operation.  <a href="classmpl_1_1communicator.html#ae6ef5c13299ada33e6e524d41f48857e">More...</a><br /></td></tr>
+<tr class="separator:ae6ef5c13299ada33e6e524d41f48857e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d15b58cd642e1c5fab80ad0a8d2b7de"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a8d15b58cd642e1c5fab80ad0a8d2b7de"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a8d15b58cd642e1c5fab80ad0a8d2b7de">bsend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a8d15b58cd642e1c5fab80ad0a8d2b7de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a buffered send operation.  <a href="classmpl_1_1communicator.html#a8d15b58cd642e1c5fab80ad0a8d2b7de">More...</a><br /></td></tr>
+<tr class="separator:a8d15b58cd642e1c5fab80ad0a8d2b7de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af10219f7727be08c46cfdf30620970da"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:af10219f7727be08c46cfdf30620970da"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#af10219f7727be08c46cfdf30620970da">ibsend</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:af10219f7727be08c46cfdf30620970da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a single value via a non-blocking buffered send operation.  <a href="classmpl_1_1communicator.html#af10219f7727be08c46cfdf30620970da">More...</a><br /></td></tr>
+<tr class="separator:af10219f7727be08c46cfdf30620970da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a238d6ccd8d68f3d7294a1f06bcec9e6f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a238d6ccd8d68f3d7294a1f06bcec9e6f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a238d6ccd8d68f3d7294a1f06bcec9e6f">ibsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a238d6ccd8d68f3d7294a1f06bcec9e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with several values having a specific memory layout via a non-blocking buffered send operation.  <a href="classmpl_1_1communicator.html#a238d6ccd8d68f3d7294a1f06bcec9e6f">More...</a><br /></td></tr>
+<tr class="separator:a238d6ccd8d68f3d7294a1f06bcec9e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1773d732e50038e96dea160e597e5b"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a7a1773d732e50038e96dea160e597e5b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a7a1773d732e50038e96dea160e597e5b">ibsend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a7a1773d732e50038e96dea160e597e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a non-blocking buffered send operation.  <a href="classmpl_1_1communicator.html#a7a1773d732e50038e96dea160e597e5b">More...</a><br /></td></tr>
+<tr class="separator:a7a1773d732e50038e96dea160e597e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a324402f60ae4be71f75245982bcc7213"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a324402f60ae4be71f75245982bcc7213"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a324402f60ae4be71f75245982bcc7213">bsend_init</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a324402f60ae4be71f75245982bcc7213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a single value via a buffered send operation.  <a href="classmpl_1_1communicator.html#a324402f60ae4be71f75245982bcc7213">More...</a><br /></td></tr>
+<tr class="separator:a324402f60ae4be71f75245982bcc7213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb50d10de2d40a996c329f7c9fdde62e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:abb50d10de2d40a996c329f7c9fdde62e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#abb50d10de2d40a996c329f7c9fdde62e">bsend_init</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:abb50d10de2d40a996c329f7c9fdde62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a several values having a specific memory layout via a buffered send operation.  <a href="classmpl_1_1communicator.html#abb50d10de2d40a996c329f7c9fdde62e">More...</a><br /></td></tr>
+<tr class="separator:abb50d10de2d40a996c329f7c9fdde62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39daf22cf09890f6a991cf733195f0a4"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a39daf22cf09890f6a991cf733195f0a4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a39daf22cf09890f6a991cf733195f0a4">bsend_init</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a39daf22cf09890f6a991cf733195f0a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a several values given by a pair of iterators via a buffered send operation.  <a href="classmpl_1_1communicator.html#a39daf22cf09890f6a991cf733195f0a4">More...</a><br /></td></tr>
+<tr class="separator:a39daf22cf09890f6a991cf733195f0a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f705b74d20a9f6c0b002c5209019d9a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0f705b74d20a9f6c0b002c5209019d9a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a0f705b74d20a9f6c0b002c5209019d9a">ssend</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a0f705b74d20a9f6c0b002c5209019d9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a single value via a blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#a0f705b74d20a9f6c0b002c5209019d9a">More...</a><br /></td></tr>
+<tr class="separator:a0f705b74d20a9f6c0b002c5209019d9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad288350a523ef06059e87feecb6c68f4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ad288350a523ef06059e87feecb6c68f4"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ad288350a523ef06059e87feecb6c68f4">ssend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:ad288350a523ef06059e87feecb6c68f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values having a specific memory layout via a blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#ad288350a523ef06059e87feecb6c68f4">More...</a><br /></td></tr>
+<tr class="separator:ad288350a523ef06059e87feecb6c68f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876cb31059bf52689bed2444fe0c2c2b"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a876cb31059bf52689bed2444fe0c2c2b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a876cb31059bf52689bed2444fe0c2c2b">ssend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a876cb31059bf52689bed2444fe0c2c2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#a876cb31059bf52689bed2444fe0c2c2b">More...</a><br /></td></tr>
+<tr class="separator:a876cb31059bf52689bed2444fe0c2c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac75321b4a008719342772a4b1e12f266"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac75321b4a008719342772a4b1e12f266"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ac75321b4a008719342772a4b1e12f266">issend</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:ac75321b4a008719342772a4b1e12f266"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a single value via a non-blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#ac75321b4a008719342772a4b1e12f266">More...</a><br /></td></tr>
+<tr class="separator:ac75321b4a008719342772a4b1e12f266"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b0cad575d5c3abd6e83664786d4b738"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a7b0cad575d5c3abd6e83664786d4b738"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a7b0cad575d5c3abd6e83664786d4b738">issend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a7b0cad575d5c3abd6e83664786d4b738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with several values having a specific memory layout via a non-blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#a7b0cad575d5c3abd6e83664786d4b738">More...</a><br /></td></tr>
+<tr class="separator:a7b0cad575d5c3abd6e83664786d4b738"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4d5279ca87dfd23a70dff771bccea37"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:ae4d5279ca87dfd23a70dff771bccea37"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae4d5279ca87dfd23a70dff771bccea37">issend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:ae4d5279ca87dfd23a70dff771bccea37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a non-blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#ae4d5279ca87dfd23a70dff771bccea37">More...</a><br /></td></tr>
+<tr class="separator:ae4d5279ca87dfd23a70dff771bccea37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a168ab6bfc16bb6bae3557f997a2a3a54"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a168ab6bfc16bb6bae3557f997a2a3a54"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a168ab6bfc16bb6bae3557f997a2a3a54">ssend_init</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a168ab6bfc16bb6bae3557f997a2a3a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a single value via a blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#a168ab6bfc16bb6bae3557f997a2a3a54">More...</a><br /></td></tr>
+<tr class="separator:a168ab6bfc16bb6bae3557f997a2a3a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a813171cfebe56f6f167775b0d2f312b0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a813171cfebe56f6f167775b0d2f312b0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a813171cfebe56f6f167775b0d2f312b0">ssend_init</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a813171cfebe56f6f167775b0d2f312b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a several values having a specific memory layout via a blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#a813171cfebe56f6f167775b0d2f312b0">More...</a><br /></td></tr>
+<tr class="separator:a813171cfebe56f6f167775b0d2f312b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498d37cce91cbed10ce2c7f4cab84231"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a498d37cce91cbed10ce2c7f4cab84231"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a498d37cce91cbed10ce2c7f4cab84231">ssend_init</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a498d37cce91cbed10ce2c7f4cab84231"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a several values given by a pair of iterators via a blocking synchronous send operation.  <a href="classmpl_1_1communicator.html#a498d37cce91cbed10ce2c7f4cab84231">More...</a><br /></td></tr>
+<tr class="separator:a498d37cce91cbed10ce2c7f4cab84231"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2149879feb886074c0e600f3ef50c496"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a2149879feb886074c0e600f3ef50c496"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a2149879feb886074c0e600f3ef50c496">rsend</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a2149879feb886074c0e600f3ef50c496"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a single value via a blocking ready send operation.  <a href="classmpl_1_1communicator.html#a2149879feb886074c0e600f3ef50c496">More...</a><br /></td></tr>
+<tr class="separator:a2149879feb886074c0e600f3ef50c496"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4aa593fd30db0c0335aedf30a0d58c9a"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4aa593fd30db0c0335aedf30a0d58c9a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a4aa593fd30db0c0335aedf30a0d58c9a">rsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a4aa593fd30db0c0335aedf30a0d58c9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values having a specific memory layout via a blocking ready send operation.  <a href="classmpl_1_1communicator.html#a4aa593fd30db0c0335aedf30a0d58c9a">More...</a><br /></td></tr>
+<tr class="separator:a4aa593fd30db0c0335aedf30a0d58c9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4382503f1d9319e9a05c9bac5d8d20ff"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a4382503f1d9319e9a05c9bac5d8d20ff"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a4382503f1d9319e9a05c9bac5d8d20ff">rsend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a4382503f1d9319e9a05c9bac5d8d20ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a blocking ready send operation.  <a href="classmpl_1_1communicator.html#a4382503f1d9319e9a05c9bac5d8d20ff">More...</a><br /></td></tr>
+<tr class="separator:a4382503f1d9319e9a05c9bac5d8d20ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a42b853a178840b1b1fbce933d87d42"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a3a42b853a178840b1b1fbce933d87d42"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a3a42b853a178840b1b1fbce933d87d42">irsend</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a3a42b853a178840b1b1fbce933d87d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a single value via a non-blocking ready send operation.  <a href="classmpl_1_1communicator.html#a3a42b853a178840b1b1fbce933d87d42">More...</a><br /></td></tr>
+<tr class="separator:a3a42b853a178840b1b1fbce933d87d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4abe3c86b5582d8469ec16f1f3446e0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ac4abe3c86b5582d8469ec16f1f3446e0"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ac4abe3c86b5582d8469ec16f1f3446e0">irsend</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:ac4abe3c86b5582d8469ec16f1f3446e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with several values having a specific memory layout via a non-blocking ready send operation.  <a href="classmpl_1_1communicator.html#ac4abe3c86b5582d8469ec16f1f3446e0">More...</a><br /></td></tr>
+<tr class="separator:ac4abe3c86b5582d8469ec16f1f3446e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfd1fc1275ee87053e181530cb5a75f1"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:acfd1fc1275ee87053e181530cb5a75f1"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#acfd1fc1275ee87053e181530cb5a75f1">irsend</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:acfd1fc1275ee87053e181530cb5a75f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message with a several values given by a pair of iterators via a non-blocking ready send operation.  <a href="classmpl_1_1communicator.html#acfd1fc1275ee87053e181530cb5a75f1">More...</a><br /></td></tr>
+<tr class="separator:acfd1fc1275ee87053e181530cb5a75f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a779eeadcc40542b0dbd9901fb869df9b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a779eeadcc40542b0dbd9901fb869df9b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a779eeadcc40542b0dbd9901fb869df9b">rsend_init</a> (const T &amp;data, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a779eeadcc40542b0dbd9901fb869df9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a single value via a blocking ready send operation.  <a href="classmpl_1_1communicator.html#a779eeadcc40542b0dbd9901fb869df9b">More...</a><br /></td></tr>
+<tr class="separator:a779eeadcc40542b0dbd9901fb869df9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f5bda95b34bb9f524ad24f7125956b8"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6f5bda95b34bb9f524ad24f7125956b8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a6f5bda95b34bb9f524ad24f7125956b8">rsend_init</a> (const T *data, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;l, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a6f5bda95b34bb9f524ad24f7125956b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a several values having a specific memory layout via a blocking ready send operation.  <a href="classmpl_1_1communicator.html#a6f5bda95b34bb9f524ad24f7125956b8">More...</a><br /></td></tr>
+<tr class="separator:a6f5bda95b34bb9f524ad24f7125956b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a694af4490210673e5956b1bb75130113"><td class="memTemplParams" colspan="2">template&lt;typename iterT &gt; </td></tr>
+<tr class="memitem:a694af4490210673e5956b1bb75130113"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1prequest.html">prequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a694af4490210673e5956b1bb75130113">rsend_init</a> (iterT begin, iterT end, int destination, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
+<tr class="memdesc:a694af4490210673e5956b1bb75130113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a persistent communication request to send a message with a several values given by a pair of iterators via a blocking ready send operation.  <a href="classmpl_1_1communicator.html#a694af4490210673e5956b1bb75130113">More...</a><br /></td></tr>
+<tr class="separator:a694af4490210673e5956b1bb75130113"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a263ed68a7d02fdace6ca1f384b37019c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a263ed68a7d02fdace6ca1f384b37019c"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1status.html">status</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a263ed68a7d02fdace6ca1f384b37019c">recv</a> (T &amp;data, int source, <a class="el" href="classmpl_1_1tag.html">tag</a> t=<a class="el" href="classmpl_1_1tag.html">tag</a>(0)) const</td></tr>
 <tr class="separator:a263ed68a7d02fdace6ca1f384b37019c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -938,7 +967,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a3">arrays.cc</a>, <a class="el" href="iterators_8cc-example.html#a3">iterators.cc</a>, <a class="el" href="standard_types_8cc-example.html#a5">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a9">stl_container.cc</a>, and <a class="el" href="struct_8cc-example.html#a3">struct.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00581">581</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00580">580</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -980,7 +1009,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="parallel_sort_mpl_8cc-example.html#a3">parallel_sort_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01886">1886</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02233">2233</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1032,7 +1061,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01892">1892</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02239">2239</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1084,7 +1113,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01933">1933</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02279">2279</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1142,7 +1171,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01922">1922</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02268">2268</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1190,7 +1219,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a11">collective.cc</a>, and <a class="el" href="communicator_8cc-example.html#a8">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02455">2455</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02801">2801</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1242,7 +1271,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02461">2461</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02807">2807</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1282,7 +1311,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02486">2486</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02832">2832</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1328,7 +1357,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02492">2492</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02838">2838</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1380,7 +1409,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02114">2114</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02460">2460</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1420,7 +1449,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02108">2108</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02454">2454</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1450,7 +1479,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02140">2140</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02486">2486</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1490,7 +1519,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02146">2146</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02492">2492</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1556,7 +1585,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="matrix_gather_8cc-example.html#a12">matrix_gather.cc</a>, and <a class="el" href="parallel_sort_mpl_8cc-example.html#a7">parallel_sort_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02172">2172</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02518">2518</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1608,7 +1637,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02189">2189</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02535">2535</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1648,7 +1677,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02302">2302</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02648">2648</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1694,7 +1723,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02291">2291</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02637">2637</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1723,7 +1752,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a2">collective.cc</a>, and <a class="el" href="communicator_8cc-example.html#a4">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01696">1696</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02043">2043</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1765,7 +1794,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a5">collective.cc</a>, and <a class="el" href="communicator_8cc-example.html#a6">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01708">1708</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02055">2055</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1811,12 +1840,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01714">1714</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02061">2061</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a47c6f97df28dbdab82e27ca76677c375"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47c6f97df28dbdab82e27ca76677c375">&#9670;&nbsp;</a></span>bsend() <span class="overload">[1/3]</span></h2>
+<a id="ab5c8778af6bd148b5d64665a1cdf1b63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c8778af6bd148b5d64665a1cdf1b63">&#9670;&nbsp;</a></span>bsend() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1836,7 +1865,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1856,14 +1885,30 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<p><a class="anchor" id="communicator_bsend"></a></p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00901">901</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a single value via a buffered send operation. </p>
+<p><a class="anchor" id="communicator_bsend"></a></p><dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section or an STL container that holds elements that comply with the mentioned requirements </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is a convenience feature, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00931">931</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6903902ae6b286e3cbb61263074c61b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6903902ae6b286e3cbb61263074c61b2">&#9670;&nbsp;</a></span>bsend() <span class="overload">[2/3]</span></h2>
+<a id="ae6ef5c13299ada33e6e524d41f48857e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6ef5c13299ada33e6e524d41f48857e">&#9670;&nbsp;</a></span>bsend() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1889,7 +1934,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1910,12 +1955,29 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00909">909</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values having a specific memory layout via a buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00947">947</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adf688253fcb07385cfe7363087519d86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf688253fcb07385cfe7363087519d86">&#9670;&nbsp;</a></span>bsend() <span class="overload">[3/3]</span></h2>
+<a id="a8d15b58cd642e1c5fab80ad0a8d2b7de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d15b58cd642e1c5fab80ad0a8d2b7de">&#9670;&nbsp;</a></span>bsend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1941,7 +2003,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1962,12 +2024,30 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00917">917</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values given by a pair of iterators via a buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00968">968</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac89b1f98c9a58ab32ee9ffc88a9f4ebb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac89b1f98c9a58ab32ee9ffc88a9f4ebb">&#9670;&nbsp;</a></span>bsend_init() <span class="overload">[1/3]</span></h2>
+<a id="a324402f60ae4be71f75245982bcc7213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a324402f60ae4be71f75245982bcc7213">&#9670;&nbsp;</a></span>bsend_init() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1987,7 +2067,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2008,12 +2088,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01010">1010</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a single value via a buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01112">1112</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a66ae1745bfae6b91061d68d3b8fd9268"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66ae1745bfae6b91061d68d3b8fd9268">&#9670;&nbsp;</a></span>bsend_init() <span class="overload">[2/3]</span></h2>
+<a id="abb50d10de2d40a996c329f7c9fdde62e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb50d10de2d40a996c329f7c9fdde62e">&#9670;&nbsp;</a></span>bsend_init() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2039,7 +2137,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2060,12 +2158,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01020">1020</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a several values having a specific memory layout via a buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01131">1131</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aaa0df190450401a4c8c87ac1d10eb619"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa0df190450401a4c8c87ac1d10eb619">&#9670;&nbsp;</a></span>bsend_init() <span class="overload">[3/3]</span></h2>
+<a id="a39daf22cf09890f6a991cf733195f0a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39daf22cf09890f6a991cf733195f0a4">&#9670;&nbsp;</a></span>bsend_init() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2091,7 +2207,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -2112,7 +2228,26 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01030">1030</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a several values given by a pair of iterators via a buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01156">1156</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2152,7 +2287,22 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00868">868</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>determines the message buffer size </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send in a later buffered send operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l</td><td>layout of the data </td></tr>
+    <tr><td class="paramname">number</td><td>quantity of buffered send operations with the given data type and layout </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00887">887</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2181,10 +2331,24 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>determines the message buffer size </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send in a later buffered send operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">number</td><td>quantity of elements of type T to send in a single buffered message or in a series of buffered send operations <a class="anchor" id="communicator_bsend_size"></a> </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="blocking_8cc-example.html#a5">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a6">blocking_vector.cc</a>, and <a class="el" href="nonblocking_8cc-example.html#a7">nonblocking.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00861">861</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00875">875</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2215,7 +2379,7 @@ template&lt;typename T &gt; </div>
 <p>Compares to another communicator. </p>
 <dl class="section return"><dt>Returns</dt><dd>equality type </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00566">566</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00565">565</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2370,7 +2534,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02638">2638</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02984">2984</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2422,7 +2586,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02644">2644</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02990">2990</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2462,7 +2626,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02668">2668</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03014">3014</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2508,7 +2672,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02674">2674</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03020">3020</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2548,7 +2712,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01778">1778</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02125">2125</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2596,7 +2760,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a7">collective.cc</a>, and <a class="el" href="gather_8cc-example.html#a4">gather.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01741">1741</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02088">2088</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2642,7 +2806,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01785">1785</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02132">2132</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2700,7 +2864,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01748">1748</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02095">2095</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2746,7 +2910,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01860">1860</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02207">2207</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2804,7 +2968,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01829">1829</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02176">2176</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2870,7 +3034,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a8">distributed_grid_scatter_gather.cc</a>, <a class="el" href="gatherv_8cc-example.html#a7">gatherv.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a21">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a22">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a10">matrix_gather.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a13">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01813">1813</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02160">2160</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2910,7 +3074,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01901">1901</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02248">2248</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2962,7 +3126,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01909">1909</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02256">2256</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3014,7 +3178,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01951">1951</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02297">2297</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3072,7 +3236,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01940">1940</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02286">2286</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3118,7 +3282,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02468">2468</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02814">2814</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3170,7 +3334,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02476">2476</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02822">2822</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3210,7 +3374,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02500">2500</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02846">2846</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3256,7 +3420,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02508">2508</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02854">2854</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3308,7 +3472,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02130">2130</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02476">2476</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3348,7 +3512,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02122">2122</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02468">2468</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3378,7 +3542,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02153">2153</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02499">2499</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3418,7 +3582,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02161">2161</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02507">2507</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3482,7 +3646,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02261">2261</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02607">2607</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3534,7 +3698,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02283">2283</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02629">2629</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3574,7 +3738,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02325">2325</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02671">2671</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3620,7 +3784,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02308">2308</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02654">2654</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3647,7 +3811,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01699">1699</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02046">2046</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3687,7 +3851,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01721">1721</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02068">2068</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3733,12 +3897,12 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01729">1729</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02076">2076</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a50dfab5e08487af9961f2eab5f294b2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50dfab5e08487af9961f2eab5f294b2e">&#9670;&nbsp;</a></span>ibsend() <span class="overload">[1/3]</span></h2>
+<a id="af10219f7727be08c46cfdf30620970da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af10219f7727be08c46cfdf30620970da">&#9670;&nbsp;</a></span>ibsend() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3758,7 +3922,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3779,12 +3943,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00979">979</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a single value via a non-blocking buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section or an STL container that holds elements that comply with the mentioned requirements </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is a convenience feature, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections.<a class="anchor" id="communicator_ibsend"></a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01046">1046</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6ce9bd4a475b24073864d49724d4823a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ce9bd4a475b24073864d49724d4823a">&#9670;&nbsp;</a></span>ibsend() <span class="overload">[2/3]</span></h2>
+<a id="a238d6ccd8d68f3d7294a1f06bcec9e6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a238d6ccd8d68f3d7294a1f06bcec9e6f">&#9670;&nbsp;</a></span>ibsend() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3810,7 +3992,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3831,12 +4013,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00987">987</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with several values having a specific memory layout via a non-blocking buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01064">1064</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac5ab52487d9cd77066c0a5a7798af373"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5ab52487d9cd77066c0a5a7798af373">&#9670;&nbsp;</a></span>ibsend() <span class="overload">[3/3]</span></h2>
+<a id="a7a1773d732e50038e96dea160e597e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1773d732e50038e96dea160e597e5b">&#9670;&nbsp;</a></span>ibsend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3862,7 +4062,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3883,7 +4083,26 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00997">997</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values given by a pair of iterators via a non-blocking buffered send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01088">1088</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3929,7 +4148,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02651">2651</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02997">2997</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3981,7 +4200,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02659">2659</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03005">3005</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4021,7 +4240,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02681">2681</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03027">3027</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4067,7 +4286,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02689">2689</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03035">3035</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4107,7 +4326,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01793">1793</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02140">2140</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4153,7 +4372,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01757">1757</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02104">2104</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4199,7 +4418,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01802">1802</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02149">2149</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4257,7 +4476,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01766">1766</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02113">2113</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4303,7 +4522,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01872">1872</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02219">2219</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4361,7 +4580,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01853">1853</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02200">2200</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4425,7 +4644,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01836">1836</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02183">2183</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4463,7 +4682,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01579">1579</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01926">1926</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4501,7 +4720,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01557">1557</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01904">1904</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4553,7 +4772,7 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01502">1502</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01847">1847</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4601,7 +4820,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#a11">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a11">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01485">1485</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01830">1830</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4653,7 +4872,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01492">1492</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01837">1837</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4705,7 +4924,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02349">2349</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02695">2695</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4751,7 +4970,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02420">2420</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02766">2766</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4809,7 +5028,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02358">2358</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02704">2704</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4861,7 +5080,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02443">2443</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02789">2789</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4907,7 +5126,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02407">2407</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02753">2753</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4959,7 +5178,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02429">2429</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02775">2775</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5011,7 +5230,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02565">2565</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02911">2911</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5057,7 +5276,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02535">2535</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02881">2881</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5109,12 +5328,12 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02544">2544</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02890">2890</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a28d14fd54bea4293e5bbddfa4bc06eb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28d14fd54bea4293e5bbddfa4bc06eb5">&#9670;&nbsp;</a></span>irsend() <span class="overload">[1/3]</span></h2>
+<a id="a3a42b853a178840b1b1fbce933d87d42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a42b853a178840b1b1fbce933d87d42">&#9670;&nbsp;</a></span>irsend() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5134,7 +5353,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5155,12 +5374,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01310">1310</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a single value via a non-blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section or an STL container that holds elements that comply with the mentioned requirements </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is a convenience feature, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01592">1592</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a069f197c698d224efab97152fb929f77"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a069f197c698d224efab97152fb929f77">&#9670;&nbsp;</a></span>irsend() <span class="overload">[2/3]</span></h2>
+<a id="ac4abe3c86b5582d8469ec16f1f3446e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4abe3c86b5582d8469ec16f1f3446e0">&#9670;&nbsp;</a></span>irsend() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5186,7 +5423,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5207,12 +5444,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01318">1318</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with several values having a specific memory layout via a non-blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01610">1610</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa04fb2e11aff722f13dea5cab23cd8e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa04fb2e11aff722f13dea5cab23cd8e7">&#9670;&nbsp;</a></span>irsend() <span class="overload">[3/3]</span></h2>
+<a id="acfd1fc1275ee87053e181530cb5a75f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd1fc1275ee87053e181530cb5a75f1">&#9670;&nbsp;</a></span>irsend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5238,7 +5493,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5259,7 +5514,26 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01328">1328</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values given by a pair of iterators via a non-blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01634">1634</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5319,7 +5593,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="communicator_8cc-example.html#a10">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00576">576</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00575">575</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5365,7 +5639,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02590">2590</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02936">2936</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5417,7 +5691,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02598">2598</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02944">2944</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5457,7 +5731,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02620">2620</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02966">2966</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5503,7 +5777,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02628">2628</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02974">2974</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5561,7 +5835,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01986">1986</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02332">2332</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5607,7 +5881,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01977">1977</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02323">2323</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5647,7 +5921,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02013">2013</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02359">2359</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5693,7 +5967,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02022">2022</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02368">2368</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5757,7 +6031,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02057">2057</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02403">2403</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5803,7 +6077,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02094">2094</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02440">2440</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5861,7 +6135,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02075">2075</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02421">2421</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5927,7 +6201,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#a7">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a7">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00741">741</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00745">745</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5997,7 +6271,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00759">759</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00763">763</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6049,7 +6323,7 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Sends a message with a several values given by a pair of iterators via a blocking standard send operation. </p>
+<p>Sends a message with a several values given by a pair of iterators via a non-blocking standard send operation. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
@@ -6068,12 +6342,12 @@ template&lt;typename iterT &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00782">782</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00787">787</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ac00467deb43532704645be9785c0dfe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac00467deb43532704645be9785c0dfe4">&#9670;&nbsp;</a></span>issend() <span class="overload">[1/3]</span></h2>
+<a id="ac75321b4a008719342772a4b1e12f266"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac75321b4a008719342772a4b1e12f266">&#9670;&nbsp;</a></span>issend() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6093,7 +6367,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -6114,12 +6388,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01144">1144</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a single value via a non-blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section or an STL container that holds elements that comply with the mentioned requirements</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send</td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process</td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is a convenience feature, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01317">1317</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af9369352248ff501f3035ff471315bfd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9369352248ff501f3035ff471315bfd">&#9670;&nbsp;</a></span>issend() <span class="overload">[2/3]</span></h2>
+<a id="a7b0cad575d5c3abd6e83664786d4b738"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b0cad575d5c3abd6e83664786d4b738">&#9670;&nbsp;</a></span>issend() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6145,7 +6437,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -6166,12 +6458,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01152">1152</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with several values having a specific memory layout via a non-blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01335">1335</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9c93193da21059de5fdcd22ab14dd077"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c93193da21059de5fdcd22ab14dd077">&#9670;&nbsp;</a></span>issend() <span class="overload">[3/3]</span></h2>
+<a id="ae4d5279ca87dfd23a70dff771bccea37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4d5279ca87dfd23a70dff771bccea37">&#9670;&nbsp;</a></span>issend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6197,7 +6507,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -6218,7 +6528,26 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01162">1162</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values given by a pair of iterators via a non-blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01359">1359</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6256,7 +6585,7 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01569">1569</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01916">1916</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6287,7 +6616,7 @@ template&lt;typename iterT &gt; </div>
 <p>Tests for identity of communicators. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if not identical </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00558">558</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00557">557</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6372,7 +6701,7 @@ template&lt;typename iterT &gt; </div>
 <p>Tests for identity of communicators. </p>
 <dl class="section return"><dt>Returns</dt><dd>true if identical </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00550">550</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00549">549</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6412,7 +6741,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#a7">probe.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01548">1548</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01895">1895</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6439,7 +6768,7 @@ template&lt;typename iterT &gt; </div>
 <p>Determines the rank within a communicator. </p>
 <dl class="section return"><dt>Returns</dt><dd>the rank of the calling process in the communicator </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00542">542</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00541">541</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6471,7 +6800,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a4">arrays.cc</a>, <a class="el" href="blocking_8cc-example.html#a3">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a4">blocking_vector.cc</a>, <a class="el" href="collective_8cc-example.html#a4">collective.cc</a>, <a class="el" href="communicator_8cc-example.html#a2">communicator.cc</a>, <a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a18">distributed_grid_scatter_gather.cc</a>, <a class="el" href="gather_8cc-example.html#a2">gather.cc</a>, <a class="el" href="gatherv_8cc-example.html#a2">gatherv.cc</a>, <a class="el" href="hello_world_8cc-example.html#a3">hello_world.cc</a>, <a class="el" href="iterators_8cc-example.html#a4">iterators.cc</a>, <a class="el" href="layouts_8cc-example.html#a3">layouts.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a3">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a4">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a2">nonblocking_mult.cc</a>, <a class="el" href="parallel_sort_mpl_8cc-example.html#a1">parallel_sort_mpl.cc</a>, <a class="el" href="probe_8cc-example.html#a3">probe.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a2">reduce_lcm.cc</a>, <a class="el" href="reduce_min_loc_8cc-example.html#a2">reduce_min_loc.cc</a>, <a class="el" href="standard_types_8cc-example.html#a6">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a10">stl_container.cc</a>, <a class="el" href="struct_8cc-example.html#a4">struct.cc</a>, <a class="el" href="subarray_8cc-example.html#a3">subarray.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a3">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00542">542</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00541">541</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6551,7 +6880,7 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01437">1437</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01780">1780</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6598,7 +6927,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p><a class="anchor" id="communicator_recv"></a></p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01420">1420</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01763">1763</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6650,7 +6979,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01427">1427</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01770">1770</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6702,7 +7031,7 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01535">1535</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01882">1882</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6748,7 +7077,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01515">1515</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01862">1862</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6800,7 +7129,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01525">1525</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01872">1872</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6846,7 +7175,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02380">2380</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02726">2726</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6900,7 +7229,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a9">collective.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a4">reduce_lcm.cc</a>, and <a class="el" href="reduce_min_loc_8cc-example.html#a4">reduce_min_loc.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02332">2332</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02678">2678</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6959,7 +7288,7 @@ template&lt;typename T , typename F &gt; </div>
 </div><div class="memdoc">
 <p><a class="anchor" id="communicator_reduce_contiguous_layout"></a></p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02340">2340</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02686">2686</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7011,7 +7340,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02398">2398</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02744">2744</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7057,7 +7386,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02369">2369</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02715">2715</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7109,7 +7438,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02387">2387</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02733">2733</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7161,7 +7490,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02556">2556</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02902">2902</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7207,7 +7536,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02519">2519</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02865">2865</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7259,12 +7588,12 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02526">2526</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02872">2872</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ade3192e2264b9d8a41df58e669ac7f0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade3192e2264b9d8a41df58e669ac7f0b">&#9670;&nbsp;</a></span>rsend() <span class="overload">[1/3]</span></h2>
+<a id="a2149879feb886074c0e600f3ef50c496"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2149879feb886074c0e600f3ef50c496">&#9670;&nbsp;</a></span>rsend() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7284,7 +7613,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7305,12 +7634,29 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01232">1232</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a single value via a blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section or an STL container that holds elements that comply with the mentioned requirements </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is a convenience feature, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01477">1477</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a536d25bb6a26dbc97e4bf209397ca5a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a536d25bb6a26dbc97e4bf209397ca5a1">&#9670;&nbsp;</a></span>rsend() <span class="overload">[2/3]</span></h2>
+<a id="a4aa593fd30db0c0335aedf30a0d58c9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4aa593fd30db0c0335aedf30a0d58c9a">&#9670;&nbsp;</a></span>rsend() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7336,7 +7682,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7357,12 +7703,29 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01240">1240</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values having a specific memory layout via a blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01493">1493</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0c4bc4ed91b873ca246a4d8cf0ef79c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c4bc4ed91b873ca246a4d8cf0ef79c7">&#9670;&nbsp;</a></span>rsend() <span class="overload">[3/3]</span></h2>
+<a id="a4382503f1d9319e9a05c9bac5d8d20ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4382503f1d9319e9a05c9bac5d8d20ff">&#9670;&nbsp;</a></span>rsend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7388,7 +7751,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7409,12 +7772,30 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01248">1248</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values given by a pair of iterators via a blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01514">1514</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a33a965d8220fd3d77c3ac4694abd88e8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33a965d8220fd3d77c3ac4694abd88e8">&#9670;&nbsp;</a></span>rsend_init() <span class="overload">[1/3]</span></h2>
+<a id="a779eeadcc40542b0dbd9901fb869df9b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a779eeadcc40542b0dbd9901fb869df9b">&#9670;&nbsp;</a></span>rsend_init() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7434,7 +7815,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7455,12 +7836,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01341">1341</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a single value via a blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01658">1658</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7587c578d3ebc2e9dd93bc9e6f767257"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7587c578d3ebc2e9dd93bc9e6f767257">&#9670;&nbsp;</a></span>rsend_init() <span class="overload">[2/3]</span></h2>
+<a id="a6f5bda95b34bb9f524ad24f7125956b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f5bda95b34bb9f524ad24f7125956b8">&#9670;&nbsp;</a></span>rsend_init() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7486,7 +7885,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7507,12 +7906,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01351">1351</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a several values having a specific memory layout via a blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01677">1677</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af3d1ec8f5d1bb2d2692ebb41b3d51325"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3d1ec8f5d1bb2d2692ebb41b3d51325">&#9670;&nbsp;</a></span>rsend_init() <span class="overload">[3/3]</span></h2>
+<a id="a694af4490210673e5956b1bb75130113"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a694af4490210673e5956b1bb75130113">&#9670;&nbsp;</a></span>rsend_init() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -7538,7 +7955,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -7559,7 +7976,26 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01361">1361</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a several values given by a pair of iterators via a blocking ready send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01702">1702</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7605,7 +8041,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02577">2577</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02923">2923</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7657,7 +8093,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02583">2583</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02929">2929</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7697,7 +8133,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02607">2607</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02953">2953</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7743,7 +8179,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02613">2613</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02959">2959</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7801,7 +8237,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01967">1967</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02313">2313</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7849,7 +8285,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a8">collective.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01960">1960</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02306">2306</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7889,7 +8325,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01998">1998</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02344">2344</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7935,7 +8371,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02005">2005</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02351">2351</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8001,7 +8437,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a3">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a17">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a18">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02034">2034</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02380">2380</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8059,7 +8495,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02050">2050</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02396">2396</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8105,7 +8541,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02082">2082</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02428">2428</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8307,7 +8743,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00667">667</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00668">668</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8371,7 +8807,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00804">804</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00811">811</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8441,7 +8877,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00823">823</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00830">830</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8512,7 +8948,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00847">847</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00855">855</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8578,7 +9014,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#a5">distributed_grid.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01598">1598</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01945">1945</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8654,7 +9090,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01613">1613</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01960">1960</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8730,7 +9166,7 @@ template&lt;typename iterT1 , typename iterT2 &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01628">1628</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01975">1975</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8794,7 +9230,7 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01681">1681</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02028">2028</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8852,7 +9288,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01654">1654</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02001">2001</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8916,7 +9352,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01667">1667</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02014">2014</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8988,12 +9424,12 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a2">arrays.cc</a>, <a class="el" href="blocking_8cc-example.html#a2">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a2">blocking_vector.cc</a>, <a class="el" href="collective_8cc-example.html#a6">collective.cc</a>, <a class="el" href="communicator_8cc-example.html#a3">communicator.cc</a>, <a class="el" href="distributed_grid_8cc-example.html#a18">distributed_grid.cc</a>, <a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a15">distributed_grid_scatter_gather.cc</a>, <a class="el" href="gather_8cc-example.html#a3">gather.cc</a>, <a class="el" href="gatherv_8cc-example.html#a3">gatherv.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a27">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a28">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="hello_world_8cc-example.html#a4">hello_world.cc</a>, <a class="el" href="iterators_8cc-example.html#a2">iterators.cc</a>, <a class="el" href="layouts_8cc-example.html#a2">layouts.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a2">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a2">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a5">nonblocking_mult.cc</a>, <a class="el" href="parallel_sort_mpl_8cc-example.html#a2">parallel_sort_mpl.cc</a>, <a class="el" href="probe_8cc-example.html#a2">probe.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a5">reduce_lcm.cc</a>, <a class="el" href="reduce_min_loc_8cc-example.html#a6">reduce_min_loc.cc</a>, <a class="el" href="standard_types_8cc-example.html#a4">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a8">stl_container.cc</a>, <a class="el" href="struct_8cc-example.html#a2">struct.cc</a>, <a class="el" href="subarray_8cc-example.html#a2">subarray.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a2">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00534">534</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00533">533</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abd3842d948c76a59590d5a2c7cf9f426"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd3842d948c76a59590d5a2c7cf9f426">&#9670;&nbsp;</a></span>ssend() <span class="overload">[1/3]</span></h2>
+<a id="a0f705b74d20a9f6c0b002c5209019d9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f705b74d20a9f6c0b002c5209019d9a">&#9670;&nbsp;</a></span>ssend() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9013,7 +9449,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9034,12 +9470,29 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01067">1067</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a single value via a blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section or an STL container that holds elements that comply with the mentioned requirements </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is a convenience feature, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01206">1206</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae5d79398eb73d1e0c6a9d51ba4b7a82d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5d79398eb73d1e0c6a9d51ba4b7a82d">&#9670;&nbsp;</a></span>ssend() <span class="overload">[2/3]</span></h2>
+<a id="ad288350a523ef06059e87feecb6c68f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad288350a523ef06059e87feecb6c68f4">&#9670;&nbsp;</a></span>ssend() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9065,7 +9518,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9086,12 +9539,29 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01074">1074</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values having a specific memory layout via a blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01221">1221</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4e07ae531ac9965bfae7aae22f2ec528"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e07ae531ac9965bfae7aae22f2ec528">&#9670;&nbsp;</a></span>ssend() <span class="overload">[3/3]</span></h2>
+<a id="a876cb31059bf52689bed2444fe0c2c2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a876cb31059bf52689bed2444fe0c2c2b">&#9670;&nbsp;</a></span>ssend() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9117,7 +9587,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9138,12 +9608,30 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01082">1082</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Sends a message with a several values given by a pair of iterators via a blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01242">1242</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6fa16b72ae9aab551f7437dc9e390b65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fa16b72ae9aab551f7437dc9e390b65">&#9670;&nbsp;</a></span>ssend_init() <span class="overload">[1/3]</span></h2>
+<a id="a168ab6bfc16bb6bae3557f997a2a3a54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a168ab6bfc16bb6bae3557f997a2a3a54">&#9670;&nbsp;</a></span>ssend_init() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9163,7 +9651,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9184,12 +9672,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01175">1175</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a single value via a blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01383">1383</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9ad36ce562f0542819c12d8557c145a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ad36ce562f0542819c12d8557c145a3">&#9670;&nbsp;</a></span>ssend_init() <span class="overload">[2/3]</span></h2>
+<a id="a813171cfebe56f6f167775b0d2f312b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a813171cfebe56f6f167775b0d2f312b0">&#9670;&nbsp;</a></span>ssend_init() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9215,7 +9721,7 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9236,12 +9742,30 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01185">1185</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a several values having a specific memory layout via a blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>pointer to the data to send </td></tr>
+    <tr><td class="paramname">l</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01402">1402</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2bd66598d7445b0a466253ccd2ab9e88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bd66598d7445b0a466253ccd2ab9e88">&#9670;&nbsp;</a></span>ssend_init() <span class="overload">[3/3]</span></h2>
+<a id="a498d37cce91cbed10ce2c7f4cab84231"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a498d37cce91cbed10ce2c7f4cab84231">&#9670;&nbsp;</a></span>ssend_init() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9267,7 +9791,7 @@ template&lt;typename iterT &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>dest</em>, </td>
+          <td class="paramname"><em>destination</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -9288,7 +9812,26 @@ template&lt;typename iterT &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01195">1195</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Creates a persistent communication request to send a message with a several values given by a pair of iterators via a blocking synchronous send operation. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">iterT</td><td>iterator type, must fulfill the requirements of a <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>, the iterator's value-type must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">begin</td><td>iterator pointing to the first data value to send </td></tr>
+    <tr><td class="paramname">end</td><td>iterator pointing one element beyond the last data value to send </td></tr>
+    <tr><td class="paramname">destination</td><td>rank of the receiving process </td></tr>
+    <tr><td class="paramname">t</td><td>tag associated to this message </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01427">1427</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>

@@ -426,33 +426,32 @@ namespace mpl {
       other.comm_ = MPI_COMM_NULL;
     }
 
-    /// \brief Constructs a new communicator from an existing one with a specified communication group.
-    /// \param comm_collective tag to indicate the mode of construction
-    /// \param other the communicator
-    /// \param gr the group that determines the new communicator's structure
-    /// \note This is a collective operation that needs to be carried out by all processes of the communicator other.
-    explicit communicator(comm_collective_tag comm_collective, const communicator &other, const group &gr) {
+    /// \brief Constructs a new communicator from an existing one with a specified communication
+    /// group. \param comm_collective tag to indicate the mode of construction \param other the
+    /// communicator \param gr the group that determines the new communicator's structure \note
+    /// This is a collective operation that needs to be carried out by all processes of the
+    /// communicator other.
+    explicit communicator(comm_collective_tag comm_collective, const communicator &other,
+                          const group &gr) {
       MPI_Comm_create(other.comm_, gr.gr_, &comm_);
     }
 
-    /// \brief Constructs a new communicator from an existing one with a specified communication group.
-    /// \param group_collective tag to indicate the mode of construction
-    /// \param other the communicator
-    /// \param gr the group that determines the new communicator's structure
-    /// \param t tag to distinguish between different parallel operations in different threads
-    /// \note This is a collective operation that needs to be carried out by all processes of the given group.
-    explicit communicator(group_collective_tag group_collective, const communicator &other, const group &gr,
-                          tag t = tag(0)) {
+    /// \brief Constructs a new communicator from an existing one with a specified communication
+    /// group. \param group_collective tag to indicate the mode of construction \param other the
+    /// communicator \param gr the group that determines the new communicator's structure \param
+    /// t tag to distinguish between different parallel operations in different threads \note
+    /// This is a collective operation that needs to be carried out by all processes of the
+    /// given group.
+    explicit communicator(group_collective_tag group_collective, const communicator &other,
+                          const group &gr, tag t = tag(0)) {
       MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
 
-    /// \brief Constructs a new communicator from an existing one with a specified communication group.
-    /// \param split tag to indicate the mode of construction
-    /// \param other the communicator
-    /// \param color control of subset assignment
-    /// \param key  control of rank assignment
-    /// \tparam color_type color type, must be integral type
-    /// \tparam key_type key type, must be integral type
+    /// \brief Constructs a new communicator from an existing one with a specified communication
+    /// group. \param split tag to indicate the mode of construction \param other the
+    /// communicator \param color control of subset assignment \param key  control of rank
+    /// assignment \tparam color_type color type, must be integral type \tparam key_type key
+    /// type, must be integral type
     template<typename color_type, typename key_type = int>
     explicit communicator(split_tag split, const communicator &other, color_type color,
                           key_type key = 0) {
@@ -464,14 +463,14 @@ namespace mpl {
                      detail::underlying_type<key_type>::value(key), &comm_);
     }
 
-    /// \brief Constructs a new communicator from an existing one by spitting the communicator into disjoint subgroups each of which can create a shared memory region.
-    /// \param split_shared_memory tag to indicate the mode of construction
-    /// \param other the communicator
-    /// \param key  control of rank assignment
-    /// \tparam color_type color type, must be integral type
+    /// \brief Constructs a new communicator from an existing one by spitting the communicator
+    /// into disjoint subgroups each of which can create a shared memory region. \param
+    /// split_shared_memory tag to indicate the mode of construction \param other the
+    /// communicator \param key  control of rank assignment \tparam color_type color type, must
+    /// be integral type
     template<typename key_type = int>
-    explicit communicator(split_shared_memory_tag split_shared_memory, const communicator &other,
-                          key_type key = 0) {
+    explicit communicator(split_shared_memory_tag split_shared_memory,
+                          const communicator &other, key_type key = 0) {
       static_assert(detail::is_valid_tag_v<key_type>,
                     "not an enumeration type or underlying enumeration type too large");
       MPI_Comm_split_type(other.comm_, MPI_COMM_TYPE_SHARED,
@@ -496,7 +495,7 @@ namespace mpl {
     /// \note Communicators should not be copied unless a new independent communicator is
     /// wanted. Communicators should be passed via references to functions to avoid unnecessary
     /// copying.
-    communicator &operator=(const communicator &other)  noexcept {
+    communicator &operator=(const communicator &other) noexcept {
       if (this != &other) {
         if (is_valid()) {
           int result1;
@@ -569,10 +568,10 @@ namespace mpl {
       return static_cast<equality_type>(result);
     }
 
-   /// \brief Checks if a communicator is valid, i.e., is not an empty communicator with no
-   /// associated process.
-   /// \return true if communicator is valid
-   /// \note A default constructed communicator is a non valid communicator.
+    /// \brief Checks if a communicator is valid, i.e., is not an empty communicator with no
+    /// associated process.
+    /// \return true if communicator is valid
+    /// \note A default constructed communicator is a non valid communicator.
     [[nodiscard]] bool is_valid() const { return comm_ != MPI_COMM_NULL; }
 
     /// \brief Aborts all processes associated to the communicator.
@@ -626,7 +625,8 @@ namespace mpl {
     /// \param destination rank of the receiving process
     /// \param t tag associated to this message
     /// \note Sending STL containers is a convenience feature, which may have non-optimal
-    /// performance characteristics. Use alternative overloads in performance critical code sections.
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
     template<typename T>
     void send(const T &data, int destination, tag t = tag(0)) const {
       check_dest(destination);
@@ -654,7 +654,8 @@ namespace mpl {
     /// \brief Sends a message with a several values given by a pair of iterators via a
     /// blocking standard send operation.
     /// \tparam iterT iterator type, must fulfill the requirements of a
-    /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
     /// the iterator's value-type must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param begin iterator pointing to the first data value to send
@@ -738,7 +739,8 @@ namespace mpl {
     /// \param t tag associated to this message
     /// \return request representing the ongoing message transfer
     /// \note Sending STL containers is a convenience feature, which may have non-optimal
-    /// performance characteristics. Use alternative overloads in performance critical code sections.
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
     template<typename T>
     irequest isend(const T &data, int destination, tag t = tag(0)) const {
       check_dest(destination);
@@ -768,9 +770,10 @@ namespace mpl {
     }
 
     /// \brief Sends a message with a several values given by a pair of iterators via a
-    /// blocking standard send operation.
+    /// non-blocking standard send operation.
     /// \tparam iterT iterator type, must fulfill the requirements of a
-    /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
     /// the iterator's value-type must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param begin iterator pointing to the first data value to send
@@ -837,7 +840,8 @@ namespace mpl {
     /// \brief Creates a persistent communication request to send a message with a several
     /// values given by a pair of iterators via a blocking standard send operation.
     /// \tparam iterT iterator type, must fulfill the requirements of a
-    /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
     /// the iterator's value-type must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param begin iterator pointing to the first data value to send
@@ -861,6 +865,12 @@ namespace mpl {
 
     // === buffered send ===
     // --- determine buffer size ---
+    /// \brief determines the message buffer size
+    /// \tparam T type of the data to send in a later buffered send operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param number quantity of elements of type T to send in a single buffered message or
+    /// in a series of  buffered send operations
+    /// \anchor communicator_bsend_size
     template<typename T>
     [[nodiscard]] int bsend_size(int number = 1) const {
       int pack_size{0};
@@ -868,8 +878,13 @@ namespace mpl {
       return pack_size + MPI_BSEND_OVERHEAD;
     }
 
+    /// \brief determines the message buffer size
+    /// \tparam T type of the data to send in a later buffered send operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param l layout of the data
+    /// \param number quantity of buffered send operations with the given data type and layout
     template<typename T>
-    [[nodiscard]] int bsend_size(const layout<T> &l, int number=1) const {
+    [[nodiscard]] int bsend_size(const layout<T> &l, int number = 1) const {
       int pack_size{0};
       MPI_Pack_size(number, detail::datatype_traits<layout<T>>::get_datatype(l), comm_,
                     &pack_size);
@@ -879,76 +894,109 @@ namespace mpl {
     // --- blocking buffered send ---
   private:
     template<typename T>
-    void bsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
-      MPI_Bsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm_);
+    void bsend(const T &data, int destination, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Bsend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
+                static_cast<int>(t), comm_);
     }
 
     template<typename T>
-    void bsend(const T &data, int dest, tag t, detail::contiguous_const_stl_container) const {
+    void bsend(const T &data, int destination, tag t,
+               detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const vector_layout<value_type> l(data.size());
-      bsend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
+      bsend(data.size() > 0 ? &data[0] : nullptr, l, destination, t);
     }
 
     template<typename T>
-    void bsend(const T &data, int dest, tag t, detail::stl_container) const {
+    void bsend(const T &data, int destination, tag t, detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
       const vector_layout<value_type> l(serial_data.size());
-      bsend(serial_data.data(), l, dest, t);
+      bsend(serial_data.data(), l, destination, t);
     }
 
   public:
     /// \anchor communicator_bsend
+    /// \brief Sends a message with a single value via a buffered send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section or an STL container that holds elements that comply with
+    /// the mentioned requirements
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
     template<typename T>
-    void bsend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    void bsend(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       check_container_size(data);
-      bsend(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
+      bsend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
     }
 
+    /// \brief Sends a message with a several values having a specific memory layout via a
+    /// buffered send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
     template<typename T>
-    void bsend(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    void bsend(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
-      MPI_Bsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Bsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                 static_cast<int>(t), comm_);
     }
 
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// buffered send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    void bsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    void bsend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        bsend(&(*begin), l, dest, t);
+        bsend(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        bsend(&(*begin), l, dest, t);
+        bsend(&(*begin), l, destination, t);
       }
     }
 
     // --- nonblocking buffered send ---
   private:
     template<typename T>
-    irequest ibsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+    irequest ibsend(const T &data, int destination, tag t,
+                    detail::basic_or_fixed_size_type) const {
       MPI_Request req;
-      MPI_Ibsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Ibsend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                  static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
     template<typename T>
-    void ibsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+    void ibsend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
                 detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
-      MPI_Ibsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+      MPI_Ibsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                  static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
@@ -960,91 +1008,161 @@ namespace mpl {
     }
 
     template<typename T>
-    void ibsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+    void ibsend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
                 detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      ibsend(serial_data, dest, t, isend_state, detail::contiguous_const_stl_container{});
+      ibsend(serial_data, destination, t, isend_state,
+             detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
-    irequest ibsend(const T &data, int dest, tag t, C) const {
+    irequest ibsend(const T &data, int destination, tag t, C) const {
       isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
       send_state->req = req;
-      std::thread thread(
-          [this, &data, dest, t, send_state]() { ibsend(data, dest, t, send_state, C{}); });
+      std::thread thread([this, &data, destination, t, send_state]() {
+        ibsend(data, destination, t, send_state, C{});
+      });
       thread.detach();
       return impl::irequest(req);
     }
 
   public:
+    /// \brief Sends a message with a single value via a non-blocking buffered send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section or an STL container that holds elements that comply with
+    /// the mentioned requirements
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections. \anchor communicator_ibsend
     template<typename T>
-    irequest ibsend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    irequest ibsend(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       check_container_size(data);
-      return ibsend(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
+      return ibsend(data, destination, t,
+                    typename detail::datatype_traits<T>::data_type_category{});
     }
 
+    /// \brief Sends a message with several values having a specific memory layout via a
+    /// non-blocking buffered send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
     template<typename T>
-    irequest ibsend(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    irequest ibsend(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Ibsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Ibsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                  static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// non-blocking buffered send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
+    /// \return request representing the ongoing message transfer
     template<typename iterT>
-    irequest ibsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    irequest ibsend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return ibsend(&(*begin), l, dest, t);
+        return ibsend(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return ibsend(&(*begin), l, dest, t);
+        return ibsend(&(*begin), l, destination, t);
       }
     }
 
     // --- persistent buffered send ---
+    /// \brief Creates a persistent communication request to send a message with a single value
+    /// via a buffered send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note Sending STL containers is not supported.
     template<typename T>
-    prequest bsend_init(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    prequest bsend_init(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Bsend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Bsend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                      static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to send a message with a several
+    /// values having a specific memory layout via a buffered send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
     template<typename T>
-    prequest bsend_init(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    prequest bsend_init(const T *data, const layout<T> &l, int destination,
+                        tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Bsend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Bsend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                      static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to send a message with a several
+    /// values given by a pair of iterators via a buffered send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    prequest bsend_init(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    prequest bsend_init(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return bsend_init(&(*begin), l, dest, t);
+        return bsend_init(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return bsend_init(&(*begin), l, dest, t);
+        return bsend_init(&(*begin), l, destination, t);
       }
     }
 
@@ -1052,74 +1170,107 @@ namespace mpl {
     // --- blocking synchronous send ---
   private:
     template<typename T>
-    void ssend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
-      MPI_Ssend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm_);
-    }
-
-    template<typename T>
-    void ssend(const T &data, int dest, tag t, detail::contiguous_const_stl_container) const {
-      using value_type = typename T::value_type;
-      const vector_layout<value_type> l(data.size());
-      ssend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
-    }
-
-    template<typename T>
-    void ssend(const T &data, int dest, tag t, detail::stl_container) const {
-      using value_type = detail::remove_const_from_members_t<typename T::value_type>;
-      detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      const vector_layout<value_type> l(serial_data.size());
-      ssend(serial_data.data(), l, dest, t);
-    }
-
-  public:
-    template<typename T>
-    void ssend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
-      ssend(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
-    }
-
-    template<typename T>
-    void ssend(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
-      MPI_Ssend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+    void ssend(const T &data, int destination, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Ssend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                 static_cast<int>(t), comm_);
     }
 
+    template<typename T>
+    void ssend(const T &data, int destination, tag t,
+               detail::contiguous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      const vector_layout<value_type> l(data.size());
+      ssend(data.size() > 0 ? &data[0] : nullptr, l, destination, t);
+    }
+
+    template<typename T>
+    void ssend(const T &data, int destination, tag t, detail::stl_container) const {
+      using value_type = detail::remove_const_from_members_t<typename T::value_type>;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      const vector_layout<value_type> l(serial_data.size());
+      ssend(serial_data.data(), l, destination, t);
+    }
+
+  public:
+    /// \brief Sends a message with a single value via a blocking synchronous send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section or an STL container that holds elements that comply with
+    /// the mentioned requirements
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
+    template<typename T>
+    void ssend(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
+      check_send_tag(t);
+      ssend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
+    }
+
+    /// \brief Sends a message with a several values having a specific memory layout via a
+    /// blocking synchronous send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    template<typename T>
+    void ssend(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
+      check_send_tag(t);
+      MPI_Ssend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
+                static_cast<int>(t), comm_);
+    }
+
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// blocking synchronous send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    void ssend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    void ssend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        ssend(&(*begin), l, dest, t);
+        ssend(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        ssend(&(*begin), l, dest, t);
+        ssend(&(*begin), l, destination, t);
       }
     }
 
     // --- nonblocking synchronous send ---
   private:
     template<typename T>
-    irequest issend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+    irequest issend(const T &data, int destination, tag t,
+                    detail::basic_or_fixed_size_type) const {
       MPI_Request req;
-      MPI_Issend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Issend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                  static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
     template<typename T>
-    void issend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+    void issend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
                 detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
-      MPI_Issend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+      MPI_Issend(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                  static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
@@ -1131,91 +1282,158 @@ namespace mpl {
     }
 
     template<typename T>
-    void issend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+    void issend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
                 detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      issend(serial_data, dest, t, isend_state, detail::contiguous_const_stl_container{});
+      issend(serial_data, destination, t, isend_state,
+             detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
-    irequest issend(const T &data, int dest, tag t, C) const {
+    irequest issend(const T &data, int destination, tag t, C) const {
       isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
       send_state->req = req;
-      std::thread thread(
-          [this, &data, dest, t, send_state]() { issend(data, dest, t, send_state, C{}); });
+      std::thread thread([this, &data, destination, t, send_state]() {
+        issend(data, destination, t, send_state, C{});
+      });
       thread.detach();
       return impl::irequest(req);
     }
 
   public:
+    /// \brief Sends a message with a single value via a non-blocking synchronous send
+    /// operation. \tparam T type of the data to send, must meet the requirements as described
+    /// in the \ref data_types "data types" section or an STL container that holds elements that
+    /// comply with the mentioned requirements \param data value to send \param destination rank
+    /// of the receiving process \param t tag associated to this message \return request
+    /// representing the ongoing message transfer \note Sending STL containers is a convenience
+    /// feature, which may have non-optimal performance characteristics. Use alternative
+    /// overloads in performance critical code sections.
     template<typename T>
-    irequest issend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    irequest issend(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       check_container_size(data);
-      return issend(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
+      return issend(data, destination, t,
+                    typename detail::datatype_traits<T>::data_type_category{});
     }
 
+    /// \brief Sends a message with several values having a specific memory layout via a
+    /// non-blocking synchronous send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
     template<typename T>
-    irequest issend(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    irequest issend(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Issend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Issend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                  static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// non-blocking synchronous send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
+    /// \return request representing the ongoing message transfer
     template<typename iterT>
-    irequest issend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    irequest issend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return issend(&(*begin), l, dest, t);
+        return issend(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return issend(&(*begin), l, dest, t);
+        return issend(&(*begin), l, destination, t);
       }
     }
 
     // --- persistent synchronous send ---
+    /// \brief Creates a persistent communication request to send a message with a single value
+    /// via a blocking synchronous send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note Sending STL containers is not supported.
     template<typename T>
-    prequest ssend_init(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    prequest ssend_init(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Ssend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Ssend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                      static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to send a message with a several
+    /// values having a specific memory layout via a blocking synchronous send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
     template<typename T>
-    prequest ssend_init(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    prequest ssend_init(const T *data, const layout<T> &l, int destination,
+                        tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Ssend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Ssend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                      static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to send a message with a several
+    /// values given by a pair of iterators via a blocking synchronous send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    prequest ssend_init(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    prequest ssend_init(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return ssend_init(&(*begin), l, dest, t);
+        return ssend_init(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return ssend_init(&(*begin), l, dest, t);
+        return ssend_init(&(*begin), l, destination, t);
       }
     }
 
@@ -1223,75 +1441,108 @@ namespace mpl {
     // --- blocking ready send ---
   private:
     template<typename T>
-    void rsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
-      MPI_Rsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest, static_cast<int>(t),
-                comm_);
-    }
-
-    template<typename T>
-    void rsend(const T &data, int dest, tag t, detail::contiguous_const_stl_container) const {
-      using value_type = typename T::value_type;
-      const vector_layout<value_type> l(data.size());
-      rsend(data.size() > 0 ? &data[0] : nullptr, l, dest, t);
-    }
-
-    template<typename T>
-    void rsend(const T &data, int dest, tag t, detail::stl_container) const {
-      using value_type = detail::remove_const_from_members_t<typename T::value_type>;
-      detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      const vector_layout<value_type> l(serial_data.size());
-      rsend(serial_data.data(), l, dest, t);
-    }
-
-  public:
-    template<typename T>
-    void rsend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
-      check_container_size(data);
-      rsend(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
-    }
-
-    template<typename T>
-    void rsend(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
-      check_send_tag(t);
-      MPI_Rsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+    void rsend(const T &data, int destination, tag t, detail::basic_or_fixed_size_type) const {
+      MPI_Rsend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                 static_cast<int>(t), comm_);
     }
 
+    template<typename T>
+    void rsend(const T &data, int destination, tag t,
+               detail::contiguous_const_stl_container) const {
+      using value_type = typename T::value_type;
+      const vector_layout<value_type> l(data.size());
+      rsend(data.size() > 0 ? &data[0] : nullptr, l, destination, t);
+    }
+
+    template<typename T>
+    void rsend(const T &data, int destination, tag t, detail::stl_container) const {
+      using value_type = detail::remove_const_from_members_t<typename T::value_type>;
+      detail::vector<value_type> serial_data(data.size(), std::begin(data));
+      const vector_layout<value_type> l(serial_data.size());
+      rsend(serial_data.data(), l, destination, t);
+    }
+
+  public:
+    /// \brief Sends a message with a single value via a blocking ready send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section or an STL container that holds elements that comply with
+    /// the mentioned requirements
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
+    template<typename T>
+    void rsend(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
+      check_send_tag(t);
+      check_container_size(data);
+      rsend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
+    }
+
+    /// \brief Sends a message with a several values having a specific memory layout via a
+    /// blocking ready send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    template<typename T>
+    void rsend(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
+      check_send_tag(t);
+      MPI_Rsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
+                static_cast<int>(t), comm_);
+    }
+
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// blocking ready send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    void rsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    void rsend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        rsend(&(*begin), l, dest, t);
+        rsend(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        rsend(&(*begin), l, dest, t);
+        rsend(&(*begin), l, destination, t);
       }
     }
 
     // --- nonblocking ready send ---
   private:
     template<typename T>
-    irequest irsend(const T &data, int dest, tag t, detail::basic_or_fixed_size_type) const {
+    irequest irsend(const T &data, int destination, tag t,
+                    detail::basic_or_fixed_size_type) const {
       MPI_Request req;
-      MPI_Irsend(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Irsend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                  static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
     template<typename T>
-    void irsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+    void irsend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
                 detail::contiguous_const_stl_container) const {
       using value_type = typename T::value_type;
       const int count(data.size());
       MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
       MPI_Request req;
-      MPI_Irsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, dest,
+      MPI_Irsend(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                  static_cast<int>(t), comm_, &req);
       MPI_Status s;
       MPI_Wait(&req, &s);
@@ -1303,91 +1554,161 @@ namespace mpl {
     }
 
     template<typename T>
-    void irsend(const T &data, int dest, tag t, isend_irecv_state *isend_state,
+    void irsend(const T &data, int destination, tag t, isend_irecv_state *isend_state,
                 detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       detail::vector<value_type> serial_data(data.size(), std::begin(data));
-      irsend(serial_data, dest, t, isend_state, detail::contiguous_const_stl_container{});
+      irsend(serial_data, destination, t, isend_state,
+             detail::contiguous_const_stl_container{});
     }
 
     template<typename T, typename C>
-    irequest irsend(const T &data, int dest, tag t, C) const {
+    irequest irsend(const T &data, int destination, tag t, C) const {
       isend_irecv_state *send_state{new isend_irecv_state()};
       MPI_Request req;
       MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
                          &req);
       send_state->req = req;
-      std::thread thread(
-          [this, &data, dest, t, send_state]() { irsend(data, dest, t, send_state, C{}); });
+      std::thread thread([this, &data, destination, t, send_state]() {
+        irsend(data, destination, t, send_state, C{});
+      });
       thread.detach();
       return impl::irequest(req);
     }
 
   public:
+    /// \brief Sends a message with a single value via a non-blocking ready send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section or an STL container that holds elements that comply with
+    /// the mentioned requirements
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
     template<typename T>
-    irequest irsend(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    irequest irsend(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       check_container_size(data);
-      return irsend(data, dest, t, typename detail::datatype_traits<T>::data_type_category{});
+      return irsend(data, destination, t,
+                    typename detail::datatype_traits<T>::data_type_category{});
     }
 
+    /// \brief Sends a message with several values having a specific memory layout via a
+    /// non-blocking ready send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
     template<typename T>
-    irequest irsend(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    irequest irsend(const T *data, const layout<T> &l, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Irsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Irsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                  static_cast<int>(t), comm_, &req);
       return impl::irequest(req);
     }
 
+    /// \brief Sends a message with a several values given by a pair of iterators via a
+    /// non-blocking ready send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
+    /// \return request representing the ongoing message transfer
     template<typename iterT>
-    irequest irsend(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    irequest irsend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return irsend(&(*begin), l, dest, t);
+        return irsend(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return irsend(&(*begin), l, dest, t);
+        return irsend(&(*begin), l, destination, t);
       }
     }
 
     // --- persistent ready send ---
+    /// \brief Creates a persistent communication request to send a message with a single value
+    /// via a blocking ready send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note Sending STL containers is not supported.
     template<typename T>
-    prequest rsend_init(const T &data, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    prequest rsend_init(const T &data, int destination, tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Rsend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Rsend_init(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                      static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to send a message with a several
+    /// values having a specific memory layout via a blocking ready send operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to send
+    /// \param l memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
     template<typename T>
-    prequest rsend_init(const T *data, const layout<T> &l, int dest, tag t = tag(0)) const {
-      check_dest(dest);
+    prequest rsend_init(const T *data, const layout<T> &l, int destination,
+                        tag t = tag(0)) const {
+      check_dest(destination);
       check_send_tag(t);
       MPI_Request req;
-      MPI_Rsend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Rsend_init(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
                      static_cast<int>(t), comm_, &req);
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to send a message with a several
+    /// values given by a pair of iterators via a blocking ready send operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send
+    /// \param end iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    prequest rsend_init(iterT begin, iterT end, int dest, tag t = tag(0)) const {
+    prequest rsend_init(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return rsend_init(&(*begin), l, dest, t);
+        return rsend_init(&(*begin), l, destination, t);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return rsend_init(&(*begin), l, dest, t);
+        return rsend_init(&(*begin), l, destination, t);
       }
     }
 
@@ -1937,8 +2258,7 @@ namespace mpl {
       MPI_Request req;
       MPI_Iallgather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
                      recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
-                     comm_,
-                     &req);
+                     comm_, &req);
       return impl::irequest(req);
     }
 

@@ -28,7 +28,7 @@ var hierarchy =
     [ "mpl::bit_and< T >", "structmpl_1_1bit__and.html", null ],
     [ "mpl::bit_or< T >", "structmpl_1_1bit__or.html", null ],
     [ "mpl::bit_xor< T >", "structmpl_1_1bit__xor.html", null ],
-    [ "mpl::bsend_buffer< A >", "classmpl_1_1bsend__buffer.html", null ],
+    [ "mpl::bsend_buffer", "classmpl_1_1bsend__buffer.html", null ],
     [ "mpl::communicator::comm_collective_tag", "classmpl_1_1communicator_1_1comm__collective__tag.html", null ],
     [ "mpl::communicator", "classmpl_1_1communicator.html", [
       [ "mpl::detail::topo_communicator", null, [
@@ -94,10 +94,10 @@ var hierarchy =
     [ "mpl::indexed_block_layout< T >::parameter", "classmpl_1_1indexed__block__layout_1_1parameter.html", null ],
     [ "mpl::iterator_layout< T >::parameter", "classmpl_1_1iterator__layout_1_1parameter.html", null ],
     [ "mpl::hindexed_layout< T >::parameter", "classmpl_1_1hindexed__layout_1_1parameter.html", null ],
-    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
     [ "mpl::hindexed_block_layout< T >::parameter", "classmpl_1_1hindexed__block__layout_1_1parameter.html", null ],
     [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
     [ "mpl::heterogeneous_layout::parameter", "classmpl_1_1heterogeneous__layout_1_1parameter.html", null ],
+    [ "mpl::indexed_layout< T >::parameter", "classmpl_1_1indexed__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
     [ "mpl::impl::prequest", "classmpl_1_1impl_1_1prequest.html", null ],
     [ "mpl::impl::request< T >", "classmpl_1_1impl_1_1request.html", null ],
@@ -119,9 +119,9 @@ var hierarchy =
       [ "mpl::graph_communicator::edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", null ]
     ] ],
     [ "mpl::shift_ranks", "structmpl_1_1shift__ranks.html", null ],
+    [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
     [ "mpl::cart_communicator::sizes", "classmpl_1_1cart__communicator_1_1sizes.html", null ],
     [ "mpl::distributed_grid< dim, T, A >::sizes", "classmpl_1_1distributed__grid_1_1sizes.html", null ],
-    [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
     [ "mpl::communicator::split_shared_memory_tag", "classmpl_1_1communicator_1_1split__shared__memory__tag.html", null ],
     [ "mpl::communicator::split_tag", "classmpl_1_1communicator_1_1split__tag.html", null ],
     [ "mpl::strided_vector_layout< T >", "classmpl_1_1strided__vector__layout.html", null ],
