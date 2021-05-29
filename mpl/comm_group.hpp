@@ -1627,9 +1627,9 @@ namespace mpl {
     /// \param end iterator pointing one element beyond the last data value to send
     /// \param destination rank of the receiving process
     /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
     /// \note This is a convenience method, which may have non-optimal performance
     /// characteristics. Use alternative overloads in performance critical code sections.
-    /// \return request representing the ongoing message transfer
     template<typename iterT>
     irequest irsend(iterT begin, iterT end, int destination, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1758,6 +1758,17 @@ namespace mpl {
     }
 
   public:
+    /// \brief Receives a message with a single value.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section or an STL container that holds elements that comply
+    /// with the mentioned requirements
+    /// \param data value to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return status of the receive operation
+    /// \note Receiving STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
     /// \anchor communicator_recv
     template<typename T>
     status recv(T &data, int source, tag t = tag(0)) const {
@@ -1766,6 +1777,14 @@ namespace mpl {
       return recv(data, source, t, typename detail::datatype_traits<T>::data_type_category{});
     }
 
+    /// \brief Receives a message with a several values having a specific memory layout.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param data pointer to the data to receive
+    /// \param l memory layout of the data to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return status of the receive operation
     template<typename T>
     status recv(T *data, const layout<T> &l, int source, tag t = tag(0)) const {
       check_source(source);
@@ -1776,6 +1795,19 @@ namespace mpl {
       return s;
     }
 
+    /// \brief Receives a message with a several values given by a pair of iterators.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to receive
+    /// \param end iterator pointing one element beyond the last data value to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return status of the receive operation
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
     status recv(iterT begin, iterT end, int source, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1826,6 +1858,17 @@ namespace mpl {
     }
 
   public:
+    /// \brief Receives a message with a single value via a non-blocking receive operation.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section or an STL container that holds elements that comply
+    /// with the mentioned requirements
+    /// \param data value to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing receive operation
+    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// performance characteristics. Use alternative overloads in performance critical code
+    /// sections.
     template<typename T>
     irequest irecv(T &data, int source, tag t = tag(0)) const {
       check_source(source);
@@ -1833,6 +1876,15 @@ namespace mpl {
       return irecv(data, source, t, typename detail::datatype_traits<T>::data_type_category{});
     }
 
+    /// \brief Receives a message with several values having a specific memory layout via a
+    /// non-blocking receive operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to receive
+    /// \param l memory layout of the data to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing receive operation
     template<typename T>
     irequest irecv(T *data, const layout<T> &l, int source, tag t = tag(0)) const {
       check_source(source);
@@ -1843,6 +1895,20 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Receives a message with a several values given by a pair of iterators via a
+    /// non-blocking receive operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to receive
+    /// \param end iterator pointing one element beyond the last data value to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return request representing the ongoing message transfer
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
     irequest irecv(iterT begin, iterT end, int source, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1858,6 +1924,15 @@ namespace mpl {
     }
 
     // --- persistent receive ---
+    /// \brief Creates a persistent communication request to receive a message with a single
+    /// value via a blocking receive operation.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param data value to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note Receiving STL containers is not supported.
     template<typename T>
     prequest recv_init(T &data, int source, tag t = tag(0)) const {
       check_source(source);
@@ -1868,6 +1943,15 @@ namespace mpl {
       return impl::prequest(req);
     }
 
+    /// \brief Creates a persistent communication request to receive a message with a several
+    /// values having a specific memory layout via a blocking standard send operation.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param data pointer to the data to receive
+    /// \param l memory layout of the data to receive
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
     template<typename T>
     prequest recv_init(T *data, const layout<T> &l, int source, tag t = tag(0)) const {
       check_source(source);
@@ -1878,6 +1962,20 @@ namespace mpl {
       return impl::prequest{req};
     }
 
+    /// \brief Creates a persistent communication request to receive a message with a several
+    /// values given by a pair of iterators via a blocking receive operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to receive
+    /// \param end iterator pointing one element beyond the last data value to receive
+    /// \param source rank of the sending ing process
+    /// \param t tag associated to this message
+    /// \return persistent communication request
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
     prequest recv_init(iterT begin, iterT end, int source, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
