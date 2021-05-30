@@ -679,7 +679,7 @@ namespace mpl {
       }
     }
 
-    // --- nonblocking standard send ---
+    // --- non-blocking standard send ---
   private:
     template<typename T>
     impl::irequest isend(const T &data, int destination, tag t,
@@ -979,7 +979,7 @@ namespace mpl {
       }
     }
 
-    // --- nonblocking buffered send ---
+    // --- non-blocking buffered send ---
   private:
     template<typename T>
     irequest ibsend(const T &data, int destination, tag t,
@@ -1253,7 +1253,7 @@ namespace mpl {
       }
     }
 
-    // --- nonblocking synchronous send ---
+    // --- non-blocking synchronous send ---
   private:
     template<typename T>
     irequest issend(const T &data, int destination, tag t,
@@ -1525,7 +1525,7 @@ namespace mpl {
       }
     }
 
-    // --- nonblocking ready send ---
+    // --- non-blocking ready send ---
   private:
     template<typename T>
     irequest irsend(const T &data, int destination, tag t,
@@ -1823,7 +1823,7 @@ namespace mpl {
       }
     }
 
-    // --- nonblocking receive ---
+    // --- non-blocking receive ---
   private:
     template<typename T>
     irequest irecv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
@@ -2003,7 +2003,7 @@ namespace mpl {
       return s;
     }
 
-    // --- nonblocking probe ---
+    // --- non-blocking probe ---
     /// \brief Non-blocking test for an incoming message.
     /// \param source rank of the sending process
     /// \param t tag associated to this message
@@ -2032,7 +2032,7 @@ namespace mpl {
       return std::make_tuple(m, s);
     }
 
-    // --- nonblocking matching probe ---
+    // --- non-blocking matching probe ---
     [[nodiscard]] std::optional<std::tuple<message, status>> improbe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
@@ -2050,7 +2050,7 @@ namespace mpl {
     // === matching receive ===
     // --- blocking matching receive ---
 
-    // --- nonblocking matching receive ---
+    // --- non-blocking matching receive ---
 
     // === send and receive ===
     // --- send and receive ---
@@ -2155,7 +2155,7 @@ namespace mpl {
     // --- blocking barrier ---
     void barrier() const { MPI_Barrier(comm_); }
 
-    // --- nonblocking barrier ---
+    // --- non-blocking barrier ---
     [[nodiscard]] irequest ibarrier() const {
       MPI_Request req;
       MPI_Ibarrier(comm_, &req);
@@ -2176,7 +2176,7 @@ namespace mpl {
       MPI_Bcast(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), root_rank, comm_);
     }
 
-    // --- nonblocking broadcast ---
+    // --- non-blocking broadcast ---
     template<typename T>
     irequest ibcast(int root_rank, T &data) const {
       check_root(root_rank);
@@ -2212,7 +2212,7 @@ namespace mpl {
                  1, detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_);
     }
 
-    // --- nonblocking gather ---
+    // --- non-blocking gather ---
     template<typename T>
     irequest igather(int root_rank, const T &senddata, T *recvdata) const {
       check_root(root_rank);
@@ -2248,7 +2248,7 @@ namespace mpl {
                  MPI_DATATYPE_NULL, root_rank, comm_);
     }
 
-    // --- nonblocking gather, non-root variant ---
+    // --- non-blocking gather, non-root variant ---
     template<typename T>
     irequest igather(int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
@@ -2291,7 +2291,7 @@ namespace mpl {
       gatherv(root_rank, senddata, sendl, recvdata, recvls, displacements(size()));
     }
 
-    // --- nonblocking gather ---
+    // --- non-blocking gather ---
     template<typename T>
     irequest igatherv(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
                       const layouts<T> &recvls, const displacements &recvdispls) const {
@@ -2327,7 +2327,7 @@ namespace mpl {
                 sendrecvdispls);
     }
 
-    // --- nonblocking gather, non-root variant ---
+    // --- non-blocking gather, non-root variant ---
     template<typename T>
     irequest igatherv(int root_rank, const T *senddata, const layout<T> &sendl) const {
       check_nonroot(root_rank);
@@ -2356,7 +2356,7 @@ namespace mpl {
                     comm_);
     }
 
-    // --- nonblocking allgather ---
+    // --- non-blocking allgather ---
     template<typename T>
     irequest iallgather(const T &senddata, T *recvdata) const {
       MPI_Request req;
@@ -2394,7 +2394,7 @@ namespace mpl {
       allgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
     }
 
-    // --- nonblocking allgather ---
+    // --- non-blocking allgather ---
     template<typename T>
     irequest iallgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                          const layouts<T> &recvls, const displacements &recvdispls) const {
@@ -2431,7 +2431,7 @@ namespace mpl {
                   root_rank, comm_);
     }
 
-    // --- nonblocking scatter ---
+    // --- non-blocking scatter ---
     template<typename T>
     irequest iscatter(int root_rank, const T *senddata, T &recvdata) const {
       check_root(root_rank);
@@ -2467,7 +2467,7 @@ namespace mpl {
                   detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_);
     }
 
-    // --- nonblocking scatter, non-root variant ---
+    // --- non-blocking scatter, non-root variant ---
     template<typename T>
     irequest iscatter(int root_rank, T &recvdata) const {
       check_nonroot(root_rank);
@@ -2511,7 +2511,7 @@ namespace mpl {
       scatterv(root_rank, senddata, sendls, displacements(size()), recvdata, recvl);
     }
 
-    // --- nonblocking scatter ---
+    // --- non-blocking scatter ---
     template<typename T>
     irequest iscatterv(int root_rank, const T *senddata, const layouts<T> &sendls,
                        const displacements &senddispls, T *recvdata,
@@ -2548,7 +2548,7 @@ namespace mpl {
                 recvls, sendrecvdispls);
     }
 
-    // --- nonblocking scatter, non-root variant ---
+    // --- non-blocking scatter, non-root variant ---
     template<typename T>
     irequest iscatterv(int root_rank, T *recvdata, const layout<T> &recvl) const {
       check_root(root_rank);
@@ -2576,7 +2576,7 @@ namespace mpl {
                    detail::datatype_traits<layout<T>>::get_datatype(), comm_);
     }
 
-    // --- nonblocking all-to-all ---
+    // --- non-blocking all-to-all ---
     template<typename T>
     irequest ialltoall(const T *senddata, T *recvdata) const {
       MPI_Request req;
@@ -2607,7 +2607,7 @@ namespace mpl {
                    detail::datatype_traits<layout<T>>::get_datatype(), comm_);
     }
 
-    // --- nonblocking all-to-all, in place ---
+    // --- non-blocking all-to-all, in place ---
     template<typename T>
     irequest ialltoall(T *recvdata) const {
       MPI_Request req;
