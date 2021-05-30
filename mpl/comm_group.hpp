@@ -6,6 +6,7 @@
 #include <type_traits>
 #include <tuple>
 #include <thread>
+#include <optional>
 #include <mpl/layout.hpp>
 #include <mpl/vector.hpp>
 
@@ -1990,6 +1991,10 @@ namespace mpl {
 
     // === probe ===
     // --- blocking probe ---
+    /// \brief Blocking test for an incoming message.
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return status of the pending message
     [[nodiscard]] status probe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
@@ -1999,29 +2004,36 @@ namespace mpl {
     }
 
     // --- nonblocking probe ---
-    [[nodiscard]] std::pair<bool, status> iprobe(int source, tag t = tag(0)) const {
+    /// \brief Non-blocking test for an incoming message.
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return status of the pending message if there is any pending message
+    [[nodiscard]] std::optional<status> iprobe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       int result;
       status s;
       MPI_Iprobe(source, static_cast<int>(t), comm_, &result,
                  reinterpret_cast<MPI_Status *>(&s));
-      return std::make_pair(static_cast<bool>(result), s);
+      if (result == 0)
+        return {};
+      else
+        return s;
     }
 
     // === matching probe ===
     // --- blocking matching probe ---
-    [[nodiscard]] std::pair<message, status> mprobe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::tuple<message, status> mprobe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       status s;
       message m;
       MPI_Mprobe(source, static_cast<int>(t), comm_, &m, reinterpret_cast<MPI_Status *>(&s));
-      return std::make_pair(m, s);
+      return std::make_tuple(m, s);
     }
 
     // --- nonblocking matching probe ---
-    [[nodiscard]] std::tuple<bool, message, status> improbe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::optional<std::tuple<message, status>> improbe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       int result;
@@ -2029,7 +2041,10 @@ namespace mpl {
       message m;
       MPI_Improbe(source, static_cast<int>(t), comm_, &result, &m,
                   reinterpret_cast<MPI_Status *>(&s));
-      return std::make_tuple(static_cast<bool>(result), m, s);
+      if (result == 0)
+        return {};
+      else
+        return std::make_tuple(m, s);
     }
 
     // === matching receive ===
