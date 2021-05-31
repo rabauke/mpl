@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['data_20types_747',['Data types',['../md_data_types.html',1,'']]]
+  ['data_20types_757',['Data types',['../md_data_types.html',1,'']]]
 ];

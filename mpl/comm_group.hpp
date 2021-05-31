@@ -4,7 +4,6 @@
 
 #include <mpi.h>
 #include <type_traits>
-#include <tuple>
 #include <thread>
 #include <optional>
 #include <mpl/layout.hpp>
@@ -29,6 +28,16 @@ namespace mpl {
     }
 
   }  // namespace environment
+
+  //--------------------------------------------------------------------
+
+  /// \brief return value of matching probe operations
+  struct mprobe_status {
+    /// \brief message handle to be used in a matching receive operation
+    message_t message;
+    /// \brief status of the pending incoming message
+    status_t status;
+  };
 
   //--------------------------------------------------------------------
 
@@ -1717,17 +1726,17 @@ namespace mpl {
     // --- blocking receive ---
   private:
     template<typename T>
-    status recv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
-      status s;
+    status_t recv(T &data, int source, tag t, detail::basic_or_fixed_size_type) const {
+      status_t s;
       MPI_Recv(&data, 1, detail::datatype_traits<T>::get_datatype(), source,
                static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
     template<typename T>
-    status recv(T &data, int source, tag t, detail::contiguous_stl_container) const {
+    status_t recv(T &data, int source, tag t, detail::contiguous_stl_container) const {
       using value_type = typename T::value_type;
-      status s;
+      status_t s;
       auto *ps{reinterpret_cast<MPI_Status *>(&s)};
       MPI_Message message;
       MPI_Mprobe(source, static_cast<int>(t), comm_, &message, ps);
@@ -1741,9 +1750,9 @@ namespace mpl {
     }
 
     template<typename T>
-    status recv(T &data, int source, tag t, detail::stl_container) const {
+    status_t recv(T &data, int source, tag t, detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
-      status s;
+      status_t s;
       auto *ps{reinterpret_cast<MPI_Status *>(&s)};
       MPI_Message message;
       MPI_Mprobe(source, static_cast<int>(t), comm_, &message, ps);
@@ -1772,7 +1781,7 @@ namespace mpl {
     /// sections.
     /// \anchor communicator_recv
     template<typename T>
-    status recv(T &data, int source, tag t = tag(0)) const {
+    status_t recv(T &data, int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       return recv(data, source, t, typename detail::datatype_traits<T>::data_type_category{});
@@ -1787,10 +1796,10 @@ namespace mpl {
     /// \param t tag associated to this message
     /// \return status of the receive operation
     template<typename T>
-    status recv(T *data, const layout<T> &l, int source, tag t = tag(0)) const {
+    status_t recv(T *data, const layout<T> &l, int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
-      status s;
+      status_t s;
       MPI_Recv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), source,
                static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
@@ -1810,7 +1819,7 @@ namespace mpl {
     /// \note This is a convenience method, which may have non-optimal performance
     /// characteristics. Use alternative overloads in performance critical code sections.
     template<typename iterT>
-    status recv(iterT begin, iterT end, int source, tag t = tag(0)) const {
+    status_t recv(iterT begin, iterT end, int source, tag t = tag(0)) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       static_assert(std::is_reference_v<decltype(*begin)>,
                     "iterator de-referencing must yield a reference");
@@ -1837,7 +1846,7 @@ namespace mpl {
     void irecv(T &data, int source, tag t, isend_irecv_state *irecv_state,
                detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
-      const status s{recv(data, source, t)};
+      const status_t s{recv(data, source, t)};
       irecv_state->source = s.source();
       irecv_state->tag = static_cast<int>(s.tag());
       irecv_state->datatype = detail::datatype_traits<value_type>::get_datatype();
@@ -1867,7 +1876,7 @@ namespace mpl {
     /// \param source rank of the sending process
     /// \param t tag associated to this message
     /// \return request representing the ongoing receive operation
-    /// \note Sending STL containers is a convenience feature, which may have non-optimal
+    /// \note Receiving STL containers is a convenience feature, which may have non-optimal
     /// performance characteristics. Use alternative overloads in performance critical code
     /// sections.
     template<typename T>
@@ -1995,10 +2004,10 @@ namespace mpl {
     /// \param source rank of the sending process
     /// \param t tag associated to this message
     /// \return status of the pending message
-    [[nodiscard]] status probe(int source, tag t = tag(0)) const {
+    [[nodiscard]] status_t probe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
-      status s;
+      status_t s;
       MPI_Probe(source, static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
@@ -2008,11 +2017,11 @@ namespace mpl {
     /// \param source rank of the sending process
     /// \param t tag associated to this message
     /// \return status of the pending message if there is any pending message
-    [[nodiscard]] std::optional<status> iprobe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::optional<status_t> iprobe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       int result;
-      status s;
+      status_t s;
       MPI_Iprobe(source, static_cast<int>(t), comm_, &result,
                  reinterpret_cast<MPI_Status *>(&s));
       if (result == 0)
@@ -2023,45 +2032,171 @@ namespace mpl {
 
     // === matching probe ===
     // --- blocking matching probe ---
-    [[nodiscard]] std::tuple<message, status> mprobe(int source, tag t = tag(0)) const {
+    [[nodiscard]] mprobe_status mprobe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
-      status s;
-      message m;
+      status_t s;
+      message_t m;
       MPI_Mprobe(source, static_cast<int>(t), comm_, &m, reinterpret_cast<MPI_Status *>(&s));
-      return std::make_tuple(m, s);
+      return {m, s};
     }
 
     // --- non-blocking matching probe ---
-    [[nodiscard]] std::optional<std::tuple<message, status>> improbe(int source, tag t = tag(0)) const {
+    [[nodiscard]] std::optional<mprobe_status> improbe(int source, tag t = tag(0)) const {
       check_source(source);
       check_recv_tag(t);
       int result;
-      status s;
-      message m;
+      status_t s;
+      message_t m;
       MPI_Improbe(source, static_cast<int>(t), comm_, &result, &m,
                   reinterpret_cast<MPI_Status *>(&s));
       if (result == 0)
         return {};
       else
-        return std::make_tuple(m, s);
+        return mprobe_status{m, s};
     }
 
     // === matching receive ===
     // --- blocking matching receive ---
+  private:
+    template<typename T>
+    status_t mrecv(T &data, message_t &m, detail::basic_or_fixed_size_type) const {
+      status_t s;
+      MPI_Mrecv(&data, 1, detail::datatype_traits<T>::get_datatype(), &m, reinterpret_cast<MPI_Status *>(&s));
+      return s;
+    }
+
+  public:
+    /// \brief Receives a message with a single value by a message handle.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section or an STL container that holds elements that comply
+    /// with the mentioned requirements
+    /// \param data value to receive
+    /// \param m message handle of message to receive
+    /// \return status of the receive operation
+    /// \note Receiving STL containers is not supported.
+    template<typename T>
+    status_t mrecv(T &data, message_t &m) const {
+      return mrecv(data, m, typename detail::datatype_traits<T>::data_type_category{});
+    }
+
+    /// \brief Receives a message with a several values having a specific memory layout by a message handle.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param data pointer to the data to receive
+    /// \param l memory layout of the data to receive
+    /// \param m message handle of message to receive
+    /// \return status of the receive operation
+    template<typename T>
+    status_t mrecv(T *data, const layout<T> &l, message_t &m) const {
+      status_t s;
+      MPI_Mrecv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &m,
+                reinterpret_cast<MPI_Status *>(&s));
+      return s;
+    }
+
+    /// \brief Receives a message with a several values given by a pair of iterators by a
+    /// message handle.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to receive
+    /// \param end iterator pointing one element beyond the last data value to receive
+    /// \param m message handle of message to receive
+    /// \return status of the receive operation
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
+    template<typename iterT>
+    status_t mrecv(iterT begin, iterT end, message_t &m) const {
+      using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
+      if constexpr (detail::is_contiguous_iterator_v<iterT>) {
+        const vector_layout<value_type> l(std::distance(begin, end));
+        return mrecv(&(*begin), l, m);
+      } else {
+        const iterator_layout<value_type> l(begin, end);
+        return mrecv(&(*begin), l, m);
+      }
+    }
 
     // --- non-blocking matching receive ---
+  private:
+    template<typename T>
+    irequest imrecv(T &data, message_t &m, detail::basic_or_fixed_size_type) const {
+      MPI_Request req;
+      MPI_Imrecv(&data, 1, detail::datatype_traits<T>::get_datatype(), &m, &req);
+      return impl::irequest(req);
+    }
+
+  public:
+    /// \brief Receives a message with a single value via a non-blocking receive operation by a
+    /// message handle.
+    /// \tparam T type of the data to receive, must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// with the mentioned requirements
+    /// \param m message handle of message to receive
+    /// \return request representing the ongoing receive operation
+    /// \note Receiving STL containers is not supported.
+    template<typename T>
+    irequest imrecv(T &data, message_t &m) const {
+      return imrecv(data, m, typename detail::datatype_traits<T>::data_type_category{});
+    }
+
+    /// \brief Receives a message with several values having a specific memory layout via a
+    /// non-blocking receive operation by a message handle.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data pointer to the data to receive
+    /// \param l memory layout of the data to receive
+    /// \param m message handle of message to receive
+    /// \return request representing the ongoing receive operation
+    template<typename T>
+    irequest imrecv(T *data, const layout<T> &l, message_t &m) const {
+      MPI_Request req;
+      MPI_Imrecv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &m, &req);
+      return impl::irequest(req);
+    }
+
+    /// \brief Receives a message with a several values given by a pair of iterators via a
+    /// non-blocking receive operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to receive
+    /// \param end iterator pointing one element beyond the last data value to receive
+    /// \param m message handle of message to receive
+    /// \return request representing the ongoing message transfer
+    /// \note This is a convenience method, which may have non-optimal performance
+    /// characteristics. Use alternative overloads in performance critical code sections.
+    template<typename iterT>
+    irequest imrecv(iterT begin, iterT end, message_t &m) const {
+      using value_type = typename std::iterator_traits<iterT>::value_type;
+      static_assert(std::is_lvalue_reference_v<decltype(*begin)>,
+                    "iterator de-referencing must yield a reference");
+      if constexpr (detail::is_contiguous_iterator_v<iterT>) {
+        const vector_layout<value_type> l(std::distance(begin, end));
+        return imrecv(&(*begin), l, m);
+      } else {
+        const iterator_layout<value_type> l(begin, end);
+        return imrecv(&(*begin), l, m);
+      }
+    }
 
     // === send and receive ===
     // --- send and receive ---
     template<typename T>
-    status sendrecv(const T &senddata, int dest, tag sendtag, T &recvdata, int source,
+    status_t sendrecv(const T &senddata, int dest, tag sendtag, T &recvdata, int source,
                     tag recvtag) const {
       check_dest(dest);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
-      status s;
+      status_t s;
       MPI_Sendrecv(&senddata, 1, detail::datatype_traits<T>::get_datatype(), dest,
                    static_cast<int>(sendtag), &recvdata, 1,
                    detail::datatype_traits<T>::get_datatype(), source,
@@ -2070,13 +2205,13 @@ namespace mpl {
     }
 
     template<typename T>
-    status sendrecv(const T *senddata, const layout<T> &sendl, int dest, tag sendtag,
+    status_t sendrecv(const T *senddata, const layout<T> &sendl, int dest, tag sendtag,
                     T *recvdata, const layout<T> &recvl, int source, tag recvtag) const {
       check_dest(dest);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
-      status s;
+      status_t s;
       MPI_Sendrecv(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), dest,
                    static_cast<int>(sendtag), recvdata, 1,
                    detail::datatype_traits<layout<T>>::get_datatype(recvl), source,
@@ -2085,7 +2220,7 @@ namespace mpl {
     }
 
     template<typename iterT1, typename iterT2>
-    status sendrecv(iterT1 begin1, iterT1 end1, int dest, tag sendtag, iterT2 begin2,
+    status_t sendrecv(iterT1 begin1, iterT1 end1, int dest, tag sendtag, iterT2 begin2,
                     iterT2 end2, int source, tag recvtag) const {
       using value_type1 = typename std::iterator_traits<iterT1>::value_type;
       using value_type2 = typename std::iterator_traits<iterT2>::value_type;
@@ -2111,12 +2246,12 @@ namespace mpl {
 
     // --- send, receive and replace ---
     template<typename T>
-    status sendrecv_replace(T &data, int dest, tag sendtag, int source, tag recvtag) const {
+    status_t sendrecv_replace(T &data, int dest, tag sendtag, int source, tag recvtag) const {
       check_dest(dest);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
-      status s;
+      status_t s;
       MPI_Sendrecv_replace(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
                            static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
                            reinterpret_cast<MPI_Status *>(&s));
@@ -2124,13 +2259,13 @@ namespace mpl {
     }
 
     template<typename T>
-    status sendrecv_replace(T *data, const layout<T> &l, int dest, tag sendtag, int source,
+    status_t sendrecv_replace(T *data, const layout<T> &l, int dest, tag sendtag, int source,
                             tag recvtag) const {
       check_dest(dest);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
-      status s;
+      status_t s;
       MPI_Sendrecv_replace(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
                            static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
                            reinterpret_cast<MPI_Status *>(&s));
@@ -2138,7 +2273,7 @@ namespace mpl {
     }
 
     template<typename iterT>
-    status sendrecv_replace(iterT begin, iterT end, int dest, tag sendtag, int source,
+    status_t sendrecv_replace(iterT begin, iterT end, int dest, tag sendtag, int source,
                             tag recvtag) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {

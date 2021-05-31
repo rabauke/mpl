@@ -224,6 +224,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1min.html">min</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the minimum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">communicator::reduce</a>.  <a href="structmpl_1_1min.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1mprobe__status.html">mprobe_status</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">return value of matching probe operations  <a href="structmpl_1_1mprobe__status.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1multiplies.html">multiplies</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the product of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">communicator::reduce</a>.  <a href="structmpl_1_1multiplies.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -277,8 +280,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1shift__ranks.html">shift_ranks</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1status.html">status</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class that represents the status of a received message.  <a href="classmpl_1_1status.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1status__t.html">status_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class that represents the status of a received message.  <a href="classmpl_1_1status__t.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1strided__vector__layout.html">strided_vector_layout</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout representing uniform storage of several objects with a possibly non-unit stride between consecutive elements.  <a href="classmpl_1_1strided__vector__layout.html#details">More...</a><br /></td></tr>
@@ -322,8 +325,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:abb5e06add345f42e91dbfb17fe40dfea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#abb5e06add345f42e91dbfb17fe40dfea">message</a> = MPI_Message</td></tr>
-<tr class="separator:abb5e06add345f42e91dbfb17fe40dfea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3685893e866d7db6c3b3765d26ef386b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a3685893e866d7db6c3b3765d26ef386b">message_t</a> = MPI_Message</td></tr>
+<tr class="separator:a3685893e866d7db6c3b3765d26ef386b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cd70ef6c91cacaf9265de4c9dd93ddf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf">size_t</a> = std::size_t</td></tr>
 <tr class="separator:a3cd70ef6c91cacaf9265de4c9dd93ddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf6b82700b0f144cbcd49b1233e1083d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">ssize_t</a> = std::ptrdiff_t</td></tr>
@@ -393,14 +396,14 @@ Variables</h2></td></tr>
 <tr class="separator:a4bc7e110094061c98ce0bf2b136ff19a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="abb5e06add345f42e91dbfb17fe40dfea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb5e06add345f42e91dbfb17fe40dfea">&#9670;&nbsp;</a></span>message</h2>
+<a id="a3685893e866d7db6c3b3765d26ef386b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3685893e866d7db6c3b3765d26ef386b">&#9670;&nbsp;</a></span>message_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespacempl.html#abb5e06add345f42e91dbfb17fe40dfea">mpl::message</a> = typedef MPI_Message</td>
+          <td class="memname">using <a class="el" href="namespacempl.html#a3685893e866d7db6c3b3765d26ef386b">mpl::message_t</a> = typedef MPI_Message</td>
         </tr>
       </table>
 </div><div class="memdoc">

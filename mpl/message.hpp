@@ -6,7 +6,7 @@
 
 namespace mpl {
 
-  using message = MPI_Message;
+  using message_t = MPI_Message;
 
 }
 

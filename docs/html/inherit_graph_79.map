@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1strided__vector__layout.html" title="Layout representing uniform storage of several objects with a possibly non&#45;unit stride between consec..." alt="" coords="5,5,217,52"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,128,35"/>
+<area shape="rect" id="node2" href="$classmpl_1_1status__t.html" title="Class that represents the status of a received message." alt="" coords="176,5,328,35"/>
 </map>

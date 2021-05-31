@@ -35,7 +35,7 @@ bool probe_test(const T &data) {
   if (comm_world.rank() == 0)
     comm_world.send(data, 1);
   if (comm_world.rank() == 1) {
-    mpl::status s{comm_world.probe(0)};
+    mpl::status_t s{comm_world.probe(0)};
     if (s.source() != 0)
       return false;
     if constexpr (has_size<T>::value) {
@@ -47,6 +47,30 @@ bool probe_test(const T &data) {
     }
     T data_r;
     comm_world.recv(data_r, 0);
+    return data_r == data;
+  }
+  return true;
+}
+
+
+template<typename T>
+bool probe_iter_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  if (comm_world.size() < 2)
+    return false;
+  if (comm_world.rank() == 0)
+    comm_world.send(data, 1);
+  if (comm_world.rank() == 1) {
+    mpl::status_t s{comm_world.probe(0)};
+    if (s.source() != 0)
+      return false;
+    int count{s.template get_count<typename T::value_type>()};
+    if (count != data.size())
+      return false;
+    T data_r;
+    if constexpr (has_resize<T>())
+      data_r.resize(count);
+    comm_world.recv(std::begin(data_r), std::end(data_r), 0);
     return data_r == data;
   }
   return true;
@@ -73,12 +97,41 @@ bool iprobe_test(const T &data) {
           if (s->template get_count<T>() != 1)
             return false;
         }
-        break;
+        T data_r;
+        mpl::irequest request{comm_world.irecv(data_r, 0)};
+        request.wait();
+        return data_r == data;
       }
     }
-    T data_r;
-    comm_world.recv(data_r, 0);
-    return data_r == data;
+  }
+  return true;
+}
+
+
+template<typename T>
+bool iprobe_iter_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  if (comm_world.size() < 2)
+    return false;
+  if (comm_world.rank() == 0)
+    comm_world.send(data, 1);
+  if (comm_world.rank() == 1) {
+    while (true) {
+      auto s{comm_world.iprobe(0)};
+      if (s) {
+        if (s->source() != 0)
+          return false;
+        int count{s->template get_count<typename T::value_type>()};
+        if (count != data.size())
+          return false;
+        T data_r;
+        if constexpr (has_resize<T>())
+          data_r.resize(count);
+        mpl::irequest request{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
+        request.wait();
+        return data_r == data;
+      }
+    }
   }
   return true;
 }
@@ -124,6 +177,10 @@ BOOST_AUTO_TEST_CASE(probe) {
   BOOST_TEST(probe_test(std::vector<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(probe_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(probe_test(std::set<int>{1, 2, 3, 4, 5}));
+  // iterators
+  BOOST_TEST(probe_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+  BOOST_TEST(probe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(probe_iter_test(std::list<int>{1, 2, 3, 4, 5}));
 }
 
 
@@ -167,4 +224,8 @@ BOOST_AUTO_TEST_CASE(iprobe) {
   BOOST_TEST(iprobe_test(std::vector<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(iprobe_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(iprobe_test(std::set<int>{1, 2, 3, 4, 5}));
+  // iterators
+  BOOST_TEST(iprobe_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+  BOOST_TEST(iprobe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+  BOOST_TEST(iprobe_iter_test(std::list<int>{1, 2, 3, 4, 5}));
 }

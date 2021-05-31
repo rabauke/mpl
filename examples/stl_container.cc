@@ -84,7 +84,7 @@ void irecv(const mpl::communicator &comm) {
   using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;
   T x;
   mpl::irequest r{comm.irecv(x, 0)};
-  mpl::status s{r.wait()};
+  mpl::status_t s{r.wait()};
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
 

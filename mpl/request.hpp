@@ -82,22 +82,22 @@ namespace mpl {
 
       void cancel() { MPI_Cancel(&req); }
 
-      std::pair<bool, status> test() {
+      std::pair<bool, status_t> test() {
         int result;
-        status s;
+        status_t s;
         MPI_Test(&req, &result, reinterpret_cast<MPI_Status *>(&s));
         return std::make_pair(static_cast<bool>(result), s);
       }
 
-      status wait() {
-        status s;
+      status_t wait() {
+        status_t s;
         MPI_Wait(&req, reinterpret_cast<MPI_Status *>(&s));
         return s;
       }
 
-      std::pair<bool, status> get_status() {
+      std::pair<bool, status_t> get_status() {
         int result;
-        status s;
+        status_t s;
         MPI_Request_get_status(req, &result, reinterpret_cast<MPI_Status *>(&s));
         return std::make_pair(static_cast<bool>(result), s);
       }
@@ -109,7 +109,7 @@ namespace mpl {
     class request_pool {
     protected:
       std::vector<MPI_Request> reqs;
-      std::vector<status> stats;
+      std::vector<status_t> stats;
 
     public:
       using size_type = std::vector<MPI_Request>::size_type;
@@ -146,7 +146,7 @@ namespace mpl {
 
       [[nodiscard]] bool empty() const { return reqs.empty(); }
 
-      [[nodiscard]] const status &get_status(size_type i) const { return stats[i]; }
+      [[nodiscard]] const status_t &get_status(size_type i) const { return stats[i]; }
 
       void cancel(size_type i) { MPI_Cancel(&reqs[i]); }
 
@@ -158,12 +158,12 @@ namespace mpl {
       void push(T &&other) {
         reqs.push_back(other.req);
         other.req = MPI_REQUEST_NULL;
-        stats.push_back(status());
+        stats.push_back(status_t());
       }
 
       std::pair<bool, size_type> waitany() {
         int index;
-        status s;
+        status_t s;
         MPI_Waitany(size(), &reqs[0], &index, reinterpret_cast<MPI_Status *>(&s));
         if (index != MPI_UNDEFINED) {
           stats[index] = s;
@@ -174,7 +174,7 @@ namespace mpl {
 
       std::pair<bool, size_type> testany() {
         int index, flag;
-        status s;
+        status_t s;
         MPI_Testany(size(), &reqs[0], &index, &flag, reinterpret_cast<MPI_Status *>(&s));
         if (flag != 0 and index != MPI_UNDEFINED) {
           stats[index] = s;

@@ -7,7 +7,7 @@
 namespace mpl {
 
   /// Class that represents the status of a received message.
-  class status : private MPI_Status {
+  class status_t : private MPI_Status {
   public:
     /// \return source of the message
     [[nodiscard]] int source() const { return MPI_Status::MPI_SOURCE; }
@@ -49,7 +49,7 @@ namespace mpl {
 
     /// default constructor initializes source and tag with wildcards given by \ref any_source
     /// and \ref tag::any and no error
-    status() : MPI_Status{} {
+    status_t() : MPI_Status{} {
       MPI_Status::MPI_SOURCE = MPI_ANY_SOURCE;
       MPI_Status::MPI_TAG = MPI_ANY_TAG;
       MPI_Status::MPI_ERROR = MPI_SUCCESS;
