@@ -13,7 +13,7 @@ namespace mpl {
     [[nodiscard]] int source() const { return MPI_Status::MPI_SOURCE; }
 
     /// \return tag value of the message
-    [[nodiscard]] mpl::tag tag() const { return mpl::tag(MPI_Status::MPI_TAG); }
+    [[nodiscard]] mpl::tag_t tag() const { return mpl::tag_t(MPI_Status::MPI_TAG); }
 
     /// \return error code associated with the message
     [[nodiscard]] int error() const { return MPI_Status::MPI_ERROR; }

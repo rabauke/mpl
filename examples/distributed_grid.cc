@@ -4,7 +4,7 @@
 
 template<std::size_t dim, typename T, typename A>
 void update_overlap(const mpl::cart_communicator &C, mpl::distributed_grid<dim, T, A> &G,
-                    mpl::tag tag = mpl::tag()) {
+                    mpl::tag_t tag = mpl::tag_t()) {
   mpl::shift_ranks ranks;
   for (std::size_t i = 0; i < dim; ++i) {
     // send to left

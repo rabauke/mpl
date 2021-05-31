@@ -31,10 +31,10 @@ int main() {
   if (comm_world.rank() == 1) {
     // receive a message of an a priory unknown number of elements from rank 0
     // first probe for a message from some arbitrary rank with any tag
-    mpl::status_t s(comm_world.probe(mpl::any_source, mpl::tag::any()));
+    mpl::status_t s(comm_world.probe(mpl::any_source, mpl::tag_t::any()));
     // decode the number of elements, the source and the tag
     int n(s.get_count<int>()), source(s.source());
-    mpl::tag tag(s.tag());
+    mpl::tag_t tag(s.tag());
     std::cerr << "source : " << s.source() << '\n'
               << "tag    : " << s.tag() << '\n'
               << "error  : " << s.error() << '\n'

@@ -75,6 +75,6 @@ var namespacempl =
     [ "struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4" ],
     [ "struct_layout", "classmpl_1_1struct__layout.html", "classmpl_1_1struct__layout" ],
     [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
-    [ "tag", "classmpl_1_1tag.html", "classmpl_1_1tag" ],
+    [ "tag_t", "classmpl_1_1tag__t.html", "classmpl_1_1tag__t" ],
     [ "vector_layout", "classmpl_1_1vector__layout.html", "classmpl_1_1vector__layout" ]
 ];

@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of structure</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure &amp;s) {</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure &amp;s) {</div>
 <div class="line">  out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; s.d &lt;&lt; <span class="stringliteral">&quot;,[&quot;</span> &lt;&lt; s.i[0];</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{1}; i &lt; 9; ++i)</div>
 <div class="line">    out &lt;&lt; <span class="charliteral">&#39;,&#39;</span> &lt;&lt; s.i[i];</div>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of structure2</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure2 &amp;s) {</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure2 &amp;s) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; s.d &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; s.str &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -204,7 +204,7 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespacempl_html_a448fea066aa1780bcbeb1a1f975827aa"><div class="ttname"><a href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00063">tag.hpp:63</a></div></div>
+<div class="ttc" id="anamespacempl_html_aa983f63a62e24286acfd063064bf0b40"><div class="ttname"><a href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag_t t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00063">tag.hpp:63</a></div></div>
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00551">comm_group.hpp:551</a></div></div>
 <div class="ttc" id="aclassmpl_1_1contiguous__layout_html"><div class="ttname"><a href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout</a></div><div class="ttdoc">Layout representing contiguous storage several objects.</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l00027">layout.hpp:27</a></div></div>

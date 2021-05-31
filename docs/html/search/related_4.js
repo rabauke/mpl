@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['graph_5fcommunicator_731',['graph_communicator',['../classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d',1,'mpl::communicator']]],
-  ['group_732',['group',['../classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb',1,'mpl::communicator']]]
+  ['graph_5fcommunicator_733',['graph_communicator',['../classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d',1,'mpl::communicator']]],
+  ['group_734',['group',['../classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb',1,'mpl::communicator']]]
 ];

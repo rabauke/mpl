@@ -136,7 +136,7 @@ var hierarchy =
     [ "mpl::struct_layout< T[N0][N1][N2]>", "classmpl_1_1struct__layout.html", null ],
     [ "mpl::struct_layout< T[N0][N1][N2][N3]>", "classmpl_1_1struct__layout.html", null ],
     [ "mpl::subarray_layout< T >", "classmpl_1_1subarray__layout.html", null ],
-    [ "mpl::tag", "classmpl_1_1tag.html", null ],
+    [ "mpl::tag_t", "classmpl_1_1tag__t.html", null ],
     [ "mpl::group::Union_tag", "classmpl_1_1group_1_1_union__tag.html", null ],
     [ "vector", null, [
       [ "mpl::cart_communicator::coords_type", "classmpl_1_1cart__communicator_1_1coords__type.html", null ],

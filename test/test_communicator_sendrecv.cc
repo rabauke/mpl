@@ -13,8 +13,8 @@ bool sendrecv_test() {
   const int rank{comm_world.rank()};
   const int size{comm_world.size()};
   T x[2]{T(rank), T(rank)};
-  comm_world.sendrecv(x[1], (rank + 1) % size, mpl::tag(0), x[0], (rank - 1 + size) % size,
-                      mpl::tag(0));
+  comm_world.sendrecv(x[1], (rank + 1) % size, mpl::tag_t(0), x[0], (rank - 1 + size) % size,
+                      mpl::tag_t(0));
   return x[0] == T((rank - 1 + size) % size) and x[1] == T(rank);
 }
 
@@ -25,8 +25,8 @@ bool sendrecv_replace_test() {
   const int rank{comm_world.rank()};
   int size{comm_world.size()};
   T x{T(rank)};
-  comm_world.sendrecv_replace(x, (rank + 1) % size, mpl::tag(0), (rank - 1 + size) % size,
-                              mpl::tag(0));
+  comm_world.sendrecv_replace(x, (rank + 1) % size, mpl::tag_t(0), (rank - 1 + size) % size,
+                              mpl::tag_t(0));
   return x == T((rank - 1 + size) % size);
 }
 

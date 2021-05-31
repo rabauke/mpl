@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of a pair</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::pair&lt;T1, T2&gt; &amp;p) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; p.first &lt;&lt; <span class="charliteral">&#39;,&#39;</span> &lt;&lt; p.second &lt;&lt; <span class="charliteral">&#39;)&#39;</span>;</div>
 <div class="line">}</div>
@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of a tuple</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span>... args&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::tuple&lt;args...&gt; &amp;t) {</div>
 <div class="line">  out &lt;&lt; <span class="charliteral">&#39;(&#39;</span>;</div>
 <div class="line">  print_tuple_impl(out, t, std::index_sequence_for&lt;args...&gt;{});</div>
@@ -123,7 +123,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of an array</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> ty, std::<span class="keywordtype">size_t</span> s&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::array&lt;ty, s&gt; &amp;t) {</div>
 <div class="line">  out &lt;&lt; <span class="charliteral">&#39;(&#39;</span>;</div>
 <div class="line">  print_tuple_impl(out, t, std::make_integer_sequence&lt;std::size_t, s&gt;{});</div>
@@ -132,7 +132,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line"> </div>
 <div class="line"><span class="comment">// print a byte</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> std::byte &amp;t) {</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> std::byte &amp;t) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; std::to_integer&lt;int&gt;(t);</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -231,7 +231,7 @@ $(document).ready(function(){initNavTree('standard_types_8cc-example.html',''); 
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespacempl_html_a448fea066aa1780bcbeb1a1f975827aa"><div class="ttname"><a href="namespacempl.html#a448fea066aa1780bcbeb1a1f975827aa">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00063">tag.hpp:63</a></div></div>
+<div class="ttc" id="anamespacempl_html_aa983f63a62e24286acfd063064bf0b40"><div class="ttname"><a href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag_t t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00063">tag.hpp:63</a></div></div>
 <div class="ttc" id="anamespacempl_1_1environment_html_a1f9437d7f0d154894deb2eed19852062"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00551">comm_group.hpp:551</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_abe1bd8f32c690ee7a31456da2c437bdf"><div class="ttname"><a href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">mpl::communicator::size</a></div><div class="ttdeci">int size() const</div><div class="ttdoc">Determines the total number of processes in a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00543">comm_group.hpp:543</a></div></div>

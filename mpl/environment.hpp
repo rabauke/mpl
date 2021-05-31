@@ -179,9 +179,9 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  tag tag::up() { return tag(environment::detail::get_env().tag_up()); }
+  tag_t tag_t::up() { return tag_t(environment::detail::get_env().tag_up()); }
 
-  tag tag::any() { return tag(MPI_ANY_TAG); }
+  tag_t tag_t::any() { return tag_t(MPI_ANY_TAG); }
 
   //--------------------------------------------------------------------
 
