@@ -11,20 +11,7 @@
 #include <tuple>
 #include <utility>
 #include <mpl/mpl.hpp>
-
-
-template <typename, typename = void>
-struct has_size : std::false_type {};
-
-template<typename T>
-struct has_size<T, std::void_t<decltype(T().size())>> : std::true_type {};
-
-
-template <typename, typename = void>
-struct has_resize : std::false_type {};
-
-template<typename T>
-struct has_resize<T, std::void_t<decltype(T().resize(1))>> : std::true_type {};
+#include "test_helper.hpp"
 
 
 template<typename T>
@@ -270,13 +257,13 @@ BOOST_AUTO_TEST_CASE(isend_irecv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(isend_irecv_test(my_enum::val));
-  // pairs and tuples
+  // pairs, tuples and arrays
   BOOST_TEST(isend_irecv_test(std::pair<int, double>{1, 2.3}));
   BOOST_TEST(isend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
- // strings and STL containers
+  BOOST_TEST(isend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+  // strings and STL containers
   BOOST_TEST(isend_irecv_test(std::string{"Hello World"}));
   BOOST_TEST(isend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(isend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   BOOST_TEST(isend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(isend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(isend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
@@ -318,13 +305,13 @@ BOOST_AUTO_TEST_CASE(ibsend_irecv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(ibsend_irecv_test(my_enum::val));
-  // pairs and tuples
+  // pairs, tuples and arrays
   BOOST_TEST(ibsend_irecv_test(std::pair<int, double>{1, 2.3}));
   BOOST_TEST(ibsend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+  BOOST_TEST(ibsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   // strings and STL containers
   BOOST_TEST(ibsend_irecv_test(std::string{"Hello World"}));
   BOOST_TEST(ibsend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(ibsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   BOOST_TEST(ibsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(ibsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(ibsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
@@ -366,13 +353,13 @@ BOOST_AUTO_TEST_CASE(issend_irecv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(issend_irecv_test(my_enum::val));
-  // pairs and tuples
+  // pairs, tuples and arrays
   BOOST_TEST(issend_irecv_test(std::pair<int, double>{1, 2.3}));
   BOOST_TEST(issend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+  BOOST_TEST(issend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   // strings and STL containers
   BOOST_TEST(issend_irecv_test(std::string{"Hello World"}));
   BOOST_TEST(issend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(issend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   BOOST_TEST(issend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(issend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(issend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
@@ -414,13 +401,13 @@ BOOST_AUTO_TEST_CASE(irsend_irecv) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(irsend_irecv_test(my_enum::val));
-  // pairs and tuples
+  // pairs, tuples and arrays
   BOOST_TEST(irsend_irecv_test(std::pair<int, double>{1, 2.3}));
   BOOST_TEST(irsend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+  BOOST_TEST(irsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   // strings and STL containers
   BOOST_TEST(irsend_irecv_test(std::string{"Hello World"}));
   BOOST_TEST(irsend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(irsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   BOOST_TEST(irsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(irsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(irsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));

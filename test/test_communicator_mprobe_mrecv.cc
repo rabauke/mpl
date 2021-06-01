@@ -4,27 +4,12 @@
 #include <limits>
 #include <cstddef>
 #include <complex>
-#include <string>
 #include <vector>
 #include <list>
-#include <set>
 #include <tuple>
 #include <utility>
 #include <mpl/mpl.hpp>
-
-
-template<typename, typename = void>
-struct has_size : std::false_type {};
-
-template<typename T>
-struct has_size<T, std::void_t<decltype(T().size())>> : std::true_type {};
-
-
-template<typename, typename = void>
-struct has_resize : std::false_type {};
-
-template<typename T>
-struct has_resize<T, std::void_t<decltype(T().resize(1))>> : std::true_type {};
+#include "test_helper.hpp"
 
 
 template<typename T>
@@ -169,9 +154,10 @@ BOOST_AUTO_TEST_CASE(mprobe) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(mprobe_test(my_enum::val));
-  // pairs and tuples
+  // pairs, tuples and arrays
   BOOST_TEST(mprobe_test(std::pair<int, double>{1, 2.3}));
   BOOST_TEST(mprobe_test(std::tuple<int, double, bool>{1, 2.3, true}));
+  BOOST_TEST(mprobe_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   // iterators
   BOOST_TEST(mprobe_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   BOOST_TEST(mprobe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
@@ -209,9 +195,10 @@ BOOST_AUTO_TEST_CASE(improbe) {
   // enums
   enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
   BOOST_TEST(improbe_test(my_enum::val));
-  // pairs and tuples
+  // pairs, tuples and arrays
   BOOST_TEST(improbe_test(std::pair<int, double>{1, 2.3}));
   BOOST_TEST(improbe_test(std::tuple<int, double, bool>{1, 2.3, true}));
+  BOOST_TEST(improbe_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   // iterators
   BOOST_TEST(improbe_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
   BOOST_TEST(improbe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
