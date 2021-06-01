@@ -905,7 +905,8 @@ namespace mpl {
     // --- blocking buffered send ---
   private:
     template<typename T>
-    void bsend(const T &data, int destination, tag_t t, detail::basic_or_fixed_size_type) const {
+    void bsend(const T &data, int destination, tag_t t,
+               detail::basic_or_fixed_size_type) const {
       MPI_Bsend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                 static_cast<int>(t), comm_);
     }
@@ -1182,7 +1183,8 @@ namespace mpl {
     // --- blocking synchronous send ---
   private:
     template<typename T>
-    void ssend(const T &data, int destination, tag_t t, detail::basic_or_fixed_size_type) const {
+    void ssend(const T &data, int destination, tag_t t,
+               detail::basic_or_fixed_size_type) const {
       MPI_Ssend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                 static_cast<int>(t), comm_);
     }
@@ -1454,7 +1456,8 @@ namespace mpl {
     // --- blocking ready send ---
   private:
     template<typename T>
-    void rsend(const T &data, int destination, tag_t t, detail::basic_or_fixed_size_type) const {
+    void rsend(const T &data, int destination, tag_t t,
+               detail::basic_or_fixed_size_type) const {
       MPI_Rsend(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                 static_cast<int>(t), comm_);
     }
@@ -2066,7 +2069,8 @@ namespace mpl {
     template<typename T>
     status_t mrecv(T &data, message_t &m, detail::basic_or_fixed_size_type) const {
       status_t s;
-      MPI_Mrecv(&data, 1, detail::datatype_traits<T>::get_datatype(), &m, reinterpret_cast<MPI_Status *>(&s));
+      MPI_Mrecv(&data, 1, detail::datatype_traits<T>::get_datatype(), &m,
+                reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2084,7 +2088,8 @@ namespace mpl {
       return mrecv(data, m, typename detail::datatype_traits<T>::data_type_category{});
     }
 
-    /// \brief Receives a message with a several values having a specific memory layout by a message handle.
+    /// \brief Receives a message with a several values having a specific memory layout by a
+    /// message handle.
     /// \tparam T type of the data to receive, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param data pointer to the data to receive
@@ -2140,7 +2145,7 @@ namespace mpl {
     /// message handle.
     /// \tparam T type of the data to receive, must meet the requirements as described in the
     /// \ref data_types "data types" section
-    /// with the mentioned requirements
+    /// \param data pointer to the data to receive
     /// \param m message handle of message to receive
     /// \return request representing the ongoing receive operation
     /// \note Receiving STL containers is not supported.
@@ -2193,100 +2198,176 @@ namespace mpl {
 
     // === send and receive ===
     // --- send and receive ---
+    /// \brief Sends a message and receives a message in a single operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param destination rank of the receiving process
+    /// \param sendtag tag associated to the data to send
+    /// \param recvdata data to receive
+    /// \param source rank of the sending process
+    /// \param recvtag tag associated to the data to receive
+    /// \return status of the receive operation
     template<typename T>
-    status_t sendrecv(const T &senddata, int dest, tag_t sendtag, T &recvdata, int source,
-                      tag_t recvtag) const {
-      check_dest(dest);
+    status_t sendrecv(const T &senddata, int destination, tag_t sendtag, T &recvdata,
+                      int source, tag_t recvtag) const {
+      check_dest(destination);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
       status_t s;
-      MPI_Sendrecv(&senddata, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Sendrecv(&senddata, 1, detail::datatype_traits<T>::get_datatype(), destination,
                    static_cast<int>(sendtag), &recvdata, 1,
                    detail::datatype_traits<T>::get_datatype(), source,
                    static_cast<int>(recvtag), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
+    /// \brief Sends a message and receives a message in a single operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param destination rank of the receiving process
+    /// \param sendtag tag associated to the data to send
+    /// \param recvdata data to receive
+    /// \param recvl memory layout of the data to receive
+    /// \param source rank of the sending process
+    /// \param recvtag tag associated to the data to receive
+    /// \return status of the receive operation
     template<typename T>
-    status_t sendrecv(const T *senddata, const layout<T> &sendl, int dest, tag_t sendtag,
-                    T *recvdata, const layout<T> &recvl, int source, tag_t recvtag) const {
-      check_dest(dest);
+    status_t sendrecv(const T *senddata, const layout<T> &sendl, int destination, tag_t sendtag,
+                      T *recvdata, const layout<T> &recvl, int source, tag_t recvtag) const {
+      check_dest(destination);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
       status_t s;
-      MPI_Sendrecv(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), dest,
+      MPI_Sendrecv(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                   destination,
                    static_cast<int>(sendtag), recvdata, 1,
                    detail::datatype_traits<layout<T>>::get_datatype(recvl), source,
                    static_cast<int>(recvtag), comm_, reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
+    /// \brief Sends a message and receives a message in a single operation.
+    /// \tparam iterT1 iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \tparam iterT2 iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin1 iterator pointing to the first data value to send
+    /// \param end1 iterator pointing one element beyond the last data value to send
+    /// \param destination rank of the receiving process
+    /// \param sendtag tag associated to the data to send
+    /// \param begin2 iterator pointing to the first data value to receive
+    /// \param end2 iterator pointing one element beyond the last data value to receive
+    /// \param source rank of the sending process
+    /// \param recvtag tag associated to the data to receive
+    /// \return status of the receive operation
     template<typename iterT1, typename iterT2>
-    status_t sendrecv(iterT1 begin1, iterT1 end1, int dest, tag_t sendtag, iterT2 begin2,
-                    iterT2 end2, int source, tag_t recvtag) const {
+    status_t sendrecv(iterT1 begin1, iterT1 end1, int destination, tag_t sendtag, iterT2 begin2,
+                      iterT2 end2, int source, tag_t recvtag) const {
       using value_type1 = typename std::iterator_traits<iterT1>::value_type;
       using value_type2 = typename std::iterator_traits<iterT2>::value_type;
       if constexpr (detail::is_contiguous_iterator_v<iterT1> and
                     detail::is_contiguous_iterator_v<iterT2>) {
         const vector_layout<value_type1> l1(std::distance(begin1, end1));
         const vector_layout<value_type2> l2(std::distance(begin2, end2));
-        return sendrecv(&(*begin1), l1, dest, sendtag, &(*begin2), l2, source, recvtag);
+        return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source, recvtag);
       } else if constexpr (detail::is_contiguous_iterator_v<iterT1>) {
         const vector_layout<value_type1> l1(std::distance(begin1, end1));
         const iterator_layout<value_type2> l2(begin2, end2);
-        return sendrecv(&(*begin1), l1, dest, sendtag, &(*begin2), l2, source, recvtag);
+        return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source, recvtag);
       } else if constexpr (detail::is_contiguous_iterator_v<iterT2>) {
         const iterator_layout<value_type2> l1(begin1, end1);
         const vector_layout<value_type2> l2(std::distance(begin2, end2));
-        return sendrecv(&(*begin1), l1, dest, sendtag, &(*begin2), l2, source, recvtag);
+        return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source, recvtag);
       } else {
         const iterator_layout<value_type1> l1(begin1, end1);
         const iterator_layout<value_type2> l2(begin2, end2);
-        return sendrecv(&(*begin1), l1, dest, sendtag, &(*begin2), l2, source, recvtag);
+        return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source, recvtag);
       }
     }
 
     // --- send, receive and replace ---
+    /// \brief Sends a message and receives a message in a single operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data data to send, will hold the received data
+    /// \param destination rank of the receiving process
+    /// \param sendtag tag associated to the data to send
+    /// \param source rank of the sending process
+    /// \param recvtag tag associated to the data to receive
+    /// \return status of the receive operation
     template<typename T>
-    status_t sendrecv_replace(T &data, int dest, tag_t sendtag, int source,
+    status_t sendrecv_replace(T &data, int destination, tag_t sendtag, int source,
                               tag_t recvtag) const {
-      check_dest(dest);
+      check_dest(destination);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
       status_t s;
-      MPI_Sendrecv_replace(&data, 1, detail::datatype_traits<T>::get_datatype(), dest,
+      MPI_Sendrecv_replace(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                            static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
                            reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
+    /// \brief Sends a message and receives a message in a single operation.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param data data to send, will hold the received data
+    /// \param l memory layout of the data to send and receive
+    /// \param destination rank of the receiving process
+    /// \param sendtag tag associated to the data to send
+    /// \param source rank of the sending process
+    /// \param recvtag tag associated to the data to receive
+    /// \return status of the receive operation
     template<typename T>
-    status_t sendrecv_replace(T *data, const layout<T> &l, int dest, tag_t sendtag, int source,
+    status_t sendrecv_replace(T *data, const layout<T> &l, int destination, tag_t sendtag, int source,
                               tag_t recvtag) const {
-      check_dest(dest);
+      check_dest(destination);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
       status_t s;
-      MPI_Sendrecv_replace(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), dest,
+      MPI_Sendrecv_replace(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l),
+                           destination,
                            static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
                            reinterpret_cast<MPI_Status *>(&s));
       return s;
     }
 
+    /// \brief Sends a message and receives a message in a single operation.
+    /// \tparam iterT iterator type, must fulfill the requirements of a
+    /// <a
+    /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+    /// the iterator's value-type must meet the requirements as described in the
+    /// \ref data_types "data types" section
+    /// \param begin iterator pointing to the first data value to send and to receive
+    /// \param end iterator pointing one element beyond the last data value to send and to receive
+    /// \param destination rank of the receiving process
+    /// \param sendtag tag associated to the data to send
+    /// \param source rank of the sending process
+    /// \param recvtag tag associated to the data to receive
+    /// \return status of the receive operation
     template<typename iterT>
-    status_t sendrecv_replace(iterT begin, iterT end, int dest, tag_t sendtag, int source,
+    status_t sendrecv_replace(iterT begin, iterT end, int destination, tag_t sendtag, int source,
                               tag_t recvtag) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
-        return sendrecv_replace(&(*begin), l, dest, sendtag, source, recvtag);
+        return sendrecv_replace(&(*begin), l, destination, sendtag, source, recvtag);
       } else {
         const iterator_layout<value_type> l(begin, end);
-        return sendrecv_replace(&(*begin), l, dest, sendtag, source, recvtag);
+        return sendrecv_replace(&(*begin), l, destination, sendtag, source, recvtag);
       }
     }
 

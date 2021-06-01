@@ -48,7 +48,7 @@ namespace mpl {
     }
 
     /// default constructor initializes source and tag with wildcards given by \ref any_source
-    /// and \ref tag::any and no error
+    /// and \ref tag_t::any and no error
     status_t() : MPI_Status{} {
       MPI_Status::MPI_SOURCE = MPI_ANY_SOURCE;
       MPI_Status::MPI_TAG = MPI_ANY_TAG;
