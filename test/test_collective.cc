@@ -3,12 +3,6 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
-bool barrier_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  comm_world.barrier();
-  return true;
-}
-
 template<typename T>
 bool bcast_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
@@ -76,7 +70,6 @@ bool alltoall_test() {
 
 
 BOOST_AUTO_TEST_CASE(collective) {
-  BOOST_TEST(barrier_test());
   BOOST_TEST(bcast_test<double>());
   BOOST_TEST(scatter_test<double>());
   BOOST_TEST(gather_test<double>());

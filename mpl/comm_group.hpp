@@ -437,31 +437,38 @@ namespace mpl {
     }
 
     /// \brief Constructs a new communicator from an existing one with a specified communication
-    /// group. \param comm_collective tag to indicate the mode of construction \param other the
-    /// communicator \param gr the group that determines the new communicator's structure \note
-    /// This is a collective operation that needs to be carried out by all processes of the
-    /// communicator other.
+    /// group.
+    /// \param comm_collective tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param gr the group that determines the new communicator's structure
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other.
     explicit communicator(comm_collective_tag comm_collective, const communicator &other,
                           const group &gr) {
       MPI_Comm_create(other.comm_, gr.gr_, &comm_);
     }
 
     /// \brief Constructs a new communicator from an existing one with a specified communication
-    /// group. \param group_collective tag to indicate the mode of construction \param other the
-    /// communicator \param gr the group that determines the new communicator's structure \param
-    /// t tag to distinguish between different parallel operations in different threads \note
-    /// This is a collective operation that needs to be carried out by all processes of the
-    /// given group.
+    /// group.
+    /// \param group_collective tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param gr the group that determines the new communicator's structure
+    /// \param t tag to distinguish between different parallel operations in different threads
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the given group.
     explicit communicator(group_collective_tag group_collective, const communicator &other,
                           const group &gr, tag_t t = tag_t(0)) {
       MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
 
     /// \brief Constructs a new communicator from an existing one with a specified communication
-    /// group. \param split tag to indicate the mode of construction \param other the
-    /// communicator \param color control of subset assignment \param key  control of rank
-    /// assignment \tparam color_type color type, must be integral type \tparam key_type key
-    /// type, must be integral type
+    /// group.
+    /// \tparam color_type color type, must be integral type
+    /// \tparam key_type key type, must be integral type
+    /// \param split tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param color control of subset assignment
+    /// \param key  control of rank assignment
     template<typename color_type, typename key_type = int>
     explicit communicator(split_tag split, const communicator &other, color_type color,
                           key_type key = 0) {
@@ -474,10 +481,11 @@ namespace mpl {
     }
 
     /// \brief Constructs a new communicator from an existing one by spitting the communicator
-    /// into disjoint subgroups each of which can create a shared memory region. \param
-    /// split_shared_memory tag to indicate the mode of construction \param other the
-    /// communicator \param key  control of rank assignment \tparam color_type color type, must
-    /// be integral type
+    /// into disjoint subgroups each of which can create a shared memory region.
+    /// \tparam color_type color type, must be integral type
+    /// \param split_shared_memory tag to indicate the mode of construction
+    /// \param other the communicator
+    /// \param key  control of rank assignment
     template<typename key_type = int>
     explicit communicator(split_shared_memory_tag split_shared_memory,
                           const communicator &other, key_type key = 0) {
@@ -2374,9 +2382,12 @@ namespace mpl {
     // === collective ==================================================
     // === barrier ===
     // --- blocking barrier ---
+    /// \brief Blocks until all processes in the communicator have reached this method.
     void barrier() const { MPI_Barrier(comm_); }
 
     // --- non-blocking barrier ---
+    /// \brief Notifies the process that it has reached the barrier and returns immediately.
+    /// \return communication request
     [[nodiscard]] irequest ibarrier() const {
       MPI_Request req;
       MPI_Ibarrier(comm_, &req);
