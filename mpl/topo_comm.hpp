@@ -117,6 +117,9 @@ namespace mpl {
                               const displacements &senddispls, T *recvdata,
                               const layouts<T> &recvl, const displacements &recvdispls) const {
         std::vector<int> counts(recvl.size(), 1);
+      static_assert(
+          sizeof(decltype(*sendl())) == sizeof(MPI_Datatype),
+          "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
         MPI_Neighbor_alltoallw(senddata, counts.data(), senddispls(),
                                reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata,
                                counts.data(), recvdispls(),
@@ -138,6 +141,9 @@ namespace mpl {
                                    const displacements &recvdispls) const {
         std::vector<int> counts(recvl.size(), 1);
         MPI_Request req;
+        static_assert(
+            sizeof(decltype(*sendl())) == sizeof(MPI_Datatype),
+            "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
         MPI_Ineighbor_alltoallw(senddata, counts.data(), senddispls(),
                                 reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata,
                                 counts.data(), recvdispls(),

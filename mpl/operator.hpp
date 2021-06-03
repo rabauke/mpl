@@ -310,8 +310,8 @@ namespace mpl {
       static std::unique_ptr<functor> f;
 
       static void apply(void *invec, void *inoutvec, int *len, MPI_Datatype *datatype) {
-        T *i1 = reinterpret_cast<T *>(invec);
-        T *i2 = reinterpret_cast<T *>(inoutvec);
+        T *i1 = static_cast<T *>(invec);
+        T *i2 = static_cast<T *>(inoutvec);
         for (int i{0}, i_end{*len}; i < i_end; ++i, ++i1, ++i2)
           *i2 = (*f)(*i1, *i2);
       }

@@ -65,7 +65,7 @@ namespace mpl {
           void *p;
           int flag;
           MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &p, &flag);
-          return *reinterpret_cast<int *>(p);
+          return *static_cast<int *>(p);
         }
 
         [[nodiscard]] threading_modes threading_mode() const { return init.thread_mode(); }
@@ -80,7 +80,7 @@ namespace mpl {
           void *p;
           int flag;
           MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &p, &flag);
-          return *reinterpret_cast<int *>(p);
+          return *static_cast<int *>(p);
         }
 
         [[nodiscard]] const communicator &comm_world() const { return comm_world_; }

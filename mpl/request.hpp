@@ -85,20 +85,20 @@ namespace mpl {
       std::pair<bool, status_t> test() {
         int result;
         status_t s;
-        MPI_Test(&req, &result, reinterpret_cast<MPI_Status *>(&s));
+        MPI_Test(&req, &result, static_cast<MPI_Status *>(&s));
         return std::make_pair(static_cast<bool>(result), s);
       }
 
       status_t wait() {
         status_t s;
-        MPI_Wait(&req, reinterpret_cast<MPI_Status *>(&s));
+        MPI_Wait(&req, static_cast<MPI_Status *>(&s));
         return s;
       }
 
       std::pair<bool, status_t> get_status() {
         int result;
         status_t s;
-        MPI_Request_get_status(req, &result, reinterpret_cast<MPI_Status *>(&s));
+        MPI_Request_get_status(req, &result, static_cast<MPI_Status *>(&s));
         return std::make_pair(static_cast<bool>(result), s);
       }
     };
@@ -164,7 +164,7 @@ namespace mpl {
       std::pair<bool, size_type> waitany() {
         int index;
         status_t s;
-        MPI_Waitany(size(), &reqs[0], &index, reinterpret_cast<MPI_Status *>(&s));
+        MPI_Waitany(size(), &reqs[0], &index, static_cast<MPI_Status *>(&s));
         if (index != MPI_UNDEFINED) {
           stats[index] = s;
           return std::make_pair(true, static_cast<size_type>(index));
@@ -175,7 +175,7 @@ namespace mpl {
       std::pair<bool, size_type> testany() {
         int index, flag;
         status_t s;
-        MPI_Testany(size(), &reqs[0], &index, &flag, reinterpret_cast<MPI_Status *>(&s));
+        MPI_Testany(size(), &reqs[0], &index, &flag, static_cast<MPI_Status *>(&s));
         if (flag != 0 and index != MPI_UNDEFINED) {
           stats[index] = s;
           return std::make_pair(true, static_cast<size_type>(index));
@@ -184,12 +184,12 @@ namespace mpl {
       }
 
       void waitall() {
-        MPI_Waitall(size(), &reqs[0], reinterpret_cast<MPI_Status *>(&stats[0]));
+        MPI_Waitall(size(), &reqs[0], static_cast<MPI_Status *>(&stats[0]));
       }
 
       bool testall() {
         int flag;
-        MPI_Testall(size(), &reqs[0], &flag, reinterpret_cast<MPI_Status *>(&stats[0]));
+        MPI_Testall(size(), &reqs[0], &flag, static_cast<MPI_Status *>(&stats[0]));
         return flag;
       }
 
@@ -198,7 +198,7 @@ namespace mpl {
         mpl::detail::flat_memory_out<int, I> indices(size(), iter);
         int count;
         MPI_Waitsome(size(), &reqs[0], &count, indices.data(),
-                     reinterpret_cast<MPI_Status *>(&stats[0]));
+                     static_cast<MPI_Status *>(&stats[0]));
         if (count != MPI_UNDEFINED)
           return indices.copy_back(count);
         return iter;
@@ -209,7 +209,7 @@ namespace mpl {
         mpl::detail::flat_memory_out<int, I> indices(size(), iter);
         int count;
         MPI_Testsome(size(), &reqs[0], &count, indices.data(),
-                     reinterpret_cast<MPI_Status *>(&stats[0]));
+                     static_cast<MPI_Status *>(&stats[0]));
         if (count != MPI_UNDEFINED)
           return indices.copy_back(count);
         return iter;

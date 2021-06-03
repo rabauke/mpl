@@ -6,6 +6,16 @@
 
 namespace mpl {
 
+  namespace impl {
+    template<typename T>
+    class request;
+
+    template<typename T>
+    class request_pool;
+  }
+
+  //--------------------------------------------------------------------------------------------
+
   /// Class that represents the status of a received message.
   class status_t : private MPI_Status {
   public:
@@ -21,7 +31,7 @@ namespace mpl {
     /// \return true if associated request has been been canceled
     [[nodiscard]] bool is_cancelled() const {
       int result;
-      MPI_Test_cancelled(reinterpret_cast<const MPI_Status *>(this), &result);
+      MPI_Test_cancelled(static_cast<const MPI_Status *>(this), &result);
       return result != 0;
     }
 
@@ -32,7 +42,7 @@ namespace mpl {
     template<typename T>
     [[nodiscard]] int get_count() const {
       int result;
-      MPI_Get_count(reinterpret_cast<const MPI_Status *>(this),
+      MPI_Get_count(static_cast<const MPI_Status *>(this),
                     detail::datatype_traits<T>::get_datatype(), &result);
       return result;
     }
@@ -42,7 +52,7 @@ namespace mpl {
     template<typename T>
     [[nodiscard]] int get_count(const layout<T> &l) const {
       int result;
-      MPI_Get_count(reinterpret_cast<const MPI_Status *>(this),
+      MPI_Get_count(static_cast<const MPI_Status *>(this),
                     detail::datatype_traits<layout<T>>::get_datatype(l), &result);
       return result;
     }
@@ -54,6 +64,12 @@ namespace mpl {
       MPI_Status::MPI_TAG = MPI_ANY_TAG;
       MPI_Status::MPI_ERROR = MPI_SUCCESS;
     }
+
+    friend class communicator;
+    template<typename T>
+    friend class impl::request;
+    template<typename T>
+    friend class impl::request_pool;
   };
 
 }  // namespace mpl

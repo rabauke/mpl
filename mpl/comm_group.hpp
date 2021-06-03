@@ -257,7 +257,7 @@ namespace mpl {
     };
 
     static int isend_irecv_query(void *state, MPI_Status *s) {
-      isend_irecv_state *sendrecv_state{reinterpret_cast<isend_irecv_state *>(state)};
+      isend_irecv_state *sendrecv_state{static_cast<isend_irecv_state *>(state)};
       MPI_Status_set_elements(s, sendrecv_state->datatype, sendrecv_state->count);
       MPI_Status_set_cancelled(s, 0);
       s->MPI_SOURCE = sendrecv_state->source;
@@ -266,7 +266,7 @@ namespace mpl {
     }
 
     static int isend_irecv_free(void *state) {
-      isend_irecv_state *sendrecv_state{reinterpret_cast<isend_irecv_state *>(state)};
+      isend_irecv_state *sendrecv_state{static_cast<isend_irecv_state *>(state)};
       delete sendrecv_state;
       return MPI_SUCCESS;
     }
@@ -1744,7 +1744,7 @@ namespace mpl {
     status_t recv(T &data, int source, tag_t t, detail::basic_or_fixed_size_type) const {
       status_t s;
       MPI_Recv(&data, 1, detail::datatype_traits<T>::get_datatype(), source,
-               static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
+               static_cast<int>(t), comm_, static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -1752,7 +1752,7 @@ namespace mpl {
     status_t recv(T &data, int source, tag_t t, detail::contiguous_stl_container) const {
       using value_type = typename T::value_type;
       status_t s;
-      auto *ps{reinterpret_cast<MPI_Status *>(&s)};
+      auto *ps{static_cast<MPI_Status *>(&s)};
       MPI_Message message;
       MPI_Mprobe(source, static_cast<int>(t), comm_, &message, ps);
       int count{0};
@@ -1768,7 +1768,7 @@ namespace mpl {
     status_t recv(T &data, int source, tag_t t, detail::stl_container) const {
       using value_type = detail::remove_const_from_members_t<typename T::value_type>;
       status_t s;
-      auto *ps{reinterpret_cast<MPI_Status *>(&s)};
+      auto *ps{static_cast<MPI_Status *>(&s)};
       MPI_Message message;
       MPI_Mprobe(source, static_cast<int>(t), comm_, &message, ps);
       int count{0};
@@ -1816,7 +1816,7 @@ namespace mpl {
       check_recv_tag(t);
       status_t s;
       MPI_Recv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), source,
-               static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
+               static_cast<int>(t), comm_, static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2023,7 +2023,7 @@ namespace mpl {
       check_source(source);
       check_recv_tag(t);
       status_t s;
-      MPI_Probe(source, static_cast<int>(t), comm_, reinterpret_cast<MPI_Status *>(&s));
+      MPI_Probe(source, static_cast<int>(t), comm_, static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2037,8 +2037,7 @@ namespace mpl {
       check_recv_tag(t);
       int result;
       status_t s;
-      MPI_Iprobe(source, static_cast<int>(t), comm_, &result,
-                 reinterpret_cast<MPI_Status *>(&s));
+      MPI_Iprobe(source, static_cast<int>(t), comm_, &result, static_cast<MPI_Status *>(&s));
       if (result == 0)
         return {};
       else
@@ -2052,7 +2051,7 @@ namespace mpl {
       check_recv_tag(t);
       status_t s;
       message_t m;
-      MPI_Mprobe(source, static_cast<int>(t), comm_, &m, reinterpret_cast<MPI_Status *>(&s));
+      MPI_Mprobe(source, static_cast<int>(t), comm_, &m, static_cast<MPI_Status *>(&s));
       return {m, s};
     }
 
@@ -2064,7 +2063,7 @@ namespace mpl {
       status_t s;
       message_t m;
       MPI_Improbe(source, static_cast<int>(t), comm_, &result, &m,
-                  reinterpret_cast<MPI_Status *>(&s));
+                  static_cast<MPI_Status *>(&s));
       if (result == 0)
         return {};
       else
@@ -2078,7 +2077,7 @@ namespace mpl {
     status_t mrecv(T &data, message_t &m, detail::basic_or_fixed_size_type) const {
       status_t s;
       MPI_Mrecv(&data, 1, detail::datatype_traits<T>::get_datatype(), &m,
-                reinterpret_cast<MPI_Status *>(&s));
+                static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2108,7 +2107,7 @@ namespace mpl {
     status_t mrecv(T *data, const layout<T> &l, message_t &m) const {
       status_t s;
       MPI_Mrecv(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &m,
-                reinterpret_cast<MPI_Status *>(&s));
+                static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2227,7 +2226,7 @@ namespace mpl {
       MPI_Sendrecv(&senddata, 1, detail::datatype_traits<T>::get_datatype(), destination,
                    static_cast<int>(sendtag), &recvdata, 1,
                    detail::datatype_traits<T>::get_datatype(), source,
-                   static_cast<int>(recvtag), comm_, reinterpret_cast<MPI_Status *>(&s));
+                   static_cast<int>(recvtag), comm_, static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2252,10 +2251,9 @@ namespace mpl {
       check_recv_tag(recvtag);
       status_t s;
       MPI_Sendrecv(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                   destination,
-                   static_cast<int>(sendtag), recvdata, 1,
+                   destination, static_cast<int>(sendtag), recvdata, 1,
                    detail::datatype_traits<layout<T>>::get_datatype(recvl), source,
-                   static_cast<int>(recvtag), comm_, reinterpret_cast<MPI_Status *>(&s));
+                   static_cast<int>(recvtag), comm_, static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2324,7 +2322,7 @@ namespace mpl {
       status_t s;
       MPI_Sendrecv_replace(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
                            static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
-                           reinterpret_cast<MPI_Status *>(&s));
+                           static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2339,17 +2337,16 @@ namespace mpl {
     /// \param recvtag tag associated to the data to receive
     /// \return status of the receive operation
     template<typename T>
-    status_t sendrecv_replace(T *data, const layout<T> &l, int destination, tag_t sendtag, int source,
-                              tag_t recvtag) const {
+    status_t sendrecv_replace(T *data, const layout<T> &l, int destination, tag_t sendtag,
+                              int source, tag_t recvtag) const {
       check_dest(destination);
       check_source(source);
       check_send_tag(sendtag);
       check_recv_tag(recvtag);
       status_t s;
       MPI_Sendrecv_replace(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l),
-                           destination,
-                           static_cast<int>(sendtag), source, static_cast<int>(recvtag), comm_,
-                           reinterpret_cast<MPI_Status *>(&s));
+                           destination, static_cast<int>(sendtag), source,
+                           static_cast<int>(recvtag), comm_, static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -2367,8 +2364,8 @@ namespace mpl {
     /// \param recvtag tag associated to the data to receive
     /// \return status of the receive operation
     template<typename iterT>
-    status_t sendrecv_replace(iterT begin, iterT end, int destination, tag_t sendtag, int source,
-                              tag_t recvtag) const {
+    status_t sendrecv_replace(iterT begin, iterT end, int destination, tag_t sendtag,
+                              int source, tag_t recvtag) const {
       using value_type = typename std::iterator_traits<iterT>::value_type;
       if constexpr (detail::is_contiguous_iterator_v<iterT>) {
         const vector_layout<value_type> l(std::distance(begin, end));
@@ -2870,6 +2867,9 @@ namespace mpl {
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
+      static_assert(
+          sizeof(decltype(*sendl())) == sizeof(MPI_Datatype),
+          "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
       MPI_Alltoallw(senddata, counts.data(), senddispls_int.data(),
                     reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata, counts.data(),
                     recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
@@ -2913,7 +2913,7 @@ namespace mpl {
 
     template<typename T>
     static int ialltoallv_query(void *state, MPI_Status *s) {
-      ialltoallv_state<T> *sendrecv_state{reinterpret_cast<ialltoallv_state<T> *>(state)};
+      ialltoallv_state<T> *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
       const int error_backup{s->MPI_ERROR};
       *s = sendrecv_state->status;
       s->MPI_ERROR = error_backup;
@@ -2922,7 +2922,7 @@ namespace mpl {
 
     template<typename T>
     static int ialltoallv_free(void *state) {
-      ialltoallv_state<T> *sendrecv_state{reinterpret_cast<ialltoallv_state<T> *>(state)};
+      ialltoallv_state<T> *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
       delete sendrecv_state;
       return MPI_SUCCESS;
     }
@@ -2932,6 +2932,9 @@ namespace mpl {
     template<typename T>
     void ialltoallv(const T *senddata, T *recvdata, ialltoallv_state<T> *state) const {
       MPI_Request req;
+      static_assert(
+          sizeof(decltype(*state->sendl())) == sizeof(MPI_Datatype),
+          "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
       if (senddata != nullptr)
         MPI_Ialltoallw(senddata, state->counts.data(), state->senddispls_int.data(),
                        reinterpret_cast<const MPI_Datatype *>(state->sendl()), recvdata,
@@ -2986,7 +2989,7 @@ namespace mpl {
       std::vector<int> counts(recvl.size(), 1);
       std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, counts.data(), recvdispls_int.data(),
-                    reinterpret_cast<const MPI_Datatype *>(recvl()), comm_);
+                    static_cast<const MPI_Datatype *>(recvl()), comm_);
     }
 
     template<typename T>
