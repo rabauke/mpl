@@ -151,7 +151,7 @@ $(document).ready(function(){initNavTree('environment_8hpp_source.html',''); ini
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;          <span class="keywordtype">void</span> *p;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          <span class="keywordtype">int</span> flag;</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &amp;p, &amp;flag);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          <span class="keywordflow">return</span> *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(p);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;          <span class="keywordflow">return</span> *<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(p);</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        }</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        [[nodiscard]] <a class="code" href="namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828">threading_modes</a> <a class="code" href="namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33">threading_mode</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> init.thread_mode(); }</div>
@@ -166,7 +166,7 @@ $(document).ready(function(){initNavTree('environment_8hpp_source.html',''); ini
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;          <span class="keywordtype">void</span> *p;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;          <span class="keywordtype">int</span> flag;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;          MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &amp;p, &amp;flag);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          <span class="keywordflow">return</span> *<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(p);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;          <span class="keywordflow">return</span> *<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(p);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        }</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        [[nodiscard]] <span class="keyword">const</span> communicator &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> comm_world_; }</div>

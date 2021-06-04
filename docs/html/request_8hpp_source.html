@@ -173,20 +173,20 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request.html#aa05c3d8f7a2eca85d66fe732ba6c7805">   85</a></span>&#160;      std::pair&lt;bool, status_t&gt; <a class="code" href="classmpl_1_1impl_1_1request.html#aa05c3d8f7a2eca85d66fe732ba6c7805">test</a>() {</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">int</span> result;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <a class="code" href="classmpl_1_1status__t.html">status_t</a> s;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        MPI_Test(&amp;req, &amp;result, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        MPI_Test(&amp;req, &amp;result, <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(result), s);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;      }</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
 <div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request.html#aedca3ad316f078b0190b9396197a7605">   92</a></span>&#160;      <a class="code" href="classmpl_1_1status__t.html">status_t</a> <a class="code" href="classmpl_1_1impl_1_1request.html#aedca3ad316f078b0190b9396197a7605">wait</a>() {</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <a class="code" href="classmpl_1_1status__t.html">status_t</a> s;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        MPI_Wait(&amp;req, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        MPI_Wait(&amp;req, <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> s;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      }</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request.html#afcaebb153e084ce15955206c2fa42315">   98</a></span>&#160;      std::pair&lt;bool, status_t&gt; <a class="code" href="classmpl_1_1impl_1_1request.html#afcaebb153e084ce15955206c2fa42315">get_status</a>() {</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">int</span> result;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="classmpl_1_1status__t.html">status_t</a> s;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        MPI_Request_get_status(req, &amp;result, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        MPI_Request_get_status(req, &amp;result, <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> std::make_pair(<span class="keyword">static_cast&lt;</span><span class="keywordtype">bool</span><span class="keyword">&gt;</span>(result), s);</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;      }</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    };</div>
@@ -252,7 +252,7 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request__pool.html#a7c1d9f510ffeefad91f8b75886db9243">  164</a></span>&#160;      std::pair&lt;bool, size_type&gt; <a class="code" href="classmpl_1_1impl_1_1request__pool.html#a7c1d9f510ffeefad91f8b75886db9243">waitany</a>() {</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordtype">int</span> index;</div>
 <div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <a class="code" href="classmpl_1_1status__t.html">status_t</a> s;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        MPI_Waitany(size(), &amp;reqs[0], &amp;index, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        MPI_Waitany(size(), &amp;reqs[0], &amp;index, <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">if</span> (index != MPI_UNDEFINED) {</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;          stats[index] = s;</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<span class="keyword">true</span>, <span class="keyword">static_cast&lt;</span><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a><span class="keyword">&gt;</span>(index));</div>
@@ -263,7 +263,7 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request__pool.html#ab2e54f8cce60ca595e8a80d40b9a09c7">  175</a></span>&#160;      std::pair&lt;bool, size_type&gt; <a class="code" href="classmpl_1_1impl_1_1request__pool.html#ab2e54f8cce60ca595e8a80d40b9a09c7">testany</a>() {</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordtype">int</span> index, flag;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <a class="code" href="classmpl_1_1status__t.html">status_t</a> s;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        MPI_Testany(size(), &amp;reqs[0], &amp;index, &amp;flag, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        MPI_Testany(size(), &amp;reqs[0], &amp;index, &amp;flag, <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;s));</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keywordflow">if</span> (flag != 0 and index != MPI_UNDEFINED) {</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;          stats[index] = s;</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;          <span class="keywordflow">return</span> std::make_pair(<span class="keyword">true</span>, <span class="keyword">static_cast&lt;</span><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a><span class="keyword">&gt;</span>(index));</div>
@@ -272,12 +272,12 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;      }</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
 <div class="line"><a name="l00186"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request__pool.html#a1e864f5b3e62bb28db94bec090235401">  186</a></span>&#160;      <span class="keywordtype">void</span> <a class="code" href="classmpl_1_1impl_1_1request__pool.html#a1e864f5b3e62bb28db94bec090235401">waitall</a>() {</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        MPI_Waitall(size(), &amp;reqs[0], <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        MPI_Waitall(size(), &amp;reqs[0], <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;      }</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
 <div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="classmpl_1_1impl_1_1request__pool.html#a5ebba7b0471ba84cf591abace463072f">  190</a></span>&#160;      <span class="keywordtype">bool</span> <a class="code" href="classmpl_1_1impl_1_1request__pool.html#a5ebba7b0471ba84cf591abace463072f">testall</a>() {</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordtype">int</span> flag;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        MPI_Testall(size(), &amp;reqs[0], &amp;flag, <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        MPI_Testall(size(), &amp;reqs[0], &amp;flag, <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="keywordflow">return</span> flag;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;      }</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
@@ -286,7 +286,7 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        mpl::detail::flat_memory_out&lt;int, I&gt; indices(size(), iter);</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <span class="keywordtype">int</span> count;</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        MPI_Waitsome(size(), &amp;reqs[0], &amp;count, indices.data(),</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                     <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                     <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        <span class="keywordflow">if</span> (count != MPI_UNDEFINED)</div>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;          <span class="keywordflow">return</span> indices.copy_back(count);</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">return</span> iter;</div>
@@ -297,7 +297,7 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        mpl::detail::flat_memory_out&lt;int, I&gt; indices(size(), iter);</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        <span class="keywordtype">int</span> count;</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        MPI_Testsome(size(), &amp;reqs[0], &amp;count, indices.data(),</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                     <span class="keyword">reinterpret_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;                     <span class="keyword">static_cast&lt;</span>MPI_Status *<span class="keyword">&gt;</span>(&amp;stats[0]));</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <span class="keywordflow">if</span> (count != MPI_UNDEFINED)</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;          <span class="keywordflow">return</span> indices.copy_back(count);</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordflow">return</span> iter;</div>
@@ -433,7 +433,7 @@ $(document).ready(function(){initNavTree('request_8hpp_source.html',''); initRes
 <div class="ttc" id="aclassmpl_1_1impl_1_1request__pool_html_a0adfe04dd4bf29535b6687562fb88989"><div class="ttname"><a href="classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989">mpl::impl::request_pool::testsome</a></div><div class="ttdeci">I testsome(I iter)</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00208">request.hpp:208</a></div></div>
 <div class="ttc" id="aclassmpl_1_1impl_1_1request__pool_html_ab076cdb8feb7b1270497af73430e4fde"><div class="ttname"><a href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">mpl::impl::request_pool::waitsome</a></div><div class="ttdeci">I waitsome(I iter)</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00197">request.hpp:197</a></div></div>
 <div class="ttc" id="aclassmpl_1_1impl_1_1request_html_aedca3ad316f078b0190b9396197a7605"><div class="ttname"><a href="classmpl_1_1impl_1_1request.html#aedca3ad316f078b0190b9396197a7605">mpl::impl::request::wait</a></div><div class="ttdeci">status_t wait()</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00092">request.hpp:92</a></div></div>
-<div class="ttc" id="aclassmpl_1_1status__t_html"><div class="ttname"><a href="classmpl_1_1status__t.html">mpl::status_t</a></div><div class="ttdoc">Class that represents the status of a received message.</div><div class="ttdef"><b>Definition:</b> <a href="status_8hpp_source.html#l00010">status.hpp:10</a></div></div>
+<div class="ttc" id="aclassmpl_1_1status__t_html"><div class="ttname"><a href="classmpl_1_1status__t.html">mpl::status_t</a></div><div class="ttdoc">Class that represents the status of a received message.</div><div class="ttdef"><b>Definition:</b> <a href="status_8hpp_source.html#l00020">status.hpp:20</a></div></div>
 <div class="ttc" id="aclassmpl_1_1impl_1_1request__pool_html_a9b2ce42dc5ec15f8875673e07f6d77bf"><div class="ttname"><a href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">mpl::impl::request_pool::push</a></div><div class="ttdeci">void push(T &amp;&amp;other)</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00158">request.hpp:158</a></div></div>
 <div class="ttc" id="aclassmpl_1_1impl_1_1request_html_ae54279c8f5ad406e91b5fc0eb0acab33"><div class="ttname"><a href="classmpl_1_1impl_1_1request.html#ae54279c8f5ad406e91b5fc0eb0acab33">mpl::impl::request::request</a></div><div class="ttdeci">request(const irequest &amp;req)</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00061">request.hpp:61</a></div></div>
 <div class="ttc" id="aclassmpl_1_1prequest_html_a9efbb0cc409f81dd060be7d00ddf37bc"><div class="ttname"><a href="classmpl_1_1prequest.html#a9efbb0cc409f81dd060be7d00ddf37bc">mpl::prequest::operator=</a></div><div class="ttdeci">prequest &amp; operator=(prequest &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00284">request.hpp:284</a></div></div>

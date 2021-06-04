@@ -4,16 +4,6 @@
 #include <mpl/mpl.hpp>
 
 template<typename T>
-bool bcast_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  T x;
-  if (comm_world.rank() == 0)
-    x = T(1);
-  comm_world.bcast(0, x);
-  return x == T(1);
-}
-
-template<typename T>
 bool scatter_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<T> v(comm_world.size());
@@ -70,7 +60,6 @@ bool alltoall_test() {
 
 
 BOOST_AUTO_TEST_CASE(collective) {
-  BOOST_TEST(bcast_test<double>());
   BOOST_TEST(scatter_test<double>());
   BOOST_TEST(gather_test<double>());
   BOOST_TEST(allgather_test<double>());

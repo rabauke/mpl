@@ -2380,11 +2380,15 @@ namespace mpl {
     // === barrier ===
     // --- blocking barrier ---
     /// \brief Blocks until all processes in the communicator have reached this method.
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     void barrier() const { MPI_Barrier(comm_); }
 
     // --- non-blocking barrier ---
     /// \brief Notifies the process that it has reached the barrier and returns immediately.
     /// \return communication request
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     [[nodiscard]] irequest ibarrier() const {
       MPI_Request req;
       MPI_Ibarrier(comm_, &req);
@@ -2393,12 +2397,27 @@ namespace mpl {
 
     // === broadcast ===
     // --- blocking broadcast ---
+    /// \brief Broadcasts a message from a process to all other processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param data buffer for sending/receiving data
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     template<typename T>
     void bcast(int root_rank, T &data) const {
       check_root(root_rank);
       MPI_Bcast(&data, 1, detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
     }
 
+    /// \brief Broadcasts a message from a process to all other processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param data buffer for sending/receiving data
+    /// \param l memory layout of the data to send/receive
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     template<typename T>
     void bcast(int root_rank, T *data, const layout<T> &l) const {
       check_root(root_rank);
@@ -2406,6 +2425,15 @@ namespace mpl {
     }
 
     // --- non-blocking broadcast ---
+    /// \brief Broadcasts a message from a process to all other processes in a non-blocking
+    /// manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param data buffer for sending/receiving data
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     template<typename T>
     irequest ibcast(int root_rank, T &data) const {
       check_root(root_rank);
@@ -2414,6 +2442,16 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Broadcasts a message from a process to all other processes in a non-blocking
+    /// manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param data buffer for sending/receiving data
+    /// \param l memory layout of the data to send/receive
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     template<typename T>
     irequest ibcast(int root_rank, T *data, const layout<T> &l) const {
       check_root(root_rank);

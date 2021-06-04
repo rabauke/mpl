@@ -4,17 +4,6 @@
 #include <mpl/mpl.hpp>
 
 template<typename T>
-bool ibcast_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  T x;
-  if (comm_world.rank() == 0)
-    x = T(1);
-  auto r{comm_world.ibcast(0, x)};
-  r.wait();
-  return x == T(1);
-}
-
-template<typename T>
 bool iscatter_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<T> v(comm_world.size());
@@ -77,7 +66,6 @@ bool ialltoall_test() {
 
 
 BOOST_AUTO_TEST_CASE(icollective) {
-  BOOST_TEST(ibcast_test<double>());
   BOOST_TEST(iscatter_test<double>());
   BOOST_TEST(igather_test<double>());
   BOOST_TEST(iallgather_test<double>());

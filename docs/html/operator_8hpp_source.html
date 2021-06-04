@@ -305,8 +305,8 @@ $(document).ready(function(){initNavTree('operator_8hpp_source.html',''); initRe
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;      <span class="keyword">static</span> std::unique_ptr&lt;functor&gt; f;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;      <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keywordtype">void</span> *invec, <span class="keywordtype">void</span> *inoutvec, <span class="keywordtype">int</span> *len, MPI_Datatype *datatype) {</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        T *i1 = <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(invec);</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        T *i2 = <span class="keyword">reinterpret_cast&lt;</span>T *<span class="keyword">&gt;</span>(inoutvec);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        T *i1 = <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(invec);</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        T *i2 = <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(inoutvec);</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}, i_end{*len}; i &lt; i_end; ++i, ++i1, ++i2)</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;          *i2 = (*f)(*i1, *i2);</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;      }</div>
