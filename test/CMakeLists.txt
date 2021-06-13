@@ -18,6 +18,7 @@ add_test_executable(test_communicator_probe test_communicator_probe.cc test_help
 add_test_executable(test_communicator_mprobe_mrecv test_communicator_mprobe_mrecv.cc test_helper.hpp)
 add_test_executable(test_communicator_barrier test_communicator_barrier.cc)
 add_test_executable(test_communicator_bcast test_communicator_bcast.cc)
+add_test_executable(test_communicator_gather test_communicator_gather.cc)
 add_test_executable(test_collective test_collective.cc)
 add_test_executable(test_icollective test_icollective.cc)
 add_test_executable(test_collectivev test_collectivev.cc)

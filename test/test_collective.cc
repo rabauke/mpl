@@ -18,22 +18,6 @@ bool scatter_test() {
 }
 
 template<typename T>
-bool gather_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  std::vector<T> v(comm_world.size());
-  T x = comm_world.rank();
-  if (comm_world.rank() == 0) {
-    comm_world.gather(0, x, v.data());
-    for (int i = 0; i < comm_world.size(); ++i)
-      if (v[i] != i)
-        return false;
-  } else {
-    comm_world.gather(0, x);
-  }
-  return true;
-}
-
-template<typename T>
 bool allgather_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<T> v(comm_world.size());
@@ -61,7 +45,6 @@ bool alltoall_test() {
 
 BOOST_AUTO_TEST_CASE(collective) {
   BOOST_TEST(scatter_test<double>());
-  BOOST_TEST(gather_test<double>());
   BOOST_TEST(allgather_test<double>());
   BOOST_TEST(alltoall_test<double>());
 }

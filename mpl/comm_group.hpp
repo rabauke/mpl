@@ -2464,6 +2464,15 @@ namespace mpl {
     // === gather ===
     // === root gets a single value from each rank and stores in contiguous memory
     // --- blocking gather ---
+    /// \brief Gather messages from all processes at a single root process.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data to send
+    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// pointer at non-root processes
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void gather(int root_rank, const T &senddata, T *recvdata) const {
       check_root(root_rank);
@@ -2471,6 +2480,17 @@ namespace mpl {
                  detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
     }
 
+    /// \brief Gather messages from all processes at a single root process.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data buffer for sending data
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// pointer at non-root processes
+    /// \param recvl memory layout of the data to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void gather(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
                 const layout<T> &recvl) const {
@@ -2480,6 +2500,17 @@ namespace mpl {
     }
 
     // --- non-blocking gather ---
+    /// \brief Gather messages from all processes at a single root process in a non-blocking
+    /// manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data to send
+    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// pointer at non-root processes
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest igather(int root_rank, const T &senddata, T *recvdata) const {
       check_root(root_rank);
@@ -2489,6 +2520,19 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Gather messages from all processes at a single root process in a non-blocking
+    /// manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data buffer for sending data
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// pointer at non-root processes
+    /// \param recvl memory layout of the data to receive
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest igather(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
                      const layout<T> &recvl) const {
@@ -2501,6 +2545,14 @@ namespace mpl {
     }
 
     // --- blocking gather, non-root variant ---
+    /// \brief Gather messages from all processes at a single root process.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data to send
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator. This particular overload can only be
+    /// called by non-root processes.
     template<typename T>
     void gather(int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
@@ -2508,6 +2560,15 @@ namespace mpl {
                  MPI_DATATYPE_NULL, root_rank, comm_);
     }
 
+    /// \brief Gather messages from all processes at a single root process.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data buffer for sending data
+    /// \param sendl memory layout of the data to send
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator. This particular overload can only be
+    /// called by non-root processes.
     template<typename T>
     void gather(int root_rank, const T *senddata, const layout<T> &sendl) const {
       check_nonroot(root_rank);
@@ -2516,6 +2577,16 @@ namespace mpl {
     }
 
     // --- non-blocking gather, non-root variant ---
+    /// \brief Gather messages from all processes at a single root process in a non-blocking
+    /// manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data to send
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator. This particular overload can only be
+    /// called by non-root processes.
     template<typename T>
     irequest igather(int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
@@ -2525,6 +2596,17 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Gather messages from all processes at a single root process in a non-blocking
+    /// manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the receiving process
+    /// \param senddata data buffer for sending data
+    /// \param sendl memory layout of the data to send
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator. This particular overload can only be
+    /// called by non-root processes.
     template<typename T>
     irequest igather(int root_rank, const T *senddata, const layout<T> &sendl) const {
       check_nonroot(root_rank);
