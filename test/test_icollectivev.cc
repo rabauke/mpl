@@ -30,29 +30,6 @@ bool iscatterv_test() {
 }
 
 template<typename T>
-bool igatherv_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  const int N = (comm_world.size() * comm_world.size() + comm_world.size()) / 2;
-  std::vector<T> v1(N), v2(N);
-  std::iota(begin(v1), end(v1), 1);
-  mpl::layouts<T> l;
-  for (int i = 0, i_end = comm_world.size(), offset = 0; i < i_end; ++i) {
-    l.push_back(mpl::indexed_layout<T>({{i + 1, offset}}));
-    offset += i + 1;
-  }
-  if (comm_world.rank() == 0) {
-    auto r{comm_world.igatherv(0, v1.data(), l[0], v2.data(), l)};
-    r.wait();
-    if (v1 != v2)
-      return false;
-  } else {
-    auto r{comm_world.igatherv(0, v1.data(), l[comm_world.rank()])};
-    r.wait();
-  }
-  return true;
-}
-
-template<typename T>
 bool iallgatherv_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   const int N = (comm_world.size() * comm_world.size() + comm_world.size()) / 2;
@@ -93,7 +70,6 @@ bool ialltoallv_test() {
 
 BOOST_AUTO_TEST_CASE(icollectivev) {
   BOOST_TEST(iscatterv_test<double>());
-  BOOST_TEST(igatherv_test<double>());
   BOOST_TEST(iallgatherv_test<double>());
   BOOST_TEST(ialltoallv_test<double>());
 }
