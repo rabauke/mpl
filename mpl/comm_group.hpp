@@ -2764,12 +2764,28 @@ namespace mpl {
     // === allgather ===
     // === get a single value from each rank and stores in contiguous memory
     // --- blocking allgather ---
+    /// \brief Gather messages from all processes and distritbute result to all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void allgather(const T &senddata, T *recvdata) const {
       MPI_Allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
                     detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
+    /// \brief Gather messages from all processes and distritbute result to all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layout of the data to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                    const layout<T> &recvl) const {
@@ -2779,6 +2795,15 @@ namespace mpl {
     }
 
     // --- non-blocking allgather ---
+    /// \brief Gather messages from all processes and distritbute result to all processes in a
+    /// non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest iallgather(const T &senddata, T *recvdata) const {
       MPI_Request req;
@@ -2787,6 +2812,17 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Gather messages from all processes and distritbute result to all processes in a
+    /// non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layout of the data to receive
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest iallgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                         const layout<T> &recvl) const {

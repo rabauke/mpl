@@ -20,19 +20,6 @@ bool iscatter_test() {
 }
 
 template<typename T>
-bool iallgather_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  std::vector<T> v(comm_world.size());
-  T x = comm_world.rank();
-  auto r{comm_world.iallgather(x, v.data())};
-  r.wait();
-  for (int i = 0; i < comm_world.size(); ++i)
-    if (v[i] != i)
-      return false;
-  return true;
-}
-
-template<typename T>
 bool ialltoall_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<std::pair<T, T>> v(comm_world.size());
@@ -49,6 +36,5 @@ bool ialltoall_test() {
 
 BOOST_AUTO_TEST_CASE(icollective) {
   BOOST_TEST(iscatter_test<double>());
-  BOOST_TEST(iallgather_test<double>());
   BOOST_TEST(ialltoall_test<double>());
 }
