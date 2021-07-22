@@ -2835,6 +2835,17 @@ namespace mpl {
 
     // === get varying amount of data from each rank and stores in non-contiguous memory
     // --- blocking allgather ---
+    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// result to all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \param recvdispls displacments of the data to reveive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                     const layouts<T> &recvls, const displacements &recvdispls) const {
@@ -2846,6 +2857,16 @@ namespace mpl {
       alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
+    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// result to all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                     const layouts<T> &recvls) const {
@@ -2853,6 +2874,18 @@ namespace mpl {
     }
 
     // --- non-blocking allgather ---
+    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// result to all processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \param recvdispls displacments of the data to reveive
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest iallgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                          const layouts<T> &recvls, const displacements &recvdispls) const {
@@ -2864,6 +2897,17 @@ namespace mpl {
       return ialltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
+    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// result to all processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata data to send
+    /// \param sendl memory layout of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest iallgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                          const layouts<T> &recvls) const {
