@@ -4,22 +4,6 @@
 #include <mpl/mpl.hpp>
 
 template<typename T>
-bool iscatter_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  std::vector<T> v(comm_world.size());
-  std::iota(begin(v), end(v), 0);
-  T x;
-  if (comm_world.rank() == 0) {
-    auto r{comm_world.iscatter(0, v.data(), x)};
-    r.wait();
-  } else {
-    auto r{comm_world.iscatter(0, x)};
-    r.wait();
-  }
-  return x == v[comm_world.rank()];
-}
-
-template<typename T>
 bool ialltoall_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<std::pair<T, T>> v(comm_world.size());
@@ -35,6 +19,5 @@ bool ialltoall_test() {
 
 
 BOOST_AUTO_TEST_CASE(icollective) {
-  BOOST_TEST(iscatter_test<double>());
   BOOST_TEST(ialltoall_test<double>());
 }
