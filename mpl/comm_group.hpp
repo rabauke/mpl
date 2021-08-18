@@ -3065,6 +3065,19 @@ namespace mpl {
 
     // === root sends varying amount of data from non-contiguous memory to each rank
     // --- blocking scatter ---
+    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// pointer at non-root processes
+    /// \param sendls memory layouts of the data to send
+    /// \param senddispls displacments of the data to send by the root rank
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void scatterv(int root_rank, const T *senddata, const layouts<T> &sendls,
                   const displacements &senddispls, T *recvdata, const layout<T> &recvl) const {
@@ -3081,6 +3094,18 @@ namespace mpl {
         alltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N), recvdispls);
     }
 
+    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// pointer at non-root processes
+    /// \param sendls memory layouts of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void scatterv(int root_rank, const T *senddata, const layouts<T> &sendls, T *recvdata,
                   const layout<T> &recvl) const {
@@ -3088,6 +3113,20 @@ namespace mpl {
     }
 
     // --- non-blocking scatter ---
+    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// pointer at non-root processes
+    /// \param sendls memory layouts of the data to send
+    /// \param senddispls displacments of the data to send by the root rank
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest iscatterv(int root_rank, const T *senddata, const layouts<T> &sendls,
                        const displacements &senddispls, T *recvdata,
@@ -3106,13 +3145,36 @@ namespace mpl {
                           recvdispls);
     }
 
+    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// processes  in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// pointer at non-root processes
+    /// \param sendls memory layouts of the data to send
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest iscatterv(int rootRank, const T *senddata, const layouts<T> &sendls, T *recvdata,
+    irequest iscatterv(int root_rank, const T *senddata, const layouts<T> &sendls, T *recvdata,
                        const layout<T> &recvl) const {
-      return iscatterv(rootRank, senddata, sendls, displacements(size()), recvdata, recvl);
+      return iscatterv(root_rank, senddata, sendls, displacements(size()), recvdata, recvl);
     }
 
     // --- blocking scatter, non-root variant ---
+    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator. This particular overload can only be
+    /// called by non-root processes.
     template<typename T>
     void scatterv(int root_rank, T *recvdata, const layout<T> &recvl) const {
       check_root(root_rank);
@@ -3125,6 +3187,17 @@ namespace mpl {
     }
 
     // --- non-blocking scatter, non-root variant ---
+    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param root_rank rank of the sending process
+    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \return request representing the ongoing message transfer
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator. This particular overload can only be
+    /// called by non-root processes.
     template<typename T>
     irequest iscatterv(int root_rank, T *recvdata, const layout<T> &recvl) const {
       check_root(root_rank);

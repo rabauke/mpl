@@ -4,32 +4,6 @@
 #include <mpl/mpl.hpp>
 
 template<typename T>
-bool iscatterv_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  const int N = (comm_world.size() * comm_world.size() + comm_world.size()) / 2;
-  std::vector<T> v1(N), v2(N);
-  std::iota(begin(v1), end(v1), 1);
-  mpl::layouts<T> l;
-  for (int i = 0, i_end = comm_world.size(), offset = 0; i < i_end; ++i) {
-    l.push_back(mpl::indexed_layout<T>({{i + 1, offset}}));
-    offset += i + 1;
-  }
-  if (comm_world.rank() == 0) {
-    auto r{comm_world.iscatterv(0, v1.data(), l, v2.data(), l[0])};
-    r.wait();
-  } else {
-    auto r{comm_world.iscatterv(0, v2.data(), l[comm_world.rank()])};
-    r.wait();
-  }
-  for (int i = 0, i_end = comm_world.size(), k = 0; i < i_end; ++i)
-    for (int j = 0, j_end = i + 1; j < j_end; ++j, ++k)
-      if (i == comm_world.rank())
-        if (v1[k] != v2[k])
-          return false;
-  return true;
-}
-
-template<typename T>
 bool ialltoallv_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<T> v_send,
@@ -53,6 +27,5 @@ bool ialltoallv_test() {
 
 
 BOOST_AUTO_TEST_CASE(icollectivev) {
-  BOOST_TEST(iscatterv_test<double>());
   BOOST_TEST(ialltoallv_test<double>());
 }
