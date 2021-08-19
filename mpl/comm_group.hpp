@@ -2357,7 +2357,8 @@ namespace mpl {
     /// the iterator's value-type must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param begin iterator pointing to the first data value to send and to receive
-    /// \param end iterator pointing one element beyond the last data value to send and to receive
+    /// \param end iterator pointing one element beyond the last data value to send and to
+    /// receive
     /// \param destination rank of the receiving process
     /// \param sendtag tag associated to the data to send
     /// \param source rank of the sending process
@@ -2469,7 +2470,7 @@ namespace mpl {
     /// data_types "data types" section
     /// \param root_rank rank of the receiving process
     /// \param senddata data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2486,7 +2487,7 @@ namespace mpl {
     /// \param root_rank rank of the receiving process
     /// \param senddata data buffer for sending data
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
     /// \param recvl memory layout of the data to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2506,7 +2507,7 @@ namespace mpl {
     /// data_types "data types" section
     /// \param root_rank rank of the receiving process
     /// \param senddata data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2527,7 +2528,7 @@ namespace mpl {
     /// \param root_rank rank of the receiving process
     /// \param senddata data buffer for sending data
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
     /// \param recvl memory layout of the data to receive
     /// \return request representing the ongoing message transfer
@@ -2618,17 +2619,17 @@ namespace mpl {
 
     // === root gets varying amount of data from each rank and stores in non-contiguous memory
     // --- blocking gather ---
-    /// \brief Gather messages with a variable anount of data from all processes at a single
+    /// \brief Gather messages with a variable amount of data from all processes at a single
     /// root process.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the receiving process
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
-    /// \param recvls memory layouts of the data to reveive by the root rank
-    /// \param recvdispls displacments of the data to reveive by the root rank
+    /// \param recvls memory layouts of the data to receive by the root rank
+    /// \param recvdispls displacements of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -2647,16 +2648,16 @@ namespace mpl {
         alltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N), recvdispls);
     }
 
-    /// \brief Gather messages with a variable anount of data from all processes at a single
+    /// \brief Gather messages with a variable amount of data from all processes at a single
     /// root process.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the receiving process
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
-    /// \param recvls memory layouts of the data to reveive by the root rank
+    /// \param recvls memory layouts of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -2666,17 +2667,17 @@ namespace mpl {
     }
 
     // --- non-blocking gather ---
-    /// \brief Gather messages with a variable anount of data from all processes at a single
+    /// \brief Gather messages with a variable amount of data from all processes at a single
     /// root process in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the receiving process
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
-    /// \param recvls memory layouts of the data to reveive by the root rank
-    /// \param recvdispls displacments of the data to reveive by the root rank
+    /// \param recvls memory layouts of the data to receive by the root rank
+    /// \param recvdispls displacements of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2697,16 +2698,16 @@ namespace mpl {
                           recvdispls);
     }
 
-    /// \brief Gather messages with a variable anount of data from all processes at a single
+    /// \brief Gather messages with a variable amount of data from all processes at a single
     /// root process in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the receiving process
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages, may be a null
+    /// \param recvdata pointer to continuous storage for incoming messages, may be a null
     /// pointer at non-root processes
-    /// \param recvls memory layouts of the data to reveive by the root rank
+    /// \param recvls memory layouts of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2717,7 +2718,7 @@ namespace mpl {
     }
 
     // --- blocking gather, non-root variant ---
-    /// \brief Gather messages with a variable anount of data from all processes at a single
+    /// \brief Gather messages with a variable amount of data from all processes at a single
     /// root process.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -2739,7 +2740,7 @@ namespace mpl {
     }
 
     // --- non-blocking gather, non-root variant ---
-    /// \brief Gather messages with a variable anount of data from all processes at a single
+    /// \brief Gather messages with a variable amount of data from all processes at a single
     /// root process in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -2768,7 +2769,7 @@ namespace mpl {
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -2777,12 +2778,12 @@ namespace mpl {
                     detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
-    /// \brief Gather messages from all processes and distritbute result to all processes.
+    /// \brief Gather messages from all processes and distribute result to all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvl memory layout of the data to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2795,12 +2796,12 @@ namespace mpl {
     }
 
     // --- non-blocking allgather ---
-    /// \brief Gather messages from all processes and distritbute result to all processes in a
+    /// \brief Gather messages from all processes and distribute result to all processes in a
     /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2812,13 +2813,13 @@ namespace mpl {
       return impl::irequest(req);
     }
 
-    /// \brief Gather messages from all processes and distritbute result to all processes in a
+    /// \brief Gather messages from all processes and distribute result to all processes in a
     /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvl memory layout of the data to receive
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2835,15 +2836,15 @@ namespace mpl {
 
     // === get varying amount of data from each rank and stores in non-contiguous memory
     // --- blocking allgather ---
-    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// \brief Gather messages with a variable amount of from all processes and distribute
     /// result to all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
-    /// \param recvdispls displacments of the data to reveive
+    /// \param recvdispls displacements of the data to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -2857,13 +2858,13 @@ namespace mpl {
       alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
-    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// \brief Gather messages with a variable amount of from all processes and distribute
     /// result to all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2874,15 +2875,15 @@ namespace mpl {
     }
 
     // --- non-blocking allgather ---
-    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// \brief Gather messages with a variable amount of from all processes and distribute
     /// result to all processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
-    /// \param recvdispls displacments of the data to reveive
+    /// \param recvdispls displacements of the data to receive
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -2897,13 +2898,13 @@ namespace mpl {
       return ialltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
-    /// \brief Gather messages with a variable anount of from all processes and distritbute
+    /// \brief Gather messages with a variable amount of from all processes and distribute
     /// result to all processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
+    /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2921,7 +2922,7 @@ namespace mpl {
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param recvdata data to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2937,7 +2938,7 @@ namespace mpl {
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param sendl memory layout of the data to send
     /// \param recvdata data to receive
@@ -2959,7 +2960,7 @@ namespace mpl {
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param recvdata data to receive
     /// \return request representing the ongoing message transfer
@@ -2979,7 +2980,7 @@ namespace mpl {
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param sendl memory layout of the data to send
     /// \param recvdata data to receive
@@ -3065,17 +3066,17 @@ namespace mpl {
 
     // === root sends varying amount of data from non-contiguous memory to each rank
     // --- blocking scatter ---
-    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// \brief Scatter messages with a variable amount of data from a single root process to all
     /// processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param sendls memory layouts of the data to send
-    /// \param senddispls displacments of the data to send by the root rank
-    /// \param recvdata pointer to continous storage for imcoming messages
-    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \param senddispls displacements of the data to send by the root rank
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -3094,16 +3095,16 @@ namespace mpl {
         alltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N), recvdispls);
     }
 
-    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// \brief Scatter messages with a variable amount of data from a single root process to all
     /// processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param sendls memory layouts of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
-    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -3113,17 +3114,17 @@ namespace mpl {
     }
 
     // --- non-blocking scatter ---
-    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// \brief Scatter messages with a variable amount of data from a single root process to all
     /// processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param sendls memory layouts of the data to send
-    /// \param senddispls displacments of the data to send by the root rank
-    /// \param recvdata pointer to continous storage for imcoming messages
-    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \param senddispls displacements of the data to send by the root rank
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -3145,16 +3146,16 @@ namespace mpl {
                           recvdispls);
     }
 
-    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// \brief Scatter messages with a variable amount of data from a single root process to all
     /// processes  in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param senddata pointer to continous storage for outgoing messages, may be a null
+    /// \param senddata pointer to continuous storage for outgoing messages, may be a null
     /// pointer at non-root processes
     /// \param sendls memory layouts of the data to send
-    /// \param recvdata pointer to continous storage for imcoming messages
-    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -3165,13 +3166,13 @@ namespace mpl {
     }
 
     // --- blocking scatter, non-root variant ---
-    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// \brief Scatter messages with a variable amount of data from a single root process to all
     /// processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param recvdata pointer to continous storage for imcoming messages
-    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator. This particular overload can only be
     /// called by non-root processes.
@@ -3187,13 +3188,13 @@ namespace mpl {
     }
 
     // --- non-blocking scatter, non-root variant ---
-    /// \brief Scatter messages with a variable anount of data from a single root process to all
+    /// \brief Scatter messages with a variable amount of data from a single root process to all
     /// processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
-    /// \param recvdata pointer to continous storage for imcoming messages
-    /// \param recvl memory layouts of the data to reveive by the root rank
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator. This particular overload can only be
@@ -3212,20 +3213,59 @@ namespace mpl {
     // === all-to-all ===
     // === each rank sends a single value to each rank
     // --- blocking all-to-all ---
+    /// \brief Sends data from all processes to all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \details Each process in the communicator sends one element of type T to each process
+    /// (including itself) and receives one element of type T from each process.  The i-th
+    /// element in the array senddata is sent to the i-th process.  When the function has
+    /// finished, the i-th element in the array recvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void alltoall(const T *senddata, T *recvdata) const {
       MPI_Alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
+    /// \brief Sends data from all processes to all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param sendl memory layouts of the data to send
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process. The memory
+    /// layouts of the incoming and the outgoing messages are described by sendl and recvl.
+    /// Both layouts might differ but must be compatible, i.e., must hold the same number of
+    /// elements of type T.  The i-th memory block with the layout sendl in the array senddata
+    /// is sent to the i-th process.  When the function has finished, the i-th memory block with
+    /// the layout recvl in the array recvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     void alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                   const layout<T> &recvl) const {
-      MPI_Alltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(), recvdata, 1,
-                   detail::datatype_traits<layout<T>>::get_datatype(), comm_);
+      MPI_Alltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                   recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
     }
 
     // --- non-blocking all-to-all ---
+    /// \brief Sends data from all processes to all processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \return request representing the ongoing message transfer
+    /// \details Each process in the communicator sends one element of type T to each process
+    /// (including itself) and receives one element of type T from each process.  The i-th
+    /// element in the array senddata is sent to the i-th process.  When the message transfer
+    /// has finished, the i-th element in the array recvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest ialltoall(const T *senddata, T *recvdata) const {
       MPI_Request req;
@@ -3234,42 +3274,116 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Sends data from all processes to all processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param sendl memory layouts of the data to send
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvl memory layouts of the data to receive
+    /// \return request representing the ongoing message transfer
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process. The memory
+    /// layouts of the incoming and the outgoing messages are described by sendl and recvl.
+    /// Both layouts might differ but must be compatible, i.e., must hold the same number of
+    /// elements of type T.  The i-th memory block with the layout sendl in the array senddata
+    /// is sent to the i-th process.  When the message transfer has finished, the i-th memory
+    /// block with the layout recvl in the array recvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
     irequest ialltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                        const layout<T> &recvl) const {
       MPI_Request req;
-      MPI_Ialltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(), recvdata,
-                    1, detail::datatype_traits<layout<T>>::get_datatype(), comm_, &req);
+      MPI_Ialltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                    recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_,
+                    &req);
       return impl::irequest(req);
     }
 
     // --- blocking all-to-all, in place ---
+    /// \brief Sends data from all processes to all processes, in-place version.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// messages
+    /// \details Each process in the communicator sends one element of type T to each process
+    /// (including itself) and receives one element of type T from each process.  The i-th
+    /// element in the array sendrecvdata is sent to the i-th process.  When the function has
+    /// finished, the i-th element in the array sendrecvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoall(T *recvdata) const {
-      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
+    void alltoall(T *sendrecvdata) const {
+      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
+    /// \brief Sends data from all processes to all processes, in-place version.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// messages
+    /// \param sendrecvl memory layouts of the data to send and to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process. The memory
+    /// layouts of the incoming and the outgoing messages are described by sendrecvl.
+    /// The i-th memory block with the layout sendrecvl in the array sendrecvdata
+    /// is sent to the i-th process.  When the function has finished, the i-th memory block with
+    /// the layout sendrecvl in the array sendrecvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoall(T *recvdata, const layout<T> &recvl) const {
-      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                   detail::datatype_traits<layout<T>>::get_datatype(), comm_);
+    void alltoall(T *sendrecvdata, const layout<T> &sendrecvl) const {
+      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
+                   detail::datatype_traits<layout<T>>::get_datatype(sendrecvl), comm_);
     }
 
     // --- non-blocking all-to-all, in place ---
+    /// \brief Sends data from all processes to all processes in a non-blocking manner, in-place
+    /// version.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// messages
+    /// \return request representing the ongoing message transfer
+    /// \details Each process in the communicator sends one element of type T to each process
+    /// (including itself) and receives one element of type T from each process.  The i-th
+    /// element in the array sendrecvdata is sent to the i-th process.  When the message
+    /// transfer has finished, the i-th element in the array sendrecvdata was received from the
+    /// i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoall(T *recvdata) const {
+    irequest ialltoall(T *sendrecvdata) const {
       MPI_Request req;
-      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
+      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
                     detail::datatype_traits<T>::get_datatype(), comm_, &req);
       return impl::irequest(req);
     }
 
+    /// \brief Sends data from all processes to all processes in a non-blocking manner, in-place
+    /// version.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// messages
+    /// \param sendrecvl memory layouts of the data to send and to receive
+    /// \return request representing the ongoing message transfer
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process. The memory
+    /// layouts of the incoming and the outgoing messages are described by sendrecvl.
+    /// The i-th memory block with the layout sendrecvl in the array sendrecvdata
+    /// is sent to the i-th process.  When the message transfer has finished, the i-th memory
+    /// block with the layout sendrecvl in the array sendrecvdata was received from the i-th
+    /// process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoall(T *recvdata, const layout<T> &recvl) const {
+    irequest ialltoall(T *sendrecvdata, const layout<T> &sendrecvl) const {
       MPI_Request req;
-      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, recvdata, 1,
-                    detail::datatype_traits<layout<T>>::get_datatype(), comm_, &req);
+      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
+                    detail::datatype_traits<layout<T>>::get_datatype(sendrecvl), comm_, &req);
       return impl::irequest(req);
     }
 
