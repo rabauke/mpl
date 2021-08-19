@@ -2,6 +2,8 @@
 
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
+#include "test_helper.hpp"
+
 
 template<typename T>
 bool alltoall_test(const T &val) {
@@ -122,23 +124,6 @@ bool ialltoall_inplace_test(const T &val) {
   r.wait();
   return sendrecv_data == expected;
 }
-
-
-struct tuple {
-  int a;
-  double b;
-  tuple &operator++() {
-    ++a;
-    ++b;
-    return *this;
-  }
-};
-
-bool operator==(const tuple &t1, const tuple &t2) {
-  return t1.a == t2.a and t1.b == t2.b;
-}
-
-MPL_REFLECTION(tuple, a, b)
 
 
 BOOST_AUTO_TEST_CASE(alltoall) {

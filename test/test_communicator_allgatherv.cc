@@ -2,9 +2,9 @@
 
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
-#include <algorithm>
-#include <array>
+#include <numeric>
 #include <vector>
+#include "test_helper.hpp"
 
 
 template<typename T>
@@ -38,24 +38,6 @@ bool iallgatherv_test(const T &val) {
   r.wait();
   return v1 == v2;
 }
-
-
-struct tuple {
-  int a;
-  double b;
-  tuple &operator++() {
-    ++a;
-    ++b;
-    return *this;
-  }
-};
-
-bool operator==(const tuple&t1, const tuple &t2)
-{
-  return t1.a== t2.a and t1.b == t2.b;
-}
-
-MPL_REFLECTION(tuple, a, b)
 
 
 BOOST_AUTO_TEST_CASE(allgatherv) {
