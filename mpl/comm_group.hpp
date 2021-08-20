@@ -3076,7 +3076,7 @@ namespace mpl {
     /// \param sendls memory layouts of the data to send
     /// \param senddispls displacements of the data to send by the root rank
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \param recvl memory layouts of the data to receive by the root rank
+    /// \param recvl memory layout of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -3104,7 +3104,7 @@ namespace mpl {
     /// pointer at non-root processes
     /// \param sendls memory layouts of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \param recvl memory layouts of the data to receive by the root rank
+    /// \param recvl memory layout of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
@@ -3124,7 +3124,7 @@ namespace mpl {
     /// \param sendls memory layouts of the data to send
     /// \param senddispls displacements of the data to send by the root rank
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \param recvl memory layouts of the data to receive by the root rank
+    /// \param recvl memory layout of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -3155,7 +3155,7 @@ namespace mpl {
     /// pointer at non-root processes
     /// \param sendls memory layouts of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \param recvl memory layouts of the data to receive by the root rank
+    /// \param recvl memory layout of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
@@ -3172,7 +3172,7 @@ namespace mpl {
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \param recvl memory layouts of the data to receive by the root rank
+    /// \param recvl memory layout of the data to receive by the root rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator. This particular overload can only be
     /// called by non-root processes.
@@ -3194,7 +3194,7 @@ namespace mpl {
     /// data_types "data types" section
     /// \param root_rank rank of the sending process
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \param recvl memory layouts of the data to receive by the root rank
+    /// \param recvl memory layout of the data to receive by the root rank
     /// \return request representing the ongoing message transfer
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator. This particular overload can only be

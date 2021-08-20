@@ -623,6 +623,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abe91007be7acef7641d6cbb08526d53b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18fe368f4ad60c858aa2798c8ade2539"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a18fe368f4ad60c858aa2798c8ade2539"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a18fe368f4ad60c858aa2798c8ade2539">alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;senddispls, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
+<tr class="memdesc:a18fe368f4ad60c858aa2798c8ade2539"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends messages with a variable amount of data to all processes and receives messages with a variable amount of data from all processes.  <a href="classmpl_1_1communicator.html#a18fe368f4ad60c858aa2798c8ade2539">More...</a><br /></td></tr>
 <tr class="separator:a18fe368f4ad60c858aa2798c8ade2539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afe983ca2719c90f7810528462ae5fbee"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:afe983ca2719c90f7810528462ae5fbee"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#afe983ca2719c90f7810528462ae5fbee">alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl) const</td></tr>
@@ -1292,7 +1293,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a11">collective.cc</a>, and <a class="el" href="communicator_8cc-example.html#a8">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03687">3687</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03701">3701</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1344,7 +1345,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03693">3693</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03707">3707</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1384,7 +1385,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03718">3718</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03732">3732</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1430,7 +1431,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03724">3724</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03738">3738</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1720,10 +1721,28 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Sends messages with a variable amount of data to all processes and receives messages with a variable amount of data from all processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>pointer to continuous storage for outgoing messages </td></tr>
+    <tr><td class="paramname">sendls</td><td>memory layouts of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvls</td><td>memory layouts of the data to receive by the root rank</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Each process in the communicator sends one element of type T to each process (including itself) and receives one element of type T from each process. The i-th element in the array senddata is sent to the i-th process. When the function has finished, the i-th element in the array recvdata was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="matrix_gather_8cc-example.html#a12">matrix_gather.cc</a>, and <a class="el" href="parallel_sort_mpl_8cc-example.html#a7">parallel_sort_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03398">3398</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03412">3412</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1775,7 +1794,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03418">3418</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03432">3432</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1815,7 +1834,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03534">3534</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03548">3548</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1861,7 +1880,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03523">3523</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03537">3537</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2599,7 +2618,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03870">3870</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03884">3884</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2651,7 +2670,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03876">3876</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03890">3890</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2691,7 +2710,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03900">3900</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03914">3914</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2737,7 +2756,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03906">3906</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03920">3920</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3547,7 +3566,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03700">3700</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03714">3714</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3599,7 +3618,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03708">3708</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03722">3722</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3639,7 +3658,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03732">3732</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03746">3746</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3685,7 +3704,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03740">3740</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03754">3754</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3980,7 +3999,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03493">3493</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03507">3507</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4032,7 +4051,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03515">3515</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03529">3529</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4072,7 +4091,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03557">3557</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03571">3571</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4118,7 +4137,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03540">3540</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03554">3554</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4521,7 +4540,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03883">3883</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03897">3897</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4573,7 +4592,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03891">3891</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03905">3905</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4613,7 +4632,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03913">3913</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03927">3927</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4659,7 +4678,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03921">3921</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03935">3935</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5678,7 +5697,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03581">3581</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03595">3595</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5724,7 +5743,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03652">3652</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03666">3666</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5782,7 +5801,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03590">3590</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03604">3604</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5834,7 +5853,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03675">3675</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03689">3689</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5880,7 +5899,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03639">3639</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03653">3653</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5932,7 +5951,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03661">3661</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03675">3675</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5984,7 +6003,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03797">3797</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03811">3811</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6030,7 +6049,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03767">3767</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03781">3781</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6082,7 +6101,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03776">3776</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03790">3790</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6366,7 +6385,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03822">3822</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03836">3836</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6418,7 +6437,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03830">3830</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03844">3844</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6458,7 +6477,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03852">3852</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03866">3866</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6504,7 +6523,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03860">3860</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03874">3874</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6833,7 +6852,7 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">sendls</td><td>memory layouts of the data to send </td></tr>
     <tr><td class="paramname">senddispls</td><td>displacements of the data to send by the root rank </td></tr>
     <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
-    <tr><td class="paramname">recvl</td><td>memory layouts of the data to receive by the root rank </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive by the root rank </td></tr>
   </table>
   </dd>
 </dl>
@@ -6911,7 +6930,7 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">senddata</td><td>pointer to continuous storage for outgoing messages, may be a null pointer at non-root processes </td></tr>
     <tr><td class="paramname">sendls</td><td>memory layouts of the data to send </td></tr>
     <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
-    <tr><td class="paramname">recvl</td><td>memory layouts of the data to receive by the root rank </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive by the root rank </td></tr>
   </table>
   </dd>
 </dl>
@@ -6975,7 +6994,7 @@ template&lt;typename T &gt; </div>
   <table class="params">
     <tr><td class="paramname">root_rank</td><td>rank of the sending process </td></tr>
     <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
-    <tr><td class="paramname">recvl</td><td>memory layouts of the data to receive by the root rank </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive by the root rank </td></tr>
   </table>
   </dd>
 </dl>
@@ -8380,7 +8399,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03612">3612</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03626">3626</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8434,7 +8453,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a9">collective.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a4">reduce_lcm.cc</a>, and <a class="el" href="reduce_min_loc_8cc-example.html#a4">reduce_min_loc.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03564">3564</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03578">3578</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8493,7 +8512,7 @@ template&lt;typename T , typename F &gt; </div>
 </div><div class="memdoc">
 <p><a class="anchor" id="communicator_reduce_contiguous_layout"></a></p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03572">3572</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03586">3586</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8545,7 +8564,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03630">3630</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03644">3644</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8591,7 +8610,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03601">3601</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03615">3615</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8643,7 +8662,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03619">3619</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03633">3633</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8695,7 +8714,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03788">3788</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03802">3802</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8741,7 +8760,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03751">3751</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03765">3765</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8793,7 +8812,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03758">3758</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03772">3772</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9246,7 +9265,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03809">3809</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03823">3823</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9298,7 +9317,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03815">3815</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03829">3829</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9338,7 +9357,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03839">3839</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03853">3853</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9384,7 +9403,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03845">3845</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03859">3859</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9711,7 +9730,7 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">sendls</td><td>memory layouts of the data to send </td></tr>
     <tr><td class="paramname">senddispls</td><td>displacements of the data to send by the root rank </td></tr>
     <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
-    <tr><td class="paramname">recvl</td><td>memory layouts of the data to receive by the root rank </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive by the root rank </td></tr>
   </table>
   </dd>
 </dl>
@@ -9790,7 +9809,7 @@ template&lt;typename T &gt; </div>
     <tr><td class="paramname">senddata</td><td>pointer to continuous storage for outgoing messages, may be a null pointer at non-root processes </td></tr>
     <tr><td class="paramname">sendls</td><td>memory layouts of the data to send </td></tr>
     <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
-    <tr><td class="paramname">recvl</td><td>memory layouts of the data to receive by the root rank </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive by the root rank </td></tr>
   </table>
   </dd>
 </dl>
@@ -9853,7 +9872,7 @@ template&lt;typename T &gt; </div>
   <table class="params">
     <tr><td class="paramname">root_rank</td><td>rank of the sending process </td></tr>
     <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
-    <tr><td class="paramname">recvl</td><td>memory layouts of the data to receive by the root rank </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive by the root rank </td></tr>
   </table>
   </dd>
 </dl>
