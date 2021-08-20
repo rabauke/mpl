@@ -2836,7 +2836,7 @@ namespace mpl {
 
     // === get varying amount of data from each rank and stores in non-contiguous memory
     // --- blocking allgather ---
-    /// \brief Gather messages with a variable amount of from all processes and distribute
+    /// \brief Gather messages with a variable amount of data from all processes and distribute
     /// result to all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -2858,7 +2858,7 @@ namespace mpl {
       alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
-    /// \brief Gather messages with a variable amount of from all processes and distribute
+    /// \brief Gather messages with a variable amount of data from all processes and distribute
     /// result to all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -2875,7 +2875,7 @@ namespace mpl {
     }
 
     // --- non-blocking allgather ---
-    /// \brief Gather messages with a variable amount of from all processes and distribute
+    /// \brief Gather messages with a variable amount of data from all processes and distribute
     /// result to all processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -2898,7 +2898,7 @@ namespace mpl {
       return ialltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
-    /// \brief Gather messages with a variable amount of from all processes and distribute
+    /// \brief Gather messages with a variable amount of data from all processes and distribute
     /// result to all processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
