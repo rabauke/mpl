@@ -3213,7 +3213,7 @@ namespace mpl {
     // === all-to-all ===
     // === each rank sends a single value to each rank
     // --- blocking all-to-all ---
-    /// \brief Sends data from all processes to all processes.
+    /// \brief Sends messages to all processes and receives messages from all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata pointer to continuous storage for outgoing messages
@@ -3230,7 +3230,7 @@ namespace mpl {
                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
-    /// \brief Sends data from all processes to all processes.
+    /// \brief Sends messages to all processes and receives messages from all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata pointer to continuous storage for outgoing messages
@@ -3254,7 +3254,8 @@ namespace mpl {
     }
 
     // --- non-blocking all-to-all ---
-    /// \brief Sends data from all processes to all processes in a non-blocking manner.
+    /// \brief Sends messages to all processes and receives messages from all processes in a
+    /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata pointer to continuous storage for outgoing messages
@@ -3274,7 +3275,8 @@ namespace mpl {
       return impl::irequest(req);
     }
 
-    /// \brief Sends data from all processes to all processes in a non-blocking manner.
+    /// \brief Sends messages to all processes and receives messages from all processes in a
+    /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata pointer to continuous storage for outgoing messages
@@ -3302,7 +3304,8 @@ namespace mpl {
     }
 
     // --- blocking all-to-all, in place ---
-    /// \brief Sends data from all processes to all processes, in-place version.
+    /// \brief Sends messages to all processes and receives messages from all processes,
+    /// in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
@@ -3319,7 +3322,8 @@ namespace mpl {
                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
-    /// \brief Sends data from all processes to all processes, in-place version.
+    /// \brief Sends messages to all processes and receives messages from all processes,
+    /// in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
@@ -3340,8 +3344,8 @@ namespace mpl {
     }
 
     // --- non-blocking all-to-all, in place ---
-    /// \brief Sends data from all processes to all processes in a non-blocking manner, in-place
-    /// version.
+    /// \brief Sends messages to all processes and receives messages from all processes in a
+    /// non-blocking manner, in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
@@ -3362,8 +3366,8 @@ namespace mpl {
       return impl::irequest(req);
     }
 
-    /// \brief Sends data from all processes to all processes in a non-blocking manner, in-place
-    /// version.
+    /// \brief Sends messages to all processes and receives messages from all processes in a
+    /// non-blocking manner, in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
