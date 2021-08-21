@@ -94,7 +94,11 @@ bool bsend_init_recv_init_test(const T &data) {
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0) {
-    const int size{comm_world.bsend_size<T>()};
+    int size;
+    if constexpr (has_size<T>::value)
+      size = comm_world.bsend_size<typename T::value_type>(data.size());
+    else
+      size = comm_world.bsend_size<T>();
     mpl::bsend_buffer buff(size);
     auto r{comm_world.bsend_init(data, 1)};
     r.start();
@@ -274,8 +278,8 @@ bool rsend_init_recv_init_test(const T &data) {
     while (not r.test().first) {
     }
     ok = ok and data_r == data;
-    comm_world.barrier();
     r.start();
+    comm_world.barrier();
     while (not r.test().first) {
     }
     ok = ok and data_r == data;
