@@ -18,6 +18,15 @@ template<typename T>
 struct has_resize<T, std::void_t<decltype(T().resize(1))>> : std::true_type {};
 
 
+template<typename, typename = void>
+struct has_begin_end : std::false_type {};
+
+template<typename T>
+struct has_begin_end<
+    T, std::void_t<std::common_type_t<decltype(T().begin()), decltype(T().end())>>>
+    : std::true_type {};
+
+
 struct tuple {
   int a;
   double b;

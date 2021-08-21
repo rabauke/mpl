@@ -10,6 +10,7 @@
 #include <set>
 #include <tuple>
 #include <utility>
+#include <algorithm>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
@@ -155,11 +156,33 @@ bool rsend_recv_test(const T &data) {
     comm_world.barrier();
     comm_world.rsend(data, 1);
   } else if (comm_world.rank() == 1) {
-    T data_r;
-    mpl::irequest r{comm_world.irecv(data_r, 0)};
-    comm_world.barrier();
-    r.wait();
-    return data_r == data;
+    // must ensure that MPI_Recv is called before mpl::communicator::rsend
+    if constexpr (has_begin_end<T>() and has_size<T>() and has_resize<T>()) {
+      // T is a STL container
+      T data_r;
+      data_r.resize(data.size());
+      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
+      comm_world.barrier();
+      r.wait();
+      return data_r == data;
+    } else if constexpr (has_begin_end<T>() and has_size<T>()) {
+      // T is a STL container without resize member, e.g., std::set
+      std::vector<typename T::value_type> data_r;
+      data_r.resize(data.size());
+      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
+      comm_world.barrier();
+      r.wait();
+      return std::equal(begin(data_r), end(data_r), begin(data));
+    } else {
+      // T is some fundamental type
+      // mpl::communicator::irecv does not suffice in the cases above as the irecv performs a
+      // probe first to receive STL containers
+      T data_r;
+      mpl::irequest r{comm_world.irecv(data_r, 0)};
+      comm_world.barrier();
+      r.wait();
+      return data_r == data;
+    }
   } else
     comm_world.barrier();
   return true;
@@ -175,16 +198,28 @@ bool rsend_recv_iter_test(const T &data) {
     comm_world.barrier();
     comm_world.rsend(std::begin(data), std::end(data), 1);
   } else if (comm_world.rank() == 1) {
-    T data_r;
-    if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data_r))>>) {
-      mpl::irequest r{comm_world.irecv(data_r, 0)};
+    // must ensure that MPI_Recv is called before mpl::communicator::rsend
+    if constexpr (has_begin_end<T>() and has_size<T>() and has_resize<T>()) {
+      T data_r;
+      data_r.resize(data.size());
+      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
       comm_world.barrier();
       r.wait();
       return data_r == data;
+    } else if constexpr (has_begin_end<T>() and has_size<T>()) {
+      // T is a STL container without resize member, e.g., std::set
+      std::vector<typename T::value_type> data_r;
+      data_r.resize(data.size());
+      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
+      comm_world.barrier();
+      r.wait();
+      return std::equal(begin(data_r), end(data_r), begin(data));
     } else {
-      if constexpr (has_resize<T>())
-        data_r.resize(data.size());
-      mpl::irequest r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
+      // T is some fundamental type
+      // mpl::communicator::irecv does not suffice in the cases above as the irecv performs a
+      // probe first to receive STL containers
+      T data_r;
+      mpl::irequest r{comm_world.irecv(data_r, 0)};
       comm_world.barrier();
       r.wait();
       return data_r == data;
