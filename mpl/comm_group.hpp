@@ -3394,31 +3394,72 @@ namespace mpl {
     // === each rank sends a varying number of values to each rank with possibly different
     // layouts
     // --- blocking all-to-all ---
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param sendls memory layouts of the data to send
+    /// \param senddispls displacements of the data to send
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \param recvdispls displacements of the data to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
+    /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
+    /// senddata starts senddispls[i] bytes after the address given in senddata. The i-th memory
+    /// block is sent to the i-th process. The i-th memory block with the layout recvls[i] in
+    /// the array recvdata starts recvdispls[i] bytes after the address given in recvdata.
+    /// When the function has finished, the i-th memory block in the array recvdata was
+    /// received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoallv(const T *senddata, const layouts<T> &sendl, const displacements &senddispls,
-                   T *recvdata, const layouts<T> &recvl,
+    void alltoallv(const T *senddata, const layouts<T> &sendls, const displacements &senddispls,
+                   T *recvdata, const layouts<T> &recvls,
                    const displacements &recvdispls) const {
       check_size(senddispls);
-      check_size(sendl);
+      check_size(sendls);
       check_size(recvdispls);
-      check_size(recvl);
-      std::vector<int> counts(recvl.size(), 1);
-      std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
-      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
+      check_size(recvls);
+      const std::vector<int> counts(recvls.size(), 1);
+      const std::vector<int> senddispls_int(senddispls.begin(), senddispls.end());
+      const std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
       static_assert(
-          sizeof(decltype(*sendl())) == sizeof(MPI_Datatype),
+          sizeof(decltype(*sendls())) == sizeof(MPI_Datatype),
           "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
       MPI_Alltoallw(senddata, counts.data(), senddispls_int.data(),
-                    reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata, counts.data(),
-                    recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvl()),
+                    reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata, counts.data(),
+                    recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvls()),
                     comm_);
     }
 
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param sendls memory layouts of the data to send
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
+    /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
+    /// senddata starts at the address given in senddata. The i-th memory block is sent to the
+    /// i-th process. The i-th memory block with the layout recvls[i] in the array recvdata
+    /// starts at the address given in recvdata.  Note that the memory layouts need to include
+    /// appropriate holes at the beginning in order to avoid overlapping send- or receive
+    /// blocks. When the function has finished, the i-th memory block in the array recvdata
+    /// was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoallv(const T *senddata, const layouts<T> &sendl, T *recvdata,
-                   const layouts<T> &recvl) const {
-      displacements sendrecvdispls(size());
-      alltoallv(senddata, sendl, sendrecvdispls, recvdata, recvl, sendrecvdispls);
+    void alltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
+                   const layouts<T> &recvls) const {
+      const displacements sendrecvdispls(size());
+      alltoallv(senddata, sendls, sendrecvdispls, recvdata, recvls, sendrecvdispls);
     }
 
     // --- non-blocking all-to-all ---
@@ -3489,16 +3530,38 @@ namespace mpl {
     }
 
   public:
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param sendls memory layouts of the data to send
+    /// \param senddispls displacements of the data to send
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \param recvdispls displacements of the data to receive
+    /// \return request representing the ongoing message transfer
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
+    /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
+    /// senddata starts senddispls[i] bytes after the address given in senddata. The i-th memory
+    /// block is sent to the i-th process. The i-th memory block with the layout recvls[i] in
+    /// the array recvdata starts recvdispls[i] bytes after the address given in recvdata.
+    /// When the function has finished, the i-th memory block in the array recvdata was
+    /// received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoallv(const T *senddata, const layouts<T> &sendl,
-                        const displacements &senddispls, T *recvdata, const layouts<T> &recvl,
+    irequest ialltoallv(const T *senddata, const layouts<T> &sendls,
+                        const displacements &senddispls, T *recvdata, const layouts<T> &recvls,
                         const displacements &recvdispls) const {
       check_size(senddispls);
-      check_size(sendl);
+      check_size(sendls);
       check_size(recvdispls);
-      check_size(recvl);
+      check_size(recvls);
       ialltoallv_state<T> *state{
-          new ialltoallv_state<T>(sendl, recvl, std::vector<int>(recvl.size(), 1),
+          new ialltoallv_state<T>(sendls, recvls, std::vector<int>(recvls.size(), 1),
                                   std::vector<int>(senddispls.begin(), senddispls.end()),
                                   std::vector<int>(recvdispls.begin(), recvdispls.end()))};
       MPI_Request req;
@@ -3511,51 +3574,143 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes in a non-blocking manner.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param senddata pointer to continuous storage for outgoing messages
+    /// \param sendls memory layouts of the data to send
+    /// \param recvdata pointer to continuous storage for incoming messages
+    /// \param recvls memory layouts of the data to receive
+    /// \return request representing the ongoing message transfer
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
+    /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
+    /// senddata starts at the address given in senddata. The i-th memory block is sent to the
+    /// i-th process. The i-th memory block with the layout recvls[i] in the array recvdata
+    /// starts at the address given in recvdata.  Note that the memory layouts need to include
+    /// appropriate holes at the beginning in order to avoid overlapping send- or receive
+    /// blocks. When the function has finished, the i-th memory block in the array recvdata
+    /// was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoallv(const T *senddata, const layouts<T> &sendl, T *recvdata,
-                        const layouts<T> &recvl) const {
-      displacements sendrecvdispls(size());
-      return ialltoallv(senddata, sendl, sendrecvdispls, recvdata, recvl, sendrecvdispls);
+    irequest ialltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
+                        const layouts<T> &recvls) const {
+      const displacements sendrecvdispls(size());
+      return ialltoallv(senddata, sendls, sendrecvdispls, recvdata, recvls, sendrecvdispls);
     }
 
     // --- blocking all-to-all, in place ---
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes, in-place variant.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for outgoing and incoming messages
+    /// \param sendrecvls memory layouts of the data to send and to receive
+    /// \param sendrecvdispls displacements of the data to send and to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffer
+    /// sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array
+    /// sendrecvdata starts sendrecvdispls[i] bytes after the address given in sendrecvdata. The
+    /// i-th memory block is sent to the i-th process. When the function has finished, the i-th
+    /// memory block in the array sendrecvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoallv(T *recvdata, const layouts<T> &recvl,
-                   const displacements &recvdispls) const {
-      check_size(recvdispls);
-      check_size(recvl);
-      std::vector<int> counts(recvl.size(), 1);
-      std::vector<int> recvdispls_int(recvdispls.begin(), recvdispls.end());
-      MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, counts.data(), recvdispls_int.data(),
-                    static_cast<const MPI_Datatype *>(recvl()), comm_);
+    void alltoallv(T *sendrecvdata, const layouts<T> &sendrecvls,
+                   const displacements &sendrecvdispls) const {
+      check_size(sendrecvdispls);
+      check_size(sendrecvls);
+      const std::vector<int> counts(sendrecvls.size(), 1);
+      const std::vector<int> sendrecvdispls_int(sendrecvdispls.begin(), sendrecvdispls.end());
+      MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, sendrecvdata, counts.data(),
+                    sendrecvdispls_int.data(),
+                    reinterpret_cast<const MPI_Datatype *>(sendrecvls()), comm_);
     }
 
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes, in-place variant.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for incoming and outgoing messages
+    /// \param sendrecvls memory layouts of the data to send and to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffer
+    /// sendrecvdata. The i-th memory block with the layout sendrecvls[i] in the array
+    /// sendrecvdata starts at the address given in sendrecvdata. The i-th memory block is sent
+    /// to the i-th process. Note that the memory layouts need to include appropriate holes at
+    /// the beginning in order to avoid overlapping send-receive blocks. When the function has
+    /// finished, the i-th memory block in the array sendrecvdata was received from the
+    /// i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoallv(T *recvdata, const layouts<T> &recvl) const {
-      alltoallv(recvdata, recvl, displacements(size()));
+    void alltoallv(T *sendrecvdata, const layouts<T> &sendrecvls) const {
+      alltoallv(sendrecvdata, sendrecvls, displacements(size()));
     }
 
     // --- non-blocking all-to-all, in place ---
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes in a non-blocking manner,
+    /// in-place variant.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for outgoing and incoming messages
+    /// \param sendrecvls memory layouts of the data to send and to receive
+    /// \param sendrecvdispls displacements of the data to send and to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffer
+    /// sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array
+    /// sendrecvdata starts sendrecvdispls[i] bytes after the address given in sendrecvdata. The
+    /// i-th memory block is sent to the i-th process. When the function has finished, the i-th
+    /// memory block in the array sendrecvdata was received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoallv(T *recvdata, const layouts<T> &recvl,
-                        const displacements &recvdispls) const {
-      check_size(recvdispls);
-      check_size(recvl);
-      ialltoallv_state<T> *state{
-          new ialltoallv_state<T>(recvl, std::vector<int>(recvl.size(), 1),
-                                  std::vector<int>(recvdispls.begin(), recvdispls.end()))};
+    irequest ialltoallv(T *sendrecvdata, const layouts<T> &sendrecvls,
+                        const displacements &sendrecvdispls) const {
+      check_size(sendrecvdispls);
+      check_size(sendrecvls);
+      ialltoallv_state<T> *state{new ialltoallv_state<T>(
+          sendrecvls, std::vector<int>(sendrecvls.size(), 1),
+          std::vector<int>(sendrecvdispls.begin(), sendrecvdispls.end()))};
       MPI_Request req;
       MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
                          &req);
       state->req = req;
-      std::thread thread([this, recvdata, state]() { ialltoallv(nullptr, recvdata, state); });
+      std::thread thread([this, sendrecvdata, state]() {
+        ialltoallv(static_cast<T *>(nullptr), sendrecvdata, state);
+      });
       thread.detach();
       return impl::irequest(req);
     }
 
+    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// messages with a variable amount of data from all processes in a non-blocking manner,
+    /// in-place variant.
+    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
+    /// data_types "data types" section
+    /// \param sendrecvdata pointer to continuous storage for incoming and outgoing messages
+    /// \param sendrecvls memory layouts of the data to send and to receive
+    /// \details Each process in the communicator sends elements of type T to each process
+    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// receive-data are stored in consecutive blocks of variable size in the buffer
+    /// sendrecvdata. The i-th memory block with the layout sendrecvls[i] in the array
+    /// sendrecvdata starts at the address given in sendrecvdata. The i-th memory block is sent
+    /// to the i-th process. Note that the memory layouts need to include appropriate holes at
+    /// the beginning in order to avoid overlapping send-receive blocks. When the function has
+    /// finished, the i-th memory block in the array sendrecvdata was received from the
+    /// i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoallv(T *recvdata, const layouts<T> &recvl) const {
-      return ialltoallv(recvdata, recvl, displacements(size()));
+    irequest ialltoallv(T *sendrecvdata, const layouts<T> &sendrecvls) const {
+      return ialltoallv(sendrecvdata, sendrecvls, displacements(size()));
     }
 
     // === reduce ===
