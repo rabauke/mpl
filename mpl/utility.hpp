@@ -125,6 +125,22 @@ namespace mpl {
     template<typename T>
     using remove_const_from_members_t = typename remove_const_from_members<T>::type;
 
+    //------------------------------------------------------------------
+
+    template<typename T>
+    T get_object();
+
+    // -----------------------------------------------------------------
+
+    template<typename, typename, typename = void>
+    struct is_binary_functor : std::false_type {};
+
+    template<typename T, typename F>
+    struct is_binary_functor<
+        T, F, std::void_t<decltype(get_object<F>()(get_object<T>(), get_object<T>()))>>
+        : std::is_convertible<decltype(get_object<F>()(get_object<T>(), get_object<T>())), T> {
+    };
+
   }  // namespace detail
 
 }  // namespace mpl

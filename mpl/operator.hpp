@@ -214,74 +214,6 @@ namespace mpl {
 
   namespace detail {
 
-    template<typename T>
-    struct remove_class {};
-    template<typename C, typename R, typename... A>
-    struct remove_class<R (C::*)(A...)> {
-      using type = R(A...);
-    };
-    template<typename C, typename R, typename... A>
-    struct remove_class<R (C::*)(A...) const> {
-      using type = R(A...);
-    };
-    template<typename C, typename R, typename... A>
-    struct remove_class<R (C::*)(A...) volatile> {
-      using type = R(A...);
-    };
-    template<typename C, typename R, typename... A>
-    struct remove_class<R (C::*)(A...) const volatile> {
-      using type = R(A...);
-    };
-
-    template<typename T>
-    struct get_signature_impl {
-      using type =
-          typename remove_class<decltype(&std::remove_reference<T>::type::operator())>::type;
-    };
-    template<typename R, typename... A>
-    struct get_signature_impl<R(A...)> {
-      using type = R(A...);
-    };
-    template<typename R, typename... A>
-    struct get_signature_impl<R (&)(A...)> {
-      using type = R(A...);
-    };
-    template<typename R, typename... A>
-    struct get_signature_impl<R (*)(A...)> {
-      using type = R(A...);
-    };
-    template<typename T>
-    using get_signature = typename get_signature_impl<T>::type;
-
-    template<typename T>
-    struct get_result_type_impl;
-    template<typename R, typename... A>
-    struct get_result_type_impl<R(A...)> {
-      using type = R;
-    };
-    template<typename T>
-    using get_result_type = typename get_result_type_impl<T>::type;
-
-    template<typename T>
-    struct get_first_argument_type_impl;
-    template<typename R, typename A1, typename... A>
-    struct get_first_argument_type_impl<R(A1, A...)> {
-      using type = A1;
-    };
-    template<typename T>
-    using get_first_argument_type = typename get_first_argument_type_impl<T>::type;
-
-    template<typename T>
-    struct get_second_argument_type_impl;
-    template<typename R, typename A1, typename A2, typename... A>
-    struct get_second_argument_type_impl<R(A1, A2, A...)> {
-      using type = A2;
-    };
-    template<typename T>
-    using get_second_argument_type = typename get_second_argument_type_impl<T>::type;
-
-    //------------------------------------------------------------------
-
     template<typename T, typename F>
     class op;
 
@@ -295,15 +227,9 @@ namespace mpl {
     class op {
     public:
       using functor = F;
-      using signature = get_signature<functor>;
-      using first_argument_type = std::decay_t<get_first_argument_type<signature>>;
-      using second_argument_type = std::decay_t<get_second_argument_type<signature>>;
-      using result_type = std::decay_t<get_result_type<signature>>;
-      static_assert(
-          std::is_assignable_v<std::add_lvalue_reference_t<first_argument_type>, T> and
-              std::is_assignable_v<std::add_lvalue_reference_t<second_argument_type>, T> and
-              std::is_assignable_v<T &, result_type>,
-          "argument type mismatch");
+
+      static_assert(is_binary_functor<T, F>::value,
+                    "reduction operator must be a binary function");
       static_assert(not std::is_pointer_v<F>, "functor must not be function pointer");
 
       static constexpr bool is_commutative = op_traits<functor>::is_commutative;
