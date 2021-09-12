@@ -3715,6 +3715,17 @@ namespace mpl {
 
     // === reduce ===
     // --- blocking reduce ---
+    /// \brief Performs a reduction operation over all processes.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param senddata input data for the reduction operation
+    /// \param recvdata will hold the result of the reduction operation if rank equals root_rank
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T &senddata, T &recvdata) const {
       check_root(root_rank);
@@ -3722,6 +3733,19 @@ namespace mpl {
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param senddata input buffer for the reduction operation
+    /// \param recvdata will hold the results of the reduction operation if rank equals
+    /// root_rank, may be nullptr if rank does no equal to root_rank
+    /// \param l memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     /// \anchor communicator_reduce_contiguous_layout
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T *senddata, T *recvdata,
@@ -3732,6 +3756,18 @@ namespace mpl {
     }
 
     // --- non-blocking reduce ---
+    /// \brief Performs a reduction operation over all processes in a non-blocking manner.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param senddata input data for the reduction operation
+    /// \param recvdata will hold the result of the reduction operation if rank equals root_rank
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, const T &senddata, T &recvdata) const {
       check_root(root_rank);
@@ -3741,6 +3777,20 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes in a non-blocking manner.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param senddata input buffer for the reduction operation
+    /// \param recvdata will hold the results of the reduction operation if rank equals
+    /// root_rank, may be nullptr if rank does no equal to root_rank
+    /// \param l memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, const T *senddata, T *recvdata,
                      const contiguous_layout<T> &l) const {
@@ -3752,6 +3802,17 @@ namespace mpl {
     }
 
     // --- blocking reduce, in place ---
+    /// \brief Performs a reduction operation over all processes, in-place variant.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param sendrecvdata input data for the reduction operation, will hold the result of the
+    /// reduction operation if rank equals root_rank
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, T &sendrecvdata) const {
       check_root(root_rank);
@@ -3763,6 +3824,17 @@ namespace mpl {
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes, non-root in-place variant.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result, must be
+    /// different from the rank of the calling process
+    /// \param senddata input data for the reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
@@ -3770,6 +3842,18 @@ namespace mpl {
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes, in-place variant.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param sendrecvdata input buffer for the reduction operation, will hold the results of
+    /// the reduction operation if rank equals root_rank
+    /// \param l memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, T *sendrecvdata, const contiguous_layout<T> &l) const {
       if (rank() == root_rank)
@@ -3781,15 +3865,39 @@ namespace mpl {
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes, non-root in-place variant.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result, must be
+    /// different from the rank of the calling process
+    /// \param senddata input buffer for the reduction operation
+    /// \param l memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void reduce(F f, int root_rank, const T *sendrecvdata,
-                const contiguous_layout<T> &l) const {
+    void reduce(F f, int root_rank, const T *senddata, const contiguous_layout<T> &l) const {
       check_nonroot(root_rank);
-      MPI_Reduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
+      MPI_Reduce(senddata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
     // --- non-blocking reduce, in place ---
+    /// \brief Performs a reduction operation over all processes in a non-blocking manner,
+    /// in-place variant.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param sendrecvdata input data for the reduction operation, will hold the result of the
+    /// reduction operation if rank equals root_rank
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, T &sendrecvdata) const {
       check_root(root_rank);
@@ -3803,15 +3911,42 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes in a non-blocking manner,
+    /// non-root in-place variant.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result, must be
+    /// different from the rank of the calling process
+    /// \param senddata input data for the reduction operation
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest ireduce(F f, int root_rank, const T &sendrecvdata) const {
+    irequest ireduce(F f, int root_rank, const T &senddata) const {
       check_nonroot(root_rank);
       MPI_Request req;
-      MPI_Ireduce(&sendrecvdata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
+      MPI_Ireduce(&senddata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes in non-blocking manner,
+    /// in-place variant.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result
+    /// \param sendrecvdata input buffer for the reduction operation, will hold the results of
+    /// the reduction operation if rank equals root_rank
+    /// \param l memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, T *sendrecvdata, const contiguous_layout<T> &l) const {
       check_root(root_rank);
@@ -3826,12 +3961,26 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes in a non-blocking manner,
+    /// non-root in-place variant.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param root_rank rank of the process that will receive the reduction result, must be
+    /// different from the rank of the calling process
+    /// \param senddata input buffer for the reduction operation
+    /// \param l memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest ireduce(F f, int root_rank, const T *sendrecvdata,
+    irequest ireduce(F f, int root_rank, const T *senddata,
                      const contiguous_layout<T> &l) const {
       check_nonroot(root_rank);
       MPI_Request req;
-      MPI_Ireduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
+      MPI_Ireduce(senddata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::irequest(req);
     }

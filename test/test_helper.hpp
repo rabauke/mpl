@@ -28,8 +28,8 @@ struct has_begin_end<
 
 
 struct tuple {
-  int a;
-  double b;
+  int a{0};
+  double b{0};
   tuple &operator++() {
     ++a;
     ++b;
@@ -40,6 +40,10 @@ struct tuple {
 inline bool operator==(const tuple&t1, const tuple &t2)
 {
   return t1.a== t2.a and t1.b == t2.b;
+}
+
+inline tuple operator+(const tuple &t1, const tuple &t2) {
+  return tuple{t1.a + t2.a, t1.b + t2.b};
 }
 
 MPL_REFLECTION(tuple, a, b)

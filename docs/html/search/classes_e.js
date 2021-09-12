@@ -1,7 +1,7 @@
 var searchData=
 [
   ['shift_5franks_435',['shift_ranks',['../structmpl_1_1shift__ranks.html',1,'mpl']]],
-  ['sizes_436',['sizes',['../classmpl_1_1local__grid_1_1sizes.html',1,'mpl::local_grid&lt; dim, T, A &gt;::sizes'],['../classmpl_1_1distributed__grid_1_1sizes.html',1,'mpl::distributed_grid&lt; dim, T, A &gt;::sizes'],['../classmpl_1_1cart__communicator_1_1sizes.html',1,'mpl::cart_communicator::sizes']]],
+  ['sizes_436',['sizes',['../classmpl_1_1local__grid_1_1sizes.html',1,'mpl::local_grid&lt; dim, T, A &gt;::sizes'],['../classmpl_1_1cart__communicator_1_1sizes.html',1,'mpl::cart_communicator::sizes'],['../classmpl_1_1distributed__grid_1_1sizes.html',1,'mpl::distributed_grid&lt; dim, T, A &gt;::sizes']]],
   ['source_5fset_437',['source_set',['../classmpl_1_1dist__graph__communicator_1_1source__set.html',1,'mpl::dist_graph_communicator']]],
   ['split_5fshared_5fmemory_5ftag_438',['split_shared_memory_tag',['../classmpl_1_1communicator_1_1split__shared__memory__tag.html',1,'mpl::communicator']]],
   ['split_5ftag_439',['split_tag',['../classmpl_1_1communicator_1_1split__tag.html',1,'mpl::communicator']]],
