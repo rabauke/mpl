@@ -282,10 +282,10 @@ namespace mpl {
       /// communicators are identical, i.e., communicators represent the same communication
       /// context
       identical = MPI_IDENT,
-      /// communicators are identical, i.e., communicators have same the members in same rank
-      /// order but different context
+      /// communicators are identical, i.e., communicators have the same members in same rank
+      /// order but a different context
       congruent = MPI_CONGRUENT,
-      /// communicators are similar, i.e., communicators have same tha members in different rank
+      /// communicators are similar, i.e., communicators have same the members in different rank
       /// order
       similar = MPI_SIMILAR,
       /// communicators are unequal, i.e., communicators have different sets of members
