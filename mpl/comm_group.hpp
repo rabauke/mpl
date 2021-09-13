@@ -3987,12 +3987,33 @@ namespace mpl {
 
     // === all-reduce ===
     // --- blocking all-reduce ---
+    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input data for the reduction operation
+    /// \param recvdata will hold the result of the reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void allreduce(F f, const T &senddata, T &recvdata) const {
       MPI_Allreduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input buffer for the reduction operation
+    /// \param recvdata will hold the results of the reduction operation
+    /// \param l memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void allreduce(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
       MPI_Allreduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
@@ -4000,6 +4021,18 @@ namespace mpl {
     }
 
     // --- non-blocking all-reduce ---
+    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// non-blocking manner.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input data for the reduction operation
+    /// \param recvdata will hold the result of the reduction operation
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iallreduce(F f, const T &senddata, T &recvdata) const {
       MPI_Request req;
@@ -4008,6 +4041,19 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// non-blocking manner.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input buffer for the reduction operation
+    /// \param recvdata will hold the results of the reduction operation
+    /// \param l memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iallreduce(F f, const T *senddata, T *recvdata,
                         const contiguous_layout<T> &l) const {
@@ -4018,12 +4064,33 @@ namespace mpl {
     }
 
     // --- blocking all-reduce, in place ---
+    /// \brief Performs a reduction operation over all processes and scatters the result,
+    /// in-place variant.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param sendrecvdata input data for the reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void allreduce(F f, T &sendrecvdata) const {
       MPI_Allreduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes and scatters the result,
+    /// in-place variant.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param l memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void allreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
       MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(),
@@ -4032,6 +4099,17 @@ namespace mpl {
     }
 
     // --- non-blocking all-reduce, in place ---
+    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// non-blocking manner, in-place variant.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param sendrecvdata input data for the reduction operation
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iallreduce(F f, T &sendrecvdata) const {
       MPI_Request req;
@@ -4040,6 +4118,18 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes and scatters the result in
+    /// non-blocking manner, in-place variant.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param l memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iallreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
