@@ -20,7 +20,7 @@ bool reduce_test(F f, const T &val) {
   if (comm_world.rank() == 0) {
     T y{};
     comm_world.reduce(f, 0, x, y);
-    T expected{x};
+    T expected{val};
     for (int i{1}; i < comm_world.size(); ++i) {
       ++x;
       expected = f(expected, x);
@@ -45,7 +45,7 @@ bool reduce_test_with_layout(F f, const T &val) {
   if (comm_world.rank() == 0) {
     std::vector<T> v_y(n);
     comm_world.reduce(f, 0, v_x.data(), v_y.data(), l);
-    T expected{x};
+    T expected{val};
     for (int i{1}; i < comm_world.size(); ++i) {
       ++x;
       expected = f(expected, x);
@@ -69,7 +69,7 @@ bool ireduce_test(F f, const T &val) {
     T y{};
     auto r{comm_world.ireduce(f, 0, x, y)};
     r.wait();
-    T expected{x};
+    T expected{val};
     for (int i{1}; i < comm_world.size(); ++i) {
       ++x;
       expected = f(expected, x);
@@ -96,7 +96,7 @@ bool ireduce_test_with_layout(F f, const T &val) {
     std::vector<T> v_y(n);
     auto r{comm_world.ireduce(f, 0, v_x.data(), v_y.data(), l)};
     r.wait();
-    T expected{x};
+    T expected{val};
     for (int i{1}; i < comm_world.size(); ++i) {
       ++x;
       expected = f(expected, x);
@@ -118,7 +118,7 @@ bool reduce_test_inplace(F f, const T &val) {
   for (int i{0}; i < comm_world.rank(); ++i)
     ++x;
   if (comm_world.rank() == 0) {
-    T x2{x};
+    T x2{val};
     comm_world.reduce(f, 0, x);
     T expected{x2};
     for (int i{1}; i < comm_world.size(); ++i) {
@@ -144,7 +144,7 @@ bool reduce_test_with_layout_inplace(F f, const T &val) {
   std::vector<T> v_x(n, x);
   if (comm_world.rank() == 0) {
     comm_world.reduce(f, 0, v_x.data(), l);
-    T expected{x};
+    T expected{val};
     for (int i{1}; i < comm_world.size(); ++i) {
       ++x;
       expected = f(expected, x);
@@ -166,7 +166,7 @@ bool ireduce_test_inplace(F f, const T &val) {
   for (int i{0}; i < comm_world.rank(); ++i)
     ++x;
   if (comm_world.rank() == 0) {
-    T x2{x};
+    T x2{val};
     auto r{comm_world.ireduce(f, 0, x)};
     r.wait();
     T expected{x2};
@@ -195,7 +195,7 @@ bool ireduce_test_with_layout_inplace(F f, const T &val) {
   if (comm_world.rank() == 0) {
     auto r{comm_world.ireduce(f, 0, v_x.data(), l)};
     r.wait();
-    T expected{x};
+    T expected{val};
     for (int i{1}; i < comm_world.size(); ++i) {
       ++x;
       expected = f(expected, x);
