@@ -4141,6 +4141,17 @@ namespace mpl {
 
     // === reduce-scatter-block ===
     // --- blocking reduce-scatter-block ---
+    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input data for the reduction operation, number of elements in buffer
+    /// senddata must equal the size of the communicator
+    /// \param recvdata will hold the result of the reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce_scatter_block(F f, const T *senddata, T &recvdata) const {
       MPI_Reduce_scatter_block(senddata, &recvdata, 1,
@@ -4148,15 +4159,41 @@ namespace mpl {
                                detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
+    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input buffer for the reduction operation, number of elements in buffer
+    /// senddata must equal the size of the communicator
+    /// \param recvdata will hold the results of the reduction operation
+    /// \param recvcount memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce_scatter_block(F f, const T *senddata, T *recvdata,
-                              const contiguous_layout<T> &l) const {
-      MPI_Reduce_scatter_block(senddata, recvdata, l.size(),
+                              const contiguous_layout<T> &recvcount) const {
+      MPI_Reduce_scatter_block(senddata, recvdata, recvcount.size(),
                                detail::datatype_traits<T>::get_datatype(),
                                detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
     // --- non-blocking reduce-scatter-block ---
+    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// non-blocking manner.
+    /// \tparam F type representing the reduction operation, reduction operation is performed
+    /// on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input data for the reduction operation, number of elements in buffer
+    /// senddata must equal the size of the communicator times the number of elements given by
+    /// the layout parameter
+    /// \param recvdata will hold the result of the reduction operation
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce_scatter_block(F f, const T *senddata, T &recvdata) const {
       MPI_Request req;
@@ -4166,11 +4203,26 @@ namespace mpl {
       return impl::irequest(req);
     }
 
+    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// non-blocking manner.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input buffer for the reduction operation, number of elements in buffer
+    /// senddata must equal the size of the communicator times the number of elements given by
+    /// the layout parameter
+    /// \param recvdata will hold the results of the reduction operation
+    /// \param recvcount memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce_scatter_block(F f, const T *senddata, T *recvdata,
-                                   const contiguous_layout<T> &l) const {
+                                   const contiguous_layout<T> &recvcount) const {
       MPI_Request req;
-      MPI_Ireduce_scatter_block(senddata, recvdata, l.size(),
+      MPI_Ireduce_scatter_block(senddata, recvdata, recvcount.size(),
                                 detail::datatype_traits<T>::get_datatype(),
                                 detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);

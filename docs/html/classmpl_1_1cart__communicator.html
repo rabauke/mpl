@@ -752,16 +752,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa50f2d3ad4ca9b8e917997c0aa211edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa54ca14af8a1defc3d3a290d8cf121ca"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:aa54ca14af8a1defc3d3a290d8cf121ca"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#aa54ca14af8a1defc3d3a290d8cf121ca">reduce_scatter_block</a> (F f, const T *senddata, T &amp;recvdata) const</td></tr>
+<tr class="memdesc:aa54ca14af8a1defc3d3a290d8cf121ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a reduction operation over all processes and scatters the result.  <a href="classmpl_1_1communicator.html#aa54ca14af8a1defc3d3a290d8cf121ca">More...</a><br /></td></tr>
 <tr class="separator:aa54ca14af8a1defc3d3a290d8cf121ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4064d8fd960c9df8f4a223b2ced58857"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
-<tr class="memitem:a4064d8fd960c9df8f4a223b2ced58857"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a4064d8fd960c9df8f4a223b2ced58857">reduce_scatter_block</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
-<tr class="separator:a4064d8fd960c9df8f4a223b2ced58857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4407a90c2f598867b36e8e557b72ec0"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:aa4407a90c2f598867b36e8e557b72ec0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#aa4407a90c2f598867b36e8e557b72ec0">reduce_scatter_block</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;recvcount) const</td></tr>
+<tr class="memdesc:aa4407a90c2f598867b36e8e557b72ec0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a reduction operation over all processes and scatters the result.  <a href="classmpl_1_1communicator.html#aa4407a90c2f598867b36e8e557b72ec0">More...</a><br /></td></tr>
+<tr class="separator:aa4407a90c2f598867b36e8e557b72ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6e7de007099b7dc579f638a39d56911"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:ae6e7de007099b7dc579f638a39d56911"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae6e7de007099b7dc579f638a39d56911">ireduce_scatter_block</a> (F f, const T *senddata, T &amp;recvdata) const</td></tr>
+<tr class="memdesc:ae6e7de007099b7dc579f638a39d56911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a reduction operation over all processes and scatters the result in a non-blocking manner.  <a href="classmpl_1_1communicator.html#ae6e7de007099b7dc579f638a39d56911">More...</a><br /></td></tr>
 <tr class="separator:ae6e7de007099b7dc579f638a39d56911"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbf584fa7d30cafbb1726010456f0210"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
-<tr class="memitem:afbf584fa7d30cafbb1726010456f0210"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#afbf584fa7d30cafbb1726010456f0210">ireduce_scatter_block</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
-<tr class="separator:afbf584fa7d30cafbb1726010456f0210"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a19912b0013f991bbebf2ef46fcb93c70"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:a19912b0013f991bbebf2ef46fcb93c70"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a19912b0013f991bbebf2ef46fcb93c70">ireduce_scatter_block</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;recvcount) const</td></tr>
+<tr class="memdesc:a19912b0013f991bbebf2ef46fcb93c70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a reduction operation over all processes and scatters the result in a non-blocking manner.  <a href="classmpl_1_1communicator.html#a19912b0013f991bbebf2ef46fcb93c70">More...</a><br /></td></tr>
+<tr class="separator:a19912b0013f991bbebf2ef46fcb93c70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a636784ef8a1e076a303e3e6279de1e7d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:a636784ef8a1e076a303e3e6279de1e7d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a636784ef8a1e076a303e3e6279de1e7d">reduce_scatter</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layouts.html">contiguous_layouts</a>&lt; T &gt; &amp;recvcounts) const</td></tr>
 <tr class="separator:a636784ef8a1e076a303e3e6279de1e7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -2968,7 +2972,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04264">4264</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04316">4316</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3020,7 +3024,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04270">4270</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04322">4322</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3060,7 +3064,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04294">4294</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04346">4346</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3106,7 +3110,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04300">4300</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04352">4352</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5039,7 +5043,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04277">4277</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04329">4329</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5091,7 +5095,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04285">4285</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04337">4337</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5131,7 +5135,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04307">4307</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04359">4359</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5177,7 +5181,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04315">4315</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04367">4367</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6621,7 +6625,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04191">4191</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04243">4243</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6667,12 +6671,31 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04161">4161</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a reduction operation over all processes and scatters the result in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input data for the reduction operation, number of elements in buffer senddata must equal the size of the communicator times the number of elements given by the layout parameter </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the result of the reduction operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04198">4198</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afbf584fa7d30cafbb1726010456f0210"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbf584fa7d30cafbb1726010456f0210">&#9670;&nbsp;</a></span>ireduce_scatter_block() <span class="overload">[2/2]</span></h2>
+<a id="a19912b0013f991bbebf2ef46fcb93c70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19912b0013f991bbebf2ef46fcb93c70">&#9670;&nbsp;</a></span>ireduce_scatter_block() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -6704,7 +6727,7 @@ template&lt;typename T , typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>l</em>&#160;</td>
+          <td class="paramname"><em>recvcount</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -6719,7 +6742,27 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04170">4170</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a reduction operation over all processes and scatters the result in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input buffer for the reduction operation, number of elements in buffer senddata must equal the size of the communicator times the number of elements given by the layout parameter </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the results of the reduction operation </td></tr>
+    <tr><td class="paramname">recvcount</td><td>memory layouts of the data to send and to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04222">4222</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7030,7 +7073,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04216">4216</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04268">4268</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7082,7 +7125,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04224">4224</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04276">4276</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7122,7 +7165,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04246">4246</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04298">4298</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7168,7 +7211,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04254">4254</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04306">4306</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9416,7 +9459,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04182">4182</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04234">4234</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9462,12 +9505,30 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04145">4145</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a reduction operation over all processes and scatters the result. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input data for the reduction operation, number of elements in buffer senddata must equal the size of the communicator </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the result of the reduction operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04156">4156</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4064d8fd960c9df8f4a223b2ced58857"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4064d8fd960c9df8f4a223b2ced58857">&#9670;&nbsp;</a></span>reduce_scatter_block() <span class="overload">[2/2]</span></h2>
+<a id="aa4407a90c2f598867b36e8e557b72ec0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4407a90c2f598867b36e8e557b72ec0">&#9670;&nbsp;</a></span>reduce_scatter_block() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9499,7 +9560,7 @@ template&lt;typename T , typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>l</em>&#160;</td>
+          <td class="paramname"><em>recvcount</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -9514,7 +9575,26 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04152">4152</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a reduction operation over all processes and scatters the result. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input buffer for the reduction operation, number of elements in buffer senddata must equal the size of the communicator </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the results of the reduction operation </td></tr>
+    <tr><td class="paramname">recvcount</td><td>memory layouts of the data to send and to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04175">4175</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9967,7 +10047,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04203">4203</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04255">4255</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10019,7 +10099,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04209">4209</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04261">4261</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10059,7 +10139,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04233">4233</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04285">4285</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10105,7 +10185,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04239">4239</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04291">4291</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
