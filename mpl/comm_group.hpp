@@ -3987,7 +3987,7 @@ namespace mpl {
 
     // === all-reduce ===
     // --- blocking all-reduce ---
-    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \brief Performs a reduction operation over all processes and broadcasts the result.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -4003,7 +4003,7 @@ namespace mpl {
                     detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
-    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \brief Performs a reduction operation over all processes and broadcasts the result.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -4021,7 +4021,7 @@ namespace mpl {
     }
 
     // --- non-blocking all-reduce ---
-    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// \brief Performs a reduction operation over all processes and broadcasts the result in a
     /// non-blocking manner.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4041,7 +4041,7 @@ namespace mpl {
       return impl::irequest(req);
     }
 
-    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// \brief Performs a reduction operation over all processes and broadcasts the result in a
     /// non-blocking manner.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4064,7 +4064,7 @@ namespace mpl {
     }
 
     // --- blocking all-reduce, in place ---
-    /// \brief Performs a reduction operation over all processes and scatters the result,
+    /// \brief Performs a reduction operation over all processes and broadcasts the result,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4080,7 +4080,7 @@ namespace mpl {
                     detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
-    /// \brief Performs a reduction operation over all processes and scatters the result,
+    /// \brief Performs a reduction operation over all processes and broadcasts the result,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4099,7 +4099,7 @@ namespace mpl {
     }
 
     // --- non-blocking all-reduce, in place ---
-    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// \brief Performs a reduction operation over all processes and broadcasts the result in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4118,7 +4118,7 @@ namespace mpl {
       return impl::irequest(req);
     }
 
-    /// \brief Performs a reduction operation over all processes and scatters the result in
+    /// \brief Performs a reduction operation over all processes and broadcasts the result in
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
