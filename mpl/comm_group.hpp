@@ -4165,8 +4165,9 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param senddata input buffer for the reduction operation, number of elements in buffer
-    /// senddata must equal the size of the communicator
+    /// \param senddata input data for the reduction operation, number of elements in buffer
+    /// senddata must equal the size of the communicator times the number of elements given by
+    /// the layout parameter
     /// \param recvdata will hold the results of the reduction operation
     /// \param recvcount memory layouts of the data to send and to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -4187,9 +4188,8 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param senddata input data for the reduction operation, number of elements in buffer
-    /// senddata must equal the size of the communicator times the number of elements given by
-    /// the layout parameter
+    /// \param senddata input buffer for the reduction operation, number of elements in buffer
+    /// senddata must equal the size of the communicator
     /// \param recvdata will hold the result of the reduction operation
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
