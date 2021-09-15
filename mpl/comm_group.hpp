@@ -4230,6 +4230,19 @@ namespace mpl {
 
     // === reduce-scatter ===
     // --- blocking reduce-scatter ---
+    /// \brief Performs a reduction operation over all processes and scatters the result.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input data for the reduction operation, number of elements in buffer
+    /// senddata must equal the sum of the number of elements given by the collection of layout
+    /// parameters
+    /// \param recvdata will hold the results of the reduction operation
+    /// \param recvcounts memory layouts of the data to send and to receive
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce_scatter(F f, const T *senddata, T *recvdata,
                         const contiguous_layouts<T> &recvcounts) const {
@@ -4239,6 +4252,21 @@ namespace mpl {
     }
 
     // --- non-blocking reduce-scatter ---
+    /// \brief Performs a reduction operation over all processes and scatters the result in a
+    /// non-blocking manner.
+    /// \tparam F type representing the element-wise reduction operation, reduction operation is
+    /// performed on data of type T
+    /// \tparam T type of input and output data of the reduction operation, must meet the
+    /// requirements as described in the \ref data_types "data types" section
+    /// \param f reduction operation
+    /// \param senddata input data for the reduction operation, number of elements in buffer
+    /// senddata must equal the sum of the number of elements given by the collection of layout
+    /// parameters
+    /// \param recvdata will hold the results of the reduction operation
+    /// \param recvcounts memory layouts of the data to send and to receive
+    /// \return request representing the ongoing reduction operation
+    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce_scatter(F f, const T *senddata, T *recvdata,
                              contiguous_layouts<T> &recvcounts) const {
