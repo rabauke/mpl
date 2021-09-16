@@ -813,32 +813,40 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3f51295cbdebc4da6dd7ceebef8c0416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac514a6fe8a481f7120bc1d105c09ee96"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:ac514a6fe8a481f7120bc1d105c09ee96"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ac514a6fe8a481f7120bc1d105c09ee96">iscan</a> (F f, T *sendrecvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
-<tr class="memdesc:ac514a6fe8a481f7120bc1d105c09ee96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation over all processes in a non-blocking manner, in-place variant.  <a href="classmpl_1_1communicator.html#ac514a6fe8a481f7120bc1d105c09ee96">More...</a><br /></td></tr>
+<tr class="memdesc:ac514a6fe8a481f7120bc1d105c09ee96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction (scan) operation over all processes in a non-blocking manner, in-place variant.  <a href="classmpl_1_1communicator.html#ac514a6fe8a481f7120bc1d105c09ee96">More...</a><br /></td></tr>
 <tr class="separator:ac514a6fe8a481f7120bc1d105c09ee96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb0ada85d9fbc0a7f7355be5cf53262d"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:adb0ada85d9fbc0a7f7355be5cf53262d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#adb0ada85d9fbc0a7f7355be5cf53262d">exscan</a> (F f, const T &amp;senddata, T &amp;recvdata) const</td></tr>
+<tr class="memdesc:adb0ada85d9fbc0a7f7355be5cf53262d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs partial reduction operation (exclusive scan) over all processes.  <a href="classmpl_1_1communicator.html#adb0ada85d9fbc0a7f7355be5cf53262d">More...</a><br /></td></tr>
 <tr class="separator:adb0ada85d9fbc0a7f7355be5cf53262d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a832be63c2e97542cc35c4ced9e5ba3b9"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:a832be63c2e97542cc35c4ced9e5ba3b9"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a832be63c2e97542cc35c4ced9e5ba3b9">exscan</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
+<tr class="memdesc:a832be63c2e97542cc35c4ced9e5ba3b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes.  <a href="classmpl_1_1communicator.html#a832be63c2e97542cc35c4ced9e5ba3b9">More...</a><br /></td></tr>
 <tr class="separator:a832be63c2e97542cc35c4ced9e5ba3b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eddabba5f98c99db189844854690d13"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:a7eddabba5f98c99db189844854690d13"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a7eddabba5f98c99db189844854690d13">iexscan</a> (F f, const T &amp;senddata, T &amp;recvdata) const</td></tr>
+<tr class="memdesc:a7eddabba5f98c99db189844854690d13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner.  <a href="classmpl_1_1communicator.html#a7eddabba5f98c99db189844854690d13">More...</a><br /></td></tr>
 <tr class="separator:a7eddabba5f98c99db189844854690d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bf177485606687353cd50bc5a3b3c59"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
 <tr class="memitem:a1bf177485606687353cd50bc5a3b3c59"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a1bf177485606687353cd50bc5a3b3c59">iexscan</a> (F f, const T *senddata, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
+<tr class="memdesc:a1bf177485606687353cd50bc5a3b3c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner.  <a href="classmpl_1_1communicator.html#a1bf177485606687353cd50bc5a3b3c59">More...</a><br /></td></tr>
 <tr class="separator:a1bf177485606687353cd50bc5a3b3c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a451dc480fa9b2d1e562442f7affe719f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
-<tr class="memitem:a451dc480fa9b2d1e562442f7affe719f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a451dc480fa9b2d1e562442f7affe719f">exscan</a> (F f, T &amp;recvdata) const</td></tr>
-<tr class="separator:a451dc480fa9b2d1e562442f7affe719f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad71d3c1ac7358869b40ffff08ae6dce7"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
-<tr class="memitem:ad71d3c1ac7358869b40ffff08ae6dce7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ad71d3c1ac7358869b40ffff08ae6dce7">exscan</a> (F f, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
-<tr class="separator:ad71d3c1ac7358869b40ffff08ae6dce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a368f985466e2c9c2d3211d13423b3a3b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
-<tr class="memitem:a368f985466e2c9c2d3211d13423b3a3b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a368f985466e2c9c2d3211d13423b3a3b">iexscan</a> (F f, T &amp;recvdata) const</td></tr>
-<tr class="separator:a368f985466e2c9c2d3211d13423b3a3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfe387f8694efd0cd7a293d1d4830abd"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
-<tr class="memitem:acfe387f8694efd0cd7a293d1d4830abd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#acfe387f8694efd0cd7a293d1d4830abd">iexscan</a> (F f, T *recvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
-<tr class="separator:acfe387f8694efd0cd7a293d1d4830abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad67313aace6a05f58081939eb1d2a4b8"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:ad67313aace6a05f58081939eb1d2a4b8"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ad67313aace6a05f58081939eb1d2a4b8">exscan</a> (F f, T &amp;sendrecvdata) const</td></tr>
+<tr class="memdesc:ad67313aace6a05f58081939eb1d2a4b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes, in-place variant.  <a href="classmpl_1_1communicator.html#ad67313aace6a05f58081939eb1d2a4b8">More...</a><br /></td></tr>
+<tr class="separator:ad67313aace6a05f58081939eb1d2a4b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45585975b4b7cc0795a02abf6494963b"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:a45585975b4b7cc0795a02abf6494963b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a45585975b4b7cc0795a02abf6494963b">exscan</a> (F f, T *sendrecvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
+<tr class="memdesc:a45585975b4b7cc0795a02abf6494963b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes, in-place variant.  <a href="classmpl_1_1communicator.html#a45585975b4b7cc0795a02abf6494963b">More...</a><br /></td></tr>
+<tr class="separator:a45585975b4b7cc0795a02abf6494963b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20766ee389c97340241ff730eae49475"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:a20766ee389c97340241ff730eae49475"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a20766ee389c97340241ff730eae49475">iexscan</a> (F f, T &amp;sendrecvdata) const</td></tr>
+<tr class="memdesc:a20766ee389c97340241ff730eae49475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner, in-place variant.  <a href="classmpl_1_1communicator.html#a20766ee389c97340241ff730eae49475">More...</a><br /></td></tr>
+<tr class="separator:a20766ee389c97340241ff730eae49475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e43e08af5e8481049731092274aca76"><td class="memTemplParams" colspan="2">template&lt;typename T , typename F &gt; </td></tr>
+<tr class="memitem:a8e43e08af5e8481049731092274aca76"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a8e43e08af5e8481049731092274aca76">iexscan</a> (F f, T *sendrecvdata, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
+<tr class="memdesc:a8e43e08af5e8481049731092274aca76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner, in-place variant.  <a href="classmpl_1_1communicator.html#a8e43e08af5e8481049731092274aca76">More...</a><br /></td></tr>
+<tr class="separator:a8e43e08af5e8481049731092274aca76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -3107,7 +3115,25 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04434">4434</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs partial reduction operation (exclusive scan) over all processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input data for the reduction operation </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the result of the reduction operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04445">4445</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3159,12 +3185,31 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04440">4440</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input buffer for the reduction operation </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the results of the reduction operation </td></tr>
+    <tr><td class="paramname">l</td><td>memory layouts of the data to send and to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04462">4462</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a451dc480fa9b2d1e562442f7affe719f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a451dc480fa9b2d1e562442f7affe719f">&#9670;&nbsp;</a></span>exscan() <span class="overload">[3/4]</span></h2>
+<a id="ad67313aace6a05f58081939eb1d2a4b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad67313aace6a05f58081939eb1d2a4b8">&#9670;&nbsp;</a></span>exscan() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3184,7 +3229,7 @@ template&lt;typename T , typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>recvdata</em>&#160;</td>
+          <td class="paramname"><em>sendrecvdata</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -3199,12 +3244,29 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04464">4464</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes, in-place variant. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">sendrecvdata</td><td>input data for the reduction operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04521">4521</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad71d3c1ac7358869b40ffff08ae6dce7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad71d3c1ac7358869b40ffff08ae6dce7">&#9670;&nbsp;</a></span>exscan() <span class="overload">[4/4]</span></h2>
+<a id="a45585975b4b7cc0795a02abf6494963b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45585975b4b7cc0795a02abf6494963b">&#9670;&nbsp;</a></span>exscan() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3224,7 +3286,7 @@ template&lt;typename T , typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>recvdata</em>, </td>
+          <td class="paramname"><em>sendrecvdata</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -3245,7 +3307,25 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04470">4470</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes, in-place variant. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">sendrecvdata</td><td>input buffer for the reduction operation </td></tr>
+    <tr><td class="paramname">l</td><td>memory layouts of the data to send and to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04538">4538</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5178,7 +5258,26 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04447">4447</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input data for the reduction operation </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the result of the reduction operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04481">4481</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5230,12 +5329,32 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04455">4455</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">senddata</td><td>input buffer for the reduction operation </td></tr>
+    <tr><td class="paramname">recvdata</td><td>will hold the results of the reduction operation </td></tr>
+    <tr><td class="paramname">l</td><td>memory layouts of the data to send and to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04502">4502</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a368f985466e2c9c2d3211d13423b3a3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a368f985466e2c9c2d3211d13423b3a3b">&#9670;&nbsp;</a></span>iexscan() <span class="overload">[3/4]</span></h2>
+<a id="a20766ee389c97340241ff730eae49475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20766ee389c97340241ff730eae49475">&#9670;&nbsp;</a></span>iexscan() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5255,7 +5374,7 @@ template&lt;typename T , typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">T &amp;&#160;</td>
-          <td class="paramname"><em>recvdata</em>&#160;</td>
+          <td class="paramname"><em>sendrecvdata</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -5270,12 +5389,30 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04477">4477</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner, in-place variant. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">sendrecvdata</td><td>input data for the reduction operation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04557">4557</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
-<a id="acfe387f8694efd0cd7a293d1d4830abd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfe387f8694efd0cd7a293d1d4830abd">&#9670;&nbsp;</a></span>iexscan() <span class="overload">[4/4]</span></h2>
+<a id="a8e43e08af5e8481049731092274aca76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e43e08af5e8481049731092274aca76">&#9670;&nbsp;</a></span>iexscan() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5295,7 +5432,7 @@ template&lt;typename T , typename F &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">T *&#160;</td>
-          <td class="paramname"><em>recvdata</em>, </td>
+          <td class="paramname"><em>sendrecvdata</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -5316,7 +5453,26 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04485">4485</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p>Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner, in-place variant. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
+    <tr><td class="paramname">T</td><td>type of input and output data of the reduction operation, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>reduction operation </td></tr>
+    <tr><td class="paramname">sendrecvdata</td><td>input buffer for the reduction operation </td></tr>
+    <tr><td class="paramname">l</td><td>memory layouts of the data to send and to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04577">4577</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7396,7 +7552,7 @@ template&lt;typename T , typename F &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Performs a partial reduction operation over all processes in a non-blocking manner, in-place variant. </p>
+<p>Performs a partial reduction (scan) operation over all processes in a non-blocking manner, in-place variant. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">F</td><td>type representing the element-wise reduction operation, reduction operation is performed on data of type T </td></tr>
