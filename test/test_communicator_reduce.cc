@@ -4,13 +4,6 @@
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
-template<typename T>
-class add {
-public:
-  T operator()(const T &a, const T &b) const { return a + b; }
-};
-
-
 template<typename F, typename T>
 bool reduce_test(F f, const T &val) {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

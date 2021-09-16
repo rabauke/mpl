@@ -48,4 +48,11 @@ inline tuple operator+(const tuple &t1, const tuple &t2) {
 
 MPL_REFLECTION(tuple, a, b)
 
+
+template<typename T>
+class add {
+public:
+  T operator()(const T &a, const T &b) const { return a + b; }
+};
+
 #endif  // MPL_TEST_HELPER_HPP
