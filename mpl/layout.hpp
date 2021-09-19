@@ -887,7 +887,7 @@ namespace mpl {
       /// displacements
       parameter(std::initializer_list<std::tuple<int, ssize_t>> list) {
         using std::get;
-        for (const std::tuple<int, size_t> &i : list)
+        for (const std::tuple<int, ssize_t> &i : list)
           add(get<0>(i), get<1>(i));
       }
 
