@@ -1,4 +1,4 @@
 <map id="mpl::struct_builder&lt; std::array&lt; T, N &gt; &gt;" name="mpl::struct_builder&lt; std::array&lt; T, N &gt; &gt;">
-<area shape="rect" id="node1" title="Specialization of struct_builder for fixed&#45;size one&#45;dimensional STL arrays." alt="" coords="15,156,258,259"/>
-<area shape="rect" id="node2" href="$classmpl_1_1base__struct__builder.html" title=" " alt="" coords="5,5,268,108"/>
+<area shape="rect" id="node1" title="Specialization of struct_builder for fixed&#45;size one&#45;dimensional STL arrays." alt="" coords="15,173,258,276"/>
+<area shape="rect" id="node2" href="$classmpl_1_1base__struct__builder.html" title=" " alt="" coords="5,5,268,125"/>
 </map>

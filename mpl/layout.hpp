@@ -1517,31 +1517,36 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
+  /// \brief Helper class for \ref heterogeneous_layout and \ref make_absolute.
+  /// \tparam T data type
   template<typename T>
   class absolute_data;
 
-  /// \brief helper class for \ref heterogeneous_layout and \ref make_absolute
-  /// \brief T data type
+  /// \brief Helper class for \ref heterogeneous_layout and \ref make_absolute.
+  /// \tparam T data type
   template<typename T>
   class absolute_data<T *> {
-    T *address{nullptr};
-    MPI_Datatype datatype;
+    T *address_{nullptr};
+    MPI_Datatype datatype_;
 
     explicit absolute_data(T *address, MPI_Datatype datatype)
-        : address{address}, datatype{datatype} {}
+        : address_{address}, datatype_{datatype} {}
 
     friend class heterogeneous_layout;
 
     friend absolute_data<T *> make_absolute<>(T *, const layout<T> &);
   };
 
+
+  /// \brief Helper class for \ref heterogeneous_layout and \ref make_absolute.
+  /// \tparam T data type
   template<typename T>
   class absolute_data<const T *> {
-    const T *address{nullptr};
-    MPI_Datatype datatype;
+    const T *address_{nullptr};
+    MPI_Datatype datatype_;
 
     explicit absolute_data(const T *address, MPI_Datatype datatype)
-        : address{address}, datatype{datatype} {}
+        : address_{address}, datatype_{datatype} {}
 
     friend class heterogeneous_layout;
 
@@ -1559,9 +1564,9 @@ namespace mpl {
   public:
     /// \brief Class representing the parameters to characterize a heterogeneous layout.
     class parameter {
-      std::vector<int> blocklengths;
-      std::vector<MPI_Aint> displacements;
-      std::vector<MPI_Datatype> types;
+      std::vector<int> block_lengths_;
+      std::vector<MPI_Aint> displacements_;
+      std::vector<MPI_Datatype> types_;
 
       void add() const {}
 
@@ -1584,9 +1589,9 @@ namespace mpl {
       /// \param xs further data elements (parameter pack)
       template<typename T, typename... Ts>
       void add(const T &x, const Ts &...xs) {
-        blocklengths.push_back(1);
-        displacements.push_back(reinterpret_cast<MPI_Aint>(&x));
-        types.push_back(detail::datatype_traits<T>::get_datatype());
+        block_lengths_.push_back(1);
+        displacements_.push_back(reinterpret_cast<MPI_Aint>(&x));
+        types_.push_back(detail::datatype_traits<T>::get_datatype());
         add(xs...);
       }
 
@@ -1598,9 +1603,9 @@ namespace mpl {
       /// \param xs further data elements (parameter pack)
       template<typename T, typename... Ts>
       void add(const absolute_data<T *> &x, const Ts &...xs) {
-        blocklengths.push_back(1);
-        displacements.push_back(reinterpret_cast<MPI_Aint>(x.address));
-        types.push_back(x.datatype);
+        block_lengths_.push_back(1);
+        displacements_.push_back(reinterpret_cast<MPI_Aint>(x.address_));
+        types_.push_back(x.datatype_);
         add(xs...);
       }
 
@@ -1609,15 +1614,16 @@ namespace mpl {
 
   private:
     static MPI_Datatype build() {
-      MPI_Datatype new_type;
+      MPI_Datatype new_type{};
       MPI_Type_contiguous(0, detail::datatype_traits<char>::get_datatype(), &new_type);
       return new_type;
     }
 
     static MPI_Datatype build(const parameter &par) {
-      MPI_Datatype new_type;
-      MPI_Type_create_struct(static_cast<int>(par.blocklengths.size()), par.blocklengths.data(),
-                             par.displacements.data(), par.types.data(), &new_type);
+      MPI_Datatype new_type{};
+      MPI_Type_create_struct(static_cast<int>(par.block_lengths_.size()),
+                             par.block_lengths_.data(), par.displacements_.data(),
+                             par.types_.data(), &new_type);
       return new_type;
     }
 
@@ -1640,19 +1646,16 @@ namespace mpl {
 
     /// \brief copy constructor
     /// \param l layout to copy from
-    heterogeneous_layout(const heterogeneous_layout &l) : layout<void>(l) {}
+    heterogeneous_layout(const heterogeneous_layout &l) = default;
 
     /// \brief move constructor
     /// \param l layout to move from
-    heterogeneous_layout(heterogeneous_layout &&l) noexcept: layout<void>(std::move(l)) {}
+    heterogeneous_layout(heterogeneous_layout &&l) noexcept : layout<void>(std::move(l)) {}
 
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    heterogeneous_layout &operator=(const heterogeneous_layout &l) {
-      layout<void>::operator=(l);
-      return *this;
-    }
+    heterogeneous_layout &operator=(const heterogeneous_layout &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
