@@ -118,17 +118,17 @@ namespace mpl {
       return detail::datatype_traits<T>().get_datatype();
     }
 
-    MPI_Aint base;
-    std::vector<int> blocklengths;
-    std::vector<MPI_Aint> displacements;
-    std::vector<MPI_Datatype> datatypes;
+    MPI_Aint base_{};
+    std::vector<int> block_lengths_;
+    std::vector<MPI_Aint> displacements_;
+    std::vector<MPI_Datatype> data_types_;
 
   public:
     /// \brief starts to register a struct type
     /// \param x an instance of type S (the template parameter of class \ref struct_layout
     /// \return reference to this struct_layout object (allows chaining)
     struct_layout &register_struct(const S &x) {
-      MPI_Get_address(const_cast<S *>(&x), &base);
+      MPI_Get_address(const_cast<S *>(&x), &base_);
       return *this;
     }
 
@@ -140,11 +140,11 @@ namespace mpl {
     struct_layout &register_element(T &x) {
       static_assert(not std::is_const<T>::value, "type must not be const");
       static_assert(not std::is_pointer<T>::value, "type must not be pointer");
-      blocklengths.push_back(size(x));
+      block_lengths_.push_back(size(x));
       MPI_Aint address;
       MPI_Get_address(&x, &address);
-      displacements.push_back(address - base);
-      datatypes.push_back(get_datatype(x));
+      displacements_.push_back(address - base_);
+      data_types_.push_back(get_datatype(x));
       return *this;
     }
 
@@ -160,26 +160,27 @@ namespace mpl {
   template<typename T>
   class base_struct_builder {
   private:
-    MPI_Datatype type;
+    MPI_Datatype type_;
 
   protected:
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
-      MPI_Type_create_struct(str.blocklengths.size(), str.blocklengths.data(),
-                             str.displacements.data(), str.datatypes.data(), &temp_type);
+      MPI_Type_create_struct(str.block_lengths_.size(), str.block_lengths_.data(),
+                             str.displacements_.data(), str.data_types_.data(), &temp_type);
       MPI_Type_commit(&temp_type);
-      MPI_Type_create_resized(temp_type, 0, sizeof(T), &type);
-      MPI_Type_commit(&type);
+      MPI_Type_create_resized(temp_type, 0, sizeof(T), &type_);
+      MPI_Type_commit(&type_);
       MPI_Type_free(&temp_type);
     }
 
     base_struct_builder() = default;
 
+  public:
     base_struct_builder(const base_struct_builder &) = delete;
-
     void operator=(const base_struct_builder &) = delete;
 
-    ~base_struct_builder() { MPI_Type_free(&type); }
+  protected:
+    ~base_struct_builder() { MPI_Type_free(&type_); }
 
     using data_type_category = detail::basic_or_fixed_size_type;
 
@@ -210,15 +211,15 @@ namespace mpl {
   template<typename T1, typename T2>
   class struct_builder<std::pair<T1, T2>> : public base_struct_builder<std::pair<T1, T2>> {
     using base = base_struct_builder<std::pair<T1, T2>>;
-    struct_layout<std::pair<T1, T2>> layout;
+    struct_layout<std::pair<T1, T2>> layout_;
 
   public:
     struct_builder() {
       std::pair<T1, T2> pair;
-      layout.register_struct(pair);
-      layout.register_element(pair.first);
-      layout.register_element(pair.second);
-      base::define_struct(layout);
+      layout_.register_struct(pair);
+      layout_.register_element(pair.first);
+      layout_.register_element(pair.second);
+      base::define_struct(layout_);
     }
   };
 
@@ -228,26 +229,26 @@ namespace mpl {
 
     template<typename F, typename T, std::size_t n>
     class apply_n {
-      F &f;
+      F &f_;
 
     public:
-      explicit apply_n(F &f) : f(f) {}
+      explicit apply_n(F &f) : f_{f} {}
 
       void operator()(T &x) const {
-        apply_n<F, T, n - 1> next(f);
+        apply_n<F, T, n - 1> next(f_);
         next(x);
-        f(std::get<n - 1>(x));
+        f_(std::get<n - 1>(x));
       }
     };
 
     template<typename F, typename T>
-    struct apply_n<F, T, 1> {
-      F &f;
+    class apply_n<F, T, 1> {
+      F &f_;
 
     public:
-      explicit apply_n(F &f) : f(f) {}
+      explicit apply_n(F &f) : f_{f} {}
 
-      void operator()(T &x) const { f(std::get<0>(x)); }
+      void operator()(T &x) const { f_(std::get<0>(x)); }
     };
 
     template<typename F, typename... Args>
@@ -258,14 +259,14 @@ namespace mpl {
 
     template<typename... Ts>
     class register_element {
-      struct_layout<std::tuple<Ts...>> &layout;
+      struct_layout<std::tuple<Ts...>> &layout_;
 
     public:
-      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout(layout) {}
+      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout_{layout} {}
 
       template<typename T>
       void operator()(T &x) const {
-        layout.register_element(x);
+        layout_.register_element(x);
       }
     };
 
@@ -277,16 +278,16 @@ namespace mpl {
   template<typename... Ts>
   class struct_builder<std::tuple<Ts...>> : public base_struct_builder<std::tuple<Ts...>> {
     using base = base_struct_builder<std::tuple<Ts...>>;
-    struct_layout<std::tuple<Ts...>> layout;
+    struct_layout<std::tuple<Ts...>> layout_;
 
   public:
     struct_builder() {
       std::tuple<Ts...> tuple;
-      layout.register_struct(tuple);
-      base::define_struct(layout);
-      detail::register_element<Ts...> reg(layout);
+      layout_.register_struct(tuple);
+      base::define_struct(layout_);
+      detail::register_element<Ts...> reg(layout_);
       detail::apply<detail::register_element<Ts...>>(tuple, reg);
-      base::define_struct(layout);
+      base::define_struct(layout_);
     }
   };
 
@@ -300,14 +301,14 @@ namespace mpl {
   template<typename T, std::size_t N0>
   class struct_builder<T[N0]> : public base_struct_builder<T[N0]> {
     using base = base_struct_builder<T[N0]>;
-    struct_layout<T[N0]> layout;
+    struct_layout<T[N0]> layout_;
 
   public:
     struct_builder() {
       T array[N0];
-      layout.register_struct(array);
-      layout.register_element(array);
-      base::define_struct(layout);
+      layout_.register_struct(array);
+      layout_.register_element(array);
+      base::define_struct(layout_);
     }
   };
 
@@ -320,14 +321,14 @@ namespace mpl {
   template<typename T, std::size_t N0, std::size_t N1>
   class struct_builder<T[N0][N1]> : public base_struct_builder<T[N0][N1]> {
     using base = base_struct_builder<T[N0][N1]>;
-    struct_layout<T[N0][N1]> layout;
+    struct_layout<T[N0][N1]> layout_;
 
   public:
     struct_builder() {
       T array[N0][N1];
-      layout.register_struct(array);
-      layout.register_element(array);
-      base::define_struct(layout);
+      layout_.register_struct(array);
+      layout_.register_element(array);
+      base::define_struct(layout_);
     }
   };
 
@@ -341,14 +342,14 @@ namespace mpl {
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
   class struct_builder<T[N0][N1][N2]> : public base_struct_builder<T[N0][N1][N2]> {
     using base = base_struct_builder<T[N0][N1][N2]>;
-    struct_layout<T[N0][N1][N2]> layout;
+    struct_layout<T[N0][N1][N2]> layout_;
 
   public:
     struct_builder() {
       T array[N0][N1][N2];
-      layout.register_struct(array);
-      layout.register_element(array);
-      base::define_struct(layout);
+      layout_.register_struct(array);
+      layout_.register_element(array);
+      base::define_struct(layout_);
     }
   };
 
@@ -363,14 +364,14 @@ namespace mpl {
   template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
   class struct_builder<T[N0][N1][N2][N3]> : public base_struct_builder<T[N0][N1][N2][N3]> {
     using base = base_struct_builder<T[N0][N1][N2][N3]>;
-    struct_layout<T[N0][N1][N2][N3]> layout;
+    struct_layout<T[N0][N1][N2][N3]> layout_;
 
   public:
     struct_builder() {
       T array[N0][N1][N2][N3];
-      layout.register_struct(array);
-      layout.register_element(array);
-      base::define_struct(layout);
+      layout_.register_struct(array);
+      layout_.register_element(array);
+      base::define_struct(layout_);
     }
   };
 
@@ -383,14 +384,14 @@ namespace mpl {
   template<typename T, std::size_t N>
   class struct_builder<std::array<T, N>> : public base_struct_builder<std::array<T, N>> {
     using base = base_struct_builder<std::array<T, N>>;
-    struct_layout<std::array<T, N>> layout;
+    struct_layout<std::array<T, N>> layout_;
 
   public:
     struct_builder() {
       std::array<T, N> array;
-      layout.register_struct(array);
-      layout.register_element(array);
-      base::define_struct(layout);
+      layout_.register_struct(array);
+      layout_.register_element(array);
+      base::define_struct(layout_);
     }
   };
 
@@ -403,7 +404,7 @@ namespace mpl {
     public:
       static MPI_Datatype get_datatype() {
         static struct_builder<T> builder;
-        return builder.type;
+        return builder.type_;
       }
       using data_type_category = typename struct_builder<T>::data_type_category;
     };
@@ -764,20 +765,20 @@ namespace mpl {
       MPL_FE_4, MPL_FE_3, MPL_FE_2, MPL_FE_1, MPL_FE_0)                                        \
   (x, ##__VA_ARGS__)
 
-#define MPL_REGISTER(element) layout.register_element(str.element);
+#define MPL_REGISTER(element) layout_.register_element(str.element);
 
 #define MPL_REFLECTION(STRUCT, ...)                                     \
   namespace mpl {                                                       \
     template<>                                                          \
     class struct_builder<STRUCT> : public base_struct_builder<STRUCT> { \
-      struct_layout<STRUCT> layout;                                     \
+      struct_layout<STRUCT> layout_;                                    \
                                                                         \
     public:                                                             \
       struct_builder() {                                                \
         STRUCT str;                                                     \
-        layout.register_struct(str);                                    \
+        layout_.register_struct(str);                                   \
         MPL_CALL_MACRO_X_FOR_EACH(MPL_REGISTER, __VA_ARGS__)            \
-        define_struct(layout);                                          \
+        define_struct(layout_);                                         \
       }                                                                 \
     };                                                                  \
   }
