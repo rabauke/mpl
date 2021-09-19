@@ -4574,9 +4574,9 @@ namespace mpl {
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iexscan(F f, T *recvdata, const contiguous_layout<T> &l) const {
+    irequest iexscan(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
-      MPI_Iexscan(MPI_IN_PLACE, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+      MPI_Iexscan(MPI_IN_PLACE, sendrecvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::irequest(req);
     }
