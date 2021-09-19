@@ -176,7 +176,6 @@ $(document).ready(function(){initNavTree('parallel_sort_mpi_8c-example.html','')
 <div class="line">  MPI_Alltoallv(v.data, sendcounts, sdispls, MPI_DOUBLE, v2, recvcounts, rdispls, MPI_DOUBLE,</div>
 <div class="line">                MPI_COMM_WORLD);</div>
 <div class="line">  qsort(v2, recv_pos, <span class="keyword">sizeof</span>(<span class="keywordtype">double</span>), cmp_double);</div>
-<div class="line">  free(v.data);</div>
 <div class="line">  free(block_sizes);</div>
 <div class="line">  free(local_block_sizes);</div>
 <div class="line">  free(pivot_pos);</div>
@@ -199,6 +198,7 @@ $(document).ready(function(){initNavTree('parallel_sort_mpi_8c-example.html','')
 <div class="line">  fill_random((vector){v, N});</div>
 <div class="line">  vector sorted = parallel_sort((vector){v, N});</div>
 <div class="line">  free(sorted.data);</div>
+<div class="line">  free(v);</div>
 <div class="line">  MPI_Finalize();</div>
 <div class="line">  <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
 <div class="line">}</div>

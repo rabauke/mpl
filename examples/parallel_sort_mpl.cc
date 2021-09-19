@@ -8,10 +8,13 @@
 static std::random_device rd;
 static std::mt19937_64 mt(rd());
 
-void fill_random(std::vector<double> &v) {
+double get_random() {
   std::uniform_real_distribution<double> dist(0, 1);
-  for (auto &x : v)
-    x = dist(mt);
+  return dist(mt);
+}
+
+void fill_random(std::vector<double> &v) {
+  std::generate(std::begin(v), std::end(v), get_random);
 }
 
 // parallel sort algorithm for distributed memory computers
@@ -39,7 +42,7 @@ void parallel_sort(std::vector<T> &v) {
                        mpl::vector_layout<T>(size - 1));
   std::sort(begin(pivots), end(pivots));
   local_pivots.clear();
-  for (std::size_t i = 1; i < size; ++i)
+  for (std::size_t i{1}; i < size; ++i)
     local_pivots.push_back(pivots[i * (size - 1)]);
   swap(local_pivots, pivots);
   std::vector<typename std::vector<T>::iterator> pivot_pos;
@@ -48,23 +51,23 @@ void parallel_sort(std::vector<T> &v) {
     pivot_pos.push_back(std::partition(pivot_pos.back(), end(v), [p](T x) { return x < p; }));
   pivot_pos.push_back(end(v));
   std::vector<int> local_block_sizes, block_sizes(size * size);
-  for (std::size_t i = 0; i < pivot_pos.size() - 1; ++i)
+  for (std::size_t i{0}; i < pivot_pos.size() - 1; ++i)
     local_block_sizes.push_back(
         static_cast<int>(std::distance(pivot_pos[i], pivot_pos[i + 1])));
   comm_world.allgather(local_block_sizes.data(), mpl::vector_layout<int>(size),
                        block_sizes.data(), mpl::vector_layout<int>(size));
   mpl::layouts<T> send_layouts, recv_layouts;
   int send_pos{0}, recv_pos{0};
-  for (int i = 0; i < size; ++i) {
+  for (int i{0}; i < size; ++i) {
     send_layouts.push_back(mpl::indexed_layout<T>({{block_sizes[rank * size + i], send_pos}}));
     send_pos += block_sizes[rank * size + i];
     recv_layouts.push_back(mpl::indexed_layout<T>({{block_sizes[rank + size * i], recv_pos}}));
     recv_pos += block_sizes[rank + size * i];
   }
-  std::vector<T> v2(recv_pos);
-  comm_world.alltoallv(v.data(), send_layouts, v2.data(), recv_layouts);
-  std::sort(begin(v2), end(v2));
-  swap(v, v2);
+  std::vector<T> v_2(recv_pos);
+  comm_world.alltoallv(v.data(), send_layouts, v_2.data(), recv_layouts);
+  std::sort(begin(v_2), end(v_2));
+  swap(v, v_2);
 }
 
 int main() {

@@ -100,13 +100,13 @@ $(document).ready(function(){initNavTree('reduce_lcm_8cc-example.html',''); init
 <div class="line"><span class="keyword">class </span>lcm {</div>
 <div class="line">  <span class="comment">// helper: calculate greatest common divisor</span></div>
 <div class="line">  T gcd(T a, T b) {</div>
-<div class="line">    T zero = T(), t;</div>
+<div class="line">    constexpr T zero{};</div>
 <div class="line">    <span class="keywordflow">if</span> (a &lt; zero)</div>
 <div class="line">      a = -a;</div>
 <div class="line">    <span class="keywordflow">if</span> (b &lt; zero)</div>
 <div class="line">      b = -b;</div>
 <div class="line">    <span class="keywordflow">while</span> (b &gt; zero) {</div>
-<div class="line">      t = a % b;</div>
+<div class="line">      <span class="keyword">const</span> T t{a % b};</div>
 <div class="line">      a = b;</div>
 <div class="line">      b = t;</div>
 <div class="line">    }</div>
@@ -115,8 +115,8 @@ $(document).ready(function(){initNavTree('reduce_lcm_8cc-example.html',''); init
 <div class="line"> </div>
 <div class="line"><span class="keyword">public</span>:</div>
 <div class="line">  T operator()(T a, T b) {</div>
-<div class="line">    T zero = T();</div>
-<div class="line">    T t((a / gcd(a, b)) * b);</div>
+<div class="line">    constexpr T zero{};</div>
+<div class="line">    <span class="keyword">const</span> T t{(a / gcd(a, b)) * b};</div>
 <div class="line">    <span class="keywordflow">if</span> (t &lt; zero)</div>
 <div class="line">      <span class="keywordflow">return</span> -t;</div>
 <div class="line">    <span class="keywordflow">return</span> t;</div>
@@ -124,11 +124,11 @@ $(document).ready(function(){initNavTree('reduce_lcm_8cc-example.html',''); init
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// generate data</span></div>
 <div class="line">  std::mt19937_64 g(std::time(<span class="keyword">nullptr</span>) * <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>());  <span class="comment">// random seed</span></div>
-<div class="line">  std::uniform_int_distribution uniform(1, 12);</div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n = 8;</div>
+<div class="line">  std::uniform_int_distribution uniform{1, 12};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n{8};</div>
 <div class="line">  <span class="comment">// populate vector with random data</span></div>
 <div class="line">  std::vector&lt;int&gt; v(n);</div>
 <div class="line">  std::generate(v.begin(), v.end(), [&amp;g, &amp;uniform]() { return uniform(g); });</div>
@@ -136,11 +136,11 @@ $(document).ready(function(){initNavTree('reduce_lcm_8cc-example.html',''); init
 <div class="line">  <a name="_a3"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> layout(n);</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    std::vector&lt;int&gt; result(n);</div>
-<div class="line">    <span class="comment">// calculate least common multiple</span></div>
+<div class="line">    <span class="comment">// calculate the least common multiple</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">reduce</a>(lcm&lt;int&gt;(), 0, v.data(), result.data(), layout);</div>
 <div class="line">    <span class="comment">// to check the result display data from all ranks</span></div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;Arguments:\n&quot;</span>;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r = 0; r &lt; <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>(); ++r) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r{0}; r &lt; <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>(); ++r) {</div>
 <div class="line">      <span class="keywordflow">if</span> (r &gt; 0)</div>
 <div class="line">        <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a6"></a>recv(v.data(), layout, r);</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : v)</div>
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('reduce_lcm_8cc-example.html',''); init
 <div class="line">      std::cout &lt;&lt; i &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
 <div class="line">    std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  } <span class="keywordflow">else</span> {</div>
-<div class="line">    <span class="comment">// calculate least common multiple</span></div>
+<div class="line">    <span class="comment">// calculate the least common multiple</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">reduce</a>(lcm&lt;int&gt;(), 0, v.data(), layout);</div>
 <div class="line">    <span class="comment">// send data to rank 0 for display</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>send(v.data(), layout, 0);</div>

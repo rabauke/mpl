@@ -6,17 +6,17 @@
 #include <mpl/mpl.hpp>
 
 template<typename I>
-void print_range(const char *const str, I i1, I i2) {
+void print_range(const char *const str, I i_1, I i_2) {
   std::cout << str;
-  while (i1 != i2) {
-    std::cout << (*i1);
-    ++i1;
-    std::cout << ((i1 != i2) ? ' ' : '\n');
+  while (i_1 != i_2) {
+    std::cout << (*i_1);
+    ++i_1;
+    std::cout << ((i_1 != i_2) ? ' ' : '\n');
   }
 }
 
 int main() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // run the program with two or more processes
   if (comm_world.size() < 2)
     return EXIT_FAILURE;
@@ -145,16 +145,16 @@ int main() {
   // test layout for a sequence of items of different types
   // layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
-    double y = 1;
+    double y{1};
     std::pair<int, double> pair{2, 3.4};
-    const std::vector<double> v({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});
+    const std::vector<double> v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     mpl::vector_layout<double> lv(v.size());
     mpl::heterogeneous_layout l(
         y, pair, mpl::make_absolute(v.data(), lv));  // heterogeneous_layout with 3 elements
     comm_world.send(mpl::absolute, l, 1);            // send data to rank 1
   }
   if (comm_world.rank() == 1) {
-    double y = 0;
+    double y{0};
     std::pair<int, double> pair;
     std::vector<double> v(10);
     mpl::vector_layout<double> lv(v.size());

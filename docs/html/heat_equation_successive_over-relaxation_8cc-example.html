@@ -91,135 +91,149 @@ $(document).ready(function(){initNavTree('heat_equation_successive_over-relaxati
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;tuple&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &lt;random&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">using</span> double_2 = std::tuple&lt;double, double&gt;;</div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> dim, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><span class="keywordtype">void</span> update_overlap(<span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;C, <a name="_a1"></a><a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;G,</div>
+<div class="line"><span class="keywordtype">void</span> update_overlap(<span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;communicator,</div>
+<div class="line">                    <a name="_a1"></a><a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;distributed_grid,</div>
 <div class="line">                    <a name="_a2"></a><a class="code" href="classmpl_1_1tag__t.html">mpl::tag_t</a> tag = <a class="code" href="classmpl_1_1tag__t.html">mpl::tag_t</a>()) {</div>
 <div class="line">  <a name="_a3"></a><a class="code" href="structmpl_1_1shift__ranks.html">mpl::shift_ranks</a> ranks;</div>
 <div class="line">  <a name="_a4"></a><a class="code" href="classmpl_1_1irequest__pool.html">mpl::irequest_pool</a> r;</div>
-<div class="line">  <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; dim; ++i) {</div>
+<div class="line">  <span class="keywordflow">for</span> (std::size_t i{0}; i &lt; dim; ++i) {</div>
 <div class="line">    <span class="comment">// send to left</span></div>
-<div class="line">    ranks = C.<a name="a5"></a><a class="code" href="classmpl_1_1cart__communicator.html#ad88fa2d827dc95e8aff761ee1b71e04a">shift</a>(i, -1);</div>
-<div class="line">    r.<a name="a6"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(C.<a name="a7"></a><a class="code" href="classmpl_1_1communicator.html#aaf647eec3afe83caf2afafe5a82b405a">isend</a>(G.<a name="a8"></a><a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a name="a9"></a><a class="code" href="classmpl_1_1distributed__grid.html#aea8054775c6ca5dcc1c258e752ad9b15">left_border_layout</a>(i), ranks.<a name="a10"></a><a class="code" href="structmpl_1_1shift__ranks.html#a48cd0e542bdfb70b779e9267b5043f55">dest</a>, tag));</div>
-<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(C.<a name="a11"></a><a class="code" href="classmpl_1_1communicator.html#a82b6f15cef4c0daa6825bc699418df22">irecv</a>(G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a name="a12"></a><a class="code" href="classmpl_1_1distributed__grid.html#a87d511a44d4a3475e8af04d0c34d536d">right_mirror_layout</a>(i), ranks.<a name="a13"></a><a class="code" href="structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b">source</a>, tag));</div>
+<div class="line">    ranks = communicator.<a name="a5"></a><a class="code" href="classmpl_1_1cart__communicator.html#ad88fa2d827dc95e8aff761ee1b71e04a">shift</a>(i, -1);</div>
+<div class="line">    r.<a name="a6"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(communicator.<a name="a7"></a><a class="code" href="classmpl_1_1communicator.html#aaf647eec3afe83caf2afafe5a82b405a">isend</a>(distributed_grid.<a name="a8"></a><a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a name="a9"></a><a class="code" href="classmpl_1_1distributed__grid.html#aea8054775c6ca5dcc1c258e752ad9b15">left_border_layout</a>(i),</div>
+<div class="line">                              ranks.<a name="a10"></a><a class="code" href="structmpl_1_1shift__ranks.html#a48cd0e542bdfb70b779e9267b5043f55">dest</a>, tag));</div>
+<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(communicator.<a name="a11"></a><a class="code" href="classmpl_1_1communicator.html#a82b6f15cef4c0daa6825bc699418df22">irecv</a>(distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a name="a12"></a><a class="code" href="classmpl_1_1distributed__grid.html#a87d511a44d4a3475e8af04d0c34d536d">right_mirror_layout</a>(i),</div>
+<div class="line">                              ranks.<a name="a13"></a><a class="code" href="structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b">source</a>, tag));</div>
 <div class="line">    <span class="comment">// send to right</span></div>
-<div class="line">    ranks = C.<a class="code" href="classmpl_1_1cart__communicator.html#ad88fa2d827dc95e8aff761ee1b71e04a">shift</a>(i, +1);</div>
-<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(C.<a class="code" href="classmpl_1_1communicator.html#aaf647eec3afe83caf2afafe5a82b405a">isend</a>(G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a name="a14"></a><a class="code" href="classmpl_1_1distributed__grid.html#a3488dfec844fd0edbfd4a3f4a65c3fc7">right_border_layout</a>(i), ranks.<a class="code" href="structmpl_1_1shift__ranks.html#a48cd0e542bdfb70b779e9267b5043f55">dest</a>, tag));</div>
-<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(C.<a class="code" href="classmpl_1_1communicator.html#a82b6f15cef4c0daa6825bc699418df22">irecv</a>(G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a name="a15"></a><a class="code" href="classmpl_1_1distributed__grid.html#a2a28492ee7f46f0d718a3d992bed9842">left_mirror_layout</a>(i), ranks.<a class="code" href="structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b">source</a>, tag));</div>
+<div class="line">    ranks = communicator.<a class="code" href="classmpl_1_1cart__communicator.html#ad88fa2d827dc95e8aff761ee1b71e04a">shift</a>(i, +1);</div>
+<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(communicator.<a class="code" href="classmpl_1_1communicator.html#aaf647eec3afe83caf2afafe5a82b405a">isend</a>(distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a name="a14"></a><a class="code" href="classmpl_1_1distributed__grid.html#a3488dfec844fd0edbfd4a3f4a65c3fc7">right_border_layout</a>(i),</div>
+<div class="line">                              ranks.<a class="code" href="structmpl_1_1shift__ranks.html#a48cd0e542bdfb70b779e9267b5043f55">dest</a>, tag));</div>
+<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(communicator.<a class="code" href="classmpl_1_1communicator.html#a82b6f15cef4c0daa6825bc699418df22">irecv</a>(distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a name="a15"></a><a class="code" href="classmpl_1_1distributed__grid.html#a2a28492ee7f46f0d718a3d992bed9842">left_mirror_layout</a>(i),</div>
+<div class="line">                              ranks.<a class="code" href="structmpl_1_1shift__ranks.html#afb38d83c7519b1f4202e826c9ae9568b">source</a>, tag));</div>
 <div class="line">  }</div>
 <div class="line">  r.<a name="a16"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a1e864f5b3e62bb28db94bec090235401">waitall</a>();</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> dim, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><span class="keywordtype">void</span> scatter(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;C, <span class="keywordtype">int</span> root, <span class="keyword">const</span> <a name="_a17"></a><a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;dim, T, A&gt;</a> &amp;L,</div>
-<div class="line">             <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;G) {</div>
-<div class="line">  C.<a name="a18"></a><a class="code" href="classmpl_1_1communicator.html#aba80b0971e6f8d2f04d1454f389833be">scatterv</a>(root, L.<a name="a19"></a><a class="code" href="classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741">data</a>(), L.<a name="a20"></a><a class="code" href="classmpl_1_1local__grid.html#a0c0f9170219e6fce61ed8f83eea1af6e">sub_layouts</a>(), G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a name="a21"></a><a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>());</div>
+<div class="line"><span class="keywordtype">void</span> scatter(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;communicator, <span class="keywordtype">int</span> root,</div>
+<div class="line">             <span class="keyword">const</span> <a name="_a17"></a><a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;dim, T, A&gt;</a> &amp;local_grid,</div>
+<div class="line">             <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;distributed_grid) {</div>
+<div class="line">  communicator.<a name="a18"></a><a class="code" href="classmpl_1_1communicator.html#aba80b0971e6f8d2f04d1454f389833be">scatterv</a>(root, local_grid.<a name="a19"></a><a class="code" href="classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741">data</a>(), local_grid.<a name="a20"></a><a class="code" href="classmpl_1_1local__grid.html#a0c0f9170219e6fce61ed8f83eea1af6e">sub_layouts</a>(),</div>
+<div class="line">                        distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a name="a21"></a><a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> dim, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><span class="keywordtype">void</span> scatter(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;C, <span class="keywordtype">int</span> root, <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;G) {</div>
-<div class="line">  C.<a class="code" href="classmpl_1_1communicator.html#aba80b0971e6f8d2f04d1454f389833be">scatterv</a>(root, G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>());</div>
+<div class="line"><span class="keywordtype">void</span> scatter(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;communicator, <span class="keywordtype">int</span> root,</div>
+<div class="line">             <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;distributed_grid) {</div>
+<div class="line">  communicator.<a class="code" href="classmpl_1_1communicator.html#aba80b0971e6f8d2f04d1454f389833be">scatterv</a>(root, distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> dim, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><span class="keywordtype">void</span> gather(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;C, <span class="keywordtype">int</span> root,</div>
-<div class="line">            <span class="keyword">const</span> <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;G, <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;dim, T, A&gt;</a> &amp;L) {</div>
-<div class="line">  C.<a name="a22"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>(), L.<a class="code" href="classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741">data</a>(), L.<a class="code" href="classmpl_1_1local__grid.html#a0c0f9170219e6fce61ed8f83eea1af6e">sub_layouts</a>());</div>
+<div class="line"><span class="keywordtype">void</span> gather(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;communicator, <span class="keywordtype">int</span> root,</div>
+<div class="line">            <span class="keyword">const</span> <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;distributed_grid,</div>
+<div class="line">            <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;dim, T, A&gt;</a> &amp;local_grid) {</div>
+<div class="line">  communicator.<a name="a22"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>(),</div>
+<div class="line">                       local_grid.<a class="code" href="classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741">data</a>(), local_grid.<a class="code" href="classmpl_1_1local__grid.html#a0c0f9170219e6fce61ed8f83eea1af6e">sub_layouts</a>());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;std::<span class="keywordtype">size_t</span> dim, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><span class="keywordtype">void</span> gather(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;C, <span class="keywordtype">int</span> root,</div>
-<div class="line">            <span class="keyword">const</span> <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;G) {</div>
-<div class="line">  C.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, G.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), G.<a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>());</div>
+<div class="line"><span class="keywordtype">void</span> gather(<span class="keyword">const</span> <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> &amp;communicator, <span class="keywordtype">int</span> root,</div>
+<div class="line">            <span class="keyword">const</span> <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;dim, T, A&gt;</a> &amp;distributed_grid) {</div>
+<div class="line">  communicator.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a61aa2b89cdafd5132f06b7e5417b3392">data</a>(), distributed_grid.<a class="code" href="classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83">interior_layout</a>());</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">  <span class="comment">// world communicator</span></div>
-<div class="line">  <span class="keyword">const</span> <a name="_a23"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a name="a24"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a23"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a24"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// construct a two-dimensional Cartesian communicator with no periodic boundary conditions</span></div>
 <div class="line">  <a name="_a25"></a><a class="code" href="classmpl_1_1cart__communicator_1_1sizes.html">mpl::cart_communicator::sizes</a> sizes(</div>
 <div class="line">      {{0, <a name="a26"></a><a class="code" href="classmpl_1_1cart__communicator.html#a66593fb012cd35f73105103b49b4f971">mpl::cart_communicator::nonperiodic</a>}, {0, <a class="code" href="classmpl_1_1cart__communicator.html#a66593fb012cd35f73105103b49b4f971">mpl::cart_communicator::nonperiodic</a>}});</div>
 <div class="line">  <a class="code" href="classmpl_1_1cart__communicator.html">mpl::cart_communicator</a> comm_c(comm_world, <a name="a27"></a><a class="code" href="namespacempl.html#a68761f4fa29575dedc9090eb17fafe2d">mpl::dims_create</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a28"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>(), sizes));</div>
 <div class="line">  <span class="comment">// total number of inner grid points</span></div>
-<div class="line">  <span class="keywordtype">int</span> Nx = 768, Ny = 512;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n_x{768}, n_y{512};</div>
 <div class="line">  <span class="comment">// grid points with extremal indices (-1, Nx or Ny) hold fixed boundary data</span></div>
 <div class="line">  <span class="comment">// grid lengths and grid spacings</span></div>
-<div class="line">  <span class="keywordtype">double</span> l_x = 1.5, l_y = 1, dx = l_x / (Nx + 1), dy = l_y / (Ny + 1);</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> l_x{1.5}, l_y{1};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> dx{l_x / (n_x + 1)}, dy{l_y / (n_y + 1)};</div>
 <div class="line">  <span class="comment">// distributed grid that holds each processor&#39;s subgrid plus one row and</span></div>
 <div class="line">  <span class="comment">// one column of neighboring data</span></div>
-<div class="line">  <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;2, double&gt;</a> u_d(comm_c, {{Nx, 1}, {Ny, 1}});</div>
+<div class="line">  <a class="code" href="classmpl_1_1distributed__grid.html">mpl::distributed_grid&lt;2, double&gt;</a> u_d{comm_c, {{n_x, 1}, {n_y, 1}}};</div>
 <div class="line">  <span class="comment">// rank 0 initializes with some random data</span></div>
 <div class="line">  <span class="keywordflow">if</span> (comm_c.rank() == 0) {</div>
+<div class="line">    std::default_random_engine engine;</div>
+<div class="line">    std::uniform_real_distribution&lt;double&gt; uniform{0, 1};</div>
 <div class="line">    <span class="comment">// local grid to store the whole set of inner grid points</span></div>
-<div class="line">    <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;2, double&gt;</a> u(comm_c, {Nx, Ny});</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = u.begin(1), j_end = u.end(1); j &lt; j_end; ++j)</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = u.begin(0), i_end = u.end(0); i &lt; i_end; ++i)</div>
-<div class="line">        u(i, j) = std::rand() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(RAND_MAX);</div>
-<div class="line">    <span class="comment">// scater data to each processors subgrid</span></div>
+<div class="line">    <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;2, double&gt;</a> u{comm_c, {n_x, n_y}};</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j{u.begin(1)}, j_end{u.end(1)}; j &lt; j_end; ++j)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i{u.begin(0)}, i_end{u.end(0)}; i &lt; i_end; ++i)</div>
+<div class="line">        u(i, j) = uniform(engine);</div>
+<div class="line">    <span class="comment">// scatter data to each processors subgrid</span></div>
 <div class="line">    scatter(comm_c, 0, u, u_d);</div>
 <div class="line">  } <span class="keywordflow">else</span></div>
 <div class="line">    scatter(comm_c, 0, u_d);</div>
 <div class="line">  <span class="comment">// initialize boundary data, loop with obegin and oend over all</span></div>
 <div class="line">  <span class="comment">// data including the overlap</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keyword">auto</span> j : {u_d.obegin(1), u_d.oend(1) - 1})</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = u_d.obegin(0), i_end = u_d.oend(0); i &lt; i_end; ++i) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> i{u_d.obegin(0)}, i_end{u_d.oend(0)}; i &lt; i_end; ++i) {</div>
 <div class="line">      <span class="keywordflow">if</span> (u_d.gindex(0, i) &lt; 0 or u_d.gindex(1, j) &lt; 0)</div>
 <div class="line">        u_d(i, j) = 1;  <span class="comment">// left boundary condition</span></div>
-<div class="line">      <span class="keywordflow">if</span> (u_d.gindex(0, i) &gt;= Nx or u_d.gindex(1, j) &gt;= Ny)</div>
+<div class="line">      <span class="keywordflow">if</span> (u_d.gindex(0, i) &gt;= n_x or u_d.gindex(1, j) &gt;= n_y)</div>
 <div class="line">        u_d(i, j) = 0;  <span class="comment">// right boundary condition</span></div>
 <div class="line">    }</div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : {u_d.obegin(0), u_d.oend(0) - 1})</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = u_d.obegin(1), j_end = u_d.oend(1); j &lt; j_end; ++j) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j{u_d.obegin(1)}, j_end{u_d.oend(1)}; j &lt; j_end; ++j) {</div>
 <div class="line">      <span class="keywordflow">if</span> (u_d.gindex(0, i) &lt; 0 or u_d.gindex(1, j) &lt; 0)</div>
 <div class="line">        u_d(i, j) = 1;  <span class="comment">// lower boundary condition</span></div>
-<div class="line">      <span class="keywordflow">if</span> (u_d.gindex(0, i) &gt;= Nx or u_d.gindex(1, j) &gt;= Ny)</div>
+<div class="line">      <span class="keywordflow">if</span> (u_d.gindex(0, i) &gt;= n_x or u_d.gindex(1, j) &gt;= n_y)</div>
 <div class="line">        u_d(i, j) = 0;  <span class="comment">// upper boundary condition</span></div>
 <div class="line">    }</div>
-<div class="line">  <span class="keywordtype">double</span> w = 1.875,  <span class="comment">// the over-relaxation parameter</span></div>
-<div class="line">      dx2 = dx * dx, dy2 = dy * dy;</div>
+<div class="line">  <span class="keywordtype">double</span> w{1.875};  <span class="comment">// the over-relaxation parameter</span></div>
+<div class="line">  <span class="keywordtype">double</span> dx_2{dx * dx}, dy_2{dy * dy};</div>
 <div class="line">  <span class="comment">// loop until converged</span></div>
-<div class="line">  <span class="keywordtype">bool</span> converged = <span class="keyword">false</span>;</div>
+<div class="line">  <span class="keywordtype">bool</span> converged{<span class="keyword">false</span>};</div>
 <div class="line">  <span class="keywordflow">while</span> (not converged) {</div>
 <div class="line">    <span class="comment">// exchange overlap data</span></div>
 <div class="line">    update_overlap(comm_c, u_d);</div>
 <div class="line">    <span class="comment">// apply one successive over-relaxation step</span></div>
-<div class="line">    <span class="keywordtype">double</span> Delta_u = 0, sum_u = 0;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = u_d.begin(1), j_end = u_d.end(1); j &lt; j_end; ++j)</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = u_d.begin(0), i_end = u_d.end(0); i &lt; i_end; ++i) {</div>
+<div class="line">    <span class="keywordtype">double</span> delta_u{0}, sum_u{0};</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j{u_d.begin(1)}, j_end{u_d.end(1)}; j &lt; j_end; ++j)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i{u_d.begin(0)}, i_end{u_d.end(0)}; i &lt; i_end; ++i) {</div>
 <div class="line">        <span class="keywordtype">double</span> du = -w * u_d(i, j) + w *</div>
-<div class="line">                                         (dy2 * (u_d(i - 1, j) + u_d(i + 1, j)) +</div>
-<div class="line">                                          dx2 * (u_d(i, j - 1) + u_d(i, j + 1))) /</div>
-<div class="line">                                         (2 * (dx2 + dy2));</div>
+<div class="line">                                         (dy_2 * (u_d(i - 1, j) + u_d(i + 1, j)) +</div>
+<div class="line">                                          dx_2 * (u_d(i, j - 1) + u_d(i, j + 1))) /</div>
+<div class="line">                                         (2 * (dx_2 + dy_2));</div>
 <div class="line">        u_d(i, j) += du;</div>
-<div class="line">        Delta_u += std::abs(du);</div>
+<div class="line">        delta_u += std::abs(du);</div>
 <div class="line">        sum_u += std::abs(u_d(i, j));</div>
 <div class="line">      }</div>
 <div class="line">    <span class="comment">// determine global sum of Delta_u and sum_u and distribute to all processors</span></div>
-<div class="line">    double_2 Delta_sum_u{Delta_u, sum_u};  <span class="comment">// pack into pair</span></div>
+<div class="line">    double_2 delta_sum_u{delta_u, sum_u};  <span class="comment">// pack into pair</span></div>
 <div class="line">    <span class="comment">// use a lambda function for global reduction</span></div>
 <div class="line">    comm_c.allreduce(</div>
 <div class="line">        [](double_2 a, double_2 b) {</div>
 <div class="line">          <span class="comment">// reduction adds component-by-component</span></div>
 <div class="line">          <span class="keywordflow">return</span> double_2{std::get&lt;0&gt;(a) + std::get&lt;0&gt;(b), std::get&lt;1&gt;(a) + std::get&lt;1&gt;(b)};</div>
 <div class="line">        },</div>
-<div class="line">        Delta_sum_u);</div>
-<div class="line">    std::tie(Delta_u, sum_u) = Delta_sum_u;  <span class="comment">// unpack from pair</span></div>
-<div class="line">    converged = Delta_u / sum_u &lt; 1e-6;      <span class="comment">// check for convergence</span></div>
+<div class="line">        delta_sum_u);</div>
+<div class="line">    std::tie(delta_u, sum_u) = delta_sum_u;  <span class="comment">// unpack from pair</span></div>
+<div class="line">    converged = delta_u / sum_u &lt; 1e-6;      <span class="comment">// check for convergence</span></div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">if</span> (comm_c.rank() == 0) {</div>
 <div class="line">    <span class="comment">// local grid to store the whole set of inner grid points</span></div>
-<div class="line">    <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;2, double&gt;</a> u(comm_c, {Nx, Ny});</div>
+<div class="line">    <a class="code" href="classmpl_1_1local__grid.html">mpl::local_grid&lt;2, double&gt;</a> u{comm_c, {n_x, n_y}};</div>
 <div class="line">    <span class="comment">// gather data and print result</span></div>
 <div class="line">    gather(comm_c, 0, u_d, u);</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j = u.begin(1), j_end = u.end(1); j &lt; j_end; ++j) {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i = u.begin(0), i_end = u.end(0); i &lt; i_end; ++i)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> j{u.begin(1)}, j_end{u.end(1)}; j &lt; j_end; ++j) {</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i{u.begin(0)}, i_end{u.end(0)}; i &lt; i_end; ++i)</div>
 <div class="line">        std::cout &lt;&lt; u(i, j) &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    }</div>

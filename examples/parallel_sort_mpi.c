@@ -87,7 +87,6 @@ vector parallel_sort(vector v) {
   MPI_Alltoallv(v.data, sendcounts, sdispls, MPI_DOUBLE, v2, recvcounts, rdispls, MPI_DOUBLE,
                 MPI_COMM_WORLD);
   qsort(v2, recv_pos, sizeof(double), cmp_double);
-  free(v.data);
   free(block_sizes);
   free(local_block_sizes);
   free(pivot_pos);
@@ -110,6 +109,7 @@ int main(int argc, char *argv[]) {
   fill_random((vector){v, N});
   vector sorted = parallel_sort((vector){v, N});
   free(sorted.data);
+  free(v);
   MPI_Finalize();
   return EXIT_SUCCESS;
 }

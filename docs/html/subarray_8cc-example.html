@@ -93,35 +93,35 @@ $(document).ready(function(){initNavTree('subarray_8cc-example.html',''); initRe
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
 <div class="line">  <span class="comment">// test layout for a subarray</span></div>
 <div class="line">  <span class="comment">// layouts on sending and receiving side may differ but must be compatible</span></div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n0 = 20, n1 = 8;  <span class="comment">// size of two-dimensional array</span></div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> s0 = 11, s1 = 3;  <span class="comment">// size of two-dimensional subarray</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n_0{20}, n_1{8};  <span class="comment">// size of two-dimensional array</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> s_0{11}, s_1{3};  <span class="comment">// size of two-dimensional subarray</span></div>
 <div class="line">  <span class="comment">// process 0 sends</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    <span class="comment">// C order matrix with two-dimensional C arrays</span></div>
-<div class="line">    <span class="keywordtype">double</span> A[n1][n0];</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1 = 0; i1 &lt; n1; ++i1)</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0 = 0; i0 &lt; n0; ++i0)</div>
-<div class="line">        A[i1][i0] = i0 + 0.01 * i1;</div>
-<div class="line">    <a name="_a4"></a><a class="code" href="classmpl_1_1subarray__layout.html">mpl::subarray_layout&lt;double&gt;</a> subarray({</div>
-<div class="line">        {n1, s1, 2},  <span class="comment">// 2nd dimension: size of array, size of subarray, start of subarray</span></div>
-<div class="line">        {n0, s0, 4}   <span class="comment">// 1st dimension: size of array, size of subarray, start of subarray</span></div>
-<div class="line">    });</div>
-<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a>send(&amp;A[0][0], subarray, 1);</div>
+<div class="line">    <span class="keywordtype">double</span> a[n_1][n_0];</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; n_1; ++i_1)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; n_0; ++i_0)</div>
+<div class="line">        a[i_1][i_0] = i_0 + 0.01 * i_1;</div>
+<div class="line">    <a name="_a4"></a><a class="code" href="classmpl_1_1subarray__layout.html">mpl::subarray_layout&lt;double&gt;</a> subarray{{</div>
+<div class="line">        {n_1, s_1, 2},  <span class="comment">// 2nd dimension: size of array, size of subarray, start of subarray</span></div>
+<div class="line">        {n_0, s_0, 4}   <span class="comment">// 1st dimension: size of array, size of subarray, start of subarray</span></div>
+<div class="line">    }};</div>
+<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a>send(&amp;a[0][0], subarray, 1);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
-<div class="line">    <span class="keywordtype">double</span> A[s1][s0];</div>
-<div class="line">    <a name="_a6"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> array(s0 * s1);</div>
-<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>recv(&amp;A[0][0], array, 0);</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1 = 0; i1 &lt; s1; ++i1) {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0 = 0; i0 &lt; s0; ++i0)</div>
-<div class="line">        std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(2) &lt;&lt; A[i1][i0] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span>;</div>
+<div class="line">    <span class="keywordtype">double</span> a[s_1][s_0];</div>
+<div class="line">    <a name="_a6"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> array{s_0 * s_1};</div>
+<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>recv(&amp;a[0][0], array, 0);</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; s_1; ++i_1) {</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; s_0; ++i_0)</div>
+<div class="line">        std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(2) &lt;&lt; a[i_1][i_0] &lt;&lt; <span class="stringliteral">&quot;  &quot;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    }</div>
 <div class="line">  }</div>

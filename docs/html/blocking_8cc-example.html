@@ -92,7 +92,7 @@ $(document).ready(function(){initNavTree('blocking_8cc-example.html',''); initRe
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
@@ -101,14 +101,14 @@ $(document).ready(function(){initNavTree('blocking_8cc-example.html',''); initRe
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    <span class="comment">// see MPI Standard for the semantics of standard send, buffered send,</span></div>
 <div class="line">    <span class="comment">// synchronous send and ready send</span></div>
-<div class="line">    <span class="keywordtype">double</span> x = 1.23456;</div>
+<div class="line">    <span class="keywordtype">double</span> x{1.23456};</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a>send(x, 1, tag_enum::tag);  <span class="comment">// send x to rank 1 via standard send</span></div>
 <div class="line">    ++x;</div>
 <div class="line">    {</div>
 <div class="line">      <span class="comment">// create a buffer for buffered send,</span></div>
 <div class="line">      <span class="comment">// memory will be freed on leaving the scope</span></div>
-<div class="line">      <span class="keywordtype">int</span> size = {<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a><a class="code" href="classmpl_1_1communicator.html#a4ac75dc1695c441e9e8faa185a458cc3">bsend_size</a>&lt;decltype(x)&gt;()};</div>
-<div class="line">      <a name="_a6"></a><a class="code" href="classmpl_1_1bsend__buffer.html">mpl::bsend_buffer</a> buff(size);</div>
+<div class="line">      <span class="keywordtype">int</span> size{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a><a class="code" href="classmpl_1_1communicator.html#a4ac75dc1695c441e9e8faa185a458cc3">bsend_size</a>&lt;decltype(x)&gt;()};</div>
+<div class="line">      <a name="_a6"></a><a class="code" href="classmpl_1_1bsend__buffer.html">mpl::bsend_buffer</a> buff{size};</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>bsend(x, 1);  <span class="comment">// send x to rank 1 via buffered send</span></div>
 <div class="line">    }</div>
 <div class="line">    ++x;</div>

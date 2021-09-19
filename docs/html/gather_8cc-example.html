@@ -93,16 +93,17 @@ $(document).ready(function(){initNavTree('gather_8cc-example.html',''); initResi
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
-<div class="line">  <span class="keywordtype">int</span> C_rank(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()), C_size(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>());</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_rank{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_size{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};</div>
 <div class="line">  <span class="comment">// gather a single int from all ranks to rank root=0</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>(0);</div>
-<div class="line">    <span class="keywordtype">int</span> x(C_rank + 1);</div>
-<div class="line">    std::vector&lt;int&gt; y(C_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> ? C_size : 0);</div>
+<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
+<div class="line">    <span class="keywordtype">int</span> x{c_rank + 1};</div>
+<div class="line">    std::vector&lt;int&gt; y(c_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> ? c_size : 0);</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x, y.data());</div>
-<div class="line">    <span class="keywordflow">if</span> (C_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i)</div>
+<div class="line">    <span class="keywordflow">if</span> (c_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i)</div>
 <div class="line">        std::cout &lt;&lt; y[i] &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">    }</div>
@@ -110,12 +111,12 @@ $(document).ready(function(){initNavTree('gather_8cc-example.html',''); initResi
 <div class="line">  <span class="comment">// gather a single int from all ranks to rank root=0</span></div>
 <div class="line">  <span class="comment">// root and non-root rank use different function overloads of gather</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>(0);</div>
-<div class="line">    <span class="keywordtype">int</span> x(-(C_rank + 1));</div>
-<div class="line">    <span class="keywordflow">if</span> (C_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
-<div class="line">      std::vector&lt;int&gt; y(C_size);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
+<div class="line">    <span class="keywordtype">int</span> x{-(c_rank + 1)};</div>
+<div class="line">    <span class="keywordflow">if</span> (c_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
+<div class="line">      std::vector&lt;int&gt; y(c_size);</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x, y.data());</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i)</div>
 <div class="line">        std::cout &lt;&lt; y[i] &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">    } <span class="keywordflow">else</span></div>
@@ -123,13 +124,13 @@ $(document).ready(function(){initNavTree('gather_8cc-example.html',''); initResi
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// gather several ints from all ranks to rank root=0</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>(0), n = 3;</div>
-<div class="line">    std::vector&lt;int&gt; x(n, C_rank + 1);</div>
-<div class="line">    std::vector&lt;int&gt; y(C_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> ? n * C_size : 0);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0}, n{3};</div>
+<div class="line">    std::vector&lt;int&gt; x(n, c_rank + 1);</div>
+<div class="line">    std::vector&lt;int&gt; y(c_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> ? n * c_size : 0);</div>
 <div class="line">    <a name="_a5"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x.data(), l, y.data(), l);</div>
-<div class="line">    <span class="keywordflow">if</span> (C_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size * n; ++i)</div>
+<div class="line">    <span class="keywordflow">if</span> (c_rank == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size * n; ++i)</div>
 <div class="line">        std::cout &lt;&lt; y[i] &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">    }</div>

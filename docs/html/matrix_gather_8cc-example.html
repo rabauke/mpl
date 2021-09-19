@@ -122,23 +122,24 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">  <span class="keyword">using</span> base::data;</div>
 <div class="line">};</div>
 <div class="line"> </div>
+<div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
-<div class="line">  <span class="keywordtype">int</span> p = {<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};  <span class="comment">// total numbers of processors</span></div>
-<div class="line">  <span class="keywordtype">int</span> p_l = {<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> p{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};  <span class="comment">// total numbers of processors</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> p_l{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
 <div class="line">  <span class="comment">// find integer px and py such that px*py=p and px and py as close as possible</span></div>
-<div class="line">  <span class="keywordtype">int</span> px = {<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::sqrt(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(p)))};</div>
+<div class="line">  <span class="keywordtype">int</span> px{<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::sqrt(<span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(p)))};</div>
 <div class="line">  <span class="keywordflow">while</span> (p / px * px != p)</div>
 <div class="line">    --px;</div>
-<div class="line">  <span class="keywordtype">int</span> py = {p / px};</div>
-<div class="line">  <span class="keywordtype">int</span> nx = {31}, ny = {29};                <span class="comment">// total size of the matrix</span></div>
+<div class="line">  <span class="keywordtype">int</span> py{p / px};</div>
+<div class="line">  <span class="keywordtype">int</span> nx{31}, ny{29};                <span class="comment">// total size of the matrix</span></div>
 <div class="line">  matrix&lt;int&gt; nx_l(px, py), ny_l(px, py);  <span class="comment">// sizes of sub matrices for both dimensions</span></div>
 <div class="line">  matrix&lt;int&gt; nx_0(px, py), ny_0(px, py);  <span class="comment">// starts of sub matrices for both dimensions</span></div>
 <div class="line">  <span class="comment">// matrix of layouts</span></div>
 <div class="line">  matrix&lt;mpl::subarray_layout&lt;int&gt;&gt; sub_matrix_l(px, py);</div>
 <div class="line">  <span class="comment">// calculate all indices and sizes, generate layouts</span></div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; py; ++iy) {</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; px; ++ix) {</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy{0}; iy &lt; py; ++iy) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix{0}; ix &lt; px; ++ix) {</div>
 <div class="line">      nx_l(ix, iy) = nx * (ix + 1) / px - nx * ix / px;</div>
 <div class="line">      ny_l(ix, iy) = ny * (iy + 1) / py - ny * iy / py;</div>
 <div class="line">      nx_0(ix, iy) = nx * ix / px;</div>
@@ -148,27 +149,27 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// process local position in global data grid</span></div>
-<div class="line">  <span class="keywordtype">int</span> py_l = {p_l / px}, px_l{p_l - px * py_l};</div>
+<div class="line">  <span class="keywordtype">int</span> py_l{p_l / px}, px_l{p_l - px * py_l};</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// gather via send-recv</span></div>
 <div class="line">  {</div>
 <div class="line">    <span class="comment">// fill some local matrix with data</span></div>
-<div class="line">    matrix&lt;int&gt; M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
-<div class="line">    std::fill(M_l.begin(), M_l.end(), p_l);</div>
+<div class="line">    matrix&lt;int&gt; m_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
+<div class="line">    std::fill(m_l.begin(), m_l.end(), p_l);</div>
 <div class="line">    <a name="_a5"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> matrix_l(nx_l(px_l, py_l) * ny_l(px_l, py_l));</div>
 <div class="line">    <span class="comment">// send local sub-matrix to rank 0</span></div>
-<div class="line">    <a name="_a6"></a><a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>isend(M_l.data(), matrix_l, 0));</div>
+<div class="line">    <a name="_a6"></a><a class="code" href="classmpl_1_1irequest.html">mpl::irequest</a> r(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>isend(m_l.data(), matrix_l, 0));</div>
 <div class="line">    <span class="keywordflow">if</span> (p_l == 0) {</div>
 <div class="line">      <span class="comment">// gather all submatrices into one large matrix</span></div>
-<div class="line">      matrix&lt;int&gt; M(nx, ny);</div>
-<div class="line">      std::fill(M.begin(), M.end(), 0 - <span class="charliteral">&#39; &#39;</span>);</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; py; ++iy) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; px; ++ix)</div>
-<div class="line">          <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a8"></a>recv(M.data(), sub_matrix_l(ix, iy), ix + px * iy);</div>
+<div class="line">      matrix&lt;int&gt; m(nx, ny);</div>
+<div class="line">      std::fill(m.begin(), m.end(), 0 - <span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy{0}; iy &lt; py; ++iy) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix{0}; ix &lt; px; ++ix)</div>
+<div class="line">          <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a8"></a>recv(m.data(), sub_matrix_l(ix, iy), ix + px * iy);</div>
 <div class="line">      }</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; ny; ++iy) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; nx; ++ix)</div>
-<div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(M(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy{0}; iy &lt; ny; ++iy) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix{0}; ix &lt; nx; ++ix)</div>
+<div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(m(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
 <div class="line">        std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">      }</div>
 <div class="line">      std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
@@ -179,56 +180,56 @@ $(document).ready(function(){initNavTree('matrix_gather_8cc-example.html',''); i
 <div class="line">  <span class="comment">// gather via gatherv</span></div>
 <div class="line">  {</div>
 <div class="line">    <span class="comment">// fill some local matrix with data</span></div>
-<div class="line">    matrix&lt;int&gt; M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
-<div class="line">    std::fill(M_l.begin(), M_l.end(), p_l);</div>
+<div class="line">    matrix&lt;int&gt; m_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
+<div class="line">    std::fill(m_l.begin(), m_l.end(), p_l);</div>
 <div class="line">    <span class="comment">// build the layouts for the gatherv operation</span></div>
-<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
 <div class="line">    <a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> matrix_l(nx_l(px_l, py_l) * ny_l(px_l, py_l));</div>
 <div class="line">    <span class="keywordflow">if</span> (p_l == root) {</div>
 <div class="line">      <a name="_a9"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> recvl;</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; p; ++i)</div>
 <div class="line">        recvl.push_back(sub_matrix_l(i % px, i / px));</div>
-<div class="line">      matrix&lt;int&gt; M(nx, ny);</div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, M_l.data(), matrix_l, M.data(), recvl);</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; ny; ++iy) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; nx; ++ix)</div>
-<div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(M(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
+<div class="line">      matrix&lt;int&gt; m(nx, ny);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, m_l.data(), matrix_l, m.data(), recvl);</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy{0}; iy &lt; ny; ++iy) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix{0}; ix &lt; nx; ++ix)</div>
+<div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(m(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
 <div class="line">        std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">      }</div>
 <div class="line">      std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    } <span class="keywordflow">else</span></div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, M_l.data(), matrix_l);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(root, m_l.data(), matrix_l);</div>
 <div class="line">  }</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// gather via alltoallv</span></div>
 <div class="line">  {</div>
 <div class="line">    <span class="comment">// fill some local matrix with data</span></div>
-<div class="line">    matrix&lt;int&gt; M_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
-<div class="line">    std::fill(M_l.begin(), M_l.end(), p_l);</div>
+<div class="line">    matrix&lt;int&gt; m_l(nx_l(px_l, py_l), ny_l(px_l, py_l));</div>
+<div class="line">    std::fill(m_l.begin(), m_l.end(), p_l);</div>
 <div class="line">    <span class="comment">// build the layouts for alltoallv to implement a gather operation</span></div>
-<div class="line">    <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
 <div class="line">    <a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> sendl, recvl;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; p; ++i) {</div>
 <div class="line">      <span class="keywordflow">if</span> (i == root)</div>
 <div class="line">        sendl.push_back(<a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a>(nx_l(px_l, py_l) * ny_l(px_l, py_l)));</div>
 <div class="line">      <span class="keywordflow">else</span></div>
 <div class="line">        sendl.push_back(<a name="_a11"></a><a class="code" href="classmpl_1_1empty__layout.html">mpl::empty_layout&lt;int&gt;</a>());</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (p_l == root) {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; p; ++i)</div>
 <div class="line">        recvl.push_back(sub_matrix_l(i % px, i / px));</div>
-<div class="line">      matrix&lt;int&gt; M(nx, ny);</div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a12"></a><a class="code" href="classmpl_1_1communicator.html#a05ed2a65531e978c766f9af918f5e5a3">alltoallv</a>(M_l.data(), sendl, M.data(), recvl);</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy = 0; iy &lt; ny; ++iy) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix = 0; ix &lt; nx; ++ix)</div>
-<div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(M(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
+<div class="line">      matrix&lt;int&gt; m(nx, ny);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a12"></a><a class="code" href="classmpl_1_1communicator.html#a05ed2a65531e978c766f9af918f5e5a3">alltoallv</a>(m_l.data(), sendl, m.data(), recvl);</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iy{0}; iy &lt; ny; ++iy) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ix{0}; ix &lt; nx; ++ix)</div>
+<div class="line">          std::cout &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(m(ix, iy) + <span class="charliteral">&#39;A&#39;</span>);</div>
 <div class="line">        std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">      }</div>
 <div class="line">      std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    } <span class="keywordflow">else</span> {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; p; ++i)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; p; ++i)</div>
 <div class="line">        recvl.push_back(<a class="code" href="classmpl_1_1empty__layout.html">mpl::empty_layout&lt;int&gt;</a>());</div>
-<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a05ed2a65531e978c766f9af918f5e5a3">alltoallv</a>(M_l.data(), sendl, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(0), recvl);</div>
+<div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a05ed2a65531e978c766f9af918f5e5a3">alltoallv</a>(m_l.data(), sendl, <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">int</span> *<span class="keyword">&gt;</span>(0), recvl);</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line"> </div>

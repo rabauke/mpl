@@ -163,7 +163,7 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"><span class="keywordtype">void</span> recv(<span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
 <div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
 <div class="line">  T x;</div>
-<div class="line">  <span class="keyword">auto</span> s = comm.<a name="a4"></a>recv(x, 0);</div>
+<div class="line">  <span class="keyword">auto</span> s{comm.<a name="a4"></a>recv(x, 0)};</div>
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; with &quot;</span> &lt;&lt; s.template get_count&lt;value_type&gt;() &lt;&lt; <span class="stringliteral">&quot; elements\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -178,27 +178,27 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a7"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a7"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a8"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a9"></a><a class="code" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
 <div class="line">  <span class="comment">// process 0 sends</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a10"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
-<div class="line">    std::string t1{<span class="stringliteral">&quot;Hello World!&quot;</span>};</div>
-<div class="line">    send(comm_world, t1);</div>
-<div class="line">    isend(comm_world, t1);</div>
-<div class="line">    std::vector&lt;int&gt; t2{0, 1, 2, 3, 4, 5, 6, 77, 42};</div>
-<div class="line">    send(comm_world, t2);</div>
-<div class="line">    isend(comm_world, t2);</div>
-<div class="line">    std::vector&lt;std::tuple&lt;int, double&gt;&gt; t3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};</div>
-<div class="line">    send(comm_world, t3);</div>
-<div class="line">    isend(comm_world, t3);</div>
-<div class="line">    std::vector&lt;bool&gt; t4{<span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">true</span>};</div>
-<div class="line">    send(comm_world, t4);</div>
-<div class="line">    isend(comm_world, t4);</div>
-<div class="line">    std::valarray&lt;double&gt; t5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};</div>
-<div class="line">    send(comm_world, t5);</div>
-<div class="line">    isend(comm_world, t5);</div>
+<div class="line">    std::string t_1{<span class="stringliteral">&quot;Hello World!&quot;</span>};</div>
+<div class="line">    send(comm_world, t_1);</div>
+<div class="line">    isend(comm_world, t_1);</div>
+<div class="line">    std::vector&lt;int&gt; t_2{0, 1, 2, 3, 4, 5, 6, 77, 42};</div>
+<div class="line">    send(comm_world, t_2);</div>
+<div class="line">    isend(comm_world, t_2);</div>
+<div class="line">    std::vector&lt;std::tuple&lt;int, double&gt;&gt; t_3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};</div>
+<div class="line">    send(comm_world, t_3);</div>
+<div class="line">    isend(comm_world, t_3);</div>
+<div class="line">    std::vector&lt;bool&gt; t_4{<span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">true</span>, <span class="keyword">true</span>};</div>
+<div class="line">    send(comm_world, t_4);</div>
+<div class="line">    isend(comm_world, t_4);</div>
+<div class="line">    std::valarray&lt;double&gt; t_5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};</div>
+<div class="line">    send(comm_world, t_5);</div>
+<div class="line">    isend(comm_world, t_5);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// process 1 receives</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>

@@ -14,13 +14,13 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
 }
 
 // helper function for printing all elements of a tuple/ an array
-template<typename ch, typename tr, typename tuple, std::size_t... is>
+template<typename ch, typename tr, typename tuple, std::size_t... IS>
 void print_tuple_impl(std::basic_ostream<ch, tr> &out, const tuple &t,
-                      std::index_sequence<is...> is_) {
+                      std::index_sequence<IS...> is) {
   auto print_element = [&](auto i, auto a) -> void {
-    out << a << (i + 1 < is_.size() ? "," : "");
+    out << a << (i + 1 < is.size() ? "," : "");
   };
-  std::initializer_list<int> _{(print_element(is, std::get<is>(t)), 0)...};
+  std::initializer_list<int> _{(print_element(IS, std::get<IS>(t)), 0)...};
 }
 
 // print all elements of a tuple
@@ -62,56 +62,56 @@ void recv(const mpl::communicator &comm) {
 }
 
 int main() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // run the program with two or more processes
   if (comm_world.size() < 2)
     comm_world.abort(EXIT_FAILURE);
   // process 0 sends
   if (comm_world.rank() == 0) {
-    char t1 = 'A';
-    send(comm_world, t1);
-    signed char t2 = 'B';
-    send(comm_world, t2);
-    unsigned char t3 = 'C';
-    send(comm_world, t3);
-    signed short int t4 = -1;
-    send(comm_world, t4);
-    unsigned short int t5 = 1;
-    send(comm_world, t5);
-    signed int t6 = -10;
-    send(comm_world, t6);
-    unsigned int t7 = 10;
-    send(comm_world, t7);
-    signed long int t8 = -100;
-    send(comm_world, t8);
-    unsigned long int t9 = 100;
-    send(comm_world, t9);
-    signed long long int t10 = -1000;
-    send(comm_world, t10);
-    unsigned long long int t11 = 1000;
-    send(comm_world, t11);
-    bool t12 = true;
-    send(comm_world, t12);
-    float t13 = 1.2345f;
-    send(comm_world, t13);
-    double t14 = 2.3456;
-    send(comm_world, t14);
-    long double t15 = 3.4567;
-    send(comm_world, t15);
-    std::complex<float> t16(1.2f, -1.2f);
-    send(comm_world, t16);
-    std::complex<double> t17(2.3, -2.3);
-    send(comm_world, t17);
-    std::complex<long double> t18(3.4, -3.4);
-    send(comm_world, t18);
-    std::pair<int, double> t19(-2, 0.1234);
-    send(comm_world, t19);
-    std::tuple<int, std::complex<double>> t20(-2, 0.1234);
-    send(comm_world, t20);
-    std::array<int, 4> t21{1, 2, 3, 4};
-    send(comm_world, t21);
-    std::byte t22{255};
-    send(comm_world, t22);
+    char t_1{'A'};
+    send(comm_world, t_1);
+    signed char t_2{'B'};
+    send(comm_world, t_2);
+    unsigned char t_3{'C'};
+    send(comm_world, t_3);
+    signed short int t_4{-1};
+    send(comm_world, t_4);
+    unsigned short int t_5{1};
+    send(comm_world, t_5);
+    signed int t_6{-10};
+    send(comm_world, t_6);
+    unsigned int t_7{10};
+    send(comm_world, t_7);
+    signed long int t_8{-100};
+    send(comm_world, t_8);
+    unsigned long int t_9{100};
+    send(comm_world, t_9);
+    signed long long int t_10{-1000};
+    send(comm_world, t_10);
+    unsigned long long int t_11{1000};
+    send(comm_world, t_11);
+    bool t_12{true};
+    send(comm_world, t_12);
+    float t_13{1.2345f};
+    send(comm_world, t_13);
+    double t_14{2.3456};
+    send(comm_world, t_14);
+    long double t_15{3.4567};
+    send(comm_world, t_15);
+    std::complex<float> t_16{1.2f, -1.2f};
+    send(comm_world, t_16);
+    std::complex<double> t_17{2.3, -2.3};
+    send(comm_world, t_17);
+    std::complex<long double> t_18{3.4, -3.4};
+    send(comm_world, t_18);
+    std::pair<int, double> t_19{-2, 0.1234};
+    send(comm_world, t_19);
+    std::tuple<int, std::complex<double>> t_20{-2, 0.1234};
+    send(comm_world, t_20);
+    std::array<int, 4> t_21{1, 2, 3, 4};
+    send(comm_world, t_21);
+    std::byte t_22{255};
+    send(comm_world, t_22);
   }
   // process 1 receives
   if (comm_world.rank() == 1) {

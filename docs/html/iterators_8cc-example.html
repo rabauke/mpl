@@ -98,14 +98,14 @@ $(document).ready(function(){initNavTree('iterators_8cc-example.html',''); initR
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
 <div class="line">  <span class="comment">// send / receive a single vector</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> N = 10;</div>
-<div class="line">    std::vector&lt;double&gt; l(N);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n{10};</div>
+<div class="line">    std::vector&lt;double&gt; l(n);</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">      std::iota(begin(l), end(l), 1);</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a>send(begin(l), end(l), 1);</div>
@@ -117,8 +117,8 @@ $(document).ready(function(){initNavTree('iterators_8cc-example.html',''); initR
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// send / receive a single list</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> N = 10;</div>
-<div class="line">    std::list&lt;double&gt; l(N);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n{10};</div>
+<div class="line">    std::list&lt;double&gt; l(n);</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">      std::iota(begin(l), end(l), 1);</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.send(begin(l), end(l), 1);</div>
@@ -130,15 +130,15 @@ $(document).ready(function(){initNavTree('iterators_8cc-example.html',''); initR
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// send a set / receive an array</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> N = 10;</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n{10};</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">      std::set&lt;double&gt; s;</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt;= N; ++i)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{1}; i &lt;= n; ++i)</div>
 <div class="line">        s.insert(i);</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.send(s.begin(), s.end(), 1);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
-<div class="line">      std::array&lt;double, N&gt; l;</div>
+<div class="line">      std::array&lt;double, n&gt; l;</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.recv(begin(l), end(l), 0);</div>
 <div class="line">      std::for_each(begin(l), end(l), [](<span class="keywordtype">double</span> x) { std::cout &lt;&lt; x &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>; });</div>
 <div class="line">    }</div>

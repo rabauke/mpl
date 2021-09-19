@@ -1,4 +1,4 @@
-// solve one-dimensional wave equation
+// solve the one-dimensional wave equation
 
 #include <stdlib.h>
 #include <stdio.h>

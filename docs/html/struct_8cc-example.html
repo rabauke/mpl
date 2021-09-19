@@ -97,29 +97,25 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line"><span class="keyword">struct </span>structure {</div>
 <div class="line">  <span class="keywordtype">double</span> d{0};</div>
 <div class="line">  <span class="keywordtype">int</span> i[9]{0, 0, 0, 0, 0, 0, 0, 0, 0};</div>
-<div class="line"> </div>
-<div class="line">  structure() = <span class="keywordflow">default</span>;</div>
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of structure</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr&gt;</div>
 <div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure &amp;s) {</div>
 <div class="line">  out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; s.d &lt;&lt; <span class="stringliteral">&quot;,[&quot;</span> &lt;&lt; s.i[0];</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{1}; i &lt; 9; ++i)</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{1}; i &lt; std::size(s.i); ++i)</div>
 <div class="line">    out &lt;&lt; <span class="charliteral">&#39;,&#39;</span> &lt;&lt; s.i[i];</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="stringliteral">&quot;])&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">struct </span>structure2 {</div>
+<div class="line"><span class="keyword">struct </span>structure_2 {</div>
 <div class="line">  <span class="keywordtype">double</span> d{0};</div>
 <div class="line">  structure str;</div>
-<div class="line"> </div>
-<div class="line">  structure2() = <span class="keywordflow">default</span>;</div>
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of structure2</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure2 &amp;s) {</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code" href="namespacempl.html#aa983f63a62e24286acfd063064bf0b40">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out, <span class="keyword">const</span> structure_2 &amp;s) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; s.d &lt;&lt; <span class="stringliteral">&quot;,&quot;</span> &lt;&lt; s.str &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
@@ -150,10 +146,10 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line"><span class="comment">// specialization of the struct_builder template automatically.  Just</span></div>
 <div class="line"><span class="comment">// pass the class name and the public members as arguments to the</span></div>
 <div class="line"><span class="comment">// macro.  MPL_REFLECTION is limited to 120 class members.</span></div>
-<div class="line">MPL_REFLECTION(structure2, d, str)</div>
+<div class="line">MPL_REFLECTION(structure_2, d, str)</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
@@ -169,7 +165,7 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line">    std::cout &lt;&lt; str &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// send / receive a single structure containing another structure</span></div>
-<div class="line">  structure2 str2;</div>
+<div class="line">  structure_2 str2;</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    str2.d = 1;</div>
 <div class="line">    str2.str.d = 1;</div>
@@ -181,7 +177,7 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line">    std::cout &lt;&lt; str2 &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// send / receive a vector of structures</span></div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> field_size = 8;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> field_size{8};</div>
 <div class="line">  std::vector&lt;structure&gt; str_field(field_size);</div>
 <div class="line">  <a name="_a7"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;structure&gt;</a> str_field_layout(field_size);</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
@@ -196,7 +192,7 @@ $(document).ready(function(){initNavTree('struct_8cc-example.html',''); initResi
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">    <span class="comment">// receive vector of structures</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.recv(str_field.data(), str_field_layout, 0);</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; field_size; ++k)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k{0}; k &lt; field_size; ++k)</div>
 <div class="line">      std::cout &lt;&lt; str_field[k] &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  }</div>
 <div class="line"> </div>

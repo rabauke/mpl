@@ -100,18 +100,18 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line"><span class="keyword">using</span> pair_t = std::pair&lt;double, int&gt;;</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// generate data</span></div>
 <div class="line">  std::mt19937_64 g(std::time(<span class="keyword">nullptr</span>) * <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>());  <span class="comment">// random seed</span></div>
 <div class="line">  std::uniform_real_distribution&lt;&gt; uniform;</div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n = 8;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> n{8};</div>
 <div class="line">  <span class="comment">// populate vector with random data</span></div>
 <div class="line">  std::vector&lt;pair_t&gt; v(n);</div>
 <div class="line">  std::generate(v.begin(), v.end(), [&amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>, &amp;g, &amp;uniform]() {</div>
 <div class="line">    return std::make_pair(uniform(g), comm_world.rank());</div>
 <div class="line">  });</div>
 <div class="line">  <span class="comment">// calculate minimum and its location and send result to rank root</span></div>
-<div class="line">  <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> {0};</div>
 <div class="line">  <a name="_a3"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;pair_t&gt;</a> layout(n);</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
 <div class="line">    std::vector&lt;pair_t&gt; result(n);</div>
@@ -119,7 +119,7 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c">reduce</a>(<a name="_a5"></a><a class="code" href="structmpl_1_1min.html">mpl::min&lt;pair_t&gt;</a>(), <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, v.data(), result.data(), layout);</div>
 <div class="line">    <span class="comment">// display data from all ranks</span></div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;arguments:\n&quot;</span>;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r = 0; r &lt; <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a6"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>(); ++r) {</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r{0}; r &lt; <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a6"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>(); ++r) {</div>
 <div class="line">      <span class="keywordflow">if</span> (r &gt; 0)</div>
 <div class="line">        <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a>recv(v.data(), layout, r);</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keyword">auto</span> i : v)</div>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('reduce_min_loc_8cc-example.html',''); 
 <div class="line">    }</div>
 <div class="line">    <span class="comment">// display results of global reduction</span></div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;\nresults:\n&quot;</span>;</div>
-<div class="line">    <span class="keywordflow">for</span> (pair_t i : result)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">const</span> pair_t &amp;i : result)</div>
 <div class="line">      std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(5) &lt;&lt; i.first &lt;&lt; <span class="charliteral">&#39; &#39;</span> &lt;&lt; i.second &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
 <div class="line">    std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  } <span class="keywordflow">else</span> {</div>

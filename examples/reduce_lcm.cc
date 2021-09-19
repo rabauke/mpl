@@ -11,13 +11,13 @@ template<typename T>
 class lcm {
   // helper: calculate greatest common divisor
   T gcd(T a, T b) {
-    T zero = T(), t;
+    constexpr T zero{};
     if (a < zero)
       a = -a;
     if (b < zero)
       b = -b;
     while (b > zero) {
-      t = a % b;
+      const T t{a % b};
       a = b;
       b = t;
     }
@@ -26,8 +26,8 @@ class lcm {
 
 public:
   T operator()(T a, T b) {
-    T zero = T();
-    T t((a / gcd(a, b)) * b);
+    constexpr T zero{};
+    const T t{(a / gcd(a, b)) * b};
     if (t < zero)
       return -t;
     return t;
@@ -35,11 +35,11 @@ public:
 };
 
 int main() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // generate data
   std::mt19937_64 g(std::time(nullptr) * comm_world.rank());  // random seed
-  std::uniform_int_distribution uniform(1, 12);
-  const int n = 8;
+  std::uniform_int_distribution uniform{1, 12};
+  const int n{8};
   // populate vector with random data
   std::vector<int> v(n);
   std::generate(v.begin(), v.end(), [&g, &uniform]() { return uniform(g); });
@@ -47,11 +47,11 @@ int main() {
   mpl::contiguous_layout<int> layout(n);
   if (comm_world.rank() == 0) {
     std::vector<int> result(n);
-    // calculate least common multiple
+    // calculate the least common multiple
     comm_world.reduce(lcm<int>(), 0, v.data(), result.data(), layout);
     // to check the result display data from all ranks
     std::cout << "Arguments:\n";
-    for (int r = 0; r < comm_world.size(); ++r) {
+    for (int r{0}; r < comm_world.size(); ++r) {
       if (r > 0)
         comm_world.recv(v.data(), layout, r);
       for (auto i : v)
@@ -64,7 +64,7 @@ int main() {
       std::cout << i << '\t';
     std::cout << '\n';
   } else {
-    // calculate least common multiple
+    // calculate the least common multiple
     comm_world.reduce(lcm<int>(), 0, v.data(), layout);
     // send data to rank 0 for display
     comm_world.send(v.data(), layout, 0);

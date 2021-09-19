@@ -96,30 +96,30 @@ $(document).ready(function(){initNavTree('vibrating_string_mpl_8cc-example.html'
 <div class="line"><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> N = 1001;        <span class="comment">// total number of grid points</span></div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> L = 1;        <span class="comment">// lengths of domain</span></div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> c = 1;        <span class="comment">// speed of sound</span></div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> dt = 0.001;   <span class="comment">// temporal step width</span></div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> t_end = 2.4;  <span class="comment">// simulation time</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">int</span> n{1001};        <span class="comment">// total number of grid points</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> l{1};        <span class="comment">// lengths of domain</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> c{1};        <span class="comment">// speed of sound</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> dt{0.001};   <span class="comment">// temporal step width</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">double</span> t_end{2.4};  <span class="comment">// simulation time</span></div>
 <div class="line"> </div>
-<div class="line">enum : <span class="keywordtype">int</span> { left_copy, right_copy };</div>
+<div class="line"><span class="keyword">enum class</span> copy : int { left, right };</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// update grid points</span></div>
 <div class="line"><span class="keywordtype">void</span> string(<span class="keyword">const</span> std::vector&lt;double&gt; &amp;u, <span class="keyword">const</span> std::vector&lt;double&gt; &amp;u_old,</div>
 <div class="line">            std::vector&lt;double&gt; &amp;u_new, <span class="keywordtype">double</span> eps) {</div>
 <div class="line">  <span class="keyword">using</span> size_type = std::vector&lt;double&gt;::size_type;</div>
-<div class="line">  size_type N = u.size();</div>
+<div class="line">  <span class="keyword">const</span> size_type N{u.size()};</div>
 <div class="line">  u_new[0] = u[0];</div>
-<div class="line">  <span class="keywordflow">for</span> (size_type i = 1; i &lt; N - 1; ++i)</div>
+<div class="line">  <span class="keywordflow">for</span> (size_type i{1}; i &lt; N - 1; ++i)</div>
 <div class="line">    u_new[i] = eps * (u[i - 1] + u[i + 1]) + 2.0 * (1.0 - eps) * u[i] - u_old[i];</div>
 <div class="line">  u_new[N - 1] = u[N - 1];</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// initial elongation of string</span></div>
 <div class="line"><span class="keyword">inline</span> <span class="keywordtype">double</span> u_0(<span class="keywordtype">double</span> x) {</div>
-<div class="line">  <span class="keywordflow">if</span> (x &lt;= 0 or x &gt;= L)</div>
+<div class="line">  <span class="keywordflow">if</span> (x &lt;= 0 or x &gt;= l)</div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
-<div class="line">  <span class="keywordflow">return</span> std::exp(-200.0 * (x - 0.5 * L) * (x - 0.5 * L));</div>
+<div class="line">  <span class="keywordflow">return</span> std::exp(-200.0 * (x - 0.5 * l) * (x - 0.5 * l));</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// initial velocity of string</span></div>
@@ -128,56 +128,58 @@ $(document).ready(function(){initNavTree('vibrating_string_mpl_8cc-example.html'
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keywordtype">double</span> dx = L / (N - 1);  <span class="comment">// grid spacing</span></div>
-<div class="line">  <span class="keywordtype">double</span> eps = dt * dt * c * c / (dx * dx);</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
-<div class="line">  <span class="keywordtype">int</span> C_size = <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>();</div>
-<div class="line">  <span class="keywordtype">int</span> C_rank = <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>();</div>
-<div class="line">  std::vector&lt;int&gt; N_l, N0_l;</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i) {</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> dx{l / (n - 1)};  <span class="comment">// grid spacing</span></div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> eps{dt * dt * c * c / (dx * dx)};</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> c_size{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">int</span> c_rank{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
+<div class="line">  std::vector&lt;int&gt; n_l, n_0_l;</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i) {</div>
 <div class="line">    <span class="comment">// number of local grid points of process i</span></div>
-<div class="line">    N_l.push_back((i + 1) * (N - 2) / C_size - i * (N - 2) / C_size + 2);</div>
+<div class="line">    n_l.push_back((i + 1) * (n - 2) / c_size - i * (n - 2) / c_size + 2);</div>
 <div class="line">    <span class="comment">// position of local grid of process i within the global grid</span></div>
-<div class="line">    N0_l.push_back(i * (N - 2) / C_size);</div>
+<div class="line">    n_0_l.push_back(i * (n - 2) / c_size);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// grid data for times (t-dt), t and t+dt</span></div>
-<div class="line">  std::vector&lt;double&gt; u_old_l(N_l[C_rank]);</div>
-<div class="line">  std::vector&lt;double&gt; u_l(N_l[C_rank]);</div>
-<div class="line">  std::vector&lt;double&gt; u_new_l(N_l[C_rank]);</div>
+<div class="line">  std::vector&lt;double&gt; u_old_l(n_l[c_rank]);</div>
+<div class="line">  std::vector&lt;double&gt; u_l(n_l[c_rank]);</div>
+<div class="line">  std::vector&lt;double&gt; u_new_l(n_l[c_rank]);</div>
 <div class="line">  <span class="comment">// 1st propagation step uses current elongation and velocity</span></div>
 <div class="line">  <span class="comment">// calculate all grid points including overlapping border data</span></div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; N_l[C_rank]; ++i) {</div>
-<div class="line">    <span class="keywordtype">double</span> x = (i + N0_l[C_rank]) * dx;</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; n_l[c_rank]; ++i) {</div>
+<div class="line">    <span class="keywordtype">double</span> x = (i + n_0_l[c_rank]) * dx;</div>
 <div class="line">    u_old_l[i] = u_0(x);</div>
 <div class="line">    u_l[i] = 0.5 * eps * (u_0(x - dx) + u_0(x + dx)) + (1.0 - eps) * u_0(x) + dt * u_0_dt(x);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// propagate</span></div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">double</span> t = 2 * dt; t &lt;= t_end; t += dt) {</div>
+<div class="line">  <span class="keywordtype">double</span> t{2 * dt};</div>
+<div class="line">  <span class="keywordflow">while</span> (t &lt;= t_end) {</div>
 <div class="line">    <span class="comment">// make one time step to get elongation</span></div>
 <div class="line">    string(u_l, u_old_l, u_new_l, eps);</div>
 <div class="line">    <span class="comment">// update border data</span></div>
 <div class="line">    <a name="_a4"></a><a class="code" href="classmpl_1_1irequest__pool.html">mpl::irequest_pool</a> r;</div>
-<div class="line">    r.<a name="a5"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a6"></a>isend(u_new_l[N_l[C_rank] - 2],</div>
-<div class="line">                            C_rank + 1 &lt; C_size ? C_rank + 1 : <a name="a7"></a><a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>, right_copy));</div>
-<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(</div>
-<div class="line">        <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.isend(u_new_l[1], C_rank - 1 &gt;= 0 ? C_rank - 1 : <a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>, left_copy));</div>
-<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a8"></a>irecv(u_new_l[0], C_rank - 1 &gt;= 0 ? C_rank - 1 : <a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>,</div>
-<div class="line">                            right_copy));</div>
-<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.irecv(u_new_l[N_l[C_rank] - 1],</div>
-<div class="line">                            C_rank + 1 &lt; C_size ? C_rank + 1 : <a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>, left_copy));</div>
+<div class="line">    r.<a name="a5"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a6"></a>isend(u_new_l[n_l[c_rank] - 2],</div>
+<div class="line">                            c_rank + 1 &lt; c_size ? c_rank + 1 : <a name="a7"></a><a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>, copy::right));</div>
+<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.isend(u_new_l[1], c_rank - 1 &gt;= 0 ? c_rank - 1 : <a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>,</div>
+<div class="line">                            copy::left));</div>
+<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a8"></a>irecv(u_new_l[0], c_rank - 1 &gt;= 0 ? c_rank - 1 : <a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>,</div>
+<div class="line">                            copy::right));</div>
+<div class="line">    r.<a class="code" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a>(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.irecv(u_new_l[n_l[c_rank] - 1],</div>
+<div class="line">                            c_rank + 1 &lt; c_size ? c_rank + 1 : <a class="code" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">mpl::proc_null</a>, copy::left));</div>
 <div class="line">    r.<a name="a9"></a><a class="code" href="classmpl_1_1impl_1_1request__pool.html#a1e864f5b3e62bb28db94bec090235401">waitall</a>();</div>
 <div class="line">    std::swap(u_l, u_old_l);</div>
 <div class="line">    std::swap(u_new_l, u_l);</div>
+<div class="line">    t += dt;</div>
 <div class="line">  }</div>
-<div class="line">  <span class="comment">// finally gather all the data at rank 0 and print result</span></div>
+<div class="line">  <span class="comment">// finally, gather all the data at rank 0 and print result</span></div>
 <div class="line">  <a name="_a10"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;double&gt;</a> layouts;</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i)</div>
-<div class="line">    layouts.push_back(<a name="_a11"></a><a class="code" href="classmpl_1_1indexed__layout.html">mpl::indexed_layout&lt;double&gt;</a>({{N_l[i] - 2, N0_l[i] + 1}}));</div>
-<div class="line">  <a name="_a12"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> layout(N_l[C_rank] - 2);</div>
-<div class="line">  <span class="keywordflow">if</span> (C_rank == 0) {</div>
-<div class="line">    std::vector&lt;double&gt; u(N, 0);</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i)</div>
+<div class="line">    layouts.push_back(<a name="_a11"></a><a class="code" href="classmpl_1_1indexed__layout.html">mpl::indexed_layout&lt;double&gt;</a>({{n_l[i] - 2, n_0_l[i] + 1}}));</div>
+<div class="line">  <a name="_a12"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> layout(n_l[c_rank] - 2);</div>
+<div class="line">  <span class="keywordflow">if</span> (c_rank == 0) {</div>
+<div class="line">    std::vector&lt;double&gt; u(n, 0);</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a13"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(0, u_l.data() + 1, layout, u.data(), layouts);</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; N; ++i)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; n; ++i)</div>
 <div class="line">      std::cout &lt;&lt; dx * i &lt;&lt; <span class="charliteral">&#39;\t&#39;</span> &lt;&lt; u[i] &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  } <span class="keywordflow">else</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(0, u_l.data() + 1, layout);</div>

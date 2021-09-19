@@ -97,10 +97,13 @@ $(document).ready(function(){initNavTree('parallel_sort_mpl_8cc-example.html',''
 <div class="line"><span class="keyword">static</span> std::random_device rd;</div>
 <div class="line"><span class="keyword">static</span> std::mt19937_64 mt(rd());</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> fill_random(std::vector&lt;double&gt; &amp;v) {</div>
+<div class="line"><span class="keywordtype">double</span> get_random() {</div>
 <div class="line">  std::uniform_real_distribution&lt;double&gt; dist(0, 1);</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keyword">auto</span> &amp;x : v)</div>
-<div class="line">    x = dist(mt);</div>
+<div class="line">  <span class="keywordflow">return</span> dist(mt);</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> fill_random(std::vector&lt;double&gt; &amp;v) {</div>
+<div class="line">  std::generate(std::begin(v), std::end(v), get_random);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// parallel sort algorithm for distributed memory computers</span></div>
@@ -128,7 +131,7 @@ $(document).ready(function(){initNavTree('parallel_sort_mpl_8cc-example.html',''
 <div class="line">                       <a class="code" href="classmpl_1_1vector__layout.html">mpl::vector_layout&lt;T&gt;</a>(size - 1));</div>
 <div class="line">  std::sort(begin(pivots), end(pivots));</div>
 <div class="line">  local_pivots.clear();</div>
-<div class="line">  <span class="keywordflow">for</span> (std::size_t i = 1; i &lt; size; ++i)</div>
+<div class="line">  <span class="keywordflow">for</span> (std::size_t i{1}; i &lt; size; ++i)</div>
 <div class="line">    local_pivots.push_back(pivots[i * (size - 1)]);</div>
 <div class="line">  swap(local_pivots, pivots);</div>
 <div class="line">  std::vector&lt;typename std::vector&lt;T&gt;::iterator&gt; pivot_pos;</div>
@@ -137,23 +140,23 @@ $(document).ready(function(){initNavTree('parallel_sort_mpl_8cc-example.html',''
 <div class="line">    pivot_pos.push_back(std::partition(pivot_pos.back(), end(v), [p](T x) { <span class="keywordflow">return</span> x &lt; p; }));</div>
 <div class="line">  pivot_pos.push_back(end(v));</div>
 <div class="line">  std::vector&lt;int&gt; local_block_sizes, block_sizes(size * size);</div>
-<div class="line">  <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; pivot_pos.size() - 1; ++i)</div>
+<div class="line">  <span class="keywordflow">for</span> (std::size_t i{0}; i &lt; pivot_pos.size() - 1; ++i)</div>
 <div class="line">    local_block_sizes.push_back(</div>
 <div class="line">        <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(std::distance(pivot_pos[i], pivot_pos[i + 1])));</div>
 <div class="line">  <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">allgather</a>(local_block_sizes.data(), <a class="code" href="classmpl_1_1vector__layout.html">mpl::vector_layout&lt;int&gt;</a>(size),</div>
 <div class="line">                       block_sizes.data(), <a class="code" href="classmpl_1_1vector__layout.html">mpl::vector_layout&lt;int&gt;</a>(size));</div>
 <div class="line">  <a name="_a5"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;T&gt;</a> send_layouts, recv_layouts;</div>
 <div class="line">  <span class="keywordtype">int</span> send_pos{0}, recv_pos{0};</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; size; ++i) {</div>
 <div class="line">    send_layouts.push_back(<a name="_a6"></a><a class="code" href="classmpl_1_1indexed__layout.html">mpl::indexed_layout&lt;T&gt;</a>({{block_sizes[rank * size + i], send_pos}}));</div>
 <div class="line">    send_pos += block_sizes[rank * size + i];</div>
 <div class="line">    recv_layouts.push_back(<a class="code" href="classmpl_1_1indexed__layout.html">mpl::indexed_layout&lt;T&gt;</a>({{block_sizes[rank + size * i], recv_pos}}));</div>
 <div class="line">    recv_pos += block_sizes[rank + size * i];</div>
 <div class="line">  }</div>
-<div class="line">  std::vector&lt;T&gt; v2(recv_pos);</div>
-<div class="line">  <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a><a class="code" href="classmpl_1_1communicator.html#a05ed2a65531e978c766f9af918f5e5a3">alltoallv</a>(v.data(), send_layouts, v2.data(), recv_layouts);</div>
-<div class="line">  std::sort(begin(v2), end(v2));</div>
-<div class="line">  swap(v, v2);</div>
+<div class="line">  std::vector&lt;T&gt; v_2(recv_pos);</div>
+<div class="line">  <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a><a class="code" href="classmpl_1_1communicator.html#a05ed2a65531e978c766f9af918f5e5a3">alltoallv</a>(v.data(), send_layouts, v_2.data(), recv_layouts);</div>
+<div class="line">  std::sort(begin(v_2), end(v_2));</div>
+<div class="line">  swap(v, v_2);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>

@@ -94,36 +94,36 @@ $(document).ready(function(){initNavTree('probe_8cc-example.html',''); initResiz
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;</div>
-<div class="line"><span class="keywordtype">void</span> print_range(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> str, I i1, I i2) {</div>
+<div class="line"><span class="keywordtype">void</span> print_range(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> str, I i_1, I i_2) {</div>
 <div class="line">  std::cout &lt;&lt; str;</div>
-<div class="line">  <span class="keywordflow">while</span> (i1 != i2) {</div>
-<div class="line">    std::cout &lt;&lt; (*i1);</div>
-<div class="line">    ++i1;</div>
-<div class="line">    std::cout &lt;&lt; ((i1 != i2) ? <span class="charliteral">&#39; &#39;</span> : <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line">  <span class="keywordflow">while</span> (i_1 != i_2) {</div>
+<div class="line">    std::cout &lt;&lt; (*i_1);</div>
+<div class="line">    ++i_1;</div>
+<div class="line">    std::cout &lt;&lt; ((i_1 != i_2) ? <span class="charliteral">&#39; &#39;</span> : <span class="charliteral">&#39;\n&#39;</span>);</div>
 <div class="line">  }</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    <span class="comment">// send a message of n elements to rank 1</span></div>
 <div class="line">    <span class="keyword">enum class</span> tag { send = 29 };</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n = 12;</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n{12};</div>
 <div class="line">    std::vector&lt;int&gt; v(n);</div>
 <div class="line">    <a name="_a4"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);</div>
 <div class="line">    std::iota(v.begin(), v.end(), 0);</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a>send(v.data(), l, 1, tag::send);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
-<div class="line">    <span class="comment">// receive a message of an a priory unknown number of elements from rank 0</span></div>
+<div class="line">    <span class="comment">// receive a message of an a priori unknown number of elements from rank 0</span></div>
 <div class="line">    <span class="comment">// first probe for a message from some arbitrary rank with any tag</span></div>
 <div class="line">    <a name="_a6"></a><a class="code" href="classmpl_1_1status__t.html">mpl::status_t</a> s(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a><a class="code" href="classmpl_1_1communicator.html#af40beb3dfe89be5117e80cd5c0d53c4f">probe</a>(<a name="a8"></a><a class="code" href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b">mpl::any_source</a>, <a name="a9"></a><a class="code" href="classmpl_1_1tag__t.html#a36c19147cc45592c8df6a14258706ad8">mpl::tag_t::any</a>()));</div>
 <div class="line">    <span class="comment">// decode the number of elements, the source and the tag</span></div>
-<div class="line">    <span class="keywordtype">int</span> n(s.get_count&lt;<span class="keywordtype">int</span>&gt;()), source(s.source());</div>
-<div class="line">    <a name="_a10"></a><a class="code" href="classmpl_1_1tag__t.html">mpl::tag_t</a> tag(s.tag());</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n{s.get_count&lt;<span class="keywordtype">int</span>&gt;()}, source{s.source()};</div>
+<div class="line">    <span class="keyword">const</span> <a name="_a10"></a><a class="code" href="classmpl_1_1tag__t.html">mpl::tag_t</a> tag(s.tag());</div>
 <div class="line">    std::cerr &lt;&lt; <span class="stringliteral">&quot;source : &quot;</span> &lt;&lt; s.source() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
 <div class="line">              &lt;&lt; <span class="stringliteral">&quot;tag    : &quot;</span> &lt;&lt; s.tag() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
 <div class="line">              &lt;&lt; <span class="stringliteral">&quot;error  : &quot;</span> &lt;&lt; s.error() &lt;&lt; <span class="charliteral">&#39;\n&#39;</span></div>
@@ -131,7 +131,7 @@ $(document).ready(function(){initNavTree('probe_8cc-example.html',''); initResiz
 <div class="line">    <span class="comment">// reserve sufficient amount of memory to receive the message</span></div>
 <div class="line">    std::vector&lt;int&gt; v(n);</div>
 <div class="line">    <a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);</div>
-<div class="line">    <span class="comment">// finally receive the message</span></div>
+<div class="line">    <span class="comment">// finally, receive the message</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a11"></a>recv(v.data(), l, source, tag);</div>
 <div class="line">    print_range(<span class="stringliteral">&quot;v = &quot;</span>, v.begin(), v.end());</div>
 <div class="line">  }</div>

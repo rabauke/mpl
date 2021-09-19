@@ -93,27 +93,28 @@ $(document).ready(function(){initNavTree('gatherv_8cc-example.html',''); initRes
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>(<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>());</div>
-<div class="line">  <span class="keywordtype">int</span> C_rank(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()), C_size(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>());</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_rank{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_size{<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};</div>
 <div class="line">  <span class="comment">// fill vector with C_rank+1 elements, each having the value C_rank+1</span></div>
-<div class="line">  std::vector&lt;int&gt; x(C_rank + 1, C_rank + 1);</div>
-<div class="line">  <a name="_a4"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(C_rank + 1);</div>
+<div class="line">  std::vector&lt;int&gt; x(c_rank + 1, c_rank + 1);</div>
+<div class="line">  <a name="_a4"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(c_rank + 1);</div>
 <div class="line">  <span class="comment">// root rank will send and receive in gather operation</span></div>
-<div class="line">  <span class="keywordflow">if</span> (C_rank == 0) {</div>
+<div class="line">  <span class="keywordflow">if</span> (c_rank == 0) {</div>
 <div class="line">    <span class="comment">// messages of varying size will be received</span></div>
 <div class="line">    <span class="comment">// need to specify appropriate memory layouts to define how many elements</span></div>
 <div class="line">    <span class="comment">// will be received and where to store them</span></div>
 <div class="line">    <a name="_a5"></a><a class="code" href="classmpl_1_1layouts.html">mpl::layouts&lt;int&gt;</a> ls;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i)</div>
 <div class="line">      <span class="comment">// define layout for message to be received from rank i</span></div>
 <div class="line">      ls.push_back(<a name="_a6"></a><a class="code" href="classmpl_1_1indexed__layout.html">mpl::indexed_layout&lt;int&gt;</a>({{</div>
 <div class="line">          i + 1,           <span class="comment">// number of int elements</span></div>
 <div class="line">          (i * i + i) / 2  <span class="comment">// position of the first element in receive buffer</span></div>
 <div class="line">      }}));</div>
-<div class="line">    std::vector&lt;int&gt; y((C_size * C_size + C_size) / 2);  <span class="comment">// receive buffer</span></div>
+<div class="line">    std::vector&lt;int&gt; y((c_size * c_size + c_size) / 2);  <span class="comment">// receive buffer</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a7"></a><a class="code" href="classmpl_1_1communicator.html#a32881aa49f5e9c71792e98629a131822">gatherv</a>(0, x.data(), l, y.data(), ls);    <span class="comment">// receive data</span></div>
 <div class="line">    <span class="comment">// print data</span></div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> f : y)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;f : y)</div>
 <div class="line">      std::cout &lt;&lt; f &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">  } <span class="keywordflow">else</span></div>
 <div class="line">    <span class="comment">// non-root ranks just send</span></div>

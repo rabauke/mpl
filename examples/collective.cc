@@ -5,12 +5,12 @@
 
 
 struct my_array {
-  static constexpr int N0 = 3;
-  static constexpr int N1 = 4;
-  double data[N0][N1]{};
+  static constexpr int n_0{3};
+  static constexpr int n_1{4};
+  double data[n_0][n_1]{};
   // overload operators for some syntactical sugar
-  const double &operator()(int i0, int i1) const { return data[i0][i1]; }
-  double &operator()(int i0, int i1) { return data[i0][i1]; }
+  const double &operator()(int i_0, int i_1) const { return data[i_0][i_1]; }
+  double &operator()(int i_0, int i_1) { return data[i_0][i_1]; }
 };
 
 // use reflection macro to make the struct compatible with mpl
@@ -19,22 +19,22 @@ MPL_REFLECTION(my_array, data);
 // overload plus operator
 my_array operator+(const my_array &a, const my_array &b) {
   my_array res;
-  for (int i1{0}; i1 < my_array::N1; ++i1)
-    for (int i0{0}; i0 < my_array::N0; ++i0)
-      res(i0, i1) = a(i0, i1) + b(i0, i1);
+  for (int i_1{0}; i_1 < my_array::n_1; ++i_1)
+    for (int i_0{0}; i_0 < my_array::n_0; ++i_0)
+      res(i_0, i_1) = a(i_0, i_1) + b(i_0, i_1);
   return res;
 }
 
 
 int main() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  int root = 0;
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  int root{0};
 
   // synchronize processes via barrier
   comm_world.barrier();
   std::cout << mpl::environment::processor_name() << " has passed barrier\n";
   comm_world.barrier();
-  double x = 0;
+  double x{0};
   if (comm_world.rank() == root)
     x = 10;
 
@@ -55,7 +55,7 @@ int main() {
     comm_world.gather(root, x);
 
   // send data to all ranks via scatter from root rank
-  double y = 0;
+  double y{0};
   if (comm_world.rank() == root) {
     std::vector<double> v(comm_world.size());  // send buffer
     std::iota(v.begin(), v.end(), 1);          // populate send buffer
@@ -77,19 +77,19 @@ int main() {
 
   // reduce a C-style array using a contiguous layout
   {
-    const int N0 = 3, N1 = 4;
-    using array_type = double[N0][N1];
-    array_type A;
-    for (int i1{0}; i1 < N1; ++i1)
-      for (int i0{0}; i0 < N0; ++i0)
-        A[i0][i1] = i0 + 100 * i1;
-    mpl::contiguous_layout<double> l(N1 * N0);
-    comm_world.allreduce(mpl::plus<double>(), &A[0][0], l);
+    const int n_0{3}, n_1{4};
+    using array_type = double[n_0][n_1];
+    array_type array;
+    for (int i_1{0}; i_1 < n_1; ++i_1)
+      for (int i_0{0}; i_0 < n_0; ++i_0)
+        array[i_0][i_1] = i_0 + 100 * i_1;
+    mpl::contiguous_layout<double> l(n_1 * n_0);
+    comm_world.allreduce(mpl::plus<double>(), &array[0][0], l);
     if (comm_world.rank() == 0) {
       std::cout << "array after allreduce\n";
-      for (int i1{0}; i1 < N1; ++i1) {
-        for (int i0{0}; i0 < N0; ++i0)
-          std::cout << A[i0][i1] << '\t';
+      for (int i_1{0}; i_1 < n_1; ++i_1) {
+        for (int i_0{0}; i_0 < n_0; ++i_0)
+          std::cout << array[i_0][i_1] << '\t';
         std::cout << '\n';
       }
     }
@@ -97,16 +97,16 @@ int main() {
 
   // reduce a wrapped array
   {
-    my_array A;
-    for (int i1{0}; i1 < my_array::N1; ++i1)
-      for (int i0{0}; i0 < my_array::N0; ++i0)
-        A(i0, i1) = i0 + 100 * i1;
-    comm_world.allreduce(mpl::plus<my_array>(), A);
+    my_array array;
+    for (int i_1{0}; i_1 < my_array::n_1; ++i_1)
+      for (int i_0{0}; i_0 < my_array::n_0; ++i_0)
+        array(i_0, i_1) = i_0 + 100 * i_1;
+    comm_world.allreduce(mpl::plus<my_array>(), array);
     if (comm_world.rank() == 0) {
       std::cout << "array after allreduce\n";
-      for (int i1{0}; i1 < my_array::N1; ++i1) {
-        for (int i0{0}; i0 < my_array::N0; ++i0)
-          std::cout << A(i0, i1) << '\t';
+      for (int i_1{0}; i_1 < my_array::n_1; ++i_1) {
+        for (int i_0{0}; i_0 < my_array::n_0; ++i_0)
+          std::cout << array(i_0, i_1) << '\t';
         std::cout << '\n';
       }
     }

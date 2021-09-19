@@ -90,44 +90,43 @@ $(document).ready(function(){initNavTree('arrays_8cc-example.html',''); initResi
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;cstdlib&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;numeric&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;algorithm&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a3"></a><a class="code" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
 <div class="line">  <span class="comment">// send / receive a single array</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> N = 10;</div>
-<div class="line">    <span class="keywordtype">double</span> arr[N];</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n{10};</div>
+<div class="line">    <span class="keywordtype">double</span> arr[n];</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
-<div class="line">      std::iota(arr, arr + N, 1);</div>
+<div class="line">      std::iota(arr, arr + n, 1);</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a5"></a>send(arr, 1);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a6"></a>recv(arr, 0);</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; N; ++j)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j{0}; j &lt; n; ++j)</div>
 <div class="line">        std::cout &lt;&lt; <span class="stringliteral">&quot;arr[&quot;</span> &lt;&lt; j &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; arr[j] &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// send / receive a single two-dimensional array</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> N0 = 2, N1 = 3;</div>
-<div class="line">    <span class="keywordtype">double</span> arr[N0][N1];</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n_0{2}, n_1{3};</div>
+<div class="line">    <span class="keywordtype">double</span> arr[n_0][n_1];</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j1 = 0; j1 &lt; N1; ++j1)</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j0 = 0; j0 &lt; N0; ++j0)</div>
-<div class="line">          arr[j0][j1] = (j0 + 1) + 100 * (j1 + 1);</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j_1{0}; j_1 &lt; n_1; ++j_1)</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j_0{0}; j_0 &lt; n_0; ++j_0)</div>
+<div class="line">          arr[j_0][j_1] = (j_0 + 1) + 100 * (j_1 + 1);</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.send(arr, 1);</div>
 <div class="line">    }</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">      <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.recv(arr, 0);</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j1 = 0; j1 &lt; N1; ++j1) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j0 = 0; j0 &lt; N0; ++j0)</div>
-<div class="line">          std::cout &lt;&lt; <span class="stringliteral">&quot;arr[&quot;</span> &lt;&lt; j0 &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; j1 &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; arr[j0][j1] &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j_1{0}; j_1 &lt; n_1; ++j_1) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j_0{0}; j_0 &lt; n_0; ++j_0)</div>
+<div class="line">          std::cout &lt;&lt; <span class="stringliteral">&quot;arr[&quot;</span> &lt;&lt; j_0 &lt;&lt; <span class="stringliteral">&quot;, &quot;</span> &lt;&lt; j_1 &lt;&lt; <span class="stringliteral">&quot;] = &quot;</span> &lt;&lt; arr[j_0][j_1] &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">      }</div>
 <div class="line">    }</div>
 <div class="line">  }</div>

@@ -94,12 +94,12 @@ $(document).ready(function(){initNavTree('collective_8cc-example.html',''); init
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">struct </span>my_array {</div>
-<div class="line">  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> N0 = 3;</div>
-<div class="line">  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> N1 = 4;</div>
-<div class="line">  <span class="keywordtype">double</span> data[N0][N1]{};</div>
+<div class="line">  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> n_0{3};</div>
+<div class="line">  <span class="keyword">static</span> constexpr <span class="keywordtype">int</span> n_1{4};</div>
+<div class="line">  <span class="keywordtype">double</span> data[n_0][n_1]{};</div>
 <div class="line">  <span class="comment">// overload operators for some syntactical sugar</span></div>
-<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;operator()(<span class="keywordtype">int</span> i0, <span class="keywordtype">int</span> i1)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data[i0][i1]; }</div>
-<div class="line">  <span class="keywordtype">double</span> &amp;operator()(<span class="keywordtype">int</span> i0, <span class="keywordtype">int</span> i1) { <span class="keywordflow">return</span> data[i0][i1]; }</div>
+<div class="line">  <span class="keyword">const</span> <span class="keywordtype">double</span> &amp;operator()(<span class="keywordtype">int</span> i_0, <span class="keywordtype">int</span> i_1)<span class="keyword"> const </span>{ <span class="keywordflow">return</span> data[i_0][i_1]; }</div>
+<div class="line">  <span class="keywordtype">double</span> &amp;operator()(<span class="keywordtype">int</span> i_0, <span class="keywordtype">int</span> i_1) { <span class="keywordflow">return</span> data[i_0][i_1]; }</div>
 <div class="line">};</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// use reflection macro to make the struct compatible with mpl</span></div>
@@ -108,22 +108,22 @@ $(document).ready(function(){initNavTree('collective_8cc-example.html',''); init
 <div class="line"><span class="comment">// overload plus operator</span></div>
 <div class="line">my_array operator+(<span class="keyword">const</span> my_array &amp;a, <span class="keyword">const</span> my_array &amp;b) {</div>
 <div class="line">  my_array res;</div>
-<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1{0}; i1 &lt; my_array::N1; ++i1)</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0{0}; i0 &lt; my_array::N0; ++i0)</div>
-<div class="line">      res(i0, i1) = a(i0, i1) + b(i0, i1);</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; my_array::n_1; ++i_1)</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; my_array::n_0; ++i_0)</div>
+<div class="line">      res(i_0, i_1) = a(i_0, i_1) + b(i_0, i_1);</div>
 <div class="line">  <span class="keywordflow">return</span> res;</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
-<div class="line">  <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> = 0;</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
+<div class="line">  <span class="keywordtype">int</span> <a class="code" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// synchronize processes via barrier</span></div>
 <div class="line">  <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#a5df6a6f331aa4c60b7b5664c5260c0ec">barrier</a>();</div>
 <div class="line">  std::cout &lt;&lt; <a name="a3"></a><a class="code" href="namespacempl_1_1environment.html#a89bda4aaa36251049ffdecdbe79a4322">mpl::environment::processor_name</a>() &lt;&lt; <span class="stringliteral">&quot; has passed barrier\n&quot;</span>;</div>
 <div class="line">  <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a5df6a6f331aa4c60b7b5664c5260c0ec">barrier</a>();</div>
-<div class="line">  <span class="keywordtype">double</span> x = 0;</div>
+<div class="line">  <span class="keywordtype">double</span> x{0};</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a4"></a><a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == root)</div>
 <div class="line">    x = 10;</div>
 <div class="line"> </div>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('collective_8cc-example.html',''); init
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(root, x);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// send data to all ranks via scatter from root rank</span></div>
-<div class="line">  <span class="keywordtype">double</span> y = 0;</div>
+<div class="line">  <span class="keywordtype">double</span> y{0};</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == root) {</div>
 <div class="line">    std::vector&lt;double&gt; v(<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>());  <span class="comment">// send buffer</span></div>
 <div class="line">    std::iota(v.begin(), v.end(), 1);          <span class="comment">// populate send buffer</span></div>
@@ -166,19 +166,19 @@ $(document).ready(function(){initNavTree('collective_8cc-example.html',''); init
 <div class="line"> </div>
 <div class="line">  <span class="comment">// reduce a C-style array using a contiguous layout</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> N0 = 3, N1 = 4;</div>
-<div class="line">    <span class="keyword">using</span> array_type = <span class="keywordtype">double</span>[N0][N1];</div>
-<div class="line">    array_type A;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1{0}; i1 &lt; N1; ++i1)</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0{0}; i0 &lt; N0; ++i0)</div>
-<div class="line">        A[i0][i1] = i0 + 100 * i1;</div>
-<div class="line">    <a name="_a13"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> l(N1 * N0);</div>
-<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a0216770c7c9dbc1cc85497b79bbc9b09">allreduce</a>(<a class="code" href="structmpl_1_1plus.html">mpl::plus&lt;double&gt;</a>(), &amp;A[0][0], l);</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> n_0{3}, n_1{4};</div>
+<div class="line">    <span class="keyword">using</span> array_type = <span class="keywordtype">double</span>[n_0][n_1];</div>
+<div class="line">    array_type array;</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; n_1; ++i_1)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; n_0; ++i_0)</div>
+<div class="line">        array[i_0][i_1] = i_0 + 100 * i_1;</div>
+<div class="line">    <a name="_a13"></a><a class="code" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;double&gt;</a> l(n_1 * n_0);</div>
+<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a0216770c7c9dbc1cc85497b79bbc9b09">allreduce</a>(<a class="code" href="structmpl_1_1plus.html">mpl::plus&lt;double&gt;</a>(), &amp;array[0][0], l);</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;array after allreduce\n&quot;</span>;</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1{0}; i1 &lt; N1; ++i1) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0{0}; i0 &lt; N0; ++i0)</div>
-<div class="line">          std::cout &lt;&lt; A[i0][i1] &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; n_1; ++i_1) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; n_0; ++i_0)</div>
+<div class="line">          std::cout &lt;&lt; array[i_0][i_1] &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
 <div class="line">        std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">      }</div>
 <div class="line">    }</div>
@@ -186,16 +186,16 @@ $(document).ready(function(){initNavTree('collective_8cc-example.html',''); init
 <div class="line"> </div>
 <div class="line">  <span class="comment">// reduce a wrapped array</span></div>
 <div class="line">  {</div>
-<div class="line">    my_array A;</div>
-<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1{0}; i1 &lt; my_array::N1; ++i1)</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0{0}; i0 &lt; my_array::N0; ++i0)</div>
-<div class="line">        A(i0, i1) = i0 + 100 * i1;</div>
-<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a0216770c7c9dbc1cc85497b79bbc9b09">allreduce</a>(<a class="code" href="structmpl_1_1plus.html">mpl::plus&lt;my_array&gt;</a>(), A);</div>
+<div class="line">    my_array array;</div>
+<div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; my_array::n_1; ++i_1)</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; my_array::n_0; ++i_0)</div>
+<div class="line">        array(i_0, i_1) = i_0 + 100 * i_1;</div>
+<div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#a0216770c7c9dbc1cc85497b79bbc9b09">allreduce</a>(<a class="code" href="structmpl_1_1plus.html">mpl::plus&lt;my_array&gt;</a>(), array);</div>
 <div class="line">    <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;array after allreduce\n&quot;</span>;</div>
-<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i1{0}; i1 &lt; my_array::N1; ++i1) {</div>
-<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i0{0}; i0 &lt; my_array::N0; ++i0)</div>
-<div class="line">          std::cout &lt;&lt; A(i0, i1) &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
+<div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_1{0}; i_1 &lt; my_array::n_1; ++i_1) {</div>
+<div class="line">        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i_0{0}; i_0 &lt; my_array::n_0; ++i_0)</div>
+<div class="line">          std::cout &lt;&lt; array(i_0, i_1) &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
 <div class="line">        std::cout &lt;&lt; <span class="charliteral">&#39;\n&#39;</span>;</div>
 <div class="line">      }</div>
 <div class="line">    }</div>

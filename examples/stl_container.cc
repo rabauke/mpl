@@ -74,7 +74,7 @@ template<typename T>
 void recv(const mpl::communicator &comm) {
   using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;
   T x;
-  auto s = comm.recv(x, 0);
+  auto s{comm.recv(x, 0)};
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
 
@@ -89,27 +89,27 @@ void irecv(const mpl::communicator &comm) {
 }
 
 int main() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // run the program with two or more processes
   if (comm_world.size() < 2)
     comm_world.abort(EXIT_FAILURE);
   // process 0 sends
   if (comm_world.rank() == 0) {
-    std::string t1{"Hello World!"};
-    send(comm_world, t1);
-    isend(comm_world, t1);
-    std::vector<int> t2{0, 1, 2, 3, 4, 5, 6, 77, 42};
-    send(comm_world, t2);
-    isend(comm_world, t2);
-    std::vector<std::tuple<int, double>> t3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
-    send(comm_world, t3);
-    isend(comm_world, t3);
-    std::vector<bool> t4{false, true, false, true, true};
-    send(comm_world, t4);
-    isend(comm_world, t4);
-    std::valarray<double> t5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};
-    send(comm_world, t5);
-    isend(comm_world, t5);
+    std::string t_1{"Hello World!"};
+    send(comm_world, t_1);
+    isend(comm_world, t_1);
+    std::vector<int> t_2{0, 1, 2, 3, 4, 5, 6, 77, 42};
+    send(comm_world, t_2);
+    isend(comm_world, t_2);
+    std::vector<std::tuple<int, double>> t_3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
+    send(comm_world, t_3);
+    isend(comm_world, t_3);
+    std::vector<bool> t_4{false, true, false, true, true};
+    send(comm_world, t_4);
+    isend(comm_world, t_4);
+    std::valarray<double> t_5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};
+    send(comm_world, t_5);
+    isend(comm_world, t_5);
   }
   // process 1 receives
   if (comm_world.rank() == 1) {

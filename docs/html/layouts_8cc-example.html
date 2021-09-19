@@ -95,17 +95,17 @@ $(document).ready(function(){initNavTree('layouts_8cc-example.html',''); initRes
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> I&gt;</div>
-<div class="line"><span class="keywordtype">void</span> print_range(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> str, I i1, I i2) {</div>
+<div class="line"><span class="keywordtype">void</span> print_range(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keyword">const</span> str, I i_1, I i_2) {</div>
 <div class="line">  std::cout &lt;&lt; str;</div>
-<div class="line">  <span class="keywordflow">while</span> (i1 != i2) {</div>
-<div class="line">    std::cout &lt;&lt; (*i1);</div>
-<div class="line">    ++i1;</div>
-<div class="line">    std::cout &lt;&lt; ((i1 != i2) ? <span class="charliteral">&#39; &#39;</span> : <span class="charliteral">&#39;\n&#39;</span>);</div>
+<div class="line">  <span class="keywordflow">while</span> (i_1 != i_2) {</div>
+<div class="line">    std::cout &lt;&lt; (*i_1);</div>
+<div class="line">    ++i_1;</div>
+<div class="line">    std::cout &lt;&lt; ((i_1 != i_2) ? <span class="charliteral">&#39; &#39;</span> : <span class="charliteral">&#39;\n&#39;</span>);</div>
 <div class="line">  }</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a> = <a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>();</div>
+<div class="line">  <span class="keyword">const</span> <a name="_a0"></a><a class="code" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>{<a name="a1"></a><a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a name="a2"></a><a class="code" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
 <div class="line">    <span class="keywordflow">return</span> EXIT_FAILURE;</div>
@@ -234,16 +234,16 @@ $(document).ready(function(){initNavTree('layouts_8cc-example.html',''); initRes
 <div class="line">  <span class="comment">// test layout for a sequence of items of different types</span></div>
 <div class="line">  <span class="comment">// layouts on sending and receiving side may differ but must be compatible</span></div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
-<div class="line">    <span class="keywordtype">double</span> y = 1;</div>
+<div class="line">    <span class="keywordtype">double</span> y{1};</div>
 <div class="line">    std::pair&lt;int, double&gt; pair{2, 3.4};</div>
-<div class="line">    <span class="keyword">const</span> std::vector&lt;double&gt; v({1, 2, 3, 4, 5, 6, 7, 8, 9, 10});</div>
+<div class="line">    <span class="keyword">const</span> std::vector&lt;double&gt; v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};</div>
 <div class="line">    <a class="code" href="classmpl_1_1vector__layout.html">mpl::vector_layout&lt;double&gt;</a> lv(v.size());</div>
 <div class="line">    <a name="_a12"></a><a class="code" href="classmpl_1_1heterogeneous__layout.html">mpl::heterogeneous_layout</a> l(</div>
 <div class="line">        y, pair, <a name="a13"></a><a class="code" href="namespacempl.html#a6481521478393b302a549178d93b8503">mpl::make_absolute</a>(v.data(), lv));  <span class="comment">// heterogeneous_layout with 3 elements</span></div>
 <div class="line">    <a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.send(<a name="a14"></a><a class="code" href="namespacempl.html#af7799eb8fd405a1f2f1f226fe24626f5">mpl::absolute</a>, l, 1);            <span class="comment">// send data to rank 1</span></div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">if</span> (<a class="code" href="namespacempl_1_1environment.html#a1f9437d7f0d154894deb2eed19852062">comm_world</a>.<a class="code" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
-<div class="line">    <span class="keywordtype">double</span> y = 0;</div>
+<div class="line">    <span class="keywordtype">double</span> y{0};</div>
 <div class="line">    std::pair&lt;int, double&gt; pair;</div>
 <div class="line">    std::vector&lt;double&gt; v(10);</div>
 <div class="line">    <a class="code" href="classmpl_1_1vector__layout.html">mpl::vector_layout&lt;double&gt;</a> lv(v.size());</div>
