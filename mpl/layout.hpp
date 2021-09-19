@@ -423,7 +423,8 @@ namespace mpl {
     /// \param l layout to copy from
     /// \return reference to this object
     empty_layout<T> &operator=(const empty_layout<T> &l) {
-      layout<T>::operator=(l);
+      if (&l != this)
+        layout<T>::operator=(l);
       return *this;
     }
 
@@ -442,11 +443,9 @@ namespace mpl {
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
     using layout<T>::byte_upper_bound;
-    using layout<T>::byte_resize;
     using layout<T>::extent;
     using layout<T>::lower_bound;
     using layout<T>::upper_bound;
-    using layout<T>::resize;
   };
 
   //--------------------------------------------------------------------
@@ -523,8 +522,10 @@ namespace mpl {
     /// \param l layout to copy from
     /// \return reference to this object
     contiguous_layout<T> &operator=(const contiguous_layout<T> &l) {
-      layout<T>::operator=(l);
-      count_ = l.count_;
+      if (&l != this) {
+        layout<T>::operator=(l);
+        count_ = l.count_;
+      }
       return *this;
     }
 
@@ -550,11 +551,9 @@ namespace mpl {
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
     using layout<T>::byte_upper_bound;
-    using layout<T>::byte_resize;
     using layout<T>::extent;
     using layout<T>::lower_bound;
     using layout<T>::upper_bound;
-    using layout<T>::resize;
 
     friend class communicator;
     friend class contiguous_layouts<T>;
