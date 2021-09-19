@@ -422,19 +422,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    empty_layout<T> &operator=(const empty_layout<T> &l) {
-      if (&l != this)
-        layout<T>::operator=(l);
-      return *this;
-    }
+    empty_layout<T> &operator=(const empty_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    empty_layout<T> &operator=(empty_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    empty_layout<T> &operator=(empty_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two empty layouts
     /// \param other the layout to swap with
@@ -623,18 +616,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    vector_layout<T> &operator=(const vector_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    vector_layout<T> &operator=(const vector_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    vector_layout<T> &operator=(vector_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    vector_layout<T> &operator=(vector_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two contiguous layouts
     /// \param other the layout to swap with
@@ -705,18 +692,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    strided_vector_layout<T> &operator=(const strided_vector_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    strided_vector_layout<T> &operator=(const strided_vector_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    strided_vector_layout<T> &operator=(strided_vector_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    strided_vector_layout<T> &operator=(strided_vector_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two contiguous layouts
     /// \param other the layout to swap with
@@ -823,18 +804,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    indexed_layout<T> &operator=(const indexed_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    indexed_layout<T> &operator=(const indexed_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    indexed_layout<T> &operator=(indexed_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    indexed_layout<T> &operator=(indexed_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two indexed layouts
     /// \param other the layout to swap with
@@ -949,18 +924,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    hindexed_layout<T> &operator=(const hindexed_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    hindexed_layout<T> &operator=(const hindexed_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    hindexed_layout<T> &operator=(hindexed_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    hindexed_layout<T> &operator=(hindexed_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two indexed layouts
     /// \param other the layout to swap with
@@ -1065,18 +1034,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    indexed_block_layout<T> &operator=(const indexed_block_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    indexed_block_layout<T> &operator=(const indexed_block_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    indexed_block_layout<T> &operator=(indexed_block_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    indexed_block_layout<T> &operator=(indexed_block_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two indexed layouts
     /// \param other the layout to swap with
@@ -1188,18 +1151,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    hindexed_block_layout<T> &operator=(const hindexed_block_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    hindexed_block_layout<T> &operator=(const hindexed_block_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    hindexed_block_layout<T> &operator=(hindexed_block_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    hindexed_block_layout<T> &operator=(hindexed_block_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two indexed layouts
     /// \param other the layout to swap with
@@ -1338,18 +1295,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    iterator_layout<T> &operator=(const iterator_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    iterator_layout<T> &operator=(const iterator_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    iterator_layout<T> &operator=(iterator_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    iterator_layout<T> &operator=(iterator_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two iterator layouts
     /// \param other the layout to swap with
@@ -1488,18 +1439,12 @@ namespace mpl {
     /// \brief copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    subarray_layout<T> &operator=(const subarray_layout<T> &l) {
-      layout<T>::operator=(l);
-      return *this;
-    }
+    subarray_layout<T> &operator=(const subarray_layout<T> &l) = default;
 
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    subarray_layout<T> &operator=(subarray_layout<T> &&l) noexcept {
-      layout<T>::operator=(std::move(l));
-      return *this;
-    }
+    subarray_layout<T> &operator=(subarray_layout<T> &&l) noexcept = default;
 
     /// \brief exchanges two subarray layouts
     /// \param other the layout to swap with
@@ -1660,10 +1605,7 @@ namespace mpl {
     /// \brief move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    heterogeneous_layout &operator=(heterogeneous_layout &&l) noexcept {
-      layout<void>::operator=(std::move(l));
-      return *this;
-    }
+    heterogeneous_layout &operator=(heterogeneous_layout &&l) noexcept = default;
 
     /// \brief exchanges two heterogeneous layouts
     /// \param other the layout to swap with
