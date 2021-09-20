@@ -1,4 +1,4 @@
 <map id="mpl::displacements" name="mpl::displacements">
-<area shape="rect" id="node1" title=" " alt="" coords="30,139,233,293"/>
+<area shape="rect" id="node1" title="Indicates the beginning of data buffers in various collective communication operations." alt="" coords="30,139,233,293"/>
 <area shape="rect" id="node2" title=" " alt="" coords="5,5,257,91"/>
 </map>
