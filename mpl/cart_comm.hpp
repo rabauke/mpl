@@ -9,8 +9,12 @@
 
 namespace mpl {
 
+  /// \brief Helper class to represent source and destination ranks within a Cartesian
+  /// communicator.
+  /// \see cart_communicator::shift
   struct shift_ranks {
-    int source, dest;
+    int source{0};
+    int destination{0};
   };
 
   //--------------------------------------------------------------------
@@ -161,10 +165,10 @@ namespace mpl {
       return periodic;
     }
 
-    [[nodiscard]] shift_ranks shift(int direction, int disp) const {
-      int rank_source, rank_dest;
-      MPI_Cart_shift(comm_, direction, disp, &rank_source, &rank_dest);
-      return {rank_source, rank_dest};
+    [[nodiscard]] shift_ranks shift(int direction, int displacement) const {
+      shift_ranks ranks;
+      MPI_Cart_shift(comm_, direction, displacement, &ranks.source, &ranks.destination);
+      return ranks;
     }
   };
 

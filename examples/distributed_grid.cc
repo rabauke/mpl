@@ -9,11 +9,11 @@ void update_overlap(const mpl::cart_communicator &cart_communicator,
   for (std::size_t i{0}; i < dim; ++i) {
     // send to left
     ranks = cart_communicator.shift(i, -1);
-    cart_communicator.sendrecv(grid.data(), grid.left_border_layout(i), ranks.dest, tag,
+    cart_communicator.sendrecv(grid.data(), grid.left_border_layout(i), ranks.destination, tag,
                                grid.data(), grid.right_mirror_layout(i), ranks.source, tag);
     // send to right
     ranks = cart_communicator.shift(i, +1);
-    cart_communicator.sendrecv(grid.data(), grid.right_border_layout(i), ranks.dest, tag,
+    cart_communicator.sendrecv(grid.data(), grid.right_border_layout(i), ranks.destination, tag,
                                grid.data(), grid.left_mirror_layout(i), ranks.source, tag);
   }
 }

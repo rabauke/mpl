@@ -31,7 +31,7 @@ bool cart_communicator_test() {
   if (coords[0] < 0)
     coords[0] += dims[0];
   int source1{comm_c.rank(coords)};
-  if (not(ranks.source == source1 and ranks.dest == dest1))
+  if (not(ranks.source == source1 and ranks.destination == dest1))
     return false;
   {
     double x = 1;
@@ -49,11 +49,11 @@ bool cart_communicator_test() {
     auto ranks1{comm_c.shift(1, 1)};
     if (ranks0.source != mpl::proc_null and y[0] != ranks0.source + 1.)
       return false;
-    if (ranks0.dest != mpl::proc_null and y[1] != ranks0.dest + 1.)
+    if (ranks0.destination != mpl::proc_null and y[1] != ranks0.destination + 1.)
       return false;
     if (ranks1.source != mpl::proc_null and y[2] != ranks1.source + 1.)
       return false;
-    if (ranks1.dest != mpl::proc_null and y[3] != ranks1.dest + 1.)
+    if (ranks1.destination != mpl::proc_null and y[3] != ranks1.destination + 1.)
       return false;
   }
   {
@@ -69,11 +69,11 @@ bool cart_communicator_test() {
     auto ranks1{comm_c.shift(1, 1)};
     if (ranks0.source != mpl::proc_null and y[0] != ranks0.source + 1.)
       return false;
-    if (ranks0.dest != mpl::proc_null and y[1] != ranks0.dest + 1.)
+    if (ranks0.destination != mpl::proc_null and y[1] != ranks0.destination + 1.)
       return false;
     if (ranks1.source != mpl::proc_null and y[2] != ranks1.source + 1.)
       return false;
-    if (ranks1.dest != mpl::proc_null and y[3] != ranks1.dest + 1.)
+    if (ranks1.destination != mpl::proc_null and y[3] != ranks1.destination + 1.)
       return false;
   }
   return true;

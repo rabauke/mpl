@@ -18,13 +18,13 @@ void update_overlap(const mpl::cart_communicator &communicator,
     // send to left
     ranks = communicator.shift(i, -1);
     r.push(communicator.isend(distributed_grid.data(), distributed_grid.left_border_layout(i),
-                              ranks.dest, tag));
+                              ranks.destination, tag));
     r.push(communicator.irecv(distributed_grid.data(), distributed_grid.right_mirror_layout(i),
                               ranks.source, tag));
     // send to right
     ranks = communicator.shift(i, +1);
     r.push(communicator.isend(distributed_grid.data(), distributed_grid.right_border_layout(i),
-                              ranks.dest, tag));
+                              ranks.destination, tag));
     r.push(communicator.irecv(distributed_grid.data(), distributed_grid.left_mirror_layout(i),
                               ranks.source, tag));
   }
