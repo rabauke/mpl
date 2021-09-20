@@ -1626,6 +1626,7 @@ namespace mpl {
   /// \tparam T data type
   /// \param x address of data
   /// \param l layout of data at address x
+  /// \see make_absolute(T *x, const layout<T> &l) function and heterogeneous_layout class
   template<typename T>
   absolute_data<T *> make_absolute(T *x, const layout<T> &l) {
     return absolute_data<T *>{x, l.type_};
@@ -1635,6 +1636,7 @@ namespace mpl {
   /// \tparam T data type
   /// \param x address of data
   /// \param l layout of data at address x
+  /// \see make_absolute(const T *x, const layout<T> &l) function and heterogeneous_layout class
   template<typename T>
   absolute_data<const T *> make_absolute(const T *x, const layout<T> &l) {
     return absolute_data<const T *>{x, l.type_};
