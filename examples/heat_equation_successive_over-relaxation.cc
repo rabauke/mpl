@@ -9,7 +9,7 @@ using double_2 = std::tuple<double, double>;
 
 
 template<std::size_t dim, typename T, typename A>
-void update_overlap(const mpl::cart_communicator &communicator,
+void update_overlap(const mpl::cartesian_communicator &communicator,
                     mpl::distributed_grid<dim, T, A> &distributed_grid,
                     mpl::tag_t tag = mpl::tag_t()) {
   mpl::shift_ranks ranks;
@@ -33,7 +33,7 @@ void update_overlap(const mpl::cart_communicator &communicator,
 
 
 template<std::size_t dim, typename T, typename A>
-void scatter(const mpl::cart_communicator &communicator, int root,
+void scatter(const mpl::cartesian_communicator &communicator, int root,
              const mpl::local_grid<dim, T, A> &local_grid,
              mpl::distributed_grid<dim, T, A> &distributed_grid) {
   communicator.scatterv(root, local_grid.data(), local_grid.sub_layouts(),
@@ -41,14 +41,14 @@ void scatter(const mpl::cart_communicator &communicator, int root,
 }
 
 template<std::size_t dim, typename T, typename A>
-void scatter(const mpl::cart_communicator &communicator, int root,
+void scatter(const mpl::cartesian_communicator &communicator, int root,
              mpl::distributed_grid<dim, T, A> &distributed_grid) {
   communicator.scatterv(root, distributed_grid.data(), distributed_grid.interior_layout());
 }
 
 
 template<std::size_t dim, typename T, typename A>
-void gather(const mpl::cart_communicator &communicator, int root,
+void gather(const mpl::cartesian_communicator &communicator, int root,
             const mpl::distributed_grid<dim, T, A> &distributed_grid,
             mpl::local_grid<dim, T, A> &local_grid) {
   communicator.gatherv(root, distributed_grid.data(), distributed_grid.interior_layout(),
@@ -56,7 +56,7 @@ void gather(const mpl::cart_communicator &communicator, int root,
 }
 
 template<std::size_t dim, typename T, typename A>
-void gather(const mpl::cart_communicator &communicator, int root,
+void gather(const mpl::cartesian_communicator &communicator, int root,
             const mpl::distributed_grid<dim, T, A> &distributed_grid) {
   communicator.gatherv(root, distributed_grid.data(), distributed_grid.interior_layout());
 }
@@ -66,9 +66,10 @@ int main() {
   // world communicator
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // construct a two-dimensional Cartesian communicator with no periodic boundary conditions
-  mpl::cart_communicator::sizes sizes(
-      {{0, mpl::cart_communicator::nonperiodic}, {0, mpl::cart_communicator::nonperiodic}});
-  mpl::cart_communicator comm_c(comm_world, mpl::dims_create(comm_world.size(), sizes));
+  mpl::cartesian_communicator::dimensions size{
+      {{0, mpl::cartesian_communicator::non_periodic},
+       {0, mpl::cartesian_communicator::non_periodic}}};
+  mpl::cartesian_communicator comm_c(comm_world, mpl::dims_create(comm_world.size(), size));
   // total number of inner grid points
   const int n_x{768}, n_y{512};
   // grid points with extremal indices (-1, Nx or Ny) hold fixed boundary data

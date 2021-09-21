@@ -1,13 +1,13 @@
-#if !(defined MPL_TOPO_COMM_HPP)
+#if !(defined MPL_TOPO_COMMUNICATOR_HPP)
 
-#define MPL_TOPO_COMM_HPP
+#define MPL_TOPO_COMMUNICATOR_HPP
 
 #include <mpi.h>
 #include <vector>
 
 namespace mpl {
 
-  namespace detail {
+  namespace impl {
 
     class topo_communicator : public mpl::communicator {
     public:
@@ -21,24 +21,25 @@ namespace mpl {
       // --- blocking neighbor allgather ---
       template<typename T>
       void neighbor_allgather(const T &senddata, T *recvdata) const {
-        MPI_Neighbor_allgather(&senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
-                               datatype_traits<T>::get_datatype(), comm_);
+        MPI_Neighbor_allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
       template<typename T>
       void neighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                               const layout<T> &recvl) const {
-        MPI_Neighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
-                               recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
-                               comm_);
+        MPI_Neighbor_allgather(
+            senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
+            detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
       }
 
       // --- nonblocking neighbor allgather ---
       template<typename T>
       irequest ineighbor_allgather(const T &senddata, T *recvdata) const {
         MPI_Request req;
-        MPI_Ineighbor_allgather(&senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
-                                datatype_traits<T>::get_datatype(), comm_, &req);
+        MPI_Ineighbor_allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                                recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
+                                &req);
         return impl::irequest(req);
       }
 
@@ -46,9 +47,9 @@ namespace mpl {
       irequest ineighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                                    const layout<T> &recvl) const {
         MPI_Request req;
-        MPI_Ineighbor_allgather(senddata, 1, datatype_traits<layout<T>>::get_datatype(sendl),
-                                recvdata, 1, datatype_traits<layout<T>>::get_datatype(recvl),
-                                comm_, &req);
+        MPI_Ineighbor_allgather(
+            senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
+            detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
         return impl::irequest(req);
       }
 
@@ -80,23 +81,24 @@ namespace mpl {
       // --- blocking neighbor all-to-all ---
       template<typename T>
       void neighbor_alltoall(const T *senddata, T *recvdata) const {
-        MPI_Neighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
-                              datatype_traits<T>::get_datatype(), comm_);
+        MPI_Neighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
+                              1, detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
       template<typename T>
       void neighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                              const layout<T> &recvl) const {
-        MPI_Neighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
-                              datatype_traits<T>::get_datatype(), comm_);
+        MPI_Neighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
+                              1, detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
       // --- nonblocking neighbor all-to-all ---
       template<typename T>
       irequest ineighbor_alltoall(const T *senddata, T *recvdata) const {
         MPI_Request req;
-        MPI_Ineighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
-                               datatype_traits<T>::get_datatype(), comm_, &req);
+        MPI_Ineighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
+                               &req);
         return impl::irequest(req);
       }
 
@@ -104,8 +106,9 @@ namespace mpl {
       irequest ineighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                                   const layout<T> &recvl) const {
         MPI_Request req;
-        MPI_Ineighbor_alltoall(senddata, 1, datatype_traits<T>::get_datatype(), recvdata, 1,
-                               datatype_traits<T>::get_datatype(), comm_, &req);
+        MPI_Ineighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
+                               &req);
         return impl::irequest(req);
       }
 
@@ -117,9 +120,9 @@ namespace mpl {
                               const displacements &senddispls, T *recvdata,
                               const layouts<T> &recvl, const displacements &recvdispls) const {
         std::vector<int> counts(recvl.size(), 1);
-      static_assert(
-          sizeof(decltype(*sendl())) == sizeof(MPI_Datatype),
-          "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
+        static_assert(
+            sizeof(decltype(*sendl())) == sizeof(MPI_Datatype),
+            "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
         MPI_Neighbor_alltoallw(senddata, counts.data(), senddispls(),
                                reinterpret_cast<const MPI_Datatype *>(sendl()), recvdata,
                                counts.data(), recvdispls(),
@@ -160,7 +163,7 @@ namespace mpl {
       }
     };
 
-  }  // namespace detail
+  }  // namespace impl
 
 }  // namespace mpl
 

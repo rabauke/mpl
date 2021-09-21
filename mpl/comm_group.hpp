@@ -15,7 +15,7 @@ namespace mpl {
 
   class communicator;
 
-  class cart_communicator;
+  class cartesian_communicator;
 
   class graph_communicator;
 
@@ -599,7 +599,7 @@ namespace mpl {
 
     friend class group;
 
-    friend class cart_communicator;
+    friend class cartesian_communicator;
 
     friend class graph_communicator;
 

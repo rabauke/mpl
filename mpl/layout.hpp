@@ -64,7 +64,7 @@ namespace mpl {
   template<typename T>
   class contiguous_layouts;
 
-  namespace detail {
+  namespace impl {
 
     class topo_communicator;
 
@@ -1686,7 +1686,7 @@ namespace mpl {
     using base::push_back;
 
     friend class communicator;
-    friend class detail::topo_communicator;
+    friend class impl::topo_communicator;
 
   private:
     const layout<T> *operator()() const { return base::data(); }
@@ -1721,7 +1721,7 @@ namespace mpl {
     using base::push_back;
 
     friend class communicator;
-    friend class detail::topo_communicator;
+    friend class impl::topo_communicator;
 
   private:
     const contiguous_layout<T> *operator()() const { return base::data(); }

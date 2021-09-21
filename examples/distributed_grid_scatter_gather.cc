@@ -3,7 +3,7 @@
 #include <mpl/mpl.hpp>
 
 template<std::size_t dim, typename T, typename A>
-void scatter(const mpl::cart_communicator &communicator, int root,
+void scatter(const mpl::cartesian_communicator &communicator, int root,
              const mpl::local_grid<dim, T, A> &local_grid,
              mpl::distributed_grid<dim, T, A> &distributed_grid) {
   communicator.scatterv(root, local_grid.data(), local_grid.sub_layouts(),
@@ -11,14 +11,14 @@ void scatter(const mpl::cart_communicator &communicator, int root,
 }
 
 template<std::size_t dim, typename T, typename A>
-void scatter(const mpl::cart_communicator &communicator, int root,
+void scatter(const mpl::cartesian_communicator &communicator, int root,
              mpl::distributed_grid<dim, T, A> &distributed_grid) {
   communicator.scatterv(root, distributed_grid.data(), distributed_grid.interior_layout());
 }
 
 
 template<std::size_t dim, typename T, typename A>
-void gather(const mpl::cart_communicator &communicator, int root,
+void gather(const mpl::cartesian_communicator &communicator, int root,
             const mpl::distributed_grid<dim, T, A> &distributed_grid,
             mpl::local_grid<dim, T, A> &local_grid) {
   communicator.gatherv(root, distributed_grid.data(), distributed_grid.interior_layout(),
@@ -26,7 +26,7 @@ void gather(const mpl::cart_communicator &communicator, int root,
 }
 
 template<std::size_t dim, typename T, typename A>
-void gather(const mpl::cart_communicator &communicator, int root,
+void gather(const mpl::cartesian_communicator &communicator, int root,
             const mpl::distributed_grid<dim, T, A> &distributed_grid) {
   communicator.gatherv(root, distributed_grid.data(), distributed_grid.interior_layout());
 }
@@ -34,10 +34,11 @@ void gather(const mpl::cart_communicator &communicator, int root,
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  mpl::cart_communicator::sizes sizes{
-      {{0, mpl::cart_communicator::periodic}, {0, mpl::cart_communicator::nonperiodic}}};
+  mpl::cartesian_communicator::dimensions size{
+      {{0, mpl::cartesian_communicator::periodic},
+       {0, mpl::cartesian_communicator::non_periodic}}};
   const int nx{21}, ny{13};
-  mpl::cart_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), sizes)};
+  mpl::cartesian_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), size)};
   mpl::distributed_grid<2, int> grid{comm_c, {{nx, 1}, {ny, 1}}};
   for (auto j{grid.obegin(1)}, j_end{grid.oend(1)}; j < j_end; ++j)
     for (auto i{grid.obegin(0)}, i_end{grid.oend(0)}; i < i_end; ++i)

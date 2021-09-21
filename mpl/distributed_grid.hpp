@@ -1,9 +1,9 @@
-#if !(defined MPL_DISTRIBUTED_GRID)
+#if !(defined MPL_DISTRIBUTED_GRID_HPP)
 
-#define MPL_DISTRIBUTED_GRID
+#define MPL_DISTRIBUTED_GRID_HPP
 
 #include <vector>
-#include <mpl/cart_comm.hpp>
+#include <mpl/cartesian_communicator.hpp>
 #include <mpl/layout.hpp>
 
 namespace mpl {
@@ -62,7 +62,7 @@ namespace mpl {
       friend class distributed_grid;
     };
 
-    distributed_grid(const cart_communicator &C, const sizes &size)
+    distributed_grid(const cartesian_communicator &C, const sizes &size)
         : gsize_(size.size_),
           gbegin_(dim),
           gend_(dim),
@@ -70,11 +70,11 @@ namespace mpl {
           oend_(dim),
           overlap_(size.overlap_) {
 #if defined MPL_DEBUG
-      if (C.dim() != dim or gsize_.size() != dim or overlap_.size() != dim)
+      if (C.dimensionality() != dim or gsize_.size() != dim or overlap_.size() != dim)
         throw invalid_dim();
 #endif
-      auto C_size = C.dims();
-      auto C_coord = C.coords();
+      auto C_size = C.dimension();
+      auto C_coord = C.coordinate();
       size_type vol = 1;
       for (std::size_t i = 0; i < dim; ++i) {
         gbegin_[i] = gbegin(gsize_[i], C_size[i], C_coord[i]);
@@ -244,18 +244,18 @@ namespace mpl {
       friend class local_grid;
     };
 
-    local_grid(const cart_communicator &C, const sizes &size) : gsize_(size.size_) {
+    local_grid(const cartesian_communicator &C, const sizes &size) : gsize_(size.size_) {
 #if defined MPL_DEBUG
-      if (C.dim() != dim or gsize_.size() != dim)
+      if (C.dimensionality() != dim or gsize_.size() != dim)
         throw invalid_dim();
 #endif
       size_type vol = 1;
       for (std::size_t i = 0; i < dim; ++i)
         vol *= gsize_[i];
       v.resize(vol);
-      auto C_size = C.dims();
+      auto C_size = C.dimension();
       for (int i = 0, i_end = C.size(); i < i_end; ++i) {
-        auto coords = C.coords(i);
+        auto coords = C.coordinate(i);
         typename subarray_layout<T>::parameter par;
         for (std::size_t j = dim - 1; true; --j) {
           const auto begin = gbegin(gsize_[j], C_size[j], coords[j]);

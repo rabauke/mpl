@@ -1,26 +1,28 @@
-#define BOOST_TEST_MODULE cart_communicator
+#define BOOST_TEST_MODULE cartesian_communicator
 
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
-bool cart_communicator_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  mpl::cart_communicator::sizes sizes(
-      {{0, mpl::cart_communicator::periodic}, {0, mpl::cart_communicator::nonperiodic}});
-  mpl::cart_communicator comm_c(comm_world, mpl::dims_create(comm_world.size(), sizes));
-  if (comm_c.dim() != 2)
+bool cartesian_communicator_test() {
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  mpl::cartesian_communicator::dimensions dimensions{
+      {{0, mpl::cartesian_communicator::periodic},
+       {0, mpl::cartesian_communicator::non_periodic}}};
+  mpl::cartesian_communicator comm_c{comm_world,
+                                     mpl::dims_create(comm_world.size(), dimensions)};
+  if (comm_c.dimensionality() != 2)
     return false;
   int rank{comm_c.rank()};
   int size{comm_c.size()};
-  auto coords{comm_c.coords()};
+  auto coords{comm_c.coordinate()};
   if (comm_c.rank(coords) != rank)
     return false;
-  auto dims{comm_c.dims()};
+  auto dims{comm_c.dimension()};
   if (dims[0] * dims[1] != comm_c.size())
     return false;
   auto p{comm_c.is_periodic()};
-  if (not(p[0] == mpl::cart_communicator::periodic and
-          p[1] == mpl::cart_communicator::nonperiodic))
+  if (not(p[0] == mpl::cartesian_communicator::periodic and
+          p[1] == mpl::cartesian_communicator::non_periodic))
     return false;
   auto ranks{comm_c.shift(0, 1)};
   ++coords[0];
@@ -79,6 +81,6 @@ bool cart_communicator_test() {
   return true;
 }
 
-BOOST_AUTO_TEST_CASE(cart_communicator) {
-  BOOST_TEST(cart_communicator_test());
+BOOST_AUTO_TEST_CASE(cartesian_communicator) {
+  BOOST_TEST(cartesian_communicator_test());
 }
