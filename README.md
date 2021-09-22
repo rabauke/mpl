@@ -45,7 +45,7 @@ Currently, the following MPI features are not yet supported by MPL:
 * I/O.
 
 Although MPL covers a subset of the MPI functionality only, it has 
-probably the larges MPI-feature coverage among all alternative C++ 
+probably the largest MPI-feature coverage among all alternative C++ 
 interfaces to MPI.
 
 
