@@ -2765,7 +2765,7 @@ namespace mpl {
     // === allgather ===
     // === get a single value from each rank and stores in contiguous memory
     // --- blocking allgather ---
-    /// \brief Gather messages from all processes and distritbute result to all processes.
+    /// \brief Gather messages from all processes and distribute result to all processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
     /// \param senddata data to send
