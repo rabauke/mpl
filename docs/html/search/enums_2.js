@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['periodicity_709',['periodicity',['../classmpl_1_1cart__communicator.html#a738d3a01e51b093656ce313a580d3916',1,'mpl::cart_communicator']]]
+  ['included_5ftag_736',['included_tag',['../classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588',1,'mpl::cartesian_communicator']]]
 ];

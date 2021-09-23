@@ -134,6 +134,10 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 <li>impl::request_pool&lt; prequest &gt;
 : <a class="el" href="classmpl_1_1prequest.html#a8c58374ad21d57465ce6914abe69fdf8">mpl::prequest</a>
 </li>
+<li>impl::topo_communicator
+: <a class="el" href="classmpl_1_1contiguous__layouts.html#ab28416569e2e2ac349f2afbccb851aba">mpl::contiguous_layouts&lt; T &gt;</a>
+, <a class="el" href="classmpl_1_1layouts.html#ab28416569e2e2ac349f2afbccb851aba">mpl::layouts&lt; T &gt;</a>
+</li>
 <li>improbe()
 : <a class="el" href="classmpl_1_1communicator.html#ab3837c6c497004a3dc1169e989cd7b3d">mpl::communicator</a>
 </li>
@@ -142,6 +146,12 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 </li>
 <li>include
 : <a class="el" href="classmpl_1_1group.html#ae5ef3b81a9b35085fe4ffd54cd280912">mpl::group</a>
+</li>
+<li>included
+: <a class="el" href="classmpl_1_1cartesian__communicator.html#a58cf7f390ec1fa47f44756eeddab44ce">mpl::cartesian_communicator</a>
+</li>
+<li>included_tag
+: <a class="el" href="classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588">mpl::cartesian_communicator</a>
 </li>
 <li>indegree()
 : <a class="el" href="classmpl_1_1dist__graph__communicator.html#a5d75868ed36f9dcd194e57bec87e60f0">mpl::dist_graph_communicator</a>
@@ -159,6 +169,18 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 </li>
 <li>indexed_layout&lt; T &gt;
 : <a class="el" href="classmpl_1_1layout.html#aab715201eed750d6cc9831d5a98b9858">mpl::layout&lt; T &gt;</a>
+</li>
+<li>ineighbor_allgather()
+: <a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a6395406bdbbd375e5b1cda2b6da30252">mpl::impl::topo_communicator</a>
+</li>
+<li>ineighbor_allgatherv()
+: <a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a6b362c73b5a9aa208b1706ad733f2895">mpl::impl::topo_communicator</a>
+</li>
+<li>ineighbor_alltoall()
+: <a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a41b07c21dbff51910d1471ebdf1a30cc">mpl::impl::topo_communicator</a>
+</li>
+<li>ineighbor_alltoallv()
+: <a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a23eae59e220eafe8ed8a02895cd43aab">mpl::impl::topo_communicator</a>
 </li>
 <li>inneighbors()
 : <a class="el" href="classmpl_1_1dist__graph__communicator.html#a5c679aa19524bbb205c8f3eb83118a21">mpl::dist_graph_communicator</a>
@@ -213,7 +235,7 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 , <a class="el" href="classmpl_1_1irequest.html#a67a88cdd06a34645ed430bbd6922a8b9">mpl::irequest</a>
 </li>
 <li>irequest_pool()
-: <a class="el" href="classmpl_1_1irequest__pool.html#ae02a4f735ff77cf1e85ae79c399e5b8a">mpl::irequest_pool</a>
+: <a class="el" href="classmpl_1_1irequest__pool.html#a0a59a78777963e261f6c89db28f07f28">mpl::irequest_pool</a>
 </li>
 <li>irsend()
 : <a class="el" href="classmpl_1_1communicator.html#a970647a9680c6bdc3ffbe0814b32f989">mpl::communicator</a>
@@ -238,28 +260,29 @@ $(document).ready(function(){initNavTree('functions_i.html',''); initResizable()
 , <a class="el" href="structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html#aef6e6a2daac6d0dac4daad3623f8a878">mpl::op_traits&lt; plus&lt; T &gt; &gt;</a>
 </li>
 <li>is_periodic()
-: <a class="el" href="classmpl_1_1cart__communicator.html#ab80dc688feadc27ad8015fc5ab214f32">mpl::cart_communicator</a>
+: <a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html#aa16f73972432d06206c93d5e832456f1">mpl::cartesian_communicator::dimensions</a>
+, <a class="el" href="classmpl_1_1cartesian__communicator.html#adf13781124e0cf9d0a57cad4c4e12403">mpl::cartesian_communicator</a>
 </li>
 <li>is_valid()
 : <a class="el" href="classmpl_1_1communicator.html#ad8c0dc208fd9705a2423346d0baaff58">mpl::communicator</a>
 </li>
 <li>iscan()
-: <a class="el" href="classmpl_1_1communicator.html#a72d2639f200e5a36f1f81df5c499f06f">mpl::communicator</a>
+: <a class="el" href="classmpl_1_1communicator.html#ac514a6fe8a481f7120bc1d105c09ee96">mpl::communicator</a>
 </li>
 <li>iscatter()
-: <a class="el" href="classmpl_1_1communicator.html#afe30dce35d6cadc3fa8b55e6e83c3ad3">mpl::communicator</a>
+: <a class="el" href="classmpl_1_1communicator.html#a1948c90e2873f0db6b7fc32f7240e80a">mpl::communicator</a>
 </li>
 <li>iscatterv()
 : <a class="el" href="classmpl_1_1communicator.html#a9fbb87f9933ff071092164c9e264d817">mpl::communicator</a>
 </li>
 <li>isend()
-: <a class="el" href="classmpl_1_1communicator.html#aaf647eec3afe83caf2afafe5a82b405a">mpl::communicator</a>
+: <a class="el" href="classmpl_1_1communicator.html#a46e8797b907b9539b2ee90713a675e5c">mpl::communicator</a>
 </li>
 <li>issend()
-: <a class="el" href="classmpl_1_1communicator.html#aadcfecc2b4f736a1350faa9dd94f45f2">mpl::communicator</a>
+: <a class="el" href="classmpl_1_1communicator.html#a2ce34a3cdb5ee17bbb48f8f38a09ce0f">mpl::communicator</a>
 </li>
 <li>iterator_layout()
-: <a class="el" href="classmpl_1_1iterator__layout.html#ac26e4b99081e901b36cd89329ac22ffe">mpl::iterator_layout&lt; T &gt;</a>
+: <a class="el" href="classmpl_1_1iterator__layout.html#a3d55526b2176cdb3c067b65d3c301183">mpl::iterator_layout&lt; T &gt;</a>
 , <a class="el" href="classmpl_1_1iterator__layout_1_1parameter.html#a58c52e5547d2956c368d96c3585da540">mpl::iterator_layout&lt; T &gt;::parameter</a>
 </li>
 <li>iterator_layout&lt; T &gt;

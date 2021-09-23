@@ -10,7 +10,7 @@ var classmpl_1_1local__grid =
     [ "size_type", "classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f", null ],
     [ "value_type", "classmpl_1_1local__grid.html#ab2318fdfc94ef7e9d626202597dfd6f4", null ],
     [ "vector_type", "classmpl_1_1local__grid.html#ace4a57097109ad8e4236426f2b81570f", null ],
-    [ "local_grid", "classmpl_1_1local__grid.html#a47a703ecc14c00ca5084173e37fcf94a", null ],
+    [ "local_grid", "classmpl_1_1local__grid.html#ac390f528726fba826da0723b200191b6", null ],
     [ "begin", "classmpl_1_1local__grid.html#a49ea125a5efe80df775f8dc62acaa2f2", null ],
     [ "data", "classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741", null ],
     [ "data", "classmpl_1_1local__grid.html#a2a7363850b17823d78fc1030e11bcdaf", null ],

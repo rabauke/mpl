@@ -190,7 +190,7 @@ var classmpl_1_1communicator =
     [ "ssend_init", "classmpl_1_1communicator.html#a871cba17f8d1891fb0613f9a23c38866", null ],
     [ "ssend_init", "classmpl_1_1communicator.html#a17526ad519286bf2fa81a3701c0afe03", null ],
     [ "ssend_init", "classmpl_1_1communicator.html#a3f433b69dace132e01bea64624fff4b3", null ],
-    [ "cart_communicator", "classmpl_1_1communicator.html#a329ae0a6f01aa19eb63db8958ea756ae", null ],
+    [ "cartesian_communicator", "classmpl_1_1communicator.html#a6087bfa57412c9e8b80b6f380ebaaf7a", null ],
     [ "dist_graph_communicator", "classmpl_1_1communicator.html#ae999dbc8b2f970040afb57ca86175d4b", null ],
     [ "environment::detail::env", "classmpl_1_1communicator.html#a7c53dda9ff4a482df724cab0edf000b3", null ],
     [ "graph_communicator", "classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d", null ],

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['identical_715',['identical',['../classmpl_1_1group.html#a78eb3d59b04c2e989ea52c60d39ffa69aee0cbdbacdada19376449799774976e8',1,'mpl::group::identical()'],['../classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63aee0cbdbacdada19376449799774976e8',1,'mpl::communicator::identical()']]]
+  ['fortran_5forder_742',['Fortran_order',['../namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097',1,'mpl']]],
+  ['funneled_743',['funneled',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a',1,'mpl']]]
 ];

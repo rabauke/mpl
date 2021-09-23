@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['fortran_5forder_713',['Fortran_order',['../namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097',1,'mpl']]],
-  ['funneled_714',['funneled',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a',1,'mpl']]]
+  ['excluded_741',['excluded',['../classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588ac2413b3d6b0162ee66c1ee1a90828706',1,'mpl::cartesian_communicator']]]
 ];

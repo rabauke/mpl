@@ -103,11 +103,11 @@ Inheritance diagram for mpl::communicator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1communicator__inherit__graph.png" border="0" usemap="#mpl_1_1communicator_inherit__map" alt="Inheritance graph"/></div>
 <map name="mpl_1_1communicator_inherit__map" id="mpl_1_1communicator_inherit__map">
-<area shape="rect" title="Specifies the communication context for a communication operation." alt="" coords="308,5,540,489"/>
-<area shape="rect" title=" " alt="" coords="263,537,585,623"/>
-<area shape="rect" href="classmpl_1_1cart__communicator.html" title=" " alt="" coords="5,671,248,999"/>
-<area shape="rect" href="classmpl_1_1dist__graph__communicator.html" title=" " alt="" coords="273,723,575,947"/>
-<area shape="rect" href="classmpl_1_1graph__communicator.html" title=" " alt="" coords="599,723,851,947"/>
+<area shape="rect" title="Specifies the communication context for a communication operation." alt="" coords="357,5,589,489"/>
+<area shape="rect" href="classmpl_1_1impl_1_1topo__communicator.html" title="Base class for communicators with a topology." alt="" coords="321,537,624,900"/>
+<area shape="rect" href="classmpl_1_1cartesian__communicator.html" title=" " alt="" coords="5,948,297,1311"/>
+<area shape="rect" href="classmpl_1_1dist__graph__communicator.html" title=" " alt="" coords="321,1017,624,1241"/>
+<area shape="rect" href="classmpl_1_1graph__communicator.html" title=" " alt="" coords="648,1017,900,1241"/>
 </map>
 </div>
 <div class="dynheader">
@@ -529,7 +529,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a192fabbdbac09436fab92943148c5185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a2fbf1a89b606c316790a29a6c24344"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a1a2fbf1a89b606c316790a29a6c24344"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">allgather</a> (const T &amp;senddata, T *recvdata) const</td></tr>
-<tr class="memdesc:a1a2fbf1a89b606c316790a29a6c24344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all processes and distritbute result to all processes.  <a href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">More...</a><br /></td></tr>
+<tr class="memdesc:a1a2fbf1a89b606c316790a29a6c24344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all processes and distribute result to all processes.  <a href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">More...</a><br /></td></tr>
 <tr class="separator:a1a2fbf1a89b606c316790a29a6c24344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54fb76beae39c558bf5b13cfdcf4fe84"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a54fb76beae39c558bf5b13cfdcf4fe84"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a54fb76beae39c558bf5b13cfdcf4fe84">allgather</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;recvl) const</td></tr>
@@ -875,8 +875,8 @@ Static Public Attributes</h2></td></tr>
 Friends</h2></td></tr>
 <tr class="memitem:a670720b16047bf7556aea242ff96a7fb"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb">group</a></td></tr>
 <tr class="separator:a670720b16047bf7556aea242ff96a7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a329ae0a6f01aa19eb63db8958ea756ae"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a329ae0a6f01aa19eb63db8958ea756ae">cart_communicator</a></td></tr>
-<tr class="separator:a329ae0a6f01aa19eb63db8958ea756ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6087bfa57412c9e8b80b6f380ebaaf7a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a6087bfa57412c9e8b80b6f380ebaaf7a">cartesian_communicator</a></td></tr>
+<tr class="separator:a6087bfa57412c9e8b80b6f380ebaaf7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a864a79402650e1b3c453bf86a588dd1d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d">graph_communicator</a></td></tr>
 <tr class="separator:a864a79402650e1b3c453bf86a588dd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae999dbc8b2f970040afb57ca86175d4b"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#ae999dbc8b2f970040afb57ca86175d4b">dist_graph_communicator</a></td></tr>
@@ -1382,7 +1382,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Gather messages from all processes and distritbute result to all processes. </p>
+<p>Gather messages from all processes and distribute result to all processes. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
@@ -12454,8 +12454,8 @@ template&lt;typename iterT &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a329ae0a6f01aa19eb63db8958ea756ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a329ae0a6f01aa19eb63db8958ea756ae">&#9670;&nbsp;</a></span>cart_communicator</h2>
+<a id="a6087bfa57412c9e8b80b6f380ebaaf7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6087bfa57412c9e8b80b6f380ebaaf7a">&#9670;&nbsp;</a></span>cartesian_communicator</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -12464,7 +12464,7 @@ template&lt;typename iterT &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="classmpl_1_1cart__communicator.html">cart_communicator</a></td>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a></td>
         </tr>
       </table>
   </td>

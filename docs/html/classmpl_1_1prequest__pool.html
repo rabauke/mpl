@@ -141,7 +141,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a09521b62f5b53546c854e89644245b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4191612db45d53cab3a294f3ac2f9018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a4191612db45d53cab3a294f3ac2f9018">cancelall</a> ()</td></tr>
 <tr class="separator:a4191612db45d53cab3a294f3ac2f9018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b2ce42dc5ec15f8875673e07f6d77bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a> (T &amp;&amp;other)</td></tr>
+<tr class="memitem:a9b2ce42dc5ec15f8875673e07f6d77bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf">push</a> (<a class="el" href="classmpl_1_1prequest.html">prequest</a> &amp;&amp;other)</td></tr>
 <tr class="separator:a9b2ce42dc5ec15f8875673e07f6d77bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c1d9f510ffeefad91f8b75886db9243"><td class="memItemLeft" align="right" valign="top">std::pair&lt; bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a7c1d9f510ffeefad91f8b75886db9243">waitany</a> ()</td></tr>
 <tr class="separator:a7c1d9f510ffeefad91f8b75886db9243"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,11 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1e864f5b3e62bb28db94bec090235401"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ebba7b0471ba84cf591abace463072f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5ebba7b0471ba84cf591abace463072f">testall</a> ()</td></tr>
 <tr class="separator:a5ebba7b0471ba84cf591abace463072f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab076cdb8feb7b1270497af73430e4fde"><td class="memTemplParams" colspan="2">template&lt;typename I &gt; </td></tr>
-<tr class="memitem:ab076cdb8feb7b1270497af73430e4fde"><td class="memTemplItemLeft" align="right" valign="top">I&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a> (I iter)</td></tr>
+<tr class="memitem:ab076cdb8feb7b1270497af73430e4fde"><td class="memItemLeft" align="right" valign="top">I&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde">waitsome</a> (I iter)</td></tr>
 <tr class="separator:ab076cdb8feb7b1270497af73430e4fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0adfe04dd4bf29535b6687562fb88989"><td class="memTemplParams" colspan="2">template&lt;typename I &gt; </td></tr>
-<tr class="memitem:a0adfe04dd4bf29535b6687562fb88989"><td class="memTemplItemLeft" align="right" valign="top">I&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989">testsome</a> (I iter)</td></tr>
+<tr class="memitem:a0adfe04dd4bf29535b6687562fb88989"><td class="memItemLeft" align="right" valign="top">I&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989">testsome</a> (I iter)</td></tr>
 <tr class="separator:a0adfe04dd4bf29535b6687562fb88989"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -168,14 +166,12 @@ Public Member Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> =  std::vector&lt;MPI_Request&gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a></td>
+          <td class="memname">using <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> =  std::vector&lt;MPI_Request&gt;::<a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a></td>
         </tr>
       </table>
   </td>
@@ -249,14 +245,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::cancel </td>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::cancel </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -279,17 +273,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::cancelall </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::cancelall</td>
         </tr>
       </table>
   </td>
@@ -308,17 +297,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::empty </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">bool <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::empty</td>
         </tr>
       </table>
   </td>
@@ -337,14 +321,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="classmpl_1_1status__t.html">status_t</a>&amp; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::get_status </td>
+          <td class="memname">const <a class="el" href="classmpl_1_1status__t.html">status_t</a>&amp; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::get_status </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -421,16 +403,14 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::push </td>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::push </td>
           <td>(</td>
-          <td class="paramtype">T &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1impl_1_1prequest.html">prequest</a>  &amp;&amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -441,8 +421,6 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#a6">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a6">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a14">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a7">nonblocking_mult.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a5">vibrating_string_mpl.cc</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00158">158</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
@@ -453,17 +431,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::size </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a> <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::size</td>
         </tr>
       </table>
   </td>
@@ -509,17 +482,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::testall </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">bool <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::testall</td>
         </tr>
       </table>
   </td>
@@ -538,17 +506,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::testany </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::testany</td>
         </tr>
       </table>
   </td>
@@ -567,16 +530,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename I &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">I <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::testsome </td>
+          <td class="memname">I <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::testsome </td>
           <td>(</td>
           <td class="paramtype">I&#160;</td>
           <td class="paramname"><em>iter</em></td><td>)</td>
@@ -599,17 +558,12 @@ template&lt;typename I &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::waitall </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">void <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::waitall</td>
         </tr>
       </table>
   </td>
@@ -618,8 +572,6 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a16">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a15">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a9">nonblocking_mult.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a9">vibrating_string_mpl.cc</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00186">186</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 
@@ -630,17 +582,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::waitany </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">std::pair&lt;bool, <a class="el" href="classmpl_1_1impl_1_1request__pool.html#a5b3f8f3986dc6bc5852939446531c767">size_type</a>&gt; <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::waitany</td>
         </tr>
       </table>
   </td>
@@ -659,16 +606,12 @@ template&lt;typename T &gt; </div>
 
 <div class="memitem">
 <div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<div class="memtemplate">
-template&lt;typename I &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">I <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; T &gt;::waitsome </td>
+          <td class="memname">I <a class="el" href="classmpl_1_1impl_1_1request__pool.html">mpl::impl::request_pool</a>&lt; <a class="el" href="classmpl_1_1prequest.html">prequest</a>  &gt;::waitsome </td>
           <td>(</td>
           <td class="paramtype">I&#160;</td>
           <td class="paramname"><em>iter</em></td><td>)</td>
@@ -681,8 +624,6 @@ template&lt;typename I &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="nonblocking_8cc-example.html#a16">nonblocking.cc</a>.</dd>
-</dl>
 
 <p class="definition">Definition at line <a class="el" href="request_8hpp_source.html#l00197">197</a> of file <a class="el" href="request_8hpp_source.html">request.hpp</a>.</p>
 

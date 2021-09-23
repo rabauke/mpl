@@ -99,9 +99,9 @@ Inheritance diagram for mpl::graph_communicator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1graph__communicator__inherit__graph.png" border="0" usemap="#mpl_1_1graph__communicator_inherit__map" alt="Inheritance graph"/></div>
 <map name="mpl_1_1graph__communicator_inherit__map" id="mpl_1_1graph__communicator_inherit__map">
-<area shape="rect" title=" " alt="" coords="41,671,293,895"/>
-<area shape="rect" title=" " alt="" coords="5,537,328,623"/>
-<area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="51,5,283,489"/>
+<area shape="rect" title=" " alt="" coords="31,948,283,1172"/>
+<area shape="rect" href="classmpl_1_1impl_1_1topo__communicator.html" title="Base class for communicators with a topology." alt="" coords="5,537,308,900"/>
+<area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="41,5,273,489"/>
 </map>
 </div>
 <div class="dynheader">
@@ -109,8 +109,8 @@ Collaboration diagram for mpl::graph_communicator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1graph__communicator__coll__graph.png" border="0" usemap="#mpl_1_1graph__communicator_coll__map" alt="Collaboration graph"/></div>
 <map name="mpl_1_1graph__communicator_coll__map" id="mpl_1_1graph__communicator_coll__map">
-<area shape="rect" title=" " alt="" coords="372,772,624,996"/>
-<area shape="rect" title=" " alt="" coords="337,637,659,723"/>
+<area shape="rect" title=" " alt="" coords="372,1049,624,1273"/>
+<area shape="rect" href="classmpl_1_1impl_1_1topo__communicator.html" title="Base class for communicators with a topology." alt="" coords="347,637,649,1000"/>
 <area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="402,173,594,588"/>
 <area shape="rect" href="classmpl_1_1communicator_1_1split__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="5,5,217,108"/>
 <area shape="rect" href="classmpl_1_1communicator_1_1split__shared__memory__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="241,5,493,108"/>
@@ -156,6 +156,62 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad517010b26940090a839b6ef0c3d95ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af39af30840dbd4cdefb3c91b96f80a40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html">node_list</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator.html#af39af30840dbd4cdefb3c91b96f80a40">neighbors</a> () const</td></tr>
 <tr class="separator:af39af30840dbd4cdefb3c91b96f80a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96d345b10a844607be5ef42a33561834"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a96d345b10a844607be5ef42a33561834"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a96d345b10a844607be5ef42a33561834">neighbor_allgather</a> (const T &amp;senddata, T *recvdata) const</td></tr>
+<tr class="memdesc:a96d345b10a844607be5ef42a33561834"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all neighboring processes.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a96d345b10a844607be5ef42a33561834">More...</a><br /></td></tr>
+<tr class="separator:a96d345b10a844607be5ef42a33561834"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c10ce2f1acb60aabf03d020ff4e525e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0c10ce2f1acb60aabf03d020ff4e525e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a0c10ce2f1acb60aabf03d020ff4e525e">neighbor_allgather</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="memdesc:a0c10ce2f1acb60aabf03d020ff4e525e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all neighboring processes.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a0c10ce2f1acb60aabf03d020ff4e525e">More...</a><br /></td></tr>
+<tr class="separator:a0c10ce2f1acb60aabf03d020ff4e525e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6395406bdbbd375e5b1cda2b6da30252"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6395406bdbbd375e5b1cda2b6da30252"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a6395406bdbbd375e5b1cda2b6da30252">ineighbor_allgather</a> (const T &amp;senddata, T *recvdata) const</td></tr>
+<tr class="memdesc:a6395406bdbbd375e5b1cda2b6da30252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all neighboring processes in a non-blocking manner.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a6395406bdbbd375e5b1cda2b6da30252">More...</a><br /></td></tr>
+<tr class="separator:a6395406bdbbd375e5b1cda2b6da30252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29f1f7f624b9e73dd692255a5318933f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a29f1f7f624b9e73dd692255a5318933f"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a29f1f7f624b9e73dd692255a5318933f">ineighbor_allgather</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="memdesc:a29f1f7f624b9e73dd692255a5318933f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all neighboring processes in a non-blocking manner.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a29f1f7f624b9e73dd692255a5318933f">More...</a><br /></td></tr>
+<tr class="separator:a29f1f7f624b9e73dd692255a5318933f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7fdfa5d116efe3f5799cd1a39cb1a06"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:ab7fdfa5d116efe3f5799cd1a39cb1a06"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#ab7fdfa5d116efe3f5799cd1a39cb1a06">neighbor_allgatherv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvls, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
+<tr class="memdesc:ab7fdfa5d116efe3f5799cd1a39cb1a06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages with a variable amount of data from all neighbouring processes.  <a href="classmpl_1_1impl_1_1topo__communicator.html#ab7fdfa5d116efe3f5799cd1a39cb1a06">More...</a><br /></td></tr>
+<tr class="separator:ab7fdfa5d116efe3f5799cd1a39cb1a06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661f8c9034ac2e7b7e3fae6109f7c301"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a661f8c9034ac2e7b7e3fae6109f7c301"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a661f8c9034ac2e7b7e3fae6109f7c301">neighbor_allgatherv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvls) const</td></tr>
+<tr class="memdesc:a661f8c9034ac2e7b7e3fae6109f7c301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages with a variable amount of data from all neighbouring processes.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a661f8c9034ac2e7b7e3fae6109f7c301">More...</a><br /></td></tr>
+<tr class="separator:a661f8c9034ac2e7b7e3fae6109f7c301"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b362c73b5a9aa208b1706ad733f2895"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6b362c73b5a9aa208b1706ad733f2895"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a6b362c73b5a9aa208b1706ad733f2895">ineighbor_allgatherv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvls, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
+<tr class="memdesc:a6b362c73b5a9aa208b1706ad733f2895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages with a variable amount of data from all neighbouring processes in a non-blocking manner.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a6b362c73b5a9aa208b1706ad733f2895">More...</a><br /></td></tr>
+<tr class="separator:a6b362c73b5a9aa208b1706ad733f2895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0da60d7a04507ff24d2977ffa2f7ada4"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a0da60d7a04507ff24d2977ffa2f7ada4"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a0da60d7a04507ff24d2977ffa2f7ada4">ineighbor_allgatherv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvls) const</td></tr>
+<tr class="memdesc:a0da60d7a04507ff24d2977ffa2f7ada4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages with a variable amount of data from all neighbouring processes in a non-blocking manner.  <a href="classmpl_1_1impl_1_1topo__communicator.html#a0da60d7a04507ff24d2977ffa2f7ada4">More...</a><br /></td></tr>
+<tr class="separator:a0da60d7a04507ff24d2977ffa2f7ada4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c5bac54a272602e7534b16e218f7768"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a3c5bac54a272602e7534b16e218f7768"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a3c5bac54a272602e7534b16e218f7768">neighbor_alltoall</a> (const T *senddata, T *recvdata) const</td></tr>
+<tr class="separator:a3c5bac54a272602e7534b16e218f7768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49c9878aa9f662bf9e1714ccdcc021ee"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a49c9878aa9f662bf9e1714ccdcc021ee"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a49c9878aa9f662bf9e1714ccdcc021ee">neighbor_alltoall</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="separator:a49c9878aa9f662bf9e1714ccdcc021ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b07c21dbff51910d1471ebdf1a30cc"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a41b07c21dbff51910d1471ebdf1a30cc"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a41b07c21dbff51910d1471ebdf1a30cc">ineighbor_alltoall</a> (const T *senddata, T *recvdata) const</td></tr>
+<tr class="separator:a41b07c21dbff51910d1471ebdf1a30cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa48df428e133cfdaadebc958b060c95d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa48df428e133cfdaadebc958b060c95d"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#aa48df428e133cfdaadebc958b060c95d">ineighbor_alltoall</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="separator:aa48df428e133cfdaadebc958b060c95d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78505e6cbf4398fc1b225bcf75f66bd7"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a78505e6cbf4398fc1b225bcf75f66bd7"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a78505e6cbf4398fc1b225bcf75f66bd7">neighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;senddispls, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
+<tr class="separator:a78505e6cbf4398fc1b225bcf75f66bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ffcf770cae7ec15429d87a73dc315a2"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4ffcf770cae7ec15429d87a73dc315a2"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a4ffcf770cae7ec15429d87a73dc315a2">neighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="separator:a4ffcf770cae7ec15429d87a73dc315a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23eae59e220eafe8ed8a02895cd43aab"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a23eae59e220eafe8ed8a02895cd43aab"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a23eae59e220eafe8ed8a02895cd43aab">ineighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;senddispls, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl, const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;recvdispls) const</td></tr>
+<tr class="separator:a23eae59e220eafe8ed8a02895cd43aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a270ea625b3d1d5c4d212145dba8ad6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6a270ea625b3d1d5c4d212145dba8ad6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topo__communicator.html#a6a270ea625b3d1d5c4d212145dba8ad6">ineighbor_alltoallv</a> (const T *senddata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;recvl) const</td></tr>
+<tr class="separator:a6a270ea625b3d1d5c4d212145dba8ad6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe1bd8f32c690ee7a31456da2c437bdf"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a> () const</td></tr>
 <tr class="memdesc:abe1bd8f32c690ee7a31456da2c437bdf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the total number of processes in a communicator.  <a href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">More...</a><br /></td></tr>
 <tr class="separator:abe1bd8f32c690ee7a31456da2c437bdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -503,7 +559,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a192fabbdbac09436fab92943148c5185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a2fbf1a89b606c316790a29a6c24344"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a1a2fbf1a89b606c316790a29a6c24344"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">allgather</a> (const T &amp;senddata, T *recvdata) const</td></tr>
-<tr class="memdesc:a1a2fbf1a89b606c316790a29a6c24344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all processes and distritbute result to all processes.  <a href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">More...</a><br /></td></tr>
+<tr class="memdesc:a1a2fbf1a89b606c316790a29a6c24344"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all processes and distribute result to all processes.  <a href="classmpl_1_1communicator.html#a1a2fbf1a89b606c316790a29a6c24344">More...</a><br /></td></tr>
 <tr class="separator:a1a2fbf1a89b606c316790a29a6c24344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54fb76beae39c558bf5b13cfdcf4fe84"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a54fb76beae39c558bf5b13cfdcf4fe84"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a54fb76beae39c558bf5b13cfdcf4fe84">allgather</a> (const T *senddata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;sendl, T *recvdata, const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;recvl) const</td></tr>
@@ -1059,7 +1115,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Gather messages from all processes and distritbute result to all processes. </p>
+<p>Gather messages from all processes and distribute result to all processes. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
@@ -5865,6 +5921,491 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a6395406bdbbd375e5b1cda2b6da30252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6395406bdbbd375e5b1cda2b6da30252">&#9670;&nbsp;</a></span>ineighbor_allgather() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_allgather </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages from all neighboring processes in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send to all neighbours </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00080">80</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a29f1f7f624b9e73dd692255a5318933f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29f1f7f624b9e73dd692255a5318933f">&#9670;&nbsp;</a></span>ineighbor_allgather() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_allgather </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages from all neighboring processes in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send to all neighbours </td></tr>
+    <tr><td class="paramname">sendl</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00099">99</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0da60d7a04507ff24d2977ffa2f7ada4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0da60d7a04507ff24d2977ffa2f7ada4">&#9670;&nbsp;</a></span>ineighbor_allgatherv() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_allgatherv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvls</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages with a variable amount of data from all neighbouring processes in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send </td></tr>
+    <tr><td class="paramname">sendl</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvls</td><td>memory layouts of the data to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00180">180</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6b362c73b5a9aa208b1706ad733f2895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b362c73b5a9aa208b1706ad733f2895">&#9670;&nbsp;</a></span>ineighbor_allgatherv() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_allgatherv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;&#160;</td>
+          <td class="paramname"><em>recvdispls</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages with a variable amount of data from all neighbouring processes in a non-blocking manner. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send </td></tr>
+    <tr><td class="paramname">sendl</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvls</td><td>memory layouts of the data to receive </td></tr>
+    <tr><td class="paramname">recvdispls</td><td>displacements of the data to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00159">159</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa48df428e133cfdaadebc958b060c95d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa48df428e133cfdaadebc958b060c95d">&#9670;&nbsp;</a></span>ineighbor_alltoall() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_alltoall </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00212">212</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41b07c21dbff51910d1471ebdf1a30cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b07c21dbff51910d1471ebdf1a30cc">&#9670;&nbsp;</a></span>ineighbor_alltoall() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_alltoall </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00203">203</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a23eae59e220eafe8ed8a02895cd43aab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23eae59e220eafe8ed8a02895cd43aab">&#9670;&nbsp;</a></span>ineighbor_alltoallv() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_alltoallv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;&#160;</td>
+          <td class="paramname"><em>senddispls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;&#160;</td>
+          <td class="paramname"><em>recvdispls</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00247">247</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a270ea625b3d1d5c4d212145dba8ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a270ea625b3d1d5c4d212145dba8ad6">&#9670;&nbsp;</a></span>ineighbor_alltoallv() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1irequest.html">irequest</a> mpl::impl::topo_communicator::ineighbor_alltoallv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00264">264</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a5d7e7884b870ac645829a6d6d1a3041e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5d7e7884b870ac645829a6d6d1a3041e">&#9670;&nbsp;</a></span>iprobe()</h2>
 
@@ -8361,6 +8902,487 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02107">2107</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a96d345b10a844607be5ef42a33561834"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96d345b10a844607be5ef42a33561834">&#9670;&nbsp;</a></span>neighbor_allgather() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_allgather </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages from all neighboring processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send to all neighbours </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00048">48</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0c10ce2f1acb60aabf03d020ff4e525e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c10ce2f1acb60aabf03d020ff4e525e">&#9670;&nbsp;</a></span>neighbor_allgather() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_allgather </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages from all neighboring processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send to all neighbours </td></tr>
+    <tr><td class="paramname">sendl</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvl</td><td>memory layout of the data to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00063">63</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a661f8c9034ac2e7b7e3fae6109f7c301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a661f8c9034ac2e7b7e3fae6109f7c301">&#9670;&nbsp;</a></span>neighbor_allgatherv() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_allgatherv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvls</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages with a variable amount of data from all neighbouring processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send </td></tr>
+    <tr><td class="paramname">sendl</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvls</td><td>memory layouts of the data to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00140">140</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7fdfa5d116efe3f5799cd1a39cb1a06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7fdfa5d116efe3f5799cd1a39cb1a06">&#9670;&nbsp;</a></span>neighbor_allgatherv() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_allgatherv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;&#160;</td>
+          <td class="paramname"><em>recvdispls</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gather messages with a variable amount of data from all neighbouring processes. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>type of the data to send, must meet the requirements as described in the <a class="el" href="md_data_types.html#data_types">data types</a> section </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">senddata</td><td>data to send </td></tr>
+    <tr><td class="paramname">sendl</td><td>memory layout of the data to send </td></tr>
+    <tr><td class="paramname">recvdata</td><td>pointer to continuous storage for incoming messages </td></tr>
+    <tr><td class="paramname">recvls</td><td>memory layouts of the data to receive </td></tr>
+    <tr><td class="paramname">recvdispls</td><td>displacements of the data to receive </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00121">121</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a49c9878aa9f662bf9e1714ccdcc021ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49c9878aa9f662bf9e1714ccdcc021ee">&#9670;&nbsp;</a></span>neighbor_alltoall() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_alltoall </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00195">195</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c5bac54a272602e7534b16e218f7768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c5bac54a272602e7534b16e218f7768">&#9670;&nbsp;</a></span>neighbor_alltoall() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_alltoall </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00189">189</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a78505e6cbf4398fc1b225bcf75f66bd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78505e6cbf4398fc1b225bcf75f66bd7">&#9670;&nbsp;</a></span>neighbor_alltoallv() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_alltoallv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;&#160;</td>
+          <td class="paramname"><em>senddispls</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1displacements.html">displacements</a> &amp;&#160;</td>
+          <td class="paramname"><em>recvdispls</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00225">225</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4ffcf770cae7ec15429d87a73dc315a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ffcf770cae7ec15429d87a73dc315a2">&#9670;&nbsp;</a></span>neighbor_alltoallv() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::impl::topo_communicator::neighbor_alltoallv </td>
+          <td>(</td>
+          <td class="paramtype">const T *&#160;</td>
+          <td class="paramname"><em>senddata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>sendl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T *&#160;</td>
+          <td class="paramname"><em>recvdata</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>recvl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="topo__communicator_8hpp_source.html#l00239">239</a> of file <a class="el" href="topo__communicator_8hpp_source.html">topo_communicator.hpp</a>.</p>
 
 </div>
 </div>

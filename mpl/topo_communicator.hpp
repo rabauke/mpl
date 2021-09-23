@@ -9,22 +9,56 @@ namespace mpl {
 
   namespace impl {
 
+    /// \brief Base class for communicators with a topology.
     class topo_communicator : public mpl::communicator {
-    public:
+    protected:
+      /// \brief Default constructor.
+      /// \note Objects of this class should not be instantiated by MPL users, just a base
+      /// class.
       topo_communicator() = default;
 
+      /// \brief Copy constructor.
+      /// \param other the other communicator to copy from
+      /// \note Objects of this class should not be instantiated by MPL users, just a base
+      /// class.
+      topo_communicator(const topo_communicator &other) = default;
+
+      /// \brief Move constructor.
+      /// \param other the other communicator to move from
+      /// \note Objects of this class should not be instantiated by MPL users, just a base
+      /// class.
+      topo_communicator(topo_communicator &&other) = default;
+
+    public:
+      /// \brief Deleted copy assignment operator.
       void operator=(const topo_communicator &) = delete;
 
       // === neighbor collective =========================================
       // === neighbor allgather ===
       // === get a single value from each neighbor and store in contiguous memory
       // --- blocking neighbor allgather ---
+      /// \brief Gather messages from all neighboring processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send to all neighbours
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all  processes in the communicator.
       template<typename T>
       void neighbor_allgather(const T &senddata, T *recvdata) const {
         MPI_Neighbor_allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
                                recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
+      /// \brief Gather messages from all neighboring processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send to all neighbours
+      /// \param sendl memory layout of the data to send
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recvl memory layout of the data to receive
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
       template<typename T>
       void neighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                               const layout<T> &recvl) const {
@@ -34,6 +68,14 @@ namespace mpl {
       }
 
       // --- nonblocking neighbor allgather ---
+      /// \brief Gather messages from all neighboring processes in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send to all neighbours
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
       template<typename T>
       irequest ineighbor_allgather(const T &senddata, T *recvdata) const {
         MPI_Request req;
@@ -43,6 +85,16 @@ namespace mpl {
         return impl::irequest(req);
       }
 
+      /// \brief Gather messages from all neighboring processes in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send to all neighbours
+      /// \param sendl memory layout of the data to send
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recvl memory layout of the data to receive
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
       template<typename T>
       irequest ineighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                                    const layout<T> &recvl) const {
@@ -53,8 +105,18 @@ namespace mpl {
         return impl::irequest(req);
       }
 
-      // === get varying amount of data from each neighbor and stores in noncontiguous memory
+      // === get varying amount of data from each neighbor and stores in non-contiguous memory
       // --- blocking neighbor allgather ---
+      /// \brief Gather messages with a variable amount of data from all neighbouring processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send
+      /// \param sendl memory layout of the data to send
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recvls memory layouts of the data to receive
+      /// \param recvdispls displacements of the data to receive
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
       template<typename T>
       void neighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                                const layouts<T> &recvls,
@@ -65,7 +127,34 @@ namespace mpl {
         neighbor_alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
       }
 
+      /// \brief Gather messages with a variable amount of data from all neighbouring processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send
+      /// \param sendl memory layout of the data to send
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recvls memory layouts of the data to receive
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      void neighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
+                               const layouts<T> &recvls) const {
+        neighbor_allgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
+      }
+
       // --- nonblocking neighbor allgather ---
+      /// \brief Gather messages with a variable amount of data from all neighbouring processes
+      /// in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send
+      /// \param sendl memory layout of the data to send
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recvls memory layouts of the data to receive
+      /// \param recvdispls displacements of the data to receive
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
       template<typename T>
       irequest ineighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
                                     const layouts<T> &recvls,
@@ -74,6 +163,23 @@ namespace mpl {
         displacements senddispls(N);
         layouts<T> sendls(N, sendl);
         return ineighbor_alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+      }
+
+      /// \brief Gather messages with a variable amount of data from all neighbouring processes
+      /// in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \ref data_types "data types" section
+      /// \param senddata data to send
+      /// \param sendl memory layout of the data to send
+      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recvls memory layouts of the data to receive
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      irequest ineighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
+                                    const layouts<T> &recvls) const {
+        return ineighbor_allgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
       }
 
       // === neighbor all-to-all ===

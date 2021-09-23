@@ -9,7 +9,7 @@ var namespacempl =
     [ "bit_or", "structmpl_1_1bit__or.html", "structmpl_1_1bit__or" ],
     [ "bit_xor", "structmpl_1_1bit__xor.html", "structmpl_1_1bit__xor" ],
     [ "bsend_buffer", "classmpl_1_1bsend__buffer.html", "classmpl_1_1bsend__buffer" ],
-    [ "cart_communicator", "classmpl_1_1cart__communicator.html", "classmpl_1_1cart__communicator" ],
+    [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html", "classmpl_1_1cartesian__communicator" ],
     [ "communicator", "classmpl_1_1communicator.html", "classmpl_1_1communicator" ],
     [ "contiguous_layout", "classmpl_1_1contiguous__layout.html", "classmpl_1_1contiguous__layout" ],
     [ "contiguous_layouts", "classmpl_1_1contiguous__layouts.html", "classmpl_1_1contiguous__layouts" ],

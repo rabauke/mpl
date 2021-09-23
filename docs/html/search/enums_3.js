@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['threading_5fmodes_710',['threading_modes',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828',1,'mpl']]]
+  ['periodicity_737',['periodicity',['../classmpl_1_1cartesian__communicator.html#a51c1ad390c1f4a12c2017182d5ff0a06',1,'mpl::cartesian_communicator']]]
 ];
