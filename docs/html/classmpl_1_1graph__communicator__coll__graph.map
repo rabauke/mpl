@@ -1,6 +1,6 @@
 <map id="mpl::graph_communicator" name="mpl::graph_communicator">
-<area shape="rect" id="node1" title=" " alt="" coords="372,1049,624,1273"/>
-<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topo__communicator.html" title="Base class for communicators with a topology." alt="" coords="347,637,649,1000"/>
+<area shape="rect" id="node1" title=" " alt="" coords="372,1067,624,1291"/>
+<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="367,637,629,1017"/>
 <area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="402,173,594,588"/>
 <area shape="rect" id="node4" href="$classmpl_1_1communicator_1_1split__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="5,5,217,108"/>
 <area shape="rect" id="node5" href="$classmpl_1_1communicator_1_1split__shared__memory__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="241,5,493,108"/>

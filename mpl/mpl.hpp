@@ -51,7 +51,7 @@ namespace mpl {
 #include <mpl/request.hpp>
 #include <mpl/comm_group.hpp>
 #include <mpl/environment.hpp>
-#include <mpl/topo_communicator.hpp>
+#include <mpl/topology_communicator.hpp>
 #include <mpl/cartesian_communicator.hpp>
 #include <mpl/graph_comm.hpp>
 #include <mpl/dist_graph_comm.hpp>

@@ -11,7 +11,7 @@
 
 namespace mpl {
 
-  class graph_communicator : public impl::topo_communicator {
+  class graph_communicator : public impl::topology_communicator {
   public:
     class edge_set : private std::set<std::pair<int, int>> {
       using base = std::set<std::pair<int, int>>;

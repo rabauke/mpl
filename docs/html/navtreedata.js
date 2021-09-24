@@ -59,7 +59,7 @@ var NAVTREEINDEX =
 "classmpl_1_1dist__graph__communicator.html#a1cadfd444f8c8369b2c9d99e0a74c644",
 "classmpl_1_1graph__communicator.html#a192fabbdbac09436fab92943148c5185",
 "classmpl_1_1hindexed__block__layout.html#a5f5f55079a3ef89bcd395dae67a2206d",
-"classmpl_1_1impl_1_1topo__communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703",
+"classmpl_1_1impl_1_1topology__communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703",
 "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html"
 ];
 

@@ -1,7 +1,7 @@
-<map id="mpl::communicator" name="mpl::communicator">
-<area shape="rect" id="node1" title="Specifies the communication context for a communication operation." alt="" coords="357,5,589,489"/>
-<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="341,537,604,917"/>
+<map id="mpl::impl::topology_communicator" name="mpl::impl::topology_communicator">
+<area shape="rect" id="node1" title="Base class for communicators with a topology." alt="" coords="341,537,604,917"/>
 <area shape="rect" id="node3" href="$classmpl_1_1cartesian__communicator.html" title=" " alt="" coords="5,965,297,1328"/>
 <area shape="rect" id="node4" href="$classmpl_1_1dist__graph__communicator.html" title=" " alt="" coords="321,1035,624,1259"/>
 <area shape="rect" id="node5" href="$classmpl_1_1graph__communicator.html" title=" " alt="" coords="648,1035,900,1259"/>
+<area shape="rect" id="node2" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="357,5,589,489"/>
 </map>

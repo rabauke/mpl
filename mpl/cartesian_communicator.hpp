@@ -19,7 +19,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  class cartesian_communicator : public impl::topo_communicator {
+  class cartesian_communicator : public impl::topology_communicator {
   public:
     enum class periodicity { non_periodic, periodic };
     static constexpr periodicity non_periodic = periodicity::non_periodic;

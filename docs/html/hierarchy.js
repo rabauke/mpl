@@ -31,7 +31,7 @@ var hierarchy =
     [ "mpl::bsend_buffer", "classmpl_1_1bsend__buffer.html", null ],
     [ "mpl::communicator::comm_collective_tag", "classmpl_1_1communicator_1_1comm__collective__tag.html", null ],
     [ "mpl::communicator", "classmpl_1_1communicator.html", [
-      [ "mpl::impl::topo_communicator", "classmpl_1_1impl_1_1topo__communicator.html", [
+      [ "mpl::impl::topology_communicator", "classmpl_1_1impl_1_1topology__communicator.html", [
         [ "mpl::cartesian_communicator", "classmpl_1_1cartesian__communicator.html", null ],
         [ "mpl::dist_graph_communicator", "classmpl_1_1dist__graph__communicator.html", null ],
         [ "mpl::graph_communicator", "classmpl_1_1graph__communicator.html", null ]

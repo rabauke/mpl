@@ -8,7 +8,7 @@ var searchData=
   ['testsome_327',['testsome',['../classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989',1,'mpl::impl::request_pool']]],
   ['threading_5fmode_328',['threading_mode',['../namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33',1,'mpl::environment']]],
   ['threading_5fmodes_329',['threading_modes',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828',1,'mpl']]],
-  ['topo_5fcommunicator_330',['topo_communicator',['../classmpl_1_1impl_1_1topo__communicator.html',1,'mpl::impl']]],
+  ['topology_5fcommunicator_330',['topology_communicator',['../classmpl_1_1impl_1_1topology__communicator.html',1,'mpl::impl']]],
   ['translate_331',['translate',['../classmpl_1_1group.html#a38cdae96823a5ce04c1e4a637ca82d5a',1,'mpl::group::translate(int rank, const group &amp;other) const'],['../classmpl_1_1group.html#a1c11d89daec6af7b0ed1b5668d355656',1,'mpl::group::translate(const ranks &amp;rank, const group &amp;other) const']]],
   ['true_5fbyte_5fextent_332',['true_byte_extent',['../classmpl_1_1layout.html#a45840e6936914baef876a0b67a8bb499',1,'mpl::layout']]],
   ['true_5fbyte_5flower_5fbound_333',['true_byte_lower_bound',['../classmpl_1_1layout.html#a245932be5b4d58bb00a05b29208ab7c4',1,'mpl::layout']]],

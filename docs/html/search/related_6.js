@@ -10,5 +10,5 @@ var searchData=
   ['request_5fpool_779',['request_pool',['../classmpl_1_1status__t.html#ab9c9880cf76979a056acfe2cb6bf6772',1,'mpl::status_t']]],
   ['request_5fpool_3c_20irequest_20_3e_780',['request_pool&lt; irequest &gt;',['../classmpl_1_1irequest.html#ac0fb8b83ea79062c37d219742c871bcc',1,'mpl::irequest']]],
   ['request_5fpool_3c_20prequest_20_3e_781',['request_pool&lt; prequest &gt;',['../classmpl_1_1prequest.html#a8c58374ad21d57465ce6914abe69fdf8',1,'mpl::prequest']]],
-  ['topo_5fcommunicator_782',['topo_communicator',['../classmpl_1_1layouts.html#ab28416569e2e2ac349f2afbccb851aba',1,'mpl::layouts::topo_communicator()'],['../classmpl_1_1contiguous__layouts.html#ab28416569e2e2ac349f2afbccb851aba',1,'mpl::contiguous_layouts::topo_communicator()']]]
+  ['topology_5fcommunicator_782',['topology_communicator',['../classmpl_1_1layouts.html#a1eb8b54fe4aac54b7d7dd0ef16a2a82e',1,'mpl::layouts::topology_communicator()'],['../classmpl_1_1contiguous__layouts.html#a1eb8b54fe4aac54b7d7dd0ef16a2a82e',1,'mpl::contiguous_layouts::topology_communicator()']]]
 ];
