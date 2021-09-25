@@ -21,7 +21,7 @@ var classmpl_1_1local__grid =
     [ "operator()", "classmpl_1_1local__grid.html#a049be0cb09609b241e2cf58e076fe514", null ],
     [ "operator()", "classmpl_1_1local__grid.html#a3c95eccd093760e951f4e7fc58d72638", null ],
     [ "size", "classmpl_1_1local__grid.html#ac2d6883c856c1edf80dccf0586f0c0b4", null ],
-    [ "sub_layout", "classmpl_1_1local__grid.html#a9feca6cbf613259fd4fab339d9eab65d", null ],
-    [ "sub_layouts", "classmpl_1_1local__grid.html#a0c0f9170219e6fce61ed8f83eea1af6e", null ],
+    [ "sub_layout", "classmpl_1_1local__grid.html#a4e9fb50fa6b7042781cc3b76febe0353", null ],
+    [ "sub_layouts", "classmpl_1_1local__grid.html#a713ce59b43926706509b9a3a6a127a41", null ],
     [ "swap", "classmpl_1_1local__grid.html#afd4c45c7fb2a713f5e0434acce617320", null ]
 ];

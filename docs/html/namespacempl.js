@@ -1,5 +1,17 @@
 var namespacempl =
 [
+    [ "environment", "namespacempl_1_1environment.html", [
+      [ "buffer_attach", "namespacempl_1_1environment.html#ab112324f29c5e0a131f1863ab11f2ff5", null ],
+      [ "buffer_detach", "namespacempl_1_1environment.html#aa73a2d692feb579fac1c5c351503fbe2", null ],
+      [ "comm_self", "namespacempl_1_1environment.html#a785bf3032ef30fadadf9d834549041c1", null ],
+      [ "comm_world", "namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac", null ],
+      [ "is_thread_main", "namespacempl_1_1environment.html#a9bf5f93d0014124492bffd5b2df1f571", null ],
+      [ "processor_name", "namespacempl_1_1environment.html#a89bda4aaa36251049ffdecdbe79a4322", null ],
+      [ "threading_mode", "namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33", null ],
+      [ "wtick", "namespacempl_1_1environment.html#ad5d86a31e41363a7b326baaa9dd32edb", null ],
+      [ "wtime", "namespacempl_1_1environment.html#a18e3982cf7b547d30b3f7f1236a079f6", null ],
+      [ "wtime_is_global", "namespacempl_1_1environment.html#a8df37b1fb318ae7efa867d9eda6b99b9", null ]
+    ] ],
     [ "impl", "namespacempl_1_1impl.html", "namespacempl_1_1impl" ],
     [ "absolute_data", "classmpl_1_1absolute__data.html", null ],
     [ "absolute_data< const T * >", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4" ],
@@ -76,5 +88,33 @@ var namespacempl =
     [ "struct_layout", "classmpl_1_1struct__layout.html", "classmpl_1_1struct__layout" ],
     [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
     [ "tag_t", "classmpl_1_1tag__t.html", "classmpl_1_1tag__t" ],
-    [ "vector_layout", "classmpl_1_1vector__layout.html", "classmpl_1_1vector__layout" ]
+    [ "vector_layout", "classmpl_1_1vector__layout.html", "classmpl_1_1vector__layout" ],
+    [ "message_t", "namespacempl.html#a3685893e866d7db6c3b3765d26ef386b", null ],
+    [ "size_t", "namespacempl.html#a3cd70ef6c91cacaf9265de4c9dd93ddf", null ],
+    [ "ssize_t", "namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d", null ],
+    [ "array_orders", "namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbf", [
+      [ "C_order", "namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfaadf55cfbf8cf8671022d5210c4eccaa8", null ],
+      [ "Fortran_order", "namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbfae406b10bb96ad9064aebbf2835864097", null ]
+    ] ],
+    [ "threading_modes", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828", [
+      [ "single", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828add5c07036f2975ff4bce568b6511d3bc", null ],
+      [ "funneled", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a", null ],
+      [ "serialized", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828afb741eb55bd67db2031aa661671fba7c", null ],
+      [ "multiple", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606", null ]
+    ] ],
+    [ "dims_create", "namespacempl.html#a304b4fa9009db0c1ff53b663d63e3399", null ],
+    [ "make_absolute", "namespacempl.html#a118b145797198062151e6f43ee52046b", null ],
+    [ "make_absolute", "namespacempl.html#a6481521478393b302a549178d93b8503", null ],
+    [ "operator!=", "namespacempl.html#a32e40e8b36a74a43d459ed24bad3fef9", null ],
+    [ "operator!=", "namespacempl.html#a79afe2e73335bd43c875005716304b89", null ],
+    [ "operator<<", "namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a", null ],
+    [ "operator==", "namespacempl.html#a1d5f9608debefdb6b979798109b3e7eb", null ],
+    [ "operator==", "namespacempl.html#ab82856a9a5264addefc5e436a19e3565", null ],
+    [ "operator>>", "namespacempl.html#a700cde8da9a9d5af915974f05b9863b4", null ],
+    [ "absolute", "namespacempl.html#af7799eb8fd405a1f2f1f226fe24626f5", null ],
+    [ "any_source", "namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b", null ],
+    [ "bsend_overhead", "namespacempl.html#a4bc7e110094061c98ce0bf2b136ff19a", null ],
+    [ "proc_null", "namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c", null ],
+    [ "root", "namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc", null ],
+    [ "undefined", "namespacempl.html#a551ed45948e628d93f6669b4cb01e750", null ]
 ];

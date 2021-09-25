@@ -19,9 +19,9 @@ var classmpl_1_1distributed__grid =
     [ "gend", "classmpl_1_1distributed__grid.html#aa6d72bfcbade9ce4574dd810044a1aa1", null ],
     [ "gindex", "classmpl_1_1distributed__grid.html#a8ac663b4a2e9e68c1274bdf49c39c23c", null ],
     [ "gsize", "classmpl_1_1distributed__grid.html#a4945000e5319f35d2aa104769b276618", null ],
-    [ "interior_layout", "classmpl_1_1distributed__grid.html#a0e5af1b36b08ecd28b50b319f2657a83", null ],
-    [ "left_border_layout", "classmpl_1_1distributed__grid.html#aea8054775c6ca5dcc1c258e752ad9b15", null ],
-    [ "left_mirror_layout", "classmpl_1_1distributed__grid.html#a2a28492ee7f46f0d718a3d992bed9842", null ],
+    [ "interior_layout", "classmpl_1_1distributed__grid.html#acd78758381fb6a8366913ca97dd10f86", null ],
+    [ "left_border_layout", "classmpl_1_1distributed__grid.html#ac195c288862d59447515645e031e8ae6", null ],
+    [ "left_mirror_layout", "classmpl_1_1distributed__grid.html#a61cf9256e5c5303425e3ff60964fc4eb", null ],
     [ "obegin", "classmpl_1_1distributed__grid.html#ac2bb06d14b8dc3d305592b90be4b4245", null ],
     [ "oend", "classmpl_1_1distributed__grid.html#adb4997427246517519393e49049bebbd", null ],
     [ "operator()", "classmpl_1_1distributed__grid.html#ad151dad6d694969e90c355b5eff18a1b", null ],
@@ -30,8 +30,8 @@ var classmpl_1_1distributed__grid =
     [ "operator()", "classmpl_1_1distributed__grid.html#ad8d9ae436a2c88e3d032b0891995b1f4", null ],
     [ "operator()", "classmpl_1_1distributed__grid.html#a837f17c5d0eb348120c703841075cdb3", null ],
     [ "operator()", "classmpl_1_1distributed__grid.html#a5d88aefd34170775bc09683878f96a72", null ],
-    [ "right_border_layout", "classmpl_1_1distributed__grid.html#a3488dfec844fd0edbfd4a3f4a65c3fc7", null ],
-    [ "right_mirror_layout", "classmpl_1_1distributed__grid.html#a87d511a44d4a3475e8af04d0c34d536d", null ],
+    [ "right_border_layout", "classmpl_1_1distributed__grid.html#abada0612629442be62b9ff402458fc5a", null ],
+    [ "right_mirror_layout", "classmpl_1_1distributed__grid.html#ada761bb08cac5ec2f6aca1c39a9ad97f", null ],
     [ "size", "classmpl_1_1distributed__grid.html#a2f644cd6560ba3d618e97da5bc735097", null ],
     [ "swap", "classmpl_1_1distributed__grid.html#a4af35d52ae69a0b0dea4921ed2a2595e", null ]
 ];

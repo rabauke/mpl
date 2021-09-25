@@ -1,8 +1,8 @@
 <map id="mpl::group" name="mpl::group">
-<area shape="rect" id="node1" title="Represents a group of processes." alt="" coords="613,156,776,588"/>
+<area shape="rect" id="node1" title="Represents a group of processes." alt="" coords="649,156,812,588"/>
 <area shape="rect" id="node2" href="$classmpl_1_1group_1_1_union__tag.html" title="Indicates the creation of a union of two groups." alt="" coords="5,5,237,91"/>
-<area shape="rect" id="node3" href="$classmpl_1_1group_1_1difference__tag.html" title="Indicates the creation of a difference of two groups." alt="" coords="261,5,544,91"/>
-<area shape="rect" id="node4" href="$classmpl_1_1group_1_1exclude__tag.html" title="Indicates the creation of a subgroup by excluding members of an existing group." alt="" coords="569,5,821,91"/>
-<area shape="rect" id="node5" href="$classmpl_1_1group_1_1include__tag.html" title="Indicates the creation of a subgroup by including members of an existing group." alt="" coords="845,5,1097,91"/>
-<area shape="rect" id="node6" href="$classmpl_1_1group_1_1intersection__tag.html" title="Indicates the creation of an intersection of two groups." alt="" coords="1121,5,1423,91"/>
+<area shape="rect" id="node3" href="$classmpl_1_1group_1_1intersection__tag.html" title="Indicates the creation of an intersection of two groups." alt="" coords="262,5,565,91"/>
+<area shape="rect" id="node4" href="$classmpl_1_1group_1_1difference__tag.html" title="Indicates the creation of a difference of two groups." alt="" coords="589,5,872,91"/>
+<area shape="rect" id="node5" href="$classmpl_1_1group_1_1include__tag.html" title="Indicates the creation of a subgroup by including members of an existing group." alt="" coords="897,5,1149,91"/>
+<area shape="rect" id="node6" href="$classmpl_1_1group_1_1exclude__tag.html" title="Indicates the creation of a subgroup by excluding members of an existing group." alt="" coords="1173,5,1425,91"/>
 </map>
