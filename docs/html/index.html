@@ -86,12 +86,15 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">MPL - A message passing library </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.1 it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
-<p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. Its focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface and would like to utilize it via a more user-friendly interface.</p>
+<div class="textblock"><p>MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. <br  />
+ Since the C++ API has been dropped from the MPI standard in version 3.1, it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
+<p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. The library's focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface standard and would like to utilize it via a more user-friendly interface in modern C++. Unlike (Boost.MPI)[<a href="https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html">https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html</a>], MPL does not rely on an external serialization library and has a negligible run-time overhead.</p>
 <h1>Supported features</h1>
-<p>The Message Passing Library gives currently access via a convenient C++ interface to the following features of the Message Passing Interface standard:</p>
+<p>MPL assumes that the underlying MPI implementation supports the <a href="https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report.pdf">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the new <a href="https://www.mpi-forum.org/docs/mpi-4.0/mpi40-report.pdf">version 4.0</a> or later MPI versions. <br  />
+</p>
+<p>MPL gives currently access via a convenient C++ interface to the following features of the Message Passing Interface standard:</p>
 <ul>
-<li>environmental management (implicit initialization and finalization, timers, but no error handlig).</li>
+<li>environmental management (implicit initialization and finalization, timers, but no error handling).</li>
 <li>point-to-point communication (blocking and non-blocking),</li>
 <li>collective communication (blocking and non-blocking),</li>
 <li>derived data types (happens automatically for many custom data types or via the <code>base_struct_builder</code> helper class and the layout classes of MPL),</li>
@@ -105,7 +108,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>one-sided communication and</li>
 <li>I/O.</li>
 </ul>
-<p>MPL assumes that the underlying MPI implementation supports the <a href="https://www.mpi-forum.org/docs/">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the upcoming version 4.0 or later MPI versions.</p>
+<p>Although MPL covers a subset of the MPI functionality only, it has probably the largest MPI-feature coverage among all alternative C++ interfaces to MPI.</p>
 <h1>Installation</h1>
 <p>MPL is built on MPI. An MPI implementation needs to be installed as a prerequisite, e.g., <a href="https://www.open-mpi.org/">Open MPI</a> or <a href="https://www.mpich.org/">MPICH</a>. As MPL is a header-only library, it suffices to download the <a href="https://github.com/rabauke/mpl">source</a> and copy the <code>mpl</code> directory, which contains all header files to a place, where the compiler will find it, e.g., <code>/usr/local/include</code> on a typical Unix/Linux system. <br  />
 </p>
@@ -114,54 +117,68 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!-- fragment --><p>Then, call the CMake tool to detect all dependencies and to generate the project configuration for your build system or IDE, e.g. </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local ..</div>
 </div><!-- fragment --><p>The option <code>-DCMAKE_INSTALL_PREFIX:PATH</code> specifies the installation path. Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code>--install</code> option now, e.g., </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake --install .</div>
 </div><!-- fragment --><p>A set of unit tests and a collection of examples that illustrate the usage of MPL can be complied via CMake, too, if required. To build the MPL unit tests add the option <code>-DBUILD_TESTING=ON</code> to the initial CMake call. Similarly, <code>-DMPL_BUILD_EXAMPLES=ON</code> enables building example codes. Thus, </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..</div>
-</div><!-- fragment --><p>enables both, building unit tests and examples. MPL unit tests utilize the <a href="https://www.boost.org/doc/libs/1_76_0/libs/test/doc/html/index.html">Boost Test</a> library. Finally, build the unit tests and/or the example code via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake --build .</div>
+</div><!-- fragment --><p>enables both, building unit tests and examples. MPL unit tests utilize the <a href="https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html">Boost.Test</a> framework. Finally, build the unit tests and/or the example code via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ cmake --build .</div>
 </div><!-- fragment --><p>After the unit test have been build successfully, they can be run conveniently by utilizing the CTest tool, i.e., via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ ctest</div>
 <div class="line">Test project /home/user/mpl/build</div>
 <div class="line">      Start  1: test_communicator</div>
-<div class="line"> 1/19 Test  #1: test_communicator ................   Passed    0.45 sec</div>
+<div class="line"> 1/26 Test  #1: test_communicator ........................   Passed    0.14 sec</div>
 <div class="line">      Start  2: test_cart_communicator</div>
-<div class="line"> 2/19 Test  #2: test_cart_communicator ...........   Passed    0.35 sec</div>
+<div class="line"> 2/26 Test  #2: test_cart_communicator ...................   Passed    0.12 sec</div>
 <div class="line">      Start  3: test_graph_communicator</div>
-<div class="line"> 3/19 Test  #3: test_graph_communicator ..........   Passed    0.36 sec</div>
+<div class="line"> 3/26 Test  #3: test_graph_communicator ..................   Passed    0.12 sec</div>
 <div class="line">      Start  4: test_dist_graph_communicator</div>
-<div class="line"> 4/19 Test  #4: test_dist_graph_communicator .....   Passed    0.31 sec</div>
-<div class="line">      Start  5: test_send_recv</div>
-<div class="line"> 5/19 Test  #5: test_send_recv ...................   Passed    0.34 sec</div>
-<div class="line">      Start  6: test_isend_irecv</div>
-<div class="line"> 6/19 Test  #6: test_isend_irecv .................   Passed    0.34 sec</div>
-<div class="line">      Start  7: test_psend_precv</div>
-<div class="line"> 7/19 Test  #7: test_psend_precv .................   Passed    0.36 sec</div>
-<div class="line">      Start  8: test_collective</div>
-<div class="line"> 8/19 Test  #8: test_collective ..................   Passed    0.37 sec</div>
-<div class="line">      Start  9: test_icollective</div>
-<div class="line"> 9/19 Test  #9: test_icollective .................   Passed    0.31 sec</div>
-<div class="line">      Start 10: test_collectivev</div>
-<div class="line">10/19 Test #10: test_collectivev .................   Passed    0.28 sec</div>
-<div class="line">      Start 11: test_icollectivev</div>
-<div class="line">11/19 Test #11: test_icollectivev ................   Passed    0.34 sec</div>
-<div class="line">      Start 12: test_reduce</div>
-<div class="line">12/19 Test #12: test_reduce ......................   Passed    0.40 sec</div>
-<div class="line">      Start 13: test_ireduce</div>
-<div class="line">13/19 Test #13: test_ireduce .....................   Passed    0.36 sec</div>
-<div class="line">      Start 14: test_scan</div>
-<div class="line">14/19 Test #14: test_scan ........................   Passed    0.36 sec</div>
-<div class="line">      Start 15: test_iscan</div>
-<div class="line">15/19 Test #15: test_iscan .......................   Passed    0.34 sec</div>
-<div class="line">      Start 16: test_exscan</div>
-<div class="line">16/19 Test #16: test_exscan ......................   Passed    0.44 sec</div>
-<div class="line">      Start 17: test_iexscan</div>
-<div class="line">17/19 Test #17: test_iexscan .....................   Passed    0.30 sec</div>
-<div class="line">      Start 18: test_reduce_scatter</div>
-<div class="line">18/19 Test #18: test_reduce_scatter ..............   Passed    0.36 sec</div>
-<div class="line">      Start 19: test_ireduce_scatter</div>
-<div class="line">19/19 Test #19: test_ireduce_scatter .............   Passed    0.36 sec</div>
+<div class="line"> 4/26 Test  #4: test_dist_graph_communicator .............   Passed    0.13 sec</div>
+<div class="line">      Start  5: test_communicator_send_recv</div>
+<div class="line"> 5/26 Test  #5: test_communicator_send_recv ..............   Passed    0.12 sec</div>
+<div class="line">      Start  6: test_communicator_isend_irecv</div>
+<div class="line"> 6/26 Test  #6: test_communicator_isend_irecv ............   Passed    0.14 sec</div>
+<div class="line">      Start  7: test_communicator_init_send_init_recv</div>
+<div class="line"> 7/26 Test  #7: test_communicator_init_send_init_recv ....   Passed    0.12 sec</div>
+<div class="line">      Start  8: test_communicator_sendrecv</div>
+<div class="line"> 8/26 Test  #8: test_communicator_sendrecv ...............   Passed    0.12 sec</div>
+<div class="line">      Start  9: test_communicator_probe</div>
+<div class="line"> 9/26 Test  #9: test_communicator_probe ..................   Passed    0.13 sec</div>
+<div class="line">      Start 10: test_communicator_mprobe_mrecv</div>
+<div class="line">10/26 Test #10: test_communicator_mprobe_mrecv ...........   Passed    0.13 sec</div>
+<div class="line">      Start 11: test_communicator_barrier</div>
+<div class="line">11/26 Test #11: test_communicator_barrier ................   Passed    0.07 sec</div>
+<div class="line">      Start 12: test_communicator_bcast</div>
+<div class="line">12/26 Test #12: test_communicator_bcast ..................   Passed    0.05 sec</div>
+<div class="line">      Start 13: test_communicator_gather</div>
+<div class="line">13/26 Test #13: test_communicator_gather .................   Passed    0.05 sec</div>
+<div class="line">      Start 14: test_communicator_gatherv</div>
+<div class="line">14/26 Test #14: test_communicator_gatherv ................   Passed    0.10 sec</div>
+<div class="line">      Start 15: test_communicator_allgather</div>
+<div class="line">15/26 Test #15: test_communicator_allgather ..............   Passed    0.09 sec</div>
+<div class="line">      Start 16: test_communicator_allgatherv</div>
+<div class="line">16/26 Test #16: test_communicator_allgatherv .............   Passed    0.11 sec</div>
+<div class="line">      Start 17: test_communicator_scatter</div>
+<div class="line">17/26 Test #17: test_communicator_scatter ................   Passed    0.12 sec</div>
+<div class="line">      Start 18: test_communicator_scatterv</div>
+<div class="line">18/26 Test #18: test_communicator_scatterv ...............   Passed    0.10 sec</div>
+<div class="line">      Start 19: test_communicator_alltoall</div>
+<div class="line">19/26 Test #19: test_communicator_alltoall ...............   Passed    0.12 sec</div>
+<div class="line">      Start 20: test_communicator_alltoallv</div>
+<div class="line">20/26 Test #20: test_communicator_alltoallv ..............   Passed    0.14 sec</div>
+<div class="line">      Start 21: test_communicator_reduce</div>
+<div class="line">21/26 Test #21: test_communicator_reduce .................   Passed    0.10 sec</div>
+<div class="line">      Start 22: test_communicator_allreduce</div>
+<div class="line">22/26 Test #22: test_communicator_allreduce ..............   Passed    0.08 sec</div>
+<div class="line">      Start 23: test_communicator_reduce_scatter_block</div>
+<div class="line">23/26 Test #23: test_communicator_reduce_scatter_block ...   Passed    0.09 sec</div>
+<div class="line">      Start 24: test_communicator_reduce_scatter</div>
+<div class="line">24/26 Test #24: test_communicator_reduce_scatter .........   Passed    0.13 sec</div>
+<div class="line">      Start 25: test_communicator_scan</div>
+<div class="line">25/26 Test #25: test_communicator_scan ...................   Passed    0.07 sec</div>
+<div class="line">      Start 26: test_communicator_exscan</div>
+<div class="line">26/26 Test #26: test_communicator_exscan .................   Passed    0.10 sec</div>
 <div class="line"> </div>
-<div class="line">100% tests passed, 0 tests failed out of 19</div>
+<div class="line">100% tests passed, 0 tests failed out of 26</div>
 <div class="line"> </div>
-<div class="line">Total Test time (real) =   6.75 sec</div>
+<div class="line">Total Test time (real) =   2.79 sec</div>
 </div><!-- fragment --><p>or via your IDE if it features support for CTest.</p>
 <p>Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on <a href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
-<h1>Hello World</h1>
+<h1>Hello parallel world</h1>
 <p>MPL is built on top of the Message Passing Interface (MPI) standard. Therefore, MPL shares many concepts known from the MPI standard, e.g., the concept of a communicator. Communicators manage the message exchange between different processes, i.e., messages are sent and received with the help of a communicator. <br  />
 </p>
 <p>The MPL environment provides a global default communicator <code>comm_world</code>, which will be used in the following Hello-World program. The program prints out some information about each process:</p><ul>
@@ -170,18 +187,17 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>the computer's name the process is running on.</li>
 </ul>
 <p>If there are two or more processes, a message is sent from process 0 to process 1, which is also printed.</p>
-<div class="fragment"><div class="line"> {C++}</div>
-<div class="line">#include &lt;cstdlib&gt;</div>
+<div class="fragment"><div class="line">#include &lt;cstdlib&gt;</div>
 <div class="line">#include &lt;iostream&gt;</div>
 <div class="line">// include MPL header file</div>
 <div class="line">#include &lt;mpl/mpl.hpp&gt;</div>
 <div class="line"> </div>
 <div class="line">int main() {</div>
 <div class="line">  // get a reference to communicator &quot;world&quot;</div>
-<div class="line">  const mpl::communicator &amp;comm_world(mpl::environment::comm_world());</div>
+<div class="line">  const mpl::communicator &amp;comm_world{mpl::environment::comm_world()};</div>
 <div class="line">  // each process prints a message containing the processor name, the rank</div>
 <div class="line">  // in communicator world and the size of communicator world</div>
-<div class="line">  // output may depend on MPI implementation</div>
+<div class="line">  // output may depend on the underlying MPI implementation</div>
 <div class="line">  std::cout &lt;&lt; &quot;Hello world! I am running on \&quot;&quot; &lt;&lt; mpl::environment::processor_name()</div>
 <div class="line">            &lt;&lt; &quot;\&quot;. My rank is &quot; &lt;&lt; comm_world.rank() &lt;&lt; &quot; out of &quot; &lt;&lt; comm_world.size()</div>
 <div class="line">            &lt;&lt; &quot; processes.\n&quot;;</div>

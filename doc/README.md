@@ -1,25 +1,36 @@
 # MPL - A message passing library
 
 MPL is a message passing library written in C++17 based on the
-[Message Passing Interface](http://mpi-forum.org/) (MPI) standard.  Since
-the C++ API has been dropped from the MPI standard in version 3.1 it is the
-aim of MPL to provide a modern C++ message passing library for high
-performance computing.
+[Message Passing Interface](http://mpi-forum.org/) (MPI) standard.  
+Since  the C++ API has been dropped from the MPI standard in version 
+3.1, it is the aim of MPL to provide a modern C++ message passing 
+library for high performance computing.
 
-MPL will neither bring all functions of the C language MPI-API to C++ nor
-provide a direct mapping of the C API to some C++ functions and classes.
-Its focus lies on the MPI core message passing functions, ease of use, type
-safety, and elegance.  This library is most useful for developers who have at 
-least some basic knowledge of the Message Passing Interface and would like to 
-utilize it via a more user-friendly interface. 
+MPL will neither bring all functions of the C language MPI-API to 
+C++ nor provide a direct mapping of the C API to some C++ functions 
+and classes. The library's focus lies on the MPI core message passing 
+functions, ease of use, type safety, and elegance.  This library is 
+most useful for developers who have at least some basic knowledge of 
+the Message Passing Interface standard and would like to utilize it 
+via a more user-friendly interface in modern C++.  Unlike 
+(Boost.MPI)[https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html], 
+MPL does not rely on an external serialization library and has a 
+negligible run-time overhead.
 
 
 ## Supported features
 
-The Message Passing Library gives currently access via a convenient C++ 
-interface to the following features of the Message Passing Interface standard:
+MPL assumes that the underlying MPI implementation supports the 
+[version 3.1](https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report.pdf) 
+of the Message Passing Interface standard.  Future versions of MPL 
+may also employ features of the new 
+[version 4.0](https://www.mpi-forum.org/docs/mpi-4.0/mpi40-report.pdf) 
+or later MPI versions.  
 
-* environmental management (implicit initialization and finalization, timers, but no error handlig).
+MPL gives currently access via a convenient C++ interface to the 
+following features of the Message Passing Interface standard:
+
+* environmental management (implicit initialization and finalization, timers, but no error handling).
 * point-to-point communication (blocking and non-blocking),
 * collective communication (blocking and non-blocking),
 * derived data types (happens automatically for many custom data types or via the `base_struct_builder` helper class and the layout classes of MPL),
@@ -33,10 +44,9 @@ Currently, the following MPI features are not yet supported by MPL:
 * one-sided communication and
 * I/O.
 
-MPL assumes that the underlying MPI implementation supports the 
-[version 3.1](https://www.mpi-forum.org/docs/) of the Message Passing 
-Interface standard.  Future versions of MPL may also employ features of 
-the upcoming version 4.0 or later MPI versions.
+Although MPL covers a subset of the MPI functionality only, it has 
+probably the largest MPI-feature coverage among all alternative C++ 
+interfaces to MPI.
 
 
 ## Installation
@@ -77,8 +87,9 @@ codes. Thus,
 user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
 ```
 enables both, building unit tests and examples.  MPL unit tests utilize
-the [Boost Test](https://www.boost.org/doc/libs/1_76_0/libs/test/doc/html/index.html) 
-library.  Finally, build the unit tests and/or the example code via
+the 
+[Boost.Test](https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html) 
+framework.  Finally, build the unit tests and/or the example code via
 ```shell
 user@host:~/mpl/build$ cmake --build .
 ```
@@ -88,47 +99,61 @@ conveniently by utilizing the CTest tool, i.e., via
 user@host:~/mpl/build$ ctest
 Test project /home/user/mpl/build
       Start  1: test_communicator
- 1/19 Test  #1: test_communicator ................   Passed    0.45 sec
+ 1/26 Test  #1: test_communicator ........................   Passed    0.14 sec
       Start  2: test_cart_communicator
- 2/19 Test  #2: test_cart_communicator ...........   Passed    0.35 sec
+ 2/26 Test  #2: test_cart_communicator ...................   Passed    0.12 sec
       Start  3: test_graph_communicator
- 3/19 Test  #3: test_graph_communicator ..........   Passed    0.36 sec
+ 3/26 Test  #3: test_graph_communicator ..................   Passed    0.12 sec
       Start  4: test_dist_graph_communicator
- 4/19 Test  #4: test_dist_graph_communicator .....   Passed    0.31 sec
-      Start  5: test_send_recv
- 5/19 Test  #5: test_send_recv ...................   Passed    0.34 sec
-      Start  6: test_isend_irecv
- 6/19 Test  #6: test_isend_irecv .................   Passed    0.34 sec
-      Start  7: test_psend_precv
- 7/19 Test  #7: test_psend_precv .................   Passed    0.36 sec
-      Start  8: test_collective
- 8/19 Test  #8: test_collective ..................   Passed    0.37 sec
-      Start  9: test_icollective
- 9/19 Test  #9: test_icollective .................   Passed    0.31 sec
-      Start 10: test_collectivev
-10/19 Test #10: test_collectivev .................   Passed    0.28 sec
-      Start 11: test_icollectivev
-11/19 Test #11: test_icollectivev ................   Passed    0.34 sec
-      Start 12: test_reduce
-12/19 Test #12: test_reduce ......................   Passed    0.40 sec
-      Start 13: test_ireduce
-13/19 Test #13: test_ireduce .....................   Passed    0.36 sec
-      Start 14: test_scan
-14/19 Test #14: test_scan ........................   Passed    0.36 sec
-      Start 15: test_iscan
-15/19 Test #15: test_iscan .......................   Passed    0.34 sec
-      Start 16: test_exscan
-16/19 Test #16: test_exscan ......................   Passed    0.44 sec
-      Start 17: test_iexscan
-17/19 Test #17: test_iexscan .....................   Passed    0.30 sec
-      Start 18: test_reduce_scatter
-18/19 Test #18: test_reduce_scatter ..............   Passed    0.36 sec
-      Start 19: test_ireduce_scatter
-19/19 Test #19: test_ireduce_scatter .............   Passed    0.36 sec
+ 4/26 Test  #4: test_dist_graph_communicator .............   Passed    0.13 sec
+      Start  5: test_communicator_send_recv
+ 5/26 Test  #5: test_communicator_send_recv ..............   Passed    0.12 sec
+      Start  6: test_communicator_isend_irecv
+ 6/26 Test  #6: test_communicator_isend_irecv ............   Passed    0.14 sec
+      Start  7: test_communicator_init_send_init_recv
+ 7/26 Test  #7: test_communicator_init_send_init_recv ....   Passed    0.12 sec
+      Start  8: test_communicator_sendrecv
+ 8/26 Test  #8: test_communicator_sendrecv ...............   Passed    0.12 sec
+      Start  9: test_communicator_probe
+ 9/26 Test  #9: test_communicator_probe ..................   Passed    0.13 sec
+      Start 10: test_communicator_mprobe_mrecv
+10/26 Test #10: test_communicator_mprobe_mrecv ...........   Passed    0.13 sec
+      Start 11: test_communicator_barrier
+11/26 Test #11: test_communicator_barrier ................   Passed    0.07 sec
+      Start 12: test_communicator_bcast
+12/26 Test #12: test_communicator_bcast ..................   Passed    0.05 sec
+      Start 13: test_communicator_gather
+13/26 Test #13: test_communicator_gather .................   Passed    0.05 sec
+      Start 14: test_communicator_gatherv
+14/26 Test #14: test_communicator_gatherv ................   Passed    0.10 sec
+      Start 15: test_communicator_allgather
+15/26 Test #15: test_communicator_allgather ..............   Passed    0.09 sec
+      Start 16: test_communicator_allgatherv
+16/26 Test #16: test_communicator_allgatherv .............   Passed    0.11 sec
+      Start 17: test_communicator_scatter
+17/26 Test #17: test_communicator_scatter ................   Passed    0.12 sec
+      Start 18: test_communicator_scatterv
+18/26 Test #18: test_communicator_scatterv ...............   Passed    0.10 sec
+      Start 19: test_communicator_alltoall
+19/26 Test #19: test_communicator_alltoall ...............   Passed    0.12 sec
+      Start 20: test_communicator_alltoallv
+20/26 Test #20: test_communicator_alltoallv ..............   Passed    0.14 sec
+      Start 21: test_communicator_reduce
+21/26 Test #21: test_communicator_reduce .................   Passed    0.10 sec
+      Start 22: test_communicator_allreduce
+22/26 Test #22: test_communicator_allreduce ..............   Passed    0.08 sec
+      Start 23: test_communicator_reduce_scatter_block
+23/26 Test #23: test_communicator_reduce_scatter_block ...   Passed    0.09 sec
+      Start 24: test_communicator_reduce_scatter
+24/26 Test #24: test_communicator_reduce_scatter .........   Passed    0.13 sec
+      Start 25: test_communicator_scan
+25/26 Test #25: test_communicator_scan ...................   Passed    0.07 sec
+      Start 26: test_communicator_exscan
+26/26 Test #26: test_communicator_exscan .................   Passed    0.10 sec
 
-100% tests passed, 0 tests failed out of 19
+100% tests passed, 0 tests failed out of 26
 
-Total Test time (real) =   6.75 sec
+Total Test time (real) =   2.79 sec
 ```
 or via your IDE if it features support for CTest.
 
@@ -142,7 +167,7 @@ and
 for further details.
 
 
-## Hello World
+## Hello parallel world
 
 MPL is built on top of the Message Passing Interface (MPI) standard.  Therefore, 
 MPL shares many concepts known from the MPI standard, e.g., the concept of a
@@ -159,7 +184,7 @@ about each process:
 If there are two or more processes, a message is sent from process 0 to process 1, 
 which is also printed.
  
-```C++
+```
 #include <cstdlib>
 #include <iostream>
 // include MPL header file
@@ -167,10 +192,10 @@ which is also printed.
 
 int main() {
   // get a reference to communicator "world"
-  const mpl::communicator &comm_world(mpl::environment::comm_world());
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // each process prints a message containing the processor name, the rank
   // in communicator world and the size of communicator world
-  // output may depend on MPI implementation
+  // output may depend on the underlying MPI implementation
   std::cout << "Hello world! I am running on \"" << mpl::environment::processor_name()
             << "\". My rank is " << comm_world.rank() << " out of " << comm_world.size()
             << " processes.\n";
