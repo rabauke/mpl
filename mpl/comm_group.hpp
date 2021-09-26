@@ -425,9 +425,10 @@ namespace mpl {
 
     /// \brief Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
-    /// \note Communicators should not be copied unless a new independent communicator is
-    /// wanted. Communicators should be passed via references to functions to avoid unnecessary
-    /// copying.
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other. Communicators should not be copied unless a new independent
+    /// communicator is wanted. Communicators should be passed via references to functions to
+    /// avoid unnecessary copying.
     communicator(const communicator &other) { MPI_Comm_dup(other.comm_, &comm_); }
 
     /// \brief Move-constructs a communicator.
@@ -498,11 +499,11 @@ namespace mpl {
     /// \brief Destructs a communicator.
     ~communicator() {
       if (is_valid()) {
-        int result1;
-        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
-        int result2;
-        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
-        if (result1 != MPI_IDENT and result2 != MPI_IDENT)
+        int result_1;
+        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
+        int result_2;
+        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
+        if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
           MPI_Comm_free(&comm_);
       }
     }
@@ -510,17 +511,18 @@ namespace mpl {
     /// \brief Copy-assigns and creates a new communicator which is equivalent to an existing
     /// one.
     /// \param other the other communicator to copy from
-    /// \note Communicators should not be copied unless a new independent communicator is
-    /// wanted. Communicators should be passed via references to functions to avoid unnecessary
-    /// copying.
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other. Communicators should not be copied unless a new independent
+    /// communicator is wanted. Communicators should be passed via references to functions to
+    /// avoid unnecessary copying.
     communicator &operator=(const communicator &other) noexcept {
       if (this != &other) {
         if (is_valid()) {
-          int result1;
-          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
-          int result2;
-          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
-          if (result1 != MPI_IDENT and result2 != MPI_IDENT)
+          int result_1;
+          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
+          int result_2;
+          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
+          if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
             MPI_Comm_free(&comm_);
         }
         MPI_Comm_dup(other.comm_, &comm_);
@@ -530,14 +532,16 @@ namespace mpl {
 
     /// \brief Move-assigns a communicator.
     /// \param other the other communicator to move from
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other.
     communicator &operator=(communicator &&other) noexcept {
       if (this != &other) {
         if (is_valid()) {
-          int result1;
-          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result1);
-          int result2;
-          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result2);
-          if (result1 != MPI_IDENT and result2 != MPI_IDENT)
+          int result_1;
+          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
+          int result_2;
+          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
+          if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
             MPI_Comm_free(&comm_);
         }
         comm_ = other.comm_;
