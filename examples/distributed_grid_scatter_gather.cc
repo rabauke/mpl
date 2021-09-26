@@ -34,9 +34,8 @@ void gather(const mpl::cartesian_communicator &communicator, int root,
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  mpl::cartesian_communicator::dimensions size{
-      {{0, mpl::cartesian_communicator::periodic},
-       {0, mpl::cartesian_communicator::non_periodic}}};
+  mpl::cartesian_communicator::dimensions size{mpl::cartesian_communicator::periodic,
+                                               mpl::cartesian_communicator::non_periodic};
   const int nx{21}, ny{13};
   mpl::cartesian_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), size)};
   mpl::distributed_grid<2, int> grid{comm_c, {{nx, 1}, {ny, 1}}};

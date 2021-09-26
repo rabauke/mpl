@@ -5,17 +5,16 @@
 template<std::size_t dim, typename T, typename A>
 void update_overlap(const mpl::cartesian_communicator &cartesian_communicator,
                     mpl::distributed_grid<dim, T, A> &grid, mpl::tag_t tag = mpl::tag_t()) {
-  mpl::shift_ranks ranks;
   for (std::size_t i{0}; i < dim; ++i) {
     // send to left
-    ranks = cartesian_communicator.shift(i, -1);
-    cartesian_communicator.sendrecv(grid.data(), grid.left_border_layout(i), ranks.destination,
-                                    tag, grid.data(), grid.right_mirror_layout(i), ranks.source,
+    auto [source_l, destination_l] = cartesian_communicator.shift(i, -1);
+    cartesian_communicator.sendrecv(grid.data(), grid.left_border_layout(i), destination_l,
+                                    tag, grid.data(), grid.right_mirror_layout(i), source_l,
                                     tag);
     // send to right
-    ranks = cartesian_communicator.shift(i, +1);
-    cartesian_communicator.sendrecv(grid.data(), grid.right_border_layout(i), ranks.destination,
-                                    tag, grid.data(), grid.left_mirror_layout(i), ranks.source,
+    auto [source_r, destination_r] = cartesian_communicator.shift(i, +1);
+    cartesian_communicator.sendrecv(grid.data(), grid.right_border_layout(i), destination_r,
+                                    tag, grid.data(), grid.left_mirror_layout(i), source_r,
                                     tag);
   }
 }
@@ -26,8 +25,7 @@ int main() {
   {
     // build a one-dimensional Cartesian communicator
     // Cartesian is non-cyclic
-    mpl::cartesian_communicator::dimensions size{
-        {{0, mpl::cartesian_communicator::non_periodic}}};
+    mpl::cartesian_communicator::dimensions size{mpl::cartesian_communicator::non_periodic};
     mpl::cartesian_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), size)};
     // create a distributed grid of 31 total grid points and 2 shadow grid points
     // to mirror data between adjacent processes
@@ -50,9 +48,8 @@ int main() {
   {
     // build a two-dimensional Cartesian communicator
     // Cartesian is cyclic along 1st dimension, non-cyclic along 2nd dimension
-    mpl::cartesian_communicator::dimensions size{
-        {{0, mpl::cartesian_communicator::periodic},
-         {0, mpl::cartesian_communicator::non_periodic}}};
+    mpl::cartesian_communicator::dimensions size{mpl::cartesian_communicator::periodic,
+                                                 mpl::cartesian_communicator::non_periodic};
     mpl::cartesian_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), size)};
     // create a distributed grid of 11x13 total grid points and 2 respectively 1
     // shadow grid points to mirror data between adjacent processes

@@ -73,12 +73,12 @@ namespace mpl {
       if (C.dimensionality() != dim or gsize_.size() != dim or overlap_.size() != dim)
         throw invalid_dim();
 #endif
-      auto C_size = C.dimension();
+      auto c_dimensions = C.get_dimensions();
       auto C_coord = C.coordinate();
       size_type vol = 1;
       for (std::size_t i = 0; i < dim; ++i) {
-        gbegin_[i] = gbegin(gsize_[i], C_size[i], C_coord[i]);
-        gend_[i] = gend(gsize_[i], C_size[i], C_coord[i]);
+        gbegin_[i] = gbegin(gsize_[i], c_dimensions.size(i), C_coord[i]);
+        gend_[i] = gend(gsize_[i], c_dimensions.size(i), C_coord[i]);
         size_[i] = gend_[i] - gbegin_[i];
         oend_[i] = size_[i] + 2 * overlap_[i];
         vol *= size_[i] + 2 * overlap_[i];
@@ -253,13 +253,13 @@ namespace mpl {
       for (std::size_t i = 0; i < dim; ++i)
         vol *= gsize_[i];
       v.resize(vol);
-      auto C_size = C.dimension();
+      auto c_dimensions = C.get_dimensions();
       for (int i = 0, i_end = C.size(); i < i_end; ++i) {
         auto coords = C.coordinate(i);
         typename subarray_layout<T>::parameter par;
         for (std::size_t j = dim - 1; true; --j) {
-          const auto begin = gbegin(gsize_[j], C_size[j], coords[j]);
-          const auto end = gend(gsize_[j], C_size[j], coords[j]);
+          const auto begin = gbegin(gsize_[j], c_dimensions.size(j), coords[j]);
+          const auto end = gend(gsize_[j], c_dimensions.size(j), coords[j]);
           par.add(gsize_[j], end - begin, begin);
           if (j == 0)
             break;

@@ -7,7 +7,7 @@ function(add_test_executable TARGET_NAME SOURCES)
 endfunction()
 
 add_test_executable(test_communicator test_communicator.cc)
-add_test_executable(test_cart_communicator test_cart_communicator.cc)
+add_test_executable(test_cartesian_communicator test_cartesian_communicator.cc)
 add_test_executable(test_graph_communicator test_graph_communicator.cc)
 add_test_executable(test_dist_graph_communicator test_dist_graph_communicator.cc)
 add_test_executable(test_communicator_send_recv test_communicator_send_recv.cc)

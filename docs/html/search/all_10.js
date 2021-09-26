@@ -9,11 +9,14 @@ var searchData=
   ['threading_5fmode_6',['threading_mode',['../namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33',1,'mpl::environment']]],
   ['threading_5fmodes_7',['threading_modes',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828',1,'mpl']]],
   ['topology_5fcommunicator_8',['topology_communicator',['../classmpl_1_1impl_1_1topology__communicator.html',1,'mpl::impl']]],
-  ['translate_9',['translate',['../classmpl_1_1group.html#a1c11d89daec6af7b0ed1b5668d355656',1,'mpl::group::translate(const ranks &amp;rank, const group &amp;other) const'],['../classmpl_1_1group.html#a38cdae96823a5ce04c1e4a637ca82d5a',1,'mpl::group::translate(int rank, const group &amp;other) const']]],
+  ['translate_9',['translate',['../classmpl_1_1group.html#a38cdae96823a5ce04c1e4a637ca82d5a',1,'mpl::group::translate(int rank, const group &amp;other) const'],['../classmpl_1_1group.html#a1c11d89daec6af7b0ed1b5668d355656',1,'mpl::group::translate(const ranks &amp;rank, const group &amp;other) const']]],
   ['true_5fbyte_5fextent_10',['true_byte_extent',['../classmpl_1_1layout.html#a45840e6936914baef876a0b67a8bb499',1,'mpl::layout']]],
   ['true_5fbyte_5flower_5fbound_11',['true_byte_lower_bound',['../classmpl_1_1layout.html#a245932be5b4d58bb00a05b29208ab7c4',1,'mpl::layout']]],
   ['true_5fbyte_5fupper_5fbound_12',['true_byte_upper_bound',['../classmpl_1_1layout.html#adf592d9e08a92314cc086bd51d643953',1,'mpl::layout']]],
   ['true_5fextent_13',['true_extent',['../classmpl_1_1layout.html#a0890ec4684e6a465170f88932e116d30',1,'mpl::layout']]],
   ['true_5flower_5fbound_14',['true_lower_bound',['../classmpl_1_1layout.html#a4b0e56adef2f212d061f971b2ecafd0a',1,'mpl::layout']]],
-  ['true_5fupper_5fbound_15',['true_upper_bound',['../classmpl_1_1layout.html#a80713f15de3244b019294ee277c8c650',1,'mpl::layout']]]
+  ['true_5fupper_5fbound_15',['true_upper_bound',['../classmpl_1_1layout.html#a80713f15de3244b019294ee277c8c650',1,'mpl::layout']]],
+  ['tuple_5felement_3c_20n_2c_20mpl_3a_3acartesian_5fcommunicator_3a_3adimensions_3a_3adimension_5fperiodicity_5fproxy_20_3e_16',['tuple_element&lt; N, mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy &gt;',['../structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html',1,'std']]],
+  ['tuple_5fsize_3c_20mpl_3a_3acartesian_5fcommunicator_3a_3adimensions_3a_3adimension_5fperiodicity_5fproxy_20_3e_17',['tuple_size&lt; mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy &gt;',['../structstd_1_1tuple__size_3_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html',1,'std']]],
+  ['type_18',['type',['../structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html#ade76dbf30ac4a03ad006fc2db5b9b8a2',1,'std::tuple_element&lt; N, mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy &gt;']]]
 ];

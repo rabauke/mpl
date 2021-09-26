@@ -128,6 +128,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer manager for buffered send operations.  <a href="classmpl_1_1bsend__buffer.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Communicator with Cartesian topology.  <a href="classmpl_1_1cartesian__communicator.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html">communicator</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the communication context for a communication operation.  <a href="classmpl_1_1communicator.html#details">More...</a><br /></td></tr>
@@ -353,8 +354,9 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a304b4fa9009db0c1ff53b663d63e3399"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html">cartesian_communicator::dimensions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a304b4fa9009db0c1ff53b663d63e3399">dims_create</a> (int size, <a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html">cartesian_communicator::dimensions</a> par)</td></tr>
-<tr class="separator:a304b4fa9009db0c1ff53b663d63e3399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b638dd4b816832f5bab22fac8f157af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html">cartesian_communicator::dimensions</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a7b638dd4b816832f5bab22fac8f157af">dims_create</a> (int size, <a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html">cartesian_communicator::dimensions</a> dims)</td></tr>
+<tr class="memdesc:a7b638dd4b816832f5bab22fac8f157af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Decomposes a given number of processes over a Cartesian grid made of the number of dimensions specified.  <a href="namespacempl.html#a7b638dd4b816832f5bab22fac8f157af">More...</a><br /></td></tr>
+<tr class="separator:a7b638dd4b816832f5bab22fac8f157af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d5f9608debefdb6b979798109b3e7eb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a1d5f9608debefdb6b979798109b3e7eb">operator==</a> (const <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html">graph_communicator::node_list</a> &amp;l1, const <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html">graph_communicator::node_list</a> &amp;l2)</td></tr>
 <tr class="separator:a1d5f9608debefdb6b979798109b3e7eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a32e40e8b36a74a43d459ed24bad3fef9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a32e40e8b36a74a43d459ed24bad3fef9">operator!=</a> (const <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html">graph_communicator::node_list</a> &amp;l1, const <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html">graph_communicator::node_list</a> &amp;l2)</td></tr>
@@ -515,8 +517,8 @@ Variables</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a304b4fa9009db0c1ff53b663d63e3399" name="a304b4fa9009db0c1ff53b663d63e3399"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a304b4fa9009db0c1ff53b663d63e3399">&#9670;&nbsp;</a></span>dims_create()</h2>
+<a id="a7b638dd4b816832f5bab22fac8f157af" name="a7b638dd4b816832f5bab22fac8f157af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b638dd4b816832f5bab22fac8f157af">&#9670;&nbsp;</a></span>dims_create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -534,7 +536,7 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html">cartesian_communicator::dimensions</a>&#160;</td>
-          <td class="paramname"><em>par</em>&#160;</td>
+          <td class="paramname"><em>dims</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -548,10 +550,21 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#a17">distributed_grid.cc</a>, <a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a14">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a26">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a27">heat_equation_successive_over-relaxation.cc</a>.</dd>
+
+<p>Decomposes a given number of processes over a Cartesian grid made of the number of dimensions specified. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>total number of processes (the size of the communicator) </td></tr>
+    <tr><td class="paramname">dims</td><td>dimension object indicating possible restrictions for the process partitioning </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>dimension object</dd></dl>
+<p>The method attempts to balance the distribution by minimising the difference in the number of processes assigned to each dimension. One can restrict the number of process to allocate to any dimension by specifying a non-zero size for a given dimension in the parameter dims. If the method is not able to find a decomposition while respecting the restrictions given, the routine throws an exception invalid_dims. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#a14">distributed_grid.cc</a>, <a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a14">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a26">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a27">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00212">212</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00395">395</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>

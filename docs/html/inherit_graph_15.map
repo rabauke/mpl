@@ -1,11 +1,10 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,245,137,274"/>
-<area shape="rect" id="node2" href="$classmpl_1_1cartesian__communicator_1_1coordinate__type.html" title=" " alt="" coords="191,5,483,52"/>
-<area shape="rect" id="node3" href="$classmpl_1_1cartesian__communicator_1_1included__vector.html" title=" " alt="" coords="191,76,483,123"/>
-<area shape="rect" id="node4" href="$classmpl_1_1cartesian__communicator_1_1periodicity__vector.html" title=" " alt="" coords="191,147,483,193"/>
-<area shape="rect" id="node5" href="$classmpl_1_1contiguous__layouts.html" title="container for storing contiguous layouts" alt="" coords="185,218,488,247"/>
-<area shape="rect" id="node6" href="$classmpl_1_1displacements.html" title="Indicates the beginning of data buffers in various collective communication operations." alt="" coords="235,271,438,301"/>
-<area shape="rect" id="node7" href="$classmpl_1_1graph__communicator_1_1node__list.html" title=" " alt="" coords="211,325,463,372"/>
-<area shape="rect" id="node8" href="$classmpl_1_1layouts.html" title="container for storing layouts" alt="" coords="241,397,433,426"/>
-<area shape="rect" id="node9" href="$classmpl_1_1ranks.html" title="Represents a collection of ranks." alt="" coords="275,450,398,479"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,201,137,230"/>
+<area shape="rect" id="node2" href="$classmpl_1_1cartesian__communicator_1_1coordinate__type.html" title="Represents a coordinate (position) in a Cartesian process topology." alt="" coords="191,5,483,52"/>
+<area shape="rect" id="node3" href="$classmpl_1_1cartesian__communicator_1_1included__tags.html" title="Represents the inclusion or exclusion along all along dimensions of a Cartesian process topology when..." alt="" coords="191,76,483,123"/>
+<area shape="rect" id="node4" href="$classmpl_1_1contiguous__layouts.html" title="container for storing contiguous layouts" alt="" coords="185,147,488,177"/>
+<area shape="rect" id="node5" href="$classmpl_1_1displacements.html" title="Indicates the beginning of data buffers in various collective communication operations." alt="" coords="235,201,438,230"/>
+<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator_1_1node__list.html" title=" " alt="" coords="211,255,463,301"/>
+<area shape="rect" id="node7" href="$classmpl_1_1layouts.html" title="container for storing layouts" alt="" coords="241,326,433,355"/>
+<area shape="rect" id="node8" href="$classmpl_1_1ranks.html" title="Represents a collection of ranks." alt="" coords="275,379,398,409"/>
 </map>

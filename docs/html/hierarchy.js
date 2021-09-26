@@ -37,7 +37,9 @@ var hierarchy =
         [ "mpl::graph_communicator", "classmpl_1_1graph__communicator.html", null ]
       ] ]
     ] ],
+    [ "mpl::cartesian_communicator::dimensions::const_dimension_periodicity_proxy", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__dimension__periodicity__proxy.html", null ],
     [ "mpl::group::difference_tag", "classmpl_1_1group_1_1difference__tag.html", null ],
+    [ "mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy.html", null ],
     [ "mpl::cartesian_communicator::dimensions", "classmpl_1_1cartesian__communicator_1_1dimensions.html", null ],
     [ "mpl::distributed_grid< dim, T, A >", "classmpl_1_1distributed__grid.html", null ],
     [ "std::exception", null, [
@@ -56,6 +58,9 @@ var hierarchy =
     [ "mpl::group", "classmpl_1_1group.html", null ],
     [ "mpl::communicator::group_collective_tag", "classmpl_1_1communicator_1_1group__collective__tag.html", null ],
     [ "mpl::group::include_tag", "classmpl_1_1group_1_1include__tag.html", null ],
+    [ "std::integral_constant", null, [
+      [ "std::tuple_size< mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__size_3_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", null ]
+    ] ],
     [ "mpl::group::intersection_tag", "classmpl_1_1group_1_1intersection__tag.html", null ],
     [ "mpl::impl::irequest", "classmpl_1_1impl_1_1irequest.html", null ],
     [ "mpl::layout< T >", "classmpl_1_1layout.html", [
@@ -132,11 +137,11 @@ var hierarchy =
     [ "mpl::struct_builder< T >", "classmpl_1_1struct__builder.html", null ],
     [ "mpl::struct_layout< S >", "classmpl_1_1struct__layout.html", null ],
     [ "mpl::tag_t", "classmpl_1_1tag__t.html", null ],
+    [ "std::tuple_element< N, mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", null ],
     [ "mpl::group::Union_tag", "classmpl_1_1group_1_1_union__tag.html", null ],
     [ "std::vector", null, [
       [ "mpl::cartesian_communicator::coordinate_type", "classmpl_1_1cartesian__communicator_1_1coordinate__type.html", null ],
-      [ "mpl::cartesian_communicator::included_vector", "classmpl_1_1cartesian__communicator_1_1included__vector.html", null ],
-      [ "mpl::cartesian_communicator::periodicity_vector", "classmpl_1_1cartesian__communicator_1_1periodicity__vector.html", null ],
+      [ "mpl::cartesian_communicator::included_tags", "classmpl_1_1cartesian__communicator_1_1included__tags.html", null ],
       [ "mpl::contiguous_layouts< T >", "classmpl_1_1contiguous__layouts.html", null ],
       [ "mpl::displacements", "classmpl_1_1displacements.html", null ],
       [ "mpl::graph_communicator::node_list", "classmpl_1_1graph__communicator_1_1node__list.html", null ],

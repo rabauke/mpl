@@ -102,7 +102,7 @@ var namespacempl =
       [ "serialized", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828afb741eb55bd67db2031aa661671fba7c", null ],
       [ "multiple", "namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606", null ]
     ] ],
-    [ "dims_create", "namespacempl.html#a304b4fa9009db0c1ff53b663d63e3399", null ],
+    [ "dims_create", "namespacempl.html#a7b638dd4b816832f5bab22fac8f157af", null ],
     [ "make_absolute", "namespacempl.html#a118b145797198062151e6f43ee52046b", null ],
     [ "make_absolute", "namespacempl.html#a6481521478393b302a549178d93b8503", null ],
     [ "operator!=", "namespacempl.html#a32e40e8b36a74a43d459ed24bad3fef9", null ],

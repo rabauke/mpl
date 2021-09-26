@@ -66,9 +66,8 @@ int main() {
   // world communicator
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // construct a two-dimensional Cartesian communicator with no periodic boundary conditions
-  mpl::cartesian_communicator::dimensions size{
-      {{0, mpl::cartesian_communicator::non_periodic},
-       {0, mpl::cartesian_communicator::non_periodic}}};
+  mpl::cartesian_communicator::dimensions size{mpl::cartesian_communicator::non_periodic,
+                                               mpl::cartesian_communicator::non_periodic};
   mpl::cartesian_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), size)};
   // total number of inner grid points
   const int n_x{768}, n_y{512};

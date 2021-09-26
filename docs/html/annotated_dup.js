@@ -84,5 +84,9 @@ var annotated_dup =
       [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
       [ "tag_t", "classmpl_1_1tag__t.html", "classmpl_1_1tag__t" ],
       [ "vector_layout", "classmpl_1_1vector__layout.html", "classmpl_1_1vector__layout" ]
+    ] ],
+    [ "std", "namespacestd.html", [
+      [ "tuple_element< N, mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4" ],
+      [ "tuple_size< mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__size_3_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", null ]
     ] ]
 ];

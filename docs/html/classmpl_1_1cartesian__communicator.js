@@ -2,8 +2,7 @@ var classmpl_1_1cartesian__communicator =
 [
     [ "coordinate_type", "classmpl_1_1cartesian__communicator_1_1coordinate__type.html", "classmpl_1_1cartesian__communicator_1_1coordinate__type" ],
     [ "dimensions", "classmpl_1_1cartesian__communicator_1_1dimensions.html", "classmpl_1_1cartesian__communicator_1_1dimensions" ],
-    [ "included_vector", "classmpl_1_1cartesian__communicator_1_1included__vector.html", "classmpl_1_1cartesian__communicator_1_1included__vector" ],
-    [ "periodicity_vector", "classmpl_1_1cartesian__communicator_1_1periodicity__vector.html", "classmpl_1_1cartesian__communicator_1_1periodicity__vector" ],
+    [ "included_tags", "classmpl_1_1cartesian__communicator_1_1included__tags.html", "classmpl_1_1cartesian__communicator_1_1included__tags" ],
     [ "equality_type", "classmpl_1_1cartesian__communicator.html#af66054a704ac25557aa25b356e8abd63", [
       [ "identical", "classmpl_1_1cartesian__communicator.html#af66054a704ac25557aa25b356e8abd63aee0cbdbacdada19376449799774976e8", null ],
       [ "congruent", "classmpl_1_1cartesian__communicator.html#af66054a704ac25557aa25b356e8abd63aecf9c13ef0ea0b37562355d0c5f982ac", null ],
@@ -14,13 +13,13 @@ var classmpl_1_1cartesian__communicator =
       [ "excluded", "classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588ac2413b3d6b0162ee66c1ee1a90828706", null ],
       [ "included", "classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588a99f78c54130e752954404fff0707dcbd", null ]
     ] ],
-    [ "periodicity", "classmpl_1_1cartesian__communicator.html#a51c1ad390c1f4a12c2017182d5ff0a06", [
-      [ "non_periodic", "classmpl_1_1cartesian__communicator.html#a51c1ad390c1f4a12c2017182d5ff0a06aa688e8ffe09270eeb4eaf5ca79db24cd", null ],
-      [ "periodic", "classmpl_1_1cartesian__communicator.html#a51c1ad390c1f4a12c2017182d5ff0a06ae6ffdec5e14fce371eb7ae99edebbbee", null ]
+    [ "periodicity_tag", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836", [
+      [ "non_periodic", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836aa688e8ffe09270eeb4eaf5ca79db24cd", null ],
+      [ "periodic", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836ae6ffdec5e14fce371eb7ae99edebbbee", null ]
     ] ],
     [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a0be8c91aaa5cde91fcaa15dcba18902a", null ],
-    [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a4ffc7b9059bed0525c69426e06fd122d", null ],
-    [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a875c2c0dcee1277ec97aacc2a084f984", null ],
+    [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a7fbc0f1d669e21a5e1dd6f2601d256b8", null ],
+    [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#aaaf184e1efe161f33a006fc54fe0ff0b", null ],
     [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a0c9fb786a1e4e458f11b73450f503b08", null ],
     [ "abort", "classmpl_1_1cartesian__communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe", null ],
     [ "allgather", "classmpl_1_1cartesian__communicator.html#a1a2fbf1a89b606c316790a29a6c24344", null ],
@@ -53,7 +52,6 @@ var classmpl_1_1cartesian__communicator =
     [ "compare", "classmpl_1_1cartesian__communicator.html#a7b672d71b83fafca8f6bf4d435331180", null ],
     [ "coordinate", "classmpl_1_1cartesian__communicator.html#ac4c2b2a44eb7a96a22be3dc0b2ea18c3", null ],
     [ "coordinate", "classmpl_1_1cartesian__communicator.html#a2344c3e8b733c6f34c26662c53517c7f", null ],
-    [ "dimension", "classmpl_1_1cartesian__communicator.html#a4aaeec2ba17486151db789df1502ca57", null ],
     [ "dimensionality", "classmpl_1_1cartesian__communicator.html#a18dcf5985832334e0571e00a45d93d73", null ],
     [ "exscan", "classmpl_1_1cartesian__communicator.html#adb0ada85d9fbc0a7f7355be5cf53262d", null ],
     [ "exscan", "classmpl_1_1cartesian__communicator.html#a832be63c2e97542cc35c4ced9e5ba3b9", null ],
@@ -66,6 +64,7 @@ var classmpl_1_1cartesian__communicator =
     [ "gatherv", "classmpl_1_1cartesian__communicator.html#ae17e2ec67fab08b09d7c67923fa81b42", null ],
     [ "gatherv", "classmpl_1_1cartesian__communicator.html#af1d52b673c059c284806768be1240afc", null ],
     [ "gatherv", "classmpl_1_1cartesian__communicator.html#a32881aa49f5e9c71792e98629a131822", null ],
+    [ "get_dimensions", "classmpl_1_1cartesian__communicator.html#a04b09e9b3cf996574d651ed195d462d0", null ],
     [ "iallgather", "classmpl_1_1cartesian__communicator.html#a601c251b4c10c6797af3cd741dea4d55", null ],
     [ "iallgather", "classmpl_1_1cartesian__communicator.html#acf38d8c4df7076f5e2aaaf43c7f85b47", null ],
     [ "iallgatherv", "classmpl_1_1cartesian__communicator.html#a95d5c90f2a58fe228d846942fe700645", null ],
@@ -127,7 +126,6 @@ var classmpl_1_1cartesian__communicator =
     [ "irsend", "classmpl_1_1cartesian__communicator.html#a970647a9680c6bdc3ffbe0814b32f989", null ],
     [ "irsend", "classmpl_1_1cartesian__communicator.html#ae35acd56966f491923a80abbc13fe74a", null ],
     [ "irsend", "classmpl_1_1cartesian__communicator.html#abb0001ba1ee4c2fbd53038bde821e647", null ],
-    [ "is_periodic", "classmpl_1_1cartesian__communicator.html#adf13781124e0cf9d0a57cad4c4e12403", null ],
     [ "is_valid", "classmpl_1_1cartesian__communicator.html#ad8c0dc208fd9705a2423346d0baaff58", null ],
     [ "iscan", "classmpl_1_1cartesian__communicator.html#af786635362fca5a0f915771332383589", null ],
     [ "iscan", "classmpl_1_1cartesian__communicator.html#a72d2639f200e5a36f1f81df5c499f06f", null ],
@@ -160,11 +158,11 @@ var classmpl_1_1cartesian__communicator =
     [ "neighbor_alltoallv", "classmpl_1_1cartesian__communicator.html#a54da0c73668349841c941c53c6acff81", null ],
     [ "operator!=", "classmpl_1_1cartesian__communicator.html#aea3f30e3e33676cfbd8f3757082949cd", null ],
     [ "operator=", "classmpl_1_1cartesian__communicator.html#a4800098a181afa4eff436bdfe9c11a44", null ],
-    [ "operator=", "classmpl_1_1cartesian__communicator.html#a59949b98f86a6b494bc27a4d4035f287", null ],
+    [ "operator=", "classmpl_1_1cartesian__communicator.html#a404d0186a6e9cbbac0e79ae320eeb382", null ],
     [ "operator==", "classmpl_1_1cartesian__communicator.html#a153a492a90432d228638e2548b2a65b5", null ],
     [ "probe", "classmpl_1_1cartesian__communicator.html#af40beb3dfe89be5117e80cd5c0d53c4f", null ],
     [ "rank", "classmpl_1_1cartesian__communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789", null ],
-    [ "rank", "classmpl_1_1cartesian__communicator.html#aa596280080a8bcf0bc6dcb56a0aae1a5", null ],
+    [ "rank", "classmpl_1_1cartesian__communicator.html#a6fb29866dc680a62cf8c5bacccf1d1fb", null ],
     [ "recv", "classmpl_1_1cartesian__communicator.html#a39c2f12ebc86e0930266a60ffecea926", null ],
     [ "recv", "classmpl_1_1cartesian__communicator.html#abbc79395f9583143b1427c2e3f1c6637", null ],
     [ "recv", "classmpl_1_1cartesian__communicator.html#a693590693b8621565e94abdd6763d5b6", null ],

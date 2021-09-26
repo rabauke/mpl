@@ -1,7 +1,7 @@
 var searchData=
 [
   ['include_5ftag_0',['include_tag',['../classmpl_1_1group_1_1include__tag.html',1,'mpl::group']]],
-  ['included_5fvector_1',['included_vector',['../classmpl_1_1cartesian__communicator_1_1included__vector.html',1,'mpl::cartesian_communicator']]],
+  ['included_5ftags_1',['included_tags',['../classmpl_1_1cartesian__communicator_1_1included__tags.html',1,'mpl::cartesian_communicator']]],
   ['indexed_5fblock_5flayout_2',['indexed_block_layout',['../classmpl_1_1indexed__block__layout.html',1,'mpl']]],
   ['indexed_5flayout_3',['indexed_layout',['../classmpl_1_1indexed__layout.html',1,'mpl']]],
   ['intersection_5ftag_4',['intersection_tag',['../classmpl_1_1group_1_1intersection__tag.html',1,'mpl::group']]],
