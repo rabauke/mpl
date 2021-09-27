@@ -223,9 +223,9 @@ namespace mpl {
       /// dimension.
       /// \param dimension the rank of the dimension
       /// \return the number of processes adn the periodicity
-      [[nodiscard]] dimension_periodicity_proxy operator[](size_type i)
+      [[nodiscard]] dimension_periodicity_proxy operator[](size_type dimension)
       {
-        return {dims_[i], periodic_[i]};
+        return {dims_[dimension], periodic_[dimension]};
       }
 
       friend class cartesian_communicator;
