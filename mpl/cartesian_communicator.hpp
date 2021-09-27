@@ -236,6 +236,16 @@ namespace mpl {
     /// \brief Creates an empty communicator with no associated process.
     cartesian_communicator() = default;
 
+    /// \brief Creates a new communicator which is equivalent to an existing one.
+    /// \param other the other communicator to copy from
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other. Communicators should not be copied unless a new independent
+    /// communicator is wanted. Communicators should be passed via references to functions to
+    /// avoid unnecessary copying.
+    cartesian_communicator(const cartesian_communicator &other) {
+      MPI_Comm_dup(other.comm_, &comm_);
+    }
+
     /// \brief Creates a new communicator with Cartesian process topology.
     /// \param other communicator containing the processes to use in the creation of the new
     /// communicator
