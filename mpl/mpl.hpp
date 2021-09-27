@@ -53,7 +53,7 @@ namespace mpl {
 #include <mpl/environment.hpp>
 #include <mpl/topology_communicator.hpp>
 #include <mpl/cartesian_communicator.hpp>
-#include <mpl/graph_comm.hpp>
+#include <mpl/graph_communicator.hpp>
 #include <mpl/dist_graph_comm.hpp>
 #include <mpl/distributed_grid.hpp>
 
