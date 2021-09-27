@@ -102,7 +102,7 @@ Inheritance diagram for mpl::cartesian_communicator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1cartesian__communicator__inherit__graph.png" border="0" usemap="#ampl_1_1cartesian__communicator_inherit__map" alt="Inheritance graph"/></div>
 <map name="ampl_1_1cartesian__communicator_inherit__map" id="ampl_1_1cartesian__communicator_inherit__map">
-<area shape="rect" title="Communicator with Cartesian topology." alt="" coords="5,965,297,1311"/>
+<area shape="rect" title="Communicator with Cartesian topology." alt="" coords="5,965,297,1328"/>
 <area shape="rect" href="classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="20,537,283,917"/>
 <area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="35,5,267,489"/>
 </map>
@@ -112,7 +112,7 @@ Collaboration diagram for mpl::cartesian_communicator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1cartesian__communicator__coll__graph.png" border="0" usemap="#ampl_1_1cartesian__communicator_coll__map" alt="Collaboration graph"/></div>
 <map name="ampl_1_1cartesian__communicator_coll__map" id="ampl_1_1cartesian__communicator_coll__map">
-<area shape="rect" title="Communicator with Cartesian topology." alt="" coords="327,1067,619,1412"/>
+<area shape="rect" title="Communicator with Cartesian topology." alt="" coords="327,1067,619,1429"/>
 <area shape="rect" href="classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="341,637,604,1017"/>
 <area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="377,173,569,588"/>
 <area shape="rect" href="classmpl_1_1communicator_1_1comm__collective__tag.html" title="Indicates the creation of a new communicator by a call that in collective for all processes in the gi..." alt="" coords="5,5,217,108"/>
@@ -159,6 +159,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0be8c91aaa5cde91fcaa15dcba18902a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator.html#a0be8c91aaa5cde91fcaa15dcba18902a">cartesian_communicator</a> ()=default</td></tr>
 <tr class="memdesc:a0be8c91aaa5cde91fcaa15dcba18902a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty communicator with no associated process.  <a href="classmpl_1_1cartesian__communicator.html#a0be8c91aaa5cde91fcaa15dcba18902a">More...</a><br /></td></tr>
 <tr class="separator:a0be8c91aaa5cde91fcaa15dcba18902a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8b5179d9d85d4768f6134ff34b1f671a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator.html#a8b5179d9d85d4768f6134ff34b1f671a">cartesian_communicator</a> (const <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a> &amp;other)</td></tr>
+<tr class="memdesc:a8b5179d9d85d4768f6134ff34b1f671a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new communicator which is equivalent to an existing one.  <a href="classmpl_1_1cartesian__communicator.html#a8b5179d9d85d4768f6134ff34b1f671a">More...</a><br /></td></tr>
+<tr class="separator:a8b5179d9d85d4768f6134ff34b1f671a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7fbc0f1d669e21a5e1dd6f2601d256b8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator.html#a7fbc0f1d669e21a5e1dd6f2601d256b8">cartesian_communicator</a> (const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;other, const <a class="el" href="classmpl_1_1cartesian__communicator_1_1dimensions.html">dimensions</a> &amp;dims, bool reorder=true)</td></tr>
 <tr class="memdesc:a7fbc0f1d669e21a5e1dd6f2601d256b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new communicator with Cartesian process topology.  <a href="classmpl_1_1cartesian__communicator.html#a7fbc0f1d669e21a5e1dd6f2601d256b8">More...</a><br /></td></tr>
 <tr class="separator:a7fbc0f1d669e21a5e1dd6f2601d256b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1066,7 +1069,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0be8c91aaa5cde91fcaa15dcba18902a" name="a0be8c91aaa5cde91fcaa15dcba18902a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0be8c91aaa5cde91fcaa15dcba18902a">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0be8c91aaa5cde91fcaa15dcba18902a">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1092,8 +1095,45 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a8b5179d9d85d4768f6134ff34b1f671a" name="a8b5179d9d85d4768f6134ff34b1f671a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b5179d9d85d4768f6134ff34b1f671a">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::cartesian_communicator::cartesian_communicator </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new communicator which is equivalent to an existing one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other communicator to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other. Communicators should not be copied unless a new independent communicator is wanted. Communicators should be passed via references to functions to avoid unnecessary copying. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00245">245</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a7fbc0f1d669e21a5e1dd6f2601d256b8" name="a7fbc0f1d669e21a5e1dd6f2601d256b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fbc0f1d669e21a5e1dd6f2601d256b8">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fbc0f1d669e21a5e1dd6f2601d256b8">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[3/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1143,12 +1183,12 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other with the same arguments. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00247">247</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00257">257</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
 <a id="aaaf184e1efe161f33a006fc54fe0ff0b" name="aaaf184e1efe161f33a006fc54fe0ff0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaf184e1efe161f33a006fc54fe0ff0b">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf184e1efe161f33a006fc54fe0ff0b">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1191,12 +1231,12 @@ Static Public Attributes</h2></td></tr>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other with the same arguments. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00260">260</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00270">270</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
 <a id="a0c9fb786a1e4e458f11b73450f503b08" name="a0c9fb786a1e4e458f11b73450f503b08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c9fb786a1e4e458f11b73450f503b08">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c9fb786a1e4e458f11b73450f503b08">&#9670;&nbsp;</a></span>cartesian_communicator() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1227,7 +1267,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00271">271</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00281">281</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -3024,7 +3064,7 @@ template&lt;typename T &gt; </div>
 <p>Determines the Cartesian location of this process. </p>
 <dl class="section return"><dt>Returns</dt><dd>Cartesian location </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00345">345</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00355">355</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -3061,7 +3101,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Cartesian location </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00337">337</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00347">347</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -3091,7 +3131,7 @@ template&lt;typename T &gt; </div>
 <p>Determines the communicator's dimensionality. </p>
 <dl class="section return"><dt>Returns</dt><dd>number of dimensions of the Cartesian topology </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00317">317</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00327">327</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -3864,7 +3904,7 @@ template&lt;typename T &gt; </div>
 <p>Determines the size and the periodicity of each dimension of the communicator with Cartesian topology. </p>
 <dl class="section return"><dt>Returns</dt><dd>size and periodicity of each dimension </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00358">358</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00368">368</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -9917,7 +9957,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00302">302</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00312">312</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -9954,7 +9994,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other. Communicators should not be copied unless a new independent communicator is wanted. Communicators should be passed via references to functions to avoid unnecessary copying. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00283">283</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00293">293</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -10102,7 +10142,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>process rank </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00328">328</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00338">338</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -13262,7 +13302,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#a3">distributed_grid.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a5">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a5">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00376">376</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00386">386</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>

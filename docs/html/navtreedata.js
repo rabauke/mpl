@@ -58,19 +58,19 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classmpl_1_1cartesian__communicator.html#a73df8f569865237bc58e2445c7d07742",
-"classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__dimension__periodicity__proxy.html#a9fa24dda39174f452802a8feaa5303a2",
-"classmpl_1_1communicator.html#aa4407a90c2f598867b36e8e557b72ec0",
-"classmpl_1_1dist__graph__communicator.html#a068c77bb2536523c2bcbeb4d3d8efc7b",
-"classmpl_1_1dist__graph__communicator.html#aad40f322ef427d759fe699b1318c3103",
-"classmpl_1_1empty__layout.html#a9aea61b5ce92681aee5df4a61672c02b",
+"classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__dimension__periodicity__proxy.html",
+"classmpl_1_1communicator.html#aa2b51b89d72555ebfb1862d1de688061",
+"classmpl_1_1dist__graph__communicator.html#a06525ff878eb073c02dc0bef285f06ac",
+"classmpl_1_1dist__graph__communicator.html#aad369f0de0b51dc3cf7992ed26c0799d",
+"classmpl_1_1empty__layout.html#a808408eaf18cfd04f8fc0e43ad8abece",
 "classmpl_1_1graph__communicator.html#a970647a9680c6bdc3ffbe0814b32f989",
-"classmpl_1_1heterogeneous__layout.html#a05cc59346d0b585b92a266ac7e4512eb",
-"classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde",
-"classmpl_1_1impl_1_1topology__communicator.html#aa541e7830014dce23eb1ce5f6bcfe281",
-"classmpl_1_1indexed__layout.html#abce0f3197d6b2252c951535b443d7d5e",
-"classmpl_1_1layout.html#ad86a2fab89091a3c1e2cf8d0775c9d7b",
-"classmpl_1_1strided__vector__layout.html#aa9cbbcfed65d7a004c435b699ccd4d74",
-"namespacempl.html#a551ed45948e628d93f6669b4cb01e750"
+"classmpl_1_1group_1_1intersection__tag.html",
+"classmpl_1_1impl_1_1request__pool.html#a9b2ce42dc5ec15f8875673e07f6d77bf",
+"classmpl_1_1impl_1_1topology__communicator.html#aa4407a90c2f598867b36e8e557b72ec0",
+"classmpl_1_1indexed__layout.html#ab1ced466b429dc64c875e27b57763b46",
+"classmpl_1_1layout.html#ac1edd6042f0c959638583136b00c89db",
+"classmpl_1_1strided__vector__layout.html#a9ea9a57f672e317522e4e8929bdc9ea2",
+"namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

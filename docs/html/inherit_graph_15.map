@@ -4,7 +4,7 @@
 <area shape="rect" id="node3" href="$classmpl_1_1cartesian__communicator_1_1included__tags.html" title="Represents the inclusion or exclusion along all along dimensions of a Cartesian process topology when..." alt="" coords="191,76,483,123"/>
 <area shape="rect" id="node4" href="$classmpl_1_1contiguous__layouts.html" title="container for storing contiguous layouts" alt="" coords="185,147,488,177"/>
 <area shape="rect" id="node5" href="$classmpl_1_1displacements.html" title="Indicates the beginning of data buffers in various collective communication operations." alt="" coords="235,201,438,230"/>
-<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator_1_1node__list.html" title=" " alt="" coords="211,255,463,301"/>
+<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator_1_1node__list.html" title="Set of nodes represented by integers." alt="" coords="211,255,463,301"/>
 <area shape="rect" id="node7" href="$classmpl_1_1layouts.html" title="container for storing layouts" alt="" coords="241,326,433,355"/>
 <area shape="rect" id="node8" href="$classmpl_1_1ranks.html" title="Represents a collection of ranks." alt="" coords="275,379,398,409"/>
 </map>

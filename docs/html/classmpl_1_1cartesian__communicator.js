@@ -18,6 +18,7 @@ var classmpl_1_1cartesian__communicator =
       [ "periodic", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836ae6ffdec5e14fce371eb7ae99edebbbee", null ]
     ] ],
     [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a0be8c91aaa5cde91fcaa15dcba18902a", null ],
+    [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a8b5179d9d85d4768f6134ff34b1f671a", null ],
     [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a7fbc0f1d669e21a5e1dd6f2601d256b8", null ],
     [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#aaaf184e1efe161f33a006fc54fe0ff0b", null ],
     [ "cartesian_communicator", "classmpl_1_1cartesian__communicator.html#a0c9fb786a1e4e458f11b73450f503b08", null ],
