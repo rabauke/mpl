@@ -85,6 +85,8 @@ $(document).ready(function(){initNavTree('classmpl_1_1graph__communicator_1_1nod
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classmpl_1_1graph__communicator_1_1node__list-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">mpl::graph_communicator::node_list Class Reference</div></div>
 </div><!--header-->
@@ -99,7 +101,7 @@ Inheritance diagram for mpl::graph_communicator::node_list:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1graph__communicator_1_1node__list__inherit__graph.png" border="0" usemap="#ampl_1_1graph__communicator_1_1node__list_inherit__map" alt="Inheritance graph"/></div>
 <map name="ampl_1_1graph__communicator_1_1node__list_inherit__map" id="ampl_1_1graph__communicator_1_1node__list_inherit__map">
-<area shape="rect" title="Set of nodes represented by integers." alt="" coords="5,139,257,241"/>
+<area shape="rect" title="Set of nodes represented by integers." alt="" coords="5,139,257,345"/>
 <area shape="rect" title=" " alt="" coords="30,5,233,91"/>
 </map>
 </div>
@@ -108,7 +110,7 @@ Collaboration diagram for mpl::graph_communicator::node_list:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1graph__communicator_1_1node__list__coll__graph.png" border="0" usemap="#ampl_1_1graph__communicator_1_1node__list_coll__map" alt="Collaboration graph"/></div>
 <map name="ampl_1_1graph__communicator_1_1node__list_coll__map" id="ampl_1_1graph__communicator_1_1node__list_coll__map">
-<area shape="rect" title="Set of nodes represented by integers." alt="" coords="5,139,257,241"/>
+<area shape="rect" title="Set of nodes represented by integers." alt="" coords="5,139,257,345"/>
 <area shape="rect" title=" " alt="" coords="30,5,233,91"/>
 </map>
 </div>
@@ -117,27 +119,110 @@ Collaboration diagram for mpl::graph_communicator::node_list:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:a51b3fcd822115593a2af29b5745aa224"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a51b3fcd822115593a2af29b5745aa224">value_type</a> = typename base::value_type</td></tr>
 <tr class="separator:a51b3fcd822115593a2af29b5745aa224"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1ae3ade1468d1b62abcacecbbbbc9f6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#af1ae3ade1468d1b62abcacecbbbbc9f6">size_type</a> = typename base::size_type</td></tr>
-<tr class="separator:af1ae3ade1468d1b62abcacecbbbbc9f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a199f783f69146375fd4890c1b318189f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a199f783f69146375fd4890c1b318189f">reference</a> = typename base::reference</td></tr>
+<tr class="separator:a199f783f69146375fd4890c1b318189f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa84022c75e433a413319022844309f84"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#aa84022c75e433a413319022844309f84">const_reference</a> = typename base::const_reference</td></tr>
+<tr class="separator:aa84022c75e433a413319022844309f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8678648832d56e5b555d19e491e6268a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a8678648832d56e5b555d19e491e6268a">iterator</a> = typename base::iterator</td></tr>
+<tr class="separator:a8678648832d56e5b555d19e491e6268a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5586635b21b9dbc9cb1d50c1cf9471a1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a5586635b21b9dbc9cb1d50c1cf9471a1">const_iterator</a> = typename base::const_iterator</td></tr>
+<tr class="separator:a5586635b21b9dbc9cb1d50c1cf9471a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9321529165dbf31bdacaed44c2c3bd89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a9321529165dbf31bdacaed44c2c3bd89">node_list</a> ()=default</td></tr>
+<tr class="memdesc:a9321529165dbf31bdacaed44c2c3bd89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty node list.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#a9321529165dbf31bdacaed44c2c3bd89">More...</a><br /></td></tr>
+<tr class="separator:a9321529165dbf31bdacaed44c2c3bd89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6705675a9a7343424dece2f056060f4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a6705675a9a7343424dece2f056060f4a">node_list</a> (int nodes)</td></tr>
+<tr class="memdesc:a6705675a9a7343424dece2f056060f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates non-empty list of nodes.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#a6705675a9a7343424dece2f056060f4a">More...</a><br /></td></tr>
+<tr class="separator:a6705675a9a7343424dece2f056060f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe55816c0169408a56e42c412f04e86f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#afe55816c0169408a56e42c412f04e86f">node_list</a> (std::initializer_list&lt; int &gt; init)</td></tr>
+<tr class="memdesc:afe55816c0169408a56e42c412f04e86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates non-empty list of nodes with nodes given by the list.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#afe55816c0169408a56e42c412f04e86f">More...</a><br /></td></tr>
+<tr class="separator:afe55816c0169408a56e42c412f04e86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceebd8bb0abded270a3246abb4996efe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#aceebd8bb0abded270a3246abb4996efe">size</a> () const</td></tr>
+<tr class="memdesc:aceebd8bb0abded270a3246abb4996efe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the number of nodes.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#aceebd8bb0abded270a3246abb4996efe">More...</a><br /></td></tr>
+<tr class="separator:aceebd8bb0abded270a3246abb4996efe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f60260b8bd1bdc7fe8c7b7945e27b8c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a199f783f69146375fd4890c1b318189f">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a5f60260b8bd1bdc7fe8c7b7945e27b8c">operator[]</a> (int index)</td></tr>
+<tr class="memdesc:a5f60260b8bd1bdc7fe8c7b7945e27b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a list element.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#a5f60260b8bd1bdc7fe8c7b7945e27b8c">More...</a><br /></td></tr>
+<tr class="separator:a5f60260b8bd1bdc7fe8c7b7945e27b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab4b2d09a2edf289b646510d0bf55eda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#aa84022c75e433a413319022844309f84">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#aab4b2d09a2edf289b646510d0bf55eda">operator[]</a> (int index) const</td></tr>
+<tr class="memdesc:aab4b2d09a2edf289b646510d0bf55eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access a list element.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#aab4b2d09a2edf289b646510d0bf55eda">More...</a><br /></td></tr>
+<tr class="separator:aab4b2d09a2edf289b646510d0bf55eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25f3935b78cf4dd11a589620e727536a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a25f3935b78cf4dd11a589620e727536a">add</a> (int node)</td></tr>
+<tr class="memdesc:a25f3935b78cf4dd11a589620e727536a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an additional element to the end of the node list.  <a href="classmpl_1_1graph__communicator_1_1node__list.html#a25f3935b78cf4dd11a589620e727536a">More...</a><br /></td></tr>
+<tr class="separator:a25f3935b78cf4dd11a589620e727536a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a864a79402650e1b3c453bf86a588dd1d"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a864a79402650e1b3c453bf86a588dd1d">graph_communicator</a></td></tr>
+<tr class="separator:a864a79402650e1b3c453bf86a588dd1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Set of nodes represented by integers. </p>
 
-<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00035">35</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00053">53</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="af1ae3ade1468d1b62abcacecbbbbc9f6" name="af1ae3ade1468d1b62abcacecbbbbc9f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1ae3ade1468d1b62abcacecbbbbc9f6">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="a5586635b21b9dbc9cb1d50c1cf9471a1" name="a5586635b21b9dbc9cb1d50c1cf9471a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5586635b21b9dbc9cb1d50c1cf9471a1">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#af1ae3ade1468d1b62abcacecbbbbc9f6">mpl::graph_communicator::node_list::size_type</a> =  typename base::size_type</td>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a5586635b21b9dbc9cb1d50c1cf9471a1">mpl::graph_communicator::node_list::const_iterator</a> =  typename base::const_iterator</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00040">40</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00062">62</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa84022c75e433a413319022844309f84" name="aa84022c75e433a413319022844309f84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa84022c75e433a413319022844309f84">&#9670;&nbsp;</a></span>const_reference</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#aa84022c75e433a413319022844309f84">mpl::graph_communicator::node_list::const_reference</a> =  typename base::const_reference</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00060">60</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8678648832d56e5b555d19e491e6268a" name="a8678648832d56e5b555d19e491e6268a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8678648832d56e5b555d19e491e6268a">&#9670;&nbsp;</a></span>iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a8678648832d56e5b555d19e491e6268a">mpl::graph_communicator::node_list::iterator</a> =  typename base::iterator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00061">61</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a199f783f69146375fd4890c1b318189f" name="a199f783f69146375fd4890c1b318189f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a199f783f69146375fd4890c1b318189f">&#9670;&nbsp;</a></span>reference</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a199f783f69146375fd4890c1b318189f">mpl::graph_communicator::node_list::reference</a> =  typename base::reference</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00059">59</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -153,7 +238,271 @@ Public Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00039">39</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00058">58</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9321529165dbf31bdacaed44c2c3bd89" name="a9321529165dbf31bdacaed44c2c3bd89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9321529165dbf31bdacaed44c2c3bd89">&#9670;&nbsp;</a></span>node_list() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::graph_communicator::node_list::node_list </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an empty node list. </p>
+
+</div>
+</div>
+<a id="a6705675a9a7343424dece2f056060f4a" name="a6705675a9a7343424dece2f056060f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6705675a9a7343424dece2f056060f4a">&#9670;&nbsp;</a></span>node_list() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::graph_communicator::node_list::node_list </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nodes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates non-empty list of nodes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodes</td><td>number of elements of the node list </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00069">69</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afe55816c0169408a56e42c412f04e86f" name="afe55816c0169408a56e42c412f04e86f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe55816c0169408a56e42c412f04e86f">&#9670;&nbsp;</a></span>node_list() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::graph_communicator::node_list::node_list </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; int &gt;&#160;</td>
+          <td class="paramname"><em>init</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates non-empty list of nodes with nodes given by the list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>vector components </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00073">73</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a25f3935b78cf4dd11a589620e727536a" name="a25f3935b78cf4dd11a589620e727536a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25f3935b78cf4dd11a589620e727536a">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::graph_communicator::node_list::add </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add an additional element to the end of the node list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>the node that is added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00095">95</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a5f60260b8bd1bdc7fe8c7b7945e27b8c" name="a5f60260b8bd1bdc7fe8c7b7945e27b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f60260b8bd1bdc7fe8c7b7945e27b8c">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#a199f783f69146375fd4890c1b318189f">reference</a> mpl::graph_communicator::node_list::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access a list element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>non-negative index to the list element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00087">87</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aab4b2d09a2edf289b646510d0bf55eda" name="aab4b2d09a2edf289b646510d0bf55eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab4b2d09a2edf289b646510d0bf55eda">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1graph__communicator_1_1node__list.html#aa84022c75e433a413319022844309f84">const_reference</a> mpl::graph_communicator::node_list::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access a list element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>non-negative index to the list element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00091">91</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aceebd8bb0abded270a3246abb4996efe" name="aceebd8bb0abded270a3246abb4996efe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceebd8bb0abded270a3246abb4996efe">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mpl::graph_communicator::node_list::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the number of nodes. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of nodes in the list </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00083">83</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a864a79402650e1b3c453bf86a588dd1d" name="a864a79402650e1b3c453bf86a588dd1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a864a79402650e1b3c453bf86a588dd1d">&#9670;&nbsp;</a></span>graph_communicator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1graph__communicator.html">graph_communicator</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00097">97</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
 
 </div>
 </div>

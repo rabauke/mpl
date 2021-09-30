@@ -20,34 +20,83 @@ namespace mpl {
 
     public:
       using value_type = typename base::value_type;
-      using size_type = typename base::size_type;
-      using base::base;
-      using base::size;
+      using reference = typename base::reference;
+      using const_reference = typename base::const_reference;
+      using iterator = typename base::iterator;
+      using const_iterator = typename base::const_iterator;
+
+      /// \brief Creates an empty set of edges.
+      edge_set() = default;
+
+
+      /// \brief Creates a set of edges given by the list.
+      /// \param init set of edges
+      edge_set(std::initializer_list<value_type> init) : base(init) {}
+
+      using base::operator=;
       using base::begin;
       using base::end;
       using base::cbegin;
       using base::cend;
-      using base::insert;
-      using base::operator=;
+
+      /// \brief Determines the number edges.
+      /// \return number of edges in the edge set
+      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+
+      /// \brief Add an additional edge to the set.
+      /// \param edge tuple of two non-negative integers
+      void add(const value_type &edge) { insert(edge); }
     };
+
 
     /// \brief Set of nodes represented by integers.
     class node_list : private std::vector<int> {
       using base = std::vector<int>;
+      using base::data;
 
     public:
       using value_type = typename base::value_type;
-      using size_type = typename base::size_type;
-      using base::base;
-      using base::size;
+      using reference = typename base::reference;
+      using const_reference = typename base::const_reference;
+      using iterator = typename base::iterator;
+      using const_iterator = typename base::const_iterator;
+
+      /// \brief Creates an empty node list.
+      node_list() = default;
+
+      /// \brief Creates non-empty list of nodes.
+      /// \param nodes number of elements of the node list
+      explicit node_list(int nodes) : base(nodes, 0) {}
+
+      /// \brief Creates non-empty list of nodes with nodes given by the list.
+      /// \param init vector components
+      node_list(std::initializer_list<int> init) : base(init) {}
+
+      using base::operator=;
       using base::begin;
       using base::end;
       using base::cbegin;
       using base::cend;
-      using base::operator=;
-      using base::operator[];
-      using base::data;
+
+      /// \brief Determines the number of nodes.
+      /// \return number of nodes in the list
+      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+
+      /// \brief Access a list element.
+      /// \param index non-negative index to the list element
+      reference operator[](int index) { return base::operator[](index); }
+
+      /// \brief Access a list element.
+      /// \param index non-negative index to the list element
+      const_reference operator[](int index) const { return base::operator[](index); }
+
+      /// \brief Add an additional element to the end of the node list.
+      /// \param node the node that is added
+      void add(int node) { push_back(node); }
+
+      friend class graph_communicator;
     };
+
 
     /// \brief Creates an empty communicator with no associated process.
     graph_communicator() = default;

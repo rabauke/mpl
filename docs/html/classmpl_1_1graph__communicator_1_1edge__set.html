@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('classmpl_1_1graph__communicator_1_1edg
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classmpl_1_1graph__communicator_1_1edge__set-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">mpl::graph_communicator::edge_set Class Reference</div></div>
 </div><!--header-->
@@ -99,7 +100,7 @@ Inheritance diagram for mpl::graph_communicator::edge_set:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1graph__communicator_1_1edge__set__inherit__graph.png" border="0" usemap="#ampl_1_1graph__communicator_1_1edge__set_inherit__map" alt="Inheritance graph"/></div>
 <map name="ampl_1_1graph__communicator_1_1edge__set_inherit__map" id="ampl_1_1graph__communicator_1_1edge__set_inherit__map">
-<area shape="rect" title="Set of edges, pairs of nodes represented by non&#45;negative integers." alt="" coords="5,156,257,259"/>
+<area shape="rect" title="Set of edges, pairs of nodes represented by non&#45;negative integers." alt="" coords="5,156,257,311"/>
 <area shape="rect" title=" " alt="" coords="25,5,237,108"/>
 </map>
 </div>
@@ -108,7 +109,7 @@ Collaboration diagram for mpl::graph_communicator::edge_set:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1graph__communicator_1_1edge__set__coll__graph.png" border="0" usemap="#ampl_1_1graph__communicator_1_1edge__set_coll__map" alt="Collaboration graph"/></div>
 <map name="ampl_1_1graph__communicator_1_1edge__set_coll__map" id="ampl_1_1graph__communicator_1_1edge__set_coll__map">
-<area shape="rect" title="Set of edges, pairs of nodes represented by non&#45;negative integers." alt="" coords="5,156,257,259"/>
+<area shape="rect" title="Set of edges, pairs of nodes represented by non&#45;negative integers." alt="" coords="5,156,257,311"/>
 <area shape="rect" title=" " alt="" coords="25,5,237,108"/>
 </map>
 </div>
@@ -117,22 +118,91 @@ Collaboration diagram for mpl::graph_communicator::edge_set:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:abcf980f8207f9165319e4ea0b1785112"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#abcf980f8207f9165319e4ea0b1785112">value_type</a> = typename base::value_type</td></tr>
 <tr class="separator:abcf980f8207f9165319e4ea0b1785112"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16c9f26e84c78ce5f105ac30fd9f0d80"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a16c9f26e84c78ce5f105ac30fd9f0d80">size_type</a> = typename base::size_type</td></tr>
-<tr class="separator:a16c9f26e84c78ce5f105ac30fd9f0d80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc11f382d1c7534095f6392fec035fe6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#acc11f382d1c7534095f6392fec035fe6">reference</a> = typename base::reference</td></tr>
+<tr class="separator:acc11f382d1c7534095f6392fec035fe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab383a23d687c47ad7b85309f81ffdb1b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#ab383a23d687c47ad7b85309f81ffdb1b">const_reference</a> = typename base::const_reference</td></tr>
+<tr class="separator:ab383a23d687c47ad7b85309f81ffdb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a108a464ce7190e45fe9aa162ffcd779c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a108a464ce7190e45fe9aa162ffcd779c">iterator</a> = typename base::iterator</td></tr>
+<tr class="separator:a108a464ce7190e45fe9aa162ffcd779c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a015685ec461e590fa7272cbf91220d18"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a015685ec461e590fa7272cbf91220d18">const_iterator</a> = typename base::const_iterator</td></tr>
+<tr class="separator:a015685ec461e590fa7272cbf91220d18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a17430180fb679bda0388e2e5a9ee18f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a17430180fb679bda0388e2e5a9ee18f8">edge_set</a> ()=default</td></tr>
+<tr class="memdesc:a17430180fb679bda0388e2e5a9ee18f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty set of edges.  <a href="classmpl_1_1graph__communicator_1_1edge__set.html#a17430180fb679bda0388e2e5a9ee18f8">More...</a><br /></td></tr>
+<tr class="separator:a17430180fb679bda0388e2e5a9ee18f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a552f6b7dfdeeaf97dda2450135f23783"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a552f6b7dfdeeaf97dda2450135f23783">edge_set</a> (std::initializer_list&lt; <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#abcf980f8207f9165319e4ea0b1785112">value_type</a> &gt; init)</td></tr>
+<tr class="memdesc:a552f6b7dfdeeaf97dda2450135f23783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a set of edges given by the list.  <a href="classmpl_1_1graph__communicator_1_1edge__set.html#a552f6b7dfdeeaf97dda2450135f23783">More...</a><br /></td></tr>
+<tr class="separator:a552f6b7dfdeeaf97dda2450135f23783"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1f12c9c8eaa5d350d019abe32817b86"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#ab1f12c9c8eaa5d350d019abe32817b86">size</a> () const</td></tr>
+<tr class="memdesc:ab1f12c9c8eaa5d350d019abe32817b86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the number edges.  <a href="classmpl_1_1graph__communicator_1_1edge__set.html#ab1f12c9c8eaa5d350d019abe32817b86">More...</a><br /></td></tr>
+<tr class="separator:ab1f12c9c8eaa5d350d019abe32817b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab94d3075422b9dc7eeb87af9e32c0b43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#ab94d3075422b9dc7eeb87af9e32c0b43">add</a> (const <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#abcf980f8207f9165319e4ea0b1785112">value_type</a> &amp;edge)</td></tr>
+<tr class="memdesc:ab94d3075422b9dc7eeb87af9e32c0b43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an additional edge to the set.  <a href="classmpl_1_1graph__communicator_1_1edge__set.html#ab94d3075422b9dc7eeb87af9e32c0b43">More...</a><br /></td></tr>
+<tr class="separator:ab94d3075422b9dc7eeb87af9e32c0b43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Set of edges, pairs of nodes represented by non-negative integers. </p>
 
 <p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00018">18</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a16c9f26e84c78ce5f105ac30fd9f0d80" name="a16c9f26e84c78ce5f105ac30fd9f0d80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16c9f26e84c78ce5f105ac30fd9f0d80">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="a015685ec461e590fa7272cbf91220d18" name="a015685ec461e590fa7272cbf91220d18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a015685ec461e590fa7272cbf91220d18">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a16c9f26e84c78ce5f105ac30fd9f0d80">mpl::graph_communicator::edge_set::size_type</a> =  typename base::size_type</td>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a015685ec461e590fa7272cbf91220d18">mpl::graph_communicator::edge_set::const_iterator</a> =  typename base::const_iterator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00026">26</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab383a23d687c47ad7b85309f81ffdb1b" name="ab383a23d687c47ad7b85309f81ffdb1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab383a23d687c47ad7b85309f81ffdb1b">&#9670;&nbsp;</a></span>const_reference</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#ab383a23d687c47ad7b85309f81ffdb1b">mpl::graph_communicator::edge_set::const_reference</a> =  typename base::const_reference</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00024">24</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a108a464ce7190e45fe9aa162ffcd779c" name="a108a464ce7190e45fe9aa162ffcd779c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a108a464ce7190e45fe9aa162ffcd779c">&#9670;&nbsp;</a></span>iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#a108a464ce7190e45fe9aa162ffcd779c">mpl::graph_communicator::edge_set::iterator</a> =  typename base::iterator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00025">25</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acc11f382d1c7534095f6392fec035fe6" name="acc11f382d1c7534095f6392fec035fe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc11f382d1c7534095f6392fec035fe6">&#9670;&nbsp;</a></span>reference</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#acc11f382d1c7534095f6392fec035fe6">mpl::graph_communicator::edge_set::reference</a> =  typename base::reference</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -154,6 +224,137 @@ Public Types</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00022">22</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a17430180fb679bda0388e2e5a9ee18f8" name="a17430180fb679bda0388e2e5a9ee18f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17430180fb679bda0388e2e5a9ee18f8">&#9670;&nbsp;</a></span>edge_set() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::graph_communicator::edge_set::edge_set </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an empty set of edges. </p>
+
+</div>
+</div>
+<a id="a552f6b7dfdeeaf97dda2450135f23783" name="a552f6b7dfdeeaf97dda2450135f23783"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a552f6b7dfdeeaf97dda2450135f23783">&#9670;&nbsp;</a></span>edge_set() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::graph_communicator::edge_set::edge_set </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#abcf980f8207f9165319e4ea0b1785112">value_type</a> &gt;&#160;</td>
+          <td class="paramname"><em>init</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a set of edges given by the list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>set of edges </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00034">34</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab94d3075422b9dc7eeb87af9e32c0b43" name="ab94d3075422b9dc7eeb87af9e32c0b43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab94d3075422b9dc7eeb87af9e32c0b43">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::graph_communicator::edge_set::add </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1graph__communicator_1_1edge__set.html#abcf980f8207f9165319e4ea0b1785112">value_type</a> &amp;&#160;</td>
+          <td class="paramname"><em>edge</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add an additional edge to the set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">edge</td><td>tuple of two non-negative integers </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00048">48</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab1f12c9c8eaa5d350d019abe32817b86" name="ab1f12c9c8eaa5d350d019abe32817b86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1f12c9c8eaa5d350d019abe32817b86">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mpl::graph_communicator::edge_set::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the number edges. </p>
+<dl class="section return"><dt>Returns</dt><dd>number of edges in the edge set </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="graph__communicator_8hpp_source.html#l00044">44</a> of file <a class="el" href="graph__communicator_8hpp_source.html">graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
