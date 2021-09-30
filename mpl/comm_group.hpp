@@ -469,7 +469,9 @@ namespace mpl {
     /// \param split tag to indicate the mode of construction
     /// \param other the communicator
     /// \param color control of subset assignment
-    /// \param key  control of rank assignment
+    /// \param key control of rank assignment
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other.
     template<typename color_type, typename key_type = int>
     explicit communicator(split_tag split, const communicator &other, color_type color,
                           key_type key = 0) {
@@ -486,7 +488,9 @@ namespace mpl {
     /// \tparam color_type color type, must be integral type
     /// \param split_shared_memory tag to indicate the mode of construction
     /// \param other the communicator
-    /// \param key  control of rank assignment
+    /// \param key control of rank assignment
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the communicator other.
     template<typename key_type = int>
     explicit communicator(split_shared_memory_tag split_shared_memory,
                           const communicator &other, key_type key = 0) {
