@@ -83,14 +83,14 @@ namespace mpl {
 
       /// \brief Determines the number of dimensions.
       /// \return dimensionality, number of elements in the vector
-      [[nodiscard]] int dimensions() const { return static_cast<int>((*this).size()); }
+      [[nodiscard]] int dimensions() const { return static_cast<int>(base::size()); }
 
-      /// \brief Access vector element.
-      /// \param index non-negative index to vector element
+      /// \brief Access a vector element.
+      /// \param index non-negative index to the vector element
       reference operator[](int index) { return base::operator[](index); }
 
-      /// \brief Access vector element.
-      /// \param index non-negative index to vector element
+      /// \brief Access a vector element.
+      /// \param index non-negative index to the vector element
       const_reference operator[](int index) const { return base::operator[](index); }
 
       /// \brief Add an additional element to the end of the vector.
