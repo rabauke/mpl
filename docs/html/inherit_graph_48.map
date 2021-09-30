@@ -1,14 +1,3 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,309,188,339"/>
-<area shape="rect" id="node2" href="$classmpl_1_1contiguous__layout.html" title="Layout representing contiguous storage several objects." alt="" coords="236,5,528,35"/>
-<area shape="rect" id="node3" href="$classmpl_1_1empty__layout.html" title="Layout with zero elements." alt="" coords="261,59,503,88"/>
-<area shape="rect" id="node4" href="$classmpl_1_1hindexed__block__layout.html" title="Layout representing data in a sequence of consecutive homogenous blocks of uniform lengths." alt="" coords="276,113,488,159"/>
-<area shape="rect" id="node5" href="$classmpl_1_1hindexed__layout.html" title="Layout representing data in a sequence of consecutive homogenous blocks of varying lengths." alt="" coords="246,184,518,213"/>
-<area shape="rect" id="node6" href="$classmpl_1_1indexed__block__layout.html" title="Layout representing data in a sequence of consecutive homogenous blocks of uniform lengths." alt="" coords="281,238,483,285"/>
-<area shape="rect" id="node7" href="$classmpl_1_1indexed__layout.html" title="Layout representing data in a sequence of consecutive homogenous blocks of varying lengths." alt="" coords="251,309,513,339"/>
-<area shape="rect" id="node8" href="$classmpl_1_1iterator__layout.html" title="Layout representing data at non&#45;consecutive memory locations, which can be addressed via an iterator." alt="" coords="246,363,518,392"/>
-<area shape="rect" id="node9" href="$classmpl_1_1null__layout.html" title="Layout with zero elements." alt="" coords="266,416,498,445"/>
-<area shape="rect" id="node10" href="$classmpl_1_1strided__vector__layout.html" title="Layout representing uniform storage of several objects with a possibly non&#45;unit stride between consec..." alt="" coords="276,470,488,517"/>
-<area shape="rect" id="node11" href="$classmpl_1_1subarray__layout.html" title="Layout representing data of a subset multi dimensional array." alt="" coords="246,541,518,571"/>
-<area shape="rect" id="node12" href="$classmpl_1_1vector__layout.html" title="Layout representing contiguous storage several objects." alt="" coords="256,595,508,624"/>
+<area shape="rect" id="node1" href="$classmpl_1_1iterator__layout_1_1parameter.html" title="Class representing the parameters to characterize an iterator layout." alt="" coords="5,5,228,52"/>
 </map>

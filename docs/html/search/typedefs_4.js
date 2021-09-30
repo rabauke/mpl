@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pointer_0',['pointer',['../classmpl_1_1distributed__grid.html#a67abfe92a3bb5d4cf1708297a2e7343d',1,'mpl::distributed_grid::pointer()'],['../classmpl_1_1local__grid.html#afbdae75370bc044bbb0f0f8ce22c4544',1,'mpl::local_grid::pointer()']]]
+  ['message_5ft_0',['message_t',['../namespacempl.html#a3685893e866d7db6c3b3765d26ef386b',1,'mpl']]]
 ];

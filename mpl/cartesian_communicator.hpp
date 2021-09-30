@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include <tuple>
+#include <iterator>
 
 namespace mpl {
 
@@ -51,44 +52,102 @@ namespace mpl {
     static constexpr included_tag included = included_tag::included;
 
 
-    /// \brief Represents a coordinate (position) in a Cartesian process topology.
-    class coordinate_type : private std::vector<int> {
+    /// \brief Represents a discrete position in a Cartesian process topology.
+    class vector : private std::vector<int> {
       using base = std::vector<int>;
+      using base::data;
 
     public:
       using value_type = typename base::value_type;
-      using size_type = typename base::size_type;
-      using base::base;
-      using base::size;
+      using reference = typename base::reference;
+      using const_reference = typename base::const_reference;
+      using iterator = typename base::iterator;
+      using const_iterator = typename base::const_iterator;
+
+      /// \brief Creates a zero-dimensional vector.
+      vector() = default;
+
+      /// \brief Creates a multi-dimensional vector with components equal to zero.
+      /// \param dimension number of elements of the new vector
+      explicit vector(int dimension) : base(dimension, 0) {}
+
+      /// \brief Creates a multi-dimensional vector with components given by the list.
+      /// \param init vector components
+      vector(std::initializer_list<int> init) : base(init) {}
+
+      using base::operator=;
       using base::begin;
       using base::end;
       using base::cbegin;
       using base::cend;
-      using base::data;
-      using base::push_back;
-      using base::operator=;
-      using base::operator[];
+
+      /// \brief Determines the number of dimensions.
+      /// \return dimensionality, number of elements in the vector
+      [[nodiscard]] int dimensions() const { return static_cast<int>((*this).size()); }
+
+      /// \brief Access vector element.
+      /// \param index non-negative index to vector element
+      reference operator[](int index) { return base::operator[](index); }
+
+      /// \brief Access vector element.
+      /// \param index non-negative index to vector element
+      const_reference operator[](int index) const { return base::operator[](index); }
+
+      /// \brief Add an additional element to the end of the vector.
+      /// \param coordinate value of the new vector element
+      void add(int coordinate) { push_back(coordinate); }
+
+      friend class cartesian_communicator;
     };
 
 
-    /// \brief Represents the inclusion or exclusion along all along dimensions of a Cartesian
+    /// \brief Represents the inclusion or exclusion along all dimensions of a Cartesian
     /// process topology when creating an new communicator.
     class included_tags : private std::vector<included_tag> {
       using base = std::vector<included_tag>;
+      using base::data;
 
     public:
       using value_type = typename base::value_type;
-      using size_type = typename base::size_type;
-      using base::base;
-      using base::size;
+      using reference = typename base::reference;
+      using const_reference = typename base::const_reference;
+      using iterator = typename base::iterator;
+      using const_iterator = typename base::const_iterator;
+
+      /// \brief Creates an empty inclusion tags list.
+      included_tags() = default;
+
+      /// \brief Creates a non-empty inclusion tags list with default values excluded.
+      /// \param dimension number of elements of the new list
+      explicit included_tags(int dimension) : base(dimension, included_tag::excluded) {}
+
+      /// \brief Creates a non-empty inclusion tags list with values given by the list.
+      /// \param init exclusion or inclusion tags
+      included_tags(std::initializer_list<included_tag> init) : base(init) {}
+
+      using base::operator=;
       using base::begin;
       using base::end;
       using base::cbegin;
       using base::cend;
-      using base::data;
-      using base::push_back;
-      using base::operator=;
-      using base::operator[];
+
+      /// \brief Determines the number of inclusion tags.
+      /// \return dimensionality, number of elements in the vector
+      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+
+      /// \brief Access list element.
+      /// \param index non-negative index to list element
+      reference operator[](int index) { return base::operator[](index); }
+
+      /// \brief Access list element.
+      /// \param index non-negative index to list element
+      const_reference operator[](int index) const { return base::operator[](index); }
+
+      /// \brief Add an additional element to the end of the vector.
+      /// \param is_included value of the new vector element
+      void add(included_tag is_included) { push_back(is_included); }
+
+      friend class cartesian_communicator;
     };
 
 
@@ -98,10 +157,6 @@ namespace mpl {
       std::vector<int> dims_, periodic_;
 
     public:
-      /// \brief Type to represent the dimensionality of a communicator with Cartesian process
-      /// topology.
-      using size_type = std::vector<int>::size_type;
-
       class dimension_periodicity_proxy {
         int &dim_;
         int &is_periodic_;
@@ -120,35 +175,103 @@ namespace mpl {
         }
 
         dimension_periodicity_proxy &operator=(const std::tuple<int, periodicity_tag> &t) {
-          dim_ = std::get<0>(t);
-          is_periodic_ = std::get<1>(t) == periodic;
+          dim_ = std::get<int>(t);
+          is_periodic_ = std::get<periodicity_tag>(t) == periodic;
           return *this;
         }
 
-        friend dimensions;
-      };
+        bool operator==(const std::tuple<int, periodicity_tag> &t) const {
+          return dim_ == std::get<int>(t) &&
+                 (static_cast<bool>(is_periodic_) ==
+                  (std::get<periodicity_tag>(t) == periodicity_tag::periodic));
+        }
 
-
-      class const_dimension_periodicity_proxy {
-        const int &dim_;
-        const int &is_periodic_;
-
-        const_dimension_periodicity_proxy(const int &dim, const int &is_periodic)
-            : dim_{dim}, is_periodic_{is_periodic} {}
-
-      public:
-        template<std::size_t N>
-        [[nodiscard]] decltype(auto) get() const {
-          if constexpr (N == 0)
-            return dim_ * 1;
-          else if constexpr (N == 1)
-            return is_periodic_ == 0 ? periodicity_tag::non_periodic
-                                     : periodicity_tag::periodic;
+        bool operator!=(const std::tuple<int, periodicity_tag> &t) const {
+          return not(*this == t);
         }
 
         friend dimensions;
       };
 
+
+      using value_type = std::tuple<int, periodicity_tag>;
+      using reference = dimension_periodicity_proxy;
+      using const_reference = std::tuple<int, periodicity_tag>;
+
+
+      /// \brief Iterator class for non-constant access.
+      class iterator {
+        dimensions *dimensions_{nullptr};
+        int index_{0};
+
+      public:
+        using difference_type = std::ptrdiff_t;
+        using iterator_category = std::input_iterator_tag;
+        using value_type = dimensions::value_type;
+        using pointer = value_type *;
+        using reference = dimensions::reference;
+
+        explicit iterator(dimensions *dims, int index = 0) : dimensions_{dims}, index_{index} {}
+
+        reference operator*() const { return (*dimensions_)[index_]; }
+
+        iterator &operator++() {
+          ++index_;
+          return *this;
+        }
+
+        iterator operator++(int) {
+          const iterator tmp{*this};
+          ++(*this);
+          return tmp;
+        }
+
+        friend bool operator==(const iterator &a, const iterator &b) {
+          return a.dimensions_ == b.dimensions_ and a.index_ == b.index_;
+        };
+
+        friend bool operator!=(const iterator &a, const iterator &b) {
+          return a.dimensions_ != b.dimensions_ or a.index_ != b.index_;
+        };
+      };
+
+
+      /// \brief Iterator class for constant access.
+      class const_iterator {
+        const dimensions *dimensions_{nullptr};
+        int index_{0};
+
+      public:
+        using difference_type = std::ptrdiff_t;
+        using iterator_category = std::input_iterator_tag;
+        using value_type = dimensions::value_type;
+        using pointer = const value_type *;
+        using reference = dimensions::const_reference;
+
+        explicit const_iterator(const dimensions *dims, int index = 0)
+            : dimensions_{dims}, index_{index} {}
+
+        reference operator*() const { return (*dimensions_)[index_]; }
+
+        const_iterator &operator++() {
+          ++index_;
+          return *this;
+        }
+
+        const_iterator operator++(int) {
+          const const_iterator tmp{*this};
+          ++(*this);
+          return tmp;
+        }
+
+        friend bool operator==(const const_iterator &a, const const_iterator &b) {
+          return a.dimensions_ == b.dimensions_ and a.index_ == b.index_;
+        };
+
+        friend bool operator!=(const const_iterator &a, const const_iterator &b) {
+          return a.dimensions_ != b.dimensions_ or a.index_ != b.index_;
+        };
+      };
 
       /// \brief Constructs a new empty dimensions object.
       dimensions() = default;
@@ -201,31 +324,40 @@ namespace mpl {
       /// \brief Determines the number of processes along a dimension.
       /// \param dimension the rank of the dimension
       /// \return the number of processes
-      [[nodiscard]] int size(size_type dimension) const { return dims_[dimension]; }
+      [[nodiscard]] int size(int dimension) const { return dims_[dimension]; }
 
       /// \brief Determines the periodicity of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the periodicity
-      [[nodiscard]] periodicity_tag periodicity(size_type dimension) const {
+      [[nodiscard]] periodicity_tag periodicity(int dimension) const {
         return periodic_[dimension] == 0 ? non_periodic : periodic;
       }
 
       /// \brief Determines number of processes along a dimension and the periodicity of a
       /// dimension.
       /// \param dimension the rank of the dimension
-      /// \return the number of processes adn the periodicity
-      [[nodiscard]] const_dimension_periodicity_proxy operator[](size_type dimension) const
-      {
-        return {dims_[dimension], periodic_[dimension]};
+      /// \return the number of processes and the periodicity
+      [[nodiscard]] const_reference operator[](int dimension) const {
+        return {dims_[dimension], periodicity(dimension)};
       }
 
       /// \brief Determines number of processes along a dimension and the periodicity of a
       /// dimension.
       /// \param dimension the rank of the dimension
-      /// \return the number of processes adn the periodicity
-      [[nodiscard]] dimension_periodicity_proxy operator[](size_type dimension)
-      {
+      /// \return the number of processes and the periodicity
+      [[nodiscard]] reference operator[](int dimension) {
         return {dims_[dimension], periodic_[dimension]};
+      }
+
+      [[nodiscard]] iterator begin() { return iterator{this}; }
+      [[nodiscard]] const_iterator begin() const { return const_iterator{this}; }
+      [[nodiscard]] const_iterator cbegin() const { return const_iterator{this}; }
+      [[nodiscard]] iterator end() { return iterator{this, dimensionality()}; }
+      [[nodiscard]] const_iterator end() const {
+        return const_iterator{this, dimensionality()};
+      }
+      [[nodiscard]] const_iterator cend() const {
+        return const_iterator{this, dimensionality()};
       }
 
       friend class cartesian_communicator;
@@ -309,7 +441,7 @@ namespace mpl {
     /// \param other the other communicator to move from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
-     cartesian_communicator &operator=(cartesian_communicator &&other) noexcept {
+    cartesian_communicator &operator=(cartesian_communicator &&other) noexcept {
       if (this != &other) {
         int result_1{0}, result_2{0};
         MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
@@ -335,7 +467,7 @@ namespace mpl {
     /// \brief Determines process rank of a process at a given Cartesian location.
     /// \param coordinate Cartesian location
     /// \return process rank
-    [[nodiscard]] int rank(const coordinate_type &coordinate) const {
+    [[nodiscard]] int rank(const vector &coordinate) const {
       int t_rank{0};
       MPI_Cart_rank(this->comm_, coordinate.data(), &t_rank);
       return t_rank;
@@ -344,34 +476,31 @@ namespace mpl {
     /// \brief Determines the Cartesian location of a process with a given rank.
     /// \param rank process rank
     /// \return Cartesian location
-    [[nodiscard]] coordinate_type coordinate(int rank) const {
-      coordinate_type coordinates(dimensionality());
+    [[nodiscard]] vector coordinate(int rank) const {
+      vector coordinates(dimensionality());
       MPI_Cart_coords(comm_, rank, coordinates.size(), coordinates.data());
       return coordinates;
     }
 
     /// \brief Determines the Cartesian location of this process.
     /// \return Cartesian location
-    [[nodiscard]] coordinate_type coordinate() const {
+    [[nodiscard]] vector coordinate() const {
       const int t_dimensionality{dimensionality()};
       dimensions t_dimensions(t_dimensionality);
-      coordinate_type t_coordinate(t_dimensionality);
+      vector t_coordinate(t_dimensionality);
       MPI_Cart_get(comm_, t_dimensionality, t_dimensions.dims_.data(),
-                   t_dimensions.periodic_.data(),
-                   t_coordinate.data());
+                   t_dimensions.periodic_.data(), t_coordinate.data());
       return t_coordinate;
     }
 
-    /// \brief Determines the size and the periodicity of each dimension of the communicator with
-    /// Cartesian topology.
-    /// \return size and periodicity of each dimension
+    /// \brief Determines the size and the periodicity of each dimension of the communicator
+    /// with Cartesian topology. \return size and periodicity of each dimension
     [[nodiscard]] dimensions get_dimensions() const {
       const int t_dimensionality{dimensionality()};
       dimensions t_dimensions(t_dimensionality);
-      coordinate_type t_coordinate(t_dimensionality);
+      vector t_coordinate(t_dimensionality);
       MPI_Cart_get(comm_, t_dimensionality, t_dimensions.dims_.data(),
-                   t_dimensions.periodic_.data(),
-                   t_coordinate.data());
+                   t_dimensions.periodic_.data(), t_coordinate.data());
       return t_dimensions;
     }
 

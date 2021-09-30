@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['request_3c_20irequest_20_3e_0',['request&lt; irequest &gt;',['../classmpl_1_1impl_1_1irequest.html#afc6c0627314f63682b958c13cf936247',1,'mpl::impl::irequest']]],
-  ['request_3c_20prequest_20_3e_1',['request&lt; prequest &gt;',['../classmpl_1_1impl_1_1prequest.html#a8c7c30bf6b0c6ffc75d78caeac645230',1,'mpl::impl::prequest']]],
-  ['request_5fpool_3c_20mpl_3a_3airequest_20_3e_2',['request_pool&lt; mpl::irequest &gt;',['../classmpl_1_1impl_1_1irequest.html#aa9403354e473e9978d6e49bc4389c9fe',1,'mpl::impl::irequest']]],
-  ['request_5fpool_3c_20mpl_3a_3aprequest_20_3e_3',['request_pool&lt; mpl::prequest &gt;',['../classmpl_1_1impl_1_1prequest.html#a99278de2244bd4d9129a7a07c40dd721',1,'mpl::impl::prequest']]]
+  ['operator_21_3d_0',['operator!=',['../classmpl_1_1cartesian__communicator_1_1dimensions_1_1iterator.html#a55a8ee0e80dad1a7da9d751c25bc0386',1,'mpl::cartesian_communicator::dimensions::iterator::operator!=()'],['../classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__iterator.html#a5fbca5b71055f2b793ae1607239b13a0',1,'mpl::cartesian_communicator::dimensions::const_iterator::operator!=()']]],
+  ['operator_3d_3d_1',['operator==',['../classmpl_1_1cartesian__communicator_1_1dimensions_1_1iterator.html#a81d10d7799462c7ca5e7cf19119ca356',1,'mpl::cartesian_communicator::dimensions::iterator::operator==()'],['../classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__iterator.html#ab0ac7de651351823aece097eb3be1cfb',1,'mpl::cartesian_communicator::dimensions::const_iterator::operator==()']]]
 ];

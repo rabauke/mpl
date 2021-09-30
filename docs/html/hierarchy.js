@@ -37,7 +37,7 @@ var hierarchy =
         [ "mpl::graph_communicator", "classmpl_1_1graph__communicator.html", null ]
       ] ]
     ] ],
-    [ "mpl::cartesian_communicator::dimensions::const_dimension_periodicity_proxy", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__dimension__periodicity__proxy.html", null ],
+    [ "mpl::cartesian_communicator::dimensions::const_iterator", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1const__iterator.html", null ],
     [ "mpl::group::difference_tag", "classmpl_1_1group_1_1difference__tag.html", null ],
     [ "mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy.html", null ],
     [ "mpl::cartesian_communicator::dimensions", "classmpl_1_1cartesian__communicator_1_1dimensions.html", null ],
@@ -63,6 +63,7 @@ var hierarchy =
     ] ],
     [ "mpl::group::intersection_tag", "classmpl_1_1group_1_1intersection__tag.html", null ],
     [ "mpl::impl::irequest", "classmpl_1_1impl_1_1irequest.html", null ],
+    [ "mpl::cartesian_communicator::dimensions::iterator", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1iterator.html", null ],
     [ "mpl::layout< T >", "classmpl_1_1layout.html", [
       [ "mpl::contiguous_layout< T >", "classmpl_1_1contiguous__layout.html", null ],
       [ "mpl::empty_layout< T >", "classmpl_1_1empty__layout.html", null ],
@@ -140,8 +141,8 @@ var hierarchy =
     [ "std::tuple_element< N, mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", null ],
     [ "mpl::group::Union_tag", "classmpl_1_1group_1_1_union__tag.html", null ],
     [ "std::vector", null, [
-      [ "mpl::cartesian_communicator::coordinate_type", "classmpl_1_1cartesian__communicator_1_1coordinate__type.html", null ],
       [ "mpl::cartesian_communicator::included_tags", "classmpl_1_1cartesian__communicator_1_1included__tags.html", null ],
+      [ "mpl::cartesian_communicator::vector", "classmpl_1_1cartesian__communicator_1_1vector.html", null ],
       [ "mpl::contiguous_layouts< T >", "classmpl_1_1contiguous__layouts.html", null ],
       [ "mpl::displacements", "classmpl_1_1displacements.html", null ],
       [ "mpl::graph_communicator::node_list", "classmpl_1_1graph__communicator_1_1node__list.html", null ],

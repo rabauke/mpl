@@ -85,12 +85,14 @@ $(document).ready(function(){initNavTree('classmpl_1_1cartesian__communicator_1_
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classmpl_1_1cartesian__communicator_1_1included__tags-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">mpl::cartesian_communicator::included_tags Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents the inclusion or exclusion along all along dimensions of a Cartesian process topology when creating an new communicator.  
+<p>Represents the inclusion or exclusion along all dimensions of a Cartesian process topology when creating an new communicator.  
  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>&gt;</code></p>
@@ -99,7 +101,7 @@ Inheritance diagram for mpl::cartesian_communicator::included_tags:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1cartesian__communicator_1_1included__tags__inherit__graph.png" border="0" usemap="#ampl_1_1cartesian__communicator_1_1included__tags_inherit__map" alt="Inheritance graph"/></div>
 <map name="ampl_1_1cartesian__communicator_1_1included__tags_inherit__map" id="ampl_1_1cartesian__communicator_1_1included__tags_inherit__map">
-<area shape="rect" title="Represents the inclusion or exclusion along all along dimensions of a Cartesian process topology when..." alt="" coords="5,156,297,259"/>
+<area shape="rect" title="Represents the inclusion or exclusion along all dimensions of a Cartesian process topology when creat..." alt="" coords="5,156,297,363"/>
 <area shape="rect" title=" " alt="" coords="35,5,267,108"/>
 </map>
 </div>
@@ -108,7 +110,7 @@ Collaboration diagram for mpl::cartesian_communicator::included_tags:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1cartesian__communicator_1_1included__tags__coll__graph.png" border="0" usemap="#ampl_1_1cartesian__communicator_1_1included__tags_coll__map" alt="Collaboration graph"/></div>
 <map name="ampl_1_1cartesian__communicator_1_1included__tags_coll__map" id="ampl_1_1cartesian__communicator_1_1included__tags_coll__map">
-<area shape="rect" title="Represents the inclusion or exclusion along all along dimensions of a Cartesian process topology when..." alt="" coords="5,156,297,259"/>
+<area shape="rect" title="Represents the inclusion or exclusion along all dimensions of a Cartesian process topology when creat..." alt="" coords="5,156,297,363"/>
 <area shape="rect" title=" " alt="" coords="35,5,267,108"/>
 </map>
 </div>
@@ -117,27 +119,110 @@ Collaboration diagram for mpl::cartesian_communicator::included_tags:</div>
 Public Types</h2></td></tr>
 <tr class="memitem:a4d4e69a2220d0670cabbbf3dd566000a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a4d4e69a2220d0670cabbbf3dd566000a">value_type</a> = typename base::value_type</td></tr>
 <tr class="separator:a4d4e69a2220d0670cabbbf3dd566000a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5d6e3657738900cb3b1ccbbf4c5abb9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#aa5d6e3657738900cb3b1ccbbf4c5abb9">size_type</a> = typename base::size_type</td></tr>
-<tr class="separator:aa5d6e3657738900cb3b1ccbbf4c5abb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a841f9c67444cbd1589f1ea3066edfe38"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a841f9c67444cbd1589f1ea3066edfe38">reference</a> = typename base::reference</td></tr>
+<tr class="separator:a841f9c67444cbd1589f1ea3066edfe38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab46ef7e9748d1f33a0f8ff71d104e7e1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ab46ef7e9748d1f33a0f8ff71d104e7e1">const_reference</a> = typename base::const_reference</td></tr>
+<tr class="separator:ab46ef7e9748d1f33a0f8ff71d104e7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d15151da59d0483bb7da33aba71dc60"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a6d15151da59d0483bb7da33aba71dc60">iterator</a> = typename base::iterator</td></tr>
+<tr class="separator:a6d15151da59d0483bb7da33aba71dc60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aa72f4e0fcca8b7a149adeb640ead4e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a1aa72f4e0fcca8b7a149adeb640ead4e">const_iterator</a> = typename base::const_iterator</td></tr>
+<tr class="separator:a1aa72f4e0fcca8b7a149adeb640ead4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae18657b9e6cee8ffa9549f3b4bc3e104"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ae18657b9e6cee8ffa9549f3b4bc3e104">included_tags</a> ()=default</td></tr>
+<tr class="memdesc:ae18657b9e6cee8ffa9549f3b4bc3e104"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty inclusion tags list.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ae18657b9e6cee8ffa9549f3b4bc3e104">More...</a><br /></td></tr>
+<tr class="separator:ae18657b9e6cee8ffa9549f3b4bc3e104"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c5d657f45d984865283fdb5dfd4edbc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a7c5d657f45d984865283fdb5dfd4edbc">included_tags</a> (int dimension)</td></tr>
+<tr class="memdesc:a7c5d657f45d984865283fdb5dfd4edbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a non-empty inclusion tags list with default values excluded.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a7c5d657f45d984865283fdb5dfd4edbc">More...</a><br /></td></tr>
+<tr class="separator:a7c5d657f45d984865283fdb5dfd4edbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a949beacb76cdab143f823228f22cbf47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a949beacb76cdab143f823228f22cbf47">included_tags</a> (std::initializer_list&lt; <a class="el" href="classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588">included_tag</a> &gt; init)</td></tr>
+<tr class="memdesc:a949beacb76cdab143f823228f22cbf47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a non-empty inclusion tags list with values given by the list.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a949beacb76cdab143f823228f22cbf47">More...</a><br /></td></tr>
+<tr class="separator:a949beacb76cdab143f823228f22cbf47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39edb9ac5555118a37675167b577b11d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a39edb9ac5555118a37675167b577b11d">size</a> () const</td></tr>
+<tr class="memdesc:a39edb9ac5555118a37675167b577b11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the number of inclusion tags.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a39edb9ac5555118a37675167b577b11d">More...</a><br /></td></tr>
+<tr class="separator:a39edb9ac5555118a37675167b577b11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a373c7869e0aa251e05fb578a2aea95e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a841f9c67444cbd1589f1ea3066edfe38">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a373c7869e0aa251e05fb578a2aea95e9">operator[]</a> (int index)</td></tr>
+<tr class="memdesc:a373c7869e0aa251e05fb578a2aea95e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access list element.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a373c7869e0aa251e05fb578a2aea95e9">More...</a><br /></td></tr>
+<tr class="separator:a373c7869e0aa251e05fb578a2aea95e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82a715985b94853367abcfb164082ac4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ab46ef7e9748d1f33a0f8ff71d104e7e1">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a82a715985b94853367abcfb164082ac4">operator[]</a> (int index) const</td></tr>
+<tr class="memdesc:a82a715985b94853367abcfb164082ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access list element.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a82a715985b94853367abcfb164082ac4">More...</a><br /></td></tr>
+<tr class="separator:a82a715985b94853367abcfb164082ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2cfb27c6cb4ef1d70aa4e7139fa60ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ac2cfb27c6cb4ef1d70aa4e7139fa60ad">add</a> (<a class="el" href="classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588">included_tag</a> is_included)</td></tr>
+<tr class="memdesc:ac2cfb27c6cb4ef1d70aa4e7139fa60ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add an additional element to the end of the vector.  <a href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ac2cfb27c6cb4ef1d70aa4e7139fa60ad">More...</a><br /></td></tr>
+<tr class="separator:ac2cfb27c6cb4ef1d70aa4e7139fa60ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a6087bfa57412c9e8b80b6f380ebaaf7a"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a6087bfa57412c9e8b80b6f380ebaaf7a">cartesian_communicator</a></td></tr>
+<tr class="separator:a6087bfa57412c9e8b80b6f380ebaaf7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p >Represents the inclusion or exclusion along all along dimensions of a Cartesian process topology when creating an new communicator. </p>
+<div class="textblock"><p >Represents the inclusion or exclusion along all dimensions of a Cartesian process topology when creating an new communicator. </p>
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00076">76</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00106">106</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aa5d6e3657738900cb3b1ccbbf4c5abb9" name="aa5d6e3657738900cb3b1ccbbf4c5abb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5d6e3657738900cb3b1ccbbf4c5abb9">&#9670;&nbsp;</a></span>size_type</h2>
+<a id="a1aa72f4e0fcca8b7a149adeb640ead4e" name="a1aa72f4e0fcca8b7a149adeb640ead4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aa72f4e0fcca8b7a149adeb640ead4e">&#9670;&nbsp;</a></span>const_iterator</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#aa5d6e3657738900cb3b1ccbbf4c5abb9">mpl::cartesian_communicator::included_tags::size_type</a> =  typename base::size_type</td>
+          <td class="memname">using <a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a1aa72f4e0fcca8b7a149adeb640ead4e">mpl::cartesian_communicator::included_tags::const_iterator</a> =  typename base::const_iterator</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00081">81</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00115">115</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab46ef7e9748d1f33a0f8ff71d104e7e1" name="ab46ef7e9748d1f33a0f8ff71d104e7e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab46ef7e9748d1f33a0f8ff71d104e7e1">&#9670;&nbsp;</a></span>const_reference</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ab46ef7e9748d1f33a0f8ff71d104e7e1">mpl::cartesian_communicator::included_tags::const_reference</a> =  typename base::const_reference</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00113">113</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6d15151da59d0483bb7da33aba71dc60" name="a6d15151da59d0483bb7da33aba71dc60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d15151da59d0483bb7da33aba71dc60">&#9670;&nbsp;</a></span>iterator</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a6d15151da59d0483bb7da33aba71dc60">mpl::cartesian_communicator::included_tags::iterator</a> =  typename base::iterator</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00114">114</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a841f9c67444cbd1589f1ea3066edfe38" name="a841f9c67444cbd1589f1ea3066edfe38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a841f9c67444cbd1589f1ea3066edfe38">&#9670;&nbsp;</a></span>reference</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a841f9c67444cbd1589f1ea3066edfe38">mpl::cartesian_communicator::included_tags::reference</a> =  typename base::reference</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00112">112</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -153,7 +238,271 @@ Public Types</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00080">80</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00111">111</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae18657b9e6cee8ffa9549f3b4bc3e104" name="ae18657b9e6cee8ffa9549f3b4bc3e104"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae18657b9e6cee8ffa9549f3b4bc3e104">&#9670;&nbsp;</a></span>included_tags() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::cartesian_communicator::included_tags::included_tags </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates an empty inclusion tags list. </p>
+
+</div>
+</div>
+<a id="a7c5d657f45d984865283fdb5dfd4edbc" name="a7c5d657f45d984865283fdb5dfd4edbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c5d657f45d984865283fdb5dfd4edbc">&#9670;&nbsp;</a></span>included_tags() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::cartesian_communicator::included_tags::included_tags </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>dimension</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a non-empty inclusion tags list with default values excluded. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dimension</td><td>number of elements of the new list </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00122">122</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a949beacb76cdab143f823228f22cbf47" name="a949beacb76cdab143f823228f22cbf47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a949beacb76cdab143f823228f22cbf47">&#9670;&nbsp;</a></span>included_tags() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::cartesian_communicator::included_tags::included_tags </td>
+          <td>(</td>
+          <td class="paramtype">std::initializer_list&lt; <a class="el" href="classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588">included_tag</a> &gt;&#160;</td>
+          <td class="paramname"><em>init</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a non-empty inclusion tags list with values given by the list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">init</td><td>exclusion or inclusion tags </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00126">126</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac2cfb27c6cb4ef1d70aa4e7139fa60ad" name="ac2cfb27c6cb4ef1d70aa4e7139fa60ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2cfb27c6cb4ef1d70aa4e7139fa60ad">&#9670;&nbsp;</a></span>add()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void mpl::cartesian_communicator::included_tags::add </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588">included_tag</a>&#160;</td>
+          <td class="paramname"><em>is_included</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Add an additional element to the end of the vector. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">is_included</td><td>value of the new vector element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00148">148</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a373c7869e0aa251e05fb578a2aea95e9" name="a373c7869e0aa251e05fb578a2aea95e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a373c7869e0aa251e05fb578a2aea95e9">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#a841f9c67444cbd1589f1ea3066edfe38">reference</a> mpl::cartesian_communicator::included_tags::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access list element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>non-negative index to list element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00140">140</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a82a715985b94853367abcfb164082ac4" name="a82a715985b94853367abcfb164082ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82a715985b94853367abcfb164082ac4">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1cartesian__communicator_1_1included__tags.html#ab46ef7e9748d1f33a0f8ff71d104e7e1">const_reference</a> mpl::cartesian_communicator::included_tags::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Access list element. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>non-negative index to list element </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00144">144</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a39edb9ac5555118a37675167b577b11d" name="a39edb9ac5555118a37675167b577b11d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39edb9ac5555118a37675167b577b11d">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int mpl::cartesian_communicator::included_tags::size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the number of inclusion tags. </p>
+<dl class="section return"><dt>Returns</dt><dd>dimensionality, number of elements in the vector </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00136">136</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a6087bfa57412c9e8b80b6f380ebaaf7a" name="a6087bfa57412c9e8b80b6f380ebaaf7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6087bfa57412c9e8b80b6f380ebaaf7a">&#9670;&nbsp;</a></span>cartesian_communicator</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="cartesian__communicator_8hpp_source.html#l00150">150</a> of file <a class="el" href="cartesian__communicator_8hpp_source.html">cartesian_communicator.hpp</a>.</p>
 
 </div>
 </div>

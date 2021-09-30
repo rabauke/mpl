@@ -85,6 +85,29 @@ BOOST_AUTO_TEST_CASE(cartesian_communicator) {
 }
 
 
+BOOST_AUTO_TEST_CASE(cartesian_communicator_vector) {
+  mpl::cartesian_communicator::vector vector{1, 2, 3, 4, 5};
+  BOOST_TEST(vector.dimensions() == 5);
+  vector.add(6);
+  BOOST_TEST(vector.dimensions() == 6);
+  BOOST_TEST((std::accumulate(vector.begin(), vector.end(), 0) == 21));
+  BOOST_TEST((std::accumulate(vector.cbegin(), vector.cend(), 0) == 21));
+}
+
+
+BOOST_AUTO_TEST_CASE(cartesian_communicator_include_tags) {
+  const auto included = mpl::cartesian_communicator::included;
+  const auto excluded = mpl::cartesian_communicator::excluded;
+  mpl::cartesian_communicator::included_tags is_included{10};
+  BOOST_TEST(is_included.size() == 10);
+  is_included.add(included);
+  is_included.add(excluded);
+  BOOST_TEST(is_included.size() == 12);
+  BOOST_TEST(
+      (std::find(is_included.begin(), is_included.end(), included) != is_included.end()));
+}
+
+
 BOOST_AUTO_TEST_CASE(cartesian_communicator_dimensions) {
   mpl::cartesian_communicator::dimensions dimensions{mpl::cartesian_communicator::periodic,
                                                      mpl::cartesian_communicator::non_periodic,
@@ -100,4 +123,7 @@ BOOST_AUTO_TEST_CASE(cartesian_communicator_dimensions) {
   dimensions.add(11, mpl::cartesian_communicator::non_periodic);
   BOOST_TEST(dimensions.periodicity(3) == mpl::cartesian_communicator::non_periodic);
   BOOST_TEST(dimensions.size(3) == 11);
+  BOOST_TEST((std::find(dimensions.begin(), dimensions.end(),
+                        std::tuple{11, mpl::cartesian_communicator::non_periodic}) !=
+              dimensions.end()));
 }
