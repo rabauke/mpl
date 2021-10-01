@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1struct__builder.html" title="Template class used to manage information about structures/classes and their public members." alt="" coords="5,5,268,35"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,128,35"/>
+<area shape="rect" id="node2" href="$classmpl_1_1status__t.html" title="Class that represents the status of a received message." alt="" coords="176,5,328,35"/>
 </map>

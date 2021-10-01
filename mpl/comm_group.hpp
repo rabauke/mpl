@@ -611,7 +611,7 @@ namespace mpl {
 
     friend class graph_communicator;
 
-    friend class dist_graph_communicator;
+    friend class distributed_graph_communicator;
 
     friend class environment::detail::env;
 

@@ -54,7 +54,7 @@ namespace mpl {
 #include <mpl/topology_communicator.hpp>
 #include <mpl/cartesian_communicator.hpp>
 #include <mpl/graph_communicator.hpp>
-#include <mpl/dist_graph_comm.hpp>
+#include <mpl/distributed_graph_communicator.hpp>
 #include <mpl/distributed_grid.hpp>
 
 #endif

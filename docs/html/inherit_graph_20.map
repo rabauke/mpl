@@ -1,7 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="5,59,197,88"/>
-<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="245,50,457,97"/>
-<area shape="rect" id="node3" href="$classmpl_1_1cartesian__communicator.html" title="Communicator with Cartesian topology." alt="" coords="511,5,803,35"/>
-<area shape="rect" id="node4" href="$classmpl_1_1dist__graph__communicator.html" title=" " alt="" coords="505,59,808,88"/>
-<area shape="rect" id="node5" href="$classmpl_1_1graph__communicator.html" title="Communicator with general graph topology." alt="" coords="531,112,783,141"/>
+<area shape="rect" id="node1" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="5,68,197,97"/>
+<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="245,59,457,106"/>
+<area shape="rect" id="node3" href="$classmpl_1_1cartesian__communicator.html" title="Communicator with Cartesian topology." alt="" coords="505,5,797,35"/>
+<area shape="rect" id="node4" href="$classmpl_1_1distributed__graph__communicator.html" title="Communicator with general graph topology." alt="" coords="530,59,773,106"/>
+<area shape="rect" id="node5" href="$classmpl_1_1graph__communicator.html" title="Communicator with general graph topology." alt="" coords="525,131,777,160"/>
 </map>

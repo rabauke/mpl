@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Message Passing Library: mpl::dist_graph_communicator Class Reference</title>
+<title>Message Passing Library: mpl::distributed_graph_communicator Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,7 +64,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('classmpl_1_1dist__graph__communicator.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classmpl_1_1distributed__graph__communicator.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -88,28 +88,31 @@ $(document).ready(function(){initNavTree('classmpl_1_1dist__graph__communicator.
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="classmpl_1_1dist__graph__communicator-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">mpl::dist_graph_communicator Class Reference</div></div>
+<a href="classmpl_1_1distributed__graph__communicator-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">mpl::distributed_graph_communicator Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>&gt;</code></p>
+<p>Communicator with general graph topology.  
+ <a href="classmpl_1_1distributed__graph__communicator.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for mpl::dist_graph_communicator:</div>
+Inheritance diagram for mpl::distributed_graph_communicator:</div>
 <div class="dyncontent">
-<div class="center"><img src="classmpl_1_1dist__graph__communicator__inherit__graph.png" border="0" usemap="#ampl_1_1dist__graph__communicator_inherit__map" alt="Inheritance graph"/></div>
-<map name="ampl_1_1dist__graph__communicator_inherit__map" id="ampl_1_1dist__graph__communicator_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,965,308,1189"/>
-<area shape="rect" href="classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="25,537,288,917"/>
-<area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="41,5,273,489"/>
+<div class="center"><img src="classmpl_1_1distributed__graph__communicator__inherit__graph.png" border="0" usemap="#ampl_1_1distributed__graph__communicator_inherit__map" alt="Inheritance graph"/></div>
+<map name="ampl_1_1distributed__graph__communicator_inherit__map" id="ampl_1_1distributed__graph__communicator_inherit__map">
+<area shape="rect" title="Communicator with general graph topology." alt="" coords="5,965,368,1241"/>
+<area shape="rect" href="classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="55,537,318,917"/>
+<area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="71,5,303,489"/>
 </map>
 </div>
 <div class="dynheader">
-Collaboration diagram for mpl::dist_graph_communicator:</div>
+Collaboration diagram for mpl::distributed_graph_communicator:</div>
 <div class="dyncontent">
-<div class="center"><img src="classmpl_1_1dist__graph__communicator__coll__graph.png" border="0" usemap="#ampl_1_1dist__graph__communicator_coll__map" alt="Collaboration graph"/></div>
-<map name="ampl_1_1dist__graph__communicator_coll__map" id="ampl_1_1dist__graph__communicator_coll__map">
-<area shape="rect" title=" " alt="" coords="321,1067,624,1291"/>
+<div class="center"><img src="classmpl_1_1distributed__graph__communicator__coll__graph.png" border="0" usemap="#ampl_1_1distributed__graph__communicator_coll__map" alt="Collaboration graph"/></div>
+<map name="ampl_1_1distributed__graph__communicator_coll__map" id="ampl_1_1distributed__graph__communicator_coll__map">
+<area shape="rect" title="Communicator with general graph topology." alt="" coords="291,1067,654,1343"/>
 <area shape="rect" href="classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="341,637,604,1017"/>
 <area shape="rect" href="classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="377,173,569,588"/>
 <area shape="rect" href="classmpl_1_1communicator_1_1comm__collective__tag.html" title="Indicates the creation of a new communicator by a call that in collective for all processes in the gi..." alt="" coords="5,5,217,108"/>
@@ -121,9 +124,11 @@ Collaboration diagram for mpl::dist_graph_communicator:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of edges, pairs of nodes represented by non-negative integers.  <a href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator_1_1rank__weight__pair.html">rank_weight_pair</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pair of rank and weight.  <a href="classmpl_1_1distributed__graph__communicator_1_1rank__weight__pair.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
@@ -138,24 +143,39 @@ Public Types</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af4517aeeb443b528df30e7f65412d64e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#af4517aeeb443b528df30e7f65412d64e">dist_graph_communicator</a> ()=default</td></tr>
-<tr class="separator:af4517aeeb443b528df30e7f65412d64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a384852618a7190b1736533240046df98"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a384852618a7190b1736533240046df98">dist_graph_communicator</a> (const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;old_comm, const <a class="el" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a> &amp;ss, const <a class="el" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a> &amp;ds, bool reorder=true)</td></tr>
-<tr class="separator:a384852618a7190b1736533240046df98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92d610c854dcf7056794b1d58f9ea6f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a92d610c854dcf7056794b1d58f9ea6f4">dist_graph_communicator</a> (<a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="separator:a92d610c854dcf7056794b1d58f9ea6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a913061716465608b67ec2648d22340"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a6a913061716465608b67ec2648d22340">operator=</a> (const <a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;)=delete</td></tr>
-<tr class="separator:a6a913061716465608b67ec2648d22340"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0c402e8acd03d42c855fbf0b4e40261"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#ac0c402e8acd03d42c855fbf0b4e40261">operator=</a> (<a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;&amp;other) noexcept</td></tr>
-<tr class="separator:ac0c402e8acd03d42c855fbf0b4e40261"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d75868ed36f9dcd194e57bec87e60f0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a5d75868ed36f9dcd194e57bec87e60f0">indegree</a> () const</td></tr>
-<tr class="separator:a5d75868ed36f9dcd194e57bec87e60f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85c549d095d935de374341bf63cd739c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a85c549d095d935de374341bf63cd739c">outdegree</a> () const</td></tr>
-<tr class="separator:a85c549d095d935de374341bf63cd739c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c679aa19524bbb205c8f3eb83118a21"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a5c679aa19524bbb205c8f3eb83118a21">inneighbors</a> () const</td></tr>
-<tr class="separator:a5c679aa19524bbb205c8f3eb83118a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a960359d044987b63600292aff3ddb597"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1dist__graph__communicator.html#a960359d044987b63600292aff3ddb597">outneighbors</a> () const</td></tr>
-<tr class="separator:a960359d044987b63600292aff3ddb597"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2431581c87c06df890a849c6b91972b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#a2431581c87c06df890a849c6b91972b9">distributed_graph_communicator</a> ()=default</td></tr>
+<tr class="memdesc:a2431581c87c06df890a849c6b91972b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty communicator with no associated process.  <a href="classmpl_1_1distributed__graph__communicator.html#a2431581c87c06df890a849c6b91972b9">More...</a><br /></td></tr>
+<tr class="separator:a2431581c87c06df890a849c6b91972b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3365eb0152e5a5c34327478974193d24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#a3365eb0152e5a5c34327478974193d24">distributed_graph_communicator</a> (const <a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;other)</td></tr>
+<tr class="memdesc:a3365eb0152e5a5c34327478974193d24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new communicator which is equivalent to an existing one.  <a href="classmpl_1_1distributed__graph__communicator.html#a3365eb0152e5a5c34327478974193d24">More...</a><br /></td></tr>
+<tr class="separator:a3365eb0152e5a5c34327478974193d24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef63ca9340ce71f4903e2ce890fdcc0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#a4ef63ca9340ce71f4903e2ce890fdcc0">distributed_graph_communicator</a> (<a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:a4ef63ca9340ce71f4903e2ce890fdcc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-constructs a communicator.  <a href="classmpl_1_1distributed__graph__communicator.html#a4ef63ca9340ce71f4903e2ce890fdcc0">More...</a><br /></td></tr>
+<tr class="separator:a4ef63ca9340ce71f4903e2ce890fdcc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a382f89a6edce34c57070c8be15b33205"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#a382f89a6edce34c57070c8be15b33205">distributed_graph_communicator</a> (const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;other, const <a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a> &amp;sources, const <a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a> &amp;destinations, bool reorder=true)</td></tr>
+<tr class="memdesc:a382f89a6edce34c57070c8be15b33205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new communicator with graph process topology.  <a href="classmpl_1_1distributed__graph__communicator.html#a382f89a6edce34c57070c8be15b33205">More...</a><br /></td></tr>
+<tr class="separator:a382f89a6edce34c57070c8be15b33205"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4313c9f339d60a7c2fa1148a97626c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#ae4313c9f339d60a7c2fa1148a97626c9">operator=</a> (const <a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;other) noexcept</td></tr>
+<tr class="memdesc:ae4313c9f339d60a7c2fa1148a97626c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy-assigns and creates a new communicator with graph process topology which is equivalent to an existing one.  <a href="classmpl_1_1distributed__graph__communicator.html#ae4313c9f339d60a7c2fa1148a97626c9">More...</a><br /></td></tr>
+<tr class="separator:ae4313c9f339d60a7c2fa1148a97626c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe84efb5ffee5860ab38c3a4d87ec65a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#afe84efb5ffee5860ab38c3a4d87ec65a">operator=</a> (<a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&amp;other) noexcept</td></tr>
+<tr class="memdesc:afe84efb5ffee5860ab38c3a4d87ec65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move-assigns a communicator.  <a href="classmpl_1_1distributed__graph__communicator.html#afe84efb5ffee5860ab38c3a4d87ec65a">More...</a><br /></td></tr>
+<tr class="separator:afe84efb5ffee5860ab38c3a4d87ec65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8b0b4aa6e6c4e23ebd807ef809dad6b"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; int, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#ac8b0b4aa6e6c4e23ebd807ef809dad6b">in_out_degree</a> () const</td></tr>
+<tr class="memdesc:ac8b0b4aa6e6c4e23ebd807ef809dad6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the number of edges into and out of this process.  <a href="classmpl_1_1distributed__graph__communicator.html#ac8b0b4aa6e6c4e23ebd807ef809dad6b">More...</a><br /></td></tr>
+<tr class="separator:ac8b0b4aa6e6c4e23ebd807ef809dad6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa018e93fa8e391b0f7ac34ad707a64fe"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#aa018e93fa8e391b0f7ac34ad707a64fe">in_degree</a> () const</td></tr>
+<tr class="memdesc:aa018e93fa8e391b0f7ac34ad707a64fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the number of edges into this process.  <a href="classmpl_1_1distributed__graph__communicator.html#aa018e93fa8e391b0f7ac34ad707a64fe">More...</a><br /></td></tr>
+<tr class="separator:aa018e93fa8e391b0f7ac34ad707a64fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a8f9ed0c2035ded24a38989d75a5494"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#a5a8f9ed0c2035ded24a38989d75a5494">out_degree</a> () const</td></tr>
+<tr class="memdesc:a5a8f9ed0c2035ded24a38989d75a5494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the number of edges out of this process.  <a href="classmpl_1_1distributed__graph__communicator.html#a5a8f9ed0c2035ded24a38989d75a5494">More...</a><br /></td></tr>
+<tr class="separator:a5a8f9ed0c2035ded24a38989d75a5494"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa3fdbce27f981366ddd913b496c7023"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#afa3fdbce27f981366ddd913b496c7023">in_neighbors</a> () const</td></tr>
+<tr class="memdesc:afa3fdbce27f981366ddd913b496c7023"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the ranks of the processes for which the calling process is a destination.  <a href="classmpl_1_1distributed__graph__communicator.html#afa3fdbce27f981366ddd913b496c7023">More...</a><br /></td></tr>
+<tr class="separator:afa3fdbce27f981366ddd913b496c7023"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a19494efdc8558802169947a8adeed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1distributed__graph__communicator.html#a27a19494efdc8558802169947a8adeed">out_neighbors</a> () const</td></tr>
+<tr class="memdesc:a27a19494efdc8558802169947a8adeed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the ranks of the processes for which the calling process is a source.  <a href="classmpl_1_1distributed__graph__communicator.html#a27a19494efdc8558802169947a8adeed">More...</a><br /></td></tr>
+<tr class="separator:a27a19494efdc8558802169947a8adeed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43c7b3d19a5af4ba0f30e40045a2e459"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a43c7b3d19a5af4ba0f30e40045a2e459"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1topology__communicator.html#a43c7b3d19a5af4ba0f30e40045a2e459">neighbor_allgather</a> (const T &amp;senddata, T *recvdata) const</td></tr>
 <tr class="memdesc:a43c7b3d19a5af4ba0f30e40045a2e459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gather messages from all neighboring processes.  <a href="classmpl_1_1impl_1_1topology__communicator.html#a43c7b3d19a5af4ba0f30e40045a2e459">More...</a><br /></td></tr>
@@ -910,8 +930,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:ad2c339d4e6a55d6f5d1c9c030a5175a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00016">16</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<div class="textblock"><p >Communicator with general graph topology. </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00017">17</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a id="af66054a704ac25557aa25b356e8abd63" name="af66054a704ac25557aa25b356e8abd63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af66054a704ac25557aa25b356e8abd63">&#9670;&nbsp;</a></span>equality_type</h2>
@@ -950,8 +971,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af4517aeeb443b528df30e7f65412d64e" name="af4517aeeb443b528df30e7f65412d64e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af4517aeeb443b528df30e7f65412d64e">&#9670;&nbsp;</a></span>dist_graph_communicator() <span class="overload">[1/3]</span></h2>
+<a id="a2431581c87c06df890a849c6b91972b9" name="a2431581c87c06df890a849c6b91972b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2431581c87c06df890a849c6b91972b9">&#9670;&nbsp;</a></span>distributed_graph_communicator() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -960,7 +981,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">mpl::dist_graph_communicator::dist_graph_communicator </td>
+          <td class="memname">mpl::distributed_graph_communicator::distributed_graph_communicator </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -973,10 +994,12 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Creates an empty communicator with no associated process. </p>
+
 </div>
 </div>
-<a id="a384852618a7190b1736533240046df98" name="a384852618a7190b1736533240046df98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a384852618a7190b1736533240046df98">&#9670;&nbsp;</a></span>dist_graph_communicator() <span class="overload">[2/3]</span></h2>
+<a id="a3365eb0152e5a5c34327478974193d24" name="a3365eb0152e5a5c34327478974193d24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3365eb0152e5a5c34327478974193d24">&#9670;&nbsp;</a></span>distributed_graph_communicator() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -985,22 +1008,95 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">mpl::dist_graph_communicator::dist_graph_communicator </td>
+          <td class="memname">mpl::distributed_graph_communicator::distributed_graph_communicator </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new communicator which is equivalent to an existing one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other communicator to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other. Communicators should not be copied unless a new independent communicator is wanted. Communicators should be passed via references to functions to avoid unnecessary copying. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00085">85</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4ef63ca9340ce71f4903e2ce890fdcc0" name="a4ef63ca9340ce71f4903e2ce890fdcc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ef63ca9340ce71f4903e2ce890fdcc0">&#9670;&nbsp;</a></span>distributed_graph_communicator() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::distributed_graph_communicator::distributed_graph_communicator </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Move-constructs a communicator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other communicator to move from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00091">91</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a382f89a6edce34c57070c8be15b33205" name="a382f89a6edce34c57070c8be15b33205"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a382f89a6edce34c57070c8be15b33205">&#9670;&nbsp;</a></span>distributed_graph_communicator() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::distributed_graph_communicator::distributed_graph_communicator </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classmpl_1_1communicator.html">communicator</a> &amp;&#160;</td>
-          <td class="paramname"><em>old_comm</em>, </td>
+          <td class="paramname"><em>other</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a> &amp;&#160;</td>
-          <td class="paramname"><em>ss</em>, </td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a> &amp;&#160;</td>
+          <td class="paramname"><em>sources</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a> &amp;&#160;</td>
-          <td class="paramname"><em>ds</em>, </td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a> &amp;&#160;</td>
+          <td class="paramname"><em>destinations</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1021,35 +1117,19 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00052">52</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<p>Creates a new communicator with graph process topology. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>communicator containing the processes to use in the creation of the new communicator </td></tr>
+    <tr><td class="paramname">sources</td><td>ranks and associated weights of processes for which the calling process is a destination </td></tr>
+    <tr><td class="paramname">destinations</td><td>ranks and associated weights of processes for which the calling process is a source </td></tr>
+    <tr><td class="paramname">reorder</td><td>indicates if reordering is permitted, if false each process will have the same rank in the new communicator as in the old one </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator. The rank of the calling process and source ranks define a set of source-edges, and the rank of the calling process and destination ranks define a set of destination-edges. The combination of all source-edges must equal the combination of all destination-edges in this collective operation. Edge weights given in the sources and destinations arguments may affect the rank ordering but the specific meaning is determined by the underling MPI implementation. </dd></dl>
 
-</div>
-</div>
-<a id="a92d610c854dcf7056794b1d58f9ea6f4" name="a92d610c854dcf7056794b1d58f9ea6f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92d610c854dcf7056794b1d58f9ea6f4">&#9670;&nbsp;</a></span>dist_graph_communicator() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">mpl::dist_graph_communicator::dist_graph_communicator </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>other</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00070">70</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00112">112</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -5935,8 +6015,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a5d75868ed36f9dcd194e57bec87e60f0" name="a5d75868ed36f9dcd194e57bec87e60f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d75868ed36f9dcd194e57bec87e60f0">&#9670;&nbsp;</a></span>indegree()</h2>
+<a id="aa018e93fa8e391b0f7ac34ad707a64fe" name="aa018e93fa8e391b0f7ac34ad707a64fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa018e93fa8e391b0f7ac34ad707a64fe">&#9670;&nbsp;</a></span>in_degree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5945,7 +6025,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int mpl::dist_graph_communicator::indegree </td>
+          <td class="memname">int mpl::distributed_graph_communicator::in_degree </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -5958,7 +6038,70 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00090">90</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<p>Determines the number of edges into this process. </p>
+<dl class="section return"><dt>Returns</dt><dd>in-degree </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00189">189</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afa3fdbce27f981366ddd913b496c7023" name="afa3fdbce27f981366ddd913b496c7023"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa3fdbce27f981366ddd913b496c7023">&#9670;&nbsp;</a></span>in_neighbors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a> mpl::distributed_graph_communicator::in_neighbors </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the ranks of the processes for which the calling process is a destination. </p>
+<dl class="section return"><dt>Returns</dt><dd>in-neighbours with associated weights </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00198">198</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac8b0b4aa6e6c4e23ebd807ef809dad6b" name="ac8b0b4aa6e6c4e23ebd807ef809dad6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8b0b4aa6e6c4e23ebd807ef809dad6b">&#9670;&nbsp;</a></span>in_out_degree()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::tuple&lt; int, int &gt; mpl::distributed_graph_communicator::in_out_degree </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Determines the number of edges into and out of this process. </p>
+<dl class="section return"><dt>Returns</dt><dd>in- and out-degree </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00181">181</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -6520,33 +6663,6 @@ template&lt;typename T &gt; </div>
 <p>Each process in the communicator sends elements of type T to each neighbour and receives elements of type T from each neighbour. Send- and receive-data are stored in consecutive blocks of variable size in the buffers senddata and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array senddata starts at the address given in senddata. The i-th memory block is sent to the i-th neighbour. The i-th memory block with the layout recvls[i] in the array recvdata starts at the address given in recvdata. Note that the memory layouts need to include appropriate holes at the beginning in order to avoid overlapping send- or receive blocks. When the function has finished, the i-th memory block in the array recvdata was received from the i-th neighbour. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="topology__communicator_8hpp_source.html#l00412">412</a> of file <a class="el" href="topology__communicator_8hpp_source.html">topology_communicator.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c679aa19524bbb205c8f3eb83118a21" name="a5c679aa19524bbb205c8f3eb83118a21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c679aa19524bbb205c8f3eb83118a21">&#9670;&nbsp;</a></span>inneighbors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1dist__graph__communicator_1_1source__set.html">source_set</a> mpl::dist_graph_communicator::inneighbors </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00102">102</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
 
 </div>
 </div>
@@ -9633,8 +9749,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a6a913061716465608b67ec2648d22340" name="a6a913061716465608b67ec2648d22340"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a913061716465608b67ec2648d22340">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="ae4313c9f339d60a7c2fa1148a97626c9" name="ae4313c9f339d60a7c2fa1148a97626c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4313c9f339d60a7c2fa1148a97626c9">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9643,35 +9759,9 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void mpl::dist_graph_communicator::operator= </td>
+          <td class="memname"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp; mpl::distributed_graph_communicator::operator= </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac0c402e8acd03d42c855fbf0b4e40261" name="ac0c402e8acd03d42c855fbf0b4e40261"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0c402e8acd03d42c855fbf0b4e40261">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp; mpl::dist_graph_communicator::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a> &amp;&amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&#160;</td>
           <td class="paramname"><em>other</em></td><td>)</td>
           <td></td>
         </tr>
@@ -9683,7 +9773,53 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00077">77</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<p>Copy-assigns and creates a new communicator with graph process topology which is equivalent to an existing one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other communicator to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other. Communicators should not be copied unless a new independent communicator is wanted. Communicators should be passed via references to functions to avoid unnecessary copying. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00145">145</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afe84efb5ffee5860ab38c3a4d87ec65a" name="afe84efb5ffee5860ab38c3a4d87ec65a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe84efb5ffee5860ab38c3a4d87ec65a">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp; mpl::distributed_graph_communicator::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>other</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Move-assigns a communicator. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>the other communicator to move from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>This is a collective operation that needs to be carried out by all processes of the communicator other. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00165">165</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -9718,8 +9854,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a85c549d095d935de374341bf63cd739c" name="a85c549d095d935de374341bf63cd739c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85c549d095d935de374341bf63cd739c">&#9670;&nbsp;</a></span>outdegree()</h2>
+<a id="a5a8f9ed0c2035ded24a38989d75a5494" name="a5a8f9ed0c2035ded24a38989d75a5494"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a8f9ed0c2035ded24a38989d75a5494">&#9670;&nbsp;</a></span>out_degree()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9728,7 +9864,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int mpl::dist_graph_communicator::outdegree </td>
+          <td class="memname">int mpl::distributed_graph_communicator::out_degree </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -9741,12 +9877,15 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00096">96</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<p>Determines the number of edges out of this process. </p>
+<dl class="section return"><dt>Returns</dt><dd>out-degree </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00193">193</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a960359d044987b63600292aff3ddb597" name="a960359d044987b63600292aff3ddb597"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a960359d044987b63600292aff3ddb597">&#9670;&nbsp;</a></span>outneighbors()</h2>
+<a id="a27a19494efdc8558802169947a8adeed" name="a27a19494efdc8558802169947a8adeed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27a19494efdc8558802169947a8adeed">&#9670;&nbsp;</a></span>out_neighbors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9755,7 +9894,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1dist__graph__communicator_1_1dest__set.html">dest_set</a> mpl::dist_graph_communicator::outneighbors </td>
+          <td class="memname"><a class="el" href="classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html">neighbours_set</a> mpl::distributed_graph_communicator::out_neighbors </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -9768,7 +9907,10 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="dist__graph__comm_8hpp_source.html#l00115">115</a> of file <a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a>.</p>
+<p>Determines the ranks of the processes for which the calling process is a source. </p>
+<dl class="section return"><dt>Returns</dt><dd>out-neighbours with associated weights </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__graph__communicator_8hpp_source.html#l00213">213</a> of file <a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a>.</p>
 
 </div>
 </div>
@@ -13611,14 +13753,14 @@ template&lt;typename iterT &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="dist__graph__comm_8hpp_source.html">dist_graph_comm.hpp</a></li>
+<li><a class="el" href="distributed__graph__communicator_8hpp_source.html">distributed_graph_communicator.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacempl.html">mpl</a></li><li class="navelem"><a class="el" href="classmpl_1_1dist__graph__communicator.html">dist_graph_communicator</a></li>
+    <li class="navelem"><a class="el" href="namespacempl.html">mpl</a></li><li class="navelem"><a class="el" href="classmpl_1_1distributed__graph__communicator.html">distributed_graph_communicator</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>

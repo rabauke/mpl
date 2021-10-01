@@ -21,7 +21,7 @@ var annotated_dup =
       [ "contiguous_layout", "classmpl_1_1contiguous__layout.html", "classmpl_1_1contiguous__layout" ],
       [ "contiguous_layouts", "classmpl_1_1contiguous__layouts.html", "classmpl_1_1contiguous__layouts" ],
       [ "displacements", "classmpl_1_1displacements.html", "classmpl_1_1displacements" ],
-      [ "dist_graph_communicator", "classmpl_1_1dist__graph__communicator.html", "classmpl_1_1dist__graph__communicator" ],
+      [ "distributed_graph_communicator", "classmpl_1_1distributed__graph__communicator.html", "classmpl_1_1distributed__graph__communicator" ],
       [ "distributed_grid", "classmpl_1_1distributed__grid.html", "classmpl_1_1distributed__grid" ],
       [ "empty_layout", "classmpl_1_1empty__layout.html", "classmpl_1_1empty__layout" ],
       [ "error", "classmpl_1_1error.html", "classmpl_1_1error" ],

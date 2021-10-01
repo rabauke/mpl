@@ -59,19 +59,19 @@ var NAVTREEINDEX =
 "annotated.html",
 "classmpl_1_1cartesian__communicator.html#a72d2639f200e5a36f1f81df5c499f06f",
 "classmpl_1_1cartesian__communicator_1_1dimensions.html#aa77b8602f4cfcf88b8ac53ecf548e2ed",
-"classmpl_1_1communicator.html#a55feab940e9c72241215918199931936",
+"classmpl_1_1communicator.html#a54fb76beae39c558bf5b13cfdcf4fe84",
 "classmpl_1_1communicator.html#af786635362fca5a0f915771332383589",
-"classmpl_1_1dist__graph__communicator.html#a5df6a6f331aa4c60b7b5664c5260c0ec",
-"classmpl_1_1dist__graph__communicator_1_1source__set.html",
-"classmpl_1_1graph__communicator.html#a4a29592502142845c3bb0031221189a3",
-"classmpl_1_1graph__communicator.html#aed2415ddb3e27cce97fd5317f781a86c",
-"classmpl_1_1hindexed__block__layout.html#aeb1c8663c6f16128cf8055d08761a5b9",
-"classmpl_1_1impl_1_1topology__communicator.html#a3f51295cbdebc4da6dd7ceebef8c0416",
-"classmpl_1_1impl_1_1topology__communicator.html#ae35acd56966f491923a80abbc13fe74a",
-"classmpl_1_1irequest__pool.html#a4191612db45d53cab3a294f3ac2f9018",
-"classmpl_1_1null__layout.html#aa902f79f8f54981548bfd7d74c11ec44",
-"classmpl_1_1subarray__layout_1_1parameter.html#a0db1e2fb063f6a67012b961fcd199170",
-"structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html"
+"classmpl_1_1distributed__graph__communicator.html#a5caeabedfdd6d607e4e1e8d3fc3b5a9c",
+"classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html#a16981b82ed0e23bc5ee44294fec1b4af",
+"classmpl_1_1graph__communicator.html#a3f51295cbdebc4da6dd7ceebef8c0416",
+"classmpl_1_1graph__communicator.html#adfdce2d6ddb8ad17d0fc979cfc029597",
+"classmpl_1_1hindexed__block__layout.html#a808408eaf18cfd04f8fc0e43ad8abece",
+"classmpl_1_1impl_1_1topology__communicator.html#a298c5f2895a40bb82ab5ecf2f9f66627",
+"classmpl_1_1impl_1_1topology__communicator.html#adb4b189592ceb6f3a16c53d48e3071b8",
+"classmpl_1_1irequest.html#afc1a5562cbe2971ed389b6733dfd551e",
+"classmpl_1_1null__layout.html#a245932be5b4d58bb00a05b29208ab7c4",
+"classmpl_1_1subarray__layout.html#a9aea61b5ce92681aee5df4a61672c02b",
+"structmpl_1_1multiplies.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

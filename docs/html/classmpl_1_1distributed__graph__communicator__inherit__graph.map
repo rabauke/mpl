@@ -1,0 +1,5 @@
+<map id="mpl::distributed_graph_communicator" name="mpl::distributed_graph_communicator">
+<area shape="rect" id="node1" title="Communicator with general graph topology." alt="" coords="5,965,368,1241"/>
+<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="55,537,318,917"/>
+<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="71,5,303,489"/>
+</map>

@@ -33,7 +33,7 @@ var hierarchy =
     [ "mpl::communicator", "classmpl_1_1communicator.html", [
       [ "mpl::impl::topology_communicator", "classmpl_1_1impl_1_1topology__communicator.html", [
         [ "mpl::cartesian_communicator", "classmpl_1_1cartesian__communicator.html", null ],
-        [ "mpl::dist_graph_communicator", "classmpl_1_1dist__graph__communicator.html", null ],
+        [ "mpl::distributed_graph_communicator", "classmpl_1_1distributed__graph__communicator.html", null ],
         [ "mpl::graph_communicator", "classmpl_1_1graph__communicator.html", null ]
       ] ]
     ] ],
@@ -111,6 +111,7 @@ var hierarchy =
     [ "mpl::subarray_layout< T >::parameter", "classmpl_1_1subarray__layout_1_1parameter.html", null ],
     [ "mpl::plus< T >", "structmpl_1_1plus.html", null ],
     [ "mpl::impl::prequest", "classmpl_1_1impl_1_1prequest.html", null ],
+    [ "mpl::distributed_graph_communicator::rank_weight_pair", "classmpl_1_1distributed__graph__communicator_1_1rank__weight__pair.html", null ],
     [ "mpl::impl::request< T >", "classmpl_1_1impl_1_1request.html", null ],
     [ "mpl::impl::request< impl::irequest >", "classmpl_1_1impl_1_1request.html", [
       [ "mpl::irequest", "classmpl_1_1irequest.html", null ]
@@ -126,8 +127,7 @@ var hierarchy =
       [ "mpl::prequest_pool", "classmpl_1_1prequest__pool.html", null ]
     ] ],
     [ "std::set", null, [
-      [ "mpl::dist_graph_communicator::dest_set", "classmpl_1_1dist__graph__communicator_1_1dest__set.html", null ],
-      [ "mpl::dist_graph_communicator::source_set", "classmpl_1_1dist__graph__communicator_1_1source__set.html", null ],
+      [ "mpl::distributed_graph_communicator::neighbours_set", "classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html", null ],
       [ "mpl::graph_communicator::edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", null ]
     ] ],
     [ "mpl::shift_ranks", "structmpl_1_1shift__ranks.html", null ],

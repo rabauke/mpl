@@ -3,35 +3,37 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 bool dist_graph_communicator_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  int size = comm_world.size();
-  int rank = comm_world.rank();
-  mpl::dist_graph_communicator::source_set ss;
-  mpl::dist_graph_communicator::dest_set ds;
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  const int size{comm_world.size()};
+  const int rank{comm_world.rank()};
+  mpl::distributed_graph_communicator::neighbours_set sources;
+  mpl::distributed_graph_communicator::neighbours_set destination;
   if (rank == 0) {
-    for (int i = 1; i < size; ++i) {
-      ss.insert({i, 0});
-      ds.insert({i, 0});
+    for (int i{1}; i < size; ++i) {
+      sources.add(i);
+      destination.add({i, 0});
     }
   } else {
-    ss.insert({0, 0});
-    ds.insert({0, 0});
+    sources.add(0);
+    destination.add({0, 0});
   }
-  mpl::dist_graph_communicator comm_g(comm_world, ss, ds);
+  mpl::distributed_graph_communicator comm_g(comm_world, sources, destination);
   if (rank == 0) {
-    if (comm_g.indegree() != comm_g.size() - 1)
+    if (comm_g.in_degree() != comm_g.size() - 1)
       return false;
-    if (comm_g.outdegree() != comm_g.size() - 1)
+    if (comm_g.out_degree() != comm_g.size() - 1)
       return false;
   } else {
-    if (comm_g.indegree() != 1)
+    if (comm_g.in_degree() != 1)
       return false;
-    if (comm_g.outdegree() != 1)
+    if (comm_g.out_degree() != 1)
       return false;
   }
   return true;
 }
+
 
 BOOST_AUTO_TEST_CASE(dist_graph_communicator) {
   BOOST_TEST(dist_graph_communicator_test());

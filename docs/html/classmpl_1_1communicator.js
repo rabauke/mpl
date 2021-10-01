@@ -191,7 +191,7 @@ var classmpl_1_1communicator =
     [ "ssend_init", "classmpl_1_1communicator.html#a17526ad519286bf2fa81a3701c0afe03", null ],
     [ "ssend_init", "classmpl_1_1communicator.html#a3f433b69dace132e01bea64624fff4b3", null ],
     [ "cartesian_communicator", "classmpl_1_1communicator.html#a6087bfa57412c9e8b80b6f380ebaaf7a", null ],
-    [ "dist_graph_communicator", "classmpl_1_1communicator.html#ae999dbc8b2f970040afb57ca86175d4b", null ],
+    [ "distributed_graph_communicator", "classmpl_1_1communicator.html#a38537ffedd59ba7ac4018e44dd2c06c6", null ],
     [ "environment::detail::env", "classmpl_1_1communicator.html#a7c53dda9ff4a482df724cab0edf000b3", null ],
     [ "graph_communicator", "classmpl_1_1communicator.html#a864a79402650e1b3c453bf86a588dd1d", null ],
     [ "group", "classmpl_1_1communicator.html#a670720b16047bf7556aea242ff96a7fb", null ]
