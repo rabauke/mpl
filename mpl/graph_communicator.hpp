@@ -4,7 +4,7 @@
 
 #include <mpi.h>
 #include <vector>
-#include <utility>
+#include <tuple>
 #include <set>
 #include <algorithm>
 #include <numeric>
@@ -15,8 +15,8 @@ namespace mpl {
   class graph_communicator : public impl::topology_communicator {
   public:
     /// \brief Set of edges, pairs of nodes represented by non-negative integers.
-    class edge_set : private std::set<std::pair<int, int>> {
-      using base = std::set<std::pair<int, int>>;
+    class edge_set : private std::set<std::tuple<int, int>> {
+      using base = std::set<std::tuple<int, int>>;
 
     public:
       using value_type = typename base::value_type;
@@ -131,24 +131,24 @@ namespace mpl {
       int nodes{0};
       for (const auto &e : edges) {
 #if defined MPL_DEBUG
-        if (e.first < 0 or e.second < 0)
+        if (std::get<0>(e) < 0 or std::get<1>(e) < 0)
           throw invalid_argument();
 #endif
-        nodes = std::max({nodes, e.first + 1, e.second + 1});
+        nodes = std::max({nodes, std::get<0>(e) + 1, std::get<1>(e) + 1});
       }
       std::vector<int> edges_list, index(nodes, 0);
       edges_list.reserve(edges.size());
       // the following works because the edge set is ordered with respect to the pairs of
       // edge-node numbers
       for (const auto &e : edges) {
-        edges_list.push_back(e.second);
-        ++index[e.first];
+        edges_list.push_back(std::get<1>(e));
+        ++index[std::get<0>(e)];
       }
       std::partial_sum(index.begin(), index.end(), index.begin());
       MPI_Graph_create(other.comm_, nodes, index.data(), edges_list.data(), reorder, &comm_);
     }
 
-    /// \brief Copy-assigns and creates a new communicator with Cartesian process topology which
+    /// \brief Copy-assigns and creates a new communicator with graph process topology which
     /// is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
@@ -191,7 +191,7 @@ namespace mpl {
     /// \brief Determines the number of neighbours of some process.
     /// \param rank process rank
     /// \return number of direct neighbours of the process with the given rank
-    [[nodiscard]] int neighbors_count(int rank) const {
+    [[nodiscard]] int degree(int rank) const {
       int n_neighbors;
       MPI_Graph_neighbors_count(this->comm_, rank, &n_neighbors);
       return n_neighbors;
@@ -199,13 +199,13 @@ namespace mpl {
 
     /// \brief Determines the number of neighbours of the calling process.
     /// \return number of direct neighbours of the calling process
-    [[nodiscard]] int neighbors_count() const { return neighbors_count(rank()); };
+    [[nodiscard]] int degree() const { return degree(rank()); };
 
     /// \brief Determines the neighbours of some process.
     /// \param rank process rank
     /// \return direct neighbours of the process with the given rank
     [[nodiscard]] node_list neighbors(int rank) const {
-      const int max_neighbors{neighbors_count(rank)};
+      const int max_neighbors{degree(rank)};
       node_list nl(max_neighbors);
       MPI_Graph_neighbors(comm_, rank, max_neighbors, nl.data());
       return nl;

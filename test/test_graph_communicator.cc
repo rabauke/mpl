@@ -12,7 +12,7 @@ bool graph_communicator_test() {
     es.add({i, 0});
   }
   mpl::graph_communicator comm_g(comm_world, es);
-  if (comm_g.neighbors_count(0) != comm_g.size() - 1)
+  if (comm_g.degree(0) != comm_g.size() - 1)
     return false;
   const auto nl_0{comm_g.neighbors(0)};
   if (nl_0.size() != comm_g.size() - 1)
@@ -34,13 +34,13 @@ bool graph_communicator_test_2() {
       return true;
     mpl::graph_communicator::edge_set es{{0, 1}, {0, 3}, {1, 0}, {2, 3}, {3, 0}, {3, 2}};
     mpl::graph_communicator comm_g(communicator_4, es);
-    if (comm_g.neighbors_count(0) != 2)
+    if (comm_g.degree(0) != 2)
       return false;
-    if (comm_g.neighbors_count(1) != 1)
+    if (comm_g.degree(1) != 1)
       return false;
-    if (comm_g.neighbors_count(2) != 1)
+    if (comm_g.degree(2) != 1)
       return false;
-    if (comm_g.neighbors_count(3) != 2)
+    if (comm_g.degree(3) != 2)
       return false;
     if (comm_g.neighbors(0) != mpl::graph_communicator::node_list{1, 3})
       return false;
