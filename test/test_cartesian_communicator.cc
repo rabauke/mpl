@@ -13,7 +13,7 @@ bool cartesian_communicator_test() {
     return false;
   const int rank{comm_c.rank()};
   const int size{comm_c.size()};
-  auto coordinate{comm_c.coordinate()};
+  auto coordinate{comm_c.coordinates()};
   if (comm_c.rank(coordinate) != rank)
     return false;
   auto dims{comm_c.get_dimensions()};

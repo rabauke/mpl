@@ -476,7 +476,7 @@ namespace mpl {
     /// \brief Determines the Cartesian location of a process with a given rank.
     /// \param rank process rank
     /// \return Cartesian location
-    [[nodiscard]] vector coordinate(int rank) const {
+    [[nodiscard]] vector coordinates(int rank) const {
       vector coordinates(dimensionality());
       MPI_Cart_coords(comm_, rank, coordinates.size(), coordinates.data());
       return coordinates;
@@ -484,7 +484,7 @@ namespace mpl {
 
     /// \brief Determines the Cartesian location of this process.
     /// \return Cartesian location
-    [[nodiscard]] vector coordinate() const {
+    [[nodiscard]] vector coordinates() const {
       const int t_dimensionality{dimensionality()};
       dimensions t_dimensions(t_dimensionality);
       vector t_coordinate(t_dimensionality);

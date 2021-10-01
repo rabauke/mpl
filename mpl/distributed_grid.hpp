@@ -74,7 +74,7 @@ namespace mpl {
         throw invalid_dim();
 #endif
       auto c_dimensions = C.get_dimensions();
-      auto C_coord = C.coordinate();
+      auto C_coord = C.coordinates();
       size_type vol = 1;
       for (std::size_t i = 0; i < dim; ++i) {
         gbegin_[i] = gbegin(gsize_[i], c_dimensions.size(i), C_coord[i]);
@@ -255,7 +255,7 @@ namespace mpl {
       v.resize(vol);
       auto c_dimensions = C.get_dimensions();
       for (int i = 0, i_end = C.size(); i < i_end; ++i) {
-        auto coords = C.coordinate(i);
+        auto coords = C.coordinates(i);
         typename subarray_layout<T>::parameter par;
         for (std::size_t j = dim - 1; true; --j) {
           const auto begin = gbegin(gsize_[j], c_dimensions.size(j), coords[j]);
