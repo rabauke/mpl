@@ -21,19 +21,6 @@ var classmpl_1_1layout =
     [ "true_lower_bound", "classmpl_1_1layout.html#a4b0e56adef2f212d061f971b2ecafd0a", null ],
     [ "true_upper_bound", "classmpl_1_1layout.html#a80713f15de3244b019294ee277c8c650", null ],
     [ "upper_bound", "classmpl_1_1layout.html#a2c768cf5cbbcf2dcf50a03a809df457f", null ],
-    [ "contiguous_layout< T >", "classmpl_1_1layout.html#a24fd43f71dcacaaa7f11f25121d457d6", null ],
-    [ "detail::datatype_traits< layout< T > >", "classmpl_1_1layout.html#ab05bcf7aebbf27c0d719ce8348a73a20", null ],
-    [ "empty_layout< T >", "classmpl_1_1layout.html#a7841d5d18df3df9d49003cdddb7e0b88", null ],
-    [ "heterogeneous_layout", "classmpl_1_1layout.html#a345f190da284e84ef033bec2677fdd5f", null ],
-    [ "hindexed_block_layout< T >", "classmpl_1_1layout.html#ab5519bf73c4607f6ec61588e7d7f0aad", null ],
-    [ "hindexed_layout< T >", "classmpl_1_1layout.html#a2d817091be01028eba2db9128d792b76", null ],
-    [ "indexed_block_layout< T >", "classmpl_1_1layout.html#aa503cf6532650fac11937626cb1a9a68", null ],
-    [ "indexed_layout< T >", "classmpl_1_1layout.html#aab715201eed750d6cc9831d5a98b9858", null ],
-    [ "iterator_layout< T >", "classmpl_1_1layout.html#aef5d3d4d7c5d1ed3908c19feac4c6be1", null ],
     [ "make_absolute", "classmpl_1_1layout.html#a8f6bbd313a30534934c9a4004d1d3f0f", null ],
-    [ "make_absolute", "classmpl_1_1layout.html#ac0dc61784adeaeaf328f741871add748", null ],
-    [ "null_layout< T >", "classmpl_1_1layout.html#a297cff9dc710fa1e886d36a3db3fe53b", null ],
-    [ "strided_vector_layout< T >", "classmpl_1_1layout.html#a12753d9d9517a88356cc3d1fc6e1c571", null ],
-    [ "subarray_layout< T >", "classmpl_1_1layout.html#ad86a2fab89091a3c1e2cf8d0775c9d7b", null ],
-    [ "vector_layout< T >", "classmpl_1_1layout.html#a477b919fe55146acf76bbe082bb4a214", null ]
+    [ "make_absolute", "classmpl_1_1layout.html#ac0dc61784adeaeaf328f741871add748", null ]
 ];

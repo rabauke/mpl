@@ -31,7 +31,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief return value of matching probe operations
+  /// \brief Return value of matching probe operations.
   struct mprobe_status {
     /// \brief message handle to be used in a matching receive operation
     message_t message;
@@ -218,6 +218,7 @@ namespace mpl {
     }
 
     /// \brief Tests for identity of process groups.
+    /// \param other process group to compare with
     /// \return true if identical
     bool operator==(const group &other) const {
       int result;
@@ -226,6 +227,7 @@ namespace mpl {
     }
 
     /// \brief Tests for identity of process groups.
+    /// \param other process group to compare with
     /// \return true if not identical
     bool operator!=(const group &other) const {
       int result;
@@ -234,6 +236,7 @@ namespace mpl {
     }
 
     /// \brief Compares to another process group.
+    /// \param other process group to compare with
     /// \return equality type
     [[nodiscard]] equality_type compare(const group &other) const {
       int result;
@@ -515,6 +518,7 @@ namespace mpl {
     /// \brief Copy-assigns and creates a new communicator which is equivalent to an existing
     /// one.
     /// \param other the other communicator to copy from
+    /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
@@ -536,6 +540,7 @@ namespace mpl {
 
     /// \brief Move-assigns a communicator.
     /// \param other the other communicator to move from
+    /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
     communicator &operator=(communicator &&other) noexcept {
@@ -571,6 +576,7 @@ namespace mpl {
     }
 
     /// \brief Tests for identity of communicators.
+    /// \param other communicator to compare with
     /// \return true if identical
     bool operator==(const communicator &other) const {
       int result;
@@ -579,6 +585,7 @@ namespace mpl {
     }
 
     /// \brief Tests for identity of communicators.
+    /// \param other communicator to compare with
     /// \return true if not identical
     bool operator!=(const communicator &other) const {
       int result;
@@ -587,6 +594,7 @@ namespace mpl {
     }
 
     /// \brief Compares to another communicator.
+    /// \param other communicator to compare with
     /// \return equality type
     [[nodiscard]] equality_type compare(const communicator &other) const {
       int result;
@@ -892,11 +900,12 @@ namespace mpl {
 
     // === buffered send ===
     // --- determine buffer size ---
-    /// \brief determines the message buffer size
+    /// \brief Determines the message buffer size.
     /// \tparam T type of the data to send in a later buffered send operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param number quantity of elements of type T to send in a single buffered message or
     /// in a series of  buffered send operations
+    /// \return message buffer size
     /// \anchor communicator_bsend_size
     template<typename T>
     [[nodiscard]] int bsend_size(int number = 1) const {
@@ -905,11 +914,12 @@ namespace mpl {
       return pack_size + MPI_BSEND_OVERHEAD;
     }
 
-    /// \brief determines the message buffer size
+    /// \brief Determines the message buffer size.
     /// \tparam T type of the data to send in a later buffered send operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param l layout of the data
     /// \param number quantity of buffered send operations with the given data type and layout
+    /// \return message buffer size
     template<typename T>
     [[nodiscard]] int bsend_size(const layout<T> &l, int number = 1) const {
       int pack_size{0};
@@ -2054,6 +2064,10 @@ namespace mpl {
 
     // === matching probe ===
     // --- blocking matching probe ---
+    /// \brief Blocking matched test for an incoming message.
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return message handle and status of the pending message
     [[nodiscard]] mprobe_status mprobe(int source, tag_t t = tag_t(0)) const {
       check_source(source);
       check_recv_tag(t);
@@ -2064,6 +2078,11 @@ namespace mpl {
     }
 
     // --- non-blocking matching probe ---
+    /// \brief Blocking matched test for an incoming message.
+    /// \param source rank of the sending process
+    /// \param t tag associated to this message
+    /// \return message handle and status of the pending message if there is a pending message
+    /// by the given source and with the given tag
     [[nodiscard]] std::optional<mprobe_status> improbe(int source, tag_t t = tag_t(0)) const {
       check_source(source);
       check_recv_tag(t);
@@ -3670,6 +3689,7 @@ namespace mpl {
     /// \param sendrecvdata pointer to continuous storage for outgoing and incoming messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \param sendrecvdispls displacements of the data to send and to receive
+    /// \return request representing the ongoing message transfer
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
@@ -3705,6 +3725,7 @@ namespace mpl {
     /// data_types "data types" section
     /// \param sendrecvdata pointer to continuous storage for incoming and outgoing messages
     /// \param sendrecvls memory layouts of the data to send and to receive
+    /// \return request representing the ongoing message transfer
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer

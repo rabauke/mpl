@@ -27,16 +27,6 @@ var NAVTREE =
   [ "Message Passing Library", "index.html", [
     [ "MPL - A message passing library", "index.html", null ],
     [ "Data types", "md_data_types.html", null ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
-      ] ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -57,21 +47,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"classmpl_1_1cartesian__communicator.html#a753e8742d27ff29a660b07ee0b90b69e",
-"classmpl_1_1cartesian__communicator_1_1dimensions.html#aa77b8602f4cfcf88b8ac53ecf548e2ed",
-"classmpl_1_1communicator.html#a54fb76beae39c558bf5b13cfdcf4fe84",
-"classmpl_1_1communicator.html#af786635362fca5a0f915771332383589",
-"classmpl_1_1distributed__graph__communicator.html#a5caeabedfdd6d607e4e1e8d3fc3b5a9c",
-"classmpl_1_1distributed__graph__communicator_1_1neighbours__set.html#a16981b82ed0e23bc5ee44294fec1b4af",
-"classmpl_1_1graph__communicator.html#a192fabbdbac09436fab92943148c5185",
-"classmpl_1_1graph__communicator.html#ac4b1db52070739de82b25f972b9e6996",
-"classmpl_1_1heterogeneous__layout.html#ab57eff0aeed0dee1e02bcfbec750d79f",
-"classmpl_1_1impl_1_1topology__communicator.html#a0e6459ad572cb1a69cb149df1871f2c6",
-"classmpl_1_1impl_1_1topology__communicator.html#abdb6d8fc8a9aafabf50b96275f09775d",
-"classmpl_1_1invalid__dim.html#a35fcdedad1a82a8df4961ec9f8c2b13f",
-"classmpl_1_1local__grid.html#a6be0b3c4b9aced8db5d1a250a722a4bf",
-"classmpl_1_1strided__vector__layout.html#aa391a934f031693cf985dcd1c675d8e4",
-"namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c"
+"classmpl_1_1cartesian__communicator_1_1included__tags.html#a949beacb76cdab143f823228f22cbf47",
+"classmpl_1_1distributed__graph__communicator.html#a14ad784ff91391983f667a5cadbfe367",
+"classmpl_1_1empty__layout.html#a80713f15de3244b019294ee277c8c650",
+"classmpl_1_1group.html#ac54706f36382139b24b24a0311e0763b",
+"classmpl_1_1impl_1_1topology__communicator.html#acf38d8c4df7076f5e2aaaf43c7f85b47",
+"classmpl_1_1strided__vector__layout.html#a4b0e56adef2f212d061f971b2ecafd0a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

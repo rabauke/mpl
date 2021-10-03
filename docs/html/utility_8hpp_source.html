@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('utility_8hpp_source.html',''); initRes
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;valarray&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacempl.html">mpl</a> {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>mpl {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>  <span class="keyword">namespace </span>detail {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
@@ -106,7 +106,7 @@ $(document).ready(function(){initNavTree('utility_8hpp_source.html',''); initRes
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    };</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">struct </span>iterator_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::back_insert_iterator&lt;T&gt;&gt;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">struct </span>iterator_traits&lt;std::back_insert_iterator&lt;T&gt;&gt;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        : <span class="keyword">public</span> std::iterator_traits&lt;std::back_insert_iterator&lt;T&gt;&gt; {</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>      <span class="keyword">using</span> insert_type = <span class="keyword">typename</span> T::value_type;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    };</div>
@@ -234,8 +234,6 @@ $(document).ready(function(){initNavTree('utility_8hpp_source.html',''); initRes
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}  <span class="comment">// namespace mpl</span></div>
 <div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
 <div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>#endif</div>
-<div class="ttc" id="anamespacempl_html"><div class="ttname"><a href="namespacempl.html">mpl</a></div><div class="ttdef"><b>Definition:</b> <a href="cartesian__communicator_8hpp_source.html#l00011">cartesian_communicator.hpp:11</a></div></div>
-<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="cartesian__communicator_8hpp_source.html#l00545">cartesian_communicator.hpp:545</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

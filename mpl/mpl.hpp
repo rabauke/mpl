@@ -26,11 +26,13 @@ namespace mpl {
   constexpr int root = MPI_ROOT;
 
   /// \brief Special constant to indicate the start of the address range of message buffers.
+  /// \anchor absolute
   constexpr void *absolute = MPI_BOTTOM;
 
   /// \brief Special constant representing an upper bound on the additional space consumed when
   /// buffering messages.
   /// \see \ref communicator_bsend "communicator::bsend"
+  /// \anchor bsend_overhead
   constexpr int bsend_overhead = MPI_BSEND_OVERHEAD;
 
   using size_t = std::size_t;

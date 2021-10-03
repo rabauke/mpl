@@ -1,4 +1,0 @@
-var structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4 =
-[
-    [ "type", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html#ade76dbf30ac4a03ad006fc2db5b9b8a2", null ]
-];

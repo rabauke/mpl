@@ -1,3 +1,3 @@
 <map id="mpl::absolute_data&lt; const T * &gt;" name="mpl::absolute_data&lt; const T * &gt;">
-<area shape="rect" id="node1" title="Helper class for heterogeneous_layout and make_absolute." alt="" coords="5,5,208,108"/>
+<area shape="rect" id="node1" title="Helper class for heterogeneous_layout, make_absolute(T *x, const layout&lt;T&gt; &amp;l) and make_absolute(cons..." alt="" coords="5,5,208,108"/>
 </map>

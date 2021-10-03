@@ -1,17 +1,17 @@
 var annotated_dup =
 [
-    [ "mpl", "namespacempl.html", [
-      [ "impl", "namespacempl_1_1impl.html", [
-        [ "irequest", "classmpl_1_1impl_1_1irequest.html", "classmpl_1_1impl_1_1irequest" ],
-        [ "prequest", "classmpl_1_1impl_1_1prequest.html", "classmpl_1_1impl_1_1prequest" ],
-        [ "request", "classmpl_1_1impl_1_1request.html", "classmpl_1_1impl_1_1request" ],
-        [ "request_pool", "classmpl_1_1impl_1_1request__pool.html", "classmpl_1_1impl_1_1request__pool" ],
+    [ "mpl", null, [
+      [ "impl", null, [
+        [ "irequest", "classmpl_1_1impl_1_1irequest.html", null ],
+        [ "prequest", "classmpl_1_1impl_1_1prequest.html", null ],
+        [ "request", "classmpl_1_1impl_1_1request.html", null ],
+        [ "request_pool", "classmpl_1_1impl_1_1request__pool.html", null ],
         [ "topology_communicator", "classmpl_1_1impl_1_1topology__communicator.html", "classmpl_1_1impl_1_1topology__communicator" ]
       ] ],
       [ "absolute_data", "classmpl_1_1absolute__data.html", null ],
       [ "absolute_data< const T * >", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01const_01_t_01_5_01_4" ],
       [ "absolute_data< T * >", "classmpl_1_1absolute__data_3_01_t_01_5_01_4.html", "classmpl_1_1absolute__data_3_01_t_01_5_01_4" ],
-      [ "base_struct_builder", "classmpl_1_1base__struct__builder.html", "classmpl_1_1base__struct__builder" ],
+      [ "base_struct_builder", "classmpl_1_1base__struct__builder.html", null ],
       [ "bit_and", "structmpl_1_1bit__and.html", "structmpl_1_1bit__and" ],
       [ "bit_or", "structmpl_1_1bit__or.html", "structmpl_1_1bit__or" ],
       [ "bit_xor", "structmpl_1_1bit__xor.html", "structmpl_1_1bit__xor" ],
@@ -40,8 +40,8 @@ var annotated_dup =
       [ "invalid_rank", "classmpl_1_1invalid__rank.html", "classmpl_1_1invalid__rank" ],
       [ "invalid_size", "classmpl_1_1invalid__size.html", "classmpl_1_1invalid__size" ],
       [ "invalid_tag", "classmpl_1_1invalid__tag.html", "classmpl_1_1invalid__tag" ],
-      [ "irequest", "classmpl_1_1irequest.html", "classmpl_1_1irequest" ],
-      [ "irequest_pool", "classmpl_1_1irequest__pool.html", "classmpl_1_1irequest__pool" ],
+      [ "irequest", "classmpl_1_1irequest.html", null ],
+      [ "irequest_pool", "classmpl_1_1irequest__pool.html", null ],
       [ "iterator_layout", "classmpl_1_1iterator__layout.html", "classmpl_1_1iterator__layout" ],
       [ "layout", "classmpl_1_1layout.html", "classmpl_1_1layout" ],
       [ "layouts", "classmpl_1_1layouts.html", "classmpl_1_1layouts" ],
@@ -66,27 +66,23 @@ var annotated_dup =
       [ "op_traits< multiplies< T > >", "structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4.html", null ],
       [ "op_traits< plus< T > >", "structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html", null ],
       [ "plus", "structmpl_1_1plus.html", "structmpl_1_1plus" ],
-      [ "prequest", "classmpl_1_1prequest.html", "classmpl_1_1prequest" ],
-      [ "prequest_pool", "classmpl_1_1prequest__pool.html", "classmpl_1_1prequest__pool" ],
+      [ "prequest", "classmpl_1_1prequest.html", null ],
+      [ "prequest_pool", "classmpl_1_1prequest__pool.html", null ],
       [ "ranks", "classmpl_1_1ranks.html", "classmpl_1_1ranks" ],
-      [ "shift_ranks", "structmpl_1_1shift__ranks.html", "structmpl_1_1shift__ranks" ],
+      [ "shift_ranks", "structmpl_1_1shift__ranks.html", null ],
       [ "status_t", "classmpl_1_1status__t.html", "classmpl_1_1status__t" ],
       [ "strided_vector_layout", "classmpl_1_1strided__vector__layout.html", "classmpl_1_1strided__vector__layout" ],
-      [ "struct_builder", "classmpl_1_1struct__builder.html", "classmpl_1_1struct__builder" ],
-      [ "struct_builder< std::array< T, N > >", "classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html", "classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4" ],
-      [ "struct_builder< std::pair< T1, T2 > >", "classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html", "classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4" ],
-      [ "struct_builder< std::tuple< Ts... > >", "classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html", "classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4" ],
-      [ "struct_builder< T[N0]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4" ],
-      [ "struct_builder< T[N0][N1]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4.html", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4" ],
-      [ "struct_builder< T[N0][N1][N2]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4.html", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4" ],
-      [ "struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4" ],
+      [ "struct_builder", "classmpl_1_1struct__builder.html", null ],
+      [ "struct_builder< std::array< T, N > >", "classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html", null ],
+      [ "struct_builder< std::pair< T1, T2 > >", "classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html", null ],
+      [ "struct_builder< std::tuple< Ts... > >", "classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html", null ],
+      [ "struct_builder< T[N0]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html", null ],
+      [ "struct_builder< T[N0][N1]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4.html", null ],
+      [ "struct_builder< T[N0][N1][N2]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4.html", null ],
+      [ "struct_builder< T[N0][N1][N2][N3]>", "classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html", null ],
       [ "struct_layout", "classmpl_1_1struct__layout.html", "classmpl_1_1struct__layout" ],
       [ "subarray_layout", "classmpl_1_1subarray__layout.html", "classmpl_1_1subarray__layout" ],
       [ "tag_t", "classmpl_1_1tag__t.html", "classmpl_1_1tag__t" ],
       [ "vector_layout", "classmpl_1_1vector__layout.html", "classmpl_1_1vector__layout" ]
-    ] ],
-    [ "std", "namespacestd.html", [
-      [ "tuple_element< N, mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", "structstd_1_1tuple__element_3_01_n_00_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4" ],
-      [ "tuple_size< mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy >", "structstd_1_1tuple__size_3_01mpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy_01_4.html", null ]
     ] ]
 ];

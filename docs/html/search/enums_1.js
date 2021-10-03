@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['equality_5ftype_0',['equality_type',['../classmpl_1_1group.html#a78eb3d59b04c2e989ea52c60d39ffa69',1,'mpl::group::equality_type()'],['../classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63',1,'mpl::communicator::equality_type()']]]
+  ['included_5ftag_0',['included_tag',['../classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588',1,'mpl::cartesian_communicator']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['bsend_5foverhead_0',['bsend_overhead',['../namespacempl.html#a4bc7e110094061c98ce0bf2b136ff19a',1,'mpl']]]
+  ['difference_0',['difference',['../classmpl_1_1group.html#a4990d6c5ee84cc8640d88a26e2bdc480',1,'mpl::group']]]
 ];

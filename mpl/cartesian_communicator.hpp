@@ -541,6 +541,7 @@ namespace mpl {
 
 }  // namespace mpl
 
+#if !(defined MPL_DOXYGEN_SHOULD_SKIP_THIS)
 
 namespace std {
   template<>
@@ -556,5 +557,7 @@ namespace std {
                      .get<N>());
   };
 }  // namespace std
+
+#endif
 
 #endif

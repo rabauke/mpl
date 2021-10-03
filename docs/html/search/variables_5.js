@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['group_5fcollective_0',['group_collective',['../classmpl_1_1communicator.html#a10aacc97fad097c50a84e886a49f5743',1,'mpl::communicator']]]
+  ['message_0',['message',['../structmpl_1_1mprobe__status.html#a1bd4ee6dd27523dd27cbeb2f2e7974e7',1,'mpl::mprobe_status']]]
 ];

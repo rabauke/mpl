@@ -1462,12 +1462,14 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Helper class for \ref heterogeneous_layout and \ref make_absolute.
+  /// \brief Helper class for \ref heterogeneous_layout,
+  /// make_absolute(T *x, const layout<T> &l) and make_absolute(const T *x, const layout<T> &l).
   /// \tparam T data type
   template<typename T>
   class absolute_data;
 
-  /// \brief Helper class for \ref heterogeneous_layout and \ref make_absolute.
+  /// \brief Helper class for \ref heterogeneous_layout,
+  /// make_absolute(T *x, const layout<T> &l) and make_absolute(const T *x, const layout<T> &l).
   /// \tparam T data type
   template<typename T>
   class absolute_data<T *> {
@@ -1483,7 +1485,8 @@ namespace mpl {
   };
 
 
-  /// \brief Helper class for \ref heterogeneous_layout and \ref make_absolute.
+  /// \brief Helper class for \ref heterogeneous_layout,
+  /// make_absolute(T *x, const layout<T> &l) and make_absolute(const T *x, const layout<T> &l).
   /// \tparam T data type
   template<typename T>
   class absolute_data<const T *> {
@@ -1500,7 +1503,7 @@ namespace mpl {
 
 
   /// \brief Layout representing heterogeneous data at specific memory locations.
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of the class layout
   /// \note \ref absolute must be used as send/receive buffer argument when sending or receiving
   /// data of heterogeneous layout.
   class heterogeneous_layout : public layout<void> {
@@ -1622,7 +1625,7 @@ namespace mpl {
   };
 
 
-  /// \brief helper function for \ref heterogeneous_layout
+  /// \brief Helper function for the class heterogeneous_layout.
   /// \tparam T data type
   /// \param x address of data
   /// \param l layout of data at address x
@@ -1632,7 +1635,7 @@ namespace mpl {
     return absolute_data<T *>{x, l.type_};
   }
 
-  /// \brief helper function for \ref heterogeneous_layout
+  /// \brief Helper function for the class heterogeneous_layout.
   /// \tparam T data type
   /// \param x address of data
   /// \param l layout of data at address x

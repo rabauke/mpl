@@ -110,7 +110,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacempl.html">mpl</a> {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keyword">namespace </span>mpl {</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keyword">namespace </span>detail {</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
@@ -216,7 +216,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    }</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
 <div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__layout.html#a1b10f2e35ead013aab50cab5e5aee21a">  140</a></span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout</a> &amp;<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(T &amp;x) {</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">  140</a></span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout</a> &amp;<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(T &amp;x) {</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>      <span class="keyword">static_assert</span>(not std::is_const&lt;T&gt;::value, <span class="stringliteral">&quot;type must not be const&quot;</span>);</div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>      <span class="keyword">static_assert</span>(not std::is_pointer&lt;T&gt;::value, <span class="stringliteral">&quot;type must not be pointer&quot;</span>);</div>
 <div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>      block_lengths_.push_back(size(x));</div>
@@ -251,11 +251,11 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
 <div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="classmpl_1_1base__struct__builder.html#a3138dac289f89c80ea2e7f0467f7a7c3">  179</a></span>    <a class="code hl_function" href="classmpl_1_1base__struct__builder.html#a3138dac289f89c80ea2e7f0467f7a7c3">base_struct_builder</a>(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="classmpl_1_1base__struct__builder.html#a89fee93a94ed5fe7d423733cb3ba4224">  180</a></span>    <span class="keywordtype">void</span> <a class="code hl_function" href="classmpl_1_1base__struct__builder.html#a89fee93a94ed5fe7d423733cb3ba4224">operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordtype">void</span> operator=(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a> &amp;) = <span class="keyword">delete</span>;</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
 <div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classmpl_1_1base__struct__builder.html#adff83dea1d51c8281fbf5ca3717206fa">  183</a></span>    <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">~base_struct_builder</a>() { MPI_Type_free(&amp;type_); }</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">~base_struct_builder</a>() { MPI_Type_free(&amp;type_); }</div>
 <div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
 <div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keyword">using</span> data_type_category = detail::basic_or_fixed_size_type;</div>
 <div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
@@ -267,18 +267,18 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder.html">  200</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a> {</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder.html#a7a251c50cab3d224a1a8268530db4d6d">  202</a></span>    <span class="keyword">using</span> <a class="code hl_typedef" href="classmpl_1_1struct__builder.html#a7a251c50cab3d224a1a8268530db4d6d">data_type_category</a> = detail::unsupported_type;</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keyword">using</span> data_type_category = detail::unsupported_type;</div>
 <div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>  };</div>
 <div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
 <div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>  <span class="comment">//--------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
 <div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html">  212</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::pair&lt;T1, T2&gt;&gt; : <span class="keyword">public</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::pair&lt;T1, T2&gt;&gt; {</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html">  212</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>&lt;std::pair&lt;T1, T2&gt;&gt; : <span class="keyword">public</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::pair&lt;T1, T2&gt;&gt; {</div>
 <div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    <span class="keyword">using</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base</a> = <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder&lt;std::pair&lt;T1, T2&gt;</a>&gt;;</div>
 <div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout&lt;std::pair&lt;T1, T2&gt;</a>&gt; layout_;</div>
 <div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
 <div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html#ad358a07c14d549703b11a0c26c8ed49f">  217</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html#ad358a07c14d549703b11a0c26c8ed49f">struct_builder</a>() {</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>      std::pair&lt;T1, T2&gt; pair;</div>
 <div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">register_struct</a>(pair);</div>
 <div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(pair.first);</div>
@@ -337,12 +337,12 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>  }  <span class="comment">// namespace detail</span></div>
 <div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
 <div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>  <span class="keyword">template</span>&lt;<span class="keyword">typename</span>... Ts&gt;</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html">  279</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::tuple&lt;Ts...&gt;&gt; : <span class="keyword">public</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::tuple&lt;Ts...&gt;&gt; {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html">  279</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>&lt;std::tuple&lt;Ts...&gt;&gt; : <span class="keyword">public</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::tuple&lt;Ts...&gt;&gt; {</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    <span class="keyword">using</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base</a> = <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::tuple&lt;Ts...&gt;&gt;;</div>
 <div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout</a>&lt;std::tuple&lt;Ts...&gt;&gt; layout_;</div>
 <div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span> </div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html#aca6ed8f6236fc432dcca0d7a656c6ca5">  284</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html#aca6ed8f6236fc432dcca0d7a656c6ca5">struct_builder</a>() {</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>      std::tuple&lt;Ts...&gt; tuple;</div>
 <div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>      layout_.register_struct(tuple);</div>
 <div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>      base::define_struct(layout_);</div>
@@ -360,7 +360,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout&lt;T[N0]&gt;</a> layout_;</div>
 <div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
 <div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html#a12b92cf1cac112f326ef9c1ff3fff9e9">  307</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html#a12b92cf1cac112f326ef9c1ff3fff9e9">struct_builder</a>() {</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>      T array[N0];</div>
 <div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">register_struct</a>(array);</div>
 <div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(array);</div>
@@ -374,7 +374,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout&lt;T[N0][N1]&gt;</a> layout_;</div>
 <div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span> </div>
 <div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4.html#aaf371600324b88c0b0e1fcd85f47c89a">  327</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4.html#aaf371600324b88c0b0e1fcd85f47c89a">struct_builder</a>() {</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>      T array[N0][N1];</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">register_struct</a>(array);</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(array);</div>
@@ -388,7 +388,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout&lt;T[N0][N1][N2]&gt;</a> layout_;</div>
 <div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
 <div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4.html#af2c1e87c7b483609493dc6ab333f1d02">  348</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4.html#af2c1e87c7b483609493dc6ab333f1d02">struct_builder</a>() {</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>      T array[N0][N1][N2];</div>
 <div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">register_struct</a>(array);</div>
 <div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(array);</div>
@@ -402,7 +402,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout&lt;T[N0][N1][N2][N3]&gt;</a> layout_;</div>
 <div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span> </div>
 <div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html#a994090fb8f342df0546baa10fe298ee3">  370</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html#a994090fb8f342df0546baa10fe298ee3">struct_builder</a>() {</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>      T array[N0][N1][N2][N3];</div>
 <div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">register_struct</a>(array);</div>
 <div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(array);</div>
@@ -413,12 +413,12 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>  <span class="comment">//--------------------------------------------------------------------</span></div>
 <div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
 <div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, std::<span class="keywordtype">size_t</span> N&gt;</div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html">  385</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::array&lt;T, N&gt;&gt; : <span class="keyword">public</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::array&lt;T, N&gt;&gt; {</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html">  385</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>&lt;std::array&lt;T, N&gt;&gt; : <span class="keyword">public</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder</a>&lt;std::array&lt;T, N&gt;&gt; {</div>
 <div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keyword">using</span> <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base</a> = <a class="code hl_class" href="classmpl_1_1base__struct__builder.html">base_struct_builder&lt;std::array&lt;T, N&gt;</a>&gt;;</div>
 <div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <a class="code hl_class" href="classmpl_1_1struct__layout.html">struct_layout&lt;std::array&lt;T, N&gt;</a>&gt; layout_;</div>
 <div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
 <div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno"><a class="line" href="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html#aa3ddf9c1a4b20c0da0c32c2ca98d7be3">  390</a></span>    <a class="code hl_function" href="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html#aa3ddf9c1a4b20c0da0c32c2ca98d7be3">struct_builder</a>() {</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder</a>() {</div>
 <div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>      std::array&lt;T, N&gt; array;</div>
 <div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">register_struct</a>(array);</div>
 <div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span>      layout_.<a class="code hl_function" href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">register_element</a>(array);</div>
@@ -434,14 +434,14 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00403" name="l00403"></a><span class="lineno">  403</span>    <span class="keyword">class </span>datatype_traits_impl {</div>
 <div class="line"><a id="l00404" name="l00404"></a><span class="lineno">  404</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00405" name="l00405"></a><span class="lineno">  405</span>      <span class="keyword">static</span> MPI_Datatype get_datatype() {</div>
-<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>        <span class="keyword">static</span> struct_builder&lt;T&gt; builder;</div>
+<div class="line"><a id="l00406" name="l00406"></a><span class="lineno">  406</span>        <span class="keyword">static</span> <a class="code hl_class" href="classmpl_1_1struct__builder.html">struct_builder&lt;T&gt;</a> builder;</div>
 <div class="line"><a id="l00407" name="l00407"></a><span class="lineno">  407</span>        <span class="keywordflow">return</span> builder.type_;</div>
 <div class="line"><a id="l00408" name="l00408"></a><span class="lineno">  408</span>      }</div>
-<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>      <span class="keyword">using</span> data_type_category = <span class="keyword">typename</span> <a class="code hl_typedef" href="classmpl_1_1struct__builder.html#a7a251c50cab3d224a1a8268530db4d6d">struct_builder&lt;T&gt;::data_type_category</a>;</div>
+<div class="line"><a id="l00409" name="l00409"></a><span class="lineno">  409</span>      <span class="keyword">using</span> data_type_category = <span class="keyword">typename</span> struct_builder&lt;T&gt;::data_type_category;</div>
 <div class="line"><a id="l00410" name="l00410"></a><span class="lineno">  410</span>    };</div>
 <div class="line"><a id="l00411" name="l00411"></a><span class="lineno">  411</span> </div>
 <div class="line"><a id="l00412" name="l00412"></a><span class="lineno">  412</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    <span class="keyword">class </span>datatype_traits_impl&lt;T, <a class="code hl_namespace" href="namespacestd.html">std</a>::enable_if_t&lt;std::is_enum&lt;T&gt;::value&gt;&gt; {</div>
+<div class="line"><a id="l00413" name="l00413"></a><span class="lineno">  413</span>    <span class="keyword">class </span>datatype_traits_impl&lt;T, std::enable_if_t&lt;std::is_enum&lt;T&gt;::value&gt;&gt; {</div>
 <div class="line"><a id="l00414" name="l00414"></a><span class="lineno">  414</span>      <span class="keyword">using</span> underlying = std::underlying_type_t&lt;T&gt;;</div>
 <div class="line"><a id="l00415" name="l00415"></a><span class="lineno">  415</span> </div>
 <div class="line"><a id="l00416" name="l00416"></a><span class="lineno">  416</span>    <span class="keyword">public</span>:</div>
@@ -452,7 +452,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00421" name="l00421"></a><span class="lineno">  421</span><span class="preprocessor">#if defined MPL_HOMOGENEOUS</span></div>
 <div class="line"><a id="l00422" name="l00422"></a><span class="lineno">  422</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00423" name="l00423"></a><span class="lineno">  423</span>    <span class="keyword">class </span>datatype_traits_impl&lt;</div>
-<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>        T, <a class="code hl_namespace" href="namespacestd.html">std</a>::enable_if_t&lt;</div>
+<div class="line"><a id="l00424" name="l00424"></a><span class="lineno">  424</span>        T, std::enable_if_t&lt;</div>
 <div class="line"><a id="l00425" name="l00425"></a><span class="lineno">  425</span>               std::is_trivially_copyable_v&lt;T&gt; and std::is_copy_assignable_v&lt;T&gt; and</div>
 <div class="line"><a id="l00426" name="l00426"></a><span class="lineno">  426</span>               not std::is_enum_v&lt;T&gt; and not std::is_array_v&lt;T&gt;&gt;&gt; {</div>
 <div class="line"><a id="l00427" name="l00427"></a><span class="lineno">  427</span>    <span class="keyword">public</span>:</div>
@@ -553,91 +553,91 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    };</div>
 <div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span> </div>
 <div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::vector&lt;T, A&gt;&gt; {</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    <span class="keyword">class </span>datatype_traits&lt;std::vector&lt;T, A&gt;&gt; {</div>
 <div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>      <span class="keyword">using</span> data_type_category = detail::contiguous_stl_container;</div>
 <div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>    };</div>
 <div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span> </div>
 <div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::vector&lt;bool, A&gt;&gt; {</div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>    <span class="keyword">class </span>datatype_traits&lt;std::vector&lt;bool, A&gt;&gt; {</div>
 <div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>    };</div>
 <div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span> </div>
 <div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::deque&lt;T, A&gt;&gt; {</div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span>    <span class="keyword">class </span>datatype_traits&lt;std::deque&lt;T, A&gt;&gt; {</div>
 <div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span>    };</div>
 <div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span> </div>
 <div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::forward_list&lt;T, A&gt;&gt; {</div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span>    <span class="keyword">class </span>datatype_traits&lt;std::forward_list&lt;T, A&gt;&gt; {</div>
 <div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span>    };</div>
 <div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span> </div>
 <div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::list&lt;T, A&gt;&gt; {</div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>    <span class="keyword">class </span>datatype_traits&lt;std::list&lt;T, A&gt;&gt; {</div>
 <div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>    };</div>
 <div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span> </div>
 <div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::set&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>    <span class="keyword">class </span>datatype_traits&lt;std::set&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>    };</div>
 <div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span> </div>
 <div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::map&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>    <span class="keyword">class </span>datatype_traits&lt;std::map&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>    };</div>
 <div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span> </div>
 <div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::multiset&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    <span class="keyword">class </span>datatype_traits&lt;std::multiset&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>    };</div>
 <div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span> </div>
 <div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::multimap&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>    <span class="keyword">class </span>datatype_traits&lt;std::multimap&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>    };</div>
 <div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span> </div>
 <div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::unordered_set&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>    <span class="keyword">class </span>datatype_traits&lt;std::unordered_set&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>    };</div>
 <div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span> </div>
 <div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::unordered_map&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>    <span class="keyword">class </span>datatype_traits&lt;std::unordered_map&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>    };</div>
 <div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span> </div>
 <div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::unordered_multiset&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>    <span class="keyword">class </span>datatype_traits&lt;std::unordered_multiset&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    };</div>
 <div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
 <div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::unordered_multimap&lt;T, C, A&gt;&gt; {</div>
+<div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span>    <span class="keyword">class </span>datatype_traits&lt;std::unordered_multimap&lt;T, C, A&gt;&gt; {</div>
 <div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>      <span class="keyword">using</span> data_type_category = detail::stl_container;</div>
 <div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>    };</div>
 <div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span> </div>
 <div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> Trait, <span class="keyword">typename</span> Char&gt;</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::basic_string&lt;T, Trait, Char&gt;&gt; {</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    <span class="keyword">class </span>datatype_traits&lt;std::basic_string&lt;T, Trait, Char&gt;&gt; {</div>
 <div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>      <span class="keyword">using</span> data_type_category = detail::contiguous_const_stl_container;</div>
 <div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    };</div>
 <div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span> </div>
 <div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    <span class="keyword">class </span>datatype_traits&lt;<a class="code hl_namespace" href="namespacestd.html">std</a>::valarray&lt;T&gt;&gt; {</div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    <span class="keyword">class </span>datatype_traits&lt;std::valarray&lt;T&gt;&gt; {</div>
 <div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>      <span class="keyword">using</span> data_type_category = detail::contiguous_stl_container;</div>
 <div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    };</div>
@@ -816,22 +816,10 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span> </div>
 <div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclassmpl_1_1base__struct__builder_html"><div class="ttname"><a href="classmpl_1_1base__struct__builder.html">mpl::base_struct_builder</a></div><div class="ttdoc">Base class used to manage information about structures/classes and their public members.</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00161">datatype.hpp:161</a></div></div>
-<div class="ttc" id="aclassmpl_1_1base__struct__builder_html_a3138dac289f89c80ea2e7f0467f7a7c3"><div class="ttname"><a href="classmpl_1_1base__struct__builder.html#a3138dac289f89c80ea2e7f0467f7a7c3">mpl::base_struct_builder::base_struct_builder</a></div><div class="ttdeci">base_struct_builder(const base_struct_builder &amp;)=delete</div></div>
-<div class="ttc" id="aclassmpl_1_1base__struct__builder_html_a89fee93a94ed5fe7d423733cb3ba4224"><div class="ttname"><a href="classmpl_1_1base__struct__builder.html#a89fee93a94ed5fe7d423733cb3ba4224">mpl::base_struct_builder::operator=</a></div><div class="ttdeci">void operator=(const base_struct_builder &amp;)=delete</div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4_html_a994090fb8f342df0546baa10fe298ee3"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4.html#a994090fb8f342df0546baa10fe298ee3">mpl::struct_builder&lt; T[N0][N1][N2][N3]&gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00370">datatype.hpp:370</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4_html_af2c1e87c7b483609493dc6ab333f1d02"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4.html#af2c1e87c7b483609493dc6ab333f1d02">mpl::struct_builder&lt; T[N0][N1][N2]&gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00348">datatype.hpp:348</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4_html_aaf371600324b88c0b0e1fcd85f47c89a"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4.html#aaf371600324b88c0b0e1fcd85f47c89a">mpl::struct_builder&lt; T[N0][N1]&gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00327">datatype.hpp:327</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01_t_0f_n0_0e_4_html_a12b92cf1cac112f326ef9c1ff3fff9e9"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4.html#a12b92cf1cac112f326ef9c1ff3fff9e9">mpl::struct_builder&lt; T[N0]&gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00307">datatype.hpp:307</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4_html_aa3ddf9c1a4b20c0da0c32c2ca98d7be3"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4.html#aa3ddf9c1a4b20c0da0c32c2ca98d7be3">mpl::struct_builder&lt; std::array&lt; T, N &gt; &gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00390">datatype.hpp:390</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4_html_ad358a07c14d549703b11a0c26c8ed49f"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4.html#ad358a07c14d549703b11a0c26c8ed49f">mpl::struct_builder&lt; std::pair&lt; T1, T2 &gt; &gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00217">datatype.hpp:217</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4_html_aca6ed8f6236fc432dcca0d7a656c6ca5"><div class="ttname"><a href="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4.html#aca6ed8f6236fc432dcca0d7a656c6ca5">mpl::struct_builder&lt; std::tuple&lt; Ts... &gt; &gt;::struct_builder</a></div><div class="ttdeci">struct_builder()</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00284">datatype.hpp:284</a></div></div>
 <div class="ttc" id="aclassmpl_1_1struct__builder_html"><div class="ttname"><a href="classmpl_1_1struct__builder.html">mpl::struct_builder</a></div><div class="ttdoc">Template class used to manage information about structures/classes and their public members.</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00200">datatype.hpp:200</a></div></div>
-<div class="ttc" id="aclassmpl_1_1struct__builder_html_a7a251c50cab3d224a1a8268530db4d6d"><div class="ttname"><a href="classmpl_1_1struct__builder.html#a7a251c50cab3d224a1a8268530db4d6d">mpl::struct_builder::data_type_category</a></div><div class="ttdeci">detail::unsupported_type data_type_category</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00202">datatype.hpp:202</a></div></div>
 <div class="ttc" id="aclassmpl_1_1struct__layout_html"><div class="ttname"><a href="classmpl_1_1struct__layout.html">mpl::struct_layout</a></div><div class="ttdoc">layout class for storing meta information about the public members of structures</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00060">datatype.hpp:60</a></div></div>
 <div class="ttc" id="aclassmpl_1_1struct__layout_html_ac8edfd2e43039745840de4d7f14e13b7"><div class="ttname"><a href="classmpl_1_1struct__layout.html#ac8edfd2e43039745840de4d7f14e13b7">mpl::struct_layout::register_struct</a></div><div class="ttdeci">struct_layout &amp; register_struct(const S &amp;x)</div><div class="ttdoc">starts to register a struct type</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00130">datatype.hpp:130</a></div></div>
 <div class="ttc" id="aclassmpl_1_1struct__layout_html_ada968c08d05ee6c94464bba46c7b2566"><div class="ttname"><a href="classmpl_1_1struct__layout.html#ada968c08d05ee6c94464bba46c7b2566">mpl::struct_layout::register_element</a></div><div class="ttdeci">struct_layout &amp; register_element(T &amp;x)</div><div class="ttdoc">registers a struct member</div><div class="ttdef"><b>Definition:</b> <a href="datatype_8hpp_source.html#l00140">datatype.hpp:140</a></div></div>
-<div class="ttc" id="anamespacempl_html"><div class="ttname"><a href="namespacempl.html">mpl</a></div><div class="ttdef"><b>Definition:</b> <a href="cartesian__communicator_8hpp_source.html#l00011">cartesian_communicator.hpp:11</a></div></div>
-<div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="cartesian__communicator_8hpp_source.html#l00545">cartesian_communicator.hpp:545</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
