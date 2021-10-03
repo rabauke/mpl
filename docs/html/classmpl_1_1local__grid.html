@@ -92,79 +92,133 @@ $(document).ready(function(){initNavTree('classmpl_1_1local__grid.html',''); ini
 </div><!--header-->
 <div class="contents">
 
+<p>Data grid.  
+ <a href="classmpl_1_1local__grid.html#details">More...</a></p>
+
 <p><code>#include &lt;<a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Collaboration diagram for mpl::local_grid&lt; dim, T, A &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1local__grid__coll__graph.png" border="0" usemap="#ampl_1_1local__grid_3_01dim_00_01_t_00_01_a_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="ampl_1_1local__grid_3_01dim_00_01_t_00_01_a_01_4_coll__map" id="ampl_1_1local__grid_3_01dim_00_01_t_00_01_a_01_4_coll__map">
-<area shape="rect" title=" " alt="" coords="5,5,237,333"/>
+<area shape="rect" title="Data grid." alt="" coords="5,5,237,368"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid_1_1sizes.html">sizes</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid_1_1dimensions.html">dimensions</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Characterizes the dimensionality and the total size of a local data grid.  <a href="classmpl_1_1local__grid_1_1dimensions.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:ace4a57097109ad8e4236426f2b81570f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ace4a57097109ad8e4236426f2b81570f">vector_type</a> = std::vector&lt; T, A &gt;</td></tr>
+<tr class="memdesc:ace4a57097109ad8e4236426f2b81570f"><td class="mdescLeft">&#160;</td><td class="mdescRight">the underlying one-dimensional vector type  <a href="classmpl_1_1local__grid.html#ace4a57097109ad8e4236426f2b81570f">More...</a><br /></td></tr>
 <tr class="separator:ace4a57097109ad8e4236426f2b81570f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2318fdfc94ef7e9d626202597dfd6f4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ab2318fdfc94ef7e9d626202597dfd6f4">value_type</a> = typename vector_type::value_type</td></tr>
+<tr class="memdesc:ab2318fdfc94ef7e9d626202597dfd6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">data type that is hold at each grid point  <a href="classmpl_1_1local__grid.html#ab2318fdfc94ef7e9d626202597dfd6f4">More...</a><br /></td></tr>
 <tr class="separator:ab2318fdfc94ef7e9d626202597dfd6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54c9c6a7dd781ebeb95768f157c01ad7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a54c9c6a7dd781ebeb95768f157c01ad7">allocator_type</a> = typename vector_type::allocator_type</td></tr>
+<tr class="memdesc:a54c9c6a7dd781ebeb95768f157c01ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">memory allocator  <a href="classmpl_1_1local__grid.html#a54c9c6a7dd781ebeb95768f157c01ad7">More...</a><br /></td></tr>
 <tr class="separator:a54c9c6a7dd781ebeb95768f157c01ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0ebb9b3054ff110c5bbb2594729a84f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> = std::ptrdiff_t</td></tr>
+<tr class="memdesc:ae0ebb9b3054ff110c5bbb2594729a84f"><td class="mdescLeft">&#160;</td><td class="mdescRight">type used for indexing  <a href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">More...</a><br /></td></tr>
 <tr class="separator:ae0ebb9b3054ff110c5bbb2594729a84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae475f7494bbd3986b2850906ea360b6d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ae475f7494bbd3986b2850906ea360b6d">difference_type</a> = typename vector_type::difference_type</td></tr>
+<tr class="memdesc:ae475f7494bbd3986b2850906ea360b6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">signed integer type for iterator differences  <a href="classmpl_1_1local__grid.html#ae475f7494bbd3986b2850906ea360b6d">More...</a><br /></td></tr>
 <tr class="separator:ae475f7494bbd3986b2850906ea360b6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa34ade9741224f1539935e220ba95105"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> = typename vector_type::reference</td></tr>
+<tr class="memdesc:aa34ade9741224f1539935e220ba95105"><td class="mdescLeft">&#160;</td><td class="mdescRight">reference to value_type  <a href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">More...</a><br /></td></tr>
 <tr class="separator:aa34ade9741224f1539935e220ba95105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab729f6d024a0550cd75781ac7e7f7a7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> = typename vector_type::const_reference</td></tr>
+<tr class="memdesc:aab729f6d024a0550cd75781ac7e7f7a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">const reference to value_type  <a href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">More...</a><br /></td></tr>
 <tr class="separator:aab729f6d024a0550cd75781ac7e7f7a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbdae75370bc044bbb0f0f8ce22c4544"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#afbdae75370bc044bbb0f0f8ce22c4544">pointer</a> = typename vector_type::pointer</td></tr>
+<tr class="memdesc:afbdae75370bc044bbb0f0f8ce22c4544"><td class="mdescLeft">&#160;</td><td class="mdescRight">pointer to value_type  <a href="classmpl_1_1local__grid.html#afbdae75370bc044bbb0f0f8ce22c4544">More...</a><br /></td></tr>
 <tr class="separator:afbdae75370bc044bbb0f0f8ce22c4544"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a016e0dbc1d748bea7bf40f5ad6917a67"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a016e0dbc1d748bea7bf40f5ad6917a67">const_pointer</a> = typename vector_type::const_pointer</td></tr>
+<tr class="memdesc:a016e0dbc1d748bea7bf40f5ad6917a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">const pointer to value_type  <a href="classmpl_1_1local__grid.html#a016e0dbc1d748bea7bf40f5ad6917a67">More...</a><br /></td></tr>
 <tr class="separator:a016e0dbc1d748bea7bf40f5ad6917a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac390f528726fba826da0723b200191b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ac390f528726fba826da0723b200191b6">local_grid</a> (const <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a> &amp;C, const <a class="el" href="classmpl_1_1local__grid_1_1sizes.html">sizes</a> &amp;<a class="el" href="classmpl_1_1local__grid.html#ac2d6883c856c1edf80dccf0586f0c0b4">size</a>)</td></tr>
-<tr class="separator:ac390f528726fba826da0723b200191b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98aca5a379a25cce8d753629f1872796"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a98aca5a379a25cce8d753629f1872796">local_grid</a> (const <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a> &amp;<a class="el" href="classmpl_1_1communicator.html">communicator</a>, const <a class="el" href="classmpl_1_1local__grid_1_1dimensions.html">dimensions</a> &amp;dims)</td></tr>
+<tr class="memdesc:a98aca5a379a25cce8d753629f1872796"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a local data grid.  <a href="classmpl_1_1local__grid.html#a98aca5a379a25cce8d753629f1872796">More...</a><br /></td></tr>
+<tr class="separator:a98aca5a379a25cce8d753629f1872796"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2d6883c856c1edf80dccf0586f0c0b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ac2d6883c856c1edf80dccf0586f0c0b4">size</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> d) const</td></tr>
+<tr class="memdesc:ac2d6883c856c1edf80dccf0586f0c0b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the size of the data grid along a dimension.  <a href="classmpl_1_1local__grid.html#ac2d6883c856c1edf80dccf0586f0c0b4">More...</a><br /></td></tr>
 <tr class="separator:ac2d6883c856c1edf80dccf0586f0c0b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49ea125a5efe80df775f8dc62acaa2f2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a49ea125a5efe80df775f8dc62acaa2f2">begin</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> d) const</td></tr>
+<tr class="memdesc:a49ea125a5efe80df775f8dc62acaa2f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the lowest index to access the data grid along a dimension.  <a href="classmpl_1_1local__grid.html#a49ea125a5efe80df775f8dc62acaa2f2">More...</a><br /></td></tr>
 <tr class="separator:a49ea125a5efe80df775f8dc62acaa2f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a768da13de21322c71202e4d615023316"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a768da13de21322c71202e4d615023316">end</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> d) const</td></tr>
+<tr class="memdesc:a768da13de21322c71202e4d615023316"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines the last index (plus one) to access the data grid along a dimension.  <a href="classmpl_1_1local__grid.html#a768da13de21322c71202e4d615023316">More...</a><br /></td></tr>
 <tr class="separator:a768da13de21322c71202e4d615023316"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9958e349a6f46c3f089f48288f47ace2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a9958e349a6f46c3f089f48288f47ace2">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> x) const</td></tr>
-<tr class="separator:a9958e349a6f46c3f089f48288f47ace2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9b95c92cc9128bd80ed1526fb234670"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#ae9b95c92cc9128bd80ed1526fb234670">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> x, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> y)</td></tr>
-<tr class="separator:ae9b95c92cc9128bd80ed1526fb234670"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54bddd298a2f81bba7c90dbb97786f7a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a54bddd298a2f81bba7c90dbb97786f7a">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> x, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> y) const</td></tr>
-<tr class="separator:a54bddd298a2f81bba7c90dbb97786f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a049be0cb09609b241e2cf58e076fe514"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a049be0cb09609b241e2cf58e076fe514">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> x, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> y, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> z)</td></tr>
-<tr class="separator:a049be0cb09609b241e2cf58e076fe514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c95eccd093760e951f4e7fc58d72638"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a3c95eccd093760e951f4e7fc58d72638">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> x, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> y, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> z) const</td></tr>
-<tr class="separator:a3c95eccd093760e951f4e7fc58d72638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a213eb274680567cdcd292f5080f22e71"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:a213eb274680567cdcd292f5080f22e71"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==1, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a213eb274680567cdcd292f5080f22e71">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0)</td></tr>
+<tr class="memdesc:a213eb274680567cdcd292f5080f22e71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#a213eb274680567cdcd292f5080f22e71">More...</a><br /></td></tr>
+<tr class="separator:a213eb274680567cdcd292f5080f22e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17585fc73aba29fb6ab0e3d8022b25be"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:a17585fc73aba29fb6ab0e3d8022b25be"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==1, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a17585fc73aba29fb6ab0e3d8022b25be">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0) const</td></tr>
+<tr class="memdesc:a17585fc73aba29fb6ab0e3d8022b25be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#a17585fc73aba29fb6ab0e3d8022b25be">More...</a><br /></td></tr>
+<tr class="separator:a17585fc73aba29fb6ab0e3d8022b25be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bc2c3d68db9a67e6bd415c2c7d0131b"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:a0bc2c3d68db9a67e6bd415c2c7d0131b"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==2, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a0bc2c3d68db9a67e6bd415c2c7d0131b">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_1)</td></tr>
+<tr class="memdesc:a0bc2c3d68db9a67e6bd415c2c7d0131b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#a0bc2c3d68db9a67e6bd415c2c7d0131b">More...</a><br /></td></tr>
+<tr class="separator:a0bc2c3d68db9a67e6bd415c2c7d0131b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6be0b3c4b9aced8db5d1a250a722a4bf"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:a6be0b3c4b9aced8db5d1a250a722a4bf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==2, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a6be0b3c4b9aced8db5d1a250a722a4bf">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_1) const</td></tr>
+<tr class="memdesc:a6be0b3c4b9aced8db5d1a250a722a4bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#a6be0b3c4b9aced8db5d1a250a722a4bf">More...</a><br /></td></tr>
+<tr class="separator:a6be0b3c4b9aced8db5d1a250a722a4bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a884c5dfdd939ad61fd2ad4de8d1c63fd"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:a884c5dfdd939ad61fd2ad4de8d1c63fd"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==3, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a884c5dfdd939ad61fd2ad4de8d1c63fd">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_1, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_2)</td></tr>
+<tr class="memdesc:a884c5dfdd939ad61fd2ad4de8d1c63fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#a884c5dfdd939ad61fd2ad4de8d1c63fd">More...</a><br /></td></tr>
+<tr class="separator:a884c5dfdd939ad61fd2ad4de8d1c63fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea49a8961c1544888e3d697614e76282"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:aea49a8961c1544888e3d697614e76282"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==3, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#aea49a8961c1544888e3d697614e76282">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_1, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_2) const</td></tr>
+<tr class="memdesc:aea49a8961c1544888e3d697614e76282"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#aea49a8961c1544888e3d697614e76282">More...</a><br /></td></tr>
+<tr class="separator:aea49a8961c1544888e3d697614e76282"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd9f95c3471b08a4dc3da723d6c121b3"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:acd9f95c3471b08a4dc3da723d6c121b3"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==4, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#acd9f95c3471b08a4dc3da723d6c121b3">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_1, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_2, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_3)</td></tr>
+<tr class="memdesc:acd9f95c3471b08a4dc3da723d6c121b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#acd9f95c3471b08a4dc3da723d6c121b3">More...</a><br /></td></tr>
+<tr class="separator:acd9f95c3471b08a4dc3da723d6c121b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adee4f6ca84465120671ec7ab6f673ebf"><td class="memTemplParams" colspan="2">template&lt;std::size_t d = dim&gt; </td></tr>
+<tr class="memitem:adee4f6ca84465120671ec7ab6f673ebf"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if_t&lt; d==4, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#adee4f6ca84465120671ec7ab6f673ebf">operator()</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_0, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_1, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_2, <a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i_3) const</td></tr>
+<tr class="memdesc:adee4f6ca84465120671ec7ab6f673ebf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element access.  <a href="classmpl_1_1local__grid.html#adee4f6ca84465120671ec7ab6f673ebf">More...</a><br /></td></tr>
+<tr class="separator:adee4f6ca84465120671ec7ab6f673ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aadd875af7e7296c2f1c3ce289612a741"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#afbdae75370bc044bbb0f0f8ce22c4544">pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741">data</a> ()</td></tr>
+<tr class="memdesc:aadd875af7e7296c2f1c3ce289612a741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grands access to the flattened grid data.  <a href="classmpl_1_1local__grid.html#aadd875af7e7296c2f1c3ce289612a741">More...</a><br /></td></tr>
 <tr class="separator:aadd875af7e7296c2f1c3ce289612a741"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a7363850b17823d78fc1030e11bcdaf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1local__grid.html#a016e0dbc1d748bea7bf40f5ad6917a67">const_pointer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a2a7363850b17823d78fc1030e11bcdaf">data</a> () const</td></tr>
+<tr class="memdesc:a2a7363850b17823d78fc1030e11bcdaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Grands access to the flattened grid data.  <a href="classmpl_1_1local__grid.html#a2a7363850b17823d78fc1030e11bcdaf">More...</a><br /></td></tr>
 <tr class="separator:a2a7363850b17823d78fc1030e11bcdaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e9fb50fa6b7042781cc3b76febe0353"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a4e9fb50fa6b7042781cc3b76febe0353">sub_layout</a> (<a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a> i) const</td></tr>
-<tr class="separator:a4e9fb50fa6b7042781cc3b76febe0353"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a713ce59b43926706509b9a3a6a127a41"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classmpl_1_1layouts.html">layouts</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#a713ce59b43926706509b9a3a6a127a41">sub_layouts</a> () const</td></tr>
+<tr class="memdesc:a713ce59b43926706509b9a3a6a127a41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get layouts for scatting and gathering of the grid data.  <a href="classmpl_1_1local__grid.html#a713ce59b43926706509b9a3a6a127a41">More...</a><br /></td></tr>
 <tr class="separator:a713ce59b43926706509b9a3a6a127a41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd4c45c7fb2a713f5e0434acce617320"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1local__grid.html#afd4c45c7fb2a713f5e0434acce617320">swap</a> (<a class="el" href="classmpl_1_1local__grid.html">local_grid</a>&lt; dim, T, A &gt; &amp;other)</td></tr>
 <tr class="separator:afd4c45c7fb2a713f5e0434acce617320"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;std::size_t dim, typename T, typename A = std::allocator&lt;T&gt;&gt;<br />
-class mpl::local_grid&lt; dim, T, A &gt;</div><dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#_a1">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#_a16">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#_a17">heat_equation_successive_over-relaxation.cc</a>.</dd>
+class mpl::local_grid&lt; dim, T, A &gt;</div><p >Data grid. </p>
+<p >This data structure is suitable for gather and scatter operation in combination with <a class="el" href="classmpl_1_1distributed__grid.html">distributed_grid</a>. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dim</td><td>number of dimensions of the data grid, may be 1, 2, 3 or 4 </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>data type that is hold at each grid point </td></tr>
+    <tr><td class="paramname">A</td><td>memory allocator </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#_a1">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#_a16">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#_a17">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00207">207</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00445">445</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a54c9c6a7dd781ebeb95768f157c01ad7" name="a54c9c6a7dd781ebeb95768f157c01ad7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a54c9c6a7dd781ebeb95768f157c01ad7">&#9670;&nbsp;</a></span>allocator_type</h2>
@@ -180,7 +234,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00211">211</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>memory allocator </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00452">452</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -198,7 +254,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00217">217</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>const pointer to value_type </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00465">465</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -216,7 +274,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00215">215</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>const reference to value_type </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00461">461</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +294,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00213">213</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>signed integer type for iterator differences </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00457">457</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -252,7 +314,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00216">216</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>pointer to value_type </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00463">463</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -270,7 +334,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00214">214</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>reference to value_type </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00459">459</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -288,7 +354,10 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00212">212</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>type used for indexing </p>
+<dl class="section note"><dt>Note</dt><dd>This is a signed integer type (unlike for STL containers). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00455">455</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -306,7 +375,9 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00210">210</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>data type that is hold at each grid point </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00450">450</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -324,13 +395,15 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00209">209</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>the underlying one-dimensional vector type </p>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00448">448</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac390f528726fba826da0723b200191b6" name="ac390f528726fba826da0723b200191b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac390f528726fba826da0723b200191b6">&#9670;&nbsp;</a></span>local_grid()</h2>
+<a id="a98aca5a379a25cce8d753629f1872796" name="a98aca5a379a25cce8d753629f1872796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98aca5a379a25cce8d753629f1872796">&#9670;&nbsp;</a></span>local_grid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -344,13 +417,13 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
           <td class="memname"><a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::<a class="el" href="classmpl_1_1local__grid.html">local_grid</a> </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classmpl_1_1cartesian__communicator.html">cartesian_communicator</a> &amp;&#160;</td>
-          <td class="paramname"><em>C</em>, </td>
+          <td class="paramname"><em>communicator</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="classmpl_1_1local__grid_1_1sizes.html">sizes</a> &amp;&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="classmpl_1_1local__grid_1_1dimensions.html">dimensions</a> &amp;&#160;</td>
+          <td class="paramname"><em>dims</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -365,7 +438,17 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00247">247</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Creates a local data grid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">communicator</td><td>Cartesian communicator that will be employed to scatter or gather data. </td></tr>
+    <tr><td class="paramname">dims</td><td>size of the global grid </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>The number of dimensions of the Cartesian communicator and the size of the dims parameter must be equal. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00546">546</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -395,10 +478,19 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a17">distributed_grid_scatter_gather.cc</a>.</dd>
+
+<p>Determines the lowest index to access the data grid along a dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>dimension </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid index </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a18">distributed_grid_scatter_gather.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00273">273</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00580">580</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -426,10 +518,13 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Grands access to the flattened grid data. </p>
+<dl class="section return"><dt>Returns</dt><dd>pointer to grid data </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a4">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a18">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a19">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00302">302</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00683">683</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -458,7 +553,10 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00304">304</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Grands access to the flattened grid data. </p>
+<dl class="section return"><dt>Returns</dt><dd>pointer to grid data </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00687">687</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -487,29 +585,81 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a18">distributed_grid_scatter_gather.cc</a>.</dd>
+
+<p>Determines the last index (plus one) to access the data grid along a dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>dimension </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid index </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a19">distributed_grid_scatter_gather.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00275">275</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00585">585</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9958e349a6f46c3f089f48288f47ace2" name="a9958e349a6f46c3f089f48288f47ace2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9958e349a6f46c3f089f48288f47ace2">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/5]</span></h2>
+<a id="a213eb274680567cdcd292f5080f22e71" name="a213eb274680567cdcd292f5080f22e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a213eb274680567cdcd292f5080f22e71">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td class="memname">std::enable_if_t&lt; d==1, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>x</em></td><td>)</td>
+          <td class="paramname"><em>i_0</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00591">591</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a17585fc73aba29fb6ab0e3d8022b25be" name="a17585fc73aba29fb6ab0e3d8022b25be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17585fc73aba29fb6ab0e3d8022b25be">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; d==1, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_0</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -520,32 +670,43 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00277">277</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00600">600</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae9b95c92cc9128bd80ed1526fb234670" name="ae9b95c92cc9128bd80ed1526fb234670"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9b95c92cc9128bd80ed1526fb234670">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/5]</span></h2>
+<a id="a0bc2c3d68db9a67e6bd415c2c7d0131b" name="a0bc2c3d68db9a67e6bd415c2c7d0131b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0bc2c3d68db9a67e6bd415c2c7d0131b">&#9670;&nbsp;</a></span>operator()() <span class="overload">[3/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td class="memname">std::enable_if_t&lt; d==2, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>i_0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
+          <td class="paramname"><em>i_1</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -560,32 +721,44 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00282">282</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+    <tr><td class="paramname">i_1</td><td>2nd dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00610">610</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a54bddd298a2f81bba7c90dbb97786f7a" name="a54bddd298a2f81bba7c90dbb97786f7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54bddd298a2f81bba7c90dbb97786f7a">&#9670;&nbsp;</a></span>operator()() <span class="overload">[3/5]</span></h2>
+<a id="a6be0b3c4b9aced8db5d1a250a722a4bf" name="a6be0b3c4b9aced8db5d1a250a722a4bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6be0b3c4b9aced8db5d1a250a722a4bf">&#9670;&nbsp;</a></span>operator()() <span class="overload">[4/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td class="memname">std::enable_if_t&lt; d==2, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>i_0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>y</em>&#160;</td>
+          <td class="paramname"><em>i_1</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -600,38 +773,50 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00287">287</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+    <tr><td class="paramname">i_1</td><td>2nd dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00620">620</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a049be0cb09609b241e2cf58e076fe514" name="a049be0cb09609b241e2cf58e076fe514"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a049be0cb09609b241e2cf58e076fe514">&#9670;&nbsp;</a></span>operator()() <span class="overload">[4/5]</span></h2>
+<a id="a884c5dfdd939ad61fd2ad4de8d1c63fd" name="a884c5dfdd939ad61fd2ad4de8d1c63fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a884c5dfdd939ad61fd2ad4de8d1c63fd">&#9670;&nbsp;</a></span>operator()() <span class="overload">[5/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td class="memname">std::enable_if_t&lt; d==3, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>i_0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramname"><em>i_1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>z</em>&#160;</td>
+          <td class="paramname"><em>i_2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -646,38 +831,51 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00292">292</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+    <tr><td class="paramname">i_1</td><td>2nd dimension index </td></tr>
+    <tr><td class="paramname">i_2</td><td>3rd dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00632">632</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3c95eccd093760e951f4e7fc58d72638" name="a3c95eccd093760e951f4e7fc58d72638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c95eccd093760e951f4e7fc58d72638">&#9670;&nbsp;</a></span>operator()() <span class="overload">[5/5]</span></h2>
+<a id="aea49a8961c1544888e3d697614e76282" name="aea49a8961c1544888e3d697614e76282"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea49a8961c1544888e3d697614e76282">&#9670;&nbsp;</a></span>operator()() <span class="overload">[6/8]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td class="memname">std::enable_if_t&lt; d==3, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
+          <td class="paramname"><em>i_0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
+          <td class="paramname"><em>i_1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>z</em>&#160;</td>
+          <td class="paramname"><em>i_2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -692,7 +890,150 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00297">297</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+    <tr><td class="paramname">i_1</td><td>2nd dimension index </td></tr>
+    <tr><td class="paramname">i_2</td><td>3rd dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00644">644</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="acd9f95c3471b08a4dc3da723d6c121b3" name="acd9f95c3471b08a4dc3da723d6c121b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd9f95c3471b08a4dc3da723d6c121b3">&#9670;&nbsp;</a></span>operator()() <span class="overload">[7/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; d==4, <a class="el" href="classmpl_1_1local__grid.html#aa34ade9741224f1539935e220ba95105">reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+    <tr><td class="paramname">i_1</td><td>2nd dimension index </td></tr>
+    <tr><td class="paramname">i_2</td><td>3rd dimension index </td></tr>
+    <tr><td class="paramname">i_3</td><td>4th dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00658">658</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+
+</div>
+</div>
+<a id="adee4f6ca84465120671ec7ab6f673ebf" name="adee4f6ca84465120671ec7ab6f673ebf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adee4f6ca84465120671ec7ab6f673ebf">&#9670;&nbsp;</a></span>operator()() <span class="overload">[8/8]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
+<div class="memtemplate">
+template&lt;std::size_t d = dim&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::enable_if_t&lt; d==4, <a class="el" href="classmpl_1_1local__grid.html#aab729f6d024a0550cd75781ac7e7f7a7">const_reference</a> &gt; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::operator() </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
+          <td class="paramname"><em>i_3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Element access. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i_0</td><td>1st dimension index </td></tr>
+    <tr><td class="paramname">i_1</td><td>2nd dimension index </td></tr>
+    <tr><td class="paramname">i_2</td><td>3rd dimension index </td></tr>
+    <tr><td class="paramname">i_3</td><td>4th dimension index </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>grid data element </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00672">672</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -722,37 +1063,16 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00271">271</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p>Determines the size of the data grid along a dimension. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">d</td><td>dimension </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>local grid size </dd></dl>
 
-</div>
-</div>
-<a id="a4e9fb50fa6b7042781cc3b76febe0353" name="a4e9fb50fa6b7042781cc3b76febe0353"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e9fb50fa6b7042781cc3b76febe0353">&#9670;&nbsp;</a></span>sub_layout()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="classmpl_1_1layout.html">layout</a>&lt; T &gt; &amp; <a class="el" href="classmpl_1_1local__grid.html">mpl::local_grid</a>&lt; dim, T, A &gt;::sub_layout </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classmpl_1_1local__grid.html#ae0ebb9b3054ff110c5bbb2594729a84f">size_type</a>&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00306">306</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00575">575</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -780,10 +1100,14 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Get layouts for scatting and gathering of the grid data. </p>
+<dl class="section return"><dt>Returns</dt><dd>set of layouts</dd></dl>
+<p>If there is a <a class="el" href="classmpl_1_1local__grid.html" title="Data grid.">local_grid</a> and a <a class="el" href="classmpl_1_1distributed__grid.html" title="Local portion of a distributed data grid including local overlap data.">distributed_grid</a> that have been created with the same Cartesian communicator argument and if both grids have the same total size then the i-th returned layout is suitable to send a sub-set of data from the <a class="el" href="classmpl_1_1local__grid.html" title="Data grid.">local_grid</a> to the distributed grid at the process with rank i in the Cartesian communicator. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a5">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a19">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a20">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00308">308</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00695">695</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>
@@ -813,7 +1137,7 @@ template&lt;std::size_t dim, typename T , typename A  = std::allocator&lt;T&gt;&
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00310">310</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="distributed__grid_8hpp_source.html#l00697">697</a> of file <a class="el" href="distributed__grid_8hpp_source.html">distributed_grid.hpp</a>.</p>
 
 </div>
 </div>

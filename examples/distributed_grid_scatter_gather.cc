@@ -39,9 +39,11 @@ int main() {
   const int nx{21}, ny{13};
   mpl::cartesian_communicator comm_c{comm_world, mpl::dims_create(comm_world.size(), size)};
   mpl::distributed_grid<2, int> grid{comm_c, {{nx, 1}, {ny, 1}}};
+  const int c_rank{comm_c.rank()};
+  const int c_size{comm_c.size()};
   for (auto j{grid.obegin(1)}, j_end{grid.oend(1)}; j < j_end; ++j)
     for (auto i{grid.obegin(0)}, i_end{grid.oend(0)}; i < i_end; ++i)
-      grid(i, j) = comm_c.rank();
+      grid(i, j) = c_rank + 1 ;
   if (comm_world.rank() == 0) {
     mpl::local_grid<2, int> local_grid(comm_c, {nx, ny});
     for (auto j{local_grid.begin(1)}, j_end{local_grid.end(1)}; j < j_end; ++j)
@@ -50,8 +52,8 @@ int main() {
     scatter(comm_c, 0, local_grid, grid);
   } else
     scatter(comm_c, 0, grid);
-  for (int i{0}; i < comm_c.size(); ++i) {
-    if (i == comm_c.rank()) {
+  for (int i{0}; i < c_size; ++i) {
+    if (i == c_rank) {
       std::cout << std::endl;
       for (auto j{grid.obegin(1)}, j_end{grid.oend(1)}; j < j_end; ++j) {
         for (auto i{grid.obegin(0)}, i_end{grid.oend(0)}; i < i_end; ++i)
@@ -63,7 +65,7 @@ int main() {
   }
   for (auto j{grid.obegin(1)}, j_end{grid.oend(1)}; j < j_end; ++j)
     for (auto i{grid.obegin(0)}, i_end{grid.oend(0)}; i < i_end; ++i)
-      grid(i, j) = comm_c.rank();
+      grid(i, j) = c_rank;
   if (comm_world.rank() == 0) {
     mpl::local_grid<2, int> local_grid{comm_c, {nx, ny}};
     gather(comm_c, 0, grid, local_grid);

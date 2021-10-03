@@ -1,7 +1,7 @@
 var searchData=
 [
   ['shift_5franks_0',['shift_ranks',['../structmpl_1_1shift__ranks.html',1,'mpl']]],
-  ['sizes_1',['sizes',['../classmpl_1_1distributed__grid_1_1sizes.html',1,'mpl::distributed_grid&lt; dim, T, A &gt;::sizes'],['../classmpl_1_1local__grid_1_1sizes.html',1,'mpl::local_grid&lt; dim, T, A &gt;::sizes']]],
+  ['size_5foverlap_5fpair_1',['size_overlap_pair',['../classmpl_1_1distributed__grid_1_1size__overlap__pair.html',1,'mpl::distributed_grid']]],
   ['split_5fshared_5fmemory_5ftag_2',['split_shared_memory_tag',['../classmpl_1_1communicator_1_1split__shared__memory__tag.html',1,'mpl::communicator']]],
   ['split_5ftag_3',['split_tag',['../classmpl_1_1communicator_1_1split__tag.html',1,'mpl::communicator']]],
   ['status_5ft_4',['status_t',['../classmpl_1_1status__t.html',1,'mpl']]],

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['rank_0',['rank',['../classmpl_1_1distributed__graph__communicator_1_1rank__weight__pair.html#a8e6c3be2673ad743f58a418650176ba6',1,'mpl::distributed_graph_communicator::rank_weight_pair']]],
-  ['root_1',['root',['../namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc',1,'mpl']]]
+  ['periodic_0',['periodic',['../classmpl_1_1cartesian__communicator.html#acec10c2952506fd723880a5f81ab8100',1,'mpl::cartesian_communicator']]],
+  ['proc_5fnull_1',['proc_null',['../namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c',1,'mpl']]]
 ];

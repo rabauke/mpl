@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['periodic_0',['periodic',['../classmpl_1_1cartesian__communicator.html#acec10c2952506fd723880a5f81ab8100',1,'mpl::cartesian_communicator']]],
-  ['proc_5fnull_1',['proc_null',['../namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c',1,'mpl']]]
+  ['overlap_0',['overlap',['../classmpl_1_1distributed__grid_1_1size__overlap__pair.html#ab24f528c5aef47d91274c9080da41a61',1,'mpl::distributed_grid::size_overlap_pair']]]
 ];

@@ -41,6 +41,8 @@ var hierarchy =
     [ "mpl::group::difference_tag", "classmpl_1_1group_1_1difference__tag.html", null ],
     [ "mpl::cartesian_communicator::dimensions::dimension_periodicity_proxy", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1dimension__periodicity__proxy.html", null ],
     [ "mpl::cartesian_communicator::dimensions", "classmpl_1_1cartesian__communicator_1_1dimensions.html", null ],
+    [ "mpl::distributed_grid< dim, T, A >::dimensions", "classmpl_1_1distributed__grid_1_1dimensions.html", null ],
+    [ "mpl::local_grid< dim, T, A >::dimensions", "classmpl_1_1local__grid_1_1dimensions.html", null ],
     [ "mpl::distributed_grid< dim, T, A >", "classmpl_1_1distributed__grid.html", null ],
     [ "std::exception", null, [
       [ "mpl::error", "classmpl_1_1error.html", [
@@ -131,8 +133,7 @@ var hierarchy =
       [ "mpl::graph_communicator::edge_set", "classmpl_1_1graph__communicator_1_1edge__set.html", null ]
     ] ],
     [ "mpl::shift_ranks", "structmpl_1_1shift__ranks.html", null ],
-    [ "mpl::distributed_grid< dim, T, A >::sizes", "classmpl_1_1distributed__grid_1_1sizes.html", null ],
-    [ "mpl::local_grid< dim, T, A >::sizes", "classmpl_1_1local__grid_1_1sizes.html", null ],
+    [ "mpl::distributed_grid< dim, T, A >::size_overlap_pair", "classmpl_1_1distributed__grid_1_1size__overlap__pair.html", null ],
     [ "mpl::communicator::split_shared_memory_tag", "classmpl_1_1communicator_1_1split__shared__memory__tag.html", null ],
     [ "mpl::communicator::split_tag", "classmpl_1_1communicator_1_1split__tag.html", null ],
     [ "mpl::struct_builder< T >", "classmpl_1_1struct__builder.html", null ],
