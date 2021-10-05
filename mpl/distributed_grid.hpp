@@ -254,7 +254,7 @@ namespace mpl {
     /// including the overlap data along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type obegin(size_type d) const { return 0; };
+    [[nodiscard]] size_type obegin([[maybe_unused]] size_type d) const { return 0; };
 
     /// \brief Determines the last index (plus one) to access the local portion of the
     /// distributed grid including the overlap data along a dimension.
@@ -577,7 +577,7 @@ namespace mpl {
     /// \brief Determines the lowest index to access the data grid along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type begin(size_type d) const { return 0; };
+    [[nodiscard]] size_type begin([[maybe_unused]] size_type d) const { return 0; };
 
     /// \brief Determines the last index (plus one) to access the data grid along a dimension.
     /// \param d dimension

@@ -12,7 +12,6 @@ bool cartesian_communicator_test() {
   if (comm_c.dimensionality() != 2)
     return false;
   const int rank{comm_c.rank()};
-  const int size{comm_c.size()};
   auto coordinate{comm_c.coordinates()};
   if (comm_c.rank(coordinate) != rank)
     return false;
