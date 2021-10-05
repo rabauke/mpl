@@ -56,20 +56,20 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   return print_container(out, v);
 }
 
-// send an stl container
+// send an STL container
 template<typename T>
 void send(const mpl::communicator &comm, const T &x) {
   comm.send(x, 1);
 }
 
-// send an stl container
+// send an STL container
 template<typename T>
 void isend(const mpl::communicator &comm, const T &x) {
   mpl::irequest r{comm.isend(x, 1)};
   r.wait();
 }
 
-// receive an stl container
+// receive an STL container
 template<typename T>
 void recv(const mpl::communicator &comm) {
   using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;
@@ -78,7 +78,7 @@ void recv(const mpl::communicator &comm) {
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
 
-// receive an stl container
+// receive an STL container
 template<typename T>
 void irecv(const mpl::communicator &comm) {
   using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;

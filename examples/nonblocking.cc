@@ -70,7 +70,7 @@ int main() {
       std::array<mpl::irequest_pool::size_type, 4>
           finished;  // memory to store indices of finished send operations
       while (true) {
-        auto i{r.waitsome(finished.begin())};  // wait until one ore more sends have finished
+        auto i{r.waitsome(finished.begin())};  // wait until one or more sends have finished
         if (i == finished.begin())             // there have been no pending sends
           break;
         // print indices of finished sends
@@ -117,7 +117,7 @@ int main() {
       while (true) {
         std::array<mpl::irequest_pool::size_type, 4>
             finished;  // memory to store indices of finished recv operations
-        auto i{r.waitsome(finished.begin())};  // wait until one ore more receives have finished
+        auto i{r.waitsome(finished.begin())};  // wait until one or more receives have finished
         if (i == finished.begin())             // there have been no pending receives
           break;
         // print indices of finished receives

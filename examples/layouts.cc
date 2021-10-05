@@ -105,7 +105,7 @@ int main() {
   }
 
   // test layouts of layouts
-  // layouts on sending and receiving side may differ but must be compatible
+  // the layouts on sending and receiving side may differ but must be compatible
   if (comm_world.rank() == 0) {
     std::vector<int> v(3 * 3 * 4);
     std::iota(v.begin(), v.end(), 1);          // fill vector with some data

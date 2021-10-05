@@ -7,7 +7,7 @@
 #include <random>
 #include <mpl/mpl.hpp>
 
-// data type to store data an position of global minimum
+// data type to store the data and the position of the global minimum
 using pair_t = std::pair<double, int>;
 
 int main() {

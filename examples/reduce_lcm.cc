@@ -6,7 +6,7 @@
 #include <random>
 #include <mpl/mpl.hpp>
 
-// calculate least common multiple of two arguments
+// calculate the least common multiple of two arguments
 template<typename T>
 class lcm {
   // helper: calculate greatest common divisor

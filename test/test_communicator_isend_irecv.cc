@@ -185,7 +185,7 @@ bool irsend_irecv_test(const T &data) {
   } else if (comm_world.rank() == 1) {
     // must ensure that MPI_Recv is called before mpl::communicator::rsend
     if constexpr (has_begin_end<T>() and has_size<T>() and has_resize<T>()) {
-      // T is a STL container
+      // T is an STL container
       T data_r;
       data_r.resize(data.size());
       mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
@@ -193,7 +193,7 @@ bool irsend_irecv_test(const T &data) {
       r.wait();
       return data_r == data;
     } else if constexpr (has_begin_end<T>() and has_size<T>()) {
-      // T is a STL container without resize member, e.g., std::set
+      // T is an STL container without resize member, e.g., std::set
       std::vector<typename T::value_type> data_r;
       data_r.resize(data.size());
       mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
@@ -239,7 +239,7 @@ bool irsend_irecv_iter_test(const T &data) {
       }
       return data_r == data;
     } else if constexpr (has_begin_end<T>() and has_size<T>()) {
-      // T is a STL container without resize member, e.g., std::set
+      // T is an STL container without resize member, e.g., std::set
       std::vector<typename T::value_type> data_r;
       data_r.resize(data.size());
       mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};

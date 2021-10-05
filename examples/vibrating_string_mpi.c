@@ -48,7 +48,7 @@ int main(int argc, char *argv[]) {
   N_l = secure_malloc(C_size * sizeof(*N_l));
   N0_l = secure_malloc(C_size * sizeof(*N0_l));
   // calculate size and position of local grids
-  // local grids include one mirror grid point at each end or the boundary condition
+  // the local grids include one mirror grid point at each end or the boundary condition
   for (int i = 0; i < C_size; ++i) {
     // number of local grid points is N_l[C_rank]
     N_l[i] = (i + 1) * (N - 2) / C_size - i * (N - 2) / C_size + 2;
