@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['periodic_0',['periodic',['../classmpl_1_1cartesian__communicator.html#acec10c2952506fd723880a5f81ab8100',1,'mpl::cartesian_communicator']]]
+  ['non_5fperiodic_0',['non_periodic',['../classmpl_1_1cartesian__communicator.html#a147f10d80cecd3078f3688c56a169a70',1,'mpl::cartesian_communicator']]]
 ];

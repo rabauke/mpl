@@ -100,7 +100,7 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"> </div>
 <div class="line"><span class="comment">// print elements of a pair</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;operator&lt;&lt;(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code hl_function" href="namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::pair&lt;T1, T2&gt; &amp;p) {</div>
 <div class="line">  <span class="keywordflow">return</span> out &lt;&lt; <span class="charliteral">&#39;(&#39;</span> &lt;&lt; p.first &lt;&lt; <span class="charliteral">&#39;,&#39;</span> &lt;&lt; p.second &lt;&lt; <span class="charliteral">&#39;)&#39;</span>;</div>
 <div class="line">}</div>
@@ -119,46 +119,46 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of a vector</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;operator&lt;&lt;(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code hl_function" href="namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::vector&lt;T, A&gt; &amp;v) {</div>
 <div class="line">  <span class="keywordflow">return</span> print_container(out, v);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of a list</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> T, <span class="keyword">typename</span> A&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;operator&lt;&lt;(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code hl_function" href="namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::list&lt;T, A&gt; &amp;l) {</div>
 <div class="line">  <span class="keywordflow">return</span> print_container(out, l);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of a map</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> K, <span class="keyword">typename</span> C, <span class="keyword">typename</span> A&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;operator&lt;&lt;(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code hl_function" href="namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::map&lt;K, C, A&gt; &amp;m) {</div>
 <div class="line">  <span class="keywordflow">return</span> print_container(out, m);</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="comment">// print all elements of a map</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> ch, <span class="keyword">typename</span> tr, <span class="keyword">typename</span> T&gt;</div>
-<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;operator&lt;&lt;(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
+<div class="line">std::basic_ostream&lt;ch, tr&gt; &amp;<a class="code hl_function" href="namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a">operator&lt;&lt;</a>(std::basic_ostream&lt;ch, tr&gt; &amp;out,</div>
 <div class="line">                                       <span class="keyword">const</span> std::valarray&lt;T&gt; &amp;v) {</div>
 <div class="line">  <span class="keywordflow">return</span> print_container(out, v);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// send an stl container</span></div>
+<div class="line"><span class="comment">// send an STL container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> send(<span class="keyword">const</span> <a id="_a0" name="_a0"></a><a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm, <span class="keyword">const</span> T &amp;x) {</div>
 <div class="line">  comm.<a id="a1" name="a1"></a>send(x, 1);</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// send an stl container</span></div>
+<div class="line"><span class="comment">// send an STL container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> isend(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm, <span class="keyword">const</span> T &amp;x) {</div>
 <div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_class" href="classmpl_1_1irequest.html">mpl::irequest</a> r{comm.<a id="a3" name="a3"></a>isend(x, 1)};</div>
 <div class="line">  r.wait();</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// receive an stl container</span></div>
+<div class="line"><span class="comment">// receive an STL container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> recv(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
 <div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
@@ -167,7 +167,7 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line">  std::cout &lt;&lt; <span class="stringliteral">&quot;x = &quot;</span> &lt;&lt; x &lt;&lt; <span class="stringliteral">&quot; with &quot;</span> &lt;&lt; s.template get_count&lt;value_type&gt;() &lt;&lt; <span class="stringliteral">&quot; elements\n&quot;</span>;</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line"><span class="comment">// receive an stl container</span></div>
+<div class="line"><span class="comment">// receive an STL container</span></div>
 <div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><span class="keywordtype">void</span> irecv(<span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm) {</div>
 <div class="line">  <span class="keyword">using</span> value_type = mpl::detail::remove_const_from_members_t&lt;typename T::value_type&gt;;</div>
@@ -178,12 +178,12 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm_world{mpl::environment::comm_world()};</div>
+<div class="line">  <span class="keyword">const</span> <a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>{<a id="a7" name="a7"></a><a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">mpl::environment::comm_world</a>()};</div>
 <div class="line">  <span class="comment">// run the program with two or more processes</span></div>
-<div class="line">  <span class="keywordflow">if</span> (comm_world.<a id="a7" name="a7"></a><a class="code hl_function" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
-<div class="line">    comm_world.<a id="a8" name="a8"></a><a class="code hl_function" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a id="a8" name="a8"></a><a class="code hl_function" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>() &lt; 2)</div>
+<div class="line">    <a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a id="a9" name="a9"></a><a class="code hl_function" href="classmpl_1_1communicator.html#a27f12a9cb7b591f63db98cf7a2b32cfe">abort</a>(EXIT_FAILURE);</div>
 <div class="line">  <span class="comment">// process 0 sends</span></div>
-<div class="line">  <span class="keywordflow">if</span> (comm_world.<a id="a9" name="a9"></a><a class="code hl_function" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a id="a10" name="a10"></a><a class="code hl_function" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 0) {</div>
 <div class="line">    std::string t_1{<span class="stringliteral">&quot;Hello World!&quot;</span>};</div>
 <div class="line">    send(comm_world, t_1);</div>
 <div class="line">    isend(comm_world, t_1);</div>
@@ -201,17 +201,17 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="line">    isend(comm_world, t_5);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// process 1 receives</span></div>
-<div class="line">  <span class="keywordflow">if</span> (comm_world.<a class="code hl_function" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
+<div class="line">  <span class="keywordflow">if</span> (<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a class="code hl_function" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>() == 1) {</div>
 <div class="line">    recv&lt;std::string&gt;(comm_world);</div>
 <div class="line">    irecv&lt;std::string&gt;(comm_world);</div>
-<div class="line">    recv&lt;std::list&lt;int&gt;&gt;(comm_world);</div>
-<div class="line">    irecv&lt;std::list&lt;int&gt;&gt;(comm_world);</div>
-<div class="line">    recv&lt;std::map&lt;int, double&gt;&gt;(comm_world);</div>
-<div class="line">    irecv&lt;std::map&lt;int, double&gt;&gt;(comm_world);</div>
-<div class="line">    recv&lt;std::vector&lt;bool&gt;&gt;(comm_world);</div>
-<div class="line">    irecv&lt;std::vector&lt;bool&gt;&gt;(comm_world);</div>
-<div class="line">    recv&lt;std::valarray&lt;double&gt;&gt;(comm_world);</div>
-<div class="line">    irecv&lt;std::valarray&lt;double&gt;&gt;(comm_world);</div>
+<div class="line">    recv&lt;std::list&lt;int&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    irecv&lt;std::list&lt;int&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    recv&lt;std::map&lt;int, double&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    irecv&lt;std::map&lt;int, double&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    recv&lt;std::vector&lt;bool&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    irecv&lt;std::vector&lt;bool&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    recv&lt;std::valarray&lt;double&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
+<div class="line">    irecv&lt;std::valarray&lt;double&gt;&gt;(<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="keywordflow">return</span> EXIT_SUCCESS;</div>
 <div class="line">}</div>
@@ -221,6 +221,8 @@ $(document).ready(function(){initNavTree('stl_container_8cc-example.html',''); i
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00572">comm_group.hpp:572</a></div></div>
 <div class="ttc" id="aclassmpl_1_1irequest_html"><div class="ttname"><a href="classmpl_1_1irequest.html">mpl::irequest</a></div><div class="ttdoc">Represents a non-blocking communication request.</div><div class="ttdef"><b>Definition:</b> <a href="request_8hpp_source.html#l00224">request.hpp:224</a></div></div>
 <div class="ttc" id="aclassmpl_1_1status__t_html"><div class="ttname"><a href="classmpl_1_1status__t.html">mpl::status_t</a></div><div class="ttdoc">Class that represents the status of a received message.</div><div class="ttdef"><b>Definition:</b> <a href="status_8hpp_source.html#l00020">status.hpp:20</a></div></div>
+<div class="ttc" id="anamespacempl_1_1environment_html_a1f4644f4435160bb33ada569dc3f48ac"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
+<div class="ttc" id="anamespacempl_html_a6aabc6191f8b6e463e4c283f7b05985a"><div class="ttname"><a href="namespacempl.html#a6aabc6191f8b6e463e4c283f7b05985a">mpl::operator&lt;&lt;</a></div><div class="ttdeci">std::basic_ostream&lt; CharT, Traits &gt; &amp; operator&lt;&lt;(std::basic_ostream&lt; CharT, Traits &gt; &amp;os, tag_t t)</div><div class="ttdef"><b>Definition:</b> <a href="tag_8hpp_source.html#l00054">tag.hpp:63</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

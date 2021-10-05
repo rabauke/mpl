@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['equality_5ftype_0',['equality_type',['../classmpl_1_1group.html#a78eb3d59b04c2e989ea52c60d39ffa69',1,'mpl::group::equality_type()'],['../classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63',1,'mpl::communicator::equality_type()']]]
+  ['array_5forders_0',['array_orders',['../namespacempl.html#a7fd33fa3d7b9a6f095cd55710c3b2dbf',1,'mpl']]]
 ];

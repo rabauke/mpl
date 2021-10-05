@@ -137,7 +137,7 @@ $(document).ready(function(){initNavTree('vibrating_string_mpi_8c-example.html',
 <div class="line">  N_l = secure_malloc(C_size * <span class="keyword">sizeof</span>(*N_l));</div>
 <div class="line">  N0_l = secure_malloc(C_size * <span class="keyword">sizeof</span>(*N0_l));</div>
 <div class="line">  <span class="comment">// calculate size and position of local grids</span></div>
-<div class="line">  <span class="comment">// local grids include one mirror grid point at each end or the boundary condition</span></div>
+<div class="line">  <span class="comment">// the local grids include one mirror grid point at each end or the boundary condition</span></div>
 <div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; C_size; ++i) {</div>
 <div class="line">    <span class="comment">// number of local grid points is N_l[C_rank]</span></div>
 <div class="line">    N_l[i] = (i + 1) * (N - 2) / C_size - i * (N - 2) / C_size + 2;</div>

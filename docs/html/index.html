@@ -86,9 +86,8 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
   <div class="headertitle"><div class="title">MPL - A message passing library </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p ><a class="anchor" id="md_README"></a> MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. <br  />
- Since the C++ API has been dropped from the MPI standard in version 3.1, it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
-<p >MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. The library's focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface standard and would like to utilize it via a more user-friendly interface in modern C++. Unlike (Boost.MPI)[<a href="https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html">https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html</a>], MPL does not rely on an external serialization library and has a negligible run-time overhead.</p>
+<div class="textblock"><p ><a class="anchor" id="md_README"></a> MPL is a message passing library written in C++17 based on the <a href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.1, it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
+<p >MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. The library's focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. The aim of MPL is to provide an idiomatic C++ message passing library without introducing a significant overhead compared to utilizing MPI via its plain C-API. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface standard and would like to utilize it via a more user-friendly interface in modern C++. Unlike (Boost.MPI)[<a href="https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html">https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html</a>], MPL does not rely on an external serialization library and has a negligible run-time overhead.</p>
 <h1>Supported features</h1>
 <p >MPL assumes that the underlying MPI implementation supports the <a href="https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report.pdf">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the new <a href="https://www.mpi-forum.org/docs/mpi-4.0/mpi40-report.pdf">version 4.0</a> or later MPI versions. <br  />
 </p>
@@ -103,6 +102,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </ul>
 <p >Currently, the following MPI features are not yet supported by MPL:</p>
 <ul>
+<li>inter-communicators (planed for v0.2)</li>
 <li>error handling,</li>
 <li>process creation and management,</li>
 <li>one-sided communication and</li>
@@ -121,62 +121,65 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!-- fragment --><p> After the unit test have been build successfully, they can be run conveniently by utilizing the CTest tool, i.e., via </p><div class="fragment"><div class="line">user@host:~/mpl/build$ ctest</div>
 <div class="line">Test project /home/user/mpl/build</div>
 <div class="line">      Start  1: test_communicator</div>
-<div class="line"> 1/26 Test  #1: test_communicator ........................   Passed    0.14 sec</div>
-<div class="line">      Start  2: test_cart_communicator</div>
-<div class="line"> 2/26 Test  #2: test_cart_communicator ...................   Passed    0.12 sec</div>
+<div class="line"> 1/27 Test  #1: test_communicator ........................   Passed    0.19 sec</div>
+<div class="line">      Start  2: test_cartesian_communicator</div>
+<div class="line"> 2/27 Test  #2: test_cartesian_communicator ..............   Passed    0.11 sec</div>
 <div class="line">      Start  3: test_graph_communicator</div>
-<div class="line"> 3/26 Test  #3: test_graph_communicator ..................   Passed    0.12 sec</div>
+<div class="line"> 3/27 Test  #3: test_graph_communicator ..................   Passed    0.07 sec</div>
 <div class="line">      Start  4: test_dist_graph_communicator</div>
-<div class="line"> 4/26 Test  #4: test_dist_graph_communicator .............   Passed    0.13 sec</div>
+<div class="line"> 4/27 Test  #4: test_dist_graph_communicator .............   Passed    0.11 sec</div>
 <div class="line">      Start  5: test_communicator_send_recv</div>
-<div class="line"> 5/26 Test  #5: test_communicator_send_recv ..............   Passed    0.12 sec</div>
+<div class="line"> 5/27 Test  #5: test_communicator_send_recv ..............   Passed    0.11 sec</div>
 <div class="line">      Start  6: test_communicator_isend_irecv</div>
-<div class="line"> 6/26 Test  #6: test_communicator_isend_irecv ............   Passed    0.14 sec</div>
+<div class="line"> 6/27 Test  #6: test_communicator_isend_irecv ............   Passed    0.12 sec</div>
 <div class="line">      Start  7: test_communicator_init_send_init_recv</div>
-<div class="line"> 7/26 Test  #7: test_communicator_init_send_init_recv ....   Passed    0.12 sec</div>
+<div class="line"> 7/27 Test  #7: test_communicator_init_send_init_recv ....   Passed    0.11 sec</div>
 <div class="line">      Start  8: test_communicator_sendrecv</div>
-<div class="line"> 8/26 Test  #8: test_communicator_sendrecv ...............   Passed    0.12 sec</div>
+<div class="line"> 8/27 Test  #8: test_communicator_sendrecv ...............   Passed    0.11 sec</div>
 <div class="line">      Start  9: test_communicator_probe</div>
-<div class="line"> 9/26 Test  #9: test_communicator_probe ..................   Passed    0.13 sec</div>
+<div class="line"> 9/27 Test  #9: test_communicator_probe ..................   Passed    0.11 sec</div>
 <div class="line">      Start 10: test_communicator_mprobe_mrecv</div>
-<div class="line">10/26 Test #10: test_communicator_mprobe_mrecv ...........   Passed    0.13 sec</div>
+<div class="line">10/27 Test #10: test_communicator_mprobe_mrecv ...........   Passed    0.11 sec</div>
 <div class="line">      Start 11: test_communicator_barrier</div>
-<div class="line">11/26 Test #11: test_communicator_barrier ................   Passed    0.07 sec</div>
+<div class="line">11/27 Test #11: test_communicator_barrier ................   Passed    0.11 sec</div>
 <div class="line">      Start 12: test_communicator_bcast</div>
-<div class="line">12/26 Test #12: test_communicator_bcast ..................   Passed    0.05 sec</div>
+<div class="line">12/27 Test #12: test_communicator_bcast ..................   Passed    0.10 sec</div>
 <div class="line">      Start 13: test_communicator_gather</div>
-<div class="line">13/26 Test #13: test_communicator_gather .................   Passed    0.05 sec</div>
+<div class="line">13/27 Test #13: test_communicator_gather .................   Passed    0.10 sec</div>
 <div class="line">      Start 14: test_communicator_gatherv</div>
-<div class="line">14/26 Test #14: test_communicator_gatherv ................   Passed    0.10 sec</div>
+<div class="line">14/27 Test #14: test_communicator_gatherv ................   Passed    0.06 sec</div>
 <div class="line">      Start 15: test_communicator_allgather</div>
-<div class="line">15/26 Test #15: test_communicator_allgather ..............   Passed    0.09 sec</div>
+<div class="line">15/27 Test #15: test_communicator_allgather ..............   Passed    0.11 sec</div>
 <div class="line">      Start 16: test_communicator_allgatherv</div>
-<div class="line">16/26 Test #16: test_communicator_allgatherv .............   Passed    0.11 sec</div>
+<div class="line">16/27 Test #16: test_communicator_allgatherv .............   Passed    0.14 sec</div>
 <div class="line">      Start 17: test_communicator_scatter</div>
-<div class="line">17/26 Test #17: test_communicator_scatter ................   Passed    0.12 sec</div>
+<div class="line">17/27 Test #17: test_communicator_scatter ................   Passed    0.12 sec</div>
 <div class="line">      Start 18: test_communicator_scatterv</div>
-<div class="line">18/26 Test #18: test_communicator_scatterv ...............   Passed    0.10 sec</div>
+<div class="line">18/27 Test #18: test_communicator_scatterv ...............   Passed    0.12 sec</div>
 <div class="line">      Start 19: test_communicator_alltoall</div>
-<div class="line">19/26 Test #19: test_communicator_alltoall ...............   Passed    0.12 sec</div>
+<div class="line">19/27 Test #19: test_communicator_alltoall ...............   Passed    0.11 sec</div>
 <div class="line">      Start 20: test_communicator_alltoallv</div>
-<div class="line">20/26 Test #20: test_communicator_alltoallv ..............   Passed    0.14 sec</div>
+<div class="line">20/27 Test #20: test_communicator_alltoallv ..............   Passed    0.15 sec</div>
 <div class="line">      Start 21: test_communicator_reduce</div>
-<div class="line">21/26 Test #21: test_communicator_reduce .................   Passed    0.10 sec</div>
+<div class="line">21/27 Test #21: test_communicator_reduce .................   Passed    0.13 sec</div>
 <div class="line">      Start 22: test_communicator_allreduce</div>
-<div class="line">22/26 Test #22: test_communicator_allreduce ..............   Passed    0.08 sec</div>
+<div class="line">22/27 Test #22: test_communicator_allreduce ..............   Passed    0.13 sec</div>
 <div class="line">      Start 23: test_communicator_reduce_scatter_block</div>
-<div class="line">23/26 Test #23: test_communicator_reduce_scatter_block ...   Passed    0.09 sec</div>
+<div class="line">23/27 Test #23: test_communicator_reduce_scatter_block ...   Passed    0.12 sec</div>
 <div class="line">      Start 24: test_communicator_reduce_scatter</div>
-<div class="line">24/26 Test #24: test_communicator_reduce_scatter .........   Passed    0.13 sec</div>
+<div class="line">24/27 Test #24: test_communicator_reduce_scatter .........   Passed    0.08 sec</div>
 <div class="line">      Start 25: test_communicator_scan</div>
-<div class="line">25/26 Test #25: test_communicator_scan ...................   Passed    0.07 sec</div>
+<div class="line">25/27 Test #25: test_communicator_scan ...................   Passed    0.05 sec</div>
 <div class="line">      Start 26: test_communicator_exscan</div>
-<div class="line">26/26 Test #26: test_communicator_exscan .................   Passed    0.10 sec</div>
+<div class="line">26/27 Test #26: test_communicator_exscan .................   Passed    0.05 sec</div>
+<div class="line">      Start 27: test_displacements</div>
+<div class="line">27/27 Test #27: test_displacements .......................   Passed    0.02 sec</div>
 <div class="line"> </div>
-<div class="line">100% tests passed, 0 tests failed out of 26</div>
+<div class="line">100% tests passed, 0 tests failed out of 27</div>
 <div class="line"> </div>
-<div class="line">Total Test time (real) =   2.79 sec</div>
+<div class="line">Total Test time (real) =   2.86 sec</div>
 </div><!-- fragment --><p> or via your IDE if it features support for CTest.</p>
+<p >Alternatively, MPL may be installed via the <a href="https://spack.readthedocs.io/">Spack</a> package manager. This will install the library headers ony but not compile the unit tests and the examples.</p>
 <p >Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on <a href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
 <h1>Hello parallel world</h1>
 <p >MPL is built on top of the Message Passing Interface (MPI) standard. Therefore, MPL shares many concepts known from the MPI standard, e.g., the concept of a communicator. Communicators manage the message exchange between different processes, i.e., messages are sent and received with the help of a communicator. <br  />

@@ -106,6 +106,8 @@ Collaboration diagram for mpl::tag_t:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:af2132893124b73da5792982e961f8e21"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1tag__t.html#af2132893124b73da5792982e961f8e21">tag_t</a> ()=default</td></tr>
+<tr class="separator:af2132893124b73da5792982e961f8e21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a290110d503cd4d6bf1bbd0553f78c0a6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a290110d503cd4d6bf1bbd0553f78c0a6"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1tag__t.html#a290110d503cd4d6bf1bbd0553f78c0a6">tag_t</a> (T t)</td></tr>
 <tr class="separator:a290110d503cd4d6bf1bbd0553f78c0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -123,13 +125,38 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Class for representing tag parameters in communication operations. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#_a2">distributed_grid.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#_a3">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#_a2">heat_equation_successive_over-relaxation.cc</a>, and <a class="el" href="probe_8cc-example.html#_a8">probe.cc</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#_a2">distributed_grid.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#_a3">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#_a2">heat_equation_successive_over-relaxation.cc</a>, and <a class="el" href="probe_8cc-example.html#_a10">probe.cc</a>.</dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="tag_8hpp_source.html#l00012">12</a> of file <a class="el" href="tag_8hpp_source.html">tag.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af2132893124b73da5792982e961f8e21" name="af2132893124b73da5792982e961f8e21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2132893124b73da5792982e961f8e21">&#9670;&nbsp;</a></span>tag_t() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">mpl::tag_t::tag_t </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a290110d503cd4d6bf1bbd0553f78c0a6" name="a290110d503cd4d6bf1bbd0553f78c0a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a290110d503cd4d6bf1bbd0553f78c0a6">&#9670;&nbsp;</a></span>tag_t() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a290110d503cd4d6bf1bbd0553f78c0a6">&#9670;&nbsp;</a></span>tag_t() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,7 +192,7 @@ template&lt;typename T &gt; </div>
 </div>
 </div>
 <a id="aee28b8c00b151ccee302f75016b63f7b" name="aee28b8c00b151ccee302f75016b63f7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aee28b8c00b151ccee302f75016b63f7b">&#9670;&nbsp;</a></span>tag_t() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aee28b8c00b151ccee302f75016b63f7b">&#9670;&nbsp;</a></span>tag_t() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,8 +249,8 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>wildcard tag to be used in receive operations, e.g., <a class="el" href="classmpl_1_1communicator.html#communicator_recv">communicator::recv</a>, to indicate acceptance of a message with any tag value </dd></dl>
-<dl class="section see"><dt>See also</dt><dd>any_source </dd></dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#a7">probe.cc</a>.</dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b" title="Wildcard value to indicate in a receive operation, e.g., communicator::recv, that any source is accep...">any_source</a> </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#a9">probe.cc</a>.</dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="environment_8hpp_source.html#l00184">184</a> of file <a class="el" href="environment_8hpp_source.html">environment.hpp</a>.</p>
@@ -295,7 +322,7 @@ template&lt;typename T &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>mpl</b></li><li class="navelem"><a class="el" href="classmpl_1_1tag__t.html">tag_t</a></li>
+    <li class="navelem"><a class="el" href="namespacempl.html">mpl</a></li><li class="navelem"><a class="el" href="classmpl_1_1tag__t.html">tag_t</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
   </ul>
 </div>

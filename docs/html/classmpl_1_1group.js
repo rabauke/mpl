@@ -28,5 +28,6 @@ var classmpl_1_1group =
     [ "rank", "classmpl_1_1group.html#ac820bf356be8b94134cb08f8efa087ba", null ],
     [ "size", "classmpl_1_1group.html#a58537237d16d0ac6ecb5680e33997f26", null ],
     [ "translate", "classmpl_1_1group.html#a1c11d89daec6af7b0ed1b5668d355656", null ],
-    [ "translate", "classmpl_1_1group.html#a38cdae96823a5ce04c1e4a637ca82d5a", null ]
+    [ "translate", "classmpl_1_1group.html#a38cdae96823a5ce04c1e4a637ca82d5a", null ],
+    [ "communicator", "classmpl_1_1group.html#a28e4940a8d711c15cada064a12ba0788", null ]
 ];

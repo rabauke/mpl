@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['comm_5fcollective_0',['comm_collective',['../classmpl_1_1communicator.html#a589d83fa5ec31c153e23242c32ed0c9e',1,'mpl::communicator']]],
-  ['congruent_1',['congruent',['../classmpl_1_1communicator.html#aec5ab4324f1a084a93edbbab08bc3d91',1,'mpl::communicator']]]
+  ['absolute_0',['absolute',['../namespacempl.html#af7799eb8fd405a1f2f1f226fe24626f5',1,'mpl']]],
+  ['any_5fsource_1',['any_source',['../namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b',1,'mpl']]]
 ];

@@ -5,5 +5,6 @@ var classmpl_1_1subarray__layout_1_1parameter =
     [ "parameter", "classmpl_1_1subarray__layout_1_1parameter.html#a77ad6bab244fed5453132ca9a5ac3c6c", null ],
     [ "add", "classmpl_1_1subarray__layout_1_1parameter.html#adb56550a413cee796a9e3e7c9a268f24", null ],
     [ "order", "classmpl_1_1subarray__layout_1_1parameter.html#a60f802b57d449678d80496b82c3751de", null ],
-    [ "order", "classmpl_1_1subarray__layout_1_1parameter.html#a155ab0d9cb1eb40d8f8d7ae9fbc2bdca", null ]
+    [ "order", "classmpl_1_1subarray__layout_1_1parameter.html#a155ab0d9cb1eb40d8f8d7ae9fbc2bdca", null ],
+    [ "subarray_layout", "classmpl_1_1subarray__layout_1_1parameter.html#a44e33f146bbe2cb7692c6fd9eeefdfc4", null ]
 ];

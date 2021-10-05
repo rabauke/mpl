@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['overlap_0',['overlap',['../classmpl_1_1distributed__grid_1_1size__overlap__pair.html#ab24f528c5aef47d91274c9080da41a61',1,'mpl::distributed_grid::size_overlap_pair']]]
+  ['message_0',['message',['../structmpl_1_1mprobe__status.html#a1bd4ee6dd27523dd27cbeb2f2e7974e7',1,'mpl::mprobe_status']]]
 ];

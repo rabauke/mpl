@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('operator_8hpp_source.html',''); initRe
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;ciso646&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>mpl {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacempl.html">mpl</a> {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structmpl_1_1max.html">   17</a></span>  <span class="keyword">struct </span><a class="code hl_struct" href="structmpl_1_1max.html">max</a> {</div>
@@ -230,39 +230,41 @@ $(document).ready(function(){initNavTree('operator_8hpp_source.html',''); initRe
 <div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>      <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keywordtype">bool</span> is_commutative = <a class="code hl_variable" href="structmpl_1_1op__traits.html#a24504be97499aae191b2850a712d40c0">op_traits&lt;functor&gt;::is_commutative</a>;</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>      <span class="keyword">static</span> std::unique_ptr&lt;functor&gt; f;</div>
 <div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>      <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keywordtype">void</span> *invec, <span class="keywordtype">void</span> *inoutvec, <span class="keywordtype">int</span> *len, MPI_Datatype *datatype) {</div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>        T *i1 = <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(invec);</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        T *i2 = <span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(inoutvec);</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}, i_end{*len}; i &lt; i_end; ++i, ++i1, ++i2)</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>          *i2 = (*f)(*i1, *i2);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>      }</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>      MPI_Op mpi_op{MPI_OP_NULL};</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>      <span class="keyword">explicit</span> op(F f_) {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        f.reset(<span class="keyword">new</span> F(f_));</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        MPI_Op_create(op::apply, is_commutative, &amp;mpi_op);</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>      }</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>      op(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span> </div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>      ~op() { MPI_Op_free(&amp;mpi_op); }</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span> </div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>      <span class="keywordtype">void</span> operator=(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span> </div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>      <span class="keyword">friend</span> op &amp;get_op&lt;&gt;(F);</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    };</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    std::unique_ptr&lt;F&gt; op&lt;T, F&gt;::f;</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>  }  <span class="comment">// namespace detail</span></div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>}  <span class="comment">// namespace mpl</span></div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span> </div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>      <span class="keyword">static</span> <span class="keywordtype">void</span> apply(<span class="keywordtype">void</span> *in_vector, <span class="keywordtype">void</span> *in_out_vector, <span class="keywordtype">int</span> *len,</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>                        [[maybe_unused]] MPI_Datatype *datatype) {</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>        <span class="keyword">auto</span> *i_1{<span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(in_vector)};</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>        <span class="keyword">auto</span> *i_2{<span class="keyword">static_cast&lt;</span>T *<span class="keyword">&gt;</span>(in_out_vector)};</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}, i_end{*len}; i &lt; i_end; ++i, ++i_1, ++i_2)</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>          *i_2 = (*f)(*i_1, *i_2);</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>      }</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>      MPI_Op mpi_op{MPI_OP_NULL};</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>      <span class="keyword">explicit</span> op(F f_) {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        f.reset(<span class="keyword">new</span> F(f_));</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        MPI_Op_create(op::apply, is_commutative, &amp;mpi_op);</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>      }</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>      op(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>      ~op() { MPI_Op_free(&amp;mpi_op); }</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>      <span class="keywordtype">void</span> operator=(op <span class="keyword">const</span> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>      <span class="keyword">friend</span> op &amp;get_op&lt;&gt;(F);</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>    };</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> F&gt;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>    std::unique_ptr&lt;F&gt; op&lt;T, F&gt;::f;</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>  }  <span class="comment">// namespace detail</span></div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span> </div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}  <span class="comment">// namespace mpl</span></div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="anamespacempl_html"><div class="ttname"><a href="namespacempl.html">mpl</a></div><div class="ttdef"><b>Definition:</b> <a href="cartesian__communicator_8hpp_source.html#l00011">cartesian_communicator.hpp:11</a></div></div>
 <div class="ttc" id="astructmpl_1_1bit__and_html"><div class="ttname"><a href="structmpl_1_1bit__and.html">mpl::bit_and</a></div><div class="ttdoc">Function object for calculating the bitwise conjunction of two values in reduction operations as comm...</div><div class="ttdef"><b>Definition:</b> <a href="operator_8hpp_source.html#l00094">operator.hpp:94</a></div></div>
 <div class="ttc" id="astructmpl_1_1bit__and_html_a7133da51787910d7e6ca97be99782268"><div class="ttname"><a href="structmpl_1_1bit__and.html#a7133da51787910d7e6ca97be99782268">mpl::bit_and::operator()</a></div><div class="ttdeci">T operator()(const T &amp;x, const T &amp;y) const</div><div class="ttdef"><b>Definition:</b> <a href="operator_8hpp_source.html#l00098">operator.hpp:98</a></div></div>
 <div class="ttc" id="astructmpl_1_1bit__or_html"><div class="ttname"><a href="structmpl_1_1bit__or.html">mpl::bit_or</a></div><div class="ttdoc">Function object for calculating the bitwise (inclusive) disjunction of two values in reduction operat...</div><div class="ttdef"><b>Definition:</b> <a href="operator_8hpp_source.html#l00105">operator.hpp:105</a></div></div>

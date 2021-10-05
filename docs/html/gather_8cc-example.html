@@ -93,16 +93,16 @@ $(document).ready(function(){initNavTree('gather_8cc-example.html',''); initResi
 <div class="line"><span class="preprocessor">#include &lt;mpl/mpl.hpp&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
-<div class="line">  <span class="keyword">const</span> <a id="_a0" name="_a0"></a><a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;comm_world{mpl::environment::comm_world()};</div>
-<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_rank{comm_world.<a id="a1" name="a1"></a><a class="code hl_function" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
-<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_size{comm_world.<a id="a2" name="a2"></a><a class="code hl_function" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <a id="_a0" name="_a0"></a><a class="code hl_class" href="classmpl_1_1communicator.html">mpl::communicator</a> &amp;<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>{<a id="a1" name="a1"></a><a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">mpl::environment::comm_world</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_rank{<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a id="a2" name="a2"></a><a class="code hl_function" href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">rank</a>()};</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> c_size{<a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a id="a3" name="a3"></a><a class="code hl_function" href="classmpl_1_1communicator.html#abe1bd8f32c690ee7a31456da2c437bdf">size</a>()};</div>
 <div class="line">  <span class="comment">// gather a single int from all ranks to rank root=0</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keywordtype">int</span> root{0};</div>
+<div class="line">    <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
 <div class="line">    <span class="keywordtype">int</span> x{c_rank + 1};</div>
-<div class="line">    std::vector&lt;int&gt; y(c_rank == root ? c_size : 0);</div>
-<div class="line">    comm_world.<a id="a3" name="a3"></a><a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(root, x, y.data());</div>
-<div class="line">    <span class="keywordflow">if</span> (c_rank == root) {</div>
+<div class="line">    std::vector&lt;int&gt; y(c_rank == <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> ? c_size : 0);</div>
+<div class="line">    <a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a id="a4" name="a4"></a><a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x, y.data());</div>
+<div class="line">    <span class="keywordflow">if</span> (c_rank == <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i)</div>
 <div class="line">        std::cout &lt;&lt; y[i] &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
@@ -111,25 +111,25 @@ $(document).ready(function(){initNavTree('gather_8cc-example.html',''); initResi
 <div class="line">  <span class="comment">// gather a single int from all ranks to rank root=0</span></div>
 <div class="line">  <span class="comment">// root and non-root rank use different function overloads of gather</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> root{0};</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0};</div>
 <div class="line">    <span class="keywordtype">int</span> x{-(c_rank + 1)};</div>
-<div class="line">    <span class="keywordflow">if</span> (c_rank == root) {</div>
+<div class="line">    <span class="keywordflow">if</span> (c_rank == <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
 <div class="line">      std::vector&lt;int&gt; y(c_size);</div>
-<div class="line">      comm_world.<a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(root, x, y.data());</div>
+<div class="line">      <a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x, y.data());</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size; ++i)</div>
 <div class="line">        std::cout &lt;&lt; y[i] &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line">    } <span class="keywordflow">else</span></div>
-<div class="line">      comm_world.<a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(root, x);</div>
+<div class="line">      <a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x);</div>
 <div class="line">  }</div>
 <div class="line">  <span class="comment">// gather several ints from all ranks to rank root=0</span></div>
 <div class="line">  {</div>
-<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> root{0}, n{3};</div>
+<div class="line">    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>{0}, n{3};</div>
 <div class="line">    std::vector&lt;int&gt; x(n, c_rank + 1);</div>
-<div class="line">    std::vector&lt;int&gt; y(c_rank == root ? n * c_size : 0);</div>
-<div class="line">    <a id="_a4" name="_a4"></a><a class="code hl_class" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);</div>
-<div class="line">    comm_world.<a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(root, x.data(), l, y.data(), l);</div>
-<div class="line">    <span class="keywordflow">if</span> (c_rank == root) {</div>
+<div class="line">    std::vector&lt;int&gt; y(c_rank == <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a> ? n * c_size : 0);</div>
+<div class="line">    <a id="_a5" name="_a5"></a><a class="code hl_class" href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout&lt;int&gt;</a> l(n);</div>
+<div class="line">    <a class="code hl_function" href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">comm_world</a>.<a class="code hl_function" href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">gather</a>(<a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>, x.data(), l, y.data(), l);</div>
+<div class="line">    <span class="keywordflow">if</span> (c_rank == <a class="code hl_variable" href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">root</a>) {</div>
 <div class="line">      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i{0}; i &lt; c_size * n; ++i)</div>
 <div class="line">        std::cout &lt;&lt; y[i] &lt;&lt; <span class="charliteral">&#39; &#39;</span>;</div>
 <div class="line">      std::cout &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
@@ -142,6 +142,8 @@ $(document).ready(function(){initNavTree('gather_8cc-example.html',''); initResi
 <div class="ttc" id="aclassmpl_1_1communicator_html_ac4b1db52070739de82b25f972b9e6996"><div class="ttname"><a href="classmpl_1_1communicator.html#ac4b1db52070739de82b25f972b9e6996">mpl::communicator::gather</a></div><div class="ttdeci">void gather(int root_rank, const T &amp;senddata, T *recvdata) const</div><div class="ttdoc">Gather messages from all processes at a single root process.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l02505">comm_group.hpp:2505</a></div></div>
 <div class="ttc" id="aclassmpl_1_1communicator_html_ae07d74b4f28b45e4bf56777d5d2a9789"><div class="ttname"><a href="classmpl_1_1communicator.html#ae07d74b4f28b45e4bf56777d5d2a9789">mpl::communicator::rank</a></div><div class="ttdeci">int rank() const</div><div class="ttdoc">Determines the rank within a communicator.</div><div class="ttdef"><b>Definition:</b> <a href="comm__group_8hpp_source.html#l00572">comm_group.hpp:572</a></div></div>
 <div class="ttc" id="aclassmpl_1_1contiguous__layout_html"><div class="ttname"><a href="classmpl_1_1contiguous__layout.html">mpl::contiguous_layout</a></div><div class="ttdoc">Layout representing contiguous storage several objects.</div><div class="ttdef"><b>Definition:</b> <a href="layout_8hpp_source.html#l00458">layout.hpp:458</a></div></div>
+<div class="ttc" id="anamespacempl_1_1environment_html_a1f4644f4435160bb33ada569dc3f48ac"><div class="ttname"><a href="namespacempl_1_1environment.html#a1f4644f4435160bb33ada569dc3f48ac">mpl::environment::comm_world</a></div><div class="ttdeci">const communicator &amp; comm_world()</div><div class="ttdoc">Provides access to a predefined communicator that allows communication with all processes.</div><div class="ttdef"><b>Definition:</b> <a href="environment_8hpp_source.html#l00141">environment.hpp:141</a></div></div>
+<div class="ttc" id="anamespacempl_html_a580d63de8f272555e40bb7ea90f23ccc"><div class="ttname"><a href="namespacempl.html#a580d63de8f272555e40bb7ea90f23ccc">mpl::root</a></div><div class="ttdeci">constexpr int root</div><div class="ttdoc">Special value to indicate the root process in some intercommunicator collective operations.</div><div class="ttdef"><b>Definition:</b> <a href="mpl_8hpp_source.html#l00026">mpl.hpp:26</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

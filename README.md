@@ -1,20 +1,22 @@
 # MPL - A message passing library
 
 MPL is a message passing library written in C++17 based on the
-[Message Passing Interface](http://mpi-forum.org/) (MPI) standard.  
-Since  the C++ API has been dropped from the MPI standard in version 
+[Message Passing Interface](http://mpi-forum.org/) (MPI) standard. 
+Since the C++ API has been dropped from the MPI standard in version 
 3.1, it is the aim of MPL to provide a modern C++ message passing 
 library for high performance computing.
 
-MPL will neither bring all functions of the C language MPI-API to 
-C++ nor provide a direct mapping of the C API to some C++ functions 
-and classes. The library's focus lies on the MPI core message passing 
-functions, ease of use, type safety, and elegance.  This library is 
-most useful for developers who have at least some basic knowledge of 
-the Message Passing Interface standard and would like to utilize it 
-via a more user-friendly interface in modern C++.  Unlike 
-(Boost.MPI)[https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html], 
-MPL does not rely on an external serialization library and has a 
+MPL will neither bring all functions of the C language MPI-API to C++
+nor provide a direct mapping of the C API to some C++ functions and
+classes. The library's focus lies on the MPI core message passing
+functions, ease of use, type safety, and elegance. The aim of MPL is to
+provide an idiomatic C++ message passing library without introducing a
+significant overhead compared to utilizing MPI via its plain C-API.
+This library is most useful for developers who have at least some basic
+knowledge of the Message Passing Interface standard and would like to
+utilize it via a more user-friendly interface in modern C++. Unlike
+(Boost.MPI)[https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html],
+MPL does not rely on an external serialization library and has a
 negligible run-time overhead.
 
 
@@ -39,6 +41,7 @@ following features of the Message Passing Interface standard:
 
 Currently, the following MPI features are not yet supported by MPL:
 
+* inter-communicators (planed for v0.2)
 * error handling,
 * process creation and management,
 * one-sided communication and
@@ -99,63 +102,70 @@ conveniently by utilizing the CTest tool, i.e., via
 user@host:~/mpl/build$ ctest
 Test project /home/user/mpl/build
       Start  1: test_communicator
- 1/26 Test  #1: test_communicator ........................   Passed    0.14 sec
-      Start  2: test_cart_communicator
- 2/26 Test  #2: test_cart_communicator ...................   Passed    0.12 sec
+ 1/27 Test  #1: test_communicator ........................   Passed    0.19 sec
+      Start  2: test_cartesian_communicator
+ 2/27 Test  #2: test_cartesian_communicator ..............   Passed    0.11 sec
       Start  3: test_graph_communicator
- 3/26 Test  #3: test_graph_communicator ..................   Passed    0.12 sec
+ 3/27 Test  #3: test_graph_communicator ..................   Passed    0.07 sec
       Start  4: test_dist_graph_communicator
- 4/26 Test  #4: test_dist_graph_communicator .............   Passed    0.13 sec
+ 4/27 Test  #4: test_dist_graph_communicator .............   Passed    0.11 sec
       Start  5: test_communicator_send_recv
- 5/26 Test  #5: test_communicator_send_recv ..............   Passed    0.12 sec
+ 5/27 Test  #5: test_communicator_send_recv ..............   Passed    0.11 sec
       Start  6: test_communicator_isend_irecv
- 6/26 Test  #6: test_communicator_isend_irecv ............   Passed    0.14 sec
+ 6/27 Test  #6: test_communicator_isend_irecv ............   Passed    0.12 sec
       Start  7: test_communicator_init_send_init_recv
- 7/26 Test  #7: test_communicator_init_send_init_recv ....   Passed    0.12 sec
+ 7/27 Test  #7: test_communicator_init_send_init_recv ....   Passed    0.11 sec
       Start  8: test_communicator_sendrecv
- 8/26 Test  #8: test_communicator_sendrecv ...............   Passed    0.12 sec
+ 8/27 Test  #8: test_communicator_sendrecv ...............   Passed    0.11 sec
       Start  9: test_communicator_probe
- 9/26 Test  #9: test_communicator_probe ..................   Passed    0.13 sec
+ 9/27 Test  #9: test_communicator_probe ..................   Passed    0.11 sec
       Start 10: test_communicator_mprobe_mrecv
-10/26 Test #10: test_communicator_mprobe_mrecv ...........   Passed    0.13 sec
+10/27 Test #10: test_communicator_mprobe_mrecv ...........   Passed    0.11 sec
       Start 11: test_communicator_barrier
-11/26 Test #11: test_communicator_barrier ................   Passed    0.07 sec
+11/27 Test #11: test_communicator_barrier ................   Passed    0.11 sec
       Start 12: test_communicator_bcast
-12/26 Test #12: test_communicator_bcast ..................   Passed    0.05 sec
+12/27 Test #12: test_communicator_bcast ..................   Passed    0.10 sec
       Start 13: test_communicator_gather
-13/26 Test #13: test_communicator_gather .................   Passed    0.05 sec
+13/27 Test #13: test_communicator_gather .................   Passed    0.10 sec
       Start 14: test_communicator_gatherv
-14/26 Test #14: test_communicator_gatherv ................   Passed    0.10 sec
+14/27 Test #14: test_communicator_gatherv ................   Passed    0.06 sec
       Start 15: test_communicator_allgather
-15/26 Test #15: test_communicator_allgather ..............   Passed    0.09 sec
+15/27 Test #15: test_communicator_allgather ..............   Passed    0.11 sec
       Start 16: test_communicator_allgatherv
-16/26 Test #16: test_communicator_allgatherv .............   Passed    0.11 sec
+16/27 Test #16: test_communicator_allgatherv .............   Passed    0.14 sec
       Start 17: test_communicator_scatter
-17/26 Test #17: test_communicator_scatter ................   Passed    0.12 sec
+17/27 Test #17: test_communicator_scatter ................   Passed    0.12 sec
       Start 18: test_communicator_scatterv
-18/26 Test #18: test_communicator_scatterv ...............   Passed    0.10 sec
+18/27 Test #18: test_communicator_scatterv ...............   Passed    0.12 sec
       Start 19: test_communicator_alltoall
-19/26 Test #19: test_communicator_alltoall ...............   Passed    0.12 sec
+19/27 Test #19: test_communicator_alltoall ...............   Passed    0.11 sec
       Start 20: test_communicator_alltoallv
-20/26 Test #20: test_communicator_alltoallv ..............   Passed    0.14 sec
+20/27 Test #20: test_communicator_alltoallv ..............   Passed    0.15 sec
       Start 21: test_communicator_reduce
-21/26 Test #21: test_communicator_reduce .................   Passed    0.10 sec
+21/27 Test #21: test_communicator_reduce .................   Passed    0.13 sec
       Start 22: test_communicator_allreduce
-22/26 Test #22: test_communicator_allreduce ..............   Passed    0.08 sec
+22/27 Test #22: test_communicator_allreduce ..............   Passed    0.13 sec
       Start 23: test_communicator_reduce_scatter_block
-23/26 Test #23: test_communicator_reduce_scatter_block ...   Passed    0.09 sec
+23/27 Test #23: test_communicator_reduce_scatter_block ...   Passed    0.12 sec
       Start 24: test_communicator_reduce_scatter
-24/26 Test #24: test_communicator_reduce_scatter .........   Passed    0.13 sec
+24/27 Test #24: test_communicator_reduce_scatter .........   Passed    0.08 sec
       Start 25: test_communicator_scan
-25/26 Test #25: test_communicator_scan ...................   Passed    0.07 sec
+25/27 Test #25: test_communicator_scan ...................   Passed    0.05 sec
       Start 26: test_communicator_exscan
-26/26 Test #26: test_communicator_exscan .................   Passed    0.10 sec
+26/27 Test #26: test_communicator_exscan .................   Passed    0.05 sec
+      Start 27: test_displacements
+27/27 Test #27: test_displacements .......................   Passed    0.02 sec
 
-100% tests passed, 0 tests failed out of 26
+100% tests passed, 0 tests failed out of 27
 
-Total Test time (real) =   2.79 sec
+Total Test time (real) =   2.86 sec
 ```
 or via your IDE if it features support for CTest.
+
+Alternatively, MPL may be installed via the 
+[Spack](https://spack.readthedocs.io/) package manager.  This will 
+install the library headers ony but not compile the unit tests and the
+examples.
 
 Usually, CMake will find the required MPI installation as well as the 
 Boost Test library automatically.  Depending on the local setup, however, 
