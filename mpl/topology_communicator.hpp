@@ -221,8 +221,8 @@ namespace mpl::impl {
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void neighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
-                             const layout<T> &recvl) const {
+      void neighbor_alltoall(const T *senddata, [[maybe_unused]] const layout<T> &sendl, T *recvdata,
+                             [[maybe_unused]] const layout<T> &recvl) const {
         MPI_Neighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
                               1, detail::datatype_traits<T>::get_datatype(), comm_);
       }
@@ -271,8 +271,8 @@ namespace mpl::impl {
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest ineighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
-                                  const layout<T> &recvl) const {
+      irequest ineighbor_alltoall(const T *senddata, [[maybe_unused]] const layout<T> &sendl, T *recvdata,
+                                  [[maybe_unused]] const layout<T> &recvl) const {
         MPI_Request req;
         MPI_Ineighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(),
                                recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,

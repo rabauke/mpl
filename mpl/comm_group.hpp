@@ -274,7 +274,7 @@ namespace mpl {
       return MPI_SUCCESS;
     }
 
-    static int isend_irecv_cancel(void *state, int complete) { return MPI_SUCCESS; }
+    static int isend_irecv_cancel([[maybe_unused]] void *state, [[maybe_unused]] int complete) { return MPI_SUCCESS; }
 
   protected:
     MPI_Comm comm_{MPI_COMM_NULL};
@@ -337,28 +337,28 @@ namespace mpl {
     static constexpr split_shared_memory_tag split_shared_memory{};
 
   private:
-    void check_dest(int dest) const {
+    void check_dest([[maybe_unused]] int dest) const {
 #if defined MPL_DEBUG
       if (dest != proc_null and (dest < 0 or dest >= size()))
         throw invalid_rank();
 #endif
     }
 
-    void check_source(int source) const {
+    void check_source([[maybe_unused]] int source) const {
 #if defined MPL_DEBUG
       if (source != proc_null and source != any_source and (source < 0 or source >= size()))
         throw invalid_rank();
 #endif
     }
 
-    void check_send_tag(tag_t t) const {
+    void check_send_tag([[maybe_unused]] tag_t t) const {
 #if defined MPL_DEBUG
       if (static_cast<int>(t) < 0 or static_cast<int>(t) > static_cast<int>(tag_t::up()))
         throw invalid_tag();
 #endif
     }
 
-    void check_recv_tag(tag_t t) const {
+    void check_recv_tag([[maybe_unused]] tag_t t) const {
 #if defined MPL_DEBUG
       if (static_cast<int>(t) != static_cast<int>(tag_t::any()) and
           (static_cast<int>(t) < 0 or static_cast<int>(t) > static_cast<int>(tag_t::up())))
@@ -366,14 +366,14 @@ namespace mpl {
 #endif
     }
 
-    void check_root(int root_rank) const {
+    void check_root([[maybe_unused]] int root_rank) const {
 #if defined MPL_DEBUG
       if (root_rank < 0 or root_rank >= size())
         throw invalid_rank();
 #endif
     }
 
-    void check_nonroot(int root_rank) const {
+    void check_nonroot([[maybe_unused]] int root_rank) const {
 #if defined MPL_DEBUG
       if (root_rank < 0 or root_rank >= size() or root_rank == rank())
         throw invalid_rank();
@@ -381,21 +381,21 @@ namespace mpl {
     }
 
     template<typename T>
-    void check_size(const layouts<T> &l) const {
+    void check_size([[maybe_unused]] const layouts<T> &l) const {
 #if defined MPL_DEBUG
       if (static_cast<int>(l.size()) > size())
         throw invalid_size();
 #endif
     }
 
-    void check_size(const displacements &d) const {
+    void check_size([[maybe_unused]] const displacements &d) const {
 #if defined MPL_DEBUG
       if (static_cast<int>(d.size()) > size())
         throw invalid_size();
 #endif
     }
 
-    void check_count(int count) const {
+    void check_count([[maybe_unused]] int count) const {
 #if defined MPL_DEBUG
       if (count == MPI_UNDEFINED)
         throw invalid_count();
@@ -403,10 +403,10 @@ namespace mpl {
     }
 
     template<typename T>
-    void check_container_size(const T &container, detail::basic_or_fixed_size_type) const {}
+    void check_container_size([[maybe_unused]] const T &container, detail::basic_or_fixed_size_type) const {}
 
     template<typename T>
-    void check_container_size(const T &container, detail::stl_container) const {
+    void check_container_size([[maybe_unused]] const T &container, detail::stl_container) const {
 #if defined MPL_DEBUG
       if (container.size() > std::numeric_limits<int>::max())
         throw invalid_count();
@@ -447,7 +447,7 @@ namespace mpl {
     /// \param gr the group that determines the new communicator's structure
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
-    explicit communicator(comm_collective_tag comm_collective, const communicator &other,
+    explicit communicator([[maybe_unused]] comm_collective_tag comm_collective, const communicator &other,
                           const group &gr) {
       MPI_Comm_create(other.comm_, gr.gr_, &comm_);
     }
@@ -460,7 +460,7 @@ namespace mpl {
     /// \param t tag to distinguish between different parallel operations in different threads
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the given group.
-    explicit communicator(group_collective_tag group_collective, const communicator &other,
+    explicit communicator([[maybe_unused]] group_collective_tag group_collective, const communicator &other,
                           const group &gr, tag_t t = tag_t(0)) {
       MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
@@ -476,7 +476,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
     template<typename color_type, typename key_type = int>
-    explicit communicator(split_tag split, const communicator &other, color_type color,
+    explicit communicator([[maybe_unused]] split_tag split, const communicator &other, color_type color,
                           key_type key = 0) {
       static_assert(detail::is_valid_color_v<color_type>,
                     "not an enumeration type or underlying enumeration type too large");
@@ -495,7 +495,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
     template<typename key_type = int>
-    explicit communicator(split_shared_memory_tag split_shared_memory,
+    explicit communicator([[maybe_unused]] split_shared_memory_tag split_shared_memory,
                           const communicator &other, key_type key = 0) {
       static_assert(detail::is_valid_tag_v<key_type>,
                     "not an enumeration type or underlying enumeration type too large");
@@ -3533,7 +3533,7 @@ namespace mpl {
       return MPI_SUCCESS;
     }
 
-    static int ialltoallv_cancel(void *state, int complete) { return MPI_SUCCESS; }
+    static int ialltoallv_cancel([[maybe_unused]] void *state, [[maybe_unused]] int complete) { return MPI_SUCCESS; }
 
     template<typename T>
     void ialltoallv(const T *senddata, T *recvdata, ialltoallv_state<T> *state) const {
