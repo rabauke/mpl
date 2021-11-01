@@ -4,6 +4,8 @@ function(add_test_executable TARGET_NAME SOURCES)
   add_executable(${TARGET_NAME} ${SOURCES})
   target_compile_options(${TARGET_NAME} PRIVATE
      $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+          -Wall -Wextra -Wpedantic>
+     $<$<CXX_COMPILER_ID:Intel>:
           -Wall>
      $<$<CXX_COMPILER_ID:MSVC>:
           /W4>)

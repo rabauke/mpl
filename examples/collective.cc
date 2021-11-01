@@ -14,7 +14,7 @@ struct my_array {
 };
 
 // use reflection macro to make the struct compatible with mpl
-MPL_REFLECTION(my_array, data);
+MPL_REFLECTION(my_array, data)
 
 // overload plus operator
 my_array operator+(const my_array &a, const my_array &b) {

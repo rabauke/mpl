@@ -34,7 +34,7 @@ inline double u_0(double x) {
 }
 
 // initial velocity of string
-inline double u_0_dt(double x) {
+inline double u_0_dt([[maybe_unused]] double x) {
   return 0.0;
 }
 
