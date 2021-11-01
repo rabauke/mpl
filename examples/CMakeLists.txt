@@ -1,5 +1,10 @@
 function(add_mpl_executable TARGET_NAME SOURCES)
   add_executable(${TARGET_NAME} ${SOURCES})
+  target_compile_options(${TARGET_NAME} PRIVATE
+     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+          -Wall>
+     $<$<CXX_COMPILER_ID:MSVC>:
+          /W4>)
   target_link_libraries(${TARGET_NAME} PUBLIC mpl::mpl)
   # add MPL_Debug definition if building in debug mode
   target_compile_definitions(${TARGET_NAME} PUBLIC 

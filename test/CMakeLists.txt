@@ -2,6 +2,11 @@ find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 function(add_test_executable TARGET_NAME SOURCES)
   add_executable(${TARGET_NAME} ${SOURCES})
+  target_compile_options(${TARGET_NAME} PRIVATE
+     $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:AppleClang>,$<CXX_COMPILER_ID:GNU>>:
+          -Wall>
+     $<$<CXX_COMPILER_ID:MSVC>:
+          /W4>)
   target_link_libraries(${TARGET_NAME} PUBLIC mpl::mpl Boost::unit_test_framework)
   add_test(NAME ${TARGET_NAME} COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./${TARGET_NAME} ${MPIEXEC_POSTFLAGS})
 endfunction()

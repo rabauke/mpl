@@ -26,10 +26,10 @@ bool probe_test(const T &data) {
     if (s.source() != 0)
       return false;
     if constexpr (has_size<T>::value) {
-      if (s.template get_count<typename T::value_type>() != data.size())
+      if (s.get_count<typename T::value_type>() != static_cast<int>(data.size()))
         return false;
     } else {
-      if (s.template get_count<T>() != 1)
+      if (s.get_count<T>() != 1)
         return false;
     }
     T data_r;
@@ -51,8 +51,8 @@ bool probe_iter_test(const T &data) {
     mpl::status_t s{comm_world.probe(0)};
     if (s.source() != 0)
       return false;
-    int count{s.template get_count<typename T::value_type>()};
-    if (count != data.size())
+    int count{s.get_count<typename T::value_type>()};
+    if (count != static_cast<int>(data.size()))
       return false;
     T data_r;
     if constexpr (has_resize<T>())
@@ -78,7 +78,7 @@ bool iprobe_test(const T &data) {
         if (s->source() != 0)
           return false;
         if constexpr (has_size<T>::value) {
-          if (s->template get_count<typename T::value_type>() != data.size())
+          if (s->template get_count<typename T::value_type>() != static_cast<int>(data.size()))
             return false;
         } else {
           if (s->template get_count<T>() != 1)
@@ -109,7 +109,7 @@ bool iprobe_iter_test(const T &data) {
         if (s->source() != 0)
           return false;
         int count{s->template get_count<typename T::value_type>()};
-        if (count != data.size())
+        if (count != static_cast<int>(data.size()))
           return false;
         T data_r;
         if constexpr (has_resize<T>())

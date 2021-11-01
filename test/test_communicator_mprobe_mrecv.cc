@@ -24,10 +24,10 @@ bool mprobe_test(const T &data) {
     if (s.source() != 0)
       return false;
     if constexpr (has_size<T>::value) {
-      if (s.template get_count<typename T::value_type>() != data.size())
+      if (s.get_count<typename T::value_type>() != static_cast<int>(data.size()))
         return false;
     } else {
-      if (s.template get_count<T>() != 1)
+      if (s.get_count<T>() != 1)
         return false;
       T data_r;
       comm_world.mrecv(data_r, m);
@@ -49,8 +49,8 @@ bool mprobe_iter_test(const T &data) {
     auto[m, s]{comm_world.mprobe(0)};
     if (s.source() != 0)
       return false;
-    int count{s.template get_count<typename T::value_type>()};
-    if (count != data.size())
+    int count{s.get_count<typename T::value_type>()};
+    if (count != static_cast<int>(data.size()))
       return false;
     T data_r;
     if constexpr (has_resize<T>())
@@ -77,10 +77,10 @@ bool improbe_test(const T &data) {
         if (s.source() != 0)
           return false;
         if constexpr (has_size<T>::value) {
-          if (s.template get_count<typename T::value_type>() != data.size())
+          if (s.get_count<typename T::value_type>() != static_cast<int>(data.size()))
             return false;
         } else {
-          if (s.template get_count<T>() != 1)
+          if (s.get_count<T>() != 1)
             return false;
         }
         T data_r;
@@ -108,8 +108,8 @@ bool improbe_iter_test(const T &data) {
         auto [m, s]{res.value()};
         if (s.source() != 0)
           return false;
-        int count{s.template get_count<typename T::value_type>()};
-        if (count != data.size())
+        int count{s.get_count<typename T::value_type>()};
+        if (count != static_cast<int>(data.size()))
           return false;
         T data_r;
         if constexpr (has_resize<T>())

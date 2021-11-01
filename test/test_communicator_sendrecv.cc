@@ -29,13 +29,13 @@ bool sendrecv_iter_test(const T &data) {
     return false;
   std::vector<typename T::value_type> data_r(data.size());
   if (comm_world.rank() == 0) {
-    comm_world.template sendrecv(std::begin(data), std::end(data), 1, mpl::tag_t(4),
-                                 std::begin(data_r), std::end(data_r), 1, mpl::tag_t(4));
+    comm_world.sendrecv(std::begin(data), std::end(data), 1, mpl::tag_t(4), std::begin(data_r),
+                        std::end(data_r), 1, mpl::tag_t(4));
     return std::equal(std::begin(data), std::end(data), std::begin(data_r));
   }
   if (comm_world.rank() == 1) {
-    comm_world.template sendrecv(std::begin(data), std::end(data), 0, mpl::tag_t(4),
-                                 std::begin(data_r), std::end(data_r), 0, mpl::tag_t(4));
+    comm_world.sendrecv(std::begin(data), std::end(data), 0, mpl::tag_t(4), std::begin(data_r),
+                        std::end(data_r), 0, mpl::tag_t(4));
     return std::equal(std::begin(data), std::end(data), std::begin(data_r));
   }
   return true;

@@ -41,7 +41,7 @@ void parallel_sort(std::vector<T> &v) {
                        mpl::vector_layout<T>(size - 1));
   std::sort(begin(pivots), end(pivots));
   local_pivots.clear();
-  for (std::size_t i{1}; i < size; ++i)
+  for (std::size_t i{1}; i < static_cast<std::size_t>(size); ++i)
     local_pivots.push_back(pivots[i * (size - 1)]);
   swap(local_pivots, pivots);
   std::vector<typename std::vector<T>::iterator> pivot_pos;

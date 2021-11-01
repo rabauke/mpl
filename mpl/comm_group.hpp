@@ -408,7 +408,8 @@ namespace mpl {
     template<typename T>
     void check_container_size([[maybe_unused]] const T &container, detail::stl_container) const {
 #if defined MPL_DEBUG
-      if (container.size() > std::numeric_limits<int>::max())
+      if (container.size() >
+          static_cast<decltype(container.size())>(std::numeric_limits<int>::max()))
         throw invalid_count();
 #endif
     }

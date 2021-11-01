@@ -461,22 +461,22 @@ namespace mpl {
     static MPI_Datatype build(
         size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      if (count <= std::numeric_limits<int>::max()) {
+      if (count <= static_cast<size_t>(std::numeric_limits<int>::max())) {
         MPI_Type_contiguous(static_cast<int>(count), old_type, &new_type);
       } else {
-        const size_t modulus = std::numeric_limits<int>::max();
-        const size_t count1 = count / modulus;
-        const size_t count0 = count - count1 * modulus;
+        const size_t modulus{std::numeric_limits<int>::max()};
+        const size_t count_1{count / modulus};
+        const size_t count_0{count - count_1 * modulus};
         MPI_Count lb, extent;
         MPI_Type_get_extent_x(old_type, &lb, &extent);
         MPI_Datatype type_modulus;
         MPI_Type_contiguous(static_cast<int>(modulus), old_type, &type_modulus);
-        std::vector<int> block_lengths{static_cast<int>(count0), static_cast<int>(count1)};
+        std::vector<int> block_lengths{static_cast<int>(count_0), static_cast<int>(count_1)};
 #if defined MPL_DEBUG
-        if (count0 * extent > std::numeric_limits<MPI_Aint>::max())
+        if (count_0 * extent > static_cast<size_t>(std::numeric_limits<MPI_Aint>::max()))
           throw invalid_size();
 #endif
-        std::vector<MPI_Aint> displacements{0, static_cast<MPI_Aint>(count0 * extent)};
+        std::vector<MPI_Aint> displacements{0, static_cast<MPI_Aint>(count_0 * extent)};
         std::vector<MPI_Datatype> types{old_type, type_modulus};
         MPI_Type_create_struct(2, block_lengths.data(), displacements.data(), types.data(),
                                &new_type);
@@ -571,19 +571,19 @@ namespace mpl {
     static MPI_Datatype build(
         size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      if (count <= std::numeric_limits<int>::max()) {
+      if (count <= static_cast<size_t>(std::numeric_limits<int>::max())) {
         MPI_Type_contiguous(static_cast<int>(count), old_type, &new_type);
       } else {
-        const size_t modulus = std::numeric_limits<int>::max();
-        const size_t count_1 = count / modulus;
-        const size_t count_0 = count - count_1 * modulus;
+        const size_t modulus{std::numeric_limits<int>::max()};
+        const size_t count_1{count / modulus};
+        const size_t count_0{count - count_1 * modulus};
         MPI_Count lb, extent;
         MPI_Type_get_extent_x(old_type, &lb, &extent);
         MPI_Datatype type_modulus;
         MPI_Type_contiguous(static_cast<int>(modulus), old_type, &type_modulus);
         std::vector<int> block_lengths{static_cast<int>(count_0), static_cast<int>(count_1)};
 #if defined MPL_DEBUG
-        if (count_0 * extent > std::numeric_limits<MPI_Aint>::max())
+        if (count_0 * extent > static_cast<size_t>(std::numeric_limits<MPI_Aint>::max()))
           throw invalid_size();
 #endif
         std::vector<MPI_Aint> displacements{0, static_cast<MPI_Aint>(count_0 * extent)};
@@ -1245,7 +1245,8 @@ namespace mpl {
         MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
 #if defined MPL_DEBUG
-      if (par.displacements.size() > std::numeric_limits<int>::max())
+      if (par.displacements.size() >
+          static_cast<decltype(par.displacements.size())>(std::numeric_limits<int>::max()))
         throw invalid_size();
 #endif
       MPI_Type_create_hindexed(par.displacements.size(), par.blocklengths.data(),

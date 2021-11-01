@@ -14,7 +14,7 @@ struct structure {
 template<typename ch, typename tr>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out, const structure &s) {
   out << '(' << s.d << ",[" << s.i[0];
-  for (int i{1}; i < std::size(s.i); ++i)
+  for (std::size_t i{1}; i < std::size(s.i); ++i)
     out << ',' << s.i[i];
   return out << "])";
 }
