@@ -374,13 +374,13 @@ namespace mpl {
     null_layout() noexcept : layout<T>(MPI_DATATYPE_NULL) {}
 
     /// \brief copy constructor
-    null_layout(const null_layout &l) noexcept : null_layout() {}
+    null_layout([[maybe_unused]] const null_layout &l) noexcept : null_layout() {}
 
-    null_layout(null_layout &&l) noexcept : null_layout() {}
+    null_layout([[maybe_unused]] null_layout &&l) noexcept : null_layout() {}
 
     /// \brief swap two instances of null_layout
     /// \note This a no-op, as all instances of null_layout are equal.
-    void swap(null_layout<T> &other) {}
+    void swap([[maybe_unused]] null_layout<T> &other) {}
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
