@@ -274,7 +274,9 @@ namespace mpl {
       return MPI_SUCCESS;
     }
 
-    static int isend_irecv_cancel([[maybe_unused]] void *state, [[maybe_unused]] int complete) { return MPI_SUCCESS; }
+    static int isend_irecv_cancel([[maybe_unused]] void *state, [[maybe_unused]] int complete) {
+      return MPI_SUCCESS;
+    }
 
   protected:
     MPI_Comm comm_{MPI_COMM_NULL};
@@ -403,10 +405,12 @@ namespace mpl {
     }
 
     template<typename T>
-    void check_container_size([[maybe_unused]] const T &container, detail::basic_or_fixed_size_type) const {}
+    void check_container_size([[maybe_unused]] const T &container,
+                              detail::basic_or_fixed_size_type) const {}
 
     template<typename T>
-    void check_container_size([[maybe_unused]] const T &container, detail::stl_container) const {
+    void check_container_size([[maybe_unused]] const T &container,
+                              detail::stl_container) const {
 #if defined MPL_DEBUG
       if (container.size() >
           static_cast<decltype(container.size())>(std::numeric_limits<int>::max()))
@@ -448,8 +452,8 @@ namespace mpl {
     /// \param gr the group that determines the new communicator's structure
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
-    explicit communicator([[maybe_unused]] comm_collective_tag comm_collective, const communicator &other,
-                          const group &gr) {
+    explicit communicator([[maybe_unused]] comm_collective_tag comm_collective,
+                          const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm_, gr.gr_, &comm_);
     }
 
@@ -461,8 +465,8 @@ namespace mpl {
     /// \param t tag to distinguish between different parallel operations in different threads
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the given group.
-    explicit communicator([[maybe_unused]] group_collective_tag group_collective, const communicator &other,
-                          const group &gr, tag_t t = tag_t(0)) {
+    explicit communicator([[maybe_unused]] group_collective_tag group_collective,
+                          const communicator &other, const group &gr, tag_t t = tag_t(0)) {
       MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
 
@@ -477,8 +481,8 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
     template<typename color_type, typename key_type = int>
-    explicit communicator([[maybe_unused]] split_tag split, const communicator &other, color_type color,
-                          key_type key = 0) {
+    explicit communicator([[maybe_unused]] split_tag split, const communicator &other,
+                          color_type color, key_type key = 0) {
       static_assert(detail::is_valid_color_v<color_type>,
                     "not an enumeration type or underlying enumeration type too large");
       static_assert(detail::is_valid_key_v<key_type>,
@@ -3534,7 +3538,9 @@ namespace mpl {
       return MPI_SUCCESS;
     }
 
-    static int ialltoallv_cancel([[maybe_unused]] void *state, [[maybe_unused]] int complete) { return MPI_SUCCESS; }
+    static int ialltoallv_cancel([[maybe_unused]] void *state, [[maybe_unused]] int complete) {
+      return MPI_SUCCESS;
+    }
 
     template<typename T>
     void ialltoallv(const T *senddata, T *recvdata, ialltoallv_state<T> *state) const {
@@ -4606,8 +4612,9 @@ namespace mpl {
     template<typename T, typename F>
     irequest iexscan(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
       MPI_Request req;
-      MPI_Iexscan(MPI_IN_PLACE, sendrecvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-                  detail::get_op<T, F>(f).mpi_op, comm_, &req);
+      MPI_Iexscan(MPI_IN_PLACE, sendrecvdata, l.size(),
+                  detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
+                  comm_, &req);
       return impl::irequest(req);
     }
   };
