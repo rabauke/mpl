@@ -12,4 +12,5 @@ NamespaceIndentation: All
 SpaceAfterTemplateKeyword: false
 SortIncludes: false
 SortUsingDeclarations: false
+CommentPragmas: '^/'
 ...
