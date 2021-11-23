@@ -3989,7 +3989,7 @@ namespace mpl {
     /// the communicator other.
     communicator &operator=(communicator &&other) noexcept {
       if (this != &other)
-        base::operator=(std::forward<communicator>(other));
+        base::operator=(static_cast<base &&>(other));
       return *this;
     }
 
@@ -4757,7 +4757,7 @@ namespace mpl {
     /// and remote processes of the inter-communicator other.
     inter_communicator &operator=(inter_communicator &&other) noexcept {
       if (this != &other)
-        base::operator=(std::forward<inter_communicator>(other));
+        base::operator=(static_cast<base &&>(other));
       return *this;
     }
 
