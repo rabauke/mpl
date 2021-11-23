@@ -137,21 +137,21 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a28e4940a8d711c15cada064a12ba0788"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1status__t.html#a28e4940a8d711c15cada064a12ba0788">communicator</a></td></tr>
-<tr class="separator:a28e4940a8d711c15cada064a12ba0788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a435a6a142566db821f6585961da52ed3"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a435a6a142566db821f6585961da52ed3"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1status__t.html#a435a6a142566db821f6585961da52ed3">impl::request</a></td></tr>
-<tr class="separator:a435a6a142566db821f6585961da52ed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d2d02b9ec613a34dfed7e9667efe780"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1status__t.html#a3d2d02b9ec613a34dfed7e9667efe780">impl::base_communicator</a></td></tr>
+<tr class="separator:a3d2d02b9ec613a34dfed7e9667efe780"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f875b73def2b84facee0a7414db6f09"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a7f875b73def2b84facee0a7414db6f09"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1status__t.html#a7f875b73def2b84facee0a7414db6f09">impl::base_request</a></td></tr>
+<tr class="separator:a7f875b73def2b84facee0a7414db6f09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9c9880cf76979a056acfe2cb6bf6772"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ab9c9880cf76979a056acfe2cb6bf6772"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1status__t.html#ab9c9880cf76979a056acfe2cb6bf6772">impl::request_pool</a></td></tr>
 <tr class="separator:ab9c9880cf76979a056acfe2cb6bf6772"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Class that represents the status of a received message. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#_a6">probe.cc</a>, and <a class="el" href="stl_container_8cc-example.html#_a6">stl_container.cc</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#_a6">probe.cc</a>, and <a class="el" href="stl_container_8cc-example.html#_a7">stl_container.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00020">20</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00022">22</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a02861de720edc848695719d097a0cc65" name="a02861de720edc848695719d097a0cc65"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a02861de720edc848695719d097a0cc65">&#9670;&nbsp;</a></span>status_t()</h2>
@@ -177,7 +177,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p >default constructor initializes source and tag with wildcards given by <a class="el" href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b">any_source</a> and <a class="el" href="classmpl_1_1tag__t.html#a36c19147cc45592c8df6a14258706ad8">tag_t::any</a> and no error </p>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00062">62</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00064">64</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -206,7 +206,7 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>error code associated with the message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00029">29</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00031">31</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -236,7 +236,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>number of top level elements of type T received in associated message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00043">43</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00045">45</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -273,7 +273,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>number of top level elements of type T received in associated message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00053">53</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00055">55</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -301,7 +301,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if associated request has been been canceled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00039">39</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00041">41</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -329,7 +329,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if associated request has been been canceled </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00032">32</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00034">34</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -357,7 +357,7 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>source of the message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00023">23</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00025">25</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -385,13 +385,13 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>tag value of the message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00026">26</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00028">28</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a28e4940a8d711c15cada064a12ba0788" name="a28e4940a8d711c15cada064a12ba0788"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28e4940a8d711c15cada064a12ba0788">&#9670;&nbsp;</a></span>communicator</h2>
+<a id="a3d2d02b9ec613a34dfed7e9667efe780" name="a3d2d02b9ec613a34dfed7e9667efe780"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d2d02b9ec613a34dfed7e9667efe780">&#9670;&nbsp;</a></span>impl::base_communicator</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -400,33 +400,7 @@ template&lt;typename T &gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="classmpl_1_1communicator.html">communicator</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00068">68</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a435a6a142566db821f6585961da52ed3" name="a435a6a142566db821f6585961da52ed3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a435a6a142566db821f6585961da52ed3">&#9670;&nbsp;</a></span>impl::request</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classmpl_1_1impl_1_1request.html">impl::request</a></td>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1impl_1_1base__communicator.html">impl::base_communicator</a></td>
         </tr>
       </table>
   </td>
@@ -437,6 +411,32 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00070">70</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7f875b73def2b84facee0a7414db6f09" name="a7f875b73def2b84facee0a7414db6f09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f875b73def2b84facee0a7414db6f09">&#9670;&nbsp;</a></span>impl::base_request</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classmpl_1_1impl_1_1base__request.html">impl::base_request</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00072">72</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>
@@ -462,7 +462,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00072">72</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="status_8hpp_source.html#l00074">74</a> of file <a class="el" href="status_8hpp_source.html">status.hpp</a>.</p>
 
 </div>
 </div>

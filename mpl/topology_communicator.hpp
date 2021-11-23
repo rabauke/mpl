@@ -80,7 +80,7 @@ namespace mpl::impl {
       MPI_Ineighbor_allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
                               &req);
-      return impl::irequest(req);
+      return impl::base_irequest{req};
     }
 
     /// \brief Gather messages from all neighboring processes in a non-blocking manner.
@@ -100,7 +100,7 @@ namespace mpl::impl {
       MPI_Ineighbor_allgather(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
           detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
-      return impl::irequest(req);
+      return impl::base_irequest{req};
     }
 
     // === get varying amount of data from each neighbor and stores in non-contiguous memory
@@ -247,7 +247,7 @@ namespace mpl::impl {
       MPI_Request req;
       MPI_Ineighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
                              1, detail::datatype_traits<T>::get_datatype(), comm_, &req);
-      return impl::irequest(req);
+      return impl::base_irequest{req};
     }
 
     /// \brief Sends messages to all neighbouring processes and receives messages from all
@@ -276,7 +276,7 @@ namespace mpl::impl {
       MPI_Ineighbor_alltoall(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
           detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
-      return impl::irequest(req);
+      return impl::base_irequest{req};
     }
 
     // === each rank sends a varying number of values to each neighbor with possibly different
@@ -382,7 +382,7 @@ namespace mpl::impl {
                               reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata,
                               counts.data(), recvdispls(),
                               reinterpret_cast<const MPI_Datatype *>(recvls()), comm_, &req);
-      return impl::irequest(req);
+      return impl::base_irequest{req};
     }
 
     /// \brief Sends messages with a variable amount of data to all neighbouring processes and

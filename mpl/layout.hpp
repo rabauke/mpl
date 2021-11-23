@@ -66,6 +66,7 @@ namespace mpl {
 
   namespace impl {
 
+    class base_communicator;
     class topology_communicator;
 
   }
@@ -548,6 +549,8 @@ namespace mpl {
     using layout<T>::lower_bound;
     using layout<T>::upper_bound;
 
+    friend class impl::base_communicator;
+    friend class communicator;
     friend class communicator;
     friend class contiguous_layouts<T>;
   };
@@ -1689,8 +1692,9 @@ namespace mpl {
     using base::size;
     using base::push_back;
 
-    friend class communicator;
+    friend class impl::base_communicator;
     friend class impl::topology_communicator;
+    friend class communicator;
 
   private:
     const layout<T> *operator()() const { return base::data(); }
@@ -1724,7 +1728,7 @@ namespace mpl {
     using base::size;
     using base::push_back;
 
-    friend class communicator;
+    friend class impl::base_communicator;
     friend class impl::topology_communicator;
 
   private:

@@ -40,6 +40,7 @@ add_mpl_executable(subarray subarray.cc)
 add_mpl_executable(vibrating_string_mpl vibrating_string_mpl.cc)
 add_mpl_executable(standard_types standard_types.cc)
 add_mpl_executable(parallel_sort_mpl parallel_sort_mpl.cc)
+add_mpl_executable(intercommunicator intercommunicator.cc)
 
 # c only examples
 add_executable(vibrating_string_mpi vibrating_string_mpi.c)

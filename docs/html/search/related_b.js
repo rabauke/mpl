@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['request_3c_20irequest_20_3e_0',['request&lt; irequest &gt;',['../classmpl_1_1impl_1_1irequest.html#afc6c0627314f63682b958c13cf936247',1,'mpl::impl::irequest']]],
-  ['request_3c_20prequest_20_3e_1',['request&lt; prequest &gt;',['../classmpl_1_1impl_1_1prequest.html#a8c7c30bf6b0c6ffc75d78caeac645230',1,'mpl::impl::prequest']]],
-  ['request_5fpool_3c_20mpl_3a_3airequest_20_3e_2',['request_pool&lt; mpl::irequest &gt;',['../classmpl_1_1impl_1_1irequest.html#aa9403354e473e9978d6e49bc4389c9fe',1,'mpl::impl::irequest']]],
-  ['request_5fpool_3c_20mpl_3a_3aprequest_20_3e_3',['request_pool&lt; mpl::prequest &gt;',['../classmpl_1_1impl_1_1prequest.html#a99278de2244bd4d9129a7a07c40dd721',1,'mpl::impl::prequest']]]
+  ['request_5fpool_3c_20base_5firequest_20_3e_0',['request_pool&lt; base_irequest &gt;',['../classmpl_1_1impl_1_1base__irequest.html#a5b075b5672189e093f2d3f7decf8dc69',1,'mpl::impl::base_irequest']]],
+  ['request_5fpool_3c_20base_5fprequest_20_3e_1',['request_pool&lt; base_prequest &gt;',['../classmpl_1_1impl_1_1base__prequest.html#a554c0e8baa575b0f100c08e3fa66f3f1',1,'mpl::impl::base_prequest']]]
 ];

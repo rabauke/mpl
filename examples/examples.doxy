@@ -49,6 +49,9 @@
 /// \example nonblocking_mult.cc
 /// Utilizes non-blocking send and receive of standard data types to implement a gather operation.
 
+/// \example intercommunicator.cc
+/// Demonstrates communicator splitting and inter-communicator use.
+
 /// \example parallel_sort_mpi.c
 /// Parallel sort algorithm, MPI version.
 

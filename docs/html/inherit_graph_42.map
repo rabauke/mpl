@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classmpl_1_1impl_1_1request.html" title=" " alt="" coords="5,5,208,52"/>
-<area shape="rect" id="node2" href="$classmpl_1_1irequest.html" title="Represents a non&#45;blocking communication request." alt="" coords="256,14,408,43"/>
+<area shape="rect" id="node1" href="$classmpl_1_1impl_1_1base__request.html" title=" " alt="" coords="5,5,257,52"/>
+<area shape="rect" id="node2" href="$classmpl_1_1irequest.html" title="Represents a non&#45;blocking communication request." alt="" coords="305,14,457,43"/>
 </map>

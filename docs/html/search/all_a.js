@@ -9,9 +9,9 @@ var searchData=
   ['min_6',['min',['../structmpl_1_1min.html',1,'mpl']]],
   ['mpl_7',['mpl',['../namespacempl.html',1,'']]],
   ['mpl_20_2d_20a_20message_20passing_20library_8',['MPL - A message passing library',['../index.html',1,'']]],
-  ['mprobe_9',['mprobe',['../classmpl_1_1communicator.html#a179246280657f80aa624f7ebcb8ac9a4',1,'mpl::communicator']]],
+  ['mprobe_9',['mprobe',['../classmpl_1_1impl_1_1base__communicator.html#a058e89e1168eed5f1c1045160d299321',1,'mpl::impl::base_communicator']]],
   ['mprobe_5fstatus_10',['mprobe_status',['../structmpl_1_1mprobe__status.html',1,'mpl']]],
-  ['mrecv_11',['mrecv',['../classmpl_1_1communicator.html#ad5daeea3d8b7033a2f70cd19582e098a',1,'mpl::communicator::mrecv(T &amp;data, message_t &amp;m) const'],['../classmpl_1_1communicator.html#af11d56af7c3459eac6b3f5285788c8b9',1,'mpl::communicator::mrecv(T *data, const layout&lt; T &gt; &amp;l, message_t &amp;m) const'],['../classmpl_1_1communicator.html#a89b9a55af5259f119281592b4f63f2ee',1,'mpl::communicator::mrecv(iterT begin, iterT end, message_t &amp;m) const']]],
+  ['mrecv_11',['mrecv',['../classmpl_1_1impl_1_1base__communicator.html#a682010694b06d271f397f4e682ff8ef8',1,'mpl::impl::base_communicator::mrecv(T &amp;data, message_t &amp;m) const'],['../classmpl_1_1impl_1_1base__communicator.html#ac183e6477f6cc04fa46248de4b4b6eed',1,'mpl::impl::base_communicator::mrecv(T *data, const layout&lt; T &gt; &amp;l, message_t &amp;m) const'],['../classmpl_1_1impl_1_1base__communicator.html#a33937f5473f2424ed10aff8d723b8ca3',1,'mpl::impl::base_communicator::mrecv(iterT begin, iterT end, message_t &amp;m) const']]],
   ['multiple_12',['multiple',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606',1,'mpl']]],
   ['multiplies_13',['multiplies',['../structmpl_1_1multiplies.html',1,'mpl']]]
 ];

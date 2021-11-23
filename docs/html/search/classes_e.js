@@ -2,8 +2,8 @@ var searchData=
 [
   ['shift_5franks_0',['shift_ranks',['../structmpl_1_1shift__ranks.html',1,'mpl']]],
   ['size_5foverlap_5fpair_1',['size_overlap_pair',['../classmpl_1_1distributed__grid_1_1size__overlap__pair.html',1,'mpl::distributed_grid']]],
-  ['split_5fshared_5fmemory_5ftag_2',['split_shared_memory_tag',['../classmpl_1_1communicator_1_1split__shared__memory__tag.html',1,'mpl::communicator']]],
-  ['split_5ftag_3',['split_tag',['../classmpl_1_1communicator_1_1split__tag.html',1,'mpl::communicator']]],
+  ['split_5fshared_5fmemory_5ftag_2',['split_shared_memory_tag',['../classmpl_1_1impl_1_1base__communicator_1_1split__shared__memory__tag.html',1,'mpl::impl::base_communicator']]],
+  ['split_5ftag_3',['split_tag',['../classmpl_1_1impl_1_1base__communicator_1_1split__tag.html',1,'mpl::impl::base_communicator']]],
   ['status_5ft_4',['status_t',['../classmpl_1_1status__t.html',1,'mpl']]],
   ['strided_5fvector_5flayout_5',['strided_vector_layout',['../classmpl_1_1strided__vector__layout.html',1,'mpl']]],
   ['struct_5fbuilder_6',['struct_builder',['../classmpl_1_1struct__builder.html',1,'mpl']]],

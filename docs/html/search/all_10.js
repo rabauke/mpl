@@ -2,7 +2,7 @@ var searchData=
 [
   ['tag_0',['tag',['../classmpl_1_1status__t.html#a76b56d148b261f474f473d936c1fd878',1,'mpl::status_t']]],
   ['tag_5ft_1',['tag_t',['../classmpl_1_1tag__t.html',1,'mpl::tag_t'],['../classmpl_1_1tag__t.html#af2132893124b73da5792982e961f8e21',1,'mpl::tag_t::tag_t()=default'],['../classmpl_1_1tag__t.html#a290110d503cd4d6bf1bbd0553f78c0a6',1,'mpl::tag_t::tag_t(T t)'],['../classmpl_1_1tag__t.html#aee28b8c00b151ccee302f75016b63f7b',1,'mpl::tag_t::tag_t(int t)']]],
-  ['test_2',['test',['../classmpl_1_1impl_1_1request.html#a9731fa2fb0157e792af4d9e5ade4103b',1,'mpl::impl::request']]],
+  ['test_2',['test',['../classmpl_1_1impl_1_1base__request.html#adf5e80b57abd3ada8c63ad413b35a7ee',1,'mpl::impl::base_request']]],
   ['testall_3',['testall',['../classmpl_1_1impl_1_1request__pool.html#a5ebba7b0471ba84cf591abace463072f',1,'mpl::impl::request_pool']]],
   ['testany_4',['testany',['../classmpl_1_1impl_1_1request__pool.html#a0119c4bd3e340044868b9c26bae2a6f9',1,'mpl::impl::request_pool']]],
   ['testsome_5',['testsome',['../classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989',1,'mpl::impl::request_pool']]],

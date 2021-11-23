@@ -7,8 +7,10 @@
 namespace mpl {
 
   namespace impl {
+    class base_communicator;
+
     template<typename T>
-    class request;
+    class base_request;
 
     template<typename T>
     class request_pool;
@@ -65,9 +67,9 @@ namespace mpl {
       MPI_Status::MPI_ERROR = MPI_SUCCESS;
     }
 
-    friend class communicator;
+    friend class impl::base_communicator;
     template<typename T>
-    friend class impl::request;
+    friend class impl::base_request;
     template<typename T>
     friend class impl::request_pool;
   };

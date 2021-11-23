@@ -19,58 +19,60 @@ namespace mpl {
   namespace impl {
 
     template<typename T>
-    class request;
+    class base_request;
 
     template<typename T>
     class request_pool;
 
-    class irequest {
+    class base_irequest {
       MPI_Request req = MPI_REQUEST_NULL;
 
     public:
-      explicit irequest(MPI_Request req) : req(req) {}
+      explicit base_irequest(MPI_Request req) : req(req) {}
 
-      friend class request<irequest>;
+      friend class base_request<base_irequest>;
 
-      friend class request_pool<mpl::irequest>;
+      friend class request_pool<base_irequest>;
     };
 
-    class prequest {
+    class base_prequest {
       MPI_Request req = MPI_REQUEST_NULL;
 
     public:
-      explicit prequest(MPI_Request req) : req(req) {}
+      explicit base_prequest(MPI_Request req) : req(req) {}
 
-      friend class request<prequest>;
+      friend class base_request<base_prequest>;
 
-      friend class request_pool<mpl::prequest>;
+      friend class request_pool<base_prequest>;
     };
 
     //------------------------------------------------------------------
 
     template<typename T>
-    class request {
+    class base_request {
     protected:
       MPI_Request req;
 
     public:
-      request() = delete;
+      base_request() = delete;
 
-      request(const request &) = delete;
+      base_request(const base_request &) = delete;
 
-      explicit request(const irequest &req) : req{req.req} {}
-      explicit request(const prequest &req) : req{req.req} {}
+      explicit base_request(const base_irequest &req) : req{req.req} {}
+      explicit base_request(const base_prequest &req) : req{req.req} {}
 
-      request(request &&other) noexcept : req(other.req) { other.req = MPI_REQUEST_NULL; }
+      base_request(base_request &&other) noexcept : req(other.req) {
+        other.req = MPI_REQUEST_NULL;
+      }
 
-      ~request() {
+      ~base_request() {
         if (req != MPI_REQUEST_NULL)
           MPI_Request_free(&req);
       }
 
-      void operator=(const request &) = delete;
+      void operator=(const base_request &) = delete;
 
-      request &operator=(request &&other) noexcept {
+      base_request &operator=(base_request &&other) noexcept {
         if (this != &other) {
           if (req != MPI_REQUEST_NULL)
             MPI_Request_free(&req);
@@ -221,12 +223,12 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// \brief Represents a non-blocking communication request.
-  class irequest : public impl::request<impl::irequest> {
-    using base = impl::request<impl::irequest>;
+  class irequest : public impl::base_request<impl::base_irequest> {
+    using base = impl::base_request<impl::base_irequest>;
     using base::req;
 
   public:
-    irequest(const impl::irequest &r) : base(r) {}
+    irequest(const impl::base_irequest &r) : base(r) {}
 
     irequest(const irequest &) = delete;
 
@@ -268,12 +270,12 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// \brief Represents a persistent communication request.
-  class prequest : public impl::request<impl::prequest> {
-    using base = impl::request<impl::prequest>;
+  class prequest : public impl::base_request<impl::base_prequest> {
+    using base = impl::base_request<impl::base_prequest>;
     using base::req;
 
   public:
-    prequest(const impl::prequest &r) : base(r) {}
+    prequest(const impl::base_prequest &r) : base(r) {}
 
     prequest(const prequest &) = delete;
 

@@ -8,7 +8,7 @@ var classmpl_1_1status__t =
     [ "is_cancelled", "classmpl_1_1status__t.html#a934d03b57e03aa23841cc44f0b73b7c1", null ],
     [ "source", "classmpl_1_1status__t.html#a9d17d0e813a4ff51a178c96ffb3455f0", null ],
     [ "tag", "classmpl_1_1status__t.html#a76b56d148b261f474f473d936c1fd878", null ],
-    [ "communicator", "classmpl_1_1status__t.html#a28e4940a8d711c15cada064a12ba0788", null ],
-    [ "impl::request", "classmpl_1_1status__t.html#a435a6a142566db821f6585961da52ed3", null ],
+    [ "impl::base_communicator", "classmpl_1_1status__t.html#a3d2d02b9ec613a34dfed7e9667efe780", null ],
+    [ "impl::base_request", "classmpl_1_1status__t.html#a7f875b73def2b84facee0a7414db6f09", null ],
     [ "impl::request_pool", "classmpl_1_1status__t.html#ab9c9880cf76979a056acfe2cb6bf6772", null ]
 ];

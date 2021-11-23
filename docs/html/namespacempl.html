@@ -116,13 +116,13 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class used to manage information about structures/classes and their public members.  <a href="classmpl_1_1base__struct__builder.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1bit__and.html">bit_and</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the bitwise conjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1bit__and.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the bitwise conjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1bit__and.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1bit__or.html">bit_or</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the bitwise (inclusive) disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1bit__or.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the bitwise (inclusive) disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1bit__or.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1bit__xor.html">bit_xor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the bitwise exclusive disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1bit__xor.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the bitwise exclusive disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1bit__xor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1bsend__buffer.html">bsend_buffer</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Buffer manager for buffered send operations.  <a href="classmpl_1_1bsend__buffer.html#details">More...</a><br /></td></tr>
@@ -175,6 +175,9 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1indexed__layout.html">indexed_layout</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout representing data in a sequence of consecutive homogenous blocks of varying lengths.  <a href="classmpl_1_1indexed__layout.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1inter__communicator.html">inter_communicator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specifies the communication context for a communication operation between two non-overlapping groups.  <a href="classmpl_1_1inter__communicator.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1invalid__argument.html">invalid_argument</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Will be thrown in case of invalid arguments.  <a href="classmpl_1_1invalid__argument.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -218,25 +221,25 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data grid.  <a href="classmpl_1_1local__grid.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1logical__and.html">logical_and</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the logical conjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1logical__and.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the logical conjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1logical__and.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1logical__or.html">logical_or</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the logical (inclusive) disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1logical__or.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the logical (inclusive) disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1logical__or.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1logical__xor.html">logical_xor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the logical exclusive disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1logical__xor.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the logical exclusive disjunction of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1logical__xor.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1max.html">max</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the maximum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1max.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the maximum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1max.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1min.html">min</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the minimum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1min.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the minimum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1min.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1mprobe__status.html">mprobe_status</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return value of matching probe operations.  <a href="structmpl_1_1mprobe__status.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1multiplies.html">multiplies</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the product of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1multiplies.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the product of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1multiplies.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1null__layout.html">null_layout</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Layout with zero elements.  <a href="classmpl_1_1null__layout.html#details">More...</a><br /></td></tr>
@@ -275,7 +278,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of traits class <a class="el" href="structmpl_1_1op__traits.html">op_traits</a> for storing meta information about the <a class="el" href="structmpl_1_1plus.html">plus</a> reduction operation.  <a href="structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structmpl_1_1plus.html">plus</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the sum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#a20c2142532726d3a3f25e4eb3293fd4c" title="Performs a reduction operation over all processes.">communicator::reduce</a>.  <a href="structmpl_1_1plus.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function object for calculating the sum of two values in reduction operations as <a class="el" href="classmpl_1_1communicator.html#adb886db659e8bc352ca70800704b8956" title="Performs a reduction operation over all processes, in-place variant.">communicator::reduce</a>.  <a href="structmpl_1_1plus.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1prequest.html">prequest</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a persistent communication request.  <a href="classmpl_1_1prequest.html#details">More...</a><br /></td></tr>
@@ -395,7 +398,7 @@ Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:a410d15ee027fbbc82e25bce740d4c69b"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b">any_source</a> = MPI_ANY_SOURCE</td></tr>
-<tr class="memdesc:a410d15ee027fbbc82e25bce740d4c69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wildcard value to indicate in a receive operation, e.g., <a class="el" href="classmpl_1_1communicator.html#communicator_recv">communicator::recv</a>, that any source is acceptable.  <a href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b">More...</a><br /></td></tr>
+<tr class="memdesc:a410d15ee027fbbc82e25bce740d4c69b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wildcard value to indicate in a receive operation, e.g., <a class="el" href="classmpl_1_1impl_1_1base__communicator.html#communicator_recv">communicator::recv</a>, that any source is acceptable.  <a href="namespacempl.html#a410d15ee027fbbc82e25bce740d4c69b">More...</a><br /></td></tr>
 <tr class="separator:a410d15ee027fbbc82e25bce740d4c69b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50a0f0b35e2150b88de70497e424ab4c"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">proc_null</a> = MPI_PROC_NULL</td></tr>
 <tr class="memdesc:a50a0f0b35e2150b88de70497e424ab4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special value that can be used instead of a rank wherever a source or a destination argument is required in a call to indicate that the communication shall have no effect.  <a href="namespacempl.html#a50a0f0b35e2150b88de70497e424ab4c">More...</a><br /></td></tr>
@@ -492,7 +495,7 @@ Variables</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01323">1323</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01326">1326</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -624,7 +627,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="namespacempl.html#a118b145797198062151e6f43ee52046b" title="Helper function for the class heterogeneous_layout.">make_absolute(const T *x, const layout&lt;T&gt; &amp;l)</a> function and <a class="el" href="classmpl_1_1heterogeneous__layout.html" title="Layout representing heterogeneous data at specific memory locations.">heterogeneous_layout</a> class </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01644">1644</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01647">1647</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -674,7 +677,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="layouts_8cc-example.html#a14">layouts.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01634">1634</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l01637">1637</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -1091,7 +1094,7 @@ template&lt;typename CharT , typename Traits &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Wildcard value to indicate in a receive operation, e.g., <a class="el" href="classmpl_1_1communicator.html#communicator_recv">communicator::recv</a>, that any source is acceptable. </p>
+<p>Wildcard value to indicate in a receive operation, e.g., <a class="el" href="classmpl_1_1impl_1_1base__communicator.html#communicator_recv">communicator::recv</a>, that any source is acceptable. </p>
 <dl class="section see"><dt>See also</dt><dd>tag::any </dd></dl>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#a8">probe.cc</a>.</dd>
 </dl>
@@ -1121,7 +1124,7 @@ template&lt;typename CharT , typename Traits &gt; </div>
 </div><div class="memdoc">
 
 <p>Special constant representing an upper bound on the additional space consumed when buffering messages. </p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1communicator.html#communicator_bsend">communicator::bsend</a> <a class="anchor" id="bsend_overhead"></a> </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1impl_1_1base__communicator.html#communicator_bsend">communicator::bsend</a> <a class="anchor" id="bsend_overhead"></a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="mpl_8hpp_source.html#l00036">36</a> of file <a class="el" href="mpl_8hpp_source.html">mpl.hpp</a>.</p>
 

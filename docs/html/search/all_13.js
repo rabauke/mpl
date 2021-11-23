@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['wait_0',['wait',['../classmpl_1_1impl_1_1request.html#aedca3ad316f078b0190b9396197a7605',1,'mpl::impl::request']]],
+  ['wait_0',['wait',['../classmpl_1_1impl_1_1base__request.html#aee73251a7bb4ae1243850c7905801571',1,'mpl::impl::base_request']]],
   ['waitall_1',['waitall',['../classmpl_1_1impl_1_1request__pool.html#a1e864f5b3e62bb28db94bec090235401',1,'mpl::impl::request_pool']]],
   ['waitany_2',['waitany',['../classmpl_1_1impl_1_1request__pool.html#a1acdccf04f454806bac255279ac53974',1,'mpl::impl::request_pool']]],
   ['waitsome_3',['waitsome',['../classmpl_1_1impl_1_1request__pool.html#ab076cdb8feb7b1270497af73430e4fde',1,'mpl::impl::request_pool']]],

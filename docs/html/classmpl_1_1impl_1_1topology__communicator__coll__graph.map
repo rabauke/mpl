@@ -1,8 +1,9 @@
 <map id="mpl::impl::topology_communicator" name="mpl::impl::topology_communicator">
-<area shape="rect" id="node1" title="Base class for communicators with a topology." alt="" coords="341,637,604,1017"/>
-<area shape="rect" id="node2" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="377,173,569,588"/>
-<area shape="rect" id="node3" href="$classmpl_1_1communicator_1_1comm__collective__tag.html" title="Indicates the creation of a new communicator by a call that in collective for all processes in the gi..." alt="" coords="5,5,217,108"/>
-<area shape="rect" id="node4" href="$classmpl_1_1communicator_1_1group__collective__tag.html" title="Indicates the creation of a new communicator by a call that in collective for all processes in the gi..." alt="" coords="241,5,464,108"/>
-<area shape="rect" id="node5" href="$classmpl_1_1communicator_1_1split__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="488,5,700,108"/>
-<area shape="rect" id="node6" href="$classmpl_1_1communicator_1_1split__shared__memory__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="724,5,976,108"/>
+<area shape="rect" id="node1" title="Base class for communicators with a topology." alt="" coords="515,1049,777,1429"/>
+<area shape="rect" id="node2" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="550,585,742,1000"/>
+<area shape="rect" id="node3" href="$classmpl_1_1impl_1_1base__communicator.html" title=" " alt="" coords="495,173,797,536"/>
+<area shape="rect" id="node4" href="$classmpl_1_1impl_1_1base__communicator_1_1comm__collective__tag.html" title="Indicates the creation of a new communicator by an operation that is collective for all processes in ..." alt="" coords="5,5,308,108"/>
+<area shape="rect" id="node5" href="$classmpl_1_1impl_1_1base__communicator_1_1group__collective__tag.html" title="Indicates the creation of a new communicator by an operation that is collective for all processes in ..." alt="" coords="332,5,635,108"/>
+<area shape="rect" id="node6" href="$classmpl_1_1impl_1_1base__communicator_1_1split__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="659,5,961,108"/>
+<area shape="rect" id="node7" href="$classmpl_1_1impl_1_1base__communicator_1_1split__shared__memory__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="985,5,1288,108"/>
 </map>

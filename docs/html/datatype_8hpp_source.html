@@ -778,7 +778,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span><span class="preprocessor">#define MPL_FE_119(MPL_CALL, x, ...) MPL_CALL(x) MPL_FE_118(MPL_CALL, __VA_ARGS__)</span></div>
 <div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span><span class="preprocessor">#define MPL_CALL_MACRO_X_FOR_EACH(x, ...)                                                      \</span></div>
 <div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span><span class="preprocessor">  MPL_GET_NTH_ARG(                                                                             \</span></div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span><span class="preprocessor">      &quot;ignored&quot;</span>, ##__VA_ARGS__, MPL_FE_119, MPL_FE_118, MPL_FE_117, MPL_FE_116, MPL_FE_115,    \</div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span><span class="preprocessor">      &quot;ignored&quot;</span>, __VA_ARGS__, MPL_FE_119, MPL_FE_118, MPL_FE_117, MPL_FE_116, MPL_FE_115,      \</div>
 <div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>      MPL_FE_114, MPL_FE_113, MPL_FE_112, MPL_FE_111, MPL_FE_110, MPL_FE_109, MPL_FE_108,      \</div>
 <div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>      MPL_FE_107, MPL_FE_106, MPL_FE_105, MPL_FE_104, MPL_FE_103, MPL_FE_102, MPL_FE_101,      \</div>
 <div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>      MPL_FE_100, MPL_FE_99, MPL_FE_98, MPL_FE_97, MPL_FE_96, MPL_FE_95, MPL_FE_94, MPL_FE_93, \</div>
@@ -794,7 +794,7 @@ $(document).ready(function(){initNavTree('datatype_8hpp_source.html',''); initRe
 <div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>      MPL_FE_20, MPL_FE_19, MPL_FE_18, MPL_FE_17, MPL_FE_16, MPL_FE_15, MPL_FE_14, MPL_FE_13,  \</div>
 <div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>      MPL_FE_12, MPL_FE_11, MPL_FE_10, MPL_FE_9, MPL_FE_8, MPL_FE_7, MPL_FE_6, MPL_FE_5,       \</div>
 <div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>      MPL_FE_4, MPL_FE_3, MPL_FE_2, MPL_FE_1, MPL_FE_0)                                        \</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>  (x, ##__VA_ARGS__)</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>  (x, __VA_ARGS__)</div>
 <div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span> </div>
 <div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span><span class="preprocessor">#define MPL_REGISTER(element) layout_.register_element(str.element);</span></div>
 <div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span> </div>

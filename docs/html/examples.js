@@ -17,6 +17,7 @@ var examples =
     [ "matrix_gather.cc", "matrix_gather_8cc-example.html", null ],
     [ "nonblocking.cc", "nonblocking_8cc-example.html", null ],
     [ "nonblocking_mult.cc", "nonblocking_mult_8cc-example.html", null ],
+    [ "intercommunicator.cc", "intercommunicator_8cc-example.html", null ],
     [ "parallel_sort_mpi.c", "parallel_sort_mpi_8c-example.html", null ],
     [ "parallel_sort_mpl.cc", "parallel_sort_mpl_8cc-example.html", null ],
     [ "probe.cc", "probe_8cc-example.html", null ],
