@@ -181,7 +181,7 @@ namespace mpl {
         }
 
         bool operator==(const std::tuple<int, periodicity_tag> &t) const {
-          return dim_ == std::get<int>(t) &&
+          return dim_ == std::get<int>(t) and
                  (static_cast<bool>(is_periodic_) ==
                   (std::get<periodicity_tag>(t) == periodicity_tag::periodic));
         }
