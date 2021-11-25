@@ -40,3 +40,4 @@ add_test_executable(test_communicator_reduce_scatter test_communicator_reduce_sc
 add_test_executable(test_communicator_scan test_communicator_scan.cc)
 add_test_executable(test_communicator_exscan test_communicator_exscan.cc)
 add_test_executable(test_displacements test_displacements.cc)
+add_test_executable(test_inter_communicator test_inter_communicator.cc)
