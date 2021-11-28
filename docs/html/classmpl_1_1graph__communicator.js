@@ -8,6 +8,10 @@ var classmpl_1_1graph__communicator =
       [ "similar", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703", null ],
       [ "unequal", "classmpl_1_1graph__communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29", null ]
     ] ],
+    [ "merge_order_type", "classmpl_1_1graph__communicator.html#a6df620cd720215b293df55f4bead0876", [
+      [ "order_low", "classmpl_1_1graph__communicator.html#a6df620cd720215b293df55f4bead0876a15ad2c41e1e6df443bb6ea0ba7fe65fa", null ],
+      [ "order_high", "classmpl_1_1graph__communicator.html#a6df620cd720215b293df55f4bead0876a236a80d22c9ab48ca57785e5cac07841", null ]
+    ] ],
     [ "graph_communicator", "classmpl_1_1graph__communicator.html#af81016b2d1c45d91880894f13ba74182", null ],
     [ "graph_communicator", "classmpl_1_1graph__communicator.html#ab4242c2300ed9c2d844001847027b148", null ],
     [ "graph_communicator", "classmpl_1_1graph__communicator.html#a0053567d5a44c1783b35050f25f99ff0", null ],

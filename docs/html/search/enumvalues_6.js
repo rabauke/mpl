@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['periodic_0',['periodic',['../classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836ae6ffdec5e14fce371eb7ae99edebbbee',1,'mpl::cartesian_communicator']]]
+  ['order_5fhigh_0',['order_high',['../classmpl_1_1communicator.html#a6df620cd720215b293df55f4bead0876a236a80d22c9ab48ca57785e5cac07841',1,'mpl::communicator']]],
+  ['order_5flow_1',['order_low',['../classmpl_1_1communicator.html#a6df620cd720215b293df55f4bead0876a15ad2c41e1e6df443bb6ea0ba7fe65fa',1,'mpl::communicator']]]
 ];

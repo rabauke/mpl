@@ -22,7 +22,7 @@ var classmpl_1_1contiguous__layout =
     [ "true_lower_bound", "classmpl_1_1contiguous__layout.html#a4b0e56adef2f212d061f971b2ecafd0a", null ],
     [ "true_upper_bound", "classmpl_1_1contiguous__layout.html#a80713f15de3244b019294ee277c8c650", null ],
     [ "upper_bound", "classmpl_1_1contiguous__layout.html#a2c768cf5cbbcf2dcf50a03a809df457f", null ],
-    [ "communicator", "classmpl_1_1contiguous__layout.html#a28e4940a8d711c15cada064a12ba0788", null ],
+    [ "communicator", "classmpl_1_1contiguous__layout.html#a5587e48bb7ca124a169104cb15c91510", null ],
     [ "contiguous_layouts< T >", "classmpl_1_1contiguous__layout.html#adda8d9c92a93fd7e1c7dddf5cd113403", null ],
     [ "impl::base_communicator", "classmpl_1_1contiguous__layout.html#a3d2d02b9ec613a34dfed7e9667efe780", null ]
 ];

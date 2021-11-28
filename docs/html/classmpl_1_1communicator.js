@@ -6,9 +6,14 @@ var classmpl_1_1communicator =
       [ "similar", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703", null ],
       [ "unequal", "classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29", null ]
     ] ],
+    [ "merge_order_type", "classmpl_1_1communicator.html#a6df620cd720215b293df55f4bead0876", [
+      [ "order_low", "classmpl_1_1communicator.html#a6df620cd720215b293df55f4bead0876a15ad2c41e1e6df443bb6ea0ba7fe65fa", null ],
+      [ "order_high", "classmpl_1_1communicator.html#a6df620cd720215b293df55f4bead0876a236a80d22c9ab48ca57785e5cac07841", null ]
+    ] ],
     [ "communicator", "classmpl_1_1communicator.html#ae8dcb108a058800f583f92d8bc2d369f", null ],
     [ "communicator", "classmpl_1_1communicator.html#aaedab51467a9eb38a2aeedb58e357e3d", null ],
     [ "communicator", "classmpl_1_1communicator.html#a61a0bccfa633febde368a29c749368bf", null ],
+    [ "communicator", "classmpl_1_1communicator.html#a3564ef8bb3250c57374dad92dcf3b2f4", null ],
     [ "communicator", "classmpl_1_1communicator.html#ab082b5c443bf7db3fd803e723510d533", null ],
     [ "communicator", "classmpl_1_1communicator.html#a9acb1690c4190b91b48cf919257182f3", null ],
     [ "communicator", "classmpl_1_1communicator.html#aef00e3ea7dcd56ab1c5fca19222af822", null ],

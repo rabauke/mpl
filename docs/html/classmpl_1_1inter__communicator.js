@@ -153,5 +153,6 @@ var classmpl_1_1inter__communicator =
     [ "ssend_init", "classmpl_1_1inter__communicator.html#abd73358c63baca47dc8807c4a2ee2b65", null ],
     [ "ssend_init", "classmpl_1_1inter__communicator.html#a7a7c5d8b854ecb53490d905bf9f69053", null ],
     [ "ssend_init", "classmpl_1_1inter__communicator.html#a07640680936f14f3ace0d1d7539f3b19", null ],
+    [ "communicator", "classmpl_1_1inter__communicator.html#a28e4940a8d711c15cada064a12ba0788", null ],
     [ "group", "classmpl_1_1inter__communicator.html#a670720b16047bf7556aea242ff96a7fb", null ]
 ];

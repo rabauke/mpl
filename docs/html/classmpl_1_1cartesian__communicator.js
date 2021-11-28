@@ -13,6 +13,10 @@ var classmpl_1_1cartesian__communicator =
       [ "excluded", "classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588ac2413b3d6b0162ee66c1ee1a90828706", null ],
       [ "included", "classmpl_1_1cartesian__communicator.html#a6d418e0f1e1b98d37419ccb300e0a588a99f78c54130e752954404fff0707dcbd", null ]
     ] ],
+    [ "merge_order_type", "classmpl_1_1cartesian__communicator.html#a6df620cd720215b293df55f4bead0876", [
+      [ "order_low", "classmpl_1_1cartesian__communicator.html#a6df620cd720215b293df55f4bead0876a15ad2c41e1e6df443bb6ea0ba7fe65fa", null ],
+      [ "order_high", "classmpl_1_1cartesian__communicator.html#a6df620cd720215b293df55f4bead0876a236a80d22c9ab48ca57785e5cac07841", null ]
+    ] ],
     [ "periodicity_tag", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836", [
       [ "non_periodic", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836aa688e8ffe09270eeb4eaf5ca79db24cd", null ],
       [ "periodic", "classmpl_1_1cartesian__communicator.html#ae9ce556db3cf987d546db12da3382836ae6ffdec5e14fce371eb7ae99edebbbee", null ]

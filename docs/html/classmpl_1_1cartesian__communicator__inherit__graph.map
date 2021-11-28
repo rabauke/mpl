@@ -1,6 +1,6 @@
 <map id="mpl::cartesian_communicator" name="mpl::cartesian_communicator">
-<area shape="rect" id="node1" title="Communicator with Cartesian topology." alt="" coords="11,1359,303,1721"/>
-<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="25,931,288,1311"/>
-<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="61,468,253,883"/>
+<area shape="rect" id="node1" title="Communicator with Cartesian topology." alt="" coords="11,1393,303,1756"/>
+<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="25,965,288,1345"/>
+<area shape="rect" id="node3" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="61,468,253,917"/>
 <area shape="rect" id="node4" href="$classmpl_1_1impl_1_1base__communicator.html" title=" " alt="" coords="5,5,308,420"/>
 </map>

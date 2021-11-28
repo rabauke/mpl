@@ -6,6 +6,10 @@ var classmpl_1_1impl_1_1topology__communicator =
       [ "similar", "classmpl_1_1impl_1_1topology__communicator.html#af66054a704ac25557aa25b356e8abd63a10faae554c642e7607b1dd0cc8607703", null ],
       [ "unequal", "classmpl_1_1impl_1_1topology__communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29", null ]
     ] ],
+    [ "merge_order_type", "classmpl_1_1impl_1_1topology__communicator.html#a6df620cd720215b293df55f4bead0876", [
+      [ "order_low", "classmpl_1_1impl_1_1topology__communicator.html#a6df620cd720215b293df55f4bead0876a15ad2c41e1e6df443bb6ea0ba7fe65fa", null ],
+      [ "order_high", "classmpl_1_1impl_1_1topology__communicator.html#a6df620cd720215b293df55f4bead0876a236a80d22c9ab48ca57785e5cac07841", null ]
+    ] ],
     [ "abort", "classmpl_1_1impl_1_1topology__communicator.html#a396840f91fb5d7b62c0f5128eb93d6ca", null ],
     [ "allgather", "classmpl_1_1impl_1_1topology__communicator.html#abcd0c45df8daca2f36291951effb8153", null ],
     [ "allgather", "classmpl_1_1impl_1_1topology__communicator.html#ac77e03595a19600fcc37cc46056bcf3d", null ],

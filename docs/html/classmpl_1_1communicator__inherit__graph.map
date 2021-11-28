@@ -1,8 +1,8 @@
 <map id="mpl::communicator" name="mpl::communicator">
-<area shape="rect" id="node1" title="Specifies the communication context for a communication operation." alt="" coords="407,468,599,883"/>
-<area shape="rect" id="node3" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="372,931,635,1311"/>
+<area shape="rect" id="node1" title="Specifies the communication context for a communication operation." alt="" coords="407,468,599,917"/>
+<area shape="rect" id="node3" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="372,965,635,1345"/>
 <area shape="rect" id="node2" href="$classmpl_1_1impl_1_1base__communicator.html" title=" " alt="" coords="352,5,655,420"/>
-<area shape="rect" id="node4" href="$classmpl_1_1cartesian__communicator.html" title="Communicator with Cartesian topology." alt="" coords="5,1359,297,1721"/>
-<area shape="rect" id="node5" href="$classmpl_1_1distributed__graph__communicator.html" title="Communicator with general graph topology." alt="" coords="322,1402,685,1678"/>
-<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator.html" title="Communicator with general graph topology." alt="" coords="709,1419,961,1661"/>
+<area shape="rect" id="node4" href="$classmpl_1_1cartesian__communicator.html" title="Communicator with Cartesian topology." alt="" coords="5,1393,297,1756"/>
+<area shape="rect" id="node5" href="$classmpl_1_1distributed__graph__communicator.html" title="Communicator with general graph topology." alt="" coords="322,1437,685,1713"/>
+<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator.html" title="Communicator with general graph topology." alt="" coords="709,1454,961,1695"/>
 </map>

@@ -3905,6 +3905,34 @@ namespace mpl {
       other.comm_ = MPI_COMM_NULL;
     }
 
+    /// \brief Specifies the process order when merging the local and the remote groups of an
+    /// inter-communicator into a communicator.
+    enum class merge_order_type {
+      /// when merging the local and the remote groups of an inter-communicator put processes
+      /// of this group before processes that belong to the other group
+      order_low,
+      /// when merging the local and the remote groups of an inter-communicator put processes
+      /// of this group after processes that belong to the other group
+      order_high
+    };
+
+    /// indicates that when merging the local and the remote groups of an inter-communicator put
+    /// processes of this group before processes that belong to the other group
+    static constexpr merge_order_type order_low = merge_order_type::order_low;
+    /// indicates that when merging the local and the remote groups of an inter-communicator put
+    /// processes of this group after processes that belong to the other group
+    static constexpr merge_order_type order_high = merge_order_type::order_high;
+
+    /// \brief Creates a new communicator by merging the local and the remote groups of an
+    /// inter-communicator.
+    /// \param other the inter-communicator to merge
+    /// \param order affects the process ordering in the new communicator
+    /// \note This is a collective operation that needs to be carried out by all processes of
+    /// the local and the remote groups of  the inter-communicator other. The order parameter
+    /// must be the same for all process within in the local group as well as within the remote
+    /// group.  It should differ for both groups.
+    explicit communicator(const inter_communicator &other, merge_order_type order);
+
     /// \brief Constructs a new communicator from an existing one with a specified communication
     /// group.
     /// \param comm_collective tag to indicate the mode of construction
@@ -4828,7 +4856,16 @@ namespace mpl {
     }
 
     friend class group;
+    friend class communicator;
   };
+
+  //--------------------------------------------------------------------
+
+  inline communicator::communicator(const inter_communicator &other, merge_order_type order)
+      : base{} {
+    const int high{order == merge_order_type::order_high};
+    MPI_Intercomm_merge(other.comm_, high, &comm_);
+  }
 
   //--------------------------------------------------------------------
 

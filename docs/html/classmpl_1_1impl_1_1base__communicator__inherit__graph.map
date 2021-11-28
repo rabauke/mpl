@@ -1,9 +1,9 @@
 <map id="mpl::impl::base_communicator" name="mpl::impl::base_communicator">
 <area shape="rect" id="node1" title=" " alt="" coords="475,5,777,420"/>
-<area shape="rect" id="node2" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="407,468,599,883"/>
-<area shape="rect" id="node7" href="$classmpl_1_1inter__communicator.html" title="Specifies the communication context for a communication operation between two non&#45;overlapping groups." alt="" coords="624,529,876,822"/>
-<area shape="rect" id="node3" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="372,931,635,1311"/>
-<area shape="rect" id="node4" href="$classmpl_1_1cartesian__communicator.html" title="Communicator with Cartesian topology." alt="" coords="5,1359,297,1721"/>
-<area shape="rect" id="node5" href="$classmpl_1_1distributed__graph__communicator.html" title="Communicator with general graph topology." alt="" coords="322,1402,685,1678"/>
-<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator.html" title="Communicator with general graph topology." alt="" coords="709,1419,961,1661"/>
+<area shape="rect" id="node2" href="$classmpl_1_1communicator.html" title="Specifies the communication context for a communication operation." alt="" coords="407,468,599,917"/>
+<area shape="rect" id="node7" href="$classmpl_1_1inter__communicator.html" title="Specifies the communication context for a communication operation between two non&#45;overlapping groups." alt="" coords="624,546,876,839"/>
+<area shape="rect" id="node3" href="$classmpl_1_1impl_1_1topology__communicator.html" title="Base class for communicators with a topology." alt="" coords="372,965,635,1345"/>
+<area shape="rect" id="node4" href="$classmpl_1_1cartesian__communicator.html" title="Communicator with Cartesian topology." alt="" coords="5,1393,297,1756"/>
+<area shape="rect" id="node5" href="$classmpl_1_1distributed__graph__communicator.html" title="Communicator with general graph topology." alt="" coords="322,1437,685,1713"/>
+<area shape="rect" id="node6" href="$classmpl_1_1graph__communicator.html" title="Communicator with general graph topology." alt="" coords="709,1454,961,1695"/>
 </map>
