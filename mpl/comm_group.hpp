@@ -21,15 +21,11 @@ namespace mpl {
 
   class inter_communicator;
 
-  namespace environment {
+  namespace environment::detail {
 
-    namespace detail {
+    class env;
 
-      class env;
-
-    }
-
-  }  // namespace environment
+  }  // namespace environment::detail
 
   //--------------------------------------------------------------------
 
