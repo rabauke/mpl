@@ -220,7 +220,7 @@ namespace mpl {
           return *this;
         }
 
-        iterator operator++(int) {
+        iterator operator++(int) & {
           const iterator tmp{*this};
           ++(*this);
           return tmp;
@@ -258,7 +258,7 @@ namespace mpl {
           return *this;
         }
 
-        const_iterator operator++(int) {
+        const_iterator operator++(int) & {
           const const_iterator tmp{*this};
           ++(*this);
           return tmp;
