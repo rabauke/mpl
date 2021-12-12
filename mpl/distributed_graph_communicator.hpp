@@ -28,8 +28,7 @@ namespace mpl {
   private:
     class less_weights {
     public:
-      bool operator()(const rank_weight_pair &pair_1,
-                      const rank_weight_pair &pair_2) const {
+      bool operator()(const rank_weight_pair &pair_1, const rank_weight_pair &pair_2) const {
         if (pair_1.rank == pair_2.rank)
           return pair_1.weight < pair_2.weight;
         else
