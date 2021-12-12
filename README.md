@@ -15,7 +15,7 @@ significant overhead compared to utilizing MPI via its plain C-API.
 This library is most useful for developers who have at least some basic
 knowledge of the Message Passing Interface standard and would like to
 utilize it via a more user-friendly interface in modern C++. Unlike
-(Boost.MPI)[https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html],
+[Boost.MPI](https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html),
 MPL does not rely on an external serialization library and has a
 negligible run-time overhead.
 
