@@ -2102,53 +2102,53 @@ namespace mpl {
       /// \brief Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param destination rank of the receiving process
-      /// \param sendtag tag associated to the data to send
-      /// \param recvdata data to receive
+      /// \param send_tag tag associated to the data to send
+      /// \param recv_data data to receive
       /// \param source rank of the sending process
-      /// \param recvtag tag associated to the data to receive
+      /// \param recv_tag tag associated to the data to receive
       /// \return status of the receive operation
       template<typename T>
-      status_t sendrecv(const T &senddata, int destination, tag_t sendtag, T &recvdata,
-                        int source, tag_t recvtag) const {
+      status_t sendrecv(const T &send_data, int destination, tag_t send_tag, T &recv_data,
+                        int source, tag_t recv_tag) const {
         check_dest(destination);
         check_source(source);
-        check_send_tag(sendtag);
-        check_recv_tag(recvtag);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
         status_t s;
-        MPI_Sendrecv(&senddata, 1, detail::datatype_traits<T>::get_datatype(), destination,
-                     static_cast<int>(sendtag), &recvdata, 1,
+        MPI_Sendrecv(&send_data, 1, detail::datatype_traits<T>::get_datatype(), destination,
+                     static_cast<int>(send_tag), &recv_data, 1,
                      detail::datatype_traits<T>::get_datatype(), source,
-                     static_cast<int>(recvtag), comm_, static_cast<MPI_Status *>(&s));
+                     static_cast<int>(recv_tag), comm_, static_cast<MPI_Status *>(&s));
         return s;
       }
 
       /// \brief Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param destination rank of the receiving process
-      /// \param sendtag tag associated to the data to send
-      /// \param recvdata data to receive
+      /// \param send_tag tag associated to the data to send
+      /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \param source rank of the sending process
-      /// \param recvtag tag associated to the data to receive
+      /// \param recv_tag tag associated to the data to receive
       /// \return status of the receive operation
       template<typename T>
-      status_t sendrecv(const T *senddata, const layout<T> &sendl, int destination,
-                        tag_t sendtag, T *recvdata, const layout<T> &recvl, int source,
-                        tag_t recvtag) const {
+      status_t sendrecv(const T *send_data, const layout<T> &sendl, int destination,
+                        tag_t send_tag, T *recv_data, const layout<T> &recvl, int source,
+                        tag_t recv_tag) const {
         check_dest(destination);
         check_source(source);
-        check_send_tag(sendtag);
-        check_recv_tag(recvtag);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
         status_t s;
-        MPI_Sendrecv(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                     destination, static_cast<int>(sendtag), recvdata, 1,
+        MPI_Sendrecv(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                     destination, static_cast<int>(send_tag), recv_data, 1,
                      detail::datatype_traits<layout<T>>::get_datatype(recvl), source,
-                     static_cast<int>(recvtag), comm_, static_cast<MPI_Status *>(&s));
+                     static_cast<int>(recv_tag), comm_, static_cast<MPI_Status *>(&s));
         return s;
       }
 
@@ -2163,41 +2163,41 @@ namespace mpl {
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param begin1 iterator pointing to the first data value to send
-      /// \param end1 iterator pointing one element beyond the last data value to send
+      /// \param begin_1 iterator pointing to the first data value to send
+      /// \param end_1 iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
-      /// \param sendtag tag associated to the data to send
-      /// \param begin2 iterator pointing to the first data value to receive
-      /// \param end2 iterator pointing one element beyond the last data value to receive
+      /// \param send_tag tag associated to the data to send
+      /// \param begin_2 iterator pointing to the first data value to receive
+      /// \param end_2 iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending process
-      /// \param recvtag tag associated to the data to receive
+      /// \param recv_tag tag associated to the data to receive
       /// \return status of the receive operation
       template<typename iterT1, typename iterT2>
-      status_t sendrecv(iterT1 begin1, iterT1 end1, int destination, tag_t sendtag,
-                        iterT2 begin2, iterT2 end2, int source, tag_t recvtag) const {
-        using value_type1 = typename std::iterator_traits<iterT1>::value_type;
-        using value_type2 = typename std::iterator_traits<iterT2>::value_type;
+      status_t sendrecv(iterT1 begin_1, iterT1 end_1, int destination, tag_t send_tag,
+                        iterT2 begin_2, iterT2 end_2, int source, tag_t recv_tag) const {
+        using value_type_1 = typename std::iterator_traits<iterT1>::value_type;
+        using value_type_2 = typename std::iterator_traits<iterT2>::value_type;
         if constexpr (detail::is_contiguous_iterator_v<iterT1> and
                       detail::is_contiguous_iterator_v<iterT2>) {
-          const vector_layout<value_type1> l1(std::distance(begin1, end1));
-          const vector_layout<value_type2> l2(std::distance(begin2, end2));
-          return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source,
-                          recvtag);
+          const vector_layout<value_type_1> l_1(std::distance(begin_1, end_1));
+          const vector_layout<value_type_2> l_2(std::distance(begin_2, end_2));
+          return sendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                          recv_tag);
         } else if constexpr (detail::is_contiguous_iterator_v<iterT1>) {
-          const vector_layout<value_type1> l1(std::distance(begin1, end1));
-          const iterator_layout<value_type2> l2(begin2, end2);
-          return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source,
-                          recvtag);
+          const vector_layout<value_type_1> l_1(std::distance(begin_1, end_1));
+          const iterator_layout<value_type_2> l_2(begin_2, end_2);
+          return sendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                          recv_tag);
         } else if constexpr (detail::is_contiguous_iterator_v<iterT2>) {
-          const iterator_layout<value_type2> l1(begin1, end1);
-          const vector_layout<value_type2> l2(std::distance(begin2, end2));
-          return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source,
-                          recvtag);
+          const iterator_layout<value_type_2> l_1(begin_1, end_1);
+          const vector_layout<value_type_2> l_2(std::distance(begin_2, end_2));
+          return sendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                          recv_tag);
         } else {
-          const iterator_layout<value_type1> l1(begin1, end1);
-          const iterator_layout<value_type2> l2(begin2, end2);
-          return sendrecv(&(*begin1), l1, destination, sendtag, &(*begin2), l2, source,
-                          recvtag);
+          const iterator_layout<value_type_1> l_1(begin_1, end_1);
+          const iterator_layout<value_type_2> l_2(begin_2, end_2);
+          return sendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                          recv_tag);
         }
       }
 
@@ -2207,20 +2207,20 @@ namespace mpl {
       /// \ref data_types "data types" section
       /// \param data data to send, will hold the received data
       /// \param destination rank of the receiving process
-      /// \param sendtag tag associated to the data to send
+      /// \param send_tag tag associated to the data to send
       /// \param source rank of the sending process
-      /// \param recvtag tag associated to the data to receive
+      /// \param recv_tag tag associated to the data to receive
       /// \return status of the receive operation
       template<typename T>
-      status_t sendrecv_replace(T &data, int destination, tag_t sendtag, int source,
-                                tag_t recvtag) const {
+      status_t sendrecv_replace(T &data, int destination, tag_t send_tag, int source,
+                                tag_t recv_tag) const {
         check_dest(destination);
         check_source(source);
-        check_send_tag(sendtag);
-        check_recv_tag(recvtag);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
         status_t s;
         MPI_Sendrecv_replace(&data, 1, detail::datatype_traits<T>::get_datatype(), destination,
-                             static_cast<int>(sendtag), source, static_cast<int>(recvtag),
+                             static_cast<int>(send_tag), source, static_cast<int>(recv_tag),
                              comm_, static_cast<MPI_Status *>(&s));
         return s;
       }
@@ -2231,21 +2231,21 @@ namespace mpl {
       /// \param data data to send, will hold the received data
       /// \param l memory layout of the data to send and receive
       /// \param destination rank of the receiving process
-      /// \param sendtag tag associated to the data to send
+      /// \param send_tag tag associated to the data to send
       /// \param source rank of the sending process
-      /// \param recvtag tag associated to the data to receive
+      /// \param recv_tag tag associated to the data to receive
       /// \return status of the receive operation
       template<typename T>
-      status_t sendrecv_replace(T *data, const layout<T> &l, int destination, tag_t sendtag,
-                                int source, tag_t recvtag) const {
+      status_t sendrecv_replace(T *data, const layout<T> &l, int destination, tag_t send_tag,
+                                int source, tag_t recv_tag) const {
         check_dest(destination);
         check_source(source);
-        check_send_tag(sendtag);
-        check_recv_tag(recvtag);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
         status_t s;
         MPI_Sendrecv_replace(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l),
-                             destination, static_cast<int>(sendtag), source,
-                             static_cast<int>(recvtag), comm_, static_cast<MPI_Status *>(&s));
+                             destination, static_cast<int>(send_tag), source,
+                             static_cast<int>(recv_tag), comm_, static_cast<MPI_Status *>(&s));
         return s;
       }
 
@@ -2259,20 +2259,20 @@ namespace mpl {
       /// \param end iterator pointing one element beyond the last data value to send and to
       /// receive
       /// \param destination rank of the receiving process
-      /// \param sendtag tag associated to the data to send
+      /// \param send_tag tag associated to the data to send
       /// \param source rank of the sending process
       /// \param recvtag tag associated to the data to receive
       /// \return status of the receive operation
       template<typename iterT>
-      status_t sendrecv_replace(iterT begin, iterT end, int destination, tag_t sendtag,
+      status_t sendrecv_replace(iterT begin, iterT end, int destination, tag_t send_tag,
                                 int source, tag_t recvtag) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         if constexpr (detail::is_contiguous_iterator_v<iterT>) {
           const vector_layout<value_type> l(std::distance(begin, end));
-          return sendrecv_replace(&(*begin), l, destination, sendtag, source, recvtag);
+          return sendrecv_replace(&(*begin), l, destination, send_tag, source, recvtag);
         } else {
           const iterator_layout<value_type> l(begin, end);
-          return sendrecv_replace(&(*begin), l, destination, sendtag, source, recvtag);
+          return sendrecv_replace(&(*begin), l, destination, send_tag, source, recvtag);
         }
       }
 
@@ -2370,34 +2370,34 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
-      /// \param senddata data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param send_data data to send
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void gather(int root_rank, const T &senddata, T *recvdata) const {
+      void gather(int root_rank, const T &send_data, T *recv_data) const {
         check_root(root_rank);
-        MPI_Gather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+        MPI_Gather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
                    detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
       /// \brief Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data buffer for sending data
+      /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvl memory layout of the data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void gather(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      void gather(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                   const layout<T> &recvl) const {
         check_root(root_rank);
-        MPI_Gather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                   recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Gather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                   recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                    root_rank, comm_);
       }
 
@@ -2407,17 +2407,17 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
-      /// \param senddata data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param send_data data to send
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest igather(int root_rank, const T &senddata, T *recvdata) const {
+      irequest igather(int root_rank, const T &send_data, T *recv_data) const {
         check_root(root_rank);
         MPI_Request req;
-        MPI_Igather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+        MPI_Igather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2426,21 +2426,21 @@ namespace mpl {
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data buffer for sending data
+      /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest igather(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest igather(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                        const layout<T> &recvl) const {
         check_root(root_rank);
         MPI_Request req;
-        MPI_Igather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                    recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Igather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                    recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                     root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2450,14 +2450,14 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void gather(int root_rank, const T &senddata) const {
+      void gather(int root_rank, const T &send_data) const {
         check_nonroot(root_rank);
-        MPI_Gather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
+        MPI_Gather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
                    MPI_DATATYPE_NULL, root_rank, comm_);
       }
 
@@ -2465,15 +2465,15 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
-      /// \param senddata data buffer for sending data
+      /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void gather(int root_rank, const T *senddata, const layout<T> &sendl) const {
+      void gather(int root_rank, const T *send_data, const layout<T> &sendl) const {
         check_nonroot(root_rank);
-        MPI_Gather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
+        MPI_Gather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
                    MPI_DATATYPE_NULL, root_rank, comm_);
       }
 
@@ -2483,16 +2483,16 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest igather(int root_rank, const T &senddata) const {
+      irequest igather(int root_rank, const T &send_data) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Igather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
+        MPI_Igather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
                     MPI_DATATYPE_NULL, root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2502,17 +2502,17 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
-      /// \param senddata data buffer for sending data
+      /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest igather(int root_rank, const T *senddata, const layout<T> &sendl) const {
+      irequest igather(int root_rank, const T *send_data, const layout<T> &sendl) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Igather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
+        MPI_Igather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
                     MPI_DATATYPE_NULL, root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2522,45 +2522,45 @@ namespace mpl {
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \param recvdispls displacements of the data to receive by the root rank
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void gatherv(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      void gatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                    const layouts<T> &recvls, const displacements &recvdispls) const {
         check_root(root_rank);
         check_size(recvls);
         check_size(recvdispls);
-        int N(size());
-        displacements senddispls(N);
-        layouts<T> sendls(N);
+        const int n{size()};
+        displacements senddispls(n);
+        layouts<T> sendls(n);
         sendls[root_rank] = sendl;
         if (rank() == root_rank)
-          alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+          alltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
         else
-          alltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N), recvdispls);
+          alltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n), recvdispls);
       }
 
       /// \brief Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void gatherv(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      void gatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                    const layouts<T> &recvls) const {
-        gatherv(root_rank, senddata, sendl, recvdata, recvls, displacements(size()));
+        gatherv(root_rank, send_data, sendl, recv_data, recvls, displacements(size()));
       }
 
       // --- non-blocking gather ---
@@ -2568,9 +2568,9 @@ namespace mpl {
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \param recvdispls displacements of the data to receive by the root rank
@@ -2578,19 +2578,19 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest igatherv(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest igatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                         const layouts<T> &recvls, const displacements &recvdispls) const {
         check_root(root_rank);
         check_size(recvls);
         check_size(recvdispls);
-        int N(size());
-        displacements senddispls(N);
-        layouts<T> sendls(N);
+        const int n{size()};
+        displacements senddispls(n);
+        layouts<T> sendls(n);
         sendls[root_rank] = sendl;
         if (rank() == root_rank)
-          return ialltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+          return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
         else
-          return ialltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N),
+          return ialltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n),
                             recvdispls);
       }
 
@@ -2598,18 +2598,18 @@ namespace mpl {
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages, may be a null
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest igatherv(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest igatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                         const layouts<T> &recvls) const {
-        return igatherv(root_rank, senddata, sendl, recvdata, recvls, displacements(size()));
+        return igatherv(root_rank, send_data, sendl, recv_data, recvls, displacements(size()));
       }
 
       // --- blocking gather, non-root variant ---
@@ -2617,20 +2617,20 @@ namespace mpl {
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void gatherv(int root_rank, const T *senddata, const layout<T> &sendl) const {
+      void gatherv(int root_rank, const T *send_data, const layout<T> &sendl) const {
         check_nonroot(root_rank);
-        int N(size());
-        displacements sendrecvdispls(N);
-        layouts<T> sendls(N);
+        const int n{size()};
+        displacements sendrecvdispls(n);
+        layouts<T> sendls(n);
         sendls[root_rank] = sendl;
-        alltoallv(senddata, sendls, sendrecvdispls, static_cast<T *>(nullptr),
-                  mpl::layouts<T>(N), sendrecvdispls);
+        alltoallv(send_data, sendls, sendrecvdispls, static_cast<T *>(nullptr),
+                  mpl::layouts<T>(n), sendrecvdispls);
       }
 
       // --- non-blocking gather, non-root variant ---
@@ -2638,21 +2638,21 @@ namespace mpl {
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest igatherv(int root_rank, const T *senddata, const layout<T> &sendl) const {
+      irequest igatherv(int root_rank, const T *send_data, const layout<T> &sendl) const {
         check_nonroot(root_rank);
-        int N(size());
-        displacements sendrecvdispls(N);
-        layouts<T> sendls(N);
+        const int n{size()};
+        displacements sendrecvdispls(n);
+        layouts<T> sendls(n);
         sendls[root_rank] = sendl;
-        return ialltoallv(senddata, sendls, sendrecvdispls, static_cast<T *>(nullptr),
-                          mpl::layouts<T>(N), sendrecvdispls);
+        return ialltoallv(send_data, sendls, sendrecvdispls, static_cast<T *>(nullptr),
+                          mpl::layouts<T>(n), sendrecvdispls);
       }
 
       // === allgather ===
@@ -2661,30 +2661,30 @@ namespace mpl {
       /// \brief Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param send_data data to send
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \note This is a collective operation and must be called (possibly by utilizing
       /// anther overload) by all processes in the communicator.
       template<typename T>
-      void allgather(const T &senddata, T *recvdata) const {
-        MPI_Allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+      void allgather(const T &send_data, T *recv_data) const {
+        MPI_Allgather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
                       detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
       /// \brief Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
+      void allgather(const T *send_data, const layout<T> &sendl, T *recv_data,
                      const layout<T> &recvl) const {
-        MPI_Allgather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                      recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Allgather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                      recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                       comm_);
       }
 
@@ -2693,15 +2693,15 @@ namespace mpl {
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param send_data data to send
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iallgather(const T &senddata, T *recvdata) const {
+      irequest iallgather(const T &send_data, T *recv_data) const {
         MPI_Request req;
-        MPI_Iallgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+        MPI_Iallgather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
                        detail::datatype_traits<T>::get_datatype(), comm_, &req);
         return base_irequest{req};
       }
@@ -2710,19 +2710,19 @@ namespace mpl {
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iallgather(const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest iallgather(const T *send_data, const layout<T> &sendl, T *recv_data,
                           const layout<T> &recvl) const {
         MPI_Request req;
-        MPI_Iallgather(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                       recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Iallgather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                       recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                        comm_, &req);
         return base_irequest{req};
       }
@@ -2733,38 +2733,38 @@ namespace mpl {
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
+      void allgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
                       const layouts<T> &recvls, const displacements &recvdispls) const {
         check_size(recvls);
         check_size(recvdispls);
-        int N(size());
-        displacements senddispls(N);
-        layouts<T> sendls(N, sendl);
-        alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+        const int n{size()};
+        displacements senddispls(n);
+        layouts<T> sendls(n, sendl);
+        alltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
       }
 
       /// \brief Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
+      void allgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
                       const layouts<T> &recvls) const {
-        allgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
+        allgatherv(send_data, sendl, recv_data, recvls, displacements(size()));
       }
 
       // --- non-blocking allgather ---
@@ -2772,40 +2772,40 @@ namespace mpl {
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iallgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest iallgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
                            const layouts<T> &recvls, const displacements &recvdispls) const {
         check_size(recvls);
         check_size(recvdispls);
-        int N(size());
-        displacements senddispls(N);
-        layouts<T> sendls(N, sendl);
-        return ialltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+        const int n{size()};
+        displacements senddispls(n);
+        layouts<T> sendls(n, sendl);
+        return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
       }
 
       /// \brief Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
-      /// \param senddata data to send
+      /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iallgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest iallgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
                            const layouts<T> &recvls) const {
-        return iallgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
+        return iallgatherv(send_data, sendl, recv_data, recvls, displacements(size()));
       }
 
       // === scatter ===
@@ -2815,15 +2815,15 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void scatter(int root_rank, const T *senddata, T &recvdata) const {
+      void scatter(int root_rank, const T *send_data, T &recv_data) const {
         check_root(root_rank);
-        MPI_Scatter(senddata, 1, detail::datatype_traits<T>::get_datatype(), &recvdata, 1,
+        MPI_Scatter(send_data, 1, detail::datatype_traits<T>::get_datatype(), &recv_data, 1,
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
@@ -2831,19 +2831,19 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendl memory layout of the data to send
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void scatter(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      void scatter(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                    const layout<T> &recvl) const {
         check_root(root_rank);
-        MPI_Scatter(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                    recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Scatter(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                    recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                     root_rank, comm_);
       }
 
@@ -2853,17 +2853,17 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iscatter(int root_rank, const T *senddata, T &recvdata) const {
+      irequest iscatter(int root_rank, const T *send_data, T &recv_data) const {
         check_root(root_rank);
         MPI_Request req;
-        MPI_Iscatter(senddata, 1, detail::datatype_traits<T>::get_datatype(), &recvdata, 1,
+        MPI_Iscatter(send_data, 1, detail::datatype_traits<T>::get_datatype(), &recv_data, 1,
                      detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2873,21 +2873,21 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendl memory layout of the data to send
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iscatter(int root_rank, const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest iscatter(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
                         const layout<T> &recvl) const {
         check_root(root_rank);
         MPI_Request req;
-        MPI_Iscatter(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                     recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Iscatter(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                     recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                      root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2895,28 +2895,28 @@ namespace mpl {
       // --- blocking scatter, non-root variant ---
       /// \brief Scatter messages from a single root process to all processes.
       /// \param root_rank rank of the sending process
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void scatter(int root_rank, T &recvdata) const {
+      void scatter(int root_rank, T &recv_data) const {
         check_nonroot(root_rank);
-        MPI_Scatter(0, 0, MPI_DATATYPE_NULL, &recvdata, 1,
+        MPI_Scatter(0, 0, MPI_DATATYPE_NULL, &recv_data, 1,
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
       /// \brief Scatter messages from a single root process to all processes.
       /// \param root_rank rank of the sending process
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void scatter(int root_rank, T *recvdata, const layout<T> &recvl) const {
+      void scatter(int root_rank, T *recv_data, const layout<T> &recvl) const {
         check_root(root_rank);
-        MPI_Scatter(0, 0, MPI_DATATYPE_NULL, recvdata, 1,
+        MPI_Scatter(0, 0, MPI_DATATYPE_NULL, recv_data, 1,
                     detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_);
       }
 
@@ -2924,16 +2924,16 @@ namespace mpl {
       /// \brief Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
       /// \param root_rank rank of the sending process
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest iscatter(int root_rank, T &recvdata) const {
+      irequest iscatter(int root_rank, T &recv_data) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, &recvdata, 1,
+        MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, &recv_data, 1,
                      detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2941,17 +2941,17 @@ namespace mpl {
       /// \brief Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
       /// \param root_rank rank of the sending process
-      /// \param recvdata data to receive
+      /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest iscatter(int root_rank, T *recvdata, const layout<T> &recvl) const {
+      irequest iscatter(int root_rank, T *recv_data, const layout<T> &recvl) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, recvdata, 1,
+        MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, recv_data, 1,
                      detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_,
                      &req);
         return base_irequest{req};
@@ -2964,29 +2964,29 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendls memory layouts of the data to send
       /// \param senddispls displacements of the data to send by the root rank
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void scatterv(int root_rank, const T *senddata, const layouts<T> &sendls,
-                    const displacements &senddispls, T *recvdata,
+      void scatterv(int root_rank, const T *send_data, const layouts<T> &sendls,
+                    const displacements &senddispls, T *recv_data,
                     const layout<T> &recvl) const {
         check_root(root_rank);
         check_size(sendls);
         check_size(senddispls);
-        const int N{size()};
-        displacements recvdispls(N);
-        layouts<T> recvls(N);
+        const int n{size()};
+        displacements recvdispls(n);
+        layouts<T> recvls(n);
         recvls[root_rank] = recvl;
         if (rank() == root_rank)
-          alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+          alltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
         else
-          alltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N), recvdispls);
+          alltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n), recvdispls);
       }
 
       /// \brief Scatter messages with a variable amount of data from a single root process to all
@@ -2994,17 +2994,17 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendls memory layouts of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void scatterv(int root_rank, const T *senddata, const layouts<T> &sendls, T *recvdata,
+      void scatterv(int root_rank, const T *send_data, const layouts<T> &sendls, T *recv_data,
                     const layout<T> &recvl) const {
-        scatterv(root_rank, senddata, sendls, displacements(size()), recvdata, recvl);
+        scatterv(root_rank, send_data, sendls, displacements(size()), recv_data, recvl);
       }
 
       // --- non-blocking scatter ---
@@ -3013,30 +3013,30 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendls memory layouts of the data to send
       /// \param senddispls displacements of the data to send by the root rank
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iscatterv(int root_rank, const T *senddata, const layouts<T> &sendls,
-                         const displacements &senddispls, T *recvdata,
+      irequest iscatterv(int root_rank, const T *send_data, const layouts<T> &sendls,
+                         const displacements &senddispls, T *recv_data,
                          const layout<T> &recvl) const {
         check_root(root_rank);
         check_size(sendls);
         check_size(senddispls);
-        const int N{size()};
-        displacements recvdispls(N);
-        layouts<T> recvls(N);
+        const int n{size()};
+        displacements recvdispls(n);
+        layouts<T> recvls(n);
         recvls[root_rank] = recvl;
         if (rank() == root_rank)
-          return ialltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
+          return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
         else
-          return ialltoallv(senddata, sendls, senddispls, recvdata, mpl::layouts<T>(N),
+          return ialltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n),
                             recvdispls);
       }
 
@@ -3045,18 +3045,18 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param senddata pointer to continuous storage for outgoing messages, may be a null
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendls memory layouts of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iscatterv(int root_rank, const T *senddata, const layouts<T> &sendls,
-                         T *recvdata, const layout<T> &recvl) const {
-        return iscatterv(root_rank, senddata, sendls, displacements(size()), recvdata, recvl);
+      irequest iscatterv(int root_rank, const T *send_data, const layouts<T> &sendls,
+                         T *recv_data, const layout<T> &recvl) const {
+        return iscatterv(root_rank, send_data, sendls, displacements(size()), recv_data, recvl);
       }
 
       // --- blocking scatter, non-root variant ---
@@ -3065,20 +3065,20 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void scatterv(int root_rank, T *recvdata, const layout<T> &recvl) const {
+      void scatterv(int root_rank, T *recv_data, const layout<T> &recvl) const {
         check_root(root_rank);
-        const int N{size()};
-        displacements sendrecvdispls(N);
-        layouts<T> recvls(N);
+        const int n{size()};
+        displacements sendrecvdispls(n);
+        layouts<T> recvls(n);
         recvls[root_rank] = recvl;
-        alltoallv(static_cast<const T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls, recvdata,
-                  recvls, sendrecvdispls);
+        alltoallv(static_cast<const T *>(nullptr), mpl::layouts<T>(n), sendrecvdispls,
+                  recv_data, recvls, sendrecvdispls);
       }
 
       // --- non-blocking scatter, non-root variant ---
@@ -3087,21 +3087,21 @@ namespace mpl {
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param root_rank rank of the sending process
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest iscatterv(int root_rank, T *recvdata, const layout<T> &recvl) const {
+      irequest iscatterv(int root_rank, T *recv_data, const layout<T> &recvl) const {
         check_root(root_rank);
-        const int N{size()};
-        displacements sendrecvdispls(N);
-        layouts<T> recvls(N);
+        const int n{size()};
+        displacements sendrecvdispls(n);
+        layouts<T> recvls(n);
         recvls[root_rank] = recvl;
-        return ialltoallv(static_cast<const T *>(nullptr), mpl::layouts<T>(N), sendrecvdispls,
-                          recvdata, recvls, sendrecvdispls);
+        return ialltoallv(static_cast<const T *>(nullptr), mpl::layouts<T>(n), sendrecvdispls,
+                          recv_data, recvls, sendrecvdispls);
       }
 
       // === all-to-all ===
@@ -3110,41 +3110,41 @@ namespace mpl {
       /// \brief Sends messages to all processes and receives messages from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param send_data pointer to continuous storage for outgoing messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \details Each process in the communicator sends one element of type T to each process
       /// (including itself) and receives one element of type T from each process.  The i-th
-      /// element in the array senddata is sent to the i-th process.  When the function has
-      /// finished, the i-th element in the array recvdata was received from the i-th process.
+      /// element in the array send_data is sent to the i-th process.  When the function has
+      /// finished, the i-th element in the array recv_data was received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void alltoall(const T *senddata, T *recvdata) const {
-        MPI_Alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+      void alltoall(const T *send_data, T *recv_data) const {
+        MPI_Alltoall(send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
                      detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
       /// \brief Sends messages to all processes and receives messages from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
+      /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendl memory layouts of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layouts of the data to receive
       /// \details Each process in the communicator sends elements of type T to each process
       /// (including itself) and receives elements of type T from each process. The memory
       /// layouts of the incoming and the outgoing messages are described by sendl and recvl.
       /// Both layouts might differ but must be compatible, i.e., must hold the same number of
-      /// elements of type T.  The i-th memory block with the layout sendl in the array senddata
+      /// elements of type T.  The i-th memory block with the layout sendl in the array send_data
       /// is sent to the i-th process.  When the function has finished, the i-th memory block with
-      /// the layout recvl in the array recvdata was received from the i-th process.
+      /// the layout recvl in the array recv_data was received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
+      void alltoall(const T *send_data, const layout<T> &sendl, T *recv_data,
                     const layout<T> &recvl) const {
-        MPI_Alltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                     recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Alltoall(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                     recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                      comm_);
       }
 
@@ -3153,19 +3153,19 @@ namespace mpl {
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param send_data pointer to continuous storage for outgoing messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \return request representing the ongoing message transfer
       /// \details Each process in the communicator sends one element of type T to each process
       /// (including itself) and receives one element of type T from each process.  The i-th
-      /// element in the array senddata is sent to the i-th process.  When the message transfer
-      /// has finished, the i-th element in the array recvdata was received from the i-th process.
+      /// element in the array send_data is sent to the i-th process.  When the message transfer
+      /// has finished, the i-th element in the array recv_data was received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest ialltoall(const T *senddata, T *recvdata) const {
+      irequest ialltoall(const T *send_data, T *recv_data) const {
         MPI_Request req;
-        MPI_Ialltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+        MPI_Ialltoall(send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
                       detail::datatype_traits<T>::get_datatype(), comm_, &req);
         return base_irequest{req};
       }
@@ -3174,26 +3174,26 @@ namespace mpl {
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
+      /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendl memory layouts of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layouts of the data to receive
       /// \return request representing the ongoing message transfer
       /// \details Each process in the communicator sends elements of type T to each process
       /// (including itself) and receives elements of type T from each process. The memory
       /// layouts of the incoming and the outgoing messages are described by sendl and recvl.
       /// Both layouts might differ but must be compatible, i.e., must hold the same number of
-      /// elements of type T.  The i-th memory block with the layout sendl in the array senddata
+      /// elements of type T.  The i-th memory block with the layout sendl in the array send_data
       /// is sent to the i-th process.  When the message transfer has finished, the i-th memory
-      /// block with the layout recvl in the array recvdata was received from the i-th process.
+      /// block with the layout recvl in the array recv_data was received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest ialltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
+      irequest ialltoall(const T *send_data, const layout<T> &sendl, T *recv_data,
                          const layout<T> &recvl) const {
         MPI_Request req;
-        MPI_Ialltoall(senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
-                      recvdata, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
+        MPI_Ialltoall(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                      recv_data, 1, detail::datatype_traits<layout<T>>::get_datatype(recvl),
                       comm_, &req);
         return base_irequest{req};
       }
@@ -3205,26 +3205,26 @@ namespace mpl {
       /// messages with a variable amount of data from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
+      /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
       /// \param senddispls displacements of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
       /// \details Each process in the communicator sends elements of type T to each process
       /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
-      /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// senddata starts senddispls[i] bytes after the address given in senddata. The i-th memory
+      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
+      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
+      /// send_data starts senddispls[i] bytes after the address given in send_data. The i-th memory
       /// block is sent to the i-th process. The i-th memory block with the layout recvls[i] in
-      /// the array recvdata starts recvdispls[i] bytes after the address given in recvdata.
-      /// When the function has finished, the i-th memory block in the array recvdata was
+      /// the array recv_data starts recvdispls[i] bytes after the address given in recv_data.
+      /// When the function has finished, the i-th memory block in the array recv_data was
       /// received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void alltoallv(const T *senddata, const layouts<T> &sendls,
-                     const displacements &senddispls, T *recvdata, const layouts<T> &recvls,
+      void alltoallv(const T *send_data, const layouts<T> &sendls,
+                     const displacements &senddispls, T *recv_data, const layouts<T> &recvls,
                      const displacements &recvdispls) const {
         check_size(senddispls);
         check_size(sendls);
@@ -3236,37 +3236,37 @@ namespace mpl {
         static_assert(
             sizeof(decltype(*sendls())) == sizeof(MPI_Datatype),
             "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
-        MPI_Alltoallw(senddata, counts.data(), senddispls_int.data(),
-                      reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata, counts.data(),
-                      recvdispls_int.data(), reinterpret_cast<const MPI_Datatype *>(recvls()),
-                      comm_);
+        MPI_Alltoallw(send_data, counts.data(), senddispls_int.data(),
+                      reinterpret_cast<const MPI_Datatype *>(sendls()), recv_data,
+                      counts.data(), recvdispls_int.data(),
+                      reinterpret_cast<const MPI_Datatype *>(recvls()), comm_);
       }
 
       /// \brief Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
+      /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \details Each process in the communicator sends elements of type T to each process
       /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
-      /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// senddata starts at the address given in senddata. The i-th memory block is sent to the
-      /// i-th process. The i-th memory block with the layout recvls[i] in the array recvdata
-      /// starts at the address given in recvdata.  Note that the memory layouts need to include
+      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
+      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
+      /// send_data starts at the address given in send_data. The i-th memory block is sent to the
+      /// i-th process. The i-th memory block with the layout recvls[i] in the array recv_data
+      /// starts at the address given in recv_data.  Note that the memory layouts need to include
       /// appropriate holes at the beginning in order to avoid overlapping send- or receive
-      /// blocks. When the function has finished, the i-th memory block in the array recvdata
+      /// blocks. When the function has finished, the i-th memory block in the array recv_data
       /// was received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      void alltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
+      void alltoallv(const T *send_data, const layouts<T> &sendls, T *recv_data,
                      const layouts<T> &recvls) const {
         const displacements sendrecvdispls(size());
-        alltoallv(senddata, sendls, sendrecvdispls, recvdata, recvls, sendrecvdispls);
+        alltoallv(send_data, sendls, sendrecvdispls, recv_data, recvls, sendrecvdispls);
       }
 
       // --- non-blocking all-to-all ---
@@ -3319,18 +3319,18 @@ namespace mpl {
       }
 
       template<typename T>
-      void ialltoallv_task(const T *senddata, T *recvdata, ialltoallv_state<T> *state) const {
+      void ialltoallv_task(const T *send_data, T *recv_data, ialltoallv_state<T> *state) const {
         MPI_Request req;
         static_assert(
             sizeof(decltype(*state->sendl())) == sizeof(MPI_Datatype),
             "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
-        if (senddata != nullptr)
-          MPI_Ialltoallw(senddata, state->counts.data(), state->senddispls_int.data(),
-                         reinterpret_cast<const MPI_Datatype *>(state->sendl()), recvdata,
+        if (send_data != nullptr)
+          MPI_Ialltoallw(send_data, state->counts.data(), state->senddispls_int.data(),
+                         reinterpret_cast<const MPI_Datatype *>(state->sendl()), recv_data,
                          state->counts.data(), state->recvdispls_int.data(),
                          reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
         else
-          MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0, recvdata, state->counts.data(),
+          MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0, recv_data, state->counts.data(),
                          state->recvdispls_int.data(),
                          reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
         MPI_Status s;
@@ -3344,27 +3344,27 @@ namespace mpl {
       /// messages with a variable amount of data from all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
+      /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
       /// \param senddispls displacements of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
       /// \return request representing the ongoing message transfer
       /// \details Each process in the communicator sends elements of type T to each process
       /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
-      /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// senddata starts senddispls[i] bytes after the address given in senddata. The i-th memory
+      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
+      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
+      /// send_data starts senddispls[i] bytes after the address given in send_data. The i-th memory
       /// block is sent to the i-th process. The i-th memory block with the layout recvls[i] in
-      /// the array recvdata starts recvdispls[i] bytes after the address given in recvdata.
-      /// When the function has finished, the i-th memory block in the array recvdata was
+      /// the array recv_data starts recvdispls[i] bytes after the address given in recv_data.
+      /// When the function has finished, the i-th memory block in the array recv_data was
       /// received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest ialltoallv(const T *senddata, const layouts<T> &sendls,
-                          const displacements &senddispls, T *recvdata,
+      irequest ialltoallv(const T *send_data, const layouts<T> &sendls,
+                          const displacements &senddispls, T *recv_data,
                           const layouts<T> &recvls, const displacements &recvdispls) const {
         check_size(senddispls);
         check_size(sendls);
@@ -3378,8 +3378,8 @@ namespace mpl {
         MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
                            &req);
         state->req = req;
-        std::thread thread([this, senddata, recvdata, state]() {
-          ialltoallv_task(senddata, recvdata, state);
+        std::thread thread([this, send_data, recv_data, state]() {
+          ialltoallv_task(send_data, recv_data, state);
         });
         thread.detach();
         return base_irequest{req};
@@ -3389,28 +3389,28 @@ namespace mpl {
       /// messages with a variable amount of data from all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
-      /// \param senddata pointer to continuous storage for outgoing messages
+      /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
-      /// \param recvdata pointer to continuous storage for incoming messages
+      /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \return request representing the ongoing message transfer
       /// \details Each process in the communicator sends elements of type T to each process
       /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers senddata
-      /// and recvdata, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// senddata starts at the address given in senddata. The i-th memory block is sent to the
-      /// i-th process. The i-th memory block with the layout recvls[i] in the array recvdata
-      /// starts at the address given in recvdata.  Note that the memory layouts need to include
+      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
+      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
+      /// send_data starts at the address given in send_data. The i-th memory block is sent to the
+      /// i-th process. The i-th memory block with the layout recvls[i] in the array recv_data
+      /// starts at the address given in recv_data.  Note that the memory layouts need to include
       /// appropriate holes at the beginning in order to avoid overlapping send- or receive
-      /// blocks. When the function has finished, the i-th memory block in the array recvdata
+      /// blocks. When the function has finished, the i-th memory block in the array recv_data
       /// was received from the i-th process.
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest ialltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
+      irequest ialltoallv(const T *send_data, const layouts<T> &sendls, T *recv_data,
                           const layouts<T> &recvls) const {
         const displacements sendrecvdispls(size());
-        return ialltoallv(senddata, sendls, sendrecvdispls, recvdata, recvls, sendrecvdispls);
+        return ialltoallv(send_data, sendls, sendrecvdispls, recv_data, recvls, sendrecvdispls);
       }
 
       // === reduce ===
@@ -3422,14 +3422,14 @@ namespace mpl {
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation if rank equals root_rank
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation if rank equals root_rank
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void reduce(F f, int root_rank, const T &senddata, T &recvdata) const {
+      void reduce(F f, int root_rank, const T &send_data, T &recv_data) const {
         check_root(root_rank);
-        MPI_Reduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Reduce(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
       }
 
@@ -3440,18 +3440,18 @@ namespace mpl {
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation if rank equals
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation if rank equals
       /// root_rank, may be nullptr if rank does no equal to root_rank
       /// \param l memory layouts of the data to send and to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       /// \anchor communicator_reduce_contiguous_layout
       template<typename T, typename F>
-      void reduce(F f, int root_rank, const T *senddata, T *recvdata,
+      void reduce(F f, int root_rank, const T *send_data, T *recv_data,
                   const contiguous_layout<T> &l) const {
         check_root(root_rank);
-        MPI_Reduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+        MPI_Reduce(send_data, recv_data, l.size(), detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
       }
 
@@ -3463,16 +3463,16 @@ namespace mpl {
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation if rank equals root_rank
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation if rank equals root_rank
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest ireduce(F f, int root_rank, const T &senddata, T &recvdata) const {
+      irequest ireduce(F f, int root_rank, const T &send_data, T &recv_data) const {
         check_root(root_rank);
         MPI_Request req;
-        MPI_Ireduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Ireduce(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -3484,19 +3484,19 @@ namespace mpl {
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation if rank equals
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation if rank equals
       /// root_rank, may be nullptr if rank does no equal to root_rank
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest ireduce(F f, int root_rank, const T *senddata, T *recvdata,
+      irequest ireduce(F f, int root_rank, const T *send_data, T *recv_data,
                        const contiguous_layout<T> &l) const {
         check_root(root_rank);
         MPI_Request req;
-        MPI_Ireduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+        MPI_Ireduce(send_data, recv_data, l.size(), detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -3509,13 +3509,13 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void allreduce(F f, const T &senddata, T &recvdata) const {
-        MPI_Allreduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+      void allreduce(F f, const T &send_data, T &recv_data) const {
+        MPI_Allreduce(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                       detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
@@ -3525,14 +3525,16 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void allreduce(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-        MPI_Allreduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+      void allreduce(F f, const T *send_data, T *recv_data,
+                     const contiguous_layout<T> &l) const {
+        MPI_Allreduce(send_data, recv_data, l.size(),
+                      detail::datatype_traits<T>::get_datatype(),
                       detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
@@ -3544,15 +3546,15 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest iallreduce(F f, const T &senddata, T &recvdata) const {
+      irequest iallreduce(F f, const T &send_data, T &recv_data) const {
         MPI_Request req;
-        MPI_Iallreduce(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Iallreduce(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                        detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
       }
@@ -3564,17 +3566,18 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest iallreduce(F f, const T *senddata, T *recvdata,
+      irequest iallreduce(F f, const T *send_data, T *recv_data,
                           const contiguous_layout<T> &l) const {
         MPI_Request req;
-        MPI_Iallreduce(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+        MPI_Iallreduce(send_data, recv_data, l.size(),
+                       detail::datatype_traits<T>::get_datatype(),
                        detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
       }
@@ -3587,14 +3590,14 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation, number of elements in buffer
-      /// senddata must equal the size of the communicator
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation, number of elements in buffer
+      /// send_data must equal the size of the communicator
+      /// \param recv_data will hold the result of the reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void reduce_scatter_block(F f, const T *senddata, T &recvdata) const {
-        MPI_Reduce_scatter_block(senddata, &recvdata, 1,
+      void reduce_scatter_block(F f, const T *send_data, T &recv_data) const {
+        MPI_Reduce_scatter_block(send_data, &recv_data, 1,
                                  detail::datatype_traits<T>::get_datatype(),
                                  detail::get_op<T, F>(f).mpi_op, comm_);
       }
@@ -3605,17 +3608,17 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation, number of elements in buffer
-      /// senddata must equal the size of the communicator times the number of elements given by
+      /// \param send_data input data for the reduction operation, number of elements in buffer
+      /// send_data must equal the size of the communicator times the number of elements given by
       /// the layout parameter
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param recvcount memory layouts of the data to send and to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void reduce_scatter_block(F f, const T *senddata, T *recvdata,
+      void reduce_scatter_block(F f, const T *send_data, T *recv_data,
                                 const contiguous_layout<T> &recvcount) const {
-        MPI_Reduce_scatter_block(senddata, recvdata, recvcount.size(),
+        MPI_Reduce_scatter_block(send_data, recv_data, recvcount.size(),
                                  detail::datatype_traits<T>::get_datatype(),
                                  detail::get_op<T, F>(f).mpi_op, comm_);
       }
@@ -3628,16 +3631,16 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation, number of elements in buffer
-      /// senddata must equal the size of the communicator
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input buffer for the reduction operation, number of elements in buffer
+      /// send_data must equal the size of the communicator
+      /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest ireduce_scatter_block(F f, const T *senddata, T &recvdata) const {
+      irequest ireduce_scatter_block(F f, const T *send_data, T &recv_data) const {
         MPI_Request req;
-        MPI_Ireduce_scatter_block(senddata, &recvdata, 1,
+        MPI_Ireduce_scatter_block(send_data, &recv_data, 1,
                                   detail::datatype_traits<T>::get_datatype(),
                                   detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
@@ -3650,19 +3653,19 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation, number of elements in buffer
-      /// senddata must equal the size of the communicator times the number of elements given by
+      /// \param send_data input buffer for the reduction operation, number of elements in buffer
+      /// send_data must equal the size of the communicator times the number of elements given by
       /// the layout parameter
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param recvcount memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest ireduce_scatter_block(F f, const T *senddata, T *recvdata,
+      irequest ireduce_scatter_block(F f, const T *send_data, T *recv_data,
                                      const contiguous_layout<T> &recvcount) const {
         MPI_Request req;
-        MPI_Ireduce_scatter_block(senddata, recvdata, recvcount.size(),
+        MPI_Ireduce_scatter_block(send_data, recv_data, recvcount.size(),
                                   detail::datatype_traits<T>::get_datatype(),
                                   detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
@@ -3676,17 +3679,17 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation, number of elements in buffer
-      /// senddata must equal the sum of the number of elements given by the collection of layout
+      /// \param send_data input data for the reduction operation, number of elements in buffer
+      /// send_data must equal the sum of the number of elements given by the collection of layout
       /// parameters
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param recvcounts memory layouts of the data to send and to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void reduce_scatter(F f, const T *senddata, T *recvdata,
+      void reduce_scatter(F f, const T *send_data, T *recv_data,
                           const contiguous_layouts<T> &recvcounts) const {
-        MPI_Reduce_scatter(senddata, recvdata, recvcounts.sizes(),
+        MPI_Reduce_scatter(send_data, recv_data, recvcounts.sizes(),
                            detail::datatype_traits<T>::get_datatype(),
                            detail::get_op<T, F>(f).mpi_op, comm_);
       }
@@ -3699,19 +3702,19 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation, number of elements in buffer
-      /// senddata must equal the sum of the number of elements given by the collection of layout
+      /// \param send_data input data for the reduction operation, number of elements in buffer
+      /// send_data must equal the sum of the number of elements given by the collection of layout
       /// parameters
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param recvcounts memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest ireduce_scatter(F f, const T *senddata, T *recvdata,
+      irequest ireduce_scatter(F f, const T *send_data, T *recv_data,
                                contiguous_layouts<T> &recvcounts) const {
         MPI_Request req;
-        MPI_Ireduce_scatter(senddata, recvdata, recvcounts.sizes(),
+        MPI_Ireduce_scatter(send_data, recv_data, recvcounts.sizes(),
                             detail::datatype_traits<T>::get_datatype(),
                             detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
@@ -3725,13 +3728,13 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void scan(F f, const T &senddata, T &recvdata) const {
-        MPI_Scan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+      void scan(F f, const T &send_data, T &recv_data) const {
+        MPI_Scan(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
@@ -3741,14 +3744,14 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void scan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-        MPI_Scan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+      void scan(F f, const T *send_data, T *recv_data, const contiguous_layout<T> &l) const {
+        MPI_Scan(send_data, recv_data, l.size(), detail::datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
@@ -3760,15 +3763,15 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest iscan(F f, const T &senddata, T &recvdata) const {
+      irequest iscan(F f, const T &send_data, T &recv_data) const {
         MPI_Request req;
-        MPI_Iscan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Iscan(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
       }
@@ -3780,16 +3783,17 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest iscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
+      irequest iscan(F f, const T *send_data, T *recv_data,
+                     const contiguous_layout<T> &l) const {
         MPI_Request req;
-        MPI_Iscan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+        MPI_Iscan(send_data, recv_data, l.size(), detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
       }
@@ -3802,13 +3806,13 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void exscan(F f, const T &senddata, T &recvdata) const {
-        MPI_Exscan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+      void exscan(F f, const T &send_data, T &recv_data) const {
+        MPI_Exscan(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
@@ -3818,14 +3822,14 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      void exscan(F f, const T *senddata, T *recvdata, const contiguous_layout<T> &l) const {
-        MPI_Exscan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+      void exscan(F f, const T *send_data, T *recv_data, const contiguous_layout<T> &l) const {
+        MPI_Exscan(send_data, recv_data, l.size(), detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
@@ -3837,15 +3841,15 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input data for the reduction operation
-      /// \param recvdata will hold the result of the reduction operation
+      /// \param send_data input data for the reduction operation
+      /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest iexscan(F f, const T &senddata, T &recvdata) const {
+      irequest iexscan(F f, const T &send_data, T &recv_data) const {
         MPI_Request req;
-        MPI_Iexscan(&senddata, &recvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Iexscan(&send_data, &recv_data, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
       }
@@ -3857,17 +3861,17 @@ namespace mpl {
       /// \tparam T type of input and output data of the reduction operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param f reduction operation
-      /// \param senddata input buffer for the reduction operation
-      /// \param recvdata will hold the results of the reduction operation
+      /// \param send_data input buffer for the reduction operation
+      /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
       /// \note This is a collective operation and must be called (possibly by utilizing anther
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
-      irequest iexscan(F f, const T *senddata, T *recvdata,
+      irequest iexscan(F f, const T *send_data, T *recv_data,
                        const contiguous_layout<T> &l) const {
         MPI_Request req;
-        MPI_Iexscan(senddata, recvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
+        MPI_Iexscan(send_data, recv_data, l.size(), detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, comm_, &req);
         return base_irequest{req};
       }
@@ -4082,17 +4086,17 @@ namespace mpl {
     /// in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \details Each process in the communicator sends one element of type T to each process
     /// (including itself) and receives one element of type T from each process.  The i-th
-    /// element in the array sendrecvdata is sent to the i-th process.  When the function has
-    /// finished, the i-th element in the array sendrecvdata was received from the i-th process.
+    /// element in the array sendrecv_data is sent to the i-th process.  When the function has
+    /// finished, the i-th element in the array sendrecv_data was received from the i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoall(T *sendrecvdata) const {
-      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
+    void alltoall(T *sendrecv_data) const {
+      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecv_data, 1,
                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
@@ -4100,20 +4104,20 @@ namespace mpl {
     /// in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \param sendrecvl memory layouts of the data to send and to receive
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process. The memory
     /// layouts of the incoming and the outgoing messages are described by sendrecvl.
-    /// The i-th memory block with the layout sendrecvl in the array sendrecvdata
+    /// The i-th memory block with the layout sendrecvl in the array sendrecv_data
     /// is sent to the i-th process.  When the function has finished, the i-th memory block with
-    /// the layout sendrecvl in the array sendrecvdata was received from the i-th process.
+    /// the layout sendrecvl in the array sendrecv_data was received from the i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoall(T *sendrecvdata, const layout<T> &sendrecvl) const {
-      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
+    void alltoall(T *sendrecv_data, const layout<T> &sendrecvl) const {
+      MPI_Alltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecv_data, 1,
                    detail::datatype_traits<layout<T>>::get_datatype(sendrecvl), comm_);
     }
 
@@ -4122,20 +4126,20 @@ namespace mpl {
     /// non-blocking manner, in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \return request representing the ongoing message transfer
     /// \details Each process in the communicator sends one element of type T to each process
     /// (including itself) and receives one element of type T from each process.  The i-th
-    /// element in the array sendrecvdata is sent to the i-th process.  When the message
-    /// transfer has finished, the i-th element in the array sendrecvdata was received from the
+    /// element in the array sendrecv_data is sent to the i-th process.  When the message
+    /// transfer has finished, the i-th element in the array sendrecv_data was received from the
     /// i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoall(T *sendrecvdata) const {
+    irequest ialltoall(T *sendrecv_data) const {
       MPI_Request req;
-      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
+      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecv_data, 1,
                     detail::datatype_traits<T>::get_datatype(), comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4144,23 +4148,23 @@ namespace mpl {
     /// non-blocking manner, in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for outgoing messages and for incoming
+    /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \param sendrecvl memory layouts of the data to send and to receive
     /// \return request representing the ongoing message transfer
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process. The memory
     /// layouts of the incoming and the outgoing messages are described by sendrecvl.
-    /// The i-th memory block with the layout sendrecvl in the array sendrecvdata
+    /// The i-th memory block with the layout sendrecvl in the array sendrecv_data
     /// is sent to the i-th process.  When the message transfer has finished, the i-th memory
-    /// block with the layout sendrecvl in the array sendrecvdata was received from the i-th
+    /// block with the layout sendrecvl in the array sendrecv_data was received from the i-th
     /// process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoall(T *sendrecvdata, const layout<T> &sendrecvl) const {
+    irequest ialltoall(T *sendrecv_data, const layout<T> &sendrecvl) const {
       MPI_Request req;
-      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecvdata, 1,
+      MPI_Ialltoall(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, sendrecv_data, 1,
                     detail::datatype_traits<layout<T>>::get_datatype(sendrecvl), comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4175,26 +4179,26 @@ namespace mpl {
     /// messages with a variable amount of data from all processes, in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for outgoing and incoming messages
+    /// \param sendrecv_data pointer to continuous storage for outgoing and incoming messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \param sendrecvdispls displacements of the data to send and to receive
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
     /// sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array
-    /// sendrecvdata starts sendrecvdispls[i] bytes after the address given in sendrecvdata. The
+    /// sendrecv_data starts sendrecvdispls[i] bytes after the address given in sendrecv_data. The
     /// i-th memory block is sent to the i-th process. When the function has finished, the i-th
-    /// memory block in the array sendrecvdata was received from the i-th process.
+    /// memory block in the array sendrecv_data was received from the i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoallv(T *sendrecvdata, const layouts<T> &sendrecvls,
+    void alltoallv(T *sendrecv_data, const layouts<T> &sendrecvls,
                    const displacements &sendrecvdispls) const {
       check_size(sendrecvdispls);
       check_size(sendrecvls);
       const std::vector<int> counts(sendrecvls.size(), 1);
       const std::vector<int> sendrecvdispls_int(sendrecvdispls.begin(), sendrecvdispls.end());
-      MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, sendrecvdata, counts.data(),
+      MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, sendrecv_data, counts.data(),
                     sendrecvdispls_int.data(),
                     reinterpret_cast<const MPI_Datatype *>(sendrecvls()), comm_);
     }
@@ -4203,22 +4207,22 @@ namespace mpl {
     /// messages with a variable amount of data from all processes, in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for incoming and outgoing messages
+    /// \param sendrecv_data pointer to continuous storage for incoming and outgoing messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
-    /// sendrecvdata. The i-th memory block with the layout sendrecvls[i] in the array
-    /// sendrecvdata starts at the address given in sendrecvdata. The i-th memory block is sent
+    /// sendrecv_data. The i-th memory block with the layout sendrecvls[i] in the array
+    /// sendrecv_data starts at the address given in sendrecv_data. The i-th memory block is sent
     /// to the i-th process. Note that the memory layouts need to include appropriate holes at
     /// the beginning in order to avoid overlapping send-receive blocks. When the function has
-    /// finished, the i-th memory block in the array sendrecvdata was received from the
+    /// finished, the i-th memory block in the array sendrecv_data was received from the
     /// i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    void alltoallv(T *sendrecvdata, const layouts<T> &sendrecvls) const {
-      alltoallv(sendrecvdata, sendrecvls, displacements(size()));
+    void alltoallv(T *sendrecv_data, const layouts<T> &sendrecvls) const {
+      alltoallv(sendrecv_data, sendrecvls, displacements(size()));
     }
 
     // --- non-blocking all-to-all, in place ---
@@ -4227,7 +4231,7 @@ namespace mpl {
     /// in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for outgoing and incoming messages
+    /// \param sendrecv_data pointer to continuous storage for outgoing and incoming messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \param sendrecvdispls displacements of the data to send and to receive
     /// \return request representing the ongoing message transfer
@@ -4235,13 +4239,13 @@ namespace mpl {
     /// (including itself) and receives elements of type T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
     /// sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array
-    /// sendrecvdata starts sendrecvdispls[i] bytes after the address given in sendrecvdata. The
+    /// sendrecv_data starts sendrecvdispls[i] bytes after the address given in sendrecv_data. The
     /// i-th memory block is sent to the i-th process. When the function has finished, the i-th
-    /// memory block in the array sendrecvdata was received from the i-th process.
+    /// memory block in the array sendrecv_data was received from the i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoallv(T *sendrecvdata, const layouts<T> &sendrecvls,
+    irequest ialltoallv(T *sendrecv_data, const layouts<T> &sendrecvls,
                         const displacements &sendrecvdispls) const {
       check_size(sendrecvdispls);
       check_size(sendrecvls);
@@ -4252,8 +4256,8 @@ namespace mpl {
       MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
                          &req);
       state->req = req;
-      std::thread thread([this, sendrecvdata, state]() {
-        ialltoallv_task(static_cast<T *>(nullptr), sendrecvdata, state);
+      std::thread thread([this, sendrecv_data, state]() {
+        ialltoallv_task(static_cast<T *>(nullptr), sendrecv_data, state);
       });
       thread.detach();
       return impl::base_irequest{req};
@@ -4264,23 +4268,23 @@ namespace mpl {
     /// in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
-    /// \param sendrecvdata pointer to continuous storage for incoming and outgoing messages
+    /// \param sendrecv_data pointer to continuous storage for incoming and outgoing messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \return request representing the ongoing message transfer
     /// \details Each process in the communicator sends elements of type T to each process
     /// (including itself) and receives elements of type T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
-    /// sendrecvdata. The i-th memory block with the layout sendrecvls[i] in the array
-    /// sendrecvdata starts at the address given in sendrecvdata. The i-th memory block is sent
+    /// sendrecv_data. The i-th memory block with the layout sendrecvls[i] in the array
+    /// sendrecv_data starts at the address given in sendrecv_data. The i-th memory block is sent
     /// to the i-th process. Note that the memory layouts need to include appropriate holes at
     /// the beginning in order to avoid overlapping send-receive blocks. When the function has
-    /// finished, the i-th memory block in the array sendrecvdata was received from the
+    /// finished, the i-th memory block in the array sendrecv_data was received from the
     /// i-th process.
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T>
-    irequest ialltoallv(T *sendrecvdata, const layouts<T> &sendrecvls) const {
-      return ialltoallv(sendrecvdata, sendrecvls, displacements(size()));
+    irequest ialltoallv(T *sendrecv_data, const layouts<T> &sendrecvls) const {
+      return ialltoallv(sendrecv_data, sendrecvls, displacements(size()));
     }
 
     // === reduce ===
@@ -4295,18 +4299,18 @@ namespace mpl {
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
-    /// \param sendrecvdata input data for the reduction operation, will hold the result of the
+    /// \param sendrecv_data input data for the reduction operation, will hold the result of the
     /// reduction operation if rank equals root_rank
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void reduce(F f, int root_rank, T &sendrecvdata) const {
+    void reduce(F f, int root_rank, T &sendrecv_data) const {
       check_root(root_rank);
       if (rank() == root_rank)
-        MPI_Reduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Reduce(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
       else
-        MPI_Reduce(&sendrecvdata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Reduce(&sendrecv_data, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
@@ -4318,13 +4322,13 @@ namespace mpl {
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
-    /// \param senddata input data for the reduction operation
+    /// \param send_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void reduce(F f, int root_rank, const T &senddata) const {
+    void reduce(F f, int root_rank, const T &send_data) const {
       check_nonroot(root_rank);
-      MPI_Reduce(&senddata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
+      MPI_Reduce(&send_data, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
@@ -4335,19 +4339,19 @@ namespace mpl {
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
-    /// \param sendrecvdata input buffer for the reduction operation, will hold the results of
+    /// \param sendrecv_data input buffer for the reduction operation, will hold the results of
     /// the reduction operation if rank equals root_rank
     /// \param l memory layouts of the data to send and to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void reduce(F f, int root_rank, T *sendrecvdata, const contiguous_layout<T> &l) const {
+    void reduce(F f, int root_rank, T *sendrecv_data, const contiguous_layout<T> &l) const {
       if (rank() == root_rank)
-        MPI_Reduce(MPI_IN_PLACE, sendrecvdata, l.size(),
+        MPI_Reduce(MPI_IN_PLACE, sendrecv_data, l.size(),
                    detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                    root_rank, comm_);
       else
-        MPI_Reduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
+        MPI_Reduce(sendrecv_data, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
@@ -4359,14 +4363,14 @@ namespace mpl {
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
-    /// \param senddata input buffer for the reduction operation
+    /// \param send_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void reduce(F f, int root_rank, const T *senddata, const contiguous_layout<T> &l) const {
+    void reduce(F f, int root_rank, const T *send_data, const contiguous_layout<T> &l) const {
       check_nonroot(root_rank);
-      MPI_Reduce(senddata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
+      MPI_Reduce(send_data, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
@@ -4379,20 +4383,20 @@ namespace mpl {
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
-    /// \param sendrecvdata input data for the reduction operation, will hold the result of the
+    /// \param sendrecv_data input data for the reduction operation, will hold the result of the
     /// reduction operation if rank equals root_rank
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest ireduce(F f, int root_rank, T &sendrecvdata) const {
+    irequest ireduce(F f, int root_rank, T &sendrecv_data) const {
       check_root(root_rank);
       MPI_Request req;
       if (rank() == root_rank)
-        MPI_Ireduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Ireduce(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       else
-        MPI_Ireduce(&sendrecvdata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
+        MPI_Ireduce(&sendrecv_data, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4406,15 +4410,15 @@ namespace mpl {
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
-    /// \param senddata input data for the reduction operation
+    /// \param send_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest ireduce(F f, int root_rank, const T &senddata) const {
+    irequest ireduce(F f, int root_rank, const T &send_data) const {
       check_nonroot(root_rank);
       MPI_Request req;
-      MPI_Ireduce(&senddata, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
+      MPI_Ireduce(&send_data, nullptr, 1, detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4427,23 +4431,25 @@ namespace mpl {
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
-    /// \param sendrecvdata input buffer for the reduction operation, will hold the results of
+    /// \param sendrecv_data input buffer for the reduction operation, will hold the results of
     /// the reduction operation if rank equals root_rank
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest ireduce(F f, int root_rank, T *sendrecvdata, const contiguous_layout<T> &l) const {
+    irequest ireduce(F f, int root_rank, T *sendrecv_data,
+                     const contiguous_layout<T> &l) const {
       check_root(root_rank);
       MPI_Request req;
       if (rank() == root_rank)
-        MPI_Ireduce(MPI_IN_PLACE, sendrecvdata, l.size(),
+        MPI_Ireduce(MPI_IN_PLACE, sendrecv_data, l.size(),
                     detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                     root_rank, comm_, &req);
       else
-        MPI_Ireduce(sendrecvdata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
-                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
+        MPI_Ireduce(sendrecv_data, nullptr, l.size(),
+                    detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
+                    root_rank, comm_, &req);
       return impl::base_irequest{req};
     }
 
@@ -4456,17 +4462,17 @@ namespace mpl {
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
-    /// \param senddata input buffer for the reduction operation
+    /// \param send_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest ireduce(F f, int root_rank, const T *senddata,
+    irequest ireduce(F f, int root_rank, const T *send_data,
                      const contiguous_layout<T> &l) const {
       check_nonroot(root_rank);
       MPI_Request req;
-      MPI_Ireduce(senddata, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
+      MPI_Ireduce(send_data, nullptr, l.size(), detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, root_rank, comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4483,12 +4489,12 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input data for the reduction operation
+    /// \param sendrecv_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void allreduce(F f, T &sendrecvdata) const {
-      MPI_Allreduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+    void allreduce(F f, T &sendrecv_data) const {
+      MPI_Allreduce(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                     detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
@@ -4499,13 +4505,13 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void allreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
-      MPI_Allreduce(MPI_IN_PLACE, sendrecvdata, l.size(),
+    void allreduce(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
+      MPI_Allreduce(MPI_IN_PLACE, sendrecv_data, l.size(),
                     detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                     comm_);
     }
@@ -4518,15 +4524,16 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input data for the reduction operation
+    /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iallreduce(F f, T &sendrecvdata) const {
+    irequest iallreduce(F f, T &sendrecv_data) const {
       MPI_Request req;
-      MPI_Iallreduce(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
-                     detail::get_op<T, F>(f).mpi_op, comm_, &req);
+      MPI_Iallreduce(MPI_IN_PLACE, &sendrecv_data, 1,
+                     detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
+                     comm_, &req);
       return impl::base_irequest{req};
     }
 
@@ -4537,15 +4544,15 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iallreduce(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
+    irequest iallreduce(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
       MPI_Request req;
-      MPI_Iallreduce(MPI_IN_PLACE, sendrecvdata, l.size(),
+      MPI_Iallreduce(MPI_IN_PLACE, sendrecv_data, l.size(),
                      detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                      comm_, &req);
       return impl::base_irequest{req};
@@ -4563,12 +4570,12 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input data for the reduction operation
+    /// \param sendrecv_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void scan(F f, T &sendrecvdata) const {
-      MPI_Scan(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+    void scan(F f, T &sendrecv_data) const {
+      MPI_Scan(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
@@ -4579,14 +4586,15 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void scan(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
-      MPI_Scan(MPI_IN_PLACE, sendrecvdata, l.size(), detail::datatype_traits<T>::get_datatype(),
-               detail::get_op<T, F>(f).mpi_op, comm_);
+    void scan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
+      MPI_Scan(MPI_IN_PLACE, sendrecv_data, l.size(),
+               detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
+               comm_);
     }
 
     // --- non-blocking scan, in place ---
@@ -4597,14 +4605,14 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input data for the reduction operation
+    /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iscan(F f, T &sendrecvdata) const {
+    irequest iscan(F f, T &sendrecv_data) const {
       MPI_Request req;
-      MPI_Iscan(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+      MPI_Iscan(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                 detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4616,15 +4624,15 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iscan(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
+    irequest iscan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
       MPI_Request req;
-      MPI_Iscan(MPI_IN_PLACE, sendrecvdata, l.size(),
+      MPI_Iscan(MPI_IN_PLACE, sendrecv_data, l.size(),
                 detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                 comm_, &req);
       return impl::base_irequest{req};
@@ -4642,12 +4650,12 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input data for the reduction operation
+    /// \param sendrecv_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void exscan(F f, T &sendrecvdata) const {
-      MPI_Exscan(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+    void exscan(F f, T &sendrecv_data) const {
+      MPI_Exscan(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                  detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
@@ -4658,13 +4666,13 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    void exscan(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
-      MPI_Exscan(MPI_IN_PLACE, sendrecvdata, l.size(),
+    void exscan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
+      MPI_Exscan(MPI_IN_PLACE, sendrecv_data, l.size(),
                  detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                  comm_);
     }
@@ -4677,14 +4685,14 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input data for the reduction operation
+    /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iexscan(F f, T &sendrecvdata) const {
+    irequest iexscan(F f, T &sendrecv_data) const {
       MPI_Request req;
-      MPI_Iexscan(MPI_IN_PLACE, &sendrecvdata, 1, detail::datatype_traits<T>::get_datatype(),
+      MPI_Iexscan(MPI_IN_PLACE, &sendrecv_data, 1, detail::datatype_traits<T>::get_datatype(),
                   detail::get_op<T, F>(f).mpi_op, comm_, &req);
       return impl::base_irequest{req};
     }
@@ -4696,15 +4704,15 @@ namespace mpl {
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \ref data_types "data types" section
     /// \param f reduction operation
-    /// \param sendrecvdata input buffer for the reduction operation
+    /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
-    irequest iexscan(F f, T *sendrecvdata, const contiguous_layout<T> &l) const {
+    irequest iexscan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
       MPI_Request req;
-      MPI_Iexscan(MPI_IN_PLACE, sendrecvdata, l.size(),
+      MPI_Iexscan(MPI_IN_PLACE, sendrecv_data, l.size(),
                   detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op,
                   comm_, &req);
       return impl::base_irequest{req};
