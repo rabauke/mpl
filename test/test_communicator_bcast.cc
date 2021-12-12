@@ -7,7 +7,7 @@
 template<typename T>
 bool bcast_test(const T &val) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
-  T x;
+  T x{};
   if (comm_world.rank() == 0)
     x = val;
   comm_world.bcast(0, x);
@@ -33,7 +33,7 @@ bool bcast_test(const std::vector<T> &send, const std::vector<T> &expected,
 template<typename T>
 bool ibcast_test(const T &val) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
-  T x;
+  T x{};
   if (comm_world.rank() == 0)
     x = val;
   auto r{comm_world.ibcast(0, x)};
@@ -44,7 +44,7 @@ bool ibcast_test(const T &val) {
 
 template<typename T>
 bool ibcast_test(const std::vector<T> &send, const std::vector<T> &expected,
-                const mpl::layout<T> &l) {
+                 const mpl::layout<T> &l) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   std::vector<T> x(send.size(), {});
   if (comm_world.rank() == 0)

@@ -24,7 +24,7 @@ namespace mpl {
 
       class env {
         class initializer {
-          int thread_mode_;
+          int thread_mode_{MPI_THREAD_SINGLE};
 
         public:
           initializer() {
@@ -52,7 +52,7 @@ namespace mpl {
         mpl::communicator comm_world_, comm_self_;
 
       public:
-        env() : init(), comm_world_(MPI_COMM_WORLD), comm_self_(MPI_COMM_SELF) {
+        env() : init{}, comm_world_{MPI_COMM_WORLD}, comm_self_{MPI_COMM_SELF} {
           int size;
           MPI_Comm_size(MPI_COMM_WORLD, &size);
         }
@@ -91,7 +91,7 @@ namespace mpl {
           char name[MPI_MAX_PROCESSOR_NAME];
           int len;
           MPI_Get_processor_name(name, &len);
-          return std::string(name);
+          return name;
         }
 
         [[nodiscard]] double wtime() const { return MPI_Wtime(); }
@@ -104,7 +104,7 @@ namespace mpl {
           void *buff;
           int size;
           MPI_Buffer_detach(&buff, &size);
-          return std::make_pair(buff, size);
+          return {buff, size};
         }
       };
 

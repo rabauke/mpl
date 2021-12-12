@@ -32,7 +32,7 @@ bool probe_test(const T &data) {
       if (s.get_count<T>() != 1)
         return false;
     }
-    T data_r;
+    T data_r{};
     comm_world.recv(data_r, 0);
     return data_r == data;
   }
@@ -54,7 +54,7 @@ bool probe_iter_test(const T &data) {
     int count{s.get_count<typename T::value_type>()};
     if (count != static_cast<int>(data.size()))
       return false;
-    T data_r;
+    T data_r{};
     if constexpr (has_resize<T>())
       data_r.resize(count);
     comm_world.recv(std::begin(data_r), std::end(data_r), 0);
@@ -84,7 +84,7 @@ bool iprobe_test(const T &data) {
           if (s->template get_count<T>() != 1)
             return false;
         }
-        T data_r;
+        T data_r{};
         mpl::irequest request{comm_world.irecv(data_r, 0)};
         request.wait();
         return data_r == data;
@@ -111,7 +111,7 @@ bool iprobe_iter_test(const T &data) {
         int count{s->template get_count<typename T::value_type>()};
         if (count != static_cast<int>(data.size()))
           return false;
-        T data_r;
+        T data_r{};
         if constexpr (has_resize<T>())
           data_r.resize(count);
         mpl::irequest request{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
