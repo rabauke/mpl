@@ -523,13 +523,13 @@ Variables</h2></td></tr>
 
 <p>Represents the various levels of thread support that the underlying MPI implementation may provide. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828add5c07036f2975ff4bce568b6511d3bc" name="ae999d5e4faab6f30cd2e3bb225828828add5c07036f2975ff4bce568b6511d3bc"></a>single&#160;</td><td class="fielddoc"><p >the application is single threaded </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828add5c07036f2975ff4bce568b6511d3bc" name="ae999d5e4faab6f30cd2e3bb225828828add5c07036f2975ff4bce568b6511d3bc"></a>single&#160;</td><td class="fielddoc"><p >the application is single-threaded </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a" name="ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a"></a>funneled&#160;</td><td class="fielddoc"><p >the application is multithreaded, however all MPL calls will be issued from the main thread only </p>
+<tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a" name="ae999d5e4faab6f30cd2e3bb225828828a2110cc27d60e873203472314639a3c8a"></a>funneled&#160;</td><td class="fielddoc"><p >the application is multi-threaded, however all MPL calls will be issued from the main thread only </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828afb741eb55bd67db2031aa661671fba7c" name="ae999d5e4faab6f30cd2e3bb225828828afb741eb55bd67db2031aa661671fba7c"></a>serialized&#160;</td><td class="fielddoc"><p >the application is multithreaded and any thread may issue MPL calls, however different threads will never issue MPL calls at the same time </p>
+<tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828afb741eb55bd67db2031aa661671fba7c" name="ae999d5e4faab6f30cd2e3bb225828828afb741eb55bd67db2031aa661671fba7c"></a>serialized&#160;</td><td class="fielddoc"><p >the application is multi-threaded and any thread may issue MPL calls, however different threads will never issue MPL calls at the same time </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606" name="ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606"></a>multiple&#160;</td><td class="fielddoc"><p >the application is multithreaded, any thread may issue MPI calls and different threads may issue MPL calls at the same time </p>
+<tr><td class="fieldname"><a id="ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606" name="ae999d5e4faab6f30cd2e3bb225828828ace495ab8d79db0d37413d8e95b54e606"></a>multiple&#160;</td><td class="fielddoc"><p >the application is multi-threaded, any thread may issue MPI calls and different threads may issue MPL calls at the same time </p>
 </td></tr>
 </table>
 

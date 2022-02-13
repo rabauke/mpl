@@ -12,15 +12,15 @@ namespace mpl {
   /// Represents the various levels of thread support that the underlying MPI
   /// implementation may provide.
   enum class threading_modes {
-    /// the application is single threaded
+    /// the application is single-threaded
     single = MPI_THREAD_SINGLE,
-    /// the application is multithreaded, however all MPL calls will be issued from the main
+    /// the application is multi-threaded, however all MPL calls will be issued from the main
     /// thread only
     funneled = MPI_THREAD_FUNNELED,
-    /// the application is multithreaded and any thread may issue MPL calls, however
+    /// the application is multi-threaded and any thread may issue MPL calls, however
     /// different threads will never issue MPL calls at the same time
     serialized = MPI_THREAD_SERIALIZED,
-    /// the application is multithreaded, any thread may issue MPI calls and different threads
+    /// the application is multi-threaded, any thread may issue MPI calls and different threads
     /// may issue MPL calls at the same time
     multiple = MPI_THREAD_MULTIPLE
   };
