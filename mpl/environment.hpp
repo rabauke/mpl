@@ -12,9 +12,16 @@ namespace mpl {
   /// \brief Represents the various levels of thread support that the underlying MPI
   /// implementation may provide.
   enum class threading_modes {
+    /// the application is single threaded
     single = MPI_THREAD_SINGLE,
+    /// the application is multithreaded, however all MPL calls will be issued from the main
+    /// thread only
     funneled = MPI_THREAD_FUNNELED,
+    /// the application is multithreaded and any thread may issue MPL calls, however
+    /// different threads will never issue MPL calls at the same time
     serialized = MPI_THREAD_SERIALIZED,
+    /// the application is multithreaded, any thread may issue MPI calls and different threads
+    /// may issue MPL calls at the same time
     multiple = MPI_THREAD_MULTIPLE
   };
 
@@ -151,7 +158,7 @@ namespace mpl {
     /// implementation defined and may be different for different MPI implementations.
     inline std::string processor_name() { return detail::get_env().processor_name(); }
 
-    /// \brief Get time.
+    /// Get time.
     /// \return number of seconds of elapsed wall-clock time since some time in the past
     inline double wtime() { return detail::get_env().wtime(); }
 
