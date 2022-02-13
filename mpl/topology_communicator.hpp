@@ -7,35 +7,35 @@
 
 namespace mpl::impl {
 
-  /// \brief Base class for communicators with a topology.
+  /// Base class for communicators with a topology.
   class topology_communicator : public mpl::communicator {
   protected:
-    /// \brief Default constructor.
+    /// Default constructor.
     /// \note Objects of this class should not be instantiated by MPL users, just a base
     /// class.
     topology_communicator() = default;
 
-    /// \brief Copy constructor.
+    /// Copy constructor.
     /// \param other the other communicator to copy from
     /// \note Objects of this class should not be instantiated by MPL users, just a base
     /// class.
     topology_communicator(const topology_communicator &other) = default;
 
-    /// \brief Move constructor.
+    /// Move constructor.
     /// \param other the other communicator to move from
     /// \note Objects of this class should not be instantiated by MPL users, just a base
     /// class.
     topology_communicator(topology_communicator &&other) = default;
 
   public:
-    /// \brief Deleted copy assignment operator.
+    /// Deleted copy assignment operator.
     void operator=(const topology_communicator &) = delete;
 
     // === neighbor collective =========================================
     // === neighbor allgather ===
     // === get a single value from each neighbor and store in contiguous memory
     // --- blocking neighbor allgather ---
-    /// \brief Gather messages from all neighboring processes.
+    /// Gather messages from all neighboring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param senddata data to send to all neighbours
@@ -48,7 +48,7 @@ namespace mpl::impl {
                              1, detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
-    /// \brief Gather messages from all neighboring processes.
+    /// Gather messages from all neighboring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param senddata data to send to all neighbours
@@ -66,7 +66,7 @@ namespace mpl::impl {
     }
 
     // --- nonblocking neighbor allgather ---
-    /// \brief Gather messages from all neighboring processes in a non-blocking manner.
+    /// Gather messages from all neighboring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param senddata data to send to all neighbours
@@ -83,7 +83,7 @@ namespace mpl::impl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Gather messages from all neighboring processes in a non-blocking manner.
+    /// Gather messages from all neighboring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param senddata data to send to all neighbours
@@ -105,7 +105,7 @@ namespace mpl::impl {
 
     // === get varying amount of data from each neighbor and stores in non-contiguous memory
     // --- blocking neighbor allgather ---
-    /// \brief Gather messages with a variable amount of data from all neighbouring processes.
+    /// Gather messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param senddata data to send
@@ -124,7 +124,7 @@ namespace mpl::impl {
       neighbor_alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
-    /// \brief Gather messages with a variable amount of data from all neighbouring processes.
+    /// Gather messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
     /// \param senddata data to send
@@ -140,7 +140,7 @@ namespace mpl::impl {
     }
 
     // --- nonblocking neighbor allgather ---
-    /// \brief Gather messages with a variable amount of data from all neighbouring processes
+    /// Gather messages with a variable amount of data from all neighbouring processes
     /// in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
@@ -162,7 +162,7 @@ namespace mpl::impl {
       return ineighbor_alltoallv(senddata, sendls, senddispls, recvdata, recvls, recvdispls);
     }
 
-    /// \brief Gather messages with a variable amount of data from all neighbouring processes
+    /// Gather messages with a variable amount of data from all neighbouring processes
     /// in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
@@ -182,7 +182,7 @@ namespace mpl::impl {
     // === neighbor all-to-all ===
     // === each rank sends a single value to each neighbor
     // --- blocking neighbor all-to-all ---
-    /// \brief Sends messages to all neighbouring processes and receives messages from all
+    /// Sends messages to all neighbouring processes and receives messages from all
     /// neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
@@ -201,7 +201,7 @@ namespace mpl::impl {
                             1, detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
-    /// \brief Sends messages to all neighbouring processes and receives messages from all
+    /// Sends messages to all neighbouring processes and receives messages from all
     /// neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -228,7 +228,7 @@ namespace mpl::impl {
     }
 
     // --- nonblocking neighbor all-to-all ---
-    /// \brief Sends messages to all neighbouring processes and receives messages from all
+    /// Sends messages to all neighbouring processes and receives messages from all
     /// neighbouring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
@@ -250,7 +250,7 @@ namespace mpl::impl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Sends messages to all neighbouring processes and receives messages from all
+    /// Sends messages to all neighbouring processes and receives messages from all
     /// neighbouring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -282,7 +282,7 @@ namespace mpl::impl {
     // === each rank sends a varying number of values to each neighbor with possibly different
     // layouts
     // --- blocking neighbor all-to-all ---
-    /// \brief Sends messages with a variable amount of data to all neighbouring processes and
+    /// Sends messages with a variable amount of data to all neighbouring processes and
     /// receives messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -317,7 +317,7 @@ namespace mpl::impl {
                              reinterpret_cast<const MPI_Datatype *>(recvls()), comm_);
     }
 
-    /// \brief Sends messages with a variable amount of data to all neighbouring processes and
+    /// Sends messages with a variable amount of data to all neighbouring processes and
     /// receives messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \ref data_types "data types" section
@@ -345,7 +345,7 @@ namespace mpl::impl {
     }
 
     // --- non-blocking neighbor all-to-all ---
-    /// \brief Sends messages with a variable amount of data to all neighbouring processes and
+    /// Sends messages with a variable amount of data to all neighbouring processes and
     /// receives messages with a variable amount of data from all neighbouring processes in a
     /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
@@ -385,7 +385,7 @@ namespace mpl::impl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Sends messages with a variable amount of data to all neighbouring processes and
+    /// Sends messages with a variable amount of data to all neighbouring processes and
     /// receives messages with a variable amount of data from all neighbouring processes in a
     /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the

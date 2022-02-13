@@ -16,31 +16,31 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Local portion of a distributed data grid including local overlap data.
+  /// Local portion of a distributed data grid including local overlap data.
   /// \param dim number of dimensions of the data grid, may be 1, 2, 3 or 4
   /// \tparam T data type that is hold at each grid point
   /// \tparam A memory allocator
   template<std::size_t dim, typename T, typename A = std::allocator<T>>
   class distributed_grid {
   public:
-    /// \brief the underlying one-dimensional vector type
+    /// the underlying one-dimensional vector type
     using vector_type = std::vector<T, A>;
-    /// \brief data type that is hold at each grid point
+    /// data type that is hold at each grid point
     using value_type = typename vector_type::value_type;
-    /// \brief memory allocator
+    /// memory allocator
     using allocator_type = typename vector_type::allocator_type;
-    /// \brief type used for indexing
+    /// type used for indexing
     /// \note This is a signed integer type (unlike for STL containers).
     using size_type = std::ptrdiff_t;
-    /// \brief signed integer type for iterator differences
+    /// signed integer type for iterator differences
     using difference_type = typename vector_type::difference_type;
-    /// \brief reference to value_type
+    /// reference to value_type
     using reference = typename vector_type::reference;
-    /// \brief const reference to value_type
+    /// const reference to value_type
     using const_reference = typename vector_type::const_reference;
-    /// \brief pointer to value_type
+    /// pointer to value_type
     using pointer = typename vector_type::pointer;
-    /// \brief const pointer to value_type
+    /// const pointer to value_type
     using const_pointer = typename vector_type::const_pointer;
 
   private:
@@ -64,21 +64,21 @@ namespace mpl {
     }
 
   public:
-    /// \brief Pair of grid size and overlap size.
+    /// Pair of grid size and overlap size.
     class size_overlap_pair {
     public:
-      /// \brief indicates the total/global number data pints that the data grid holds along a
+      /// indicates the total/global number data pints that the data grid holds along a
       /// dimension
       size_type size{0};
-      /// \brief indicates the number of overlap data points the each local process holds as a
+      /// indicates the number of overlap data points the each local process holds as a
       /// copy of data hold by adjacent processes
       size_type overlap{0};
-      /// \brief Creates a size-overlap pair.
+      /// Creates a size-overlap pair.
       size_overlap_pair(size_type size, size_type overlap) : size{size}, overlap{overlap} {}
     };
 
 
-    /// \brief Characterizes the dimensionality, total size and overlap of a distributed data
+    /// Characterizes the dimensionality, total size and overlap of a distributed data
     /// grid.
     class dimensions {
       std::array<size_overlap_pair, dim> size_overlap_;
@@ -108,27 +108,27 @@ namespace mpl {
         static_assert(dim == 4, "invalid number of arguments");
       }
 
-      /// \brief Determines the dimensionality.
+      /// Determines the dimensionality.
       /// \return dimensionality (number of dimensions)
       [[nodiscard]] size_type dimensionality() const {
         return static_cast<size_type>(size_overlap_.size());
       }
 
-      /// \brief Determines the total size of a dimension.
+      /// Determines the total size of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the total size of the dimension
       [[nodiscard]] size_type size(size_type dimension) const {
         return size_overlap_[dimension].size;
       }
 
-      /// \brief Determines the overlap size of a dimension.
+      /// Determines the overlap size of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the overlap of the dimension
       [[nodiscard]] size_type overlap(size_type dimension) const {
         return size_overlap_[dimension].overlap;
       }
 
-      /// \brief Determines then total size along a dimension and the overlap of a
+      /// Determines then total size along a dimension and the overlap of a
       /// dimension.
       /// \param dimension the rank of the dimension
       /// \return the size and the overlap
@@ -136,7 +136,7 @@ namespace mpl {
         return size_overlap_[dimension];
       }
 
-      /// \brief Determines then total size along a dimension and the overlap of a
+      /// Determines then total size along a dimension and the overlap of a
       /// dimension.
       /// \param dimension the rank of the dimension
       /// \return the size and the overlap
@@ -154,7 +154,7 @@ namespace mpl {
       friend class distributed_grid;
     };
 
-    /// \brief Creates the local portion of a distributed data grid.
+    /// Creates the local portion of a distributed data grid.
     /// \param communicator Cartesian communicator that wil be employed to update overlap data
     /// between adjacent processes.
     /// \param dims size and overlap data of the global grid
@@ -215,54 +215,54 @@ namespace mpl {
       }
     }
 
-    /// \brief Determines the global size of the grid along a dimension.
+    /// Determines the global size of the grid along a dimension.
     /// \param d dimension
     /// \return global size
     [[nodiscard]] size_type gsize(size_type d) const { return global_size_[d]; }
 
-    /// \brief Determines the smallest index into the global distributed grid to the local
+    /// Determines the smallest index into the global distributed grid to the local
     /// portion of the grid.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type gbegin(size_type d) const { return global_begin_[d]; };
 
-    /// \brief Determines the smallest index into the global distributed grid that is beyond the
+    /// Determines the smallest index into the global distributed grid that is beyond the
     /// local portion of the grid.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type gend(size_type d) const { return global_end_[d]; };
 
-    /// \brief Determines the size of the local portion of the distributed data grid along a
+    /// Determines the size of the local portion of the distributed data grid along a
     /// dimension.
     /// \param d dimension
     /// \return local grid size
     [[nodiscard]] size_type size(size_type d) const { return size_[d]; }
 
-    /// \brief Determines the lowest index to access the local portion of the distributed data
+    /// Determines the lowest index to access the local portion of the distributed data
     /// grid along a dimension.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type begin(size_type d) const { return overlap_[d]; };
 
-    /// \brief Determines the last index (plus one) to access the local portion of the
+    /// Determines the last index (plus one) to access the local portion of the
     /// distributed data grid along a dimension.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type end(size_type d) const { return size_[d] + overlap_[d]; };
 
-    /// \brief Determines the lowest index to access the local portion of the distributed grid
+    /// Determines the lowest index to access the local portion of the distributed grid
     /// including the overlap data along a dimension.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type obegin([[maybe_unused]] size_type d) const { return 0; };
 
-    /// \brief Determines the last index (plus one) to access the local portion of the
+    /// Determines the last index (plus one) to access the local portion of the
     /// distributed grid including the overlap data along a dimension.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type oend(size_type d) const { return overlap_end_[d]; };
 
-    /// \brief Translates an index to access the local portion of the distributed data grid into
+    /// Translates an index to access the local portion of the distributed data grid into
     /// an index into the global grid.
     /// \param d dimension
     /// \param i index with respect to local data
@@ -271,7 +271,7 @@ namespace mpl {
       return gbegin(d) + i - begin(d);
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \return grid data element
     template<std::size_t d = dim>
@@ -280,7 +280,7 @@ namespace mpl {
       return v_[i_0];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \return grid data element
     template<std::size_t d = dim>
@@ -289,7 +289,7 @@ namespace mpl {
       return v_[i_0];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \return grid data element
@@ -299,7 +299,7 @@ namespace mpl {
       return v_[i_0 + overlap_end_[0] * i_1];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \return grid data element
@@ -310,7 +310,7 @@ namespace mpl {
       return v_[i_0 + overlap_end_[0] * i_1];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -322,7 +322,7 @@ namespace mpl {
       return v_[i_0 + overlap_end_[0] * (i_1 + overlap_end_[1] * i_2)];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -335,7 +335,7 @@ namespace mpl {
       return v_[i_0 + overlap_end_[0] * (i_1 + overlap_end_[1] * i_2)];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -349,7 +349,7 @@ namespace mpl {
                 overlap_end_[0] * (i_1 + overlap_end_[1] * (i_2 + overlap_end_[2] * i_3))];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -365,15 +365,15 @@ namespace mpl {
                 overlap_end_[0] * (i_1 + overlap_end_[1] * (i_2 + overlap_end_[2] * i_3))];
     }
 
-    /// \brief Grands access to the flattened grid data.
+    /// Grands access to the flattened grid data.
     /// \return pointer to grid data
     [[nodiscard]] pointer data() { return v_.data(); }
 
-    /// \brief Grands access to the flattened grid data.
+    /// Grands access to the flattened grid data.
     /// \return pointer to grid data
     [[nodiscard]] const_pointer data() const { return v_.data(); }
 
-    /// \brief Get the memory layout for receiving data when updating data in overlap regions
+    /// Get the memory layout for receiving data when updating data in overlap regions
     /// along a given dimension.
     /// \param d dimension
     /// \return memory layout
@@ -382,7 +382,7 @@ namespace mpl {
       return left_mirror_layout_[d];
     }
 
-    /// \brief Get the memory layout for receiving data when updating data in overlap regions
+    /// Get the memory layout for receiving data when updating data in overlap regions
     /// along a given dimension.
     /// \param d dimension
     /// \return memory layout
@@ -391,7 +391,7 @@ namespace mpl {
       return right_mirror_layout_[d];
     }
 
-    /// \brief Get the memory layout for sending data when updating data in overlap regions
+    /// Get the memory layout for sending data when updating data in overlap regions
     /// along a given dimension.
     /// \param d dimension
     /// \return memory layout
@@ -400,7 +400,7 @@ namespace mpl {
       return left_border_layout_[d];
     }
 
-    /// \brief Get the memory layout for sending data when updating data in overlap regions
+    /// Get the memory layout for sending data when updating data in overlap regions
     /// along a given dimension.
     /// \param d dimension
     /// \return memory layout
@@ -409,13 +409,13 @@ namespace mpl {
       return right_border_layout_[d];
     }
 
-    /// \brief Get the memory layout for sending or receiving data without overlap data.
+    /// Get the memory layout for sending or receiving data without overlap data.
     /// \return memory layout
     /// \details The returned memory layout represents inner grid data without the overlap
     /// regions.
     const subarray_layout<T> &interior_layout() const { return interior_layout_; }
 
-    /// \brief Swaps this distributed data grid with another.
+    /// Swaps this distributed data grid with another.
     /// \param other other distributed data grid
     void swap(distributed_grid<dim, T, A> &other) {
       global_size_.swap(other.global_size_);
@@ -435,7 +435,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Data grid.
+  /// Data grid.
   /// \details This data structure is suitable for gather and scatter operation in combination
   /// with \ref distributed_grid.
   /// \param dim number of dimensions of the data grid, may be 1, 2, 3 or 4
@@ -444,24 +444,24 @@ namespace mpl {
   template<std::size_t dim, typename T, typename A = std::allocator<T>>
   class local_grid {
   public:
-    /// \brief the underlying one-dimensional vector type
+    /// the underlying one-dimensional vector type
     using vector_type = std::vector<T, A>;
-    /// \brief data type that is hold at each grid point
+    /// data type that is hold at each grid point
     using value_type = typename vector_type::value_type;
-    /// \brief memory allocator
+    /// memory allocator
     using allocator_type = typename vector_type::allocator_type;
-    /// \brief type used for indexing
+    /// type used for indexing
     /// \note This is a signed integer type (unlike for STL containers).
     using size_type = std::ptrdiff_t;
-    /// \brief signed integer type for iterator differences
+    /// signed integer type for iterator differences
     using difference_type = typename vector_type::difference_type;
-    /// \brief reference to value_type
+    /// reference to value_type
     using reference = typename vector_type::reference;
-    /// \brief const reference to value_type
+    /// const reference to value_type
     using const_reference = typename vector_type::const_reference;
-    /// \brief pointer to value_type
+    /// pointer to value_type
     using pointer = typename vector_type::pointer;
-    /// \brief const pointer to value_type
+    /// const pointer to value_type
     using const_pointer = typename vector_type::const_pointer;
 
   private:
@@ -478,7 +478,7 @@ namespace mpl {
     }
 
   public:
-    /// \brief Characterizes the dimensionality and the total size of a local data grid.
+    /// Characterizes the dimensionality and the total size of a local data grid.
     class dimensions {
       std::array<size_type, dim> size_;
 
@@ -504,25 +504,25 @@ namespace mpl {
           : size_{size_0, size_1, size_2, size_3} {
         static_assert(dim == 4, "invalid number of arguments");
       }
-      /// \brief Determines the dimensionality.
+      /// Determines the dimensionality.
       /// \return dimensionality (number of dimensions)
       [[nodiscard]] size_type dimensionality() const {
         return static_cast<size_type>(size_.size());
       }
 
-      /// \brief Determines the total size of a dimension.
+      /// Determines the total size of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the total size of the dimension
       [[nodiscard]] size_type size(size_type dimension) const { return size_[dimension]; }
 
-      /// \brief Determines then total size along a dimension of a dimension.
+      /// Determines then total size along a dimension of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the size and the overlap
       [[nodiscard]] const_reference operator[](size_type dimension) const {
         return size_[dimension];
       }
 
-      /// \brief Determines then total size along a dimension.
+      /// Determines then total size along a dimension.
       /// \param dimension the rank of the dimension
       /// \return the size and the overlap
       [[nodiscard]] reference operator[](size_type dimension) { return size_[dimension]; }
@@ -537,7 +537,7 @@ namespace mpl {
       friend class local_grid;
     };
 
-    /// \brief Creates a local data grid.
+    /// Creates a local data grid.
     /// \param communicator Cartesian communicator that will be employed to scatter or gather
     /// data.
     /// \param dims size of the global grid
@@ -569,22 +569,22 @@ namespace mpl {
       }
     }
 
-    /// \brief Determines the size of the data grid along a dimension.
+    /// Determines the size of the data grid along a dimension.
     /// \param d dimension
     /// \return local grid size
     [[nodiscard]] size_type size(size_type d) const { return global_size_[d]; }
 
-    /// \brief Determines the lowest index to access the data grid along a dimension.
+    /// Determines the lowest index to access the data grid along a dimension.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type begin([[maybe_unused]] size_type d) const { return 0; };
 
-    /// \brief Determines the last index (plus one) to access the data grid along a dimension.
+    /// Determines the last index (plus one) to access the data grid along a dimension.
     /// \param d dimension
     /// \return grid index
     [[nodiscard]] size_type end(size_type d) const { return global_size_[d]; };
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \return grid data element
     template<std::size_t d = dim>
@@ -593,7 +593,7 @@ namespace mpl {
       return v_[i_0];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \return grid data element
     template<std::size_t d = dim>
@@ -602,7 +602,7 @@ namespace mpl {
       return v_[i_0];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \return grid data element
@@ -612,7 +612,7 @@ namespace mpl {
       return v_[i_0 + global_size_[0] * i_1];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \return grid data element
@@ -623,7 +623,7 @@ namespace mpl {
       return v_[i_0 + global_size_[0] * i_1];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -635,7 +635,7 @@ namespace mpl {
       return v_[i_0 + global_size_[0] * (i_1 + global_size_[1] * i_2)];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -648,7 +648,7 @@ namespace mpl {
       return v_[i_0 + global_size_[0] * (i_1 + global_size_[1] * i_2)];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -662,7 +662,7 @@ namespace mpl {
                 global_size_[0] * (i_1 + global_size_[1] * (i_2 + global_size_[2] * i_3))];
     }
 
-    /// \brief Element access.
+    /// Element access.
     /// \param i_0 1st dimension index
     /// \param i_1 2nd dimension index
     /// \param i_2 3rd dimension index
@@ -678,15 +678,15 @@ namespace mpl {
                 global_size_[0] * (i_1 + global_size_[1] * (i_2 + global_size_[2] * i_3))];
     }
 
-    /// \brief Grands access to the flattened grid data.
+    /// Grands access to the flattened grid data.
     /// \return pointer to grid data
     [[nodiscard]] pointer data() { return v_.data(); }
 
-    /// \brief Grands access to the flattened grid data.
+    /// Grands access to the flattened grid data.
     /// \return pointer to grid data
     [[nodiscard]] const_pointer data() const { return v_.data(); }
 
-    /// \brief Get layouts for scatting and gathering of the grid data.
+    /// Get layouts for scatting and gathering of the grid data.
     /// \return set of layouts
     /// \details If there is a local_grid and a distributed_grid that have been created with the
     /// same Cartesian communicator argument and if both grids have the same total size then

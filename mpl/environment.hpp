@@ -9,7 +9,7 @@
 
 namespace mpl {
 
-  /// \brief Represents the various levels of thread support that the underlying MPI
+  /// Represents the various levels of thread support that the underlying MPI
   /// implementation may provide.
   enum class threading_modes {
     /// the application is single threaded
@@ -126,33 +126,33 @@ namespace mpl {
 
     //------------------------------------------------------------------
 
-    /// \brief Determines the highest level of thread support that is provided by the underlying
+    /// Determines the highest level of thread support that is provided by the underlying
     /// MPI implementation.
     /// \return supported threading level
     inline threading_modes threading_mode() { return detail::get_env().threading_mode(); }
 
-    /// \brief Determines if the current thread is the main thread, i.e., the thread that has
+    /// Determines if the current thread is the main thread, i.e., the thread that has
     /// initialized the MPI environment of the underlying MPI implementation.
     /// \return true if current thread is the main thread
     inline bool is_thread_main() { return detail::get_env().is_thread_main(); }
 
-    /// \brief Determines if time values given by \ref wtime are synchronized with each other
+    /// Determines if time values given by \ref wtime are synchronized with each other
     /// for all processes of the communicator given in \ref comm_world.
     /// \return true if times are  synchronized
     /// \see \ref wtime
     inline bool wtime_is_global() { return detail::get_env().wtime_is_global(); }
 
-    /// \brief Provides access to a predefined communicator that allows communication with
+    /// Provides access to a predefined communicator that allows communication with
     /// all processes.
     /// \return communicator to communicate with any other process
     inline const communicator &comm_world() { return detail::get_env().comm_world(); }
 
-    /// \brief Provides access to a predefined communicator that includes only the calling
+    /// Provides access to a predefined communicator that includes only the calling
     /// process itself.
     /// \return communicator including only the precess itself
     inline const communicator &comm_self() { return detail::get_env().comm_self(); }
 
-    /// \brief Gives a unique specifier, the processor name, for the actual (physical) node.
+    /// Gives a unique specifier, the processor name, for the actual (physical) node.
     /// \return name of the node
     /// \note The name is determined by the underlying MPI implementation, i.e., it is
     /// implementation defined and may be different for different MPI implementations.
@@ -162,12 +162,12 @@ namespace mpl {
     /// \return number of seconds of elapsed wall-clock time since some time in the past
     inline double wtime() { return detail::get_env().wtime(); }
 
-    /// \brief Get resolution of time given by \ref wtime.
+    /// Get resolution of time given by \ref wtime.
     /// \return resolution of \ref wtime in seconds.
     /// \see \ref wtime
     inline double wtick() { return detail::get_env().wtick(); }
 
-    /// \brief Provides to MPL a buffer in the user's memory to be used for buffering outgoing
+    /// Provides to MPL a buffer in the user's memory to be used for buffering outgoing
     /// messages.
     /// \param buff pointer to user-provided buffer
     /// \param size size of the buffer in bytes, must be non-negative
@@ -176,7 +176,7 @@ namespace mpl {
       return detail::get_env().buffer_attach(buff, size);
     }
 
-    /// \brief Detach the buffer currently associated with MPL.
+    /// Detach the buffer currently associated with MPL.
     /// \return pair representing the buffer location and size, i.e., the parameters provided to
     /// \ref buffer_attach
     /// \see \ref buffer_attach
@@ -192,25 +192,25 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Buffer manager for buffered send operations.
+  /// Buffer manager for buffered send operations.
   /// \note There must be not more than one instance of the class bsend_buffer at any time per
   /// process.
   class bsend_buffer {
     void *buff_;
 
   public:
-    /// \brief deleted default constructor
+    /// deleted default constructor
     bsend_buffer() = delete;
 
-    /// \brief deleted copy constructor
+    /// deleted copy constructor
     /// \param other buffer manager to copy from
     bsend_buffer(const bsend_buffer &other) = delete;
 
-    /// \brief deleted move constructor
+    /// deleted move constructor
     /// \param other buffer manager to move from
     bsend_buffer(bsend_buffer &&other) = delete;
 
-    /// \brief allocates buffer with specific size using a default-constructed allocator
+    /// allocates buffer with specific size using a default-constructed allocator
     /// \param size buffer size in bytes
     /// \note The size given should be the sum of the sizes of all outstanding buffered send
     /// operations that will be sent during the lifetime of the \ref bsend_buffer object, plus
@@ -222,7 +222,7 @@ namespace mpl {
       environment::buffer_attach(buff_, size);
     }
 
-    /// \brief waits for uncompleted message transfers and frees the buffer
+    /// waits for uncompleted message transfers and frees the buffer
     /// \note A blocking communication operation is performed when an object of type
     /// bsend_buffer goes out of scope.
     ~bsend_buffer() {
@@ -230,11 +230,11 @@ namespace mpl {
       operator delete(buff_);
     }
 
-    /// \brief deleted copy assignment operator
+    /// deleted copy assignment operator
     /// \param other buffer manager to copy-assign from
     void operator=(const bsend_buffer &other) = delete;
 
-    /// \brief deleted move assignment operator
+    /// deleted move assignment operator
     /// \param other buffer manager to move-assign from
     void operator=(bsend_buffer &&other) = delete;
   };

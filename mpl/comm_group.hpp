@@ -29,22 +29,22 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Return value of matching probe operations.
+  /// Return value of matching probe operations.
   struct mprobe_status {
-    /// \brief message handle to be used in a matching receive operation
+    /// message handle to be used in a matching receive operation
     message_t message;
-    /// \brief status of the pending incoming message
+    /// status of the pending incoming message
     status_t status;
   };
 
   //--------------------------------------------------------------------
 
-  /// \brief Represents a group of processes.
+  /// Represents a group of processes.
   class group {
     MPI_Group gr_{MPI_GROUP_EMPTY};
 
   public:
-    /// \brief Group equality types.
+    /// Group equality types.
     enum class equality_type {
       /// groups are identical, i.e., groups have same the members in same rank order
       identical = MPI_IDENT,
@@ -63,87 +63,87 @@ namespace mpl {
     /// indicates that groups are unequal, i.e., groups have different sets of members
     static constexpr equality_type unequal = equality_type::unequal;
 
-    /// \brief Indicates the creation of a union of two groups.
+    /// Indicates the creation of a union of two groups.
     class Union_tag {};
-    /// \brief Indicates the creation of a union of two groups.
+    /// Indicates the creation of a union of two groups.
     static constexpr Union_tag Union{};
 
-    /// \brief Indicates the creation of an intersection of two groups.
+    /// Indicates the creation of an intersection of two groups.
     class intersection_tag {};
-    /// \brief Indicates the creation of an intersection of two groups.
+    /// Indicates the creation of an intersection of two groups.
     static constexpr intersection_tag intersection{};
 
-    /// \brief Indicates the creation of a difference of two groups.
+    /// Indicates the creation of a difference of two groups.
     class difference_tag {};
-    /// \brief Indicates the creation of a difference of two groups.
+    /// Indicates the creation of a difference of two groups.
     static constexpr difference_tag difference{};
 
-    /// \brief Indicates the creation of a subgroup by including members of an existing group.
+    /// Indicates the creation of a subgroup by including members of an existing group.
     class include_tag {};
-    /// \brief Indicates the creation of a subgroup by including members of an existing group.
+    /// Indicates the creation of a subgroup by including members of an existing group.
     static constexpr include_tag include{};
 
-    /// \brief Indicates the creation of a subgroup by excluding members of an existing group.
+    /// Indicates the creation of a subgroup by excluding members of an existing group.
     class exclude_tag {};
-    /// \brief Indicates the creation of a subgroup by excluding members of an existing group.
+    /// Indicates the creation of a subgroup by excluding members of an existing group.
     static constexpr exclude_tag exclude{};
 
-    /// \brief Creates an empty process group.
+    /// Creates an empty process group.
     group() = default;
 
-    /// \brief Creates a new process group by copying an existing one.
+    /// Creates a new process group by copying an existing one.
     /// \param other the other group to copy from
     /// \note Process groups should not be copied unless a new independent group is wanted.
     /// Process groups should be passed via references to functions to avoid unnecessary
     /// copying.
     group(const group &other);
 
-    /// \brief Move-constructs a process group.
+    /// Move-constructs a process group.
     /// \param other the other group to move from
     group(group &&other) noexcept : gr_{other.gr_} { other.gr_ = MPI_GROUP_EMPTY; }
 
-    /// \brief Creates a new group that consists of all processes of the given communicator.
+    /// Creates a new group that consists of all processes of the given communicator.
     /// \param comm the communicator
     explicit group(const communicator &comm);
 
-    /// \brief Creates a new group that consists of all processes of the local group of the
+    /// Creates a new group that consists of all processes of the local group of the
     /// given inter-communicator.
     /// \param comm the inter-communicator
     explicit group(const inter_communicator &comm);
 
-    /// \brief Creates a new group that consists of the union of two existing process groups.
+    /// Creates a new group that consists of the union of two existing process groups.
     /// \param tag indicates the unification of two existing process groups
     /// \param other_1 first existing process group
     /// \param other_2 second existing process group
     explicit group(Union_tag tag, const group &other_1, const group &other_2);
 
-    /// \brief Creates a new group that consists of the intersection of two existing process
+    /// Creates a new group that consists of the intersection of two existing process
     /// groups.
     /// \param tag indicates the intersection of two existing process groups
     /// \param other_1 first existing process group
     /// \param other_2 second existing process group
     explicit group(intersection_tag tag, const group &other_1, const group &other_2);
 
-    /// \brief Creates a new group that consists of the difference of two existing process
+    /// Creates a new group that consists of the difference of two existing process
     /// groups.
     /// \param tag indicates the difference of two existing process groups
     /// \param other_1 first existing process group
     /// \param other_2 second existing process group
     explicit group(difference_tag tag, const group &other_1, const group &other_2);
 
-    /// \brief Creates a new group by including members of an existing process group.
+    /// Creates a new group by including members of an existing process group.
     /// \param tag indicates inclusion from an existing process group
     /// \param other existing process group
     /// \param rank set of ranks to include
     explicit group(include_tag tag, const group &other, const ranks &rank);
 
-    /// \brief Creates a new group by excluding members of an existing process group.
+    /// Creates a new group by excluding members of an existing process group.
     /// \param tag indicates exclusion from an existing process group
     /// \param other existing process group
     /// \param rank set of ranks to exclude
     explicit group(exclude_tag tag, const group &other, const ranks &rank);
 
-    /// \brief Destructs a process group.
+    /// Destructs a process group.
     ~group() {
       int result;
       MPI_Group_compare(gr_, MPI_GROUP_EMPTY, &result);
@@ -151,7 +151,7 @@ namespace mpl {
         MPI_Group_free(&gr_);
     }
 
-    /// \brief Copy-assigns a process group.
+    /// Copy-assigns a process group.
     /// \param other the other group to move from
     /// \return this group
     /// \note Process groups should not be copied unless a new independent group is wanted.
@@ -168,7 +168,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Move-assigns a process group.
+    /// Move-assigns a process group.
     /// \param other the other group to move from
     /// \return this group
     group &operator=(group &&other) noexcept {
@@ -183,7 +183,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Determines the total number of processes in a process group.
+    /// Determines the total number of processes in a process group.
     /// \return number of processes
     [[nodiscard]] int size() const {
       int result;
@@ -191,7 +191,7 @@ namespace mpl {
       return result;
     }
 
-    /// \brief Determines the rank within a process group.
+    /// Determines the rank within a process group.
     /// \return the rank of the calling process in the group
     [[nodiscard]] int rank() const {
       int result;
@@ -199,7 +199,7 @@ namespace mpl {
       return result;
     }
 
-    /// \brief Determines the relative numbering of the same process in two different groups.
+    /// Determines the relative numbering of the same process in two different groups.
     /// \param rank a valid rank in the given process group
     /// \param other process group
     /// \return corresponding rank in this process group
@@ -209,7 +209,7 @@ namespace mpl {
       return other_rank;
     }
 
-    /// \brief Determines the relative numbering of the same process in two different groups.
+    /// Determines the relative numbering of the same process in two different groups.
     /// \param rank a set valid ranks in the given process group
     /// \param other process group
     /// \return corresponding ranks in this process group
@@ -220,7 +220,7 @@ namespace mpl {
       return other_rank;
     }
 
-    /// \brief Tests for identity of process groups.
+    /// Tests for identity of process groups.
     /// \param other process group to compare with
     /// \return true if identical
     bool operator==(const group &other) const {
@@ -229,7 +229,7 @@ namespace mpl {
       return result == MPI_IDENT;
     }
 
-    /// \brief Tests for identity of process groups.
+    /// Tests for identity of process groups.
     /// \param other process group to compare with
     /// \return true if not identical
     bool operator!=(const group &other) const {
@@ -238,7 +238,7 @@ namespace mpl {
       return result != MPI_IDENT;
     }
 
-    /// \brief Compares to another process group.
+    /// Compares to another process group.
     /// \param other process group to compare with
     /// \return equality type
     [[nodiscard]] equality_type compare(const group &other) const {
@@ -372,31 +372,31 @@ namespace mpl {
       MPI_Comm comm_{MPI_COMM_NULL};
 
     public:
-      /// \brief Indicates the creation of a new communicator by an operation that is collective
+      /// Indicates the creation of a new communicator by an operation that is collective
       /// for all processes in the given communicator.
       class comm_collective_tag {};
-      /// \brief Indicates the creation of a new communicator by an operation that is collective
+      /// Indicates the creation of a new communicator by an operation that is collective
       /// for all processes in the given communicator.
       static constexpr comm_collective_tag comm_collective{};
 
-      /// \brief Indicates the creation of a new communicator by an operation that is collective
+      /// Indicates the creation of a new communicator by an operation that is collective
       /// for all processes in the given group.
       class group_collective_tag {};
-      /// \brief Indicates the creation of a new communicator by an operation that is collective
+      /// Indicates the creation of a new communicator by an operation that is collective
       /// for all processes in the given group.
       static constexpr group_collective_tag group_collective{};
 
-      /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+      /// Indicates the creation of a new communicator by spitting an existing communicator
       /// into disjoint subgroups.
       class split_tag {};
-      /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+      /// Indicates the creation of a new communicator by spitting an existing communicator
       /// into disjoint subgroups.
       static constexpr split_tag split{};
 
-      /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+      /// Indicates the creation of a new communicator by spitting an existing communicator
       /// into disjoint subgroups each of which can create a shared memory region.
       class split_shared_memory_tag {};
-      /// \brief Indicates the creation of a new communicator by spitting an existing communicator
+      /// Indicates the creation of a new communicator by spitting an existing communicator
       /// into disjoint subgroups each of which can create a shared memory region.
       static constexpr split_shared_memory_tag split_shared_memory{};
 
@@ -471,13 +471,13 @@ namespace mpl {
       }
 
     public:
-      /// \brief Checks if a communicator is valid, i.e., is not an empty communicator with no
+      /// Checks if a communicator is valid, i.e., is not an empty communicator with no
       /// associated process.
       /// \return true if communicator is valid
       /// \note A default constructed communicator is a non valid communicator.
       [[nodiscard]] bool is_valid() const { return comm_ != MPI_COMM_NULL; }
 
-      /// \brief Aborts all processes associated to the communicator.
+      /// Aborts all processes associated to the communicator.
       /// \param err error code, becomes the return code of the main program
       /// \note Method provides just a "best attempt" to abort processes.
       void abort(int err) const { MPI_Abort(comm_, err); }
@@ -511,7 +511,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a blocking standard send operation.
+      /// Sends a message with a single value via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -529,7 +529,7 @@ namespace mpl {
         send(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with a several values having a specific memory layout via a
       /// blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -545,7 +545,7 @@ namespace mpl {
                  static_cast<int>(t), comm_);
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -625,7 +625,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a non-blocking standard send operation.
+      /// Sends a message with a single value via a non-blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -645,7 +645,7 @@ namespace mpl {
                      typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// non-blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -665,7 +665,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// non-blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -694,7 +694,7 @@ namespace mpl {
       }
 
       // --- persistent standard send ---
-      /// \brief Creates a persistent communication request to send a message with a single
+      /// Creates a persistent communication request to send a message with a single
       /// value via a blocking standard send operation.
       /// \tparam T type of the data to send, must  meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -713,7 +713,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -733,7 +733,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values given by a pair of iterators via a blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -761,7 +761,7 @@ namespace mpl {
 
       // === buffered send ===
       // --- determine buffer size ---
-      /// \brief Determines the message buffer size.
+      /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param number quantity of elements of type T to send in a single buffered message or
@@ -775,7 +775,7 @@ namespace mpl {
         return pack_size + MPI_BSEND_OVERHEAD;
       }
 
-      /// \brief Determines the message buffer size.
+      /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the
       /// requirements as described in the \ref data_types "data types" section
       /// \param l layout of the data
@@ -816,7 +816,7 @@ namespace mpl {
 
     public:
       /// \anchor communicator_bsend
-      /// \brief Sends a message with a single value via a buffered send operation.
+      /// Sends a message with a single value via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -834,7 +834,7 @@ namespace mpl {
         bsend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with a several values having a specific memory layout via a
       /// buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -850,7 +850,7 @@ namespace mpl {
                   static_cast<int>(t), comm_);
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -930,7 +930,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a non-blocking buffered send operation.
+      /// Sends a message with a single value via a non-blocking buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -951,7 +951,7 @@ namespace mpl {
                       typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// non-blocking buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -971,7 +971,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// non-blocking buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1000,7 +1000,7 @@ namespace mpl {
       }
 
       // --- persistent buffered send ---
-      /// \brief Creates a persistent communication request to send a message with a single
+      /// Creates a persistent communication request to send a message with a single
       /// value via a buffered send operation.
       /// \tparam T type of the data to send, must meet the  requirements as described in the
       /// \ref data_types "data types" section
@@ -1019,7 +1019,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1039,7 +1039,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values given by a pair of iterators via a buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1094,7 +1094,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a blocking synchronous send operation.
+      /// Sends a message with a single value via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -1111,7 +1111,7 @@ namespace mpl {
         ssend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with a several values having a specific memory layout via a
       /// blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1127,7 +1127,7 @@ namespace mpl {
                   static_cast<int>(t), comm_);
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1207,7 +1207,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a non-blocking synchronous send
+      /// Sends a message with a single value via a non-blocking synchronous send
       /// operation.
       /// \tparam T type of the data to send, must meet the requirements as described
       /// in the \ref data_types "data types" section or an STL container that holds elements
@@ -1228,7 +1228,7 @@ namespace mpl {
                       typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// non-blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1248,7 +1248,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// non-blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1277,7 +1277,7 @@ namespace mpl {
       }
 
       // --- persistent synchronous send ---
-      /// \brief Creates a persistent communication request to send a message with a single
+      /// Creates a persistent communication request to send a message with a single
       /// value via a blocking synchronous send operation. \tparam T type of the data to send,
       /// must meet the requirements as described in the \ref data_types "data types" section
       /// \param data value to send
@@ -1295,7 +1295,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1315,7 +1315,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values given by a pair of iterators via a blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1370,7 +1370,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a blocking ready send operation.
+      /// Sends a message with a single value via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -1388,7 +1388,7 @@ namespace mpl {
         rsend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with a several values having a specific memory layout via a
       /// blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1404,7 +1404,7 @@ namespace mpl {
                   static_cast<int>(t), comm_);
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1484,7 +1484,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends a message with a single value via a non-blocking ready send operation.
+      /// Sends a message with a single value via a non-blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -1504,7 +1504,7 @@ namespace mpl {
                       typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Sends a message with several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// non-blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1524,7 +1524,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with a several values given by a pair of iterators via a
       /// non-blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1553,7 +1553,7 @@ namespace mpl {
       }
 
       // --- persistent ready send ---
-      /// \brief Creates a persistent communication request to send a message with a single
+      /// Creates a persistent communication request to send a message with a single
       /// value via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1572,7 +1572,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1592,7 +1592,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with a several
       /// values given by a pair of iterators via a blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1666,7 +1666,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Receives a message with a single value.
+      /// Receives a message with a single value.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -1685,7 +1685,7 @@ namespace mpl {
         return recv(data, source, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Receives a message with a several values having a specific memory layout.
+      /// Receives a message with a several values having a specific memory layout.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param data pointer to the data to receive
@@ -1703,7 +1703,7 @@ namespace mpl {
         return s;
       }
 
-      /// \brief Receives a message with a several values given by a pair of iterators.
+      /// Receives a message with a several values given by a pair of iterators.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
@@ -1767,7 +1767,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Receives a message with a single value via a non-blocking receive operation.
+      /// Receives a message with a single value via a non-blocking receive operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -1786,7 +1786,7 @@ namespace mpl {
                      typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Receives a message with several values having a specific memory layout via a
+      /// Receives a message with several values having a specific memory layout via a
       /// non-blocking receive operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1805,7 +1805,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Receives a message with a several values given by a pair of iterators via a
+      /// Receives a message with a several values given by a pair of iterators via a
       /// non-blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1834,7 +1834,7 @@ namespace mpl {
       }
 
       // --- persistent receive ---
-      /// \brief Creates a persistent communication request to receive a message with a single
+      /// Creates a persistent communication request to receive a message with a single
       /// value via a blocking receive operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1853,7 +1853,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to receive a message with a several
+      /// Creates a persistent communication request to receive a message with a several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -1872,7 +1872,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// \brief Creates a persistent communication request to receive a message with a several
+      /// Creates a persistent communication request to receive a message with a several
       /// values given by a pair of iterators via a blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1900,7 +1900,7 @@ namespace mpl {
 
       // === probe ===
       // --- blocking probe ---
-      /// \brief Blocking test for an incoming message.
+      /// Blocking test for an incoming message.
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return status of the pending message
@@ -1913,7 +1913,7 @@ namespace mpl {
       }
 
       // --- non-blocking probe ---
-      /// \brief Non-blocking test for an incoming message.
+      /// Non-blocking test for an incoming message.
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return status of the pending message if there is any pending message
@@ -1931,7 +1931,7 @@ namespace mpl {
 
       // === matching probe ===
       // --- blocking matching probe ---
-      /// \brief Blocking matched test for an incoming message.
+      /// Blocking matched test for an incoming message.
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return message handle and status of the pending message
@@ -1945,7 +1945,7 @@ namespace mpl {
       }
 
       // --- non-blocking matching probe ---
-      /// \brief Blocking matched test for an incoming message.
+      /// Blocking matched test for an incoming message.
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return message handle and status of the pending message if there is a pending message
@@ -1976,7 +1976,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Receives a message with a single value by a message handle.
+      /// Receives a message with a single value by a message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section or an STL container that holds elements that
       /// comply with the mentioned requirements
@@ -1989,7 +1989,7 @@ namespace mpl {
         return mrecv(data, m, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Receives a message with a several values having a specific memory layout by a
+      /// Receives a message with a several values having a specific memory layout by a
       /// message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2005,7 +2005,7 @@ namespace mpl {
         return s;
       }
 
-      /// \brief Receives a message with a several values given by a pair of iterators by a
+      /// Receives a message with a several values given by a pair of iterators by a
       /// message handle.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -2042,7 +2042,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Receives a message with a single value via a non-blocking receive operation by
+      /// Receives a message with a single value via a non-blocking receive operation by
       /// a message handle.
       /// \tparam T type of the data to receive, must meet the requirements as  described in the
       /// \ref data_types "data types" section
@@ -2055,7 +2055,7 @@ namespace mpl {
         return imrecv(data, m, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// \brief Receives a message with several values having a specific memory layout via a
+      /// Receives a message with several values having a specific memory layout via a
       /// non-blocking receive operation by a message handle.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2070,7 +2070,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Receives a message with a several values given by a pair of iterators via a
+      /// Receives a message with a several values given by a pair of iterators via a
       /// non-blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -2099,7 +2099,7 @@ namespace mpl {
 
       // === send and receive ===
       // --- send and receive ---
-      /// \brief Sends a message and receives a message in a single operation.
+      /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param send_data data to send
@@ -2124,7 +2124,7 @@ namespace mpl {
         return s;
       }
 
-      /// \brief Sends a message and receives a message in a single operation.
+      /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param send_data data to send
@@ -2152,7 +2152,7 @@ namespace mpl {
         return s;
       }
 
-      /// \brief Sends a message and receives a message in a single operation.
+      /// Sends a message and receives a message in a single operation.
       /// \tparam iterT1 iterator type, must fulfill the requirements of a
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
@@ -2202,7 +2202,7 @@ namespace mpl {
       }
 
       // --- send, receive and replace ---
-      /// \brief Sends a message and receives a message in a single operation.
+      /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param data data to send, will hold the received data
@@ -2225,7 +2225,7 @@ namespace mpl {
         return s;
       }
 
-      /// \brief Sends a message and receives a message in a single operation.
+      /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param data data to send, will hold the received data
@@ -2249,7 +2249,7 @@ namespace mpl {
         return s;
       }
 
-      /// \brief Sends a message and receives a message in a single operation.
+      /// Sends a message and receives a message in a single operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
@@ -2279,13 +2279,13 @@ namespace mpl {
       // === collective ==================================================
       // === barrier ===
       // --- blocking barrier ---
-      /// \brief Blocks until all processes in the communicator have reached this method.
+      /// Blocks until all processes in the communicator have reached this method.
       /// \note This is a collective operation and must be called by all processes in the
       /// communicator.
       void barrier() const { MPI_Barrier(comm_); }
 
       // --- non-blocking barrier ---
-      /// \brief Notifies the process that it has reached the barrier and returns immediately.
+      /// Notifies the process that it has reached the barrier and returns immediately.
       /// \return communication request
       /// \note This is a collective operation and must be called by all processes in the
       /// communicator.
@@ -2297,7 +2297,7 @@ namespace mpl {
 
       // === broadcast ===
       // --- blocking broadcast ---
-      /// \brief Broadcasts a message from a process to all other processes.
+      /// Broadcasts a message from a process to all other processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the sending process
@@ -2310,7 +2310,7 @@ namespace mpl {
         MPI_Bcast(&data, 1, detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
-      /// \brief Broadcasts a message from a process to all other processes.
+      /// Broadcasts a message from a process to all other processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the sending process
@@ -2326,7 +2326,7 @@ namespace mpl {
       }
 
       // --- non-blocking broadcast ---
-      /// \brief Broadcasts a message from a process to all other processes in a non-blocking
+      /// Broadcasts a message from a process to all other processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2344,7 +2344,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Broadcasts a message from a process to all other processes in a non-blocking
+      /// Broadcasts a message from a process to all other processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2366,7 +2366,7 @@ namespace mpl {
       // === gather ===
       // === root gets a single value from each rank and stores in contiguous memory
       // --- blocking gather ---
-      /// \brief Gather messages from all processes at a single root process.
+      /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
@@ -2382,7 +2382,7 @@ namespace mpl {
                    detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
-      /// \brief Gather messages from all processes at a single root process.
+      /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
@@ -2402,7 +2402,7 @@ namespace mpl {
       }
 
       // --- non-blocking gather ---
-      /// \brief Gather messages from all processes at a single root process in a non-blocking
+      /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2422,7 +2422,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Gather messages from all processes at a single root process in a non-blocking
+      /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2446,7 +2446,7 @@ namespace mpl {
       }
 
       // --- blocking gather, non-root variant ---
-      /// \brief Gather messages from all processes at a single root process.
+      /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
@@ -2461,7 +2461,7 @@ namespace mpl {
                    MPI_DATATYPE_NULL, root_rank, comm_);
       }
 
-      /// \brief Gather messages from all processes at a single root process.
+      /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the receiving process
@@ -2478,7 +2478,7 @@ namespace mpl {
       }
 
       // --- non-blocking gather, non-root variant ---
-      /// \brief Gather messages from all processes at a single root process in a non-blocking
+      /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2497,7 +2497,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Gather messages from all processes at a single root process in a non-blocking
+      /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2518,7 +2518,7 @@ namespace mpl {
       }
       // === root gets varying amount of data from each rank and stores in non-contiguous memory
       // --- blocking gather ---
-      /// \brief Gather messages with a variable amount of data from all processes at a single
+      /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2546,7 +2546,7 @@ namespace mpl {
           alltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n), recvdispls);
       }
 
-      /// \brief Gather messages with a variable amount of data from all processes at a single
+      /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2564,7 +2564,7 @@ namespace mpl {
       }
 
       // --- non-blocking gather ---
-      /// \brief Gather messages with a variable amount of data from all processes at a single
+      /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2594,7 +2594,7 @@ namespace mpl {
                             recvdispls);
       }
 
-      /// \brief Gather messages with a variable amount of data from all processes at a single
+      /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2613,7 +2613,7 @@ namespace mpl {
       }
 
       // --- blocking gather, non-root variant ---
-      /// \brief Gather messages with a variable amount of data from all processes at a single
+      /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2634,7 +2634,7 @@ namespace mpl {
       }
 
       // --- non-blocking gather, non-root variant ---
-      /// \brief Gather messages with a variable amount of data from all processes at a single
+      /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section \param root_rank rank of the receiving process
@@ -2658,7 +2658,7 @@ namespace mpl {
       // === allgather ===
       // === get a single value from each rank and stores in contiguous memory
       // --- blocking allgather ---
-      /// \brief Gather messages from all processes and distribute result to all processes.
+      /// Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param send_data data to send
@@ -2671,7 +2671,7 @@ namespace mpl {
                       detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
-      /// \brief Gather messages from all processes and distribute result to all processes.
+      /// Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param send_data data to send
@@ -2689,7 +2689,7 @@ namespace mpl {
       }
 
       // --- non-blocking allgather ---
-      /// \brief Gather messages from all processes and distribute result to all processes in a
+      /// Gather messages from all processes and distribute result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2706,7 +2706,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Gather messages from all processes and distribute result to all processes in a
+      /// Gather messages from all processes and distribute result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2729,7 +2729,7 @@ namespace mpl {
 
       // === get varying amount of data from each rank and stores in non-contiguous memory
       // --- blocking allgather ---
-      /// \brief Gather messages with a variable amount of data from all processes and
+      /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2751,7 +2751,7 @@ namespace mpl {
         alltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
       }
 
-      /// \brief Gather messages with a variable amount of data from all processes and
+      /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2768,7 +2768,7 @@ namespace mpl {
       }
 
       // --- non-blocking allgather ---
-      /// \brief Gather messages with a variable amount of data from all processes and
+      /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2791,7 +2791,7 @@ namespace mpl {
         return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
       }
 
-      /// \brief Gather messages with a variable amount of data from all processes and
+      /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
@@ -2811,7 +2811,7 @@ namespace mpl {
       // === scatter ===
       // === root sends a single value from contiguous memory to each rank
       // --- blocking scatter ---
-      /// \brief Scatter messages from a single root process to all processes.
+      /// Scatter messages from a single root process to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the sending process
@@ -2827,7 +2827,7 @@ namespace mpl {
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
-      /// \brief Scatter messages from a single root process to all processes.
+      /// Scatter messages from a single root process to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \ref data_types "data types" section
       /// \param root_rank rank of the sending process
@@ -2848,7 +2848,7 @@ namespace mpl {
       }
 
       // --- non-blocking scatter ---
-      /// \brief Scatter messages from a single root process to all processes in a non-blocking
+      /// Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -2868,7 +2868,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Scatter messages from a single root process to all processes in a non-blocking
+      /// Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -2893,7 +2893,7 @@ namespace mpl {
       }
 
       // --- blocking scatter, non-root variant ---
-      /// \brief Scatter messages from a single root process to all processes.
+      /// Scatter messages from a single root process to all processes.
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
       /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2906,7 +2906,7 @@ namespace mpl {
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
-      /// \brief Scatter messages from a single root process to all processes.
+      /// Scatter messages from a single root process to all processes.
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
@@ -2921,7 +2921,7 @@ namespace mpl {
       }
 
       // --- non-blocking scatter, non-root variant ---
-      /// \brief Scatter messages from a single root process to all processes in a non-blocking
+      /// Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
@@ -2938,7 +2938,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Scatter messages from a single root process to all processes in a non-blocking
+      /// Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
@@ -2959,7 +2959,7 @@ namespace mpl {
 
       // === root sends varying amount of data from non-contiguous memory to each rank
       // --- blocking scatter ---
-      /// \brief Scatter messages with a variable amount of data from a single root process to all
+      /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -2989,7 +2989,7 @@ namespace mpl {
           alltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n), recvdispls);
       }
 
-      /// \brief Scatter messages with a variable amount of data from a single root process to all
+      /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3008,7 +3008,7 @@ namespace mpl {
       }
 
       // --- non-blocking scatter ---
-      /// \brief Scatter messages with a variable amount of data from a single root process to all
+      /// Scatter messages with a variable amount of data from a single root process to all
       /// processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3040,7 +3040,7 @@ namespace mpl {
                             recvdispls);
       }
 
-      /// \brief Scatter messages with a variable amount of data from a single root process to all
+      /// Scatter messages with a variable amount of data from a single root process to all
       /// processes  in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3060,7 +3060,7 @@ namespace mpl {
       }
 
       // --- blocking scatter, non-root variant ---
-      /// \brief Scatter messages with a variable amount of data from a single root process to all
+      /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3082,7 +3082,7 @@ namespace mpl {
       }
 
       // --- non-blocking scatter, non-root variant ---
-      /// \brief Scatter messages with a variable amount of data from a single root process to all
+      /// Scatter messages with a variable amount of data from a single root process to all
       /// processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3107,7 +3107,7 @@ namespace mpl {
       // === all-to-all ===
       // === each rank sends a single value to each rank
       // --- blocking all-to-all ---
-      /// \brief Sends messages to all processes and receives messages from all processes.
+      /// Sends messages to all processes and receives messages from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param send_data pointer to continuous storage for outgoing messages
@@ -3124,7 +3124,7 @@ namespace mpl {
                      detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
-      /// \brief Sends messages to all processes and receives messages from all processes.
+      /// Sends messages to all processes and receives messages from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
       /// \param send_data pointer to continuous storage for outgoing messages
@@ -3149,7 +3149,7 @@ namespace mpl {
       }
 
       // --- non-blocking all-to-all ---
-      /// \brief Sends messages to all processes and receives messages from all processes in a
+      /// Sends messages to all processes and receives messages from all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3170,7 +3170,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Sends messages to all processes and receives messages from all processes in a
+      /// Sends messages to all processes and receives messages from all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3201,7 +3201,7 @@ namespace mpl {
       // === each rank sends a varying number of values to each rank with possibly different
       // layouts
       // --- blocking all-to-all ---
-      /// \brief Sends messages with a variable amount of data to all processes and receives
+      /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3242,7 +3242,7 @@ namespace mpl {
                       reinterpret_cast<const MPI_Datatype *>(recvls()), comm_);
       }
 
-      /// \brief Sends messages with a variable amount of data to all processes and receives
+      /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3340,7 +3340,7 @@ namespace mpl {
       }
 
     public:
-      /// \brief Sends messages with a variable amount of data to all processes and receives
+      /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3385,7 +3385,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Sends messages with a variable amount of data to all processes and receives
+      /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the \ref
       /// data_types "data types" section
@@ -3415,7 +3415,7 @@ namespace mpl {
 
       // === reduce ===
       // --- blocking reduce ---
-      /// \brief Performs a reduction operation over all processes.
+      /// Performs a reduction operation over all processes.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3433,7 +3433,7 @@ namespace mpl {
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
       }
 
-      /// \brief Performs a reduction operation over all processes.
+      /// Performs a reduction operation over all processes.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3456,7 +3456,7 @@ namespace mpl {
       }
 
       // --- non-blocking reduce ---
-      /// \brief Performs a reduction operation over all processes in a non-blocking manner.
+      /// Performs a reduction operation over all processes in a non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3477,7 +3477,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Performs a reduction operation over all processes in a non-blocking manner.
+      /// Performs a reduction operation over all processes in a non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3503,7 +3503,7 @@ namespace mpl {
 
       // === all-reduce ===
       // --- blocking all-reduce ---
-      /// \brief Performs a reduction operation over all processes and broadcasts the result.
+      /// Performs a reduction operation over all processes and broadcasts the result.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3519,7 +3519,7 @@ namespace mpl {
                       detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
-      /// \brief Performs a reduction operation over all processes and broadcasts the result.
+      /// Performs a reduction operation over all processes and broadcasts the result.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3539,7 +3539,7 @@ namespace mpl {
       }
 
       // --- non-blocking all-reduce ---
-      /// \brief Performs a reduction operation over all processes and broadcasts the result in a
+      /// Performs a reduction operation over all processes and broadcasts the result in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
@@ -3559,7 +3559,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Performs a reduction operation over all processes and broadcasts the result in a
+      /// Performs a reduction operation over all processes and broadcasts the result in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
@@ -3584,7 +3584,7 @@ namespace mpl {
 
       // === reduce-scatter-block ===
       // --- blocking reduce-scatter-block ---
-      /// \brief Performs a reduction operation over all processes and scatters the result.
+      /// Performs a reduction operation over all processes and scatters the result.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3602,7 +3602,7 @@ namespace mpl {
                                  detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
-      /// \brief Performs a reduction operation over all processes and scatters the result.
+      /// Performs a reduction operation over all processes and scatters the result.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3624,7 +3624,7 @@ namespace mpl {
       }
 
       // --- non-blocking reduce-scatter-block ---
-      /// \brief Performs a reduction operation over all processes and scatters the result in a
+      /// Performs a reduction operation over all processes and scatters the result in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
@@ -3646,7 +3646,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Performs a reduction operation over all processes and scatters the result in a
+      /// Performs a reduction operation over all processes and scatters the result in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
@@ -3673,7 +3673,7 @@ namespace mpl {
 
       // === reduce-scatter ===
       // --- blocking reduce-scatter ---
-      /// \brief Performs a reduction operation over all processes and scatters the result.
+      /// Performs a reduction operation over all processes and scatters the result.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3695,7 +3695,7 @@ namespace mpl {
       }
 
       // --- non-blocking reduce-scatter ---
-      /// \brief Performs a reduction operation over all processes and scatters the result in a
+      /// Performs a reduction operation over all processes and scatters the result in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
@@ -3722,7 +3722,7 @@ namespace mpl {
 
       // === scan ===
       // --- blocking scan ---
-      /// \brief Performs partial reduction operation (scan) over all processes.
+      /// Performs partial reduction operation (scan) over all processes.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3738,7 +3738,7 @@ namespace mpl {
                  detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
-      /// \brief Performs a partial reduction operation (scan) over all processes.
+      /// Performs a partial reduction operation (scan) over all processes.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3756,7 +3756,7 @@ namespace mpl {
       }
 
       // --- non-blocking scan ---
-      /// \brief Performs a partial reduction operation (scan) over all processes in a
+      /// Performs a partial reduction operation (scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
@@ -3776,7 +3776,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Performs a partial reduction operation (scan) over all processes in a
+      /// Performs a partial reduction operation (scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
@@ -3800,7 +3800,7 @@ namespace mpl {
 
       // === exscan ===
       // --- blocking exscan ---
-      /// \brief Performs partial reduction operation (exclusive scan) over all processes.
+      /// Performs partial reduction operation (exclusive scan) over all processes.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3816,7 +3816,7 @@ namespace mpl {
                    detail::get_op<T, F>(f).mpi_op, comm_);
       }
 
-      /// \brief Performs a partial reduction operation (exclusive scan) over all processes.
+      /// Performs a partial reduction operation (exclusive scan) over all processes.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -3834,7 +3834,7 @@ namespace mpl {
       }
 
       // --- non-blocking exscan ---
-      /// \brief Performs a partial reduction operation (exclusive scan) over all processes in a
+      /// Performs a partial reduction operation (exclusive scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
@@ -3854,7 +3854,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// \brief Performs a partial reduction operation (exclusive scan) over all processes in a
+      /// Performs a partial reduction operation (exclusive scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
@@ -3880,7 +3880,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Specifies the communication context for a communication operation.
+  /// Specifies the communication context for a communication operation.
   class communicator : public impl::base_communicator {
     using base = impl::base_communicator;
 
@@ -3888,10 +3888,10 @@ namespace mpl {
     explicit communicator(MPI_Comm comm) : base{comm} {}
 
   public:
-    /// \brief Creates an empty communicator with no associated process.
+    /// Creates an empty communicator with no associated process.
     communicator() = default;
 
-    /// \brief Creates a new communicator which is equivalent to an existing one.
+    /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other. Communicators should not be copied unless a new independent
@@ -3899,13 +3899,13 @@ namespace mpl {
     /// avoid unnecessary copying.
     communicator(const communicator &other) : base{} { MPI_Comm_dup(other.comm_, &comm_); }
 
-    /// \brief Move-constructs a communicator.
+    /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     communicator(communicator &&other) noexcept : base{other.comm_} {
       other.comm_ = MPI_COMM_NULL;
     }
 
-    /// \brief Specifies the process order when merging the local and the remote groups of an
+    /// Specifies the process order when merging the local and the remote groups of an
     /// inter-communicator into a communicator.
     enum class merge_order_type {
       /// when merging the local and the remote groups of an inter-communicator put processes
@@ -3923,7 +3923,7 @@ namespace mpl {
     /// processes of this group after processes that belong to the other group
     static constexpr merge_order_type order_high = merge_order_type::order_high;
 
-    /// \brief Creates a new communicator by merging the local and the remote groups of an
+    /// Creates a new communicator by merging the local and the remote groups of an
     /// inter-communicator.
     /// \param other the inter-communicator to merge
     /// \param order affects the process ordering in the new communicator
@@ -3933,7 +3933,7 @@ namespace mpl {
     /// group.  It should differ for both groups.
     explicit communicator(const inter_communicator &other, merge_order_type order);
 
-    /// \brief Constructs a new communicator from an existing one with a specified communication
+    /// Constructs a new communicator from an existing one with a specified communication
     /// group.
     /// \param comm_collective tag to indicate the mode of construction
     /// \param other the communicator
@@ -3945,7 +3945,7 @@ namespace mpl {
       MPI_Comm_create(other.comm_, gr.gr_, &comm_);
     }
 
-    /// \brief Constructs a new communicator from an existing one with a specified communication
+    /// Constructs a new communicator from an existing one with a specified communication
     /// group.
     /// \param group_collective tag to indicate the mode of construction
     /// \param other the communicator
@@ -3958,7 +3958,7 @@ namespace mpl {
       MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
 
-    /// \brief Constructs a new communicator from an existing one with a specified communication
+    /// Constructs a new communicator from an existing one with a specified communication
     /// group.
     /// \tparam color_type color type, must be integral type
     /// \tparam key_type key type, must be integral type
@@ -3979,7 +3979,7 @@ namespace mpl {
                      detail::underlying_type<key_type>::value(key), &comm_);
     }
 
-    /// \brief Constructs a new communicator from an existing one by spitting the communicator
+    /// Constructs a new communicator from an existing one by spitting the communicator
     /// into disjoint subgroups each of which can create a shared memory region.
     /// \tparam color_type color type, must be integral type
     /// \param split_shared_memory tag to indicate the mode of construction
@@ -3996,7 +3996,7 @@ namespace mpl {
                           detail::underlying_type<key_type>::value(key), MPI_INFO_NULL, &comm_);
     }
 
-    /// \brief Copy-assigns and creates a new communicator which is equivalent to an existing
+    /// Copy-assigns and creates a new communicator which is equivalent to an existing
     /// one.
     /// \param other the other communicator to copy from
     /// \return this communicator
@@ -4010,7 +4010,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Move-assigns a communicator.
+    /// Move-assigns a communicator.
     /// \param other the other communicator to move from
     /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
@@ -4021,25 +4021,25 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Determines the total number of processes in a communicator.
+    /// Determines the total number of processes in a communicator.
     /// \return number of processes
     [[nodiscard]] int size() const { return base::size(); }
 
-    /// \brief Determines the rank within a communicator.
+    /// Determines the rank within a communicator.
     /// \return the rank of the calling process in the communicator
     [[nodiscard]] int rank() const { return base::rank(); }
 
-    /// \brief Tests for identity of communicators.
+    /// Tests for identity of communicators.
     /// \param other communicator to compare with
     /// \return true if identical
     bool operator==(const communicator &other) const { return base::operator==(other); }
 
-    /// \brief Tests for identity of communicators.
+    /// Tests for identity of communicators.
     /// \param other communicator to compare with
     /// \return true if not identical
     bool operator!=(const communicator &other) const { return base::operator!=(other); }
 
-    /// \brief Equality types for communicator comparison.
+    /// Equality types for communicator comparison.
     enum class equality_type {
       /// communicators are identical, i.e., communicators represent the same communication
       /// context
@@ -4067,7 +4067,7 @@ namespace mpl {
     /// members
     static constexpr equality_type unequal = equality_type::unequal;
 
-    /// \brief Compares to another communicator.
+    /// Compares to another communicator.
     /// \param other communicator to compare with
     /// \return equality type
     [[nodiscard]] equality_type compare(const communicator &other) const {
@@ -4082,7 +4082,7 @@ namespace mpl {
     using base::ialltoall;
 
     // --- blocking all-to-all, in place ---
-    /// \brief Sends messages to all processes and receives messages from all processes,
+    /// Sends messages to all processes and receives messages from all processes,
     /// in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -4100,7 +4100,7 @@ namespace mpl {
                    detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
-    /// \brief Sends messages to all processes and receives messages from all processes,
+    /// Sends messages to all processes and receives messages from all processes,
     /// in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -4122,7 +4122,7 @@ namespace mpl {
     }
 
     // --- non-blocking all-to-all, in place ---
-    /// \brief Sends messages to all processes and receives messages from all processes in a
+    /// Sends messages to all processes and receives messages from all processes in a
     /// non-blocking manner, in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -4144,7 +4144,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Sends messages to all processes and receives messages from all processes in a
+    /// Sends messages to all processes and receives messages from all processes in a
     /// non-blocking manner, in-place version.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -4175,7 +4175,7 @@ namespace mpl {
     using base::ialltoallv;
 
     // --- blocking all-to-all, in place ---
-    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes, in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -4203,7 +4203,7 @@ namespace mpl {
                     reinterpret_cast<const MPI_Datatype *>(sendrecvls()), comm_);
     }
 
-    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes, in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
     /// data_types "data types" section
@@ -4226,7 +4226,7 @@ namespace mpl {
     }
 
     // --- non-blocking all-to-all, in place ---
-    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes in a non-blocking manner,
     /// in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
@@ -4263,7 +4263,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Sends messages with a variable amount of data to all processes and receives
+    /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes in a non-blocking manner,
     /// in-place variant.
     /// \tparam T type of the data to send, must meet the requirements as described in the \ref
@@ -4292,7 +4292,7 @@ namespace mpl {
     using base::ireduce;
 
     // --- blocking reduce, in place ---
-    /// \brief Performs a reduction operation over all processes, in-place variant.
+    /// Performs a reduction operation over all processes, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -4314,7 +4314,7 @@ namespace mpl {
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
-    /// \brief Performs a reduction operation over all processes, non-root in-place variant.
+    /// Performs a reduction operation over all processes, non-root in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -4332,7 +4332,7 @@ namespace mpl {
                  detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
-    /// \brief Performs a reduction operation over all processes, in-place variant.
+    /// Performs a reduction operation over all processes, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -4355,7 +4355,7 @@ namespace mpl {
                    detail::get_op<T, F>(f).mpi_op, root_rank, comm_);
     }
 
-    /// \brief Performs a reduction operation over all processes, non-root in-place variant.
+    /// Performs a reduction operation over all processes, non-root in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
@@ -4375,7 +4375,7 @@ namespace mpl {
     }
 
     // --- non-blocking reduce, in place ---
-    /// \brief Performs a reduction operation over all processes in a non-blocking manner,
+    /// Performs a reduction operation over all processes in a non-blocking manner,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4401,7 +4401,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Performs a reduction operation over all processes in a non-blocking manner,
+    /// Performs a reduction operation over all processes in a non-blocking manner,
     /// non-root in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4423,7 +4423,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Performs a reduction operation over all processes in non-blocking manner,
+    /// Performs a reduction operation over all processes in non-blocking manner,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4453,7 +4453,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Performs a reduction operation over all processes in a non-blocking manner,
+    /// Performs a reduction operation over all processes in a non-blocking manner,
     /// non-root in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4482,7 +4482,7 @@ namespace mpl {
     using base::iallreduce;
 
     // --- blocking all-reduce, in place ---
-    /// \brief Performs a reduction operation over all processes and broadcasts the result,
+    /// Performs a reduction operation over all processes and broadcasts the result,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4498,7 +4498,7 @@ namespace mpl {
                     detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
-    /// \brief Performs a reduction operation over all processes and broadcasts the result,
+    /// Performs a reduction operation over all processes and broadcasts the result,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4517,7 +4517,7 @@ namespace mpl {
     }
 
     // --- non-blocking all-reduce, in place ---
-    /// \brief Performs a reduction operation over all processes and broadcasts the result in a
+    /// Performs a reduction operation over all processes and broadcasts the result in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4537,7 +4537,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Performs a reduction operation over all processes and broadcasts the result in
+    /// Performs a reduction operation over all processes and broadcasts the result in
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4563,7 +4563,7 @@ namespace mpl {
     using base::iscan;
 
     // --- blocking scan, in place ---
-    /// \brief Performs a partial reduction operation (scan) over all processes, in-place
+    /// Performs a partial reduction operation (scan) over all processes, in-place
     /// variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4579,7 +4579,7 @@ namespace mpl {
                detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
-    /// \brief Performs a partial reduction operation (scan) over all processes, in-place
+    /// Performs a partial reduction operation (scan) over all processes, in-place
     /// variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4598,7 +4598,7 @@ namespace mpl {
     }
 
     // --- non-blocking scan, in place ---
-    /// \brief Performs a partial reduction operation (scan) over all processes in a
+    /// Performs a partial reduction operation (scan) over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4617,7 +4617,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Performs a partial reduction (scan) operation over all processes in a
+    /// Performs a partial reduction (scan) operation over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4643,7 +4643,7 @@ namespace mpl {
     using base::iexscan;
 
     // --- blocking exscan, in place ---
-    /// \brief Performs a partial reduction operation (exclusive scan) over all processes,
+    /// Performs a partial reduction operation (exclusive scan) over all processes,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4659,7 +4659,7 @@ namespace mpl {
                  detail::get_op<T, F>(f).mpi_op, comm_);
     }
 
-    /// \brief Performs a partial reduction operation (exclusive scan) over all processes,
+    /// Performs a partial reduction operation (exclusive scan) over all processes,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4678,7 +4678,7 @@ namespace mpl {
     }
 
     // --- non-blocking exscan, in place ---
-    /// \brief Performs a partial reduction operation (exclusive scan) over all processes in a
+    /// Performs a partial reduction operation (exclusive scan) over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
@@ -4697,7 +4697,7 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
-    /// \brief Performs a partial reduction operation (exclusive scan) over all processes in a
+    /// Performs a partial reduction operation (exclusive scan) over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
@@ -4733,13 +4733,13 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Specifies the communication context for a communication operation between two
+  /// Specifies the communication context for a communication operation between two
   /// non-overlapping groups.
   class inter_communicator : public impl::base_communicator {
     using base = impl::base_communicator;
 
   public:
-    /// \brief Creates a new inter-communicator from two existing communicators.
+    /// Creates a new inter-communicator from two existing communicators.
     /// \param local_communicator communicator that contains the local group of the new
     /// inter-communicator
     /// \param local_leader rank of the local group leader within the communicator
@@ -4758,7 +4758,7 @@ namespace mpl {
                            remote_leader, static_cast<int>(t), &comm_);
     }
 
-    /// \brief Creates a new inter-communicator which is equivalent to an existing one.
+    /// Creates a new inter-communicator which is equivalent to an existing one.
     /// \param other the other inter-communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all local and
     /// remote processes of the inter-communicator other.  Inter-communicators should not be
@@ -4768,7 +4768,7 @@ namespace mpl {
       MPI_Comm_dup(other.comm_, &comm_);
     }
 
-    /// \brief Copy-assigns and creates a new inter-communicator which is equivalent to an
+    /// Copy-assigns and creates a new inter-communicator which is equivalent to an
     /// existing one.
     /// \param other the other inter-communicator to copy from
     /// \return this inter-communicator
@@ -4782,7 +4782,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Move-assigns an inter-communicator.
+    /// Move-assigns an inter-communicator.
     /// \param other the other inter-communicator to move from
     /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes local
@@ -4793,16 +4793,16 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Determines the total number of processes in the local group of an
+    /// Determines the total number of processes in the local group of an
     /// inter-communicator.
     /// \return number of processes
     [[nodiscard]] int size() const { return base::size(); }
 
-    /// \brief Determines the rank within the local group of an inter-communicator.
+    /// Determines the rank within the local group of an inter-communicator.
     /// \return the rank of the calling process in the inter-communicator
     [[nodiscard]] int rank() const { return base::rank(); }
 
-    /// \brief Determines the total number of processes in the remote group of an
+    /// Determines the total number of processes in the remote group of an
     /// inter-communicator.
     /// \return number of processes
     [[nodiscard]] int remote_size() const {
@@ -4811,17 +4811,17 @@ namespace mpl {
       return result;
     }
 
-    /// \brief Tests for identity of inter-communicators.
+    /// Tests for identity of inter-communicators.
     /// \param other inter-communicator to compare with
     /// \return true if identical
     bool operator==(const communicator &other) const { return base::operator==(other); }
 
-    /// \brief Tests for identity of inter-communicators.
+    /// Tests for identity of inter-communicators.
     /// \param other inter-communicator to compare with
     /// \return true if not identical
     bool operator!=(const communicator &other) const { return base::operator!=(other); }
 
-    /// \brief Equality types for inter-communicator comparison.
+    /// Equality types for inter-communicator comparison.
     enum class equality_type {
       /// inter-communicators are identical, i.e., inter-communicators represent the same
       /// inter-communication context with the identical local and remote groups
@@ -4850,7 +4850,7 @@ namespace mpl {
     /// remote groups
     static constexpr equality_type unequal = equality_type::unequal;
 
-    /// \brief Compares to another inter-communicator.
+    /// Compares to another inter-communicator.
     /// \param other inter-communicator to compare with
     /// \return equality type
     [[nodiscard]] equality_type compare(const communicator &other) const {

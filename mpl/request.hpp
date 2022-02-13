@@ -222,7 +222,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Represents a non-blocking communication request.
+  /// Represents a non-blocking communication request.
   class irequest : public impl::base_request<impl::base_irequest> {
     using base = impl::base_request<impl::base_irequest>;
     using base::req;
@@ -247,7 +247,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Container for managing a list of non-blocking communication requests.
+  /// Container for managing a list of non-blocking communication requests.
   class irequest_pool : public impl::request_pool<irequest> {
     using base = impl::request_pool<irequest>;
 
@@ -269,7 +269,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Represents a persistent communication request.
+  /// Represents a persistent communication request.
   class prequest : public impl::base_request<impl::base_prequest> {
     using base = impl::base_request<impl::base_prequest>;
     using base::req;
@@ -296,7 +296,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Container for managing a list of persisting communication requests.
+  /// Container for managing a list of persisting communication requests.
   class prequest_pool : public impl::request_pool<prequest> {
     using base = impl::request_pool<prequest>;
     using base::reqs;

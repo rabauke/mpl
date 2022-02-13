@@ -11,10 +11,10 @@
 
 namespace mpl {
 
-/// \brief Communicator with general graph topology.
+/// Communicator with general graph topology.
   class graph_communicator : public impl::topology_communicator {
   public:
-    /// \brief Set of edges, pairs of nodes represented by non-negative integers.
+    /// Set of edges, pairs of nodes represented by non-negative integers.
     class edge_set : private std::set<std::tuple<int, int>> {
       using base = std::set<std::tuple<int, int>>;
 
@@ -25,11 +25,11 @@ namespace mpl {
       using iterator = typename base::iterator;
       using const_iterator = typename base::const_iterator;
 
-      /// \brief Creates an empty set of edges.
+      /// Creates an empty set of edges.
       edge_set() = default;
 
 
-      /// \brief Creates a set of edges given by the list.
+      /// Creates a set of edges given by the list.
       /// \param init set of edges
       edge_set(std::initializer_list<value_type> init) : base(init) {}
 
@@ -39,17 +39,17 @@ namespace mpl {
       using base::cbegin;
       using base::cend;
 
-      /// \brief Determines the number edges.
+      /// Determines the number edges.
       /// \return number of edges in the edge set
       [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
 
-      /// \brief Add an additional edge to the set.
+      /// Add an additional edge to the set.
       /// \param edge tuple of two non-negative integers
       void add(const value_type &edge) { insert(edge); }
     };
 
 
-    /// \brief Set of nodes represented by integers.
+    /// Set of nodes represented by integers.
     class node_list : private std::vector<int> {
       using base = std::vector<int>;
       using base::data;
@@ -61,14 +61,14 @@ namespace mpl {
       using iterator = typename base::iterator;
       using const_iterator = typename base::const_iterator;
 
-      /// \brief Creates an empty node list.
+      /// Creates an empty node list.
       node_list() = default;
 
-      /// \brief Creates non-empty list of nodes.
+      /// Creates non-empty list of nodes.
       /// \param nodes number of elements of the node list
       explicit node_list(int nodes) : base(nodes, 0) {}
 
-      /// \brief Creates non-empty list of nodes with nodes given by the list.
+      /// Creates non-empty list of nodes with nodes given by the list.
       /// \param init vector components
       node_list(std::initializer_list<int> init) : base(init) {}
 
@@ -78,19 +78,19 @@ namespace mpl {
       using base::cbegin;
       using base::cend;
 
-      /// \brief Determines the number of nodes.
+      /// Determines the number of nodes.
       /// \return number of nodes in the list
       [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
 
-      /// \brief Access a list element.
+      /// Access a list element.
       /// \param index non-negative index to the list element
       reference operator[](int index) { return base::operator[](index); }
 
-      /// \brief Access a list element.
+      /// Access a list element.
       /// \param index non-negative index to the list element
       const_reference operator[](int index) const { return base::operator[](index); }
 
-      /// \brief Add an additional element to the end of the node list.
+      /// Add an additional element to the end of the node list.
       /// \param node the node that is added
       void add(int node) { push_back(node); }
 
@@ -98,10 +98,10 @@ namespace mpl {
     };
 
 
-    /// \brief Creates an empty communicator with no associated process.
+    /// Creates an empty communicator with no associated process.
     graph_communicator() = default;
 
-    /// \brief Creates a new communicator which is equivalent to an existing one.
+    /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other. Communicators should not be copied unless a new independent
@@ -111,14 +111,14 @@ namespace mpl {
       MPI_Comm_dup(other.comm_, &comm_);
     }
 
-    /// \brief Move-constructs a communicator.
+    /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     graph_communicator(graph_communicator &&other) noexcept {
       comm_ = other.comm_;
       other.comm_ = MPI_COMM_SELF;
     }
 
-    /// \brief Creates a new communicator with graph process topology.
+    /// Creates a new communicator with graph process topology.
     /// \param other communicator containing the processes to use in the creation of the new
     /// communicator
     /// \param edges represents graph edges of the new communicator
@@ -148,7 +148,7 @@ namespace mpl {
       MPI_Graph_create(other.comm_, nodes, index.data(), edges_list.data(), reorder, &comm_);
     }
 
-    /// \brief Copy-assigns and creates a new communicator with graph process topology which
+    /// Copy-assigns and creates a new communicator with graph process topology which
     /// is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
@@ -170,7 +170,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Move-assigns a communicator.
+    /// Move-assigns a communicator.
     /// \param other the other communicator to move from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
@@ -188,7 +188,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Determines the number of neighbours of some process.
+    /// Determines the number of neighbours of some process.
     /// \param rank process rank
     /// \return number of direct neighbours of the process with the given rank
     [[nodiscard]] int degree(int rank) const {
@@ -197,11 +197,11 @@ namespace mpl {
       return n_neighbors;
     };
 
-    /// \brief Determines the number of neighbours of the calling process.
+    /// Determines the number of neighbours of the calling process.
     /// \return number of direct neighbours of the calling process
     [[nodiscard]] int degree() const { return degree(rank()); };
 
-    /// \brief Determines the neighbours of some process.
+    /// Determines the neighbours of some process.
     /// \param rank process rank
     /// \return direct neighbours of the process with the given rank
     [[nodiscard]] node_list neighbors(int rank) const {
@@ -211,13 +211,13 @@ namespace mpl {
       return nl;
     }
 
-    /// \brief Determines the neighbours of the calling process.
+    /// Determines the neighbours of the calling process.
     /// \return direct neighbours of the calling process
     [[nodiscard]] node_list neighbors() const { return neighbors(rank()); }
   };
 
 
-  /// \brief Equality test for node lists.
+  /// Equality test for node lists.
   /// \param l_1 1st node list to compare
   /// \param l_2 2nd node list to compare
   /// \return true if equal
@@ -227,8 +227,8 @@ namespace mpl {
   }
 
 
-  /// \brief Inequality test for node lists.
-  /// \brief Equality test for node lists.
+  /// Inequality test for node lists.
+  /// Equality test for node lists.
   /// \param l_1 1st node list to compare
   /// \param l_2 2nd node list to compare
   /// \return true if not equal

@@ -13,15 +13,15 @@
 
 namespace mpl {
 
-  /// \brief Communicator with general graph topology.
+  /// Communicator with general graph topology.
   class distributed_graph_communicator : public impl::topology_communicator {
   public:
-    /// \brief Pair of rank and weight.
+    /// Pair of rank and weight.
     class rank_weight_pair {
     public:
       int rank{0};
       int weight{0};
-      /// \brief Creates a rank-weight pair.
+      /// Creates a rank-weight pair.
       rank_weight_pair(int rank, int weight = 0) : rank{rank}, weight{weight} {}
     };
 
@@ -37,7 +37,7 @@ namespace mpl {
     };
 
   public:
-    /// \brief Set of edges, pairs of nodes represented by non-negative integers.
+    /// Set of edges, pairs of nodes represented by non-negative integers.
     class neighbours_set : private std::set<rank_weight_pair, less_weights> {
       using base = std::set<rank_weight_pair, less_weights>;
 
@@ -48,11 +48,11 @@ namespace mpl {
       using iterator = typename base::iterator;
       using const_iterator = typename base::const_iterator;
 
-      /// \brief Creates an empty set of edges.
+      /// Creates an empty set of edges.
       neighbours_set() = default;
 
 
-      /// \brief Creates a set of edges given by the list.
+      /// Creates a set of edges given by the list.
       /// \param init set of edges
       neighbours_set(std::initializer_list<value_type> init) : base(init) {}
 
@@ -62,20 +62,20 @@ namespace mpl {
       using base::cbegin;
       using base::cend;
 
-      /// \brief Determines the number edges.
+      /// Determines the number edges.
       /// \return number of edges in the edge set
       [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
 
-      /// \brief Add an additional edge to the set.
+      /// Add an additional edge to the set.
       /// \param edge tuple of two non-negative integers
       void add(const value_type &edge) { insert(edge); }
     };
 
 
-    /// \brief Creates an empty communicator with no associated process.
+    /// Creates an empty communicator with no associated process.
     distributed_graph_communicator() = default;
 
-    /// \brief Creates a new communicator which is equivalent to an existing one.
+    /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other. Communicators should not be copied unless a new independent
@@ -85,14 +85,14 @@ namespace mpl {
       MPI_Comm_dup(other.comm_, &comm_);
     }
 
-    /// \brief Move-constructs a communicator.
+    /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     distributed_graph_communicator(distributed_graph_communicator &&other) noexcept {
       comm_ = other.comm_;
       other.comm_ = MPI_COMM_SELF;
     }
 
-    /// \brief Creates a new communicator with graph process topology.
+    /// Creates a new communicator with graph process topology.
     /// \param other communicator containing the processes to use in the creation of the new
     /// communicator
     /// \param sources ranks and associated weights of processes for which the calling process
@@ -134,7 +134,7 @@ namespace mpl {
                                      MPI_INFO_NULL, reorder, &comm_);
     }
 
-    /// \brief Copy-assigns and creates a new communicator with graph process topology which
+    /// Copy-assigns and creates a new communicator with graph process topology which
     /// is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
@@ -157,7 +157,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Move-assigns a communicator.
+    /// Move-assigns a communicator.
     /// \param other the other communicator to move from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
@@ -175,7 +175,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Determines the number of edges into and out of this process.
+    /// Determines the number of edges into and out of this process.
     /// \return in- and out-degree
     [[nodiscard]] std::tuple<int, int> in_out_degree() const {
       int t_in_degree, t_out_degree, t_weighted;
@@ -183,15 +183,15 @@ namespace mpl {
       return {t_in_degree, t_out_degree};
     };
 
-    /// \brief Determines the number of edges into this process.
+    /// Determines the number of edges into this process.
     /// \return in-degree
     [[nodiscard]] int in_degree() const { return std::get<0>(in_out_degree()); };
 
-    /// \brief Determines the number of edges out of this process.
+    /// Determines the number of edges out of this process.
     /// \return out-degree
     [[nodiscard]] int out_degree() const { return std::get<1>(in_out_degree()); };
 
-    /// \brief Determines the ranks of the processes for which the calling process is a
+    /// Determines the ranks of the processes for which the calling process is a
     /// destination.
     /// \return in-neighbours with associated weights
     [[nodiscard]] neighbours_set in_neighbors() const {
@@ -206,7 +206,7 @@ namespace mpl {
       return neighbours;
     }
 
-    /// \brief Determines the ranks of the processes for which the calling process is a
+    /// Determines the ranks of the processes for which the calling process is a
     /// source.
     /// \return out-neighbours with associated weights
     [[nodiscard]] neighbours_set out_neighbors() const {
@@ -222,7 +222,7 @@ namespace mpl {
     }
   };
 
-  /// \brief Checks if rank-weight pair is equal.
+  /// Checks if rank-weight pair is equal.
   /// \param pair_1 1st rank-weight pair to compare
   /// \param pair_2 2nd rank-weight pair to compare
   /// \return true if equal
@@ -231,7 +231,7 @@ namespace mpl {
     return pair_1.rank == pair_2.rank and pair_1.weight == pair_2.weight;
   }
 
-  /// \brief Checks if rank-weight pair is not equal.
+  /// Checks if rank-weight pair is not equal.
   /// \param pair_1 1st rank-weight pair to compare
   /// \param pair_2 2nd rank-weight pair to compare
   /// \return true if not equal

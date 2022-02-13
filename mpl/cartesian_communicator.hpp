@@ -10,7 +10,7 @@
 
 namespace mpl {
 
-  /// \brief Helper class to represent source and destination ranks within a Cartesian
+  /// Helper class to represent source and destination ranks within a Cartesian
   /// communicator.
   /// \see cartesian_communicator::shift
   struct shift_ranks {
@@ -20,15 +20,13 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Communicator with Cartesian topology.
+  /// Communicator with Cartesian topology.
   class cartesian_communicator : public impl::topology_communicator {
   public:
-    /// \brief Periodicity indicator for a dimension in a Cartesian process topology.
+    /// Periodicity indicator for a dimension in a Cartesian process topology.
     enum class periodicity_tag {
-      /// dimension is non-periodic
-      non_periodic,
-      /// dimension is periodic
-      periodic
+      non_periodic,  ///< dimension is non-periodic
+      periodic       ///< dimension is periodic
     };
 
     /// indicates that a dimension in a Cartesian process topology is non-periodic
@@ -37,13 +35,11 @@ namespace mpl {
     static constexpr periodicity_tag periodic = periodicity_tag::periodic;
 
 
-    /// \brief Inclusion indicator that is employed when creating a new communicator with
+    /// Inclusion indicator that is employed when creating a new communicator with
     /// Cartesian process topology
     enum class included_tag : int {
-      /// dimension is excluded from the new communicator
-      excluded = 0,
-      /// dimension is included in the new communicator
-      included = 1
+      excluded = 0,  ///< dimension is excluded from the new communicator
+      included = 1   ///< dimension is included in the new communicator
     };
 
     /// indicates that a dimension is excluded from the new communicator
@@ -52,7 +48,7 @@ namespace mpl {
     static constexpr included_tag included = included_tag::included;
 
 
-    /// \brief Represents a discrete position in a Cartesian process topology.
+    /// Represents a discrete position in a Cartesian process topology.
     class vector : private std::vector<int> {
       using base = std::vector<int>;
       using base::data;
@@ -64,14 +60,14 @@ namespace mpl {
       using iterator = typename base::iterator;
       using const_iterator = typename base::const_iterator;
 
-      /// \brief Creates a zero-dimensional vector.
+      /// Creates a zero-dimensional vector.
       vector() = default;
 
-      /// \brief Creates a multi-dimensional vector with components equal to zero.
+      /// Creates a multi-dimensional vector with components equal to zero.
       /// \param dimension number of elements of the new vector
       explicit vector(int dimension) : base(dimension, 0) {}
 
-      /// \brief Creates a multi-dimensional vector with components given by the list.
+      /// Creates a multi-dimensional vector with components given by the list.
       /// \param init vector components
       vector(std::initializer_list<int> init) : base(init) {}
 
@@ -81,19 +77,19 @@ namespace mpl {
       using base::cbegin;
       using base::cend;
 
-      /// \brief Determines the number of dimensions.
+      /// Determines the number of dimensions.
       /// \return dimensionality, number of elements in the vector
       [[nodiscard]] int dimensions() const { return static_cast<int>(base::size()); }
 
-      /// \brief Access a vector element.
+      /// Access a vector element.
       /// \param index non-negative index to the vector element
       reference operator[](int index) { return base::operator[](index); }
 
-      /// \brief Access a vector element.
+      /// Access a vector element.
       /// \param index non-negative index to the vector element
       const_reference operator[](int index) const { return base::operator[](index); }
 
-      /// \brief Add an additional element to the end of the vector.
+      /// Add an additional element to the end of the vector.
       /// \param coordinate value of the new vector element
       void add(int coordinate) { push_back(coordinate); }
 
@@ -101,7 +97,7 @@ namespace mpl {
     };
 
 
-    /// \brief Represents the inclusion or exclusion along all dimensions of a Cartesian
+    /// Represents the inclusion or exclusion along all dimensions of a Cartesian
     /// process topology when creating an new communicator.
     class included_tags : private std::vector<included_tag> {
       using base = std::vector<included_tag>;
@@ -114,14 +110,14 @@ namespace mpl {
       using iterator = typename base::iterator;
       using const_iterator = typename base::const_iterator;
 
-      /// \brief Creates an empty inclusion tags list.
+      /// Creates an empty inclusion tags list.
       included_tags() = default;
 
-      /// \brief Creates a non-empty inclusion tags list with default values excluded.
+      /// Creates a non-empty inclusion tags list with default values excluded.
       /// \param dimension number of elements of the new list
       explicit included_tags(int dimension) : base(dimension, included_tag::excluded) {}
 
-      /// \brief Creates a non-empty inclusion tags list with values given by the list.
+      /// Creates a non-empty inclusion tags list with values given by the list.
       /// \param init exclusion or inclusion tags
       included_tags(std::initializer_list<included_tag> init) : base(init) {}
 
@@ -131,19 +127,19 @@ namespace mpl {
       using base::cbegin;
       using base::cend;
 
-      /// \brief Determines the number of inclusion tags.
+      /// Determines the number of inclusion tags.
       /// \return dimensionality, number of elements in the vector
       [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
 
-      /// \brief Access list element.
+      /// Access list element.
       /// \param index non-negative index to list element
       reference operator[](int index) { return base::operator[](index); }
 
-      /// \brief Access list element.
+      /// Access list element.
       /// \param index non-negative index to list element
       const_reference operator[](int index) const { return base::operator[](index); }
 
-      /// \brief Add an additional element to the end of the vector.
+      /// Add an additional element to the end of the vector.
       /// \param is_included value of the new vector element
       void add(included_tag is_included) { push_back(is_included); }
 
@@ -151,7 +147,7 @@ namespace mpl {
     };
 
 
-    /// \brief Characterizes the dimensionality, size and periodicity of a communicator with
+    /// Characterizes the dimensionality, size and periodicity of a communicator with
     /// Cartesian process topology.
     class dimensions {
       std::vector<int> dims_, periodic_;
@@ -199,7 +195,7 @@ namespace mpl {
       using const_reference = std::tuple<int, periodicity_tag>;
 
 
-      /// \brief Iterator class for non-constant access.
+      /// Iterator class for non-constant access.
       class iterator {
         dimensions *dimensions_{nullptr};
         int index_{0};
@@ -236,7 +232,7 @@ namespace mpl {
       };
 
 
-      /// \brief Iterator class for constant access.
+      /// Iterator class for constant access.
       class const_iterator {
         const dimensions *dimensions_{nullptr};
         int index_{0};
@@ -273,10 +269,10 @@ namespace mpl {
         };
       };
 
-      /// \brief Constructs a new empty dimensions object.
+      /// Constructs a new empty dimensions object.
       dimensions() = default;
 
-      /// \brief Constructs a new dimensions object.
+      /// Constructs a new dimensions object.
       /// \param size dimensionality (number of Cartesian dimensions)
       /// \details Characterizes a communicator with Cartesian process topology. Its dimension
       /// equals the give parameter. Along all dimensions, no periodicity is defined.  The size,
@@ -285,7 +281,7 @@ namespace mpl {
       /// \ref dims_create before a new Cartesian communicator can be created.
       explicit dimensions(int size) : dims_(size, 0), periodic_(size, 0) {}
 
-      /// \brief Constructs a new dimensions object.
+      /// Constructs a new dimensions object.
       /// \details Characterizes a communicator with Cartesian process topology. Its dimension
       /// equals the number of list elements. The periodicity along the i-th dimension is given
       /// by the i-th list element.  The size, i.e., the number of processes, along each
@@ -297,7 +293,7 @@ namespace mpl {
           add(0, the_periodicity);
       }
 
-      /// \brief Constructs a new dimensions object.
+      /// Constructs a new dimensions object.
       /// \details Characterizes a communicator with Cartesian process topology. Its dimension
       /// equals the number of list elements. The size and the periodicity along the i-th
       /// dimension is given by the i-th list element.
@@ -309,7 +305,7 @@ namespace mpl {
         }
       }
 
-      /// \brief Adds a additional dimension to a list of dimensions.
+      /// Adds a additional dimension to a list of dimensions.
       /// \param size the size of the new dimension
       /// \param periodicity the periodicity of the new dimension
       void add(int size, periodicity_tag periodicity) {
@@ -317,23 +313,23 @@ namespace mpl {
         periodic_.push_back(periodicity == periodicity_tag::periodic);
       }
 
-      /// \brief Determines the dimensionality.
+      /// Determines the dimensionality.
       /// \return dimensionality (number of dimensions)
       [[nodiscard]] int dimensionality() const { return static_cast<int>(dims_.size()); }
 
-      /// \brief Determines the number of processes along a dimension.
+      /// Determines the number of processes along a dimension.
       /// \param dimension the rank of the dimension
       /// \return the number of processes
       [[nodiscard]] int size(int dimension) const { return dims_[dimension]; }
 
-      /// \brief Determines the periodicity of a dimension.
+      /// Determines the periodicity of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the periodicity
       [[nodiscard]] periodicity_tag periodicity(int dimension) const {
         return periodic_[dimension] == 0 ? non_periodic : periodic;
       }
 
-      /// \brief Determines number of processes along a dimension and the periodicity of a
+      /// Determines number of processes along a dimension and the periodicity of a
       /// dimension.
       /// \param dimension the rank of the dimension
       /// \return the number of processes and the periodicity
@@ -341,7 +337,7 @@ namespace mpl {
         return {dims_[dimension], periodicity(dimension)};
       }
 
-      /// \brief Determines number of processes along a dimension and the periodicity of a
+      /// Determines number of processes along a dimension and the periodicity of a
       /// dimension.
       /// \param dimension the rank of the dimension
       /// \return the number of processes and the periodicity
@@ -365,10 +361,10 @@ namespace mpl {
     };
 
 
-    /// \brief Creates an empty communicator with no associated process.
+    /// Creates an empty communicator with no associated process.
     cartesian_communicator() = default;
 
-    /// \brief Creates a new communicator which is equivalent to an existing one.
+    /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other. Communicators should not be copied unless a new independent
@@ -378,7 +374,7 @@ namespace mpl {
       MPI_Comm_dup(other.comm_, &comm_);
     }
 
-    /// \brief Creates a new communicator with Cartesian process topology.
+    /// Creates a new communicator with Cartesian process topology.
     /// \param other communicator containing the processes to use in the creation of the new
     /// communicator
     /// \param dims represents the dimensional information of the process grid
@@ -392,7 +388,7 @@ namespace mpl {
                       reorder, &comm_);
     }
 
-    /// \brief Creates a new communicator with Cartesian process topology by partitioning a
+    /// Creates a new communicator with Cartesian process topology by partitioning a
     /// Cartesian topology.
     /// \param other communicator containing the processes to use in the creation of the new
     /// communicator
@@ -408,14 +404,14 @@ namespace mpl {
       MPI_Cart_sub(other.comm_, reinterpret_cast<const int *>(is_included.data()), &comm_);
     }
 
-    /// \brief Move-constructs a communicator.
+    /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     cartesian_communicator(cartesian_communicator &&other) noexcept {
       comm_ = other.comm_;
       other.comm_ = MPI_COMM_SELF;
     }
 
-    /// \brief Copy-assigns and creates a new communicator with Cartesian process topology which
+    /// Copy-assigns and creates a new communicator with Cartesian process topology which
     /// is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
@@ -437,7 +433,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Move-assigns a communicator.
+    /// Move-assigns a communicator.
     /// \param other the other communicator to move from
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator other.
@@ -454,7 +450,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief Determines the communicator's dimensionality.
+    /// Determines the communicator's dimensionality.
     /// \return number of dimensions of the Cartesian topology
     [[nodiscard]] int dimensionality() const {
       int t_dimensionality{0};
@@ -464,7 +460,7 @@ namespace mpl {
 
     using communicator::rank;
 
-    /// \brief Determines process rank of a process at a given Cartesian location.
+    /// Determines process rank of a process at a given Cartesian location.
     /// \param coordinate Cartesian location
     /// \return process rank
     [[nodiscard]] int rank(const vector &coordinate) const {
@@ -473,7 +469,7 @@ namespace mpl {
       return t_rank;
     }
 
-    /// \brief Determines the Cartesian location of a process with a given rank.
+    /// Determines the Cartesian location of a process with a given rank.
     /// \param rank process rank
     /// \return Cartesian location
     [[nodiscard]] vector coordinates(int rank) const {
@@ -482,7 +478,7 @@ namespace mpl {
       return coordinates;
     }
 
-    /// \brief Determines the Cartesian location of this process.
+    /// Determines the Cartesian location of this process.
     /// \return Cartesian location
     [[nodiscard]] vector coordinates() const {
       const int t_dimensionality{dimensionality()};
@@ -493,7 +489,7 @@ namespace mpl {
       return t_coordinate;
     }
 
-    /// \brief Determines the size and the periodicity of each dimension of the communicator
+    /// Determines the size and the periodicity of each dimension of the communicator
     /// with Cartesian topology. \return size and periodicity of each dimension
     [[nodiscard]] dimensions get_dimensions() const {
       const int t_dimensionality{dimensionality()};
@@ -504,7 +500,7 @@ namespace mpl {
       return t_dimensions;
     }
 
-    /// \brief Finds the ranks of processes that can be reached by shifting the Cartesian grid.
+    /// Finds the ranks of processes that can be reached by shifting the Cartesian grid.
     /// \param direction shift direction
     /// \param displacement shift size
     /// \details This method permits to find the two processes that would respectively reach,
@@ -521,7 +517,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Decomposes a given number of processes over a Cartesian grid made of the number of
+  /// Decomposes a given number of processes over a Cartesian grid made of the number of
   /// dimensions specified.
   /// \param size total number of processes (the size of the communicator)
   /// \param dims dimension object indicating possible restrictions for the process partitioning

@@ -54,7 +54,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief layout class for storing meta information about the public members of structures
+  /// layout class for storing meta information about the public members of structures
   /// \tparam S the struct or class type, the public members of which are managed
   template<typename S>
   class struct_layout {
@@ -124,7 +124,7 @@ namespace mpl {
     std::vector<MPI_Datatype> data_types_;
 
   public:
-    /// \brief starts to register a struct type
+    /// starts to register a struct type
     /// \param x an instance of type S (the template parameter of class \ref struct_layout
     /// \return reference to this struct_layout object (allows chaining)
     struct_layout &register_struct(const S &x) {
@@ -132,7 +132,7 @@ namespace mpl {
       return *this;
     }
 
-    /// \brief registers a struct member
+    /// registers a struct member
     /// \param x a member of an instance of type S (the template parameter of class \ref
     /// struct_layout
     /// \return reference to this struct_layout object (allows chaining)
@@ -153,7 +153,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Base class used to manage information about structures/classes and their public
+  /// Base class used to manage information about structures/classes and their public
   /// members.
   /// \tparam T the structure or class type
   /// \see struct_builder
@@ -189,7 +189,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Template class used to manage information about structures/classes and their public
+  /// Template class used to manage information about structures/classes and their public
   /// members
   /// \tparam T the structure or class type
   /// \note This template class needs to be specialized for each structure/class type that shall
@@ -204,7 +204,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Specialization of \ref struct_builder for STL pairs.
+  /// Specialization of \ref struct_builder for STL pairs.
   /// \tparam T1 type of first member of the STL pair
   /// \tparam T2 type of second member of the STL pair
   /// \see struct_builder
@@ -272,7 +272,7 @@ namespace mpl {
 
   }  // namespace detail
 
-  /// \brief Specialization of \ref struct_builder for STL tuples.
+  /// Specialization of \ref struct_builder for STL tuples.
   /// \tparam Ts parameter pack representing the types of the members of the STL tuple
   /// \see struct_builder
   template<typename... Ts>
@@ -293,7 +293,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Specialization of \ref struct_builder for fixed-size one-dimensional C-style
+  /// Specialization of \ref struct_builder for fixed-size one-dimensional C-style
   /// arrays.
   /// \tparam T type of the array elements
   /// \tparam N0 array size
@@ -312,7 +312,7 @@ namespace mpl {
     }
   };
 
-  /// \brief Specialization of \ref struct_builder for fixed-size two-dimensional C-style
+  /// Specialization of \ref struct_builder for fixed-size two-dimensional C-style
   /// arrays.
   /// \tparam T type of the array elements
   /// \tparam N0 array size, first dimension
@@ -332,7 +332,7 @@ namespace mpl {
     }
   };
 
-  /// \brief Specialization of \ref struct_builder for fixed-size three-dimensional C-style
+  /// Specialization of \ref struct_builder for fixed-size three-dimensional C-style
   /// arrays.
   /// \tparam T type of the array elements
   /// \tparam N0 array size, first dimension
@@ -353,7 +353,7 @@ namespace mpl {
     }
   };
 
-  /// \brief Specialization of \ref struct_builder for fixed-size four-dimensional C-style
+  /// Specialization of \ref struct_builder for fixed-size four-dimensional C-style
   /// arrays.
   /// \tparam T type of the array elements
   /// \tparam N0 array size, first dimension
@@ -377,7 +377,7 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// \brief Specialization of \ref struct_builder for fixed-size one-dimensional STL arrays.
+  /// Specialization of \ref struct_builder for fixed-size one-dimensional STL arrays.
   /// \tparam T type of the array elements
   /// \tparam N array size
   /// \see struct_builder

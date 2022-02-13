@@ -8,7 +8,7 @@
 
 namespace mpl {
 
-  /// \brief Indicates the beginning of data buffers in various collective communication
+  /// Indicates the beginning of data buffers in various collective communication
   /// operations.
   class displacements : private std::vector<MPI_Aint> {
     using base = std::vector<MPI_Aint>;
@@ -19,18 +19,18 @@ namespace mpl {
     using base::iterator;
     using base::const_iterator;
 
-    /// \brief Constructs a set of displacements with displacement zero.
+    /// Constructs a set of displacements with displacement zero.
     /// \param n number of displacements
     explicit displacements(size_type n = 0) : base(n, 0) {}
 
-    /// \brief Constructs a set of displacements with given displacements.
+    /// Constructs a set of displacements with given displacements.
     /// \param init initial displacements
     explicit displacements(std::initializer_list<MPI_Aint> init) : base(init) {}
 
-    /// \brief Copy constructor.
+    /// Copy constructor.
     /// \param other the other set of displacements to copy from
     displacements(const displacements &other) = default;
-    /// \brief Move constructor.
+    /// Move constructor.
     /// \param other the other set of displacements to move from
     displacements(displacements &&other) = default;
 
@@ -44,7 +44,7 @@ namespace mpl {
     using base::push_back;
     using base::resize;
 
-    /// \brief Get raw displacement data.
+    /// Get raw displacement data.
     /// \return pointer to array of displacements
     const MPI_Aint *operator()() const { return base::data(); }
   };
