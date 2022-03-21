@@ -183,6 +183,12 @@ namespace mpl {
       return *this;
     }
 
+    /// Get the underlying MPI handle of the group.
+    /// \return MPI handle of the group
+    /// \note This function return a non-owning handle to the underlying MPI group, which may be
+    /// useful when refactoring legacy MPI applications to MPL.
+    [[nodiscard]] MPI_Group native_handle() { return gr_; }
+
     /// Determines the total number of processes in a process group.
     /// \return number of processes
     [[nodiscard]] int size() const {
@@ -471,6 +477,12 @@ namespace mpl {
       }
 
     public:
+      /// Get the underlying MPI handle of the communicator.
+      /// \return MPI handle of the communicator
+      /// \note This function return a non-owning handle to the underlying MPI communicator,
+      /// which may be useful when refactoring legacy MPI applications to MPL.
+      [[nodiscard]] MPI_Comm native_handle() { return comm_; }
+
       /// Checks if a communicator is valid, i.e., is not an empty communicator with no
       /// associated process.
       /// \return true if communicator is valid
