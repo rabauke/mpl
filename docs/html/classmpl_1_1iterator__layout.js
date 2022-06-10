@@ -14,6 +14,7 @@ var classmpl_1_1iterator__layout =
     [ "byte_upper_bound", "classmpl_1_1iterator__layout.html#a9aea61b5ce92681aee5df4a61672c02b", null ],
     [ "extent", "classmpl_1_1iterator__layout.html#abce0f3197d6b2252c951535b443d7d5e", null ],
     [ "lower_bound", "classmpl_1_1iterator__layout.html#a5eb103b30a8ddabfa28e70030a7c8e11", null ],
+    [ "native_handle", "classmpl_1_1iterator__layout.html#af2c87e4dfa2ba23bbedeb18bc38dc9e0", null ],
     [ "operator=", "classmpl_1_1iterator__layout.html#ab8bedf7645837efd22d0197749e8eb8d", null ],
     [ "operator=", "classmpl_1_1iterator__layout.html#ac80c19464fd5b48ceb62ac7592619f32", null ],
     [ "resize", "classmpl_1_1iterator__layout.html#ab0a15251c4fd7bc10630bb9f00a392c4", null ],

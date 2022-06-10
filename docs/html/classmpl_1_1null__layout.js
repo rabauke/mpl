@@ -9,6 +9,7 @@ var classmpl_1_1null__layout =
     [ "byte_upper_bound", "classmpl_1_1null__layout.html#a9aea61b5ce92681aee5df4a61672c02b", null ],
     [ "extent", "classmpl_1_1null__layout.html#abce0f3197d6b2252c951535b443d7d5e", null ],
     [ "lower_bound", "classmpl_1_1null__layout.html#a5eb103b30a8ddabfa28e70030a7c8e11", null ],
+    [ "native_handle", "classmpl_1_1null__layout.html#af2c87e4dfa2ba23bbedeb18bc38dc9e0", null ],
     [ "resize", "classmpl_1_1null__layout.html#ab0a15251c4fd7bc10630bb9f00a392c4", null ],
     [ "swap", "classmpl_1_1null__layout.html#ab57eff0aeed0dee1e02bcfbec750d79f", null ],
     [ "swap", "classmpl_1_1null__layout.html#aa902f79f8f54981548bfd7d74c11ec44", null ],

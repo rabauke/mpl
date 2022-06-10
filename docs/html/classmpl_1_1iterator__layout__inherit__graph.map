@@ -1,4 +1,4 @@
 <map id="mpl::iterator_layout&lt; T &gt;" name="mpl::iterator_layout&lt; T &gt;">
-<area shape="rect" id="node1" title="Layout representing data at non&#45;consecutive memory locations, which can be addressed via an iterator." alt="" coords="5,485,277,727"/>
-<area shape="rect" id="node2" href="$classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,437"/>
+<area shape="rect" id="node1" title="Layout representing data at non&#45;consecutive memory locations, which can be addressed via an iterator." alt="" coords="5,503,277,744"/>
+<area shape="rect" id="node2" href="$classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,455"/>
 </map>

@@ -72,6 +72,7 @@ var hierarchy =
     [ "mpl::group", "classmpl_1_1group.html", null ],
     [ "mpl::impl::base_communicator::group_collective_tag", "classmpl_1_1impl_1_1base__communicator_1_1group__collective__tag.html", null ],
     [ "mpl::group::include_tag", "classmpl_1_1group_1_1include__tag.html", null ],
+    [ "mpl::info", "classmpl_1_1info.html", null ],
     [ "mpl::group::intersection_tag", "classmpl_1_1group_1_1intersection__tag.html", null ],
     [ "mpl::cartesian_communicator::dimensions::iterator", "classmpl_1_1cartesian__communicator_1_1dimensions_1_1iterator.html", null ],
     [ "mpl::layout< T >", "classmpl_1_1layout.html", [

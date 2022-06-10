@@ -1,4 +1,4 @@
 <map id="mpl::subarray_layout&lt; T &gt;" name="mpl::subarray_layout&lt; T &gt;">
-<area shape="rect" id="node1" title="Layout representing data of a subset multi dimensional array." alt="" coords="5,485,277,692"/>
-<area shape="rect" id="node2" href="$classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,437"/>
+<area shape="rect" id="node1" title="Layout representing data of a subset multi dimensional array." alt="" coords="5,503,277,709"/>
+<area shape="rect" id="node2" href="$classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,455"/>
 </map>

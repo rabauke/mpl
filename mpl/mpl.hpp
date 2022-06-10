@@ -51,6 +51,7 @@ namespace mpl {
 #include <mpl/message.hpp>
 #include <mpl/operator.hpp>
 #include <mpl/request.hpp>
+#include <mpl/info.hpp>
 #include <mpl/comm_group.hpp>
 #include <mpl/environment.hpp>
 #include <mpl/topology_communicator.hpp>

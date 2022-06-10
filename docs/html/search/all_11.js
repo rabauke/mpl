@@ -1,9 +1,19 @@
 var searchData=
 [
-  ['undefined_0',['undefined',['../namespacempl.html#a551ed45948e628d93f6669b4cb01e750',1,'mpl']]],
-  ['unequal_1',['unequal',['../classmpl_1_1group.html#a1d1766424b26d5f157ff02a0044aaafd',1,'mpl::group::unequal()'],['../classmpl_1_1communicator.html#a10097f544da37d6c9c73606409ed151a',1,'mpl::communicator::unequal()'],['../classmpl_1_1inter__communicator.html#a8259497d456b0a8210532a14f53821ad',1,'mpl::inter_communicator::unequal()'],['../classmpl_1_1group.html#a78eb3d59b04c2e989ea52c60d39ffa69ab4f45c85d7e3269abe7f894d94bf0f29',1,'mpl::group::unequal()'],['../classmpl_1_1communicator.html#af66054a704ac25557aa25b356e8abd63ab4f45c85d7e3269abe7f894d94bf0f29',1,'mpl::communicator::unequal()'],['../classmpl_1_1inter__communicator.html#adeee3083288b00737e4e0a658bdc038cab4f45c85d7e3269abe7f894d94bf0f29',1,'mpl::inter_communicator::unequal()']]],
-  ['union_2',['Union',['../classmpl_1_1group.html#a048489f7dcb5dfd61ed0d874dabeb4c7',1,'mpl::group']]],
-  ['union_5ftag_3',['Union_tag',['../classmpl_1_1group_1_1_union__tag.html',1,'mpl::group']]],
-  ['up_4',['up',['../classmpl_1_1tag__t.html#ac0e81b5e69da16516bb6a0327a494eca',1,'mpl::tag_t']]],
-  ['upper_5fbound_5',['upper_bound',['../classmpl_1_1layout.html#a2c768cf5cbbcf2dcf50a03a809df457f',1,'mpl::layout']]]
+  ['tag_0',['tag',['../classmpl_1_1status__t.html#a76b56d148b261f474f473d936c1fd878',1,'mpl::status_t']]],
+  ['tag_5ft_1',['tag_t',['../classmpl_1_1tag__t.html',1,'mpl::tag_t'],['../classmpl_1_1tag__t.html#af2132893124b73da5792982e961f8e21',1,'mpl::tag_t::tag_t()=default'],['../classmpl_1_1tag__t.html#a290110d503cd4d6bf1bbd0553f78c0a6',1,'mpl::tag_t::tag_t(T t)'],['../classmpl_1_1tag__t.html#aee28b8c00b151ccee302f75016b63f7b',1,'mpl::tag_t::tag_t(int t)']]],
+  ['test_2',['test',['../classmpl_1_1impl_1_1base__request.html#adf5e80b57abd3ada8c63ad413b35a7ee',1,'mpl::impl::base_request']]],
+  ['testall_3',['testall',['../classmpl_1_1impl_1_1request__pool.html#a5ebba7b0471ba84cf591abace463072f',1,'mpl::impl::request_pool']]],
+  ['testany_4',['testany',['../classmpl_1_1impl_1_1request__pool.html#a0119c4bd3e340044868b9c26bae2a6f9',1,'mpl::impl::request_pool']]],
+  ['testsome_5',['testsome',['../classmpl_1_1impl_1_1request__pool.html#a0adfe04dd4bf29535b6687562fb88989',1,'mpl::impl::request_pool']]],
+  ['threading_5fmode_6',['threading_mode',['../namespacempl_1_1environment.html#ac623e48336fe65e098fb56ebd16dba33',1,'mpl::environment']]],
+  ['threading_5fmodes_7',['threading_modes',['../namespacempl.html#ae999d5e4faab6f30cd2e3bb225828828',1,'mpl']]],
+  ['topology_5fcommunicator_8',['topology_communicator',['../classmpl_1_1impl_1_1topology__communicator.html',1,'mpl::impl']]],
+  ['translate_9',['translate',['../classmpl_1_1group.html#a1c11d89daec6af7b0ed1b5668d355656',1,'mpl::group::translate(const ranks &amp;rank, const group &amp;other) const'],['../classmpl_1_1group.html#a38cdae96823a5ce04c1e4a637ca82d5a',1,'mpl::group::translate(int rank, const group &amp;other) const']]],
+  ['true_5fbyte_5fextent_10',['true_byte_extent',['../classmpl_1_1layout.html#a45840e6936914baef876a0b67a8bb499',1,'mpl::layout']]],
+  ['true_5fbyte_5flower_5fbound_11',['true_byte_lower_bound',['../classmpl_1_1layout.html#a245932be5b4d58bb00a05b29208ab7c4',1,'mpl::layout']]],
+  ['true_5fbyte_5fupper_5fbound_12',['true_byte_upper_bound',['../classmpl_1_1layout.html#adf592d9e08a92314cc086bd51d643953',1,'mpl::layout']]],
+  ['true_5fextent_13',['true_extent',['../classmpl_1_1layout.html#a0890ec4684e6a465170f88932e116d30',1,'mpl::layout']]],
+  ['true_5flower_5fbound_14',['true_lower_bound',['../classmpl_1_1layout.html#a4b0e56adef2f212d061f971b2ecafd0a',1,'mpl::layout']]],
+  ['true_5fupper_5fbound_15',['true_upper_bound',['../classmpl_1_1layout.html#a80713f15de3244b019294ee277c8c650',1,'mpl::layout']]]
 ];

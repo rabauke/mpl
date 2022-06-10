@@ -99,8 +99,8 @@ Inheritance diagram for mpl::vector_layout&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1vector__layout__inherit__graph.png" border="0" usemap="#ampl_1_1vector__layout_3_01_t_01_4_inherit__map" alt="Inheritance graph"/></div>
 <map name="ampl_1_1vector__layout_3_01_t_01_4_inherit__map" id="ampl_1_1vector__layout_3_01_t_01_4_inherit__map">
-<area shape="rect" title="Layout representing contiguous storage several objects." alt="" coords="15,485,267,675"/>
-<area shape="rect" href="classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,437"/>
+<area shape="rect" title="Layout representing contiguous storage several objects." alt="" coords="15,503,267,692"/>
+<area shape="rect" href="classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,455"/>
 </map>
 </div>
 <div class="dynheader">
@@ -108,8 +108,8 @@ Collaboration diagram for mpl::vector_layout&lt; T &gt;:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmpl_1_1vector__layout__coll__graph.png" border="0" usemap="#ampl_1_1vector__layout_3_01_t_01_4_coll__map" alt="Collaboration graph"/></div>
 <map name="ampl_1_1vector__layout_3_01_t_01_4_coll__map" id="ampl_1_1vector__layout_3_01_t_01_4_coll__map">
-<area shape="rect" title="Layout representing contiguous storage several objects." alt="" coords="15,485,267,675"/>
-<area shape="rect" href="classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,437"/>
+<area shape="rect" title="Layout representing contiguous storage several objects." alt="" coords="15,503,267,692"/>
+<area shape="rect" href="classmpl_1_1layout.html" title="Base class for a family of classes that describe where objects are located in memory when several obj..." alt="" coords="5,5,277,455"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -136,6 +136,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa88614eb8266c7ca511275674335c986"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1vector__layout.html#aa88614eb8266c7ca511275674335c986">swap</a> (<a class="el" href="classmpl_1_1vector__layout.html">vector_layout</a>&lt; T &gt; &amp;other)</td></tr>
 <tr class="memdesc:aa88614eb8266c7ca511275674335c986"><td class="mdescLeft">&#160;</td><td class="mdescRight">exchanges two contiguous layouts  <a href="classmpl_1_1vector__layout.html#aa88614eb8266c7ca511275674335c986">More...</a><br /></td></tr>
 <tr class="separator:aa88614eb8266c7ca511275674335c986"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2c87e4dfa2ba23bbedeb18bc38dc9e0"><td class="memItemLeft" align="right" valign="top">MPI_Datatype&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layout.html#af2c87e4dfa2ba23bbedeb18bc38dc9e0">native_handle</a> () const</td></tr>
+<tr class="memdesc:af2c87e4dfa2ba23bbedeb18bc38dc9e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the underlying MPI handle of the data type.  <a href="classmpl_1_1layout.html#af2c87e4dfa2ba23bbedeb18bc38dc9e0">More...</a><br /></td></tr>
+<tr class="separator:af2c87e4dfa2ba23bbedeb18bc38dc9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a808408eaf18cfd04f8fc0e43ad8abece"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacempl.html#acf6b82700b0f144cbcd49b1233e1083d">ssize_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1layout.html#a808408eaf18cfd04f8fc0e43ad8abece">byte_extent</a> () const</td></tr>
 <tr class="memdesc:a808408eaf18cfd04f8fc0e43ad8abece"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the byte extent of the layout.  <a href="classmpl_1_1layout.html#a808408eaf18cfd04f8fc0e43ad8abece">More...</a><br /></td></tr>
 <tr class="separator:a808408eaf18cfd04f8fc0e43ad8abece"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -198,7 +201,7 @@ class mpl::vector_layout&lt; T &gt;</div><p >Layout representing contiguous stor
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="layouts_8cc-example.html#_a7">layouts.cc</a>, and <a class="el" href="parallel_sort_mpl_8cc-example.html#_a4">parallel_sort_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00571">571</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00579">579</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac466af7b2403264214290c8e12c37cb5" name="ac466af7b2403264214290c8e12c37cb5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac466af7b2403264214290c8e12c37cb5">&#9670;&nbsp;</a></span>vector_layout() <span class="overload">[1/4]</span></h2>
@@ -234,7 +237,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00603">603</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00611">611</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -283,7 +286,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00609">609</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00617">617</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -321,7 +324,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00613">613</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00621">621</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -359,7 +362,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00617">617</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00625">625</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -394,7 +397,7 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The extent of a layout correspondents to the extent of the underlying MPI datatype. See MPI documentation for details. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1layout.html#abce0f3197d6b2252c951535b443d7d5e">extent</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00140">140</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00148">148</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -430,7 +433,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a5eb103b30a8ddabfa28e70030a7c8e11">lower_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00154">154</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00162">162</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -479,7 +482,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00302">302</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00310">310</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -515,7 +518,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a2c768cf5cbbcf2dcf50a03a809df457f">upper_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00168">168</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00176">176</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -549,7 +552,7 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The extent of a layout correspondents to the extent of the underlying MPI datatype. See MPI documentation for details. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1layout.html#a808408eaf18cfd04f8fc0e43ad8abece">byte_extent</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00181">181</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00189">189</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -585,7 +588,41 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a2c768cf5cbbcf2dcf50a03a809df457f">upper_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00195">195</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00203">203</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af2c87e4dfa2ba23bbedeb18bc38dc9e0" name="af2c87e4dfa2ba23bbedeb18bc38dc9e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2c87e4dfa2ba23bbedeb18bc38dc9e0">&#9670;&nbsp;</a></span>native_handle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MPI_Datatype <a class="el" href="classmpl_1_1layout.html">mpl::layout</a>&lt; T &gt;::native_handle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the underlying MPI handle of the data type. </p>
+<dl class="section return"><dt>Returns</dt><dd>MPI handle of the data type </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function returns a non-owning handle to the underlying MPI data type, which may be useful when refactoring legacy MPI applications to MPL. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The handle must not be used to modify the MPI data type that the handle points to. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00141">141</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -710,7 +747,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="layouts_8cc-example.html#a11">layouts.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00315">315</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00323">323</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -748,7 +785,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00323">323</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00331">331</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -786,7 +823,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00631">631</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00639">639</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -820,7 +857,7 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The true extent of a layout correspondents to the extent of the underlying MPI datatype. See MPI documentation for details. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1layout.html#a0890ec4684e6a465170f88932e116d30">true_extent</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00222">222</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00230">230</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -856,7 +893,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a4b0e56adef2f212d061f971b2ecafd0a">true_lower_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00236">236</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00244">244</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -892,7 +929,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a80713f15de3244b019294ee277c8c650">true_upper_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00250">250</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00258">258</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -926,7 +963,7 @@ template&lt;typename T &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>The true extent of a layout correspondents to the extent of the underlying MPI datatype. See MPI documentation for details. </dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="classmpl_1_1layout.html#a45840e6936914baef876a0b67a8bb499">true_byte_extent</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00263">263</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00271">271</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -962,7 +999,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a80713f15de3244b019294ee277c8c650">true_upper_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00277">277</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00285">285</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -998,7 +1035,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a4b0e56adef2f212d061f971b2ecafd0a">true_lower_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00291">291</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00299">299</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>
@@ -1034,7 +1071,7 @@ template&lt;typename T &gt; </div>
 <dd>
 <a class="el" href="classmpl_1_1layout.html#a5eb103b30a8ddabfa28e70030a7c8e11">lower_bound</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00209">209</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="layout_8hpp_source.html#l00217">217</a> of file <a class="el" href="layout_8hpp_source.html">layout.hpp</a>.</p>
 
 </div>
 </div>

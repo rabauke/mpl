@@ -33,6 +33,7 @@ var annotated_dup =
       [ "hindexed_layout", "classmpl_1_1hindexed__layout.html", "classmpl_1_1hindexed__layout" ],
       [ "indexed_block_layout", "classmpl_1_1indexed__block__layout.html", "classmpl_1_1indexed__block__layout" ],
       [ "indexed_layout", "classmpl_1_1indexed__layout.html", "classmpl_1_1indexed__layout" ],
+      [ "info", "classmpl_1_1info.html", "classmpl_1_1info" ],
       [ "inter_communicator", "classmpl_1_1inter__communicator.html", "classmpl_1_1inter__communicator" ],
       [ "invalid_argument", "classmpl_1_1invalid__argument.html", "classmpl_1_1invalid__argument" ],
       [ "invalid_count", "classmpl_1_1invalid__count.html", "classmpl_1_1invalid__count" ],

@@ -470,6 +470,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a47bcb16e52a66228587334bd8f1de4cd"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classmpl_1_1irequest.html">irequest</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classmpl_1_1communicator.html#a47bcb16e52a66228587334bd8f1de4cd">iexscan</a> (F f, const T *send_data, T *recv_data, const <a class="el" href="classmpl_1_1contiguous__layout.html">contiguous_layout</a>&lt; T &gt; &amp;l) const</td></tr>
 <tr class="memdesc:a47bcb16e52a66228587334bd8f1de4cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs a partial reduction operation (exclusive scan) over all processes in a non-blocking manner.  <a href="classmpl_1_1communicator.html#a47bcb16e52a66228587334bd8f1de4cd">More...</a><br /></td></tr>
 <tr class="separator:a47bcb16e52a66228587334bd8f1de4cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a269875adef75bb88885361ea094f29c1"><td class="memItemLeft" align="right" valign="top">MPI_Comm&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1base__communicator.html#a269875adef75bb88885361ea094f29c1">native_handle</a> () const</td></tr>
+<tr class="memdesc:a269875adef75bb88885361ea094f29c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the underlying MPI handle of the communicator.  <a href="classmpl_1_1impl_1_1base__communicator.html#a269875adef75bb88885361ea094f29c1">More...</a><br /></td></tr>
+<tr class="separator:a269875adef75bb88885361ea094f29c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aced8d70b00a3b407fe3dabac27a99aca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmpl_1_1impl_1_1base__communicator.html#aced8d70b00a3b407fe3dabac27a99aca">is_valid</a> () const</td></tr>
 <tr class="memdesc:aced8d70b00a3b407fe3dabac27a99aca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a communicator is valid, i.e., is not an empty communicator with no associated process.  <a href="classmpl_1_1impl_1_1base__communicator.html#aced8d70b00a3b407fe3dabac27a99aca">More...</a><br /></td></tr>
 <tr class="separator:aced8d70b00a3b407fe3dabac27a99aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -985,7 +988,7 @@ Static Public Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04043">4043</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04059">4059</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1017,7 +1020,7 @@ Static Public Attributes</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03910">3910</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03926">3926</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1220,7 +1223,7 @@ Static Public Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a3">arrays.cc</a>, <a class="el" href="iterators_8cc-example.html#a3">iterators.cc</a>, <a class="el" href="standard_types_8cc-example.html#a5">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a10">stl_container.cc</a>, and <a class="el" href="struct_8cc-example.html#a3">struct.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00483">483</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00499">499</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1278,7 +1281,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="parallel_sort_mpl_8cc-example.html#a3">parallel_sort_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02669">2669</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02685">2685</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1348,7 +1351,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02684">2684</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02700">2700</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1418,7 +1421,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02765">2765</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02781">2781</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1495,7 +1498,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02744">2744</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02760">2760</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1559,7 +1562,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03517">3517</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03533">3533</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1630,7 +1633,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03534">3534</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03550">3550</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1689,7 +1692,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a11">collective.cc</a>, and <a class="el" href="communicator_8cc-example.html#a7">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04496">4496</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04512">4512</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1753,7 +1756,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04513">4513</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04529">4529</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1823,7 +1826,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. The memory layouts of the incoming and the outgoing messages are described by sendl and recvl. Both layouts might differ but must be compatible, i.e., must hold the same number of elements of type T. The i-th memory block with the layout sendl in the array send_data is sent to the i-th process. When the function has finished, the i-th memory block with the layout recvl in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03144">3144</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03160">3160</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1879,7 +1882,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends one element of type T to each process (including itself) and receives one element of type T from each process. The i-th element in the array send_data is sent to the i-th process. When the function has finished, the i-th element in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03122">3122</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03138">3138</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1924,7 +1927,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends one element of type T to each process (including itself) and receives one element of type T from each process. The i-th element in the array sendrecv_data is sent to the i-th process. When the function has finished, the i-th element in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04098">4098</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04114">4114</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -1980,7 +1983,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. The memory layouts of the incoming and the outgoing messages are described by sendrecvl. The i-th memory block with the layout sendrecvl in the array sendrecv_data is sent to the i-th process. When the function has finished, the i-th memory block with the layout sendrecvl in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04119">4119</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04135">4135</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2064,7 +2067,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffers send_data and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array send_data starts senddispls[i] bytes after the address given in send_data. The i-th memory block is sent to the i-th process. The i-th memory block with the layout recvls[i] in the array recv_data starts recvdispls[i] bytes after the address given in recv_data. When the function has finished, the i-th memory block in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03226">3226</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03242">3242</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2134,7 +2137,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffers send_data and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array send_data starts at the address given in send_data. The i-th memory block is sent to the i-th process. The i-th memory block with the layout recvls[i] in the array recv_data starts at the address given in recv_data. Note that the memory layouts need to include appropriate holes at the beginning in order to avoid overlapping send- or receive blocks. When the function has finished, the i-th memory block in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03266">3266</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03282">3282</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2190,7 +2193,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffer sendrecv_data. The i-th memory block with the layout sendrecvls[i] in the array sendrecv_data starts at the address given in sendrecv_data. The i-th memory block is sent to the i-th process. Note that the memory layouts need to include appropriate holes at the beginning in order to avoid overlapping send-receive blocks. When the function has finished, the i-th memory block in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04224">4224</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04240">4240</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2255,7 +2258,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="matrix_gather_8cc-example.html#a12">matrix_gather.cc</a>, and <a class="el" href="parallel_sort_mpl_8cc-example.html#a7">parallel_sort_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04195">4195</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04211">4211</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2287,7 +2290,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a2">collective.cc</a>, and <a class="el" href="communicator_8cc-example.html#a4">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02285">2285</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02301">2301</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2345,7 +2348,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a5">collective.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02308">2308</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02324">2324</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2408,7 +2411,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02322">2322</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02338">2338</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2473,7 +2476,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="blocking_8cc-example.html#a7">blocking.cc</a>, and <a class="el" href="blocking_vector_8cc-example.html#a8">blocking_vector.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00830">830</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00846">846</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2542,7 +2545,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00846">846</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00862">862</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2612,7 +2615,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00867">867</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00883">883</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2676,7 +2679,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01013">1013</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01029">1029</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2746,7 +2749,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01032">1032</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01048">1048</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2817,7 +2820,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01057">1057</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01073">1073</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2873,7 +2876,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>message buffer size </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00785">785</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00801">801</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2920,7 +2923,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="blocking_8cc-example.html#a5">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a6">blocking_vector.cc</a>, and <a class="el" href="nonblocking_8cc-example.html#a7">nonblocking.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00772">772</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00788">788</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -2957,7 +2960,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>equality type </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04073">4073</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04089">4089</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3021,7 +3024,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03814">3814</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03830">3830</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3092,7 +3095,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03831">3831</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03847">3847</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3149,7 +3152,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04657">4657</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04673">4673</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3213,7 +3216,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04674">4674</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04690">4690</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3269,7 +3272,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02458">2458</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02474">2474</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3334,7 +3337,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a7">collective.cc</a>, and <a class="el" href="gather_8cc-example.html#a4">gather.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02379">2379</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02395">2395</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3397,7 +3400,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02474">2474</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02490">2490</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3474,7 +3477,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02396">2396</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02412">2412</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3537,7 +3540,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02626">2626</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02642">2642</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3614,7 +3617,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02561">2561</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02577">2577</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3700,7 +3703,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a8">distributed_grid_scatter_gather.cc</a>, <a class="el" href="gatherv_8cc-example.html#a7">gatherv.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a21">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a22">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a10">matrix_gather.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a13">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02534">2534</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02550">2550</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3757,7 +3760,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02702">2702</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02718">2718</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3828,7 +3831,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02721">2721</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02737">2737</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3899,7 +3902,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02806">2806</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02822">2822</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -3977,7 +3980,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02784">2784</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02800">2800</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4042,7 +4045,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03555">3555</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03571">3571</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4114,7 +4117,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03576">3576</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03592">3592</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4172,7 +4175,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04532">4532</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04548">4548</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4237,7 +4240,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04553">4553</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04569">4569</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4308,7 +4311,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. The memory layouts of the incoming and the outgoing messages are described by sendl and recvl. Both layouts might differ but must be compatible, i.e., must hold the same number of elements of type T. The i-th memory block with the layout sendl in the array send_data is sent to the i-th process. When the message transfer has finished, the i-th memory block with the layout recvl in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03192">3192</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03208">3208</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4365,7 +4368,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends one element of type T to each process (including itself) and receives one element of type T from each process. The i-th element in the array send_data is sent to the i-th process. When the message transfer has finished, the i-th element in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03166">3166</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03182">3182</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4411,7 +4414,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends one element of type T to each process (including itself) and receives one element of type T from each process. The i-th element in the array sendrecv_data is sent to the i-th process. When the message transfer has finished, the i-th element in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04140">4140</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04156">4156</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4468,7 +4471,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. The memory layouts of the incoming and the outgoing messages are described by sendrecvl. The i-th memory block with the layout sendrecvl in the array sendrecv_data is sent to the i-th process. When the message transfer has finished, the i-th memory block with the layout sendrecvl in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04165">4165</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04181">4181</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4553,7 +4556,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffers send_data and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array send_data starts senddispls[i] bytes after the address given in send_data. The i-th memory block is sent to the i-th process. The i-th memory block with the layout recvls[i] in the array recv_data starts recvdispls[i] bytes after the address given in recv_data. When the function has finished, the i-th memory block in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03366">3366</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03382">3382</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4624,7 +4627,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffers send_data and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array send_data starts at the address given in send_data. The i-th memory block is sent to the i-th process. The i-th memory block with the layout recvls[i] in the array recv_data starts at the address given in recv_data. Note that the memory layouts need to include appropriate holes at the beginning in order to avoid overlapping send- or receive blocks. When the function has finished, the i-th memory block in the array recv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03410">3410</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03426">3426</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4681,7 +4684,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffer sendrecv_data. The i-th memory block with the layout sendrecvls[i] in the array sendrecv_data starts at the address given in sendrecv_data. The i-th memory block is sent to the i-th process. Note that the memory layouts need to include appropriate holes at the beginning in order to avoid overlapping send-receive blocks. When the function has finished, the i-th memory block in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04286">4286</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04302">4302</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4745,7 +4748,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer</dd></dl>
 <p>Each process in the communicator sends elements of type T to each process (including itself) and receives elements of type T from each process. Send- and receive-data are stored in consecutive blocks of variable size in the buffer sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array sendrecv_data starts sendrecvdispls[i] bytes after the address given in sendrecv_data. The i-th memory block is sent to the i-th process. When the function has finished, the i-th memory block in the array sendrecv_data was received from the i-th process. </p><dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04248">4248</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04264">4264</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4776,7 +4779,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02292">2292</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02308">2308</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4833,7 +4836,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02339">2339</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02355">2355</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4897,7 +4900,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02358">2358</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02374">2374</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -4963,7 +4966,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="nonblocking_8cc-example.html#a9">nonblocking.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00946">946</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00962">962</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5033,7 +5036,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00964">964</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00980">980</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5104,7 +5107,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00989">989</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01005">1005</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5169,7 +5172,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03850">3850</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03866">3866</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5241,7 +5244,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03871">3871</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03887">3887</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5299,7 +5302,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04693">4693</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04709">4709</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5364,7 +5367,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04713">4713</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04729">4729</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5421,7 +5424,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02492">2492</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02508">2508</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5485,7 +5488,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02417">2417</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02433">2433</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5549,7 +5552,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02512">2512</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02528">2528</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5627,7 +5630,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02438">2438</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02454">2454</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5691,7 +5694,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02648">2648</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02664">2664</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5769,7 +5772,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02610">2610</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02626">2626</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5854,7 +5857,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02581">2581</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02597">2597</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5902,7 +5905,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>message handle and status of the pending message if there is a pending message by the given source and with the given tag </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01953">1953</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01969">1969</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -5966,7 +5969,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02087">2087</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02103">2103</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6023,7 +6026,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing receive operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Receiving STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02054">2054</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02070">2070</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6086,7 +6089,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02067">2067</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02083">2083</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6785,7 +6788,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the pending message if there is any pending message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01920">1920</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01936">1936</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6856,7 +6859,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01823">1823</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01839">1839</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6922,7 +6925,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#a11">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a11">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a17">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a8">nonblocking_mult.cc</a>, <a class="el" href="stl_container_8cc-example.html#a6">stl_container.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a8">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01782">1782</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01798">1798</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -6992,7 +6995,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01799">1799</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01815">1815</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7057,7 +7060,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04418">4418</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04434">4434</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7129,7 +7132,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03472">3472</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03488">3488</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7201,7 +7204,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04471">4471</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04487">4487</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7280,7 +7283,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03495">3495</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03511">3511</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7345,7 +7348,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04392">4392</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04408">4408</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7417,7 +7420,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04441">4441</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04457">4457</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7489,7 +7492,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03714">3714</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03730">3730</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7554,7 +7557,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03641">3641</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03657">3657</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7626,7 +7629,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03665">3665</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03681">3681</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7692,7 +7695,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="nonblocking_8cc-example.html#a12">nonblocking.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01499">1499</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01515">1515</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7762,7 +7765,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01517">1517</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01533">1533</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7833,7 +7836,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01542">1542</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01558">1558</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7866,7 +7869,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="communicator_8cc-example.html#a9">communicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00478">478</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00494">494</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -7931,7 +7934,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03772">3772</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03788">3788</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8003,7 +8006,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03793">3793</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03809">3809</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8061,7 +8064,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04613">4613</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04629">4629</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8126,7 +8129,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing reduction operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04633">4633</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04649">4649</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8204,7 +8207,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02885">2885</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02901">2901</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8268,7 +8271,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02863">2863</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02879">2879</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8319,7 +8322,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02933">2933</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02949">2949</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8377,7 +8380,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02951">2951</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02967">2967</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8462,7 +8465,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03026">3026</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03042">3042</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8540,7 +8543,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03057">3057</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03073">3073</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8604,7 +8607,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03097">3097</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03113">3113</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8670,7 +8673,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="heat_equation__jacobi_method_8cc-example.html#a7">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a7">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a7">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a6">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a4">nonblocking_mult.cc</a>, <a class="el" href="stl_container_8cc-example.html#a3">stl_container.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a6">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00640">640</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00656">656</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8740,7 +8743,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00658">658</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00674">674</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8811,7 +8814,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00683">683</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00699">699</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8877,7 +8880,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="nonblocking_8cc-example.html#a11">nonblocking.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01223">1223</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01239">1239</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -8947,7 +8950,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01241">1241</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01257">1257</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9018,7 +9021,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>request representing the ongoing message transfer </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01266">1266</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01282">1282</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9066,7 +9069,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>message handle and status of the pending message </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01938">1938</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01954">1954</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9130,7 +9133,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02022">2022</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02038">2038</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9187,7 +9190,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Receiving STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01988">1988</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02004">2004</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9250,7 +9253,39 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02001">2001</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02017">2017</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a269875adef75bb88885361ea094f29c1" name="a269875adef75bb88885361ea094f29c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a269875adef75bb88885361ea094f29c1">&#9670;&nbsp;</a></span>native_handle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MPI_Comm mpl::impl::base_communicator::native_handle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the underlying MPI handle of the communicator. </p>
+<dl class="section return"><dt>Returns</dt><dd>MPI handle of the communicator </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This function returns a non-owning handle to the underlying MPI communicator, which may be useful when refactoring legacy MPI applications to MPL. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The handle must not be used to modify the MPI communicator that the handle points to. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00488">488</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9840,7 +9875,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if not identical </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04040">4040</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04056">4056</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -9951,7 +9986,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if identical </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04035">4035</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04051">4051</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10061,7 +10096,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="probe_8cc-example.html#a7">probe.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01907">1907</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01923">1923</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10093,7 +10128,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a4">arrays.cc</a>, <a class="el" href="blocking_8cc-example.html#a3">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a4">blocking_vector.cc</a>, <a class="el" href="collective_8cc-example.html#a4">collective.cc</a>, <a class="el" href="communicator_8cc-example.html#a2">communicator.cc</a>, <a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a17">distributed_grid_scatter_gather.cc</a>, <a class="el" href="gather_8cc-example.html#a2">gather.cc</a>, <a class="el" href="gatherv_8cc-example.html#a2">gatherv.cc</a>, <a class="el" href="hello_world_8cc-example.html#a3">hello_world.cc</a>, <a class="el" href="intercommunicator_8cc-example.html#a2">intercommunicator.cc</a>, <a class="el" href="iterators_8cc-example.html#a4">iterators.cc</a>, <a class="el" href="layouts_8cc-example.html#a3">layouts.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a3">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a4">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a2">nonblocking_mult.cc</a>, <a class="el" href="parallel_sort_mpl_8cc-example.html#a1">parallel_sort_mpl.cc</a>, <a class="el" href="probe_8cc-example.html#a3">probe.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a2">reduce_lcm.cc</a>, <a class="el" href="reduce_min_loc_8cc-example.html#a2">reduce_min_loc.cc</a>, <a class="el" href="standard_types_8cc-example.html#a6">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a11">stl_container.cc</a>, <a class="el" href="struct_8cc-example.html#a4">struct.cc</a>, <a class="el" href="subarray_8cc-example.html#a3">subarray.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a3">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04030">4030</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04046">4046</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10164,7 +10199,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01720">1720</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01736">1736</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10230,7 +10265,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a6">arrays.cc</a>, <a class="el" href="blocking_8cc-example.html#a10">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a11">blocking_vector.cc</a>, <a class="el" href="hello_world_8cc-example.html#a6">hello_world.cc</a>, <a class="el" href="iterators_8cc-example.html#a6">iterators.cc</a>, <a class="el" href="layouts_8cc-example.html#a6">layouts.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a8">matrix_gather.cc</a>, <a class="el" href="probe_8cc-example.html#a11">probe.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a6">reduce_lcm.cc</a>, <a class="el" href="reduce_min_loc_8cc-example.html#a7">reduce_min_loc.cc</a>, <a class="el" href="standard_types_8cc-example.html#a2">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a5">stl_container.cc</a>, <a class="el" href="struct_8cc-example.html#a6">struct.cc</a>, and <a class="el" href="subarray_8cc-example.html#a7">subarray.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01682">1682</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01698">1698</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10300,7 +10335,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01697">1697</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01713">1713</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10371,7 +10406,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01890">1890</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01906">1906</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10435,7 +10470,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Receiving STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01847">1847</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01863">1863</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10505,7 +10540,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01866">1866</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01882">1882</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10569,7 +10604,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04329">4329</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04345">4345</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10640,7 +10675,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03430">3430</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03446">3446</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10711,7 +10746,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04371">4371</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04387">4387</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10789,7 +10824,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. <a class="anchor" id="communicator_reduce_contiguous_layout"></a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03451">3451</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03467">3467</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10855,7 +10890,7 @@ template&lt;typename T , typename F &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a9">collective.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a4">reduce_lcm.cc</a>, and <a class="el" href="reduce_min_loc_8cc-example.html#a4">reduce_min_loc.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04307">4307</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04323">4323</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10926,7 +10961,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04348">4348</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04364">4364</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -10997,7 +11032,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03690">3690</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03706">3706</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11061,7 +11096,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03599">3599</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03615">3615</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11132,7 +11167,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03619">3619</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03635">3635</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11197,7 +11232,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="blocking_8cc-example.html#a9">blocking.cc</a>, and <a class="el" href="blocking_vector_8cc-example.html#a10">blocking_vector.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01384">1384</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01400">1400</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11266,7 +11301,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01400">1400</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01416">1416</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11336,7 +11371,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01421">1421</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01437">1437</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11400,7 +11435,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01566">1566</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01582">1582</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11470,7 +11505,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01585">1585</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01601">1601</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11541,7 +11576,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01610">1610</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01626">1626</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11605,7 +11640,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03736">3736</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03752">3752</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11676,7 +11711,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03753">3753</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03769">3769</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11733,7 +11768,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04577">4577</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04593">4593</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11797,7 +11832,7 @@ template&lt;typename T , typename F &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04594">4594</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04610">4610</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11874,7 +11909,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02842">2842</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02858">2858</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11939,7 +11974,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="collective_8cc-example.html#a8">collective.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02824">2824</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02840">2840</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -11989,7 +12024,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02903">2903</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02919">2919</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12046,7 +12081,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02917">2917</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02933">2933</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12132,7 +12167,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a3">distributed_grid_scatter_gather.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a17">heat_equation_Jacobi_method.cc</a>, and <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a18">heat_equation_successive_over-relaxation.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02976">2976</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02992">2992</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12209,7 +12244,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03005">3005</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03021">3021</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12272,7 +12307,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a collective operation and must be called (possibly by utilizing anther overload) by all processes in the communicator. This particular overload can only be called by non-root processes. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03074">3074</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03090">3090</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12337,7 +12372,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a5">arrays.cc</a>, <a class="el" href="blocking_8cc-example.html#a4">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a5">blocking_vector.cc</a>, <a class="el" href="hello_world_8cc-example.html#a5">hello_world.cc</a>, <a class="el" href="iterators_8cc-example.html#a5">iterators.cc</a>, <a class="el" href="layouts_8cc-example.html#a5">layouts.cc</a>, <a class="el" href="probe_8cc-example.html#a5">probe.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a7">reduce_lcm.cc</a>, <a class="el" href="reduce_min_loc_8cc-example.html#a8">reduce_min_loc.cc</a>, <a class="el" href="standard_types_8cc-example.html#a1">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a1">stl_container.cc</a>, <a class="el" href="struct_8cc-example.html#a5">struct.cc</a>, and <a class="el" href="subarray_8cc-example.html#a5">subarray.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00525">525</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00541">541</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12406,7 +12441,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00541">541</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00557">557</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12476,7 +12511,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00562">562</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00578">578</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12540,7 +12575,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00707">707</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00723">723</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12610,7 +12645,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00726">726</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00742">742</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12681,7 +12716,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00751">751</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00767">767</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12767,7 +12802,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="distributed_grid_8cc-example.html#a4">distributed_grid.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02113">2113</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02129">2129</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12865,7 +12900,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02140">2140</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02156">2156</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -12964,7 +12999,7 @@ template&lt;typename iterT1 , typename iterT2 &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02176">2176</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02192">2192</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13048,7 +13083,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02267">2267</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02283">2283</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13125,7 +13160,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02215">2215</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02231">2231</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13209,7 +13244,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>status of the receive operation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02239">2239</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l02255">2255</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13241,7 +13276,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="arrays_8cc-example.html#a2">arrays.cc</a>, <a class="el" href="blocking_8cc-example.html#a2">blocking.cc</a>, <a class="el" href="blocking_vector_8cc-example.html#a2">blocking_vector.cc</a>, <a class="el" href="collective_8cc-example.html#a6">collective.cc</a>, <a class="el" href="communicator_8cc-example.html#a3">communicator.cc</a>, <a class="el" href="distributed_grid_8cc-example.html#a15">distributed_grid.cc</a>, <a class="el" href="distributed_grid_scatter_gather_8cc-example.html#a15">distributed_grid_scatter_gather.cc</a>, <a class="el" href="gather_8cc-example.html#a3">gather.cc</a>, <a class="el" href="gatherv_8cc-example.html#a3">gatherv.cc</a>, <a class="el" href="heat_equation__jacobi_method_8cc-example.html#a27">heat_equation_Jacobi_method.cc</a>, <a class="el" href="heat_equation_successive_over-relaxation_8cc-example.html#a28">heat_equation_successive_over-relaxation.cc</a>, <a class="el" href="hello_world_8cc-example.html#a4">hello_world.cc</a>, <a class="el" href="iterators_8cc-example.html#a2">iterators.cc</a>, <a class="el" href="layouts_8cc-example.html#a2">layouts.cc</a>, <a class="el" href="matrix_gather_8cc-example.html#a2">matrix_gather.cc</a>, <a class="el" href="nonblocking_8cc-example.html#a2">nonblocking.cc</a>, <a class="el" href="nonblocking_mult_8cc-example.html#a5">nonblocking_mult.cc</a>, <a class="el" href="parallel_sort_mpl_8cc-example.html#a2">parallel_sort_mpl.cc</a>, <a class="el" href="probe_8cc-example.html#a2">probe.cc</a>, <a class="el" href="reduce_lcm_8cc-example.html#a5">reduce_lcm.cc</a>, <a class="el" href="reduce_min_loc_8cc-example.html#a6">reduce_min_loc.cc</a>, <a class="el" href="standard_types_8cc-example.html#a4">standard_types.cc</a>, <a class="el" href="stl_container_8cc-example.html#a9">stl_container.cc</a>, <a class="el" href="struct_8cc-example.html#a2">struct.cc</a>, <a class="el" href="subarray_8cc-example.html#a2">subarray.cc</a>, and <a class="el" href="vibrating_string_mpl_8cc-example.html#a2">vibrating_string_mpl.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04026">4026</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04042">4042</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13306,7 +13341,7 @@ template&lt;typename T &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="blocking_8cc-example.html#a8">blocking.cc</a>, and <a class="el" href="blocking_vector_8cc-example.html#a9">blocking_vector.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01108">1108</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01124">1124</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13375,7 +13410,7 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01123">1123</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01139">1139</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13445,7 +13480,7 @@ template&lt;typename iterT &gt; </div>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01144">1144</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01160">1160</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13509,7 +13544,7 @@ template&lt;typename T &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>Sending STL containers is not supported. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01289">1289</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01305">1305</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13579,7 +13614,7 @@ template&lt;typename T &gt; </div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01308">1308</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01324">1324</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13650,7 +13685,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section return"><dt>Returns</dt><dd>persistent communication request </dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This is a convenience method, which may have non-optimal performance characteristics. Use alternative overloads in performance critical code sections. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01333">1333</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l01349">1349</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13677,7 +13712,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>Indicates the creation of a new communicator by an operation that is collective for all processes in the given communicator. </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00380">380</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00388">388</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13703,7 +13738,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>indicates that communicators are identical, i.e., communicators have same the members in same rank order but different context </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04062">4062</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04078">4078</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13729,7 +13764,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>Indicates the creation of a new communicator by an operation that is collective for all processes in the given group. </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00387">387</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00395">395</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13755,7 +13790,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>indicates that communicators are identical, i.e., communicators represent the same communication context </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04059">4059</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04075">4075</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13781,7 +13816,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>indicates that when merging the local and the remote groups of an inter-communicator put processes of this group after processes that belong to the other group </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03924">3924</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03940">3940</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13807,7 +13842,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>indicates that when merging the local and the remote groups of an inter-communicator put processes of this group before processes that belong to the other group </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03921">3921</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l03937">3937</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13833,7 +13868,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>indicates that communicators are similar, i.e., communicators have same tha members in different rank order </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04065">4065</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04081">4081</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13861,7 +13896,7 @@ template&lt;typename iterT &gt; </div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="communicator_8cc-example.html#a5">communicator.cc</a>, and <a class="el" href="intercommunicator_8cc-example.html#a3">intercommunicator.cc</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00394">394</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00402">402</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13887,7 +13922,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgroups each of which can create a shared memory region. </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00401">401</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l00409">409</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>
@@ -13913,7 +13948,7 @@ template&lt;typename iterT &gt; </div>
 
 <p>indicates that communicators are unequal, i.e., communicators have different sets of members </p>
 
-<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04068">4068</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="comm__group_8hpp_source.html#l04084">4084</a> of file <a class="el" href="comm__group_8hpp_source.html">comm_group.hpp</a>.</p>
 
 </div>
 </div>

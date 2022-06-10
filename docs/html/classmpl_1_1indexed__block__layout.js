@@ -12,6 +12,7 @@ var classmpl_1_1indexed__block__layout =
     [ "byte_upper_bound", "classmpl_1_1indexed__block__layout.html#a9aea61b5ce92681aee5df4a61672c02b", null ],
     [ "extent", "classmpl_1_1indexed__block__layout.html#abce0f3197d6b2252c951535b443d7d5e", null ],
     [ "lower_bound", "classmpl_1_1indexed__block__layout.html#a5eb103b30a8ddabfa28e70030a7c8e11", null ],
+    [ "native_handle", "classmpl_1_1indexed__block__layout.html#af2c87e4dfa2ba23bbedeb18bc38dc9e0", null ],
     [ "operator=", "classmpl_1_1indexed__block__layout.html#a74478123f3da83ff60414e723836f46a", null ],
     [ "operator=", "classmpl_1_1indexed__block__layout.html#a0397342ecc9d8e57d7e7443971966e2c", null ],
     [ "resize", "classmpl_1_1indexed__block__layout.html#ab0a15251c4fd7bc10630bb9f00a392c4", null ],

@@ -10,6 +10,7 @@ var classmpl_1_1layout =
     [ "byte_upper_bound", "classmpl_1_1layout.html#a9aea61b5ce92681aee5df4a61672c02b", null ],
     [ "extent", "classmpl_1_1layout.html#abce0f3197d6b2252c951535b443d7d5e", null ],
     [ "lower_bound", "classmpl_1_1layout.html#a5eb103b30a8ddabfa28e70030a7c8e11", null ],
+    [ "native_handle", "classmpl_1_1layout.html#af2c87e4dfa2ba23bbedeb18bc38dc9e0", null ],
     [ "operator=", "classmpl_1_1layout.html#ada64a312d8d2032e9b1faef1ffca5dbd", null ],
     [ "operator=", "classmpl_1_1layout.html#a057fa0a49c1133de3b41b8c5eefe576c", null ],
     [ "resize", "classmpl_1_1layout.html#ab0a15251c4fd7bc10630bb9f00a392c4", null ],

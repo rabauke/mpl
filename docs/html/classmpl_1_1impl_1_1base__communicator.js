@@ -96,6 +96,7 @@ var classmpl_1_1impl_1_1base__communicator =
     [ "mrecv", "classmpl_1_1impl_1_1base__communicator.html#a33937f5473f2424ed10aff8d723b8ca3", null ],
     [ "mrecv", "classmpl_1_1impl_1_1base__communicator.html#a682010694b06d271f397f4e682ff8ef8", null ],
     [ "mrecv", "classmpl_1_1impl_1_1base__communicator.html#ac183e6477f6cc04fa46248de4b4b6eed", null ],
+    [ "native_handle", "classmpl_1_1impl_1_1base__communicator.html#a269875adef75bb88885361ea094f29c1", null ],
     [ "probe", "classmpl_1_1impl_1_1base__communicator.html#a8ed051ae1ad9ea893018ee0b1d98b9ec", null ],
     [ "recv", "classmpl_1_1impl_1_1base__communicator.html#a41379e1fb24e1a2bd826f8168d65be74", null ],
     [ "recv", "classmpl_1_1impl_1_1base__communicator.html#a8ed451f2d5ea46348a1e4ca1ecd84ee8", null ],

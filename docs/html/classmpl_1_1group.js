@@ -22,6 +22,7 @@ var classmpl_1_1group =
     [ "group", "classmpl_1_1group.html#a53b37e0aa8afb9fd837b529facd6e626", null ],
     [ "~group", "classmpl_1_1group.html#a4bd2522d5cfecbd2c844e7bad1c0ae36", null ],
     [ "compare", "classmpl_1_1group.html#a91ec59cb7d18120ac6f5b0dc40f37a95", null ],
+    [ "native_handle", "classmpl_1_1group.html#a8a95a4c8036571253f35518dc13e5483", null ],
     [ "operator!=", "classmpl_1_1group.html#a3559e4d5efc98ec127fce7f3dc487291", null ],
     [ "operator=", "classmpl_1_1group.html#a4ac9d08869779bc83b1603415421ab34", null ],
     [ "operator=", "classmpl_1_1group.html#aaab91fd6a016fe57c053102d6c8f9bc4", null ],

@@ -133,6 +133,7 @@ var classmpl_1_1communicator =
     [ "mrecv", "classmpl_1_1communicator.html#a33937f5473f2424ed10aff8d723b8ca3", null ],
     [ "mrecv", "classmpl_1_1communicator.html#a682010694b06d271f397f4e682ff8ef8", null ],
     [ "mrecv", "classmpl_1_1communicator.html#ac183e6477f6cc04fa46248de4b4b6eed", null ],
+    [ "native_handle", "classmpl_1_1communicator.html#a269875adef75bb88885361ea094f29c1", null ],
     [ "operator!=", "classmpl_1_1communicator.html#aea3f30e3e33676cfbd8f3757082949cd", null ],
     [ "operator=", "classmpl_1_1communicator.html#a06c080c4492462cd582894a04191de56", null ],
     [ "operator=", "classmpl_1_1communicator.html#ad583dab604376864ba373505b7f33911", null ],
