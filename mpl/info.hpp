@@ -70,9 +70,16 @@ namespace mpl {
     /// \param key the key
     /// \return the value if the info object contains a key-value pair with the given key.
     [[nodiscard]] std::optional<std::string> value(std::string_view key) const {
-      std::vector<char> str(MPI_MAX_INFO_VAL + 1);
       int flag{0};
+#if MPI_VERSION < 4
+      std::vector<char> str(MPI_MAX_INFO_VAL + 1);
       MPI_Info_get(info_, key.data(), MPI_MAX_INFO_VAL, str.data(), &flag);
+#else
+      int bufflen{0};
+      MPI_Info_get_string(info_, key.data(), &bufflen, nullptr, &flag);
+      std::vector<char> str(bufflen);
+      MPI_Info_get_string(info_, key.data(), &bufflen, str.data(), &flag);
+#endif
       if (flag)
         return std::string{str.data()};
       return {};
