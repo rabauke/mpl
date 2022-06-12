@@ -359,7 +359,8 @@ namespace mpl {
 
       template<typename T>
       void check_container_size([[maybe_unused]] const T &container,
-                                detail::basic_or_fixed_size_type) const {}
+                                detail::basic_or_fixed_size_type) const {
+      }
 
       template<typename T>
       void check_container_size([[maybe_unused]] const T &container,
@@ -410,7 +411,8 @@ namespace mpl {
 
     protected:
       base_communicator() = default;
-      explicit base_communicator(MPI_Comm comm) : comm_(comm) {}
+      explicit base_communicator(MPI_Comm comm) : comm_(comm) {
+      }
 
       ~base_communicator() {
         if (is_valid()) {
@@ -485,18 +487,24 @@ namespace mpl {
       /// which may be useful when refactoring legacy MPI applications to MPL.
       /// \warning The handle must not be used to modify the MPI communicator that the handle
       /// points to.
-      [[nodiscard]] MPI_Comm native_handle() const { return comm_; }
+      [[nodiscard]] MPI_Comm native_handle() const {
+        return comm_;
+      }
 
       /// Checks if a communicator is valid, i.e., is not an empty communicator with no
       /// associated process.
       /// \return true if communicator is valid
       /// \note A default constructed communicator is a non valid communicator.
-      [[nodiscard]] bool is_valid() const { return comm_ != MPI_COMM_NULL; }
+      [[nodiscard]] bool is_valid() const {
+        return comm_ != MPI_COMM_NULL;
+      }
 
       /// Aborts all processes associated to the communicator.
       /// \param err error code, becomes the return code of the main program
       /// \note Method provides just a "best attempt" to abort processes.
-      void abort(int err) const { MPI_Abort(comm_, err); }
+      void abort(int err) const {
+        MPI_Abort(comm_, err);
+      }
 
       // === point to point ==============================================
 
@@ -2298,7 +2306,9 @@ namespace mpl {
       /// Blocks until all processes in the communicator have reached this method.
       /// \note This is a collective operation and must be called by all processes in the
       /// communicator.
-      void barrier() const { MPI_Barrier(comm_); }
+      void barrier() const {
+        MPI_Barrier(comm_);
+      }
 
       // --- non-blocking barrier ---
       /// Notifies the process that it has reached the barrier and returns immediately.
@@ -4889,11 +4899,17 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  inline group::group(const group &other) { MPI_Group_excl(other.gr_, 0, nullptr, &gr_); }
+  inline group::group(const group &other) {
+    MPI_Group_excl(other.gr_, 0, nullptr, &gr_);
+  }
 
-  inline group::group(const communicator &comm) { MPI_Comm_group(comm.comm_, &gr_); }
+  inline group::group(const communicator &comm) {
+    MPI_Comm_group(comm.comm_, &gr_);
+  }
 
-  inline group::group(const inter_communicator &comm) { MPI_Comm_group(comm.comm_, &gr_); }
+  inline group::group(const inter_communicator &comm) {
+    MPI_Comm_group(comm.comm_, &gr_);
+  }
 
   inline group::group(group::Union_tag, const group &other_1, const group &other_2) {
     MPI_Group_union(other_1.gr_, other_2.gr_, &gr_);
