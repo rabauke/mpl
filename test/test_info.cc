@@ -16,4 +16,6 @@ BOOST_AUTO_TEST_CASE(info) {
   mpl::info info_2{info_1};
   BOOST_TEST(info_1.size() == 2);
   BOOST_TEST(info_2.value("Isaac Asimov").value() == "Nightfall");
+
+  BOOST_TEST(not info_2.value("no such thing"));
 }
