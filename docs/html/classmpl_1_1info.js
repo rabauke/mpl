@@ -10,5 +10,6 @@ var classmpl_1_1info =
     [ "remove", "classmpl_1_1info.html#a20ee79b23b5689f7e9a6d5260641e37b", null ],
     [ "set", "classmpl_1_1info.html#a443eb93d17f780675d8455dc4fced833", null ],
     [ "size", "classmpl_1_1info.html#a58ce699f5989f6d2285f681ee8fd1d80", null ],
-    [ "value", "classmpl_1_1info.html#ad2e0003149725af151efb617de855253", null ]
+    [ "value", "classmpl_1_1info.html#ad2e0003149725af151efb617de855253", null ],
+    [ "impl::base_communicator", "classmpl_1_1info.html#a3d2d02b9ec613a34dfed7e9667efe780", null ]
 ];

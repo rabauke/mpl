@@ -9,10 +9,16 @@
 
 namespace mpl {
 
+  namespace impl {
+    class base_communicator;
+  }
+
   /// Stores key-value pairs to affect specific as well as implementation defined MPI
   /// functionalities.
   class info {
     MPI_Info info_{MPI_INFO_NULL};
+
+    explicit info(MPI_Info info) : info_{info} {}
 
   public:
     /// Creates a new info object with no key-value pairs attached.
@@ -104,6 +110,8 @@ namespace mpl {
       }
       return {};
     }
+
+    friend class impl::base_communicator;
   };
 }  // namespace mpl
 

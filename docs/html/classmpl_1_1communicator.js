@@ -95,6 +95,8 @@ var classmpl_1_1communicator =
     [ "imrecv", "classmpl_1_1communicator.html#a6ad22c8b3483384b4f141cf5721f4b40", null ],
     [ "imrecv", "classmpl_1_1communicator.html#a0c42ccf3d4fa5b826970d51c3ceb37ae", null ],
     [ "imrecv", "classmpl_1_1communicator.html#a55a829a6fb9fb725f35dfa84b4fee55f", null ],
+    [ "info", "classmpl_1_1communicator.html#a4a256aca20f7cc04093e6a02dcfa0e48", null ],
+    [ "info", "classmpl_1_1communicator.html#a860125d87210047e04974d0f72fe2876", null ],
     [ "iprobe", "classmpl_1_1communicator.html#a5e99359be32a4d45501830f900284a06", null ],
     [ "irecv", "classmpl_1_1communicator.html#a9a2f8c410dadb02c2247b76c94a38dc4", null ],
     [ "irecv", "classmpl_1_1communicator.html#ab2bca7804e7a466fff401a8aa823f292", null ],

@@ -468,6 +468,16 @@ namespace mpl {
         return result;
       }
 
+      void info(const mpl::info &i) const {
+        MPI_Comm_set_info(comm_, i.info_);
+      }
+
+      [[nodiscard]] mpl::info info() const {
+        MPI_Info i;
+        MPI_Comm_get_info(comm_, &i);
+        return mpl::info{i};
+      }
+
       bool operator==(const base_communicator &other) const {
         int result;
         MPI_Comm_compare(comm_, other.comm_, &result);
@@ -4054,6 +4064,14 @@ namespace mpl {
     /// Determines the rank within a communicator.
     /// \return the rank of the calling process in the communicator
     [[nodiscard]] int rank() const { return base::rank(); }
+
+    /// Updates the hints of the communicator.
+    /// \param i info object with new hints
+    void info(const mpl::info &i) const { base::info(i); }
+
+    /// Get the the hints of the communicator.
+    /// \return hints of the communicator
+    [[nodiscard]] mpl::info info() const { return base::info(); }
 
     /// Tests for identity of communicators.
     /// \param other communicator to compare with

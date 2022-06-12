@@ -104,6 +104,8 @@ var classmpl_1_1distributed__graph__communicator =
     [ "ineighbor_alltoall", "classmpl_1_1distributed__graph__communicator.html#a52b9bcc6355597f6294e82b22687c116", null ],
     [ "ineighbor_alltoallv", "classmpl_1_1distributed__graph__communicator.html#aaf3b9fce1c6ada4e1110ac9694a19422", null ],
     [ "ineighbor_alltoallv", "classmpl_1_1distributed__graph__communicator.html#a962c6eec0ae1ff20d3569fd3f10d2471", null ],
+    [ "info", "classmpl_1_1distributed__graph__communicator.html#a4a256aca20f7cc04093e6a02dcfa0e48", null ],
+    [ "info", "classmpl_1_1distributed__graph__communicator.html#a860125d87210047e04974d0f72fe2876", null ],
     [ "iprobe", "classmpl_1_1distributed__graph__communicator.html#a5e99359be32a4d45501830f900284a06", null ],
     [ "irecv", "classmpl_1_1distributed__graph__communicator.html#a9a2f8c410dadb02c2247b76c94a38dc4", null ],
     [ "irecv", "classmpl_1_1distributed__graph__communicator.html#ab2bca7804e7a466fff401a8aa823f292", null ],
