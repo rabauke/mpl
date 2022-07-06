@@ -35,7 +35,10 @@ namespace mpl {
   /// \anchor bsend_overhead
   constexpr int bsend_overhead = MPI_BSEND_OVERHEAD;
 
+  /// Unsigned integer type used for array indexing and address arithmetic.
   using size_t = std::size_t;
+
+  /// Signed integer type used for array indexing and address arithmetic.
   using ssize_t = std::ptrdiff_t;
 
 }  // namespace mpl
