@@ -9,7 +9,7 @@ namespace mpl {
 
   /// Wildcard value to indicate in a receive operation, e.g., \ref communicator_recv
   /// "communicator::recv", that any source is acceptable.
-  /// \see tag::any
+  /// \see tag_t::any
   constexpr int any_source = MPI_ANY_SOURCE;
 
   /// Special value that can be used instead of a rank wherever a source or a
