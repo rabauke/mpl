@@ -1,0 +1,493 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Grids" href="grid.html" /><link rel="prev" title="Auxiliary functions and classes" href="auxiliary.html" />
+
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+        <title>Error handling - MPL - A message passing library 0.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_types.html">Supported data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="communicator.html">Communicators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Data layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reduction_operations.html">Reduction operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="info.html">Info objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/arrays.html">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/stl_container.html">STL containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/iterators.html">Iterators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/blocking.html">Blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/blocking_vector.html">Blocking send and receive of vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/nonblocking.html">Non-blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/nonblocking_mult.html">Gather via non-blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/probe.html">Probing messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/communicator.html">Communicator management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/collective.html">Collective communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gather.html">Gather operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gatherv.html">Variable gather operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/matrix_gather.html">Matrix gather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/reduce.html">Reduction operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/layouts.html">Layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/subarray.html">Subarray layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/parallel_sort.html">Parallel sorting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/vibrating_string.html">Vibrating string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid.html">Distributed grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid_scatter_gather.html">Distributed grid collective operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="error-handling">
+<h1>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">#</a></h1>
+<p>MPL performs some consistency checks when the macro <code class="docutils literal notranslate"><span class="pre">MPL_DEBUG</span></code> has been defined.  In case of an error, an exception may be thrown with an object having one of the following types.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5errorE">
+<span id="_CPPv3N3mpl5errorE"></span><span id="_CPPv2N3mpl5errorE"></span><span id="mpl::error"></span><span class="target" id="classmpl_1_1error"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">exception</span></span><a class="headerlink" href="#_CPPv4N3mpl5errorE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Base class for all MPL exception classes that will be thrown in case of run-time errors. </p>
+<p>Subclassed by <a class="reference internal" href="#classmpl_1_1invalid__argument"><span class="std std-ref">mpl::invalid_argument</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__count"><span class="std std-ref">mpl::invalid_count</span></a>, mpl::invalid_datatype_bound, <a class="reference internal" href="#classmpl_1_1invalid__dim"><span class="std std-ref">mpl::invalid_dim</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__layout"><span class="std std-ref">mpl::invalid_layout</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__rank"><span class="std std-ref">mpl::invalid_rank</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__size"><span class="std std-ref">mpl::invalid_size</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__tag"><span class="std std-ref">mpl::invalid_tag</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5error5errorEPCKc">
+<span id="_CPPv3N3mpl5error5errorEPCKc"></span><span id="_CPPv2N3mpl5error5errorEPCKc"></span><span id="mpl::error::error__cCPC"></span><span class="target" id="classmpl_1_1error_1a63195dd370214a0afa3bd38b59ba7b37"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">str</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;unknown&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5error5errorEPCKc" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>str</strong> – error message that will be returned by what method </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl5error4whatEv">
+<span id="_CPPv3NK3mpl5error4whatEv"></span><span id="_CPPv2NK3mpl5error4whatEv"></span><span id="mpl::error::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl5error4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12invalid_rankE">
+<span id="_CPPv3N3mpl12invalid_rankE"></span><span id="_CPPv2N3mpl12invalid_rankE"></span><span id="mpl::invalid_rank"></span><span class="target" id="classmpl_1_1invalid__rank"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_rank</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl12invalid_rankE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid rank argument. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12invalid_rank12invalid_rankEv">
+<span id="_CPPv3N3mpl12invalid_rank12invalid_rankEv"></span><span id="_CPPv2N3mpl12invalid_rank12invalid_rankEv"></span><span id="mpl::invalid_rank::invalid_rank"></span><span class="target" id="classmpl_1_1invalid__rank_1ad37eac9d409ae80bc126da73cb048294"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl12invalid_rank12invalid_rankEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl12invalid_rank4whatEv">
+<span id="_CPPv3NK3mpl12invalid_rank4whatEv"></span><span id="_CPPv2NK3mpl12invalid_rank4whatEv"></span><span id="mpl::invalid_rank::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl12invalid_rank4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl11invalid_tagE">
+<span id="_CPPv3N3mpl11invalid_tagE"></span><span id="_CPPv2N3mpl11invalid_tagE"></span><span id="mpl::invalid_tag"></span><span class="target" id="classmpl_1_1invalid__tag"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_tag</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl11invalid_tagE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid tag argument. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl11invalid_tag11invalid_tagEv">
+<span id="_CPPv3N3mpl11invalid_tag11invalid_tagEv"></span><span id="_CPPv2N3mpl11invalid_tag11invalid_tagEv"></span><span id="mpl::invalid_tag::invalid_tag"></span><span class="target" id="classmpl_1_1invalid__tag_1a7e4700f381c0e849e1c0a6b51aee9465"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_tag</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl11invalid_tag11invalid_tagEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl11invalid_tag4whatEv">
+<span id="_CPPv3NK3mpl11invalid_tag4whatEv"></span><span id="_CPPv2NK3mpl11invalid_tag4whatEv"></span><span id="mpl::invalid_tag::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl11invalid_tag4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12invalid_sizeE">
+<span id="_CPPv3N3mpl12invalid_sizeE"></span><span id="_CPPv2N3mpl12invalid_sizeE"></span><span id="mpl::invalid_size"></span><span class="target" id="classmpl_1_1invalid__size"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_size</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl12invalid_sizeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid size argument. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12invalid_size12invalid_sizeEv">
+<span id="_CPPv3N3mpl12invalid_size12invalid_sizeEv"></span><span id="_CPPv2N3mpl12invalid_size12invalid_sizeEv"></span><span id="mpl::invalid_size::invalid_size"></span><span class="target" id="classmpl_1_1invalid__size_1af22c29b8f2a1b74d134a8c221d89bc58"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl12invalid_size12invalid_sizeEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl12invalid_size4whatEv">
+<span id="_CPPv3NK3mpl12invalid_size4whatEv"></span><span id="_CPPv2NK3mpl12invalid_size4whatEv"></span><span id="mpl::invalid_size::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl12invalid_size4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13invalid_countE">
+<span id="_CPPv3N3mpl13invalid_countE"></span><span id="_CPPv2N3mpl13invalid_countE"></span><span id="mpl::invalid_count"></span><span class="target" id="classmpl_1_1invalid__count"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_count</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl13invalid_countE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid count argument. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13invalid_count13invalid_countEv">
+<span id="_CPPv3N3mpl13invalid_count13invalid_countEv"></span><span id="_CPPv2N3mpl13invalid_count13invalid_countEv"></span><span id="mpl::invalid_count::invalid_count"></span><span class="target" id="classmpl_1_1invalid__count_1ae565237bd4635f06cb5daa665ac316c3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13invalid_count13invalid_countEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13invalid_count4whatEv">
+<span id="_CPPv3NK3mpl13invalid_count4whatEv"></span><span id="_CPPv2NK3mpl13invalid_count4whatEv"></span><span id="mpl::invalid_count::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl13invalid_count4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14invalid_layoutE">
+<span id="_CPPv3N3mpl14invalid_layoutE"></span><span id="_CPPv2N3mpl14invalid_layoutE"></span><span id="mpl::invalid_layout"></span><span class="target" id="classmpl_1_1invalid__layout"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_layout</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl14invalid_layoutE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid layout argument. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14invalid_layout14invalid_layoutEv">
+<span id="_CPPv3N3mpl14invalid_layout14invalid_layoutEv"></span><span id="_CPPv2N3mpl14invalid_layout14invalid_layoutEv"></span><span id="mpl::invalid_layout::invalid_layout"></span><span class="target" id="classmpl_1_1invalid__layout_1aba5a34fef955a918716733b36085baa5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_layout</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14invalid_layout14invalid_layoutEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl14invalid_layout4whatEv">
+<span id="_CPPv3NK3mpl14invalid_layout4whatEv"></span><span id="_CPPv2NK3mpl14invalid_layout4whatEv"></span><span id="mpl::invalid_layout::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl14invalid_layout4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl11invalid_dimE">
+<span id="_CPPv3N3mpl11invalid_dimE"></span><span id="_CPPv2N3mpl11invalid_dimE"></span><span id="mpl::invalid_dim"></span><span class="target" id="classmpl_1_1invalid__dim"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_dim</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl11invalid_dimE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid dimension. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl11invalid_dim11invalid_dimEv">
+<span id="_CPPv3N3mpl11invalid_dim11invalid_dimEv"></span><span id="_CPPv2N3mpl11invalid_dim11invalid_dimEv"></span><span id="mpl::invalid_dim::invalid_dim"></span><span class="target" id="classmpl_1_1invalid__dim_1a35fcdedad1a82a8df4961ec9f8c2b13f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_dim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl11invalid_dim11invalid_dimEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl11invalid_dim4whatEv">
+<span id="_CPPv3NK3mpl11invalid_dim4whatEv"></span><span id="_CPPv2NK3mpl11invalid_dim4whatEv"></span><span id="mpl::invalid_dim::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl11invalid_dim4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl16invalid_argumentE">
+<span id="_CPPv3N3mpl16invalid_argumentE"></span><span id="_CPPv2N3mpl16invalid_argumentE"></span><span id="mpl::invalid_argument"></span><span class="target" id="classmpl_1_1invalid__argument"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_argument</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl16invalid_argumentE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Will be thrown in case of invalid arguments. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl16invalid_argument16invalid_argumentEv">
+<span id="_CPPv3N3mpl16invalid_argument16invalid_argumentEv"></span><span id="_CPPv2N3mpl16invalid_argument16invalid_argumentEv"></span><span id="mpl::invalid_argument::invalid_argument"></span><span class="target" id="classmpl_1_1invalid__argument_1a561fcad448834774831ed758c927c911"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">invalid_argument</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl16invalid_argument16invalid_argumentEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl16invalid_argument4whatEv">
+<span id="_CPPv3NK3mpl16invalid_argument4whatEv"></span><span id="_CPPv2NK3mpl16invalid_argument4whatEv"></span><span id="mpl::invalid_argument::whatC"></span><span class="target" id="classmpl_1_1error_1a74cba88f95894c0abf2baff78a88076e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl16invalid_argument4whatEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="grid.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Grids</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="auxiliary.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Auxiliary functions and classes</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Heiko Bauke
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

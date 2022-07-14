@@ -1,5 +1,0 @@
-<map id="mpl::invalid_argument" name="mpl::invalid_argument">
-<area shape="rect" id="node1" title="Will be thrown in case of invalid arguments." alt="" coords="5,289,237,375"/>
-<area shape="rect" id="node2" href="$classmpl_1_1error.html" title="Base class for all MPL exception classes that will be thrown in case of run&#45;time errors." alt="" coords="60,139,183,241"/>
-<area shape="rect" id="node3" title=" " alt="" coords="40,5,203,91"/>
-</map>

@@ -547,7 +547,7 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -566,7 +566,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -585,7 +585,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -661,7 +661,7 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a non-blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -682,7 +682,7 @@ namespace mpl {
       /// Sends a message with several values having a specific memory layout via a
       /// non-blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -705,7 +705,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -731,7 +731,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a single
       /// value via a blocking standard send operation.
       /// \tparam T type of the data to send, must  meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -750,7 +750,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -773,7 +773,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -797,7 +797,7 @@ namespace mpl {
       // --- determine buffer size ---
       /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param number quantity of elements of type T to send in a single buffered message or
       /// in a series of  buffered send operations
       /// \return message buffer size
@@ -811,7 +811,7 @@ namespace mpl {
 
       /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param l layout of the data
       /// \param number quantity of buffered send operations with the given data type and layout
       /// \return message buffer size
@@ -852,7 +852,7 @@ namespace mpl {
       /// \anchor communicator_bsend
       /// Sends a message with a single value via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -871,7 +871,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -890,7 +890,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -966,7 +966,7 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a non-blocking buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -988,7 +988,7 @@ namespace mpl {
       /// Sends a message with several values having a specific memory layout via a
       /// non-blocking buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1011,7 +1011,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1037,7 +1037,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a single
       /// value via a buffered send operation.
       /// \tparam T type of the data to send, must meet the  requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1056,7 +1056,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1079,7 +1079,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1130,7 +1130,7 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -1148,7 +1148,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1167,7 +1167,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1244,7 +1244,7 @@ namespace mpl {
       /// Sends a message with a single value via a non-blocking synchronous send
       /// operation.
       /// \tparam T type of the data to send, must meet the requirements as described
-      /// in the \ref data_types "data types" section or an STL container that holds elements
+      /// in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements
       /// that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -1265,7 +1265,7 @@ namespace mpl {
       /// Sends a message with several values having a specific memory layout via a
       /// non-blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1288,7 +1288,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1313,7 +1313,7 @@ namespace mpl {
       // --- persistent synchronous send ---
       /// Creates a persistent communication request to send a message with a single
       /// value via a blocking synchronous send operation. \tparam T type of the data to send,
-      /// must meet the requirements as described in the \ref data_types "data types" section
+      /// must meet the requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1332,7 +1332,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1355,7 +1355,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1406,7 +1406,7 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -1425,7 +1425,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1444,7 +1444,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1520,7 +1520,7 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a non-blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -1541,7 +1541,7 @@ namespace mpl {
       /// Sends a message with several values having a specific memory layout via a
       /// non-blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1564,7 +1564,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1590,7 +1590,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a single
       /// value via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1609,7 +1609,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1632,7 +1632,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1702,7 +1702,7 @@ namespace mpl {
     public:
       /// Receives a message with a single value.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to receive
       /// \param source rank of the sending process
@@ -1721,7 +1721,7 @@ namespace mpl {
 
       /// Receives a message with a several values having a specific memory layout.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param source rank of the sending process
@@ -1742,7 +1742,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending process
@@ -1803,7 +1803,7 @@ namespace mpl {
     public:
       /// Receives a message with a single value via a non-blocking receive operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to receive
       /// \param source rank of the sending process
@@ -1823,7 +1823,7 @@ namespace mpl {
       /// Receives a message with several values having a specific memory layout via a
       /// non-blocking receive operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param source rank of the sending process
@@ -1845,7 +1845,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending process
@@ -1871,7 +1871,7 @@ namespace mpl {
       /// Creates a persistent communication request to receive a message with a single
       /// value via a blocking receive operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data value to receive
       /// \param source rank of the sending process
       /// \param t tag associated to this message
@@ -1890,7 +1890,7 @@ namespace mpl {
       /// Creates a persistent communication request to receive a message with a several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param source rank of the sending process
@@ -1912,7 +1912,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending ing process
@@ -2012,7 +2012,7 @@ namespace mpl {
     public:
       /// Receives a message with a single value by a message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to receive
       /// \param m message handle of message to receive
@@ -2026,7 +2026,7 @@ namespace mpl {
       /// Receives a message with a several values having a specific memory layout by a
       /// message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param m message handle of message to receive
@@ -2045,7 +2045,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param m message handle of message to receive
@@ -2079,7 +2079,7 @@ namespace mpl {
       /// Receives a message with a single value via a non-blocking receive operation by
       /// a message handle.
       /// \tparam T type of the data to receive, must meet the requirements as  described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to receive
       /// \param m message handle of message to receive
       /// \return request representing the ongoing receive operation
@@ -2092,7 +2092,7 @@ namespace mpl {
       /// Receives a message with several values having a specific memory layout via a
       /// non-blocking receive operation by a message handle.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param m message handle of message to receive
@@ -2110,7 +2110,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param m message handle of message to receive
@@ -2135,7 +2135,7 @@ namespace mpl {
       // --- send and receive ---
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param destination rank of the receiving process
       /// \param send_tag tag associated to the data to send
@@ -2160,7 +2160,7 @@ namespace mpl {
 
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -2191,12 +2191,12 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \tparam iterT2 iterator type, must fulfill the requirements of a
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin_1 iterator pointing to the first data value to send
       /// \param end_1 iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -2238,7 +2238,7 @@ namespace mpl {
       // --- send, receive and replace ---
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data data to send, will hold the received data
       /// \param destination rank of the receiving process
       /// \param send_tag tag associated to the data to send
@@ -2261,7 +2261,7 @@ namespace mpl {
 
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param data data to send, will hold the received data
       /// \param l memory layout of the data to send and receive
       /// \param destination rank of the receiving process
@@ -2288,7 +2288,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send and to receive
       /// \param end iterator pointing one element beyond the last data value to send and to
       /// receive
@@ -2335,7 +2335,7 @@ namespace mpl {
       // --- blocking broadcast ---
       /// Broadcasts a message from a process to all other processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \note This is a collective operation and must be called by all processes in the
@@ -2348,7 +2348,7 @@ namespace mpl {
 
       /// Broadcasts a message from a process to all other processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \param l memory layout of the data to send/receive
@@ -2365,7 +2365,7 @@ namespace mpl {
       /// Broadcasts a message from a process to all other processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \return request representing the ongoing message transfer
@@ -2383,7 +2383,7 @@ namespace mpl {
       /// Broadcasts a message from a process to all other processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \param l memory layout of the data to send/receive
@@ -2404,7 +2404,7 @@ namespace mpl {
       // --- blocking gather ---
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2420,7 +2420,7 @@ namespace mpl {
 
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2441,7 +2441,7 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2461,7 +2461,7 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2484,7 +2484,7 @@ namespace mpl {
       // --- blocking gather, non-root variant ---
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2499,7 +2499,7 @@ namespace mpl {
 
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
@@ -2517,7 +2517,7 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \return request representing the ongoing message transfer
@@ -2536,7 +2536,7 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
@@ -2557,7 +2557,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2585,7 +2585,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2603,7 +2603,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2633,7 +2633,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2652,7 +2652,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -2673,7 +2673,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \return request representing the ongoing message transfer
@@ -2696,7 +2696,7 @@ namespace mpl {
       // --- blocking allgather ---
       /// Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \note This is a collective operation and must be called (possibly by utilizing
@@ -2709,7 +2709,7 @@ namespace mpl {
 
       /// Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
@@ -2728,7 +2728,7 @@ namespace mpl {
       /// Gather messages from all processes and distribute result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \return request representing the ongoing message transfer
@@ -2745,7 +2745,7 @@ namespace mpl {
       /// Gather messages from all processes and distribute result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
@@ -2768,7 +2768,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
@@ -2790,7 +2790,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
@@ -2807,7 +2807,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
@@ -2830,7 +2830,7 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
@@ -2849,7 +2849,7 @@ namespace mpl {
       // --- blocking scatter ---
       /// Scatter messages from a single root process to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
@@ -2865,7 +2865,7 @@ namespace mpl {
 
       /// Scatter messages from a single root process to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \ref data_types "data types" section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
@@ -3455,7 +3455,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input data for the reduction operation
@@ -3473,7 +3473,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input buffer for the reduction operation
@@ -3496,7 +3496,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input data for the reduction operation
@@ -3517,7 +3517,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input buffer for the reduction operation
@@ -3543,7 +3543,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
@@ -3559,7 +3559,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
@@ -3580,7 +3580,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
@@ -3600,7 +3600,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
@@ -3624,7 +3624,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator
@@ -3642,7 +3642,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator times the number of elements given by
@@ -3665,7 +3665,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator
@@ -3687,7 +3687,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator times the number of elements given by
@@ -3713,7 +3713,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the sum of the number of elements given by the collection of layout
@@ -3736,7 +3736,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the sum of the number of elements given by the collection of layout
@@ -3762,7 +3762,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
@@ -3778,7 +3778,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
@@ -3797,7 +3797,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
@@ -3817,7 +3817,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
@@ -3840,7 +3840,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
@@ -3856,7 +3856,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
@@ -3875,7 +3875,7 @@ namespace mpl {
       /// \tparam F type representing the reduction operation, reduction operation is performed
       /// on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
@@ -3895,7 +3895,7 @@ namespace mpl {
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
       /// performed on data of type T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \ref data_types "data types" section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
@@ -4340,7 +4340,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input data for the reduction operation, will hold the result of the
@@ -4362,7 +4362,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
@@ -4380,7 +4380,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input buffer for the reduction operation, will hold the results of
@@ -4403,7 +4403,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
@@ -4424,7 +4424,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input data for the reduction operation, will hold the result of the
@@ -4450,7 +4450,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
@@ -4472,7 +4472,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input buffer for the reduction operation, will hold the results of
@@ -4502,7 +4502,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
@@ -4531,7 +4531,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -4547,7 +4547,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
@@ -4566,7 +4566,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
@@ -4586,7 +4586,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
@@ -4612,7 +4612,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -4628,7 +4628,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
@@ -4647,7 +4647,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
@@ -4666,7 +4666,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
@@ -4692,7 +4692,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -4708,7 +4708,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
@@ -4727,7 +4727,7 @@ namespace mpl {
     /// \tparam F type representing the reduction operation, reduction operation is performed
     /// on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
@@ -4746,7 +4746,7 @@ namespace mpl {
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
     /// performed on data of type T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \ref data_types "data types" section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive

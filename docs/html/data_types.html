@@ -1,0 +1,698 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Environmental management" href="environmental_management.html" /><link rel="prev" title="Installation" href="installation.html" />
+
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
+        <title>Supported data types - MPL - A message passing library 0.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Supported data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="communicator.html">Communicators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Data layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reduction_operations.html">Reduction operations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="info.html">Info objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/arrays.html">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/stl_container.html">STL containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/iterators.html">Iterators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/blocking.html">Blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/blocking_vector.html">Blocking send and receive of vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/nonblocking.html">Non-blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/nonblocking_mult.html">Gather via non-blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/probe.html">Probing messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/communicator.html">Communicator management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/collective.html">Collective communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gather.html">Gather operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gatherv.html">Variable gather operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/matrix_gather.html">Matrix gather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/reduce.html">Reduction operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/layouts.html">Layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/subarray.html">Subarray layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/parallel_sort.html">Parallel sorting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/vibrating_string.html">Vibrating string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid.html">Distributed grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid_scatter_gather.html">Distributed grid collective operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="supported-data-types">
+<h1>Supported data types<a class="headerlink" href="#supported-data-types" title="Permalink to this heading">#</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>MPL enables processes to send and to receive messages containing data of
+different data types. The following elementary data types are supported
+by MPL in all messaging operations:</p>
+<ul class="simple">
+<li><p>all standard integer types, signed as well as unsigned, such as
+<code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">int</span></code> etc.,</p></li>
+<li><p>the character types <code class="docutils literal notranslate"><span class="pre">char</span></code>, <code class="docutils literal notranslate"><span class="pre">signed</span> <span class="pre">char</span></code>, <code class="docutils literal notranslate"><span class="pre">unsigned</span> <span class="pre">char</span></code> as
+well as the wide character types <code class="docutils literal notranslate"><span class="pre">wchar_t</span></code>, <code class="docutils literal notranslate"><span class="pre">char8_t</span></code> (if
+compiler supports C++-20 features), <code class="docutils literal notranslate"><span class="pre">char16_t</span></code> and <code class="docutils literal notranslate"><span class="pre">char32_t</span></code>,</p></li>
+<li><p>the floating point types <code class="docutils literal notranslate"><span class="pre">float</span></code>, <code class="docutils literal notranslate"><span class="pre">double</span></code> and <code class="docutils literal notranslate"><span class="pre">long</span> <span class="pre">double</span></code>,</p></li>
+<li><p>the complex types <code class="docutils literal notranslate"><span class="pre">std::complex&lt;float&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">std::complex&lt;double&gt;</span></code>
+and <code class="docutils literal notranslate"><span class="pre">std::complex&lt;long</span> <span class="pre">double&gt;</span></code>,</p></li>
+<li><p>the Boolean type <code class="docutils literal notranslate"><span class="pre">bool</span></code>,</p></li>
+<li><p>the type <code class="docutils literal notranslate"><span class="pre">std::byte</span></code> and</p></li>
+<li><p>enumeration types.</p></li>
+</ul>
+<p>MPL would not be very limited if it would only support these elementary
+data types. Therefore, MPL comes also with some support for user-defined
+data types. To be able to exchange data of custom types via a message
+passing library the library must have some knowledge about the internal
+representation of user-defined data types. Because C++ has very limited
+type introspection capabilities, this knowledge cannot be obtained
+automatically by the message passing library. Instead, information
+about the internal structure of user-defined types (structures and
+classes) has to be exposed explicitly to the message passing library.
+Therefore, MPL supports message exchange of data when information about
+the internal representation can be obtained automatically and introduces
+a mechanism to expose the internal representation of custom types toMPL
+if this is not possible.</p>
+<p>The data types, where MPL can infer their internal representation are</p>
+<ul class="simple">
+<li><p>C arrays of constant size (one-dimensional and multidimensional arras up to 4 dimensions) and</p></li>
+<li><p>the template classes <code class="docutils literal notranslate"><span class="pre">std::array</span></code>, <code class="docutils literal notranslate"><span class="pre">std::pair</span></code> and <code class="docutils literal notranslate"><span class="pre">std::tuple</span></code> of the C++ Standard Template Library.</p></li>
+</ul>
+<p>The only limitation is, that the C arrays as well as the mentioned STL
+template classes must hold data elements of types that can be sent or
+received by MPL, e.g., the elementary types mentioned above. This rule
+can be applied recursively, which allows one to build quite complex data
+structures. This means, for example, one can send and receive data of
+type <code class="docutils literal notranslate"><span class="pre">std::pair&lt;int,</span> <span class="pre">double&gt;</span></code>, because <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code> can be sent
+or received. But also <code class="docutils literal notranslate"><span class="pre">std::array&lt;std::pair&lt;int,</span> <span class="pre">double&gt;,</span> <span class="pre">8&gt;</span></code>, which
+represents 8 pairs of <code class="docutils literal notranslate"><span class="pre">int</span></code> and <code class="docutils literal notranslate"><span class="pre">double</span></code>, can be used in a message.</p>
+<p>User-defined data structures usually come as structures or classes.
+Provided that these classes hold only non-static non-const data members
+of types, which MPL is able to send or receive, it is possible to expose
+these data members to MPL via template specialization of the class
+<code class="docutils literal notranslate"><span class="pre">struct_builder</span></code> such that messages containing objects of these
+classes can be exchanged. Template specialization of the class
+<code class="docutils literal notranslate"><span class="pre">struct_builder</span></code> is illustrated in the example program in section
+<a class="reference internal" href="examples/struct.html"><span class="doc">Using structs</span></a>. The specialized template has to derived from
+<code class="docutils literal notranslate"><span class="pre">base_struct_builder</span></code> and the internal data representation of the
+user-defined class is exposed to MPL in the constructor.</p>
+</div>
+<div class="section" id="class-documentation">
+<h2>Class documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">#</a></h2>
+<p>Every new template specialization of the class <code class="docutils literal notranslate"><span class="pre">struct_builder</span></code> must
+derive from <code class="docutils literal notranslate"><span class="pre">base_struct_builder</span></code>. The template specialization of
+<code class="docutils literal notranslate"><span class="pre">struct_builder</span></code> defines a default constructor that collects the
+required type information by utilizing the <code class="docutils literal notranslate"><span class="pre">struct_layout</span></code> class as
+demonstrated in the example program in section <a class="reference internal" href="examples/struct.html"><span class="doc">Using structs</span></a>.</p>
+<div class="section" id="template-class-base-struct-builder">
+<h3>Template class base_struct_builder<a class="headerlink" href="#template-class-base-struct-builder" title="Permalink to this heading">#</a></h3>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl19base_struct_builderE">
+<span id="_CPPv3I0EN3mpl19base_struct_builderE"></span><span id="_CPPv2I0EN3mpl19base_struct_builderE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1base__struct__builder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">base_struct_builder</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Base class used to manage information about structures/classes and their public members. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>T</strong> – the structure or class type </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl19base_struct_builder19base_struct_builderERK19base_struct_builder">
+<span id="_CPPv3N3mpl19base_struct_builder19base_struct_builderERK19base_struct_builder"></span><span id="_CPPv2N3mpl19base_struct_builder19base_struct_builderERK19base_struct_builder"></span><span id="mpl::base_struct_builder::base_struct_builder__base_struct_builderCR"></span><span class="target" id="classmpl_1_1base__struct__builder_1a3138dac289f89c80ea2e7f0467f7a7c3"></span><span class="sig-name descname"><span class="n"><span class="pre">base_struct_builder</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl19base_struct_builder19base_struct_builderERK19base_struct_builder" title="mpl::base_struct_builder::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3mpl19base_struct_builder19base_struct_builderERK19base_struct_builder" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl19base_struct_builderaSERK19base_struct_builder">
+<span id="_CPPv3N3mpl19base_struct_builderaSERK19base_struct_builder"></span><span id="_CPPv2N3mpl19base_struct_builderaSERK19base_struct_builder"></span><span id="mpl::base_struct_builder::assign-operator__base_struct_builderCR"></span><span class="target" id="classmpl_1_1base__struct__builder_1a89fee93a94ed5fe7d423733cb3ba4224"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3mpl19base_struct_builderaSERK19base_struct_builder" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">detail::datatype_traits_impl&lt;</span> <span class="pre">T,</span> <span class="pre">void</span> <span class="pre">&gt;</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="template-class-struct-builder">
+<h3>Template class struct_builder<a class="headerlink" href="#template-class-struct-builder" title="Permalink to this heading">#</a></h3>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl14struct_builderE">
+<span id="_CPPv3I0EN3mpl14struct_builderE"></span><span id="_CPPv2I0EN3mpl14struct_builderE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl14struct_builderE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Template class used to manage information about structures/classes and their public members. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1base__struct__builder"><span class="std std-ref">base_struct_builder</span></a> </p>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This template class needs to be specialized for each structure/class type that shall be used in message passing operations. Specializations must derive from class <a class="reference internal" href="#classmpl_1_1base__struct__builder"><span class="std std-ref">base_struct_builder</span></a>. MPL provides some specializations for common types. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>T</strong> – the structure or class type </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builder18data_type_categoryE">
+<span id="_CPPv3N3mpl14struct_builder18data_type_categoryE"></span><span id="_CPPv2N3mpl14struct_builder18data_type_categoryE"></span><span class="target" id="classmpl_1_1struct__builder_1a7a251c50cab3d224a1a8268530db4d6d"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">data_type_category</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unsupported_type</span></span><a class="headerlink" href="#_CPPv4N3mpl14struct_builder18data_type_categoryE" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE">
+<span id="_CPPv3I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE"></span><span id="_CPPv2I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE" title="mpl::struct_builder&lt;std::array&lt;T, N&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE" title="mpl::struct_builder&lt;std::array&lt;T, N&gt;&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE" title="mpl::struct_builder&lt;std::array&lt;T, N&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE" title="mpl::struct_builder&lt;std::array&lt;T, N&gt;&gt;::N"><span class="n"><span class="pre">N</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderINSt5arrayI1T1NEEEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for fixed-size one-dimensional STL arrays. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – type of the array elements </p></li>
+<li><p><strong>N</strong> – array size </p></li>
+</ul>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderINSt5arrayI1T1NEEE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderINSt5arrayI1T1NEEE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderINSt5arrayI1T1NEEE14struct_builderEv"></span><span id="mpl::struct_builder:std::array:T.N::::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01std_1_1array_3_01_t_00_01_n_01_4_01_4_1aa3ddf9c1a4b20c0da0c32c2ca98d7be3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderINSt5arrayI1T1NEEE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE">
+<span id="_CPPv3I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE"></span><span id="_CPPv2I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T1</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T2</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE" title="mpl::struct_builder&lt;std::pair&lt;T1, T2&gt;&gt;::T1"><span class="n"><span class="pre">T1</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE" title="mpl::struct_builder&lt;std::pair&lt;T1, T2&gt;&gt;::T2"><span class="n"><span class="pre">T2</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE" title="mpl::struct_builder&lt;std::pair&lt;T1, T2&gt;&gt;::T1"><span class="n"><span class="pre">T1</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE" title="mpl::struct_builder&lt;std::pair&lt;T1, T2&gt;&gt;::T2"><span class="n"><span class="pre">T2</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I00EN3mpl14struct_builderINSt4pairI2T12T2EEEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for STL pairs. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T1</strong> – type of first member of the STL pair </p></li>
+<li><p><strong>T2</strong> – type of second member of the STL pair </p></li>
+</ul>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderINSt4pairI2T12T2EEE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderINSt4pairI2T12T2EEE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderINSt4pairI2T12T2EEE14struct_builderEv"></span><span id="mpl::struct_builder:std::pair:T1.T2::::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01std_1_1pair_3_01_t1_00_01_t2_01_4_01_4_1ad358a07c14d549703b11a0c26c8ed49f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderINSt4pairI2T12T2EEE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN3mpl14struct_builderINSt5tupleIDp2TsEEEE">
+<span id="_CPPv3IDpEN3mpl14struct_builderINSt5tupleIDp2TsEEEE"></span><span id="_CPPv2IDpEN3mpl14struct_builderINSt5tupleIDp2TsEEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Ts</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3mpl14struct_builderINSt5tupleIDp2TsEEEE" title="mpl::struct_builder&lt;std::tuple&lt;Ts...&gt;&gt;::Ts"><span class="n"><span class="pre">Ts</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">tuple</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4IDpEN3mpl14struct_builderINSt5tupleIDp2TsEEEE" title="mpl::struct_builder&lt;std::tuple&lt;Ts...&gt;&gt;::Ts"><span class="n"><span class="pre">Ts</span></span></a><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4IDpEN3mpl14struct_builderINSt5tupleIDp2TsEEEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for STL tuples. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>Ts</strong> – parameter pack representing the types of the members of the STL tuple </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderINSt5tupleIDp2TsEEE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderINSt5tupleIDp2TsEEE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderINSt5tupleIDp2TsEEE14struct_builderEv"></span><span id="mpl::struct_builder:std::tuple:TsDp::::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01std_1_1tuple_3_01_ts_8_8_8_01_4_01_4_1aca6ed8f6236fc432dcca0d7a656c6ca5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderINSt5tupleIDp2TsEEE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE">
+<span id="_CPPv3I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE"></span><span id="_CPPv2I0_NSt6size_tEEN3mpl14struct_builderIAN0_1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N0</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE" title="mpl::struct_builder&lt;T[N0]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE" title="mpl::struct_builder&lt;T[N0]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE" title="mpl::struct_builder&lt;T[N0]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE" title="mpl::struct_builder&lt;T[N0]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0_NSt6size_tEEN3mpl14struct_builderIA2N0_1TEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for fixed-size one-dimensional C-style arrays. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – type of the array elements </p></li>
+<li><p><strong>N0</strong> – array size </p></li>
+</ul>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderIA2N0_1TE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderIA2N0_1TE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderIAN0_1TE14struct_builderEv"></span><span id="mpl::struct_builder:TA:::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_4_1a12b92cf1cac112f326ef9c1ff3fff9e9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderIA2N0_1TE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE">
+<span id="_CPPv3I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE"></span><span id="_CPPv2I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIAN0_AN1_1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N0</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N1</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="mpl::struct_builder&lt;T[N0][N1]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="mpl::struct_builder&lt;T[N0][N1]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="mpl::struct_builder&lt;T[N0][N1]&gt;::N1"><span class="n"><span class="pre">N1</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="mpl::struct_builder&lt;T[N0][N1]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="mpl::struct_builder&lt;T[N0][N1]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="mpl::struct_builder&lt;T[N0][N1]&gt;::N1"><span class="n"><span class="pre">N1</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_1TEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for fixed-size two-dimensional C-style arrays. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – type of the array elements </p></li>
+<li><p><strong>N0</strong> – array size, first dimension </p></li>
+<li><p><strong>N1</strong> – array size, second dimension </p></li>
+</ul>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderIA2N0_A2N1_1TE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderIA2N0_A2N1_1TE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderIAN0_AN1_1TE14struct_builderEv"></span><span id="mpl::struct_builder:TAA:::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_4_1aaf371600324b88c0b0e1fcd85f47c89a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderIA2N0_A2N1_1TE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE">
+<span id="_CPPv3I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE"></span><span id="_CPPv2I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIAN0_AN1_AN2_1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N0</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N1</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N2</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::N1"><span class="n"><span class="pre">N1</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::N2"><span class="n"><span class="pre">N2</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::N1"><span class="n"><span class="pre">N1</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2]&gt;::N2"><span class="n"><span class="pre">N2</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_1TEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for fixed-size three-dimensional C-style arrays. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – type of the array elements </p></li>
+<li><p><strong>N0</strong> – array size, first dimension </p></li>
+<li><p><strong>N1</strong> – array size, second dimension </p></li>
+<li><p><strong>N2</strong> – array size, third dimension </p></li>
+</ul>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderIA2N0_A2N1_A2N2_1TE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderIA2N0_A2N1_A2N2_1TE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderIAN0_AN1_AN2_1TE14struct_builderEv"></span><span id="mpl::struct_builder:TAAA:::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_4_1af2c1e87c7b483609493dc6ab333f1d02"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderIA2N0_A2N1_A2N2_1TE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE">
+<span id="_CPPv3I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE"></span><span id="_CPPv2I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIAN0_AN1_AN2_AN3_1TEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N0</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N1</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N2</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">N3</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N1"><span class="n"><span class="pre">N1</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N2"><span class="n"><span class="pre">N2</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N3"><span class="n"><span class="pre">N3</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl19base_struct_builderE" title="mpl::base_struct_builder"><span class="n"><span class="pre">base_struct_builder</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N0"><span class="n"><span class="pre">N0</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N1"><span class="n"><span class="pre">N1</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N2"><span class="n"><span class="pre">N2</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="mpl::struct_builder&lt;T[N0][N1][N2][N3]&gt;::N3"><span class="n"><span class="pre">N3</span></span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0_NSt6size_tE_NSt6size_tE_NSt6size_tE_NSt6size_tEEN3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Specialization of <a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> for fixed-size four-dimensional C-style arrays. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref">struct_builder</span></a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>T</strong> – type of the array elements </p></li>
+<li><p><strong>N0</strong> – array size, first dimension </p></li>
+<li><p><strong>N1</strong> – array size, second dimension </p></li>
+<li><p><strong>N2</strong> – array size, third dimension </p></li>
+<li><p><strong>N3</strong> – array size, fourth dimension </p></li>
+</ul>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TE14struct_builderEv">
+<span id="_CPPv3N3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TE14struct_builderEv"></span><span id="_CPPv2N3mpl14struct_builderIAN0_AN1_AN2_AN3_1TE14struct_builderEv"></span><span id="mpl::struct_builder:TAAAA:::struct_builder"></span><span class="target" id="classmpl_1_1struct__builder_3_01_t_0f_n0_0e_0f_n1_0e_0f_n2_0e_0f_n3_0e_4_1a994090fb8f342df0546baa10fe298ee3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_builder</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl14struct_builderIA2N0_A2N1_A2N2_A2N3_1TE14struct_builderEv" title="Permalink to this definition">#</a><br /></dt>
+<dd></dd></dl>
+
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="template-class-struct-layout">
+<h3>Template class struct_layout<a class="headerlink" href="#template-class-struct-layout" title="Permalink to this heading">#</a></h3>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl13struct_layoutE">
+<span id="_CPPv3I0EN3mpl13struct_layoutE"></span><span id="_CPPv2I0EN3mpl13struct_layoutE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">S</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__layout"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">struct_layout</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl13struct_layoutE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>layout class for storing meta information about the public members of structures </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>S</strong> – the struct or class type, the public members of which are managed </p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13struct_layout15register_structERK1S">
+<span id="_CPPv3N3mpl13struct_layout15register_structERK1S"></span><span id="_CPPv2N3mpl13struct_layout15register_structERK1S"></span><span id="mpl::struct_layout::register_struct__SCR"></span><span class="target" id="classmpl_1_1struct__layout_1ac8edfd2e43039745840de4d7f14e13b7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl13struct_layoutE" title="mpl::struct_layout"><span class="n"><span class="pre">struct_layout</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">register_struct</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl13struct_layoutE" title="mpl::struct_layout::S"><span class="n"><span class="pre">S</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13struct_layout15register_structERK1S" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>starts to register a struct type </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – an instance of type S (the template parameter of class <a class="reference internal" href="#classmpl_1_1struct__layout"><span class="std std-ref">struct_layout</span></a> </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>reference to this <a class="reference internal" href="#classmpl_1_1struct__layout"><span class="std std-ref">struct_layout</span></a> object (allows chaining) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl13struct_layout16register_elementER13struct_layoutR1T">
+<span id="_CPPv3I0EN3mpl13struct_layout16register_elementER1T"></span><span id="_CPPv2I0EN3mpl13struct_layout16register_elementER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1struct__layout_1ada968c08d05ee6c94464bba46c7b2566"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl13struct_layoutE" title="mpl::struct_layout"><span class="n"><span class="pre">struct_layout</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">register_element</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl13struct_layout16register_elementER13struct_layoutR1T" title="mpl::struct_layout::register_element::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl13struct_layout16register_elementER13struct_layoutR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>registers a struct member </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> – a member of an instance of type S (the template parameter of class <a class="reference internal" href="#classmpl_1_1struct__layout"><span class="std std-ref">struct_layout</span></a> </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>reference to this <a class="reference internal" href="#classmpl_1_1struct__layout"><span class="std std-ref">struct_layout</span></a> object (allows chaining) </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">base_struct_builder&lt;</span> <span class="pre">S</span> <span class="pre">&gt;</span></dt>
+</dl>
+
+</div>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="environmental_management.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Environmental management</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="installation.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Heiko Bauke
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Supported data types</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#class-documentation">Class documentation</a><ul>
+<li><a class="reference internal" href="#template-class-base-struct-builder">Template class base_struct_builder</a></li>
+<li><a class="reference internal" href="#template-class-struct-builder">Template class struct_builder</a></li>
+<li><a class="reference internal" href="#template-class-struct-layout">Template class struct_layout</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    </body>
+</html>

@@ -1,8 +1,0 @@
-<map id="mpl::inter_communicator" name="mpl::inter_communicator">
-<area shape="rect" id="node1" title="Specifies the communication context for a communication operation between two non&#45;overlapping groups." alt="" coords="520,585,772,879"/>
-<area shape="rect" id="node2" href="$classmpl_1_1impl_1_1base__communicator.html" title=" " alt="" coords="495,173,797,536"/>
-<area shape="rect" id="node3" href="$classmpl_1_1impl_1_1base__communicator_1_1comm__collective__tag.html" title="Indicates the creation of a new communicator by an operation that is collective for all processes in ..." alt="" coords="5,5,308,108"/>
-<area shape="rect" id="node4" href="$classmpl_1_1impl_1_1base__communicator_1_1group__collective__tag.html" title="Indicates the creation of a new communicator by an operation that is collective for all processes in ..." alt="" coords="332,5,635,108"/>
-<area shape="rect" id="node5" href="$classmpl_1_1impl_1_1base__communicator_1_1split__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="659,5,961,108"/>
-<area shape="rect" id="node6" href="$classmpl_1_1impl_1_1base__communicator_1_1split__shared__memory__tag.html" title="Indicates the creation of a new communicator by spitting an existing communicator into disjoint subgr..." alt="" coords="985,5,1288,108"/>
-</map>

@@ -37,7 +37,7 @@ namespace mpl::impl {
     // --- blocking neighbor allgather ---
     /// Gather messages from all neighboring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send to all neighbours
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \note This is a collective operation and must be called (possibly by utilizing anther
@@ -50,7 +50,7 @@ namespace mpl::impl {
 
     /// Gather messages from all neighboring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send to all neighbours
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -68,7 +68,7 @@ namespace mpl::impl {
     // --- nonblocking neighbor allgather ---
     /// Gather messages from all neighboring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send to all neighbours
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \return request representing the ongoing message transfer
@@ -85,7 +85,7 @@ namespace mpl::impl {
 
     /// Gather messages from all neighboring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send to all neighbours
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -107,7 +107,7 @@ namespace mpl::impl {
     // --- blocking neighbor allgather ---
     /// Gather messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -126,7 +126,7 @@ namespace mpl::impl {
 
     /// Gather messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -143,7 +143,7 @@ namespace mpl::impl {
     /// Gather messages with a variable amount of data from all neighbouring processes
     /// in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -165,7 +165,7 @@ namespace mpl::impl {
     /// Gather messages with a variable amount of data from all neighbouring processes
     /// in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -185,7 +185,7 @@ namespace mpl::impl {
     /// Sends messages to all neighbouring processes and receives messages from all
     /// neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata pointer to continuous storage for outgoing messages
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \details Each process in the communicator sends one element of type T to each
@@ -231,7 +231,7 @@ namespace mpl::impl {
     /// Sends messages to all neighbouring processes and receives messages from all
     /// neighbouring processes in a non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata pointer to continuous storage for outgoing messages
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \return request representing the ongoing message transfer
@@ -320,7 +320,7 @@ namespace mpl::impl {
     /// Sends messages with a variable amount of data to all neighbouring processes and
     /// receives messages with a variable amount of data from all neighbouring processes.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata pointer to continuous storage for outgoing messages
     /// \param sendls memory layouts of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
@@ -389,7 +389,7 @@ namespace mpl::impl {
     /// receives messages with a variable amount of data from all neighbouring processes in a
     /// non-blocking manner.
     /// \tparam T type of the data to send, must meet the requirements as described in the
-    /// \ref data_types "data types" section
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata pointer to continuous storage for outgoing messages
     /// \param sendls memory layouts of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
