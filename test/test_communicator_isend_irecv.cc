@@ -26,7 +26,7 @@ bool isend_irecv_test(const T &data) {
   if (comm_world.rank() == 1) {
     T data_r;
     auto r{comm_world.irecv(data_r, 0)};
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     return data_r == data;
   }
@@ -47,14 +47,14 @@ bool isend_irecv_iter_test(const T &data) {
     T data_r;
     if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data_r))>>) {
       auto r{comm_world.irecv(data_r, 0)};
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     } else {
       if constexpr (has_resize<T>())
         data_r.resize(data.size());
       auto r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     }
@@ -81,7 +81,7 @@ bool ibsend_irecv_test(const T &data) {
   if (comm_world.rank() == 1) {
     T data_r;
     auto r{comm_world.irecv(data_r, 0)};
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     return data_r == data;
   }
@@ -108,14 +108,14 @@ bool ibsend_irecv_iter_test(const T &data) {
     T data_r;
     if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data_r))>>) {
       auto r{comm_world.irecv(data_r, 0)};
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     } else {
       if constexpr (has_resize<T>())
         data_r.resize(data.size());
       auto r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     }
@@ -136,7 +136,7 @@ bool issend_irecv_test(const T &data) {
   if (comm_world.rank() == 1) {
     T data_r;
     auto r{comm_world.irecv(data_r, 0)};
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     return data_r == data;
   }
@@ -157,14 +157,14 @@ bool issend_irecv_iter_test(const T &data) {
     T data_r;
     if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data_r))>>) {
       auto r{comm_world.irecv(data_r, 0)};
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     } else {
       if constexpr (has_resize<T>())
         data_r.resize(data.size());
       auto r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     }
@@ -198,7 +198,7 @@ bool irsend_irecv_test(const T &data) {
       data_r.resize(data.size());
       mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return std::equal(begin(data_r), end(data_r), begin(data));
     } else {
@@ -208,7 +208,7 @@ bool irsend_irecv_test(const T &data) {
       T data_r;
       mpl::irequest r{comm_world.irecv(data_r, 0)};
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     }
@@ -226,7 +226,7 @@ bool irsend_irecv_iter_test(const T &data) {
   if (comm_world.rank() == 0) {
     comm_world.barrier();
     auto r{comm_world.irsend(std::begin(data), std::end(data), 1)};
-    while (not r.test().first) {
+    while (not r.test()) {
     }
   } else if (comm_world.rank() == 1) {
     // must ensure that MPI_Recv is called before mpl::communicator::rsend
@@ -235,7 +235,7 @@ bool irsend_irecv_iter_test(const T &data) {
       data_r.resize(data.size());
       mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     } else if constexpr (has_begin_end<T>() and has_size<T>()) {
@@ -244,7 +244,7 @@ bool irsend_irecv_iter_test(const T &data) {
       data_r.resize(data.size());
       mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return std::equal(begin(data_r), end(data_r), begin(data));
     } else {
@@ -254,7 +254,7 @@ bool irsend_irecv_iter_test(const T &data) {
       T data_r;
       mpl::irequest r{comm_world.irecv(data_r, 0)};
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       return data_r == data;
     }

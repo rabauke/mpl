@@ -67,15 +67,14 @@ int main() {
       r.push(comm_world.ibsend(v_2.data(), l, 1));  // send v2 to rank 1 via buffered send
       r.push(comm_world.issend(v_3.data(), l, 1));  // send v3 to rank 1 via synchronous send
       r.push(comm_world.irsend(v_4.data(), l, 1));  // send v4 to rank 1 via ready send
-      std::array<mpl::irequest_pool::size_type, 4>
-          finished;  // memory to store indices of finished send operations
       while (true) {
-        auto i{r.waitsome(finished.begin())};  // wait until one or more sends have finished
-        if (i == finished.begin())             // there have been no pending sends
+        auto finished{r.waitsome()};  // wait until one or more sends have finished
+        if (finished.first ==
+            mpl::test_result::no_active_requests)  // there have been no pending sends
           break;
         // print indices of finished sends
         std::cout << "send finished : ";
-        std::for_each(finished.begin(), i,
+        std::for_each(finished.second.begin(), finished.second.end(),
                       [](mpl::irequest_pool::size_type j) { std::cout << j << ' '; });
         std::cout << "\n";
       }
@@ -115,14 +114,13 @@ int main() {
       r.push(comm_world.irecv(v_3.data(), l, 0));  // receive v3 from rank 0
       r.push(comm_world.irecv(v_4.data(), l, 0));  // receive v4 from rank 0
       while (true) {
-        std::array<mpl::irequest_pool::size_type, 4>
-            finished;  // memory to store indices of finished recv operations
-        auto i{r.waitsome(finished.begin())};  // wait until one or more receives have finished
-        if (i == finished.begin())             // there have been no pending receives
+        auto finished{r.waitsome()};  // wait until one or more receives have finished
+        if (finished.first ==
+            mpl::test_result::no_active_requests)  // there have been no pending receives
           break;
         // print indices of finished receives
         std::cout << "recv finished : ";
-        std::for_each(finished.begin(), i,
+        std::for_each(finished.second.begin(), finished.second.end(),
                       [](mpl::irequest_pool::size_type j) { std::cout << j << ' '; });
         std::cout << '\n';
       }

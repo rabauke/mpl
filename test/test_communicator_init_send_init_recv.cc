@@ -27,11 +27,11 @@ bool send_init_recv_init_test(const T &data) {
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     r.start();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     return ok;
@@ -59,12 +59,12 @@ bool send_init_recv_init_iter_test(const T &data) {
       std::vector<typename T::value_type> data_t(data.size());
       auto r{comm_world.recv_init(std::begin(data_t), std::end(data_t), 0)};
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
@@ -74,11 +74,11 @@ bool send_init_recv_init_iter_test(const T &data) {
         data_r.resize(data.size());
       auto r{comm_world.recv_init(std::begin(data_r), std::end(data_r), 0)};
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       return ok;
@@ -111,11 +111,11 @@ bool bsend_init_recv_init_test(const T &data) {
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     r.start();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     return ok;
@@ -149,12 +149,12 @@ bool bsend_init_recv_init_iter_test(const T &data) {
       std::vector<typename T::value_type> data_t(data.size());
       auto r{comm_world.recv_init(std::begin(data_t), std::end(data_t), 0)};
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
@@ -164,11 +164,11 @@ bool bsend_init_recv_init_iter_test(const T &data) {
         data_r.resize(data.size());
       auto r{comm_world.recv_init(std::begin(data_r), std::end(data_r), 0)};
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       return ok;
@@ -195,11 +195,11 @@ bool ssend_init_recv_init_test(const T &data) {
     T data_r;
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     r.start();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     return ok;
@@ -227,12 +227,12 @@ bool ssend_init_recv_init_iter_test(const T &data) {
       std::vector<typename T::value_type> data_t(data.size());
       auto r{comm_world.recv_init(std::begin(data_t), std::end(data_t), 0)};
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
@@ -242,11 +242,11 @@ bool ssend_init_recv_init_iter_test(const T &data) {
         data_r.resize(data.size());
       auto r{comm_world.recv_init(std::begin(data_r), std::end(data_r), 0)};
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       r.start();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       return ok;
@@ -275,12 +275,12 @@ bool rsend_init_recv_init_test(const T &data) {
     auto r{comm_world.recv_init(data_r, 0)};
     r.start();
     comm_world.barrier();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     r.start();
     comm_world.barrier();
-    while (not r.test().first) {
+    while (not r.test()) {
     }
     ok = ok and data_r == data;
     return ok;
@@ -313,13 +313,13 @@ bool rsend_init_recv_init_iter_test(const T &data) {
       auto r{comm_world.recv_init(std::begin(data_t), std::end(data_t), 0)};
       r.start();
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
       r.start();
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       data_r = T(std::begin(data_t), std::end(data_t));
       ok = ok and data_r == data;
@@ -330,12 +330,12 @@ bool rsend_init_recv_init_iter_test(const T &data) {
       auto r{comm_world.recv_init(std::begin(data_r), std::end(data_r), 0)};
       r.start();
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       r.start();
       comm_world.barrier();
-      while (not r.test().first) {
+      while (not r.test()) {
       }
       ok = ok and data_r == data;
       return ok;
