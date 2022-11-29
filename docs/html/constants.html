@@ -2,13 +2,18 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Auxiliary functions and classes" href="auxiliary.html" /><link rel="prev" title="Info objects" href="info.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Auxiliary functions and classes" href="auxiliary.html" /><link rel="prev" title="Info objects" href="info.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
-        <title>Constants - MPL - A message passing library 0.1</title>
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/>
+        <title>Constants - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
 
@@ -122,7 +127,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +150,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -215,7 +220,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,46 +235,46 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="constants">
+          <section id="constants">
 <h1>Constants<a class="headerlink" href="#constants" title="Permalink to this heading">#</a></h1>
 <p>MPL defines the following global constants:</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9proc_nullE">
-<span id="_CPPv3N3mpl9proc_nullE"></span><span id="_CPPv2N3mpl9proc_nullE"></span><span id="mpl::proc_null__i"></span><span class="target" id="namespacempl_1a50a0f0b35e2150b88de70497e424ab4c"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">proc_null</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_PROC_NULL</span></span><a class="headerlink" href="#_CPPv4N3mpl9proc_nullE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl9proc_nullE"></span><span id="_CPPv2N3mpl9proc_nullE"></span><span id="mpl::proc_null__i"></span><span class="target" id="namespacempl_1abb6a29150305d07b04679a8ddde9f12e"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">proc_null</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_PROC_NULL</span></span><a class="headerlink" href="#_CPPv4N3mpl9proc_nullE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Special value that can be used instead of a rank wherever a source or a destination argument is required in a call to indicate that the communication shall have no effect. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9undefinedE">
-<span id="_CPPv3N3mpl9undefinedE"></span><span id="_CPPv2N3mpl9undefinedE"></span><span id="mpl::undefined__i"></span><span class="target" id="namespacempl_1a551ed45948e628d93f6669b4cb01e750"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">undefined</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_UNDEFINED</span></span><a class="headerlink" href="#_CPPv4N3mpl9undefinedE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl9undefinedE"></span><span id="_CPPv2N3mpl9undefinedE"></span><span id="mpl::undefined__i"></span><span class="target" id="namespacempl_1a5a6f438e47865cfd798463641da57422"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">undefined</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_UNDEFINED</span></span><a class="headerlink" href="#_CPPv4N3mpl9undefinedE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Special value that is used to indicate an invalid return value or function parameter in some functions. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4rootE">
-<span id="_CPPv3N3mpl4rootE"></span><span id="_CPPv2N3mpl4rootE"></span><span id="mpl::root__i"></span><span class="target" id="namespacempl_1a580d63de8f272555e40bb7ea90f23ccc"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">root</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_ROOT</span></span><a class="headerlink" href="#_CPPv4N3mpl4rootE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special value to indicate the root process in some intercommunicator collective operations. </p>
+<span id="_CPPv3N3mpl4rootE"></span><span id="_CPPv2N3mpl4rootE"></span><span id="mpl::root__i"></span><span class="target" id="namespacempl_1abd8218c11dd51770a3c4f4c7a7752ba1"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">root</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_ROOT</span></span><a class="headerlink" href="#_CPPv4N3mpl4rootE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Special value to indicate the root process in some inter-communicator collective operations. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl8absoluteE">
-<span id="_CPPv3N3mpl8absoluteE"></span><span id="_CPPv2N3mpl8absoluteE"></span><span id="mpl::absolute__voidP"></span><span class="target" id="namespacempl_1af7799eb8fd405a1f2f1f226fe24626f5"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">absolute</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_BOTTOM</span></span><a class="headerlink" href="#_CPPv4N3mpl8absoluteE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl8absoluteE"></span><span id="_CPPv2N3mpl8absoluteE"></span><span id="mpl::absolute__voidP"></span><span class="target" id="namespacempl_1a33f7eddf281d299c919c670b4907e44b"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">absolute</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_BOTTOM</span></span><a class="headerlink" href="#_CPPv4N3mpl8absoluteE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Special constant to indicate the start of the address range of message buffers. </p>
 <p><span class="target" id="namespacempl_1absolute"></span> </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl14bsend_overheadE">
-<span id="_CPPv3N3mpl14bsend_overheadE"></span><span id="_CPPv2N3mpl14bsend_overheadE"></span><span id="mpl::bsend_overhead__i"></span><span class="target" id="namespacempl_1a4bc7e110094061c98ce0bf2b136ff19a"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">bsend_overhead</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_BSEND_OVERHEAD</span></span><a class="headerlink" href="#_CPPv4N3mpl14bsend_overheadE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl14bsend_overheadE"></span><span id="_CPPv2N3mpl14bsend_overheadE"></span><span id="mpl::bsend_overhead__i"></span><span class="target" id="namespacempl_1ae68cf5f9eb647bf76c082b62a59f4d45"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">bsend_overhead</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_BSEND_OVERHEAD</span></span><a class="headerlink" href="#_CPPv4N3mpl14bsend_overheadE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Special constant representing an upper bound on the additional space consumed when buffering messages. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>communicator::bsend <span class="target" id="namespacempl_1bsend_overhead"></span> </p>
+<p><code class="docutils literal notranslate"><span class="pre">communicator::bsend</span></code> <span class="target" id="namespacempl_1bsend_overhead"></span> </p>
 </div>
 </p>
 </dd></dl>
 
-</div>
+</section>
 
         </article>
       </div>
@@ -282,10 +288,10 @@
                 </div>
                 <div class="title">Auxiliary functions and classes</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="info.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -308,6 +314,11 @@
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/rabauke/mpl" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -327,5 +338,8 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

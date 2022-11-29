@@ -2,13 +2,18 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Info objects" href="info.html" /><link rel="prev" title="Data layouts" href="layouts.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Info objects" href="info.html" /><link rel="prev" title="Data layouts" href="layouts.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
-        <title>Reduction operations - MPL - A message passing library 0.1</title>
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/>
+        <title>Reduction operations - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
 
@@ -122,7 +127,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +150,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -215,7 +220,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,19 +235,19 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="reduction-operations">
+          <section id="reduction-operations">
 <h1>Reduction operations<a class="headerlink" href="#reduction-operations" title="Permalink to this heading">#</a></h1>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>MPL supports various communication operations that perform a reduction operation over all processes within a communicator.  The reduction operation is passed as an argument to the communicator class method that realizes to communication operation.  The reduction operation can be given by a user-defined two-arguments functor class, a lambda function, e.g.,</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">comm</span><span class="p">.</span><span class="n">reduce</span><span class="p">([](</span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">...);</span><span class="w"></span>
 </pre></div>
 </div>
 <p>or by any of the template classes as documented below.</p>
-</div>
-<div class="section" id="class-documentation">
+</section>
+<section id="class-documentation">
 <h2>Class documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">#</a></h2>
-<div class="section" id="maximum">
+<section id="maximum">
 <h3>Maximum<a class="headerlink" href="#maximum" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -251,9 +257,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl3maxE">
 <span id="_CPPv3I0EN3mpl3maxE"></span><span id="_CPPv2I0EN3mpl3maxE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1max"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">max</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl3maxE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the maximum of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the maximum of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -261,15 +267,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl3maxclERK1TRK1T">
-<span id="_CPPv3NK3mpl3maxclERK1TRK1T"></span><span id="_CPPv2NK3mpl3maxclERK1TRK1T"></span><span id="mpl::max::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1max_1a2908e4ec953dd58edf8079788bec51e0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl3maxclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl3maxclERK1TRK1T"></span><span id="_CPPv2NK3mpl3maxclERK1TRK1T"></span><span id="mpl::max::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1max_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl3maxclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>maximum of the two arguments </p>
 </dd>
 </dl>
@@ -278,8 +284,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="minimum">
+</section>
+<section id="minimum">
 <h3>Minimum<a class="headerlink" href="#minimum" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -289,9 +295,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl3minE">
 <span id="_CPPv3I0EN3mpl3minE"></span><span id="_CPPv2I0EN3mpl3minE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1min"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl3minE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the minimum of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the minimum of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -299,15 +305,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl3minclERK1TRK1T">
-<span id="_CPPv3NK3mpl3minclERK1TRK1T"></span><span id="_CPPv2NK3mpl3minclERK1TRK1T"></span><span id="mpl::min::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1min_1a23b201ffe2013e1f55f1ea0cdc02e0f8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl3minclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl3minclERK1TRK1T"></span><span id="_CPPv2NK3mpl3minclERK1TRK1T"></span><span id="mpl::min::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1min_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl3minclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>minimum of the two arguments </p>
 </dd>
 </dl>
@@ -316,8 +322,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="addition">
+</section>
+<section id="addition">
 <h3>Addition<a class="headerlink" href="#addition" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -329,7 +335,7 @@
 <span id="_CPPv3I0EN3mpl4plusE"></span><span id="_CPPv2I0EN3mpl4plusE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1plus"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">plus</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl4plusE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Function object for calculating the sum of two values in reduction operations as communicator::reduce. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -337,15 +343,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl4plusclERK1TRK1T">
-<span id="_CPPv3NK3mpl4plusclERK1TRK1T"></span><span id="_CPPv2NK3mpl4plusclERK1TRK1T"></span><span id="mpl::plus::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1plus_1a946a45253a41fb515c6d4cf467eeac41"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4plusclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl4plusclERK1TRK1T"></span><span id="_CPPv2NK3mpl4plusclERK1TRK1T"></span><span id="mpl::plus::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1plus_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4plusclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>sum of the two arguments </p>
 </dd>
 </dl>
@@ -354,8 +360,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="multiplication">
+</section>
+<section id="multiplication">
 <h3>Multiplication<a class="headerlink" href="#multiplication" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -365,9 +371,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl10multipliesE">
 <span id="_CPPv3I0EN3mpl10multipliesE"></span><span id="_CPPv2I0EN3mpl10multipliesE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1multiplies"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">multiplies</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl10multipliesE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the product of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the product of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -375,15 +381,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl10multipliesclERK1TRK1T">
-<span id="_CPPv3NK3mpl10multipliesclERK1TRK1T"></span><span id="_CPPv2NK3mpl10multipliesclERK1TRK1T"></span><span id="mpl::multiplies::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1multiplies_1a224ea72086f08b923bb32ac7ebf1704d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl10multipliesclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl10multipliesclERK1TRK1T"></span><span id="_CPPv2NK3mpl10multipliesclERK1TRK1T"></span><span id="mpl::multiplies::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1multiplies_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl10multipliesclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>product of the two arguments </p>
 </dd>
 </dl>
@@ -392,8 +398,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="logical-conjunction">
+</section>
+<section id="logical-conjunction">
 <h3>Logical conjunction<a class="headerlink" href="#logical-conjunction" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -403,9 +409,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl11logical_andE">
 <span id="_CPPv3I0EN3mpl11logical_andE"></span><span id="_CPPv2I0EN3mpl11logical_andE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1logical__and"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logical_and</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl11logical_andE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the logical conjunction of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the logical conjunction of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -413,15 +419,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl11logical_andclERK1TRK1T">
-<span id="_CPPv3NK3mpl11logical_andclERK1TRK1T"></span><span id="_CPPv2NK3mpl11logical_andclERK1TRK1T"></span><span id="mpl::logical_and::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1logical__and_1a41d77b4ab90b1d0363eb65dea6100d00"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl11logical_andclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl11logical_andclERK1TRK1T"></span><span id="_CPPv2NK3mpl11logical_andclERK1TRK1T"></span><span id="mpl::logical_and::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1logical__and_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl11logical_andclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>logical conjunction of the two arguments </p>
 </dd>
 </dl>
@@ -430,8 +436,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="logical-disjunction">
+</section>
+<section id="logical-disjunction">
 <h3>Logical disjunction<a class="headerlink" href="#logical-disjunction" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -441,9 +447,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl10logical_orE">
 <span id="_CPPv3I0EN3mpl10logical_orE"></span><span id="_CPPv2I0EN3mpl10logical_orE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1logical__or"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logical_or</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl10logical_orE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the logical (inclusive) disjunction of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the logical (inclusive) disjunction of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -451,15 +457,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl10logical_orclERK1TRK1T">
-<span id="_CPPv3NK3mpl10logical_orclERK1TRK1T"></span><span id="_CPPv2NK3mpl10logical_orclERK1TRK1T"></span><span id="mpl::logical_or::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1logical__or_1ad4f0f01a628867690d1fd9e4f265b681"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl10logical_orclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl10logical_orclERK1TRK1T"></span><span id="_CPPv2NK3mpl10logical_orclERK1TRK1T"></span><span id="mpl::logical_or::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1logical__or_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl10logical_orclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>logical (inclusive) disjunction of the two arguments </p>
 </dd>
 </dl>
@@ -468,8 +474,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="exclusive-disjunction">
+</section>
+<section id="exclusive-disjunction">
 <h3>Exclusive disjunction<a class="headerlink" href="#exclusive-disjunction" title="Permalink to this heading">#</a></h3>
 <p>Perform the reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -479,9 +485,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl11logical_xorE">
 <span id="_CPPv3I0EN3mpl11logical_xorE"></span><span id="_CPPv2I0EN3mpl11logical_xorE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1logical__xor"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">logical_xor</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl11logical_xorE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the logical exclusive disjunction of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the logical exclusive disjunction of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -489,15 +495,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl11logical_xorclERK1TRK1T">
-<span id="_CPPv3NK3mpl11logical_xorclERK1TRK1T"></span><span id="_CPPv2NK3mpl11logical_xorclERK1TRK1T"></span><span id="mpl::logical_xor::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1logical__xor_1a66bb19d69956d437e42f8cbea11b8fb1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl11logical_xorclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl11logical_xorclERK1TRK1T"></span><span id="_CPPv2NK3mpl11logical_xorclERK1TRK1T"></span><span id="mpl::logical_xor::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1logical__xor_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl11logical_xorclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>logical exclusive disjunction of the two arguments </p>
 </dd>
 </dl>
@@ -506,8 +512,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="bitwise-and">
+</section>
+<section id="bitwise-and">
 <h3>Bitwise and<a class="headerlink" href="#bitwise-and" title="Permalink to this heading">#</a></h3>
 <p>Perform for integer arguments the bitwise reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -517,9 +523,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl7bit_andE">
 <span id="_CPPv3I0EN3mpl7bit_andE"></span><span id="_CPPv2I0EN3mpl7bit_andE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1bit__and"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bit_and</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl7bit_andE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the bitwise conjunction of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the bitwise conjunction of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -527,15 +533,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl7bit_andclERK1TRK1T">
-<span id="_CPPv3NK3mpl7bit_andclERK1TRK1T"></span><span id="_CPPv2NK3mpl7bit_andclERK1TRK1T"></span><span id="mpl::bit_and::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1bit__and_1a7133da51787910d7e6ca97be99782268"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl7bit_andclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl7bit_andclERK1TRK1T"></span><span id="_CPPv2NK3mpl7bit_andclERK1TRK1T"></span><span id="mpl::bit_and::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1bit__and_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl7bit_andclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>bitwise conjunction of the two arguments </p>
 </dd>
 </dl>
@@ -544,8 +550,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="bitwise-or">
+</section>
+<section id="bitwise-or">
 <h3>Bitwise or<a class="headerlink" href="#bitwise-or" title="Permalink to this heading">#</a></h3>
 <p>Perform for integer arguments the bitwise reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -555,9 +561,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl6bit_orE">
 <span id="_CPPv3I0EN3mpl6bit_orE"></span><span id="_CPPv2I0EN3mpl6bit_orE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1bit__or"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bit_or</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl6bit_orE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the bitwise (inclusive) disjunction of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the bitwise (inclusive) disjunction of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -565,15 +571,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl6bit_orclERK1TRK1T">
-<span id="_CPPv3NK3mpl6bit_orclERK1TRK1T"></span><span id="_CPPv2NK3mpl6bit_orclERK1TRK1T"></span><span id="mpl::bit_or::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1bit__or_1ab5a228ee19d0bfb34f9b239a85dc5eac"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl6bit_orclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl6bit_orclERK1TRK1T"></span><span id="_CPPv2NK3mpl6bit_orclERK1TRK1T"></span><span id="mpl::bit_or::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1bit__or_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl6bit_orclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>bitwise (inclusive) disjunction of the two arguments </p>
 </dd>
 </dl>
@@ -582,8 +588,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="bitwise-exclusive-or">
+</section>
+<section id="bitwise-exclusive-or">
 <h3>Bitwise exclusive-or<a class="headerlink" href="#bitwise-exclusive-or" title="Permalink to this heading">#</a></h3>
 <p>Perform for integer arguments the bitwise reduction operation</p>
 <div class="math-wrapper docutils container">
@@ -593,9 +599,9 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl7bit_xorE">
 <span id="_CPPv3I0EN3mpl7bit_xorE"></span><span id="_CPPv2I0EN3mpl7bit_xorE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1bit__xor"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bit_xor</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl7bit_xorE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Function object for calculating the bitwise exclusive disjunction of two values in reduction operations as communicator::reduce. </p>
+<dd><p>Function object for calculating the bitwise exclusive disjunction of two values in reduction operations as <code class="docutils literal notranslate"><span class="pre">communicator::reduce</span></code>. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – data type of the reduction operation’s arguments and its result </p>
 </dd>
 </dl>
@@ -603,15 +609,15 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl7bit_xorclERK1TRK1T">
-<span id="_CPPv3NK3mpl7bit_xorclERK1TRK1T"></span><span id="_CPPv2NK3mpl7bit_xorclERK1TRK1T"></span><span id="mpl::bit_xor::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1bit__xor_1a8d990747d97457d18652ac9a58e424fb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl7bit_xorclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl7bit_xorclERK1TRK1T"></span><span id="_CPPv2NK3mpl7bit_xorclERK1TRK1T"></span><span id="mpl::bit_xor::call-operator__TCR.TCRC"></span><span class="target" id="structmpl_1_1bit__xor_1a8a5124f30fc8ce33a9e52204b1fb0232"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">x</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">y</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl7bit_xorclERK1TRK1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> – first argument </p></li>
 <li><p><strong>y</strong> – second argument </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>bitwise exclusive disjunction of the two arguments </p>
 </dd>
 </dl>
@@ -620,8 +626,8 @@
 </div>
 </dd></dl>
 
-</div>
-<div class="section" id="operator-traits">
+</section>
+<section id="operator-traits">
 <h3>Operator traits<a class="headerlink" href="#operator-traits" title="Permalink to this heading">#</a></h3>
 <p>The application of some reduction operations can be performed more efficiently by exploiting the commutativity properties of the employed reduction operation.  Partial template specializations of the class <code class="docutils literal notranslate"><span class="pre">mpl::op_traits</span></code> provide information about the commutativity properties of the reduction operation.  Users may provide further user-defined specializations of <code class="docutils literal notranslate"><span class="pre">mpl::op_traits</span></code> for user-defined operators.</p>
 <dl class="cpp struct">
@@ -629,7 +635,7 @@
 <span id="_CPPv3I0EN3mpl9op_traitsE"></span><span id="_CPPv2I0EN3mpl9op_traitsE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">F</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Traits class for storing meta information about reduction operations. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Template Parameters</dt>
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>F</strong> – function object type </p>
 </dd>
 </dl>
@@ -637,8 +643,8 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traits14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traits14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traits14is_commutativeE"></span><span id="mpl::op_traits::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_1a24504be97499aae191b2850a712d40c0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traits14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Is true if reduction operation specified in the template parameter F is commutative. </p>
+<span id="_CPPv3N3mpl9op_traits14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traits14is_commutativeE"></span><span id="mpl::op_traits::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traits14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Is true if reduction operation specified in the template parameter <code class="docutils literal notranslate"><span class="pre">F</span></code> is commutative. </p>
 </dd></dl>
 
 </div>
@@ -647,13 +653,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI3maxI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI3maxI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI3maxI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01max_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl3maxE" title="mpl::max"><span class="n"><span class="pre">max</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI3maxI1TEEE" title="mpl::op_traits&lt;max&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI3maxI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1max"><span class="std std-ref">max</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><span class="pre">max</span></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI3maxI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI3maxI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI3maxI1TEE14is_commutativeE"></span><span id="mpl::op_traits:max:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01max_3_01_t_01_4_01_4_1aa4a61a3d6653f36c1220705c1777afb2"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI3maxI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1max"><span class="std std-ref">max</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI3maxI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI3maxI1TEE14is_commutativeE"></span><span id="mpl::op_traits:max:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01max_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI3maxI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1max"><span class="std std-ref"><span class="pre">max</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -662,13 +668,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI3minI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI3minI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI3minI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01min_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl3minE" title="mpl::min"><span class="n"><span class="pre">min</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI3minI1TEEE" title="mpl::op_traits&lt;min&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI3minI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1min"><span class="std std-ref">min</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><span class="pre">min</span></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI3minI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI3minI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI3minI1TEE14is_commutativeE"></span><span id="mpl::op_traits:min:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01min_3_01_t_01_4_01_4_1aa616d40968c33cbf5aa8add4f96aab61"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI3minI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1min"><span class="std std-ref">min</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI3minI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI3minI1TEE14is_commutativeE"></span><span id="mpl::op_traits:min:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01min_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI3minI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1min"><span class="std std-ref"><span class="pre">min</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -677,13 +683,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI4plusI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI4plusI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI4plusI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4plusE" title="mpl::plus"><span class="n"><span class="pre">plus</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI4plusI1TEEE" title="mpl::op_traits&lt;plus&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI4plusI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1plus"><span class="std std-ref">plus</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><span class="pre">plus</span></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI4plusI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI4plusI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI4plusI1TEE14is_commutativeE"></span><span id="mpl::op_traits:plus:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4_1aef6e6a2daac6d0dac4daad3623f8a878"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI4plusI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1plus"><span class="std std-ref">plus</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI4plusI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI4plusI1TEE14is_commutativeE"></span><span id="mpl::op_traits:plus:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01plus_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI4plusI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1plus"><span class="std std-ref"><span class="pre">plus</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -692,13 +698,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI10multipliesI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI10multipliesI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI10multipliesI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl10multipliesE" title="mpl::multiplies"><span class="n"><span class="pre">multiplies</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI10multipliesI1TEEE" title="mpl::op_traits&lt;multiplies&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI10multipliesI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1multiplies"><span class="std std-ref">multiplies</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><span class="pre">multiplies</span></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE"></span><span id="mpl::op_traits:multiplies:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4_1aaaa9046b4301afce0fa7f4a248d5b4c8"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1multiplies"><span class="std std-ref">multiplies</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE"></span><span id="mpl::op_traits:multiplies:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01multiplies_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI10multipliesI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1multiplies"><span class="std std-ref"><span class="pre">multiplies</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -707,13 +713,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI11logical_andI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI11logical_andI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI11logical_andI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01logical__and_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_andE" title="mpl::logical_and"><span class="n"><span class="pre">logical_and</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI11logical_andI1TEEE" title="mpl::op_traits&lt;logical_and&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI11logical_andI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1logical__and"><span class="std std-ref">logical_and</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1logical__and"><span class="std std-ref"><span class="pre">logical_and</span></span></a></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE"></span><span id="mpl::op_traits:logical_and:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01logical__and_3_01_t_01_4_01_4_1add32e7542a78d6602cf676264941e2cf"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1logical__and"><span class="std std-ref">logical_and</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE"></span><span id="mpl::op_traits:logical_and:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01logical__and_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI11logical_andI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1logical__and"><span class="std std-ref"><span class="pre">logical_and</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -722,13 +728,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI10logical_orI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI10logical_orI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI10logical_orI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01logical__or_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl10logical_orE" title="mpl::logical_or"><span class="n"><span class="pre">logical_or</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI10logical_orI1TEEE" title="mpl::op_traits&lt;logical_or&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI10logical_orI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1logical__or"><span class="std std-ref">logical_or</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1logical__or"><span class="std std-ref"><span class="pre">logical_or</span></span></a></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE"></span><span id="mpl::op_traits:logical_or:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01logical__or_3_01_t_01_4_01_4_1a87880e2fda9d3cd285caa70d8a80ea98"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1logical__or"><span class="std std-ref">logical_or</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE"></span><span id="mpl::op_traits:logical_or:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01logical__or_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI10logical_orI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1logical__or"><span class="std std-ref"><span class="pre">logical_or</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -737,13 +743,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI11logical_xorI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI11logical_xorI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI11logical_xorI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01logical__xor_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl11logical_xorE" title="mpl::logical_xor"><span class="n"><span class="pre">logical_xor</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI11logical_xorI1TEEE" title="mpl::op_traits&lt;logical_xor&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI11logical_xorI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1logical__xor"><span class="std std-ref">logical_xor</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1logical__xor"><span class="std std-ref"><span class="pre">logical_xor</span></span></a></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE"></span><span id="mpl::op_traits:logical_xor:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01logical__xor_3_01_t_01_4_01_4_1a658891deaa9ba8eabf193fa63affb093"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1logical__xor"><span class="std std-ref">logical_xor</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE"></span><span id="mpl::op_traits:logical_xor:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01logical__xor_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI11logical_xorI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1logical__xor"><span class="std std-ref"><span class="pre">logical_xor</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -752,13 +758,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI7bit_andI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI7bit_andI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI7bit_andI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01bit__and_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_andE" title="mpl::bit_and"><span class="n"><span class="pre">bit_and</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI7bit_andI1TEEE" title="mpl::op_traits&lt;bit_and&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI7bit_andI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1bit__and"><span class="std std-ref">bit_and</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1bit__and"><span class="std std-ref"><span class="pre">bit_and</span></span></a></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE"></span><span id="mpl::op_traits:bit_and:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01bit__and_3_01_t_01_4_01_4_1a56e74f675670625b54e05d5617a8fcb7"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1bit__and"><span class="std std-ref">bit_and</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE"></span><span id="mpl::op_traits:bit_and:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01bit__and_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI7bit_andI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1bit__and"><span class="std std-ref"><span class="pre">bit_and</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -767,13 +773,13 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI6bit_orI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI6bit_orI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI6bit_orI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01bit__or_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl6bit_orE" title="mpl::bit_or"><span class="n"><span class="pre">bit_or</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI6bit_orI1TEEE" title="mpl::op_traits&lt;bit_or&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI6bit_orI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1bit__or"><span class="std std-ref">bit_or</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1bit__or"><span class="std std-ref"><span class="pre">bit_or</span></span></a></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE"></span><span id="mpl::op_traits:bit_or:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01bit__or_3_01_t_01_4_01_4_1a0490fa18b50038565ddd8c8295fe4b64"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1bit__or"><span class="std std-ref">bit_or</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE"></span><span id="mpl::op_traits:bit_or:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01bit__or_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI6bit_orI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1bit__or"><span class="std std-ref"><span class="pre">bit_or</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
@@ -782,21 +788,21 @@
 <dl class="cpp struct">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl9op_traitsI7bit_xorI1TEEE">
 <span id="_CPPv3I0EN3mpl9op_traitsI7bit_xorI1TEEE"></span><span id="_CPPv2I0EN3mpl9op_traitsI7bit_xorI1TEEE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="structmpl_1_1op__traits_3_01bit__xor_3_01_t_01_4_01_4"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">op_traits</span></span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl7bit_xorE" title="mpl::bit_xor"><span class="n"><span class="pre">bit_xor</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl9op_traitsI7bit_xorI1TEEE" title="mpl::op_traits&lt;bit_xor&lt;T&gt;&gt;::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN3mpl9op_traitsI7bit_xorI1TEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Specialization of traits class <a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref">op_traits</span></a> for storing meta information about the <a class="reference internal" href="#structmpl_1_1bit__xor"><span class="std std-ref">bit_xor</span></a> reduction operation. </p>
+<dd><p>Specialization of traits class <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1op__traits"><span class="std std-ref"><span class="pre">op_traits</span></span></a></code> for storing meta information about the <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1bit__xor"><span class="std std-ref"><span class="pre">bit_xor</span></span></a></code> reduction operation. </p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE">
-<span id="_CPPv3N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE"></span><span id="mpl::op_traits:bit_xor:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01bit__xor_3_01_t_01_4_01_4_1aa86eb1173a3ec2eb6b11f76ddd559c78"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>The <a class="reference internal" href="#structmpl_1_1bit__xor"><span class="std std-ref">bit_xor</span></a> reduction operation is commutative. </p>
+<span id="_CPPv3N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE"></span><span id="_CPPv2N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE"></span><span id="mpl::op_traits:bit_xor:T::::is_commutative__b"></span><span class="target" id="structmpl_1_1op__traits_3_01bit__xor_3_01_t_01_4_01_4_1a55b0c087b9eeee480e986ca9ca705f60"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_commutative</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">true</span></span><a class="headerlink" href="#_CPPv4N3mpl9op_traitsI7bit_xorI1TEE14is_commutativeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>The <code class="docutils literal notranslate"><a class="reference internal" href="#structmpl_1_1bit__xor"><span class="std std-ref"><span class="pre">bit_xor</span></span></a></code> reduction operation is commutative. </p>
 </dd></dl>
 
 </div>
 </dd></dl>
 
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>
@@ -810,10 +816,10 @@
                 </div>
                 <div class="title">Info objects</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="layouts.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -836,6 +842,11 @@
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/rabauke/mpl" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -849,7 +860,7 @@
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -888,6 +899,9 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     </body>
 </html>

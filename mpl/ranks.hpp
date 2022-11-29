@@ -9,7 +9,7 @@
 namespace mpl {
 
   /// Represents a collection of ranks.
-  /// \see class \ref group
+  /// \see class \c group
   class ranks : private std::vector<int> {
     using base = std::vector<int>;
 

@@ -40,7 +40,7 @@ namespace mpl::impl {
     /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata data to send to all neighbours
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all  processes in the communicator.
     template<typename T>
     void neighbor_allgather(const T &senddata, T *recvdata) const {
@@ -55,7 +55,7 @@ namespace mpl::impl {
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvl memory layout of the data to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -72,7 +72,7 @@ namespace mpl::impl {
     /// \param senddata data to send to all neighbours
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \return request representing the ongoing message transfer
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_allgather(const T &senddata, T *recvdata) const {
@@ -91,7 +91,7 @@ namespace mpl::impl {
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvl memory layout of the data to receive
     /// \return request representing the ongoing message transfer
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -113,7 +113,7 @@ namespace mpl::impl {
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
     /// \param recvdispls displacements of the data to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -131,7 +131,7 @@ namespace mpl::impl {
     /// \param sendl memory layout of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -150,7 +150,7 @@ namespace mpl::impl {
     /// \param recvls memory layouts of the data to receive
     /// \param recvdispls displacements of the data to receive
     /// \return request representing the ongoing message transfer
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -171,7 +171,7 @@ namespace mpl::impl {
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
     /// \return request representing the ongoing message transfer
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -188,12 +188,12 @@ namespace mpl::impl {
     /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param senddata pointer to continuous storage for outgoing messages
     /// \param recvdata pointer to continuous storage for incoming messages
-    /// \details Each process in the communicator sends one element of type T to each
-    /// neighbouring process and receives one element of type T from each neighbouring
-    /// process.  The i-th element in the array senddata is sent to the i-th neighbour.  When
-    /// the function has finished, the i-th element in the array recvdata was received from
+    /// \details Each process in the communicator sends one element of type \c T to each
+    /// neighbouring process and receives one element of type \c T from each neighbouring
+    /// process.  The i-th element in the array \c senddata is sent to the i-th neighbour.  When
+    /// the function has finished, the i-th element in the array \c recvdata was received from
     /// the i-th neighbour.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_alltoall(const T *senddata, T *recvdata) const {
@@ -209,15 +209,15 @@ namespace mpl::impl {
     /// \param sendl memory layouts of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvl memory layouts of the data to receive
-    /// \details Each process in the communicator sends elements of type T to each
-    /// neighbouring process and receives elements of type T from each neighbouring process.
-    /// The memory layouts of the incoming and the outgoing messages are described by sendl
-    /// and recvl. Both layouts might differ but must be compatible, i.e., must hold the same
-    /// number of elements of type T.  The i-th memory block with the layout sendl in the
-    /// array senddata is sent to the i-th neighbour.  When the function has finished, the
-    /// i-th memory block with the layout recvl in the array recvdata was received from the
-    /// i-th neigbour.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends elements of type \c T to each
+    /// neighbouring process and receives elements of type \c T from each neighbouring process.
+    /// The memory layouts of the incoming and the outgoing messages are described by \c sendl
+    /// and \c recvl. Both layouts might differ but must be compatible, i.e., must hold the same
+    /// number of elements of type \c T.  The i-th memory block with the layout \c sendl in the
+    /// array \c senddata is sent to the i-th neighbour.  When the function has finished, the
+    /// i-th memory block with the layout \c recvl in the array \c recvdata was received from
+    /// the i-th neigbour.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -235,12 +235,12 @@ namespace mpl::impl {
     /// \param senddata pointer to continuous storage for outgoing messages
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends one element of type T to each
-    /// neighbouring process and receives one element of type T from each neighbouring
-    /// process.  The i-th element in the array senddata is sent to the i-th neighbour.  When
-    /// the function has finished, the i-th element in the array recvdata was received from
+    /// \details Each process in the communicator sends one element of type \c T to each
+    /// neighbouring process and receives one element of type \c T from each neighbouring
+    /// process.  The i-th element in the array \c senddata is sent to the i-th neighbour.  When
+    /// the function has finished, the i-th element in the array \c recvdata was received from
     /// the i-th neighbour.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_alltoall(const T *senddata, T *recvdata) const {
@@ -259,15 +259,15 @@ namespace mpl::impl {
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvl memory layouts of the data to receive
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends elements of type T to each
-    /// neighbouring process and receives elements of type T from each neighbouring process.
-    /// The memory layouts of the incoming and the outgoing messages are described by sendl
-    /// and recvl. Both layouts might differ but must be compatible, i.e., must hold the same
-    /// number of elements of type T.  The i-th memory block with the layout sendl in the
-    /// array senddata is sent to the i-th neighbour.  When the function has finished, the
-    /// i-th memory block with the layout recvl in the array recvdata was received from the
-    /// i-th neighbour.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends elements of type \c T to each
+    /// neighbouring process and receives elements of type \c T from each neighbouring process.
+    /// The memory layouts of the incoming and the outgoing messages are described by \c sendl
+    /// and \c recvl. Both layouts might differ but must be compatible, i.e., must hold the same
+    /// number of elements of type \c T.  The i-th memory block with the layout \c sendl in the
+    /// array \c senddata is sent to the i-th neighbour.  When the function has finished, the
+    /// i-th memory block with the layout \c recvl in the array \c recvdata was received from
+    /// the i-th neighbour.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
@@ -292,16 +292,17 @@ namespace mpl::impl {
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
     /// \param recvdispls displacements of the data to receive
-    /// \details Each process in the communicator sends elements of type T to each neighbor
-    /// and receives elements of type T from each neighbour.  Send- and  receive-data are
-    /// stored in consecutive blocks of variable size in the buffers senddata and recvdata,
-    /// respectively. The i-th memory block with the layout sendls[i] in the array
-    /// senddata starts senddispls[i] bytes after the address given in senddata. The i-th
-    /// memory block is sent to the i-th neighbor. The i-th memory block with the layout
-    /// recvls[i] in the array recvdata starts recvdispls[i] bytes after the address given in
-    /// recvdata. When the function has finished, the i-th memory block in the array recvdata
-    /// was received from the i-th neighbor.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends elements of type \c T to each neighbor
+    /// and receives elements of type \c T from each neighbour.  Send- and  receive-data are
+    /// stored in consecutive blocks of variable size in the buffers \c senddata and
+    /// \c recvdata, respectively. The i-th memory block with the layout <tt>sendls[i]</tt> in
+    /// the array \c senddata starts <tt>senddispls[i]</tt> bytes after the address given in
+    /// \c senddata. The i-th memory block is sent to the i-th neighbor. The i-th memory block
+    /// with the layout <tt>recvls[i]</tt> in the array \c recvdata starts
+    /// <tt>recvdispls[i]</tt> bytes after the address given in \c  recvdata. When the function
+    /// has finished, the i-th memory block in the array \c recvdata was received from the i-th
+    /// neighbor.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_alltoallv(const T *senddata, const layouts<T> &sendls,
@@ -325,17 +326,17 @@ namespace mpl::impl {
     /// \param sendls memory layouts of the data to send
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
-    /// \details Each process in the communicator sends elements of type T to each neighbour
-    /// and receives elements of type T from each neighbour.  Send- and receive-data are
-    /// stored in consecutive blocks of variable size in the buffers senddata and recvdata,
-    /// respectively. The i-th memory block with the layout sendls[i] in the array
-    /// senddata starts at the address given in senddata. The i-th memory block is sent to the
-    /// i-th neighbour. The i-th memory block with the layout recvls[i] in the array recvdata
-    /// starts at the address given in recvdata.  Note that the memory layouts need to include
-    /// appropriate holes at the beginning in order to avoid overlapping send- or receive
-    /// blocks. When the function has finished, the i-th memory block in the array recvdata
-    /// was received from the i-th neighbour.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends elements of type \c T to each neighbour
+    /// and receives elements of type \c T from each neighbour.  Send- and receive-data are
+    /// stored in consecutive blocks of variable size in the buffers \c senddata and
+    /// \c recvdata, respectively. The i-th memory block with the layout <tt>sendls[i]</tt> in
+    /// the array \c senddata starts at the address given in \c senddata. The i-th memory block
+    /// is sent to the i-th neighbour. The i-th memory block with the layout <tt>recvls[i]</tt>
+    /// in the array \c recvdata  starts at the address given in \c recvdata.  Note that the
+    /// memory layouts need to include  appropriate holes at the beginning in order to avoid
+    /// overlapping send blocks or receive blocks. When the function has finished, the i-th
+    /// memory block in the array \c recvdata was received from the i-th neighbour.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_alltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
@@ -357,16 +358,17 @@ namespace mpl::impl {
     /// \param recvls memory layouts of the data to receive
     /// \param recvdispls displacements of the data to receive
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends elements of type T to each neighbor
-    /// and receives elements of type T from each neighbour.  Send- and  receive-data are
-    /// stored in consecutive blocks of variable size in the buffers senddata and recvdata,
-    /// respectively. The i-th memory block with the layout sendls[i] in the array
-    /// senddata starts senddispls[i] bytes after the address given in senddata. The i-th
-    /// memory block is sent to the i-th neighbor. The i-th memory block with the layout
-    /// recvls[i] in the array recvdata starts recvdispls[i] bytes after the address given in
-    /// recvdata. When the function has finished, the i-th memory block in the array recvdata
-    /// was received from the i-th neighbor.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends elements of type \c T to each neighbor
+    /// and receives elements of type \c T from each neighbour.  Send- and  receive-data are
+    /// stored in consecutive blocks of variable size in the buffers \c senddata and
+    /// \c recvdata, respectively. The i-th memory block with the layout <tt>sendls[i]</tt> in
+    /// the array \c senddata starts <tt>senddispls[i]</tt> bytes after the address given in
+    /// \c senddata. The i-th memory block is sent to the i-th neighbor. The i-th memory block
+    /// with the layout <tt>recvls[i]</tt> in the array \c recvdata starts
+    /// <tt>recvdispls[i]</tt> bytes after the address given in \c recvdata. When the function
+    /// has finished, the i-th memory block in the array \c recvdata was received from the i-th
+    /// neighbor.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_alltoallv(const T *senddata, const layouts<T> &sendls,
@@ -395,17 +397,17 @@ namespace mpl::impl {
     /// \param recvdata pointer to continuous storage for incoming messages
     /// \param recvls memory layouts of the data to receive
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends elements of type T to each neighbour
-    /// and receives elements of type T from each neighbour.  Send- and receive-data are
-    /// stored in consecutive blocks of variable size in the buffers senddata and recvdata,
-    /// respectively. The i-th memory block with the layout sendls[i] in the array
-    /// senddata starts at the address given in senddata. The i-th memory block is sent to the
-    /// i-th neighbour. The i-th memory block with the layout recvls[i] in the array recvdata
-    /// starts at the address given in recvdata.  Note that the memory layouts need to include
-    /// appropriate holes at the beginning in order to avoid overlapping send- or receive
-    /// blocks. When the function has finished, the i-th memory block in the array recvdata
-    /// was received from the i-th neighbour.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends elements of type \c T to each neighbour
+    /// and receives elements of type \c T from each neighbour.  Send- and receive-data are
+    /// stored in consecutive blocks of variable size in the buffers \c senddata and
+    /// \c recvdata, respectively. The i-th memory block with the layout <tt>sendls[i]</tt> in
+    /// the array \c senddata starts at the address given in \c senddata. The i-th memory block
+    /// is sent to the i-th neighbour. The i-th memory block with the layout <tt>recvls[i]</tt>
+    /// in the array \c recvdata starts at the address given in \c recvdata.  Note that the
+    /// memory layouts need to include appropriate holes at the beginning in order to avoid
+    /// overlapping send blocks or receive blocks. When the function has finished, the i-th
+    /// memory block in the array \c recvdata was received from the i-th neighbour.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     mpl::irequest ineighbor_alltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,

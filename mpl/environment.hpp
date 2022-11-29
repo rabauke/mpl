@@ -136,10 +136,10 @@ namespace mpl {
     /// \return true if current thread is the main thread
     inline bool is_thread_main() { return detail::get_env().is_thread_main(); }
 
-    /// Determines if time values given by \ref wtime are synchronized with each other
-    /// for all processes of the communicator given in \ref comm_world.
-    /// \return true if times are  synchronized
-    /// \see \ref wtime
+    /// Determines if time values given by <tt>\ref wtime</tt> are synchronized with each other
+    /// for all processes of the communicator given in <tt>\ref comm_world</tt>.
+    /// \return true if times are synchronized
+    /// \see <tt>\ref wtime</tt>
     inline bool wtime_is_global() { return detail::get_env().wtime_is_global(); }
 
     /// Provides access to a predefined communicator that allows communication with
@@ -162,24 +162,24 @@ namespace mpl {
     /// \return number of seconds of elapsed wall-clock time since some time in the past
     inline double wtime() { return detail::get_env().wtime(); }
 
-    /// Get resolution of time given by \ref wtime.
-    /// \return resolution of \ref wtime in seconds.
-    /// \see \ref wtime
+    /// Get resolution of time given by \c wtime.
+    /// \return resolution of \c wtime in seconds.
+    /// \see \c wtime
     inline double wtick() { return detail::get_env().wtick(); }
 
     /// Provides to MPL a buffer in the user's memory to be used for buffering outgoing
     /// messages.
     /// \param buff pointer to user-provided buffer
     /// \param size size of the buffer in bytes, must be non-negative
-    /// \see \ref buffer_detach
+    /// \see \c buffer_detach
     inline void buffer_attach(void *buff, int size) {
       return detail::get_env().buffer_attach(buff, size);
     }
 
     /// Detach the buffer currently associated with MPL.
     /// \return pair representing the buffer location and size, i.e., the parameters provided to
-    /// \ref buffer_attach
-    /// \see \ref buffer_attach
+    /// <tt>\ref buffer_attach</tt>
+    /// \see \c buffer_attach
     inline std::pair<void *, int> buffer_detach() { return detail::get_env().buffer_detach(); }
 
   }  // namespace environment
@@ -193,8 +193,8 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// Buffer manager for buffered send operations.
-  /// \note There must be not more than one instance of the class bsend_buffer at any time per
-  /// process.
+  /// \note There must be not more than one instance of the class \c bsend_buffer at any time
+  /// per process.
   class bsend_buffer {
     void *buff_;
 
@@ -213,18 +213,17 @@ namespace mpl {
     /// allocates buffer with specific size using a default-constructed allocator
     /// \param size buffer size in bytes
     /// \note The size given should be the sum of the sizes of all outstanding buffered send
-    /// operations that will be sent during the lifetime of the \ref bsend_buffer object, plus
-    /// \ref bsend_overhead for each buffered send operation.  Use communicator_bsend_size to
-    /// calculate the required buffer size.
-    /// \see \ref communicator_bsend "communicator::bsend" and \ref communicator_ibsend
-    /// "communicator::ibsend"
+    /// operations that will be sent during the lifetime of the \c bsend_buffer object, plus
+    /// <tt>\ref bsend_overhead</tt> for each buffered send operation.  Use
+    /// \c communicator::bsend_size to calculate the required buffer size.
+    /// \see \c communicator::bsend and \c communicator::ibsend
     explicit bsend_buffer(int size) : buff_{operator new(size)} {
       environment::buffer_attach(buff_, size);
     }
 
     /// waits for uncompleted message transfers and frees the buffer
     /// \note A blocking communication operation is performed when an object of type
-    /// bsend_buffer goes out of scope.
+    /// \c bsend_buffer goes out of scope.
     ~bsend_buffer() {
       environment::buffer_detach();
       operator delete(buff_);

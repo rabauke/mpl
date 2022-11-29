@@ -144,7 +144,7 @@ namespace mpl {
     /// \return the extent in bytes
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
-    /// \see \ref extent
+    /// \see \c extent
     [[nodiscard]] ssize_t byte_extent() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type_, &lb_, &extent_);
@@ -157,8 +157,7 @@ namespace mpl {
     /// \return the lower bound in bytes
     /// \note The lower bound of a layout correspondents to the lower bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
-    /// \see \ref byte_upper_bound
-    /// \see \ref lower_bound
+    /// \see \c byte_upper_bound, \c lower_bound
     [[nodiscard]] ssize_t byte_lower_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type_, &lb_, &extent_);
@@ -171,8 +170,7 @@ namespace mpl {
     /// \return the upper bound in bytes
     /// \note The upper bound of a layout correspondents to the upper bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
-    /// \see \ref byte_lower_bound
-    /// \see \ref upper_bound
+    /// \see \c byte_lower_bound, \c upper_bound
     [[nodiscard]] ssize_t byte_upper_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_extent_x(type_, &lb_, &extent_);
@@ -185,7 +183,7 @@ namespace mpl {
     /// \return the extent
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
-    /// \see \ref byte_extent
+    /// \see \c byte_extent
     [[nodiscard]] ssize_t extent() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{byte_extent()};
@@ -198,8 +196,7 @@ namespace mpl {
     /// \return the lower bound
     /// \note The lower bound of a layout correspondents to the lower bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
-    /// \see \ref byte_lower_bound
-    /// \see \ref upper_bound
+    /// \see \c byte_lower_bound, \c upper_bound
     [[nodiscard]] ssize_t lower_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{byte_lower_bound()};
@@ -212,8 +209,7 @@ namespace mpl {
     /// \return the upper bound in bytes
     /// \note The upper bound of a layout correspondents to the upper bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
-    /// \see \ref byte_upper_bound
-    /// \see \ref lower_bound
+    /// \see \c byte_upper_bound, \c lower_bound
     [[nodiscard]] ssize_t upper_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{byte_upper_bound()};
@@ -226,7 +222,7 @@ namespace mpl {
     /// \return the true extent in bytes
     /// \note The true extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
-    /// \see \ref true_extent
+    /// \see \c true_extent
     [[nodiscard]] ssize_t true_byte_extent() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type_, &lb_, &extent_);
@@ -239,8 +235,7 @@ namespace mpl {
     /// \return the true lower bound in bytes
     /// \note The true lower bound of a layout correspondents to the lower bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
-    /// \see \ref true_byte_upper_bound
-    /// \see \ref true_lower_bound
+    /// \see \c true_byte_upper_bound, \c true_lower_bound
     [[nodiscard]] ssize_t true_byte_lower_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type_, &lb_, &extent_);
@@ -253,8 +248,7 @@ namespace mpl {
     /// \return the true upper bound in bytes
     /// \note The true upper bound of a layout correspondents to the upper bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
-    /// \see \ref true_byte_lower_bound
-    /// \see \ref true_upper_bound
+    /// \see \c true_byte_lower_bound, \c true_upper_bound
     [[nodiscard]] ssize_t true_byte_upper_bound() const {
       MPI_Count lb_, extent_;
       MPI_Type_get_true_extent_x(type_, &lb_, &extent_);
@@ -267,7 +261,7 @@ namespace mpl {
     /// \return the true extent
     /// \note The true extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
-    /// \see \ref true_byte_extent
+    /// \see \c true_byte_extent
     [[nodiscard]] ssize_t true_extent() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{true_byte_extent()};
@@ -279,9 +273,8 @@ namespace mpl {
     /// Get the true lower bound of the layout.
     /// \return the true lower bound
     /// \note The true lower bound of a layout correspondents to the lower bound of the
-    /// underlying MPI datatype.  See MPI documentation for details. \see \ref
-    /// true_byte_lower_bound
-    /// \see \ref true_upper_bound
+    /// underlying MPI datatype.  See MPI documentation for details.
+    /// \see \c true_byte_lower_bound, \c true_upper_bound
     [[nodiscard]] ssize_t true_lower_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{true_byte_lower_bound()};
@@ -294,8 +287,7 @@ namespace mpl {
     /// \return the true upper bound in bytes
     /// \note The true upper bound of a layout correspondents to the upper bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
-    /// \see \ref true_byte_upper_bound
-    /// \see \ref true_lower_bound
+    /// \see \c true_byte_upper_bound, \c true_lower_bound
     [[nodiscard]] ssize_t true_upper_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{true_byte_upper_bound()};
@@ -371,9 +363,9 @@ namespace mpl {
 
   /// Layout with zero elements.
   /// \tparam T base element type
-  /// \note This type corresponds to the MPI datatype MPI_DATATYPE_NULL.  The template parameter
-  /// T is required for syntactical reasons but does not affect the class' behaviour.
-  /// \see inherits all member methods of \ref layout
+  /// \note This type corresponds to the MPI datatype \c MPI_DATATYPE_NULL.  The template
+  /// parameter \c T is required for syntactical reasons but does not affect the class' behaviour.
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class null_layout : public layout<T> {
     using layout<T>::type_;
@@ -388,7 +380,7 @@ namespace mpl {
     null_layout([[maybe_unused]] null_layout &&l) noexcept : null_layout() {}
 
     /// swap two instances of null_layout
-    /// \note This a no-op, as all instances of null_layout are equal.
+    /// \note This a no-op, as all instances of \c null_layout are equal.
     void swap([[maybe_unused]] null_layout<T> &other) {}
 
     using layout<T>::byte_extent;
@@ -405,7 +397,7 @@ namespace mpl {
 
   /// Layout with zero elements.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class empty_layout : public layout<T> {
     using layout<T>::type_;
@@ -454,15 +446,12 @@ namespace mpl {
 
   /// Layout representing contiguous storage several objects.
   /// \tparam T base element type
-  /// \note Both types \ref contiguous_layout and \ref vector_layout represent contiguous
-  /// storage.  \ref contiguous_layout implements some additional bookkeeping as one important
-  /// difference between both classes.  The class \ref vector_layout is slightly more flexible
+  /// \note Both types \c contiguous_layout and \c vector_layout represent contiguous
+  /// storage.  \c contiguous_layout implements some additional bookkeeping as one important
+  /// difference between both classes.  The class \c vector_layout is slightly more flexible
   /// and should be used to represent contiguous storage unless the MPL library _requires_ the
-  /// usage of \ref contiguous_layout, e.g., in \ref
-  /// communicator_reduce_contiguous_layout "communicator::reduce".
-  /// \see inherits all member methods of \ref layout
-  /// \see \ref vector_layout
-  /// \see \ref contiguous_layouts
+  /// usage of \c contiguous_layout, e.g., in <tt>communicator::reduce</tt>.
+  /// \see inherits all member methods of \c layout, \c vector_layout, \c contiguous_layouts
   template<typename T>
   class contiguous_layout : public layout<T> {
     using layout<T>::type_;
@@ -567,14 +556,12 @@ namespace mpl {
 
   /// Layout representing contiguous storage several objects.
   /// \tparam T base element type
-  /// \note Both types \ref contiguous_layout and \ref vector_layout represent contiguous
-  /// storage.  \ref contiguous_layout implements some additional bookkeeping as one important
-  /// difference between both classes.  The class \ref vector_layout is slightly more flexible
+  /// \note Both types \ref contiguous_layout and \c vector_layout represent contiguous
+  /// storage.  \c contiguous_layout implements some additional bookkeeping as one important
+  /// difference between both classes.  The class \c vector_layout is slightly more flexible
   /// and should be used to represent contiguous storage unless the MPL library _requires_ the
-  /// usage of \ref contiguous_layout, e.g., in \ref
-  /// communicator_reduce_contiguous_layout "communicator::reduce".
-  /// \see inherits all member methods of \ref layout
-  /// \see \ref contiguous_layout
+  /// usage of \c contiguous_layout, e.g., in <tt>communicator::reduce</tt>.
+  /// \see inherits all member methods of \c layout, \c contiguous_layout
   template<typename T>
   class vector_layout : public layout<T> {
     using layout<T>::type_;
@@ -610,8 +597,8 @@ namespace mpl {
     /// \param count number of objects
     explicit vector_layout(size_t count = 0) : layout<T>(build(count)) {}
 
-    /// constructs layout for data with memory layout that is a homogenous sequence of
-    /// some other layout
+    /// constructs layout for data with memory layout that is a homogenous sequence of some
+    /// other layout
     /// \param count number of layouts in sequence
     /// \param l the layout of a single element
     explicit vector_layout(size_t count, const layout<T> &l) : layout<T>(build(count, l.type_)) {}
@@ -650,10 +637,10 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// Layout representing uniform storage of several objects with a possibly non-unit
-  /// stride between consecutive elements.
+  /// Layout representing uniform storage of several objects with a possibly non-unit stride
+  /// between consecutive elements.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class strided_vector_layout : public layout<T> {
     using layout<T>::type_;
@@ -687,7 +674,7 @@ namespace mpl {
     /// \param count the number of blocks (non-negative)
     /// \param blocklength number of data elements in each block (non-negative)
     /// \param stride number or elements between start of each block, each element having the
-    /// size given by the extend of the layout given by parameter l
+    /// size given by the extend of the layout given by parameter \c l
     /// \param l the layout of a single element in each block
     explicit strided_vector_layout(int count, int blocklength, int stride, const layout<T> &l)
         : layout<T>(build(count, blocklength, stride, l.type_)) {}
@@ -729,7 +716,7 @@ namespace mpl {
   /// Layout representing data in a sequence of consecutive homogenous blocks of varying
   /// lengths.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class indexed_layout : public layout<T> {
     using layout<T>::type_;
@@ -794,7 +781,7 @@ namespace mpl {
     /// constructs a layout with no data
     indexed_layout() : layout<T>(build()) {}
 
-    /// constructs indexed layout for data of type T
+    /// constructs indexed layout for data of type \c T
     /// \param par parameter containing information about the layout
     explicit indexed_layout(const parameter &par) : layout<T>(build(par)) {}
 
@@ -841,7 +828,7 @@ namespace mpl {
   /// Layout representing data in a sequence of consecutive homogenous blocks of varying
   /// lengths.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class hindexed_layout : public layout<T> {
     using layout<T>::type_;
@@ -912,7 +899,7 @@ namespace mpl {
     /// constructs a layout with no data
     hindexed_layout() : layout<T>(build()) {}
 
-    /// constructs heterogeneously indexed layout for data of type T
+    /// constructs heterogeneously indexed layout for data of type \c T
     /// \param par parameter containing information about the layout
     /// \note displacements are given in bytes
     explicit hindexed_layout(const parameter &par) : layout<T>(build(par)) {}
@@ -961,7 +948,7 @@ namespace mpl {
   /// Layout representing data in a sequence of consecutive homogenous blocks of uniform
   /// lengths.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class indexed_block_layout : public layout<T> {
     using layout<T>::type_;
@@ -1022,7 +1009,7 @@ namespace mpl {
     /// constructs indexed layout for data of type T
     /// \param blocklength the length of each block
     /// \param par parameter containing information about the layout
-    /// \note displacements are given in multiples of the extent of T
+    /// \note displacements are given in multiples of the extent of \c T
     explicit indexed_block_layout(int blocklength, const parameter &par)
         : layout<T>(build(blocklength, par)) {}
 
@@ -1030,7 +1017,7 @@ namespace mpl {
     /// \param blocklength the length of each block
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
-    /// \note displacements are given in multiples of the extent of l
+    /// \note displacements are given in multiples of the extent of \c l
     explicit indexed_block_layout(int blocklength, const parameter &par, const layout<T> &l)
         : layout<T>(build(blocklength, par, l.type_)) {}
 
@@ -1071,7 +1058,7 @@ namespace mpl {
   /// Layout representing data in a sequence of consecutive homogenous blocks of uniform
   /// lengths.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class hindexed_block_layout : public layout<T> {
     using layout<T>::type_;
@@ -1190,7 +1177,7 @@ namespace mpl {
   /// \tparam T base element type
   /// \note Iterators that have been used to create objects of this type must not become invalid
   /// during the object's life time.  Iterator must allow read access.
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class iterator_layout : public layout<T> {
     using layout<T>::type_;
@@ -1331,7 +1318,7 @@ namespace mpl {
   //--------------------------------------------------------------------
 
   /// Represents order of elements in a multi dimensional array
-  /// \see subarray_layout
+  /// \see \c subarray_layout
   enum class array_orders {
     /// row-major order, also known as lexographical access order or as C order
     C_order = MPI_ORDER_C,
@@ -1342,7 +1329,7 @@ namespace mpl {
 
   /// Layout representing data of a subset multi dimensional array.
   /// \tparam T base element type
-  /// \see inherits all member methods of \ref layout
+  /// \see inherits all member methods of \c layout
   template<typename T>
   class subarray_layout : public layout<T> {
     using layout<T>::type_;
@@ -1474,14 +1461,16 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  /// Helper class for \ref heterogeneous_layout,
-  /// make_absolute(T *x, const layout<T> &l) and make_absolute(const T *x, const layout<T> &l).
+  /// Helper class for \c heterogeneous_layout,
+  /// <tt>make_absolute(T *x, const layout<T> &l)</tt> and
+  /// <tt>make_absolute(const T *x, const layout<T> &l)</tt>.
   /// \tparam T data type
   template<typename T>
   class absolute_data;
 
-  /// Helper class for \ref heterogeneous_layout,
-  /// make_absolute(T *x, const layout<T> &l) and make_absolute(const T *x, const layout<T> &l).
+  /// Helper class for \c heterogeneous_layout,
+  /// <tt>make_absolute(T *x, const layout<T> &l)</tt> and
+  /// <tt>make_absolute(const T *x, const layout<T> &l)</tt>.
   /// \tparam T data type
   template<typename T>
   class absolute_data<T *> {
@@ -1497,8 +1486,9 @@ namespace mpl {
   };
 
 
-  /// Helper class for \ref heterogeneous_layout,
-  /// make_absolute(T *x, const layout<T> &l) and make_absolute(const T *x, const layout<T> &l).
+  /// Helper class for \c heterogeneous_layout,
+  /// <tt>make_absolute(T *x, const layout<T> &l)</tt> and
+  /// <tt>make_absolute(const T *x, const layout<T> &l)</tt>.
   /// \tparam T data type
   template<typename T>
   class absolute_data<const T *> {
@@ -1516,7 +1506,7 @@ namespace mpl {
 
   /// Layout representing heterogeneous data at specific memory locations.
   /// \see inherits all member methods of the class layout
-  /// \note \ref absolute must be used as send/receive buffer argument when sending or receiving
+  /// \note \c absolute must be used as send/receive buffer argument when sending or receiving
   /// data of heterogeneous layout.
   class heterogeneous_layout : public layout<void> {
     using layout<void>::type_;
@@ -1558,7 +1548,7 @@ namespace mpl {
       /// adds one or more values to a heterogeneous layout
       /// \tparam T type of the first heterogeneous data element
       /// \param x the first data element given by its absolute memory address, return value of
-      /// \ref make_absolute
+      /// \c make_absolute
       /// \tparam Ts types of further heterogeneous data elements
       /// \param xs further data elements (parameter pack)
       template<typename T, typename... Ts>
@@ -1641,7 +1631,8 @@ namespace mpl {
   /// \tparam T data type
   /// \param x address of data
   /// \param l layout of data at address x
-  /// \see make_absolute(T *x, const layout<T> &l) function and heterogeneous_layout class
+  /// \see <tt>make_absolute(T *x, const layout<T> &l)</tt> function and
+  /// \c heterogeneous_layout class
   template<typename T>
   absolute_data<T *> make_absolute(T *x, const layout<T> &l) {
     return absolute_data<T *>{x, l.type_};
@@ -1651,7 +1642,8 @@ namespace mpl {
   /// \tparam T data type
   /// \param x address of data
   /// \param l layout of data at address x
-  /// \see make_absolute(const T *x, const layout<T> &l) function and heterogeneous_layout class
+  /// \see <tt>make_absolute(const T *x, const layout<T> &l)</tt> function and
+  /// \c heterogeneous_layout class
   template<typename T>
   absolute_data<const T *> make_absolute(const T *x, const layout<T> &l) {
     return absolute_data<const T *>{x, l.type_};

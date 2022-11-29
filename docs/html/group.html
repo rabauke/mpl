@@ -2,13 +2,18 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tags" href="tags.html" /><link rel="prev" title="Environmental management" href="environmental_management.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tags" href="tags.html" /><link rel="prev" title="Environmental management" href="environmental_management.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
-        <title>Group - MPL - A message passing library 0.1</title>
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/>
+        <title>Group - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
 
@@ -122,7 +127,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +150,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -215,7 +220,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,17 +235,13 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="group">
+          <section id="group">
 <h1>Group<a class="headerlink" href="#group" title="Permalink to this heading">#</a></h1>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>A group is an ordered set of process identifiers. Each process in a
-group is associated with an integer rank. Ranks are contiguous and start
-from zero. Groups are represented by <code class="docutils literal notranslate"><span class="pre">mpl::group</span></code> objects. A group is
-used within a communicator to describe the participants in a
-communication “universe” and to rank such participants.</p>
-</div>
-<div class="section" id="class-documentation">
+<p>A group is an ordered set of process identifiers. Each process in a group is associated with an integer rank. Ranks are contiguous and start from zero. Groups are represented by <code class="docutils literal notranslate"><span class="pre">mpl::group</span></code> objects. A group is used within a communicator to describe the participants in a communication “universe” and to rank such participants.</p>
+</section>
+<section id="class-documentation">
 <h2>Class documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">#</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5groupE">
@@ -249,24 +251,24 @@ communication “universe” and to rank such participants.</p>
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum-class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group13equality_typeE">
-<span id="_CPPv3N3mpl5group13equality_typeE"></span><span id="_CPPv2N3mpl5group13equality_typeE"></span><span class="target" id="classmpl_1_1group_1a78eb3d59b04c2e989ea52c60d39ffa69"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">equality_type</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_typeE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group13equality_typeE"></span><span id="_CPPv2N3mpl5group13equality_typeE"></span><span class="target" id="classmpl_1_1group_1a8910dc633f0682214da97d2b7b1a33ca"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">equality_type</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_typeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Group equality types. </p>
 <p><em>Values:</em></p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group13equality_type9identicalE">
-<span id="_CPPv3N3mpl5group13equality_type9identicalE"></span><span id="_CPPv2N3mpl5group13equality_type9identicalE"></span><span class="target" id="classmpl_1_1group_1a78eb3d59b04c2e989ea52c60d39ffa69aee0cbdbacdada19376449799774976e8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">identical</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_type9identicalE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group13equality_type9identicalE"></span><span id="_CPPv2N3mpl5group13equality_type9identicalE"></span><span class="target" id="classmpl_1_1group_1a8910dc633f0682214da97d2b7b1a33caaee0cbdbacdada19376449799774976e8"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">identical</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_type9identicalE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>groups are identical, i.e., groups have same the members in same rank order </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group13equality_type7similarE">
-<span id="_CPPv3N3mpl5group13equality_type7similarE"></span><span id="_CPPv2N3mpl5group13equality_type7similarE"></span><span class="target" id="classmpl_1_1group_1a78eb3d59b04c2e989ea52c60d39ffa69a10faae554c642e7607b1dd0cc8607703"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">similar</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_type7similarE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group13equality_type7similarE"></span><span id="_CPPv2N3mpl5group13equality_type7similarE"></span><span class="target" id="classmpl_1_1group_1a8910dc633f0682214da97d2b7b1a33caa10faae554c642e7607b1dd0cc8607703"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">similar</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_type7similarE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>groups are similar, i.e., groups have same tha members in different rank order </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group13equality_type7unequalE">
-<span id="_CPPv3N3mpl5group13equality_type7unequalE"></span><span id="_CPPv2N3mpl5group13equality_type7unequalE"></span><span class="target" id="classmpl_1_1group_1a78eb3d59b04c2e989ea52c60d39ffa69ab4f45c85d7e3269abe7f894d94bf0f29"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unequal</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_type7unequalE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group13equality_type7unequalE"></span><span id="_CPPv2N3mpl5group13equality_type7unequalE"></span><span class="target" id="classmpl_1_1group_1a8910dc633f0682214da97d2b7b1a33caab4f45c85d7e3269abe7f894d94bf0f29"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unequal</span></span></span><a class="headerlink" href="#_CPPv4N3mpl5group13equality_type7unequalE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>groups are unequal, i.e., groups have different sets of members </p>
 </dd></dl>
 
@@ -277,20 +279,20 @@ communication “universe” and to rank such participants.</p>
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupEv">
-<span id="_CPPv3N3mpl5group5groupEv"></span><span id="_CPPv2N3mpl5group5groupEv"></span><span id="mpl::group::group"></span><span class="target" id="classmpl_1_1group_1a41f80de72f9a7e5c3c4e15e99d0a6662"></span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl5group5groupEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupEv"></span><span id="_CPPv2N3mpl5group5groupEv"></span><span id="mpl::group::group"></span><span class="target" id="classmpl_1_1group_1a5a99b0d217576fe91f5431c533813ca6"></span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl5group5groupEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates an empty process group. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupERK5group">
-<span id="_CPPv3N3mpl5group5groupERK5group"></span><span id="_CPPv2N3mpl5group5groupERK5group"></span><span id="mpl::group::group__groupCR"></span><span class="target" id="classmpl_1_1group_1a95548e78748fcfa9775a47754d185240"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupERK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupERK5group"></span><span id="_CPPv2N3mpl5group5groupERK5group"></span><span id="mpl::group::group__groupCR"></span><span class="target" id="classmpl_1_1group_1abeac28a6fe34812207f667a172adfd44"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupERK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new process group by copying an existing one. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Process groups should not be copied unless a new independent group is wanted. Process groups should be passed via references to functions to avoid unnecessary copying. </p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other group to copy from </p>
 </dd>
 </dl>
@@ -298,10 +300,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupERR5group">
-<span id="_CPPv3N3mpl5group5groupERR5group"></span><span id="_CPPv2N3mpl5group5groupERR5group"></span><span id="mpl::group::group__groupRR"></span><span class="target" id="classmpl_1_1group_1ae721323f69336a1ac2e4029a83ed0570"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group5groupERR5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERR5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupERR5group"></span><span id="_CPPv2N3mpl5group5groupERR5group"></span><span id="mpl::group::group__groupRR"></span><span class="target" id="classmpl_1_1group_1a8cf6b60e2242925e830f16823af072b0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group5groupERR5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERR5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Move-constructs a process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other group to move from </p>
 </dd>
 </dl>
@@ -309,10 +311,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupERK12communicator">
-<span id="_CPPv3N3mpl5group5groupERK12communicator"></span><span id="_CPPv2N3mpl5group5groupERK12communicator"></span><span id="mpl::group::group__communicatorCR"></span><span class="target" id="classmpl_1_1group_1a23b0ce7e15b1a90e4d2facdfd4f98dd4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERK12communicator" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupERK12communicator"></span><span id="_CPPv2N3mpl5group5groupERK12communicator"></span><span id="mpl::group::group__communicatorCR"></span><span class="target" id="classmpl_1_1group_1a22f9607de82b28973d32ee2d1d5b3ca1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERK12communicator" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group that consists of all processes of the given communicator. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>comm</strong> – the communicator </p>
 </dd>
 </dl>
@@ -320,10 +322,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupERK18inter_communicator">
-<span id="_CPPv3N3mpl5group5groupERK18inter_communicator"></span><span id="_CPPv2N3mpl5group5groupERK18inter_communicator"></span><span id="mpl::group::group__inter_communicatorCR"></span><span class="target" id="classmpl_1_1group_1ac286b465a9729b617f0a9726399734d6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERK18inter_communicator" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupERK18inter_communicator"></span><span id="_CPPv2N3mpl5group5groupERK18inter_communicator"></span><span id="mpl::group::group__inter_communicatorCR"></span><span class="target" id="classmpl_1_1group_1a8da8ac90f0dffe8518a9783146a00628"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupERK18inter_communicator" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group that consists of all processes of the local group of the given inter-communicator. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>comm</strong> – the inter-communicator </p>
 </dd>
 </dl>
@@ -331,10 +333,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group">
-<span id="_CPPv3N3mpl5group5groupE9Union_tagRK5groupRK5group"></span><span id="_CPPv2N3mpl5group5groupE9Union_tagRK5groupRK5group"></span><span id="mpl::group::group__Union_tag.groupCR.groupCR"></span><span class="target" id="classmpl_1_1group_1ac54706f36382139b24b24a0311e0763b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group9Union_tagE" title="mpl::group::Union_tag"><span class="n"><span class="pre">Union_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupE9Union_tagRK5groupRK5group"></span><span id="_CPPv2N3mpl5group5groupE9Union_tagRK5groupRK5group"></span><span id="mpl::group::group__Union_tag.groupCR.groupCR"></span><span class="target" id="classmpl_1_1group_1a7309062724f4bd3ff6c431adcb5d12fb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group9Union_tagE" title="mpl::group::Union_tag"><span class="n"><span class="pre">Union_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE9Union_tagRK5groupRK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group that consists of the union of two existing process groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> – indicates the unification of two existing process groups </p></li>
 <li><p><strong>other_1</strong> – first existing process group </p></li>
@@ -346,10 +348,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group">
-<span id="_CPPv3N3mpl5group5groupE16intersection_tagRK5groupRK5group"></span><span id="_CPPv2N3mpl5group5groupE16intersection_tagRK5groupRK5group"></span><span id="mpl::group::group__intersection_tag.groupCR.groupCR"></span><span class="target" id="classmpl_1_1group_1a9c2c30c4d43f3bea292a6ed934f2397e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group16intersection_tagE" title="mpl::group::intersection_tag"><span class="n"><span class="pre">intersection_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupE16intersection_tagRK5groupRK5group"></span><span id="_CPPv2N3mpl5group5groupE16intersection_tagRK5groupRK5group"></span><span id="mpl::group::group__intersection_tag.groupCR.groupCR"></span><span class="target" id="classmpl_1_1group_1afaaaa1c999cea87396f205c93fd64f5f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group16intersection_tagE" title="mpl::group::intersection_tag"><span class="n"><span class="pre">intersection_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE16intersection_tagRK5groupRK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group that consists of the intersection of two existing process groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> – indicates the intersection of two existing process groups </p></li>
 <li><p><strong>other_1</strong> – first existing process group </p></li>
@@ -361,10 +363,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group">
-<span id="_CPPv3N3mpl5group5groupE14difference_tagRK5groupRK5group"></span><span id="_CPPv2N3mpl5group5groupE14difference_tagRK5groupRK5group"></span><span id="mpl::group::group__difference_tag.groupCR.groupCR"></span><span class="target" id="classmpl_1_1group_1a2b7b139ae5443f229ef75b47ec92125b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group14difference_tagE" title="mpl::group::difference_tag"><span class="n"><span class="pre">difference_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupE14difference_tagRK5groupRK5group"></span><span id="_CPPv2N3mpl5group5groupE14difference_tagRK5groupRK5group"></span><span id="mpl::group::group__difference_tag.groupCR.groupCR"></span><span class="target" id="classmpl_1_1group_1a10a958a6fdf7dd3596ac49ad15406127"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group14difference_tagE" title="mpl::group::difference_tag"><span class="n"><span class="pre">difference_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_1</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other_2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE14difference_tagRK5groupRK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group that consists of the difference of two existing process groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> – indicates the difference of two existing process groups </p></li>
 <li><p><strong>other_1</strong> – first existing process group </p></li>
@@ -376,10 +378,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupE11include_tagRK5groupRK5ranks">
-<span id="_CPPv3N3mpl5group5groupE11include_tagRK5groupRK5ranks"></span><span id="_CPPv2N3mpl5group5groupE11include_tagRK5groupRK5ranks"></span><span id="mpl::group::group__include_tag.groupCR.ranksCR"></span><span class="target" id="classmpl_1_1group_1a14eceda02a4e4a68124a4918320d34c6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group11include_tagE" title="mpl::group::include_tag"><span class="n"><span class="pre">include_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE11include_tagRK5groupRK5ranks" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE11include_tagRK5groupRK5ranks" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupE11include_tagRK5groupRK5ranks"></span><span id="_CPPv2N3mpl5group5groupE11include_tagRK5groupRK5ranks"></span><span id="mpl::group::group__include_tag.groupCR.ranksCR"></span><span class="target" id="classmpl_1_1group_1a0d711d9c120c7fa99202f6375559711f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group11include_tagE" title="mpl::group::include_tag"><span class="n"><span class="pre">include_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE11include_tagRK5groupRK5ranks" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE11include_tagRK5groupRK5ranks" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group by including members of an existing process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> – indicates inclusion from an existing process group </p></li>
 <li><p><strong>other</strong> – existing process group </p></li>
@@ -391,10 +393,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5groupE11exclude_tagRK5groupRK5ranks">
-<span id="_CPPv3N3mpl5group5groupE11exclude_tagRK5groupRK5ranks"></span><span id="_CPPv2N3mpl5group5groupE11exclude_tagRK5groupRK5ranks"></span><span id="mpl::group::group__exclude_tag.groupCR.ranksCR"></span><span class="target" id="classmpl_1_1group_1a53b37e0aa8afb9fd837b529facd6e626"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group11exclude_tagE" title="mpl::group::exclude_tag"><span class="n"><span class="pre">exclude_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE11exclude_tagRK5groupRK5ranks" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE11exclude_tagRK5groupRK5ranks" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5groupE11exclude_tagRK5groupRK5ranks"></span><span id="_CPPv2N3mpl5group5groupE11exclude_tagRK5groupRK5ranks"></span><span id="mpl::group::group__exclude_tag.groupCR.ranksCR"></span><span class="target" id="classmpl_1_1group_1af4435acd4d03819ce4dc0513fccdeaa2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">group</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5group11exclude_tagE" title="mpl::group::exclude_tag"><span class="n"><span class="pre">exclude_tag</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group5groupE11exclude_tagRK5groupRK5ranks" title="mpl::group::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5group5groupE11exclude_tagRK5groupRK5ranks" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new group by excluding members of an existing process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>tag</strong> – indicates exclusion from an existing process group </p></li>
 <li><p><strong>other</strong> – existing process group </p></li>
@@ -406,23 +408,23 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5groupD0Ev">
-<span id="_CPPv3N3mpl5groupD0Ev"></span><span id="_CPPv2N3mpl5groupD0Ev"></span><span id="mpl::group::~group"></span><span class="target" id="classmpl_1_1group_1a4bd2522d5cfecbd2c844e7bad1c0ae36"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~group</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5groupD0Ev" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5groupD0Ev"></span><span id="_CPPv2N3mpl5groupD0Ev"></span><span id="mpl::group::~group"></span><span class="target" id="classmpl_1_1group_1a4afca31aef95d283b408c98ee351b466"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~group</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5groupD0Ev" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Destructs a process group. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5groupaSERK5group">
-<span id="_CPPv3N3mpl5groupaSERK5group"></span><span id="_CPPv2N3mpl5groupaSERK5group"></span><span id="mpl::group::assign-operator__groupCR"></span><span class="target" id="classmpl_1_1group_1a4ac9d08869779bc83b1603415421ab34"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5groupaSERK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5groupaSERK5group"></span><span id="_CPPv2N3mpl5groupaSERK5group"></span><span id="mpl::group::assign-operator__groupCR"></span><span class="target" id="classmpl_1_1group_1a88d25b0804955f74a8b0ee08c879a22f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5groupaSERK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Copy-assigns a process group. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Process groups should not be copied unless a new independent group is wanted. Process groups should be passed via references to functions to avoid unnecessary copying. </p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other group to move from </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>this group </p>
 </dd>
 </dl>
@@ -430,13 +432,13 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5groupaSERR5group">
-<span id="_CPPv3N3mpl5groupaSERR5group"></span><span id="_CPPv2N3mpl5groupaSERR5group"></span><span id="mpl::group::assign-operator__groupRR"></span><span class="target" id="classmpl_1_1group_1aaab91fd6a016fe57c053102d6c8f9bc4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl5groupaSERR5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5groupaSERR5group"></span><span id="_CPPv2N3mpl5groupaSERR5group"></span><span id="mpl::group::assign-operator__groupRR"></span><span class="target" id="classmpl_1_1group_1aa8a7008cabfdaf9fcb7ffcaf8e157254"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl5groupaSERR5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Move-assigns a process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other group to move from </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>this group </p>
 </dd>
 </dl>
@@ -444,7 +446,7 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5group13native_handleEv">
-<span id="_CPPv3NK3mpl5group13native_handleEv"></span><span id="_CPPv2NK3mpl5group13native_handleEv"></span><span id="mpl::group::native_handleC"></span><span class="target" id="classmpl_1_1group_1a8a95a4c8036571253f35518dc13e5483"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Group</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">native_handle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group13native_handleEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5group13native_handleEv"></span><span id="_CPPv2NK3mpl5group13native_handleEv"></span><span id="mpl::group::native_handleC"></span><span class="target" id="classmpl_1_1group_1adab1bbc68af300b9c227ce065a9cc8df"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Group</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">native_handle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group13native_handleEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Get the underlying MPI handle of the group. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -455,7 +457,7 @@ communication “universe” and to rank such participants.</p>
 <p>The handle must not be used to modify the MPI group that the handle points to. </p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>MPI handle of the group </p>
 </dd>
 </dl>
@@ -463,10 +465,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5group4sizeEv">
-<span id="_CPPv3NK3mpl5group4sizeEv"></span><span id="_CPPv2NK3mpl5group4sizeEv"></span><span id="mpl::group::sizeC"></span><span class="target" id="classmpl_1_1group_1a58537237d16d0ac6ecb5680e33997f26"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group4sizeEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5group4sizeEv"></span><span id="_CPPv2NK3mpl5group4sizeEv"></span><span id="mpl::group::sizeC"></span><span class="target" id="classmpl_1_1group_1af9593d4a5ff4274efaf429cb4f9e57cc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group4sizeEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Determines the total number of processes in a process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>number of processes </p>
 </dd>
 </dl>
@@ -474,10 +476,10 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5group4rankEv">
-<span id="_CPPv3NK3mpl5group4rankEv"></span><span id="_CPPv2NK3mpl5group4rankEv"></span><span id="mpl::group::rankC"></span><span class="target" id="classmpl_1_1group_1ac820bf356be8b94134cb08f8efa087ba"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group4rankEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5group4rankEv"></span><span id="_CPPv2NK3mpl5group4rankEv"></span><span id="mpl::group::rankC"></span><span class="target" id="classmpl_1_1group_1a290d348ba17e7752621ed7bd3d5e4b3a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group4rankEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Determines the rank within a process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>the rank of the calling process in the group </p>
 </dd>
 </dl>
@@ -485,16 +487,16 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5group9translateEiRK5group">
-<span id="_CPPv3NK3mpl5group9translateEiRK5group"></span><span id="_CPPv2NK3mpl5group9translateEiRK5group"></span><span id="mpl::group::translate__i.groupCRC"></span><span class="target" id="classmpl_1_1group_1a38cdae96823a5ce04c1e4a637ca82d5a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">translate</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group9translateEiRK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5group9translateEiRK5group"></span><span id="_CPPv2NK3mpl5group9translateEiRK5group"></span><span id="mpl::group::translate__i.groupCRC"></span><span class="target" id="classmpl_1_1group_1a10c6193bfc5baa6facd66e36bd3ed183"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">translate</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group9translateEiRK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Determines the relative numbering of the same process in two different groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rank</strong> – a valid rank in the given process group </p></li>
 <li><p><strong>other</strong> – process group </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>corresponding rank in this process group </p>
 </dd>
 </dl>
@@ -502,16 +504,16 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5group9translateERK5ranksRK5group">
-<span id="_CPPv3NK3mpl5group9translateERK5ranksRK5group"></span><span id="_CPPv2NK3mpl5group9translateERK5ranksRK5group"></span><span id="mpl::group::translate__ranksCR.groupCRC"></span><span class="target" id="classmpl_1_1group_1a1c11d89daec6af7b0ed1b5668d355656"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">translate</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group9translateERK5ranksRK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5group9translateERK5ranksRK5group"></span><span id="_CPPv2NK3mpl5group9translateERK5ranksRK5group"></span><span id="mpl::group::translate__ranksCR.groupCRC"></span><span class="target" id="classmpl_1_1group_1a05dc9e7e2579e143749e1d9ee6479796"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">translate</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ranks</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group9translateERK5ranksRK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Determines the relative numbering of the same process in two different groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>rank</strong> – a set valid ranks in the given process group </p></li>
 <li><p><strong>other</strong> – process group </p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>corresponding ranks in this process group </p>
 </dd>
 </dl>
@@ -519,13 +521,13 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5groupeqERK5group">
-<span id="_CPPv3NK3mpl5groupeqERK5group"></span><span id="_CPPv2NK3mpl5groupeqERK5group"></span><span id="mpl::group::eq-operator__groupCRC"></span><span class="target" id="classmpl_1_1group_1a1b3542e4a7d8cfcbf6bfc7ecb4905f4f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5groupeqERK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5groupeqERK5group"></span><span id="_CPPv2NK3mpl5groupeqERK5group"></span><span id="mpl::group::eq-operator__groupCRC"></span><span class="target" id="classmpl_1_1group_1a98dc2d6e9b4bc1e7464cd75027685ba0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5groupeqERK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Tests for identity of process groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – process group to compare with </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>true if identical </p>
 </dd>
 </dl>
@@ -533,13 +535,13 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5groupneERK5group">
-<span id="_CPPv3NK3mpl5groupneERK5group"></span><span id="_CPPv2NK3mpl5groupneERK5group"></span><span id="mpl::group::neq-operator__groupCRC"></span><span class="target" id="classmpl_1_1group_1a3559e4d5efc98ec127fce7f3dc487291"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5groupneERK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5groupneERK5group"></span><span id="_CPPv2NK3mpl5groupneERK5group"></span><span id="mpl::group::neq-operator__groupCRC"></span><span class="target" id="classmpl_1_1group_1a5581283cfc7984dfba33ba6b53790a37"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5groupneERK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Tests for identity of process groups. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – process group to compare with </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>true if not identical </p>
 </dd>
 </dl>
@@ -547,13 +549,13 @@ communication “universe” and to rank such participants.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl5group7compareERK5group">
-<span id="_CPPv3NK3mpl5group7compareERK5group"></span><span id="_CPPv2NK3mpl5group7compareERK5group"></span><span id="mpl::group::compare__groupCRC"></span><span class="target" id="classmpl_1_1group_1a91ec59cb7d18120ac6f5b0dc40f37a95"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compare</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group7compareERK5group" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl5group7compareERK5group"></span><span id="_CPPv2NK3mpl5group7compareERK5group"></span><span id="mpl::group::compare__groupCRC"></span><span class="target" id="classmpl_1_1group_1ae129b26e44301520413528bda413f71c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compare</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5groupE" title="mpl::group"><span class="n"><span class="pre">group</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5group7compareERK5group" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Compares to another process group. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – process group to compare with </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>equality type </p>
 </dd>
 </dl>
@@ -564,49 +566,49 @@ communication “universe” and to rank such participants.</p>
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group9identicalE">
-<span id="_CPPv3N3mpl5group9identicalE"></span><span id="_CPPv2N3mpl5group9identicalE"></span><span id="mpl::group::identical__equality_type"></span><span class="target" id="classmpl_1_1group_1a6515b87988032cf940014c3e553f254a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">identical</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_type9identicalE" title="mpl::group::equality_type::identical"><span class="n"><span class="pre">identical</span></span></a><a class="headerlink" href="#_CPPv4N3mpl5group9identicalE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>indicates that groups are identical, i.e., groups have same the members in same rank order </p>
+<span id="_CPPv3N3mpl5group9identicalE"></span><span id="_CPPv2N3mpl5group9identicalE"></span><span id="mpl::group::identical__equality_type"></span><span class="target" id="classmpl_1_1group_1a2a4ddec43038c18c29d705383785e166"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">identical</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_type9identicalE" title="mpl::group::equality_type::identical"><span class="n"><span class="pre">identical</span></span></a><a class="headerlink" href="#_CPPv4N3mpl5group9identicalE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Indicates that groups are identical, i.e., groups have same the members in same rank order. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group7similarE">
-<span id="_CPPv3N3mpl5group7similarE"></span><span id="_CPPv2N3mpl5group7similarE"></span><span id="mpl::group::similar__equality_type"></span><span class="target" id="classmpl_1_1group_1a0611c7cf397e6b98529ed9596b2c62f6"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">similar</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_type7similarE" title="mpl::group::equality_type::similar"><span class="n"><span class="pre">similar</span></span></a><a class="headerlink" href="#_CPPv4N3mpl5group7similarE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>indicates that groups are similar, i.e., groups have same tha members in different rank order </p>
+<span id="_CPPv3N3mpl5group7similarE"></span><span id="_CPPv2N3mpl5group7similarE"></span><span id="mpl::group::similar__equality_type"></span><span class="target" id="classmpl_1_1group_1a15fa51cb444bfe9cc00bf9c99c9e1bdd"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">similar</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_type7similarE" title="mpl::group::equality_type::similar"><span class="n"><span class="pre">similar</span></span></a><a class="headerlink" href="#_CPPv4N3mpl5group7similarE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Indicates that groups are similar, i.e., groups have same tha members in different rank order. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group7unequalE">
-<span id="_CPPv3N3mpl5group7unequalE"></span><span id="_CPPv2N3mpl5group7unequalE"></span><span id="mpl::group::unequal__equality_type"></span><span class="target" id="classmpl_1_1group_1a1d1766424b26d5f157ff02a0044aaafd"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unequal</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_type7unequalE" title="mpl::group::equality_type::unequal"><span class="n"><span class="pre">unequal</span></span></a><a class="headerlink" href="#_CPPv4N3mpl5group7unequalE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>indicates that groups are unequal, i.e., groups have different sets of members </p>
+<span id="_CPPv3N3mpl5group7unequalE"></span><span id="_CPPv2N3mpl5group7unequalE"></span><span id="mpl::group::unequal__equality_type"></span><span class="target" id="classmpl_1_1group_1a2b9873e679bc7b621d97800ee4272fb6"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unequal</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_typeE" title="mpl::group::equality_type"><span class="n"><span class="pre">equality_type</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl5group13equality_type7unequalE" title="mpl::group::equality_type::unequal"><span class="n"><span class="pre">unequal</span></span></a><a class="headerlink" href="#_CPPv4N3mpl5group7unequalE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Indicates that groups are unequal, i.e., groups have different sets of members. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group5UnionE">
-<span id="_CPPv3N3mpl5group5UnionE"></span><span id="_CPPv2N3mpl5group5UnionE"></span><span id="mpl::group::Union__Union_tag"></span><span class="target" id="classmpl_1_1group_1a048489f7dcb5dfd61ed0d874dabeb4c7"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group9Union_tagE" title="mpl::group::Union_tag"><span class="n"><span class="pre">Union_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group5UnionE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group5UnionE"></span><span id="_CPPv2N3mpl5group5UnionE"></span><span id="mpl::group::Union__Union_tag"></span><span class="target" id="classmpl_1_1group_1af1095faa68e2ce5a92eded14d39b6768"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group9Union_tagE" title="mpl::group::Union_tag"><span class="n"><span class="pre">Union_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Union</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group5UnionE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Indicates the creation of a union of two groups. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group12intersectionE">
-<span id="_CPPv3N3mpl5group12intersectionE"></span><span id="_CPPv2N3mpl5group12intersectionE"></span><span id="mpl::group::intersection__intersection_tag"></span><span class="target" id="classmpl_1_1group_1a8e438a13834a708af8d3c0985082837c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group16intersection_tagE" title="mpl::group::intersection_tag"><span class="n"><span class="pre">intersection_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intersection</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group12intersectionE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group12intersectionE"></span><span id="_CPPv2N3mpl5group12intersectionE"></span><span id="mpl::group::intersection__intersection_tag"></span><span class="target" id="classmpl_1_1group_1a34c9dea70f99e869d6d53adc275589ec"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group16intersection_tagE" title="mpl::group::intersection_tag"><span class="n"><span class="pre">intersection_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">intersection</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group12intersectionE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Indicates the creation of an intersection of two groups. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group10differenceE">
-<span id="_CPPv3N3mpl5group10differenceE"></span><span id="_CPPv2N3mpl5group10differenceE"></span><span id="mpl::group::difference__difference_tag"></span><span class="target" id="classmpl_1_1group_1a4990d6c5ee84cc8640d88a26e2bdc480"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group14difference_tagE" title="mpl::group::difference_tag"><span class="n"><span class="pre">difference_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">difference</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group10differenceE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group10differenceE"></span><span id="_CPPv2N3mpl5group10differenceE"></span><span id="mpl::group::difference__difference_tag"></span><span class="target" id="classmpl_1_1group_1af3961c0b6fccdaf56c816d827b6d8a19"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group14difference_tagE" title="mpl::group::difference_tag"><span class="n"><span class="pre">difference_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">difference</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group10differenceE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Indicates the creation of a difference of two groups. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group7includeE">
-<span id="_CPPv3N3mpl5group7includeE"></span><span id="_CPPv2N3mpl5group7includeE"></span><span id="mpl::group::include__include_tag"></span><span class="target" id="classmpl_1_1group_1ae5ef3b81a9b35085fe4ffd54cd280912"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group11include_tagE" title="mpl::group::include_tag"><span class="n"><span class="pre">include_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">include</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group7includeE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group7includeE"></span><span id="_CPPv2N3mpl5group7includeE"></span><span id="mpl::group::include__include_tag"></span><span class="target" id="classmpl_1_1group_1aea5bd3a85f4823a0dc71fbd4890c8be5"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group11include_tagE" title="mpl::group::include_tag"><span class="n"><span class="pre">include_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">include</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group7includeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Indicates the creation of a subgroup by including members of an existing group. </p>
 </dd></dl>
 
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5group7excludeE">
-<span id="_CPPv3N3mpl5group7excludeE"></span><span id="_CPPv2N3mpl5group7excludeE"></span><span id="mpl::group::exclude__exclude_tag"></span><span class="target" id="classmpl_1_1group_1aa3aeb3976917ad6d46113f57d8bb386b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group11exclude_tagE" title="mpl::group::exclude_tag"><span class="n"><span class="pre">exclude_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exclude</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group7excludeE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl5group7excludeE"></span><span id="_CPPv2N3mpl5group7excludeE"></span><span id="mpl::group::exclude__exclude_tag"></span><span class="target" id="classmpl_1_1group_1abdefdff945bbf1f40fd8546713c1e96b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5group11exclude_tagE" title="mpl::group::exclude_tag"><span class="n"><span class="pre">exclude_tag</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">exclude</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N3mpl5group7excludeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Indicates the creation of a subgroup by excluding members of an existing group. </p>
 </dd></dl>
 
@@ -651,8 +653,8 @@ communication “universe” and to rank such participants.</p>
 
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
         </article>
       </div>
@@ -666,10 +668,10 @@ communication “universe” and to rank such participants.</p>
                 </div>
                 <div class="title">Tags</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="environmental_management.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -692,6 +694,11 @@ communication “universe” and to rank such participants.</p>
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/rabauke/mpl" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -705,7 +712,7 @@ communication “universe” and to rank such participants.</p>
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -731,5 +738,8 @@ communication “universe” and to rank such participants.</p>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

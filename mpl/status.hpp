@@ -7,6 +7,7 @@
 namespace mpl {
 
   namespace impl {
+
     class base_communicator;
 
     template<typename T>
@@ -14,7 +15,8 @@ namespace mpl {
 
     template<typename T>
     class request_pool;
-  }
+
+  }  // namespace impl
 
   //--------------------------------------------------------------------------------------------
 
@@ -40,7 +42,8 @@ namespace mpl {
     /// \return true if associated request has been been canceled
     [[nodiscard]] bool is_canceled() const { return is_cancelled(); }
 
-    /// \return number of top level elements of type T received in associated message
+    /// \tparam T received data type
+    /// \return number of top level elements of type \c T received in associated message
     template<typename T>
     [[nodiscard]] int get_count() const {
       int result;
@@ -49,8 +52,9 @@ namespace mpl {
       return result;
     }
 
+    /// \tparam T received data type
     /// \param l layout used in associated message
-    /// \return number of top level elements of type T received in associated message
+    /// \return number of top level elements of type \c T received in associated message
     template<typename T>
     [[nodiscard]] int get_count(const layout<T> &l) const {
       int result;
@@ -59,8 +63,8 @@ namespace mpl {
       return result;
     }
 
-    /// default constructor initializes source and tag with wildcards given by \ref any_source
-    /// and \ref tag_t::any and no error
+    /// default constructor initializes source and tag with wildcards given by
+    /// <tt>\ref any_source</tt> and \c tag_t::any and no error
     status_t() : MPI_Status{} {
       MPI_Status::MPI_SOURCE = MPI_ANY_SOURCE;
       MPI_Status::MPI_TAG = MPI_ANY_TAG;
@@ -73,6 +77,8 @@ namespace mpl {
     template<typename T>
     friend class impl::request_pool;
   };
+
+  static_assert(sizeof(MPI_Status) == sizeof(status_t));
 
 }  // namespace mpl
 

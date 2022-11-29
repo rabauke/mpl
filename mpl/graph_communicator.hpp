@@ -104,7 +104,7 @@ namespace mpl {
     /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other. Communicators should not be copied unless a new independent
+    /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     graph_communicator(const graph_communicator &other) {
@@ -125,7 +125,7 @@ namespace mpl {
     /// \param reorder indicates if reordering is permitted, if false each process will have the
     /// same rank in the new communicator as in the old one
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other with the same arguments.
+    /// the communicator \c other with the same arguments.
     explicit graph_communicator(const communicator &other, const edge_set &edges,
                                 bool reorder = true) {
       int nodes{0};
@@ -152,7 +152,7 @@ namespace mpl {
     /// is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other. Communicators should not be copied unless a new independent
+    /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     graph_communicator &operator=(const graph_communicator &other) noexcept {
@@ -173,7 +173,7 @@ namespace mpl {
     /// Move-assigns a communicator.
     /// \param other the other communicator to move from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other.
+    /// the communicator \c other.
     graph_communicator &operator=(graph_communicator &&other) noexcept {
       if (this != &other) {
         int result_1;

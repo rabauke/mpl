@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 
 # FIXME I didn't see versioning info on github,
 # but semantic versioning should be considered
-project(mpl VERSION 0.0.1 LANGUAGES CXX C)
+project(mpl VERSION 0.2.0 LANGUAGES CXX C)
 
 include(CTest)
 include(GNUInstallDirs)
@@ -47,3 +47,5 @@ install(EXPORT mplTargets
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mpl
     NAMESPACE mpl::
     FILE mplTargets.cmake)
+
+add_subdirectory(doc)

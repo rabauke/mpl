@@ -54,13 +54,13 @@ namespace mpl {
       unequal = MPI_UNEQUAL
     };
 
-    /// indicates that groups are identical, i.e., groups have same the members in same rank
-    /// order
+    /// Indicates that groups are identical, i.e., groups have same the members in same rank
+    /// order.
     static constexpr equality_type identical = equality_type::identical;
-    /// indicates that groups are similar, i.e., groups have same tha members in different rank
-    /// order
+    /// Indicates that groups are similar, i.e., groups have same tha members in different rank
+    /// order.
     static constexpr equality_type similar = equality_type::similar;
-    /// indicates that groups are unequal, i.e., groups have different sets of members
+    /// Indicates that groups are unequal, i.e., groups have different sets of members.
     static constexpr equality_type unequal = equality_type::unequal;
 
     /// Indicates the creation of a union of two groups.
@@ -547,8 +547,8 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -566,7 +566,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -661,8 +661,8 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a non-blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -705,7 +705,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -731,7 +731,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a single
       /// value via a blocking standard send operation.
       /// \tparam T type of the data to send, must  meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -750,7 +750,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -773,7 +773,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -797,11 +797,11 @@ namespace mpl {
       // --- determine buffer size ---
       /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
-      /// \param number quantity of elements of type T to send in a single buffered message or
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
+      /// \param number quantity of elements of type \c T to send in a single buffered message or
       /// in a series of  buffered send operations
       /// \return message buffer size
-      /// \anchor communicator_bsend_size
       template<typename T>
       [[nodiscard]] int bsend_size(int number = 1) const {
         int pack_size{0};
@@ -811,7 +811,8 @@ namespace mpl {
 
       /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param l layout of the data
       /// \param number quantity of buffered send operations with the given data type and layout
       /// \return message buffer size
@@ -849,10 +850,10 @@ namespace mpl {
       }
 
     public:
-      /// \anchor communicator_bsend
       /// Sends a message with a single value via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that
       /// comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
@@ -966,8 +967,8 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a non-blocking buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1037,7 +1038,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a single
       /// value via a buffered send operation.
       /// \tparam T type of the data to send, must meet the  requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1056,7 +1057,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1079,7 +1080,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1130,8 +1131,8 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1148,7 +1149,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1167,7 +1168,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1244,8 +1245,8 @@ namespace mpl {
       /// Sends a message with a single value via a non-blocking synchronous send
       /// operation.
       /// \tparam T type of the data to send, must meet the requirements as described
-      /// in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements
-      /// that comply with the mentioned requirements
+      /// in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL
+      /// container that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1265,7 +1266,7 @@ namespace mpl {
       /// Sends a message with several values having a specific memory layout via a
       /// non-blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1288,7 +1289,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1313,7 +1314,8 @@ namespace mpl {
       // --- persistent synchronous send ---
       /// Creates a persistent communication request to send a message with a single
       /// value via a blocking synchronous send operation. \tparam T type of the data to send,
-      /// must meet the requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1332,7 +1334,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1355,7 +1357,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1406,8 +1408,8 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1425,7 +1427,7 @@ namespace mpl {
       /// Sends a message with a several values having a specific memory layout via a
       /// blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1444,7 +1446,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1520,8 +1522,8 @@ namespace mpl {
     public:
       /// Sends a message with a single value via a non-blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1541,7 +1543,7 @@ namespace mpl {
       /// Sends a message with several values having a specific memory layout via a
       /// non-blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1564,7 +1566,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1590,7 +1592,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a single
       /// value via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data value to send
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
@@ -1609,7 +1611,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with a several
       /// values having a specific memory layout via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to send
       /// \param l memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -1632,7 +1634,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
       /// \param end iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -1702,8 +1704,8 @@ namespace mpl {
     public:
       /// Receives a message with a single value.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to receive
       /// \param source rank of the sending process
       /// \param t tag associated to this message
@@ -1721,7 +1723,7 @@ namespace mpl {
 
       /// Receives a message with a several values having a specific memory layout.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param source rank of the sending process
@@ -1742,7 +1744,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending process
@@ -1803,8 +1805,8 @@ namespace mpl {
     public:
       /// Receives a message with a single value via a non-blocking receive operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to receive
       /// \param source rank of the sending process
       /// \param t tag associated to this message
@@ -1823,7 +1825,7 @@ namespace mpl {
       /// Receives a message with several values having a specific memory layout via a
       /// non-blocking receive operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param source rank of the sending process
@@ -1845,7 +1847,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending process
@@ -1871,7 +1873,7 @@ namespace mpl {
       /// Creates a persistent communication request to receive a message with a single
       /// value via a blocking receive operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data value to receive
       /// \param source rank of the sending process
       /// \param t tag associated to this message
@@ -1890,7 +1892,7 @@ namespace mpl {
       /// Creates a persistent communication request to receive a message with a several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param source rank of the sending process
@@ -1912,7 +1914,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param source rank of the sending ing process
@@ -2012,8 +2014,8 @@ namespace mpl {
     public:
       /// Receives a message with a single value by a message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section or an STL container that holds elements that
-      /// comply with the mentioned requirements
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
+      /// that holds elements that comply with the mentioned requirements
       /// \param data value to receive
       /// \param m message handle of message to receive
       /// \return status of the receive operation
@@ -2026,7 +2028,7 @@ namespace mpl {
       /// Receives a message with a several values having a specific memory layout by a
       /// message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param m message handle of message to receive
@@ -2045,7 +2047,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param m message handle of message to receive
@@ -2078,8 +2080,8 @@ namespace mpl {
     public:
       /// Receives a message with a single value via a non-blocking receive operation by
       /// a message handle.
-      /// \tparam T type of the data to receive, must meet the requirements as  described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \tparam T type of the data to receive, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param m message handle of message to receive
       /// \return request representing the ongoing receive operation
@@ -2092,7 +2094,7 @@ namespace mpl {
       /// Receives a message with several values having a specific memory layout via a
       /// non-blocking receive operation by a message handle.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
       /// \param m message handle of message to receive
@@ -2110,7 +2112,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
       /// \param m message handle of message to receive
@@ -2135,7 +2137,7 @@ namespace mpl {
       // --- send and receive ---
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param destination rank of the receiving process
       /// \param send_tag tag associated to the data to send
@@ -2160,7 +2162,7 @@ namespace mpl {
 
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param destination rank of the receiving process
@@ -2191,12 +2193,12 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \tparam iterT2 iterator type, must fulfill the requirements of a
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin_1 iterator pointing to the first data value to send
       /// \param end_1 iterator pointing one element beyond the last data value to send
       /// \param destination rank of the receiving process
@@ -2238,7 +2240,7 @@ namespace mpl {
       // --- send, receive and replace ---
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data data to send, will hold the received data
       /// \param destination rank of the receiving process
       /// \param send_tag tag associated to the data to send
@@ -2261,7 +2263,7 @@ namespace mpl {
 
       /// Sends a message and receives a message in a single operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data data to send, will hold the received data
       /// \param l memory layout of the data to send and receive
       /// \param destination rank of the receiving process
@@ -2288,7 +2290,7 @@ namespace mpl {
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send and to receive
       /// \param end iterator pointing one element beyond the last data value to send and to
       /// receive
@@ -2335,7 +2337,7 @@ namespace mpl {
       // --- blocking broadcast ---
       /// Broadcasts a message from a process to all other processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \note This is a collective operation and must be called by all processes in the
@@ -2348,7 +2350,7 @@ namespace mpl {
 
       /// Broadcasts a message from a process to all other processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \param l memory layout of the data to send/receive
@@ -2365,7 +2367,7 @@ namespace mpl {
       /// Broadcasts a message from a process to all other processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \return request representing the ongoing message transfer
@@ -2383,7 +2385,7 @@ namespace mpl {
       /// Broadcasts a message from a process to all other processes in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param data buffer for sending/receiving data
       /// \param l memory layout of the data to send/receive
@@ -2404,12 +2406,12 @@ namespace mpl {
       // --- blocking gather ---
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void gather(int root_rank, const T &send_data, T *recv_data) const {
@@ -2420,13 +2422,14 @@ namespace mpl {
 
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvl memory layout of the data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void gather(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2441,13 +2444,13 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest igather(int root_rank, const T &send_data, T *recv_data) const {
@@ -2461,14 +2464,15 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest igather(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2484,10 +2488,10 @@ namespace mpl {
       // --- blocking gather, non-root variant ---
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2499,11 +2503,11 @@ namespace mpl {
 
       /// Gather messages from all processes at a single root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2517,11 +2521,11 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2536,12 +2540,12 @@ namespace mpl {
       /// Gather messages from all processes at a single root process in a non-blocking
       /// manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the receiving process
       /// \param send_data data buffer for sending data
       /// \param sendl memory layout of the data to send
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2557,14 +2561,15 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \param recvdispls displacements of the data to receive by the root rank
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void gatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2585,13 +2590,14 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void gatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2603,7 +2609,8 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
@@ -2611,7 +2618,7 @@ namespace mpl {
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \param recvdispls displacements of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest igatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2633,14 +2640,15 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages, may be a null
       /// pointer at non-root processes
       /// \param recvls memory layouts of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest igatherv(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2652,10 +2660,11 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2673,11 +2682,12 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section \param root_rank rank of the receiving process
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2696,11 +2706,11 @@ namespace mpl {
       // --- blocking allgather ---
       /// Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \note This is a collective operation and must be called (possibly by utilizing
-      /// anther overload) by all processes in the communicator.
+      /// another overload) by all processes in the communicator.
       template<typename T>
       void allgather(const T &send_data, T *recv_data) const {
         MPI_Allgather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), recv_data, 1,
@@ -2709,12 +2719,12 @@ namespace mpl {
 
       /// Gather messages from all processes and distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void allgather(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2728,11 +2738,11 @@ namespace mpl {
       /// Gather messages from all processes and distribute result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iallgather(const T &send_data, T *recv_data) const {
@@ -2745,13 +2755,13 @@ namespace mpl {
       /// Gather messages from all processes and distribute result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iallgather(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2768,13 +2778,13 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void allgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2790,12 +2800,12 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void allgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2807,14 +2817,14 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iallgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2830,13 +2840,13 @@ namespace mpl {
       /// Gather messages with a variable amount of data from all processes and
       /// distribute result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
       /// \param sendl memory layout of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iallgatherv(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2849,12 +2859,12 @@ namespace mpl {
       // --- blocking scatter ---
       /// Scatter messages from a single root process to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param recv_data data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void scatter(int root_rank, const T *send_data, T &recv_data) const {
@@ -2865,14 +2875,14 @@ namespace mpl {
 
       /// Scatter messages from a single root process to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
-      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendl memory layout of the data to send
       /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void scatter(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2886,14 +2896,14 @@ namespace mpl {
       // --- non-blocking scatter ---
       /// Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param recv_data data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iscatter(int root_rank, const T *send_data, T &recv_data) const {
@@ -2906,8 +2916,8 @@ namespace mpl {
 
       /// Scatter messages from a single root process to all processes in a non-blocking
       /// manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
@@ -2915,7 +2925,7 @@ namespace mpl {
       /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iscatter(int root_rank, const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -2932,7 +2942,7 @@ namespace mpl {
       /// Scatter messages from a single root process to all processes.
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2946,7 +2956,7 @@ namespace mpl {
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2962,7 +2972,7 @@ namespace mpl {
       /// \param root_rank rank of the sending process
       /// \param recv_data data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2980,7 +2990,7 @@ namespace mpl {
       /// \param recv_data data to receive
       /// \param recvl memory layout of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -2997,8 +3007,8 @@ namespace mpl {
       // --- blocking scatter ---
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
@@ -3006,7 +3016,7 @@ namespace mpl {
       /// \param senddispls displacements of the data to send by the root rank
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void scatterv(int root_rank, const T *send_data, const layouts<T> &sendls,
@@ -3027,15 +3037,15 @@ namespace mpl {
 
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
       /// \param sendls memory layouts of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void scatterv(int root_rank, const T *send_data, const layouts<T> &sendls, T *recv_data,
@@ -3046,8 +3056,8 @@ namespace mpl {
       // --- non-blocking scatter ---
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes in a non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
@@ -3056,7 +3066,7 @@ namespace mpl {
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iscatterv(int root_rank, const T *send_data, const layouts<T> &sendls,
@@ -3078,8 +3088,8 @@ namespace mpl {
 
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes  in a non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param send_data pointer to continuous storage for outgoing messages, may be a null
       /// pointer at non-root processes
@@ -3087,7 +3097,7 @@ namespace mpl {
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest iscatterv(int root_rank, const T *send_data, const layouts<T> &sendls,
@@ -3098,12 +3108,12 @@ namespace mpl {
       // --- blocking scatter, non-root variant ---
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -3120,13 +3130,13 @@ namespace mpl {
       // --- non-blocking scatter, non-root variant ---
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes in a non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param root_rank rank of the sending process
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layout of the data to receive by the root rank
       /// \return request representing the ongoing message transfer
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
@@ -3144,15 +3154,16 @@ namespace mpl {
       // === each rank sends a single value to each rank
       // --- blocking all-to-all ---
       /// Sends messages to all processes and receives messages from all processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param recv_data pointer to continuous storage for incoming messages
-      /// \details Each process in the communicator sends one element of type T to each process
-      /// (including itself) and receives one element of type T from each process.  The i-th
-      /// element in the array send_data is sent to the i-th process.  When the function has
-      /// finished, the i-th element in the array recv_data was received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends one element of type \c T to each
+      /// process (including itself) and receives one element of type \c T from each process.
+      /// The i-th element in the array \c send_data is sent to the i-th process.  When the
+      /// function has finished, the i-th element in the array \c recv_data was received from
+      /// the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void alltoall(const T *send_data, T *recv_data) const {
@@ -3161,20 +3172,21 @@ namespace mpl {
       }
 
       /// Sends messages to all processes and receives messages from all processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendl memory layouts of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layouts of the data to receive
-      /// \details Each process in the communicator sends elements of type T to each process
-      /// (including itself) and receives elements of type T from each process. The memory
-      /// layouts of the incoming and the outgoing messages are described by sendl and recvl.
-      /// Both layouts might differ but must be compatible, i.e., must hold the same number of
-      /// elements of type T.  The i-th memory block with the layout sendl in the array send_data
-      /// is sent to the i-th process.  When the function has finished, the i-th memory block with
-      /// the layout recvl in the array recv_data was received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process. The memory
+      /// layouts of the incoming and the outgoing messages are described by \c sendl and
+      /// \c recvl. Both layouts might differ but must be compatible, i.e., must hold the same
+      /// number of elements of type \c T.  The i-th memory block with the layout \c sendl in
+      /// the array \c send_data is sent to the i-th process.  When the function has finished,
+      /// the i-th memory block with the layout \c recvl in the array \c recv_data was received
+      /// from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void alltoall(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -3187,16 +3199,17 @@ namespace mpl {
       // --- non-blocking all-to-all ---
       /// Sends messages to all processes and receives messages from all processes in a
       /// non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \return request representing the ongoing message transfer
-      /// \details Each process in the communicator sends one element of type T to each process
-      /// (including itself) and receives one element of type T from each process.  The i-th
-      /// element in the array send_data is sent to the i-th process.  When the message transfer
-      /// has finished, the i-th element in the array recv_data was received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends one element of type \c T to each
+      /// process (including itself) and receives one element of type \c T from each process.
+      /// The i-th element in the array \c send_data is sent to the i-th process.  When the
+      /// message transfer has finished, the i-th element in the array \c recv_data was received
+      /// from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest ialltoall(const T *send_data, T *recv_data) const {
@@ -3208,21 +3221,22 @@ namespace mpl {
 
       /// Sends messages to all processes and receives messages from all processes in a
       /// non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendl memory layouts of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvl memory layouts of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \details Each process in the communicator sends elements of type T to each process
-      /// (including itself) and receives elements of type T from each process. The memory
-      /// layouts of the incoming and the outgoing messages are described by sendl and recvl.
-      /// Both layouts might differ but must be compatible, i.e., must hold the same number of
-      /// elements of type T.  The i-th memory block with the layout sendl in the array send_data
-      /// is sent to the i-th process.  When the message transfer has finished, the i-th memory
-      /// block with the layout recvl in the array recv_data was received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process. The memory
+      /// layouts of the incoming and the outgoing messages are described by \c sendl and
+      /// \c recvl. Both layouts might differ but must be compatible, i.e., must hold the same
+      /// number of elements of type \c T.  The i-th memory block with the layout \c sendl in
+      /// the array \c send_data is sent to the i-th process.  When the message transfer has
+      /// finished, the i-th memory block with the layout \c recvl in the array \c recv_data was
+      /// received from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest ialltoall(const T *send_data, const layout<T> &sendl, T *recv_data,
@@ -3239,24 +3253,24 @@ namespace mpl {
       // --- blocking all-to-all ---
       /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
       /// \param senddispls displacements of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
-      /// \details Each process in the communicator sends elements of type T to each process
-      /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
-      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// send_data starts senddispls[i] bytes after the address given in send_data. The i-th memory
-      /// block is sent to the i-th process. The i-th memory block with the layout recvls[i] in
-      /// the array recv_data starts recvdispls[i] bytes after the address given in recv_data.
-      /// When the function has finished, the i-th memory block in the array recv_data was
-      /// received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process.  Send- and
+      /// receive-data are stored in consecutive blocks of variable size in the buffers
+      /// \c send_data and \c recv_data, respectively. The i-th memory block with the layout
+      /// <tt>sendls[i]</tt> in the array \c send_data starts \c senddispls[i] bytes after the address
+      /// given in send_data. The i-th memory block is sent to the i-th process. The i-th memory
+      /// block with the layout <tt>recvls[i]</tt> in the array recv_data starts \c recvdispls[i]
+      /// bytes after the address given in \c recv_data.  When the function has finished, the
+      /// i-th memory block in the array \c recv_data was received from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void alltoallv(const T *send_data, const layouts<T> &sendls,
@@ -3280,23 +3294,24 @@ namespace mpl {
 
       /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
-      /// \details Each process in the communicator sends elements of type T to each process
-      /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
-      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// send_data starts at the address given in send_data. The i-th memory block is sent to the
-      /// i-th process. The i-th memory block with the layout recvls[i] in the array recv_data
-      /// starts at the address given in recv_data.  Note that the memory layouts need to include
-      /// appropriate holes at the beginning in order to avoid overlapping send- or receive
-      /// blocks. When the function has finished, the i-th memory block in the array recv_data
-      /// was received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process.  Send- and
+      /// receive-data are stored in consecutive blocks of variable size in the buffers
+      /// \c send_data and \c recv_data, respectively. The i-th memory block with the layout
+      /// <tt>sendls[i]</tt> in the array \c send_data starts at the address given in \c send_data.
+      /// The i-th memory block is sent to the i-th process. The i-th memory block with the
+      /// \c layout recvls[i] in the array \c recv_data starts at the address given in
+      /// \c recv_data.  Note that the memory layouts need to include appropriate holes at the
+      /// beginning in order to avoid overlapping send- or receive blocks. When the function has
+      /// finished, the i-th memory block in the array \c recv_data was received from the i-th
+      /// process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       void alltoallv(const T *send_data, const layouts<T> &sendls, T *recv_data,
@@ -3378,8 +3393,8 @@ namespace mpl {
     public:
       /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes in a non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
       /// \param senddispls displacements of the data to send
@@ -3387,16 +3402,16 @@ namespace mpl {
       /// \param recvls memory layouts of the data to receive
       /// \param recvdispls displacements of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \details Each process in the communicator sends elements of type T to each process
-      /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
-      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// send_data starts senddispls[i] bytes after the address given in send_data. The i-th memory
-      /// block is sent to the i-th process. The i-th memory block with the layout recvls[i] in
-      /// the array recv_data starts recvdispls[i] bytes after the address given in recv_data.
-      /// When the function has finished, the i-th memory block in the array recv_data was
-      /// received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process.  Send- and
+      /// receive-data are stored in consecutive blocks of variable size in the buffers
+      /// \c send_data and \c recv_data, respectively. The i-th memory block with the layout
+      /// <tt>sendls[i]</tt> in the array \c send_data starts \c senddispls[i] bytes after the address
+      /// given in send_data. The i-th memory block is sent to the i-th process. The i-th memory
+      /// block with the layout <tt>recvls[i]</tt> in the array \c recv_data starts \c recvdispls[i]
+      /// bytes after the address given in \c recv_data.  When the function has finished, the
+      /// i-th memory block in the array \c recv_data was received from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest ialltoallv(const T *send_data, const layouts<T> &sendls,
@@ -3423,24 +3438,25 @@ namespace mpl {
 
       /// Sends messages with a variable amount of data to all processes and receives
       /// messages with a variable amount of data from all processes in a non-blocking manner.
-      /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-      /// data_types "data types" section
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \return request representing the ongoing message transfer
-      /// \details Each process in the communicator sends elements of type T to each process
-      /// (including itself) and receives elements of type T from each process.  Send- and
-      /// receive-data are stored in consecutive blocks of variable size in the buffers send_data
-      /// and recv_data, respectively. The i-th memory block with the layout sendls[i] in the array
-      /// send_data starts at the address given in send_data. The i-th memory block is sent to the
-      /// i-th process. The i-th memory block with the layout recvls[i] in the array recv_data
-      /// starts at the address given in recv_data.  Note that the memory layouts need to include
-      /// appropriate holes at the beginning in order to avoid overlapping send- or receive
-      /// blocks. When the function has finished, the i-th memory block in the array recv_data
-      /// was received from the i-th process.
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process.  Send- and
+      /// receive-data are stored in consecutive blocks of variable size in the buffers
+      /// \c send_data and \c recv_data, respectively. The i-th memory block with the layout
+      /// <tt>sendls[i]</tt> in the array \c send_data starts at the address given in \c send_data.
+      /// The i-th memory block is sent to the i-th process. The i-th memory block with the
+      /// layout <tt>recvls[i]</tt> in the array \c recv_data starts at the address given in
+      /// \c recv_data.  Note that the memory layouts need to include appropriate holes at the
+      /// beginning in order to avoid overlapping send- or receive blocks. When the function has
+      /// finished, the i-th memory block in the array \c recv_data was received from the i-th
+      /// process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
       irequest ialltoallv(const T *send_data, const layouts<T> &sendls, T *recv_data,
@@ -3453,14 +3469,15 @@ namespace mpl {
       // --- blocking reduce ---
       /// Performs a reduction operation over all processes.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation if rank equals root_rank
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void reduce(F f, int root_rank, const T &send_data, T &recv_data) const {
@@ -3471,16 +3488,17 @@ namespace mpl {
 
       /// Performs a reduction operation over all processes.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation if rank equals
       /// root_rank, may be nullptr if rank does no equal to root_rank
       /// \param l memory layouts of the data to send and to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       /// \anchor communicator_reduce_contiguous_layout
       template<typename T, typename F>
@@ -3494,15 +3512,16 @@ namespace mpl {
       // --- non-blocking reduce ---
       /// Performs a reduction operation over all processes in a non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation if rank equals root_rank
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest ireduce(F f, int root_rank, const T &send_data, T &recv_data) const {
@@ -3515,9 +3534,10 @@ namespace mpl {
 
       /// Performs a reduction operation over all processes in a non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param root_rank rank of the process that will receive the reduction result
       /// \param send_data input buffer for the reduction operation
@@ -3525,7 +3545,7 @@ namespace mpl {
       /// root_rank, may be nullptr if rank does no equal to root_rank
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest ireduce(F f, int root_rank, const T *send_data, T *recv_data,
@@ -3541,13 +3561,14 @@ namespace mpl {
       // --- blocking all-reduce ---
       /// Performs a reduction operation over all processes and broadcasts the result.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void allreduce(F f, const T &send_data, T &recv_data) const {
@@ -3557,14 +3578,15 @@ namespace mpl {
 
       /// Performs a reduction operation over all processes and broadcasts the result.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void allreduce(F f, const T *send_data, T *recv_data,
@@ -3578,14 +3600,15 @@ namespace mpl {
       /// Performs a reduction operation over all processes and broadcasts the result in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest iallreduce(F f, const T &send_data, T &recv_data) const {
@@ -3598,15 +3621,16 @@ namespace mpl {
       /// Performs a reduction operation over all processes and broadcasts the result in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest iallreduce(F f, const T *send_data, T *recv_data,
@@ -3622,14 +3646,15 @@ namespace mpl {
       // --- blocking reduce-scatter-block ---
       /// Performs a reduction operation over all processes and scatters the result.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator
       /// \param recv_data will hold the result of the reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void reduce_scatter_block(F f, const T *send_data, T &recv_data) const {
@@ -3640,16 +3665,17 @@ namespace mpl {
 
       /// Performs a reduction operation over all processes and scatters the result.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator times the number of elements given by
       /// the layout parameter
       /// \param recv_data will hold the results of the reduction operation
       /// \param recvcount memory layouts of the data to send and to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void reduce_scatter_block(F f, const T *send_data, T *recv_data,
@@ -3663,15 +3689,16 @@ namespace mpl {
       /// Performs a reduction operation over all processes and scatters the result in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator
       /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest ireduce_scatter_block(F f, const T *send_data, T &recv_data) const {
@@ -3685,9 +3712,10 @@ namespace mpl {
       /// Performs a reduction operation over all processes and scatters the result in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation, number of elements in buffer
       /// send_data must equal the size of the communicator times the number of elements given by
@@ -3695,7 +3723,7 @@ namespace mpl {
       /// \param recv_data will hold the results of the reduction operation
       /// \param recvcount memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest ireduce_scatter_block(F f, const T *send_data, T *recv_data,
@@ -3711,16 +3739,17 @@ namespace mpl {
       // --- blocking reduce-scatter ---
       /// Performs a reduction operation over all processes and scatters the result.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the sum of the number of elements given by the collection of layout
       /// parameters
       /// \param recv_data will hold the results of the reduction operation
       /// \param recvcounts memory layouts of the data to send and to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void reduce_scatter(F f, const T *send_data, T *recv_data,
@@ -3734,9 +3763,10 @@ namespace mpl {
       /// Performs a reduction operation over all processes and scatters the result in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation, number of elements in buffer
       /// send_data must equal the sum of the number of elements given by the collection of layout
@@ -3744,7 +3774,7 @@ namespace mpl {
       /// \param recv_data will hold the results of the reduction operation
       /// \param recvcounts memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest ireduce_scatter(F f, const T *send_data, T *recv_data,
@@ -3760,13 +3790,14 @@ namespace mpl {
       // --- blocking scan ---
       /// Performs partial reduction operation (scan) over all processes.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void scan(F f, const T &send_data, T &recv_data) const {
@@ -3776,14 +3807,15 @@ namespace mpl {
 
       /// Performs a partial reduction operation (scan) over all processes.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void scan(F f, const T *send_data, T *recv_data, const contiguous_layout<T> &l) const {
@@ -3795,14 +3827,15 @@ namespace mpl {
       /// Performs a partial reduction operation (scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest iscan(F f, const T &send_data, T &recv_data) const {
@@ -3815,15 +3848,16 @@ namespace mpl {
       /// Performs a partial reduction operation (scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest iscan(F f, const T *send_data, T *recv_data,
@@ -3838,13 +3872,14 @@ namespace mpl {
       // --- blocking exscan ---
       /// Performs partial reduction operation (exclusive scan) over all processes.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void exscan(F f, const T &send_data, T &recv_data) const {
@@ -3854,14 +3889,15 @@ namespace mpl {
 
       /// Performs a partial reduction operation (exclusive scan) over all processes.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       void exscan(F f, const T *send_data, T *recv_data, const contiguous_layout<T> &l) const {
@@ -3873,14 +3909,15 @@ namespace mpl {
       /// Performs a partial reduction operation (exclusive scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the reduction operation, reduction operation is performed
-      /// on data of type T
+      /// on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input data for the reduction operation
       /// \param recv_data will hold the result of the reduction operation
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest iexscan(F f, const T &send_data, T &recv_data) const {
@@ -3893,15 +3930,16 @@ namespace mpl {
       /// Performs a partial reduction operation (exclusive scan) over all processes in a
       /// non-blocking manner.
       /// \tparam F type representing the element-wise reduction operation, reduction operation is
-      /// performed on data of type T
+      /// performed on data of type \c T
       /// \tparam T type of input and output data of the reduction operation, must meet the
-      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+      /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+      /// section
       /// \param f reduction operation
       /// \param send_data input buffer for the reduction operation
       /// \param recv_data will hold the results of the reduction operation
       /// \param l memory layouts of the data to send and to receive
       /// \return request representing the ongoing reduction operation
-      /// \note This is a collective operation and must be called (possibly by utilizing anther
+      /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T, typename F>
       irequest iexscan(F f, const T *send_data, T *recv_data,
@@ -3930,7 +3968,7 @@ namespace mpl {
     /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other. Communicators should not be copied unless a new independent
+    /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     communicator(const communicator &other) : base{} { MPI_Comm_dup(other.comm_, &comm_); }
@@ -3964,7 +4002,7 @@ namespace mpl {
     /// \param other the inter-communicator to merge
     /// \param order affects the process ordering in the new communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the local and the remote groups of  the inter-communicator other. The order parameter
+    /// the local and the remote groups of  the inter-communicator \c other. The order parameter
     /// must be the same for all process within in the local group as well as within the remote
     /// group.  It should differ for both groups.
     explicit communicator(const inter_communicator &other, merge_order_type order);
@@ -3975,7 +4013,7 @@ namespace mpl {
     /// \param other the communicator
     /// \param gr the group that determines the new communicator's structure
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other.
+    /// the communicator \c other.
     explicit communicator([[maybe_unused]] comm_collective_tag comm_collective,
                           const communicator &other, const group &gr) {
       MPI_Comm_create(other.comm_, gr.gr_, &comm_);
@@ -4003,7 +4041,7 @@ namespace mpl {
     /// \param color control of subset assignment
     /// \param key control of rank assignment
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other.
+    /// the communicator \c other.
     template<typename color_type, typename key_type = int>
     explicit communicator([[maybe_unused]] split_tag split, const communicator &other,
                           color_type color, key_type key = 0) {
@@ -4022,7 +4060,7 @@ namespace mpl {
     /// \param other the communicator
     /// \param key control of rank assignment
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other.
+    /// the communicator \c other.
     template<typename key_type = int>
     explicit communicator([[maybe_unused]] split_shared_memory_tag split_shared_memory,
                           const communicator &other, key_type key = 0) {
@@ -4037,7 +4075,7 @@ namespace mpl {
     /// \param other the other communicator to copy from
     /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other. Communicators should not be copied unless a new independent
+    /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     communicator &operator=(const communicator &other) noexcept {
@@ -4050,7 +4088,7 @@ namespace mpl {
     /// \param other the other communicator to move from
     /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other.
+    /// the communicator \c other.
     communicator &operator=(communicator &&other) noexcept {
       if (this != &other)
         base::operator=(static_cast<base &&>(other));
@@ -4128,15 +4166,16 @@ namespace mpl {
     // --- blocking all-to-all, in place ---
     /// Sends messages to all processes and receives messages from all processes,
     /// in-place version.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
-    /// \details Each process in the communicator sends one element of type T to each process
-    /// (including itself) and receives one element of type T from each process.  The i-th
-    /// element in the array sendrecv_data is sent to the i-th process.  When the function has
-    /// finished, the i-th element in the array sendrecv_data was received from the i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends one element of type \c T to each process
+    /// (including itself) and receives one element of type \c T from each process.  The i-th
+    /// element in the array \c sendrecv_data is sent to the i-th process.  When the function
+    /// has finished, the i-th element in the array \c sendrecv_data was received from the i-th
+    /// process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void alltoall(T *sendrecv_data) const {
@@ -4146,18 +4185,19 @@ namespace mpl {
 
     /// Sends messages to all processes and receives messages from all processes,
     /// in-place version.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \param sendrecvl memory layouts of the data to send and to receive
-    /// \details Each process in the communicator sends elements of type T to each process
-    /// (including itself) and receives elements of type T from each process. The memory
-    /// layouts of the incoming and the outgoing messages are described by sendrecvl.
-    /// The i-th memory block with the layout sendrecvl in the array sendrecv_data
+    /// \details Each process in the communicator sends elements of type \c T to each process
+    /// (including itself) and receives elements of type \c T from each process. The memory
+    /// layouts of the incoming and the outgoing messages are described by \c sendrecvl.
+    /// The i-th memory block with the layout \c sendrecvl in the array \c sendrecv_data
     /// is sent to the i-th process.  When the function has finished, the i-th memory block with
-    /// the layout sendrecvl in the array sendrecv_data was received from the i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// the layout \c sendrecvl in the array \c sendrecv_data was received from the i-th
+    /// process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void alltoall(T *sendrecv_data, const layout<T> &sendrecvl) const {
@@ -4168,17 +4208,17 @@ namespace mpl {
     // --- non-blocking all-to-all, in place ---
     /// Sends messages to all processes and receives messages from all processes in a
     /// non-blocking manner, in-place version.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends one element of type T to each process
-    /// (including itself) and receives one element of type T from each process.  The i-th
-    /// element in the array sendrecv_data is sent to the i-th process.  When the message
-    /// transfer has finished, the i-th element in the array sendrecv_data was received from the
-    /// i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \details Each process in the communicator sends one element of type \c T to each process
+    /// (including itself) and receives one element of type \c T from each process.  The i-th
+    /// element in the array \c sendrecv_data is sent to the i-th process.  When the message
+    /// transfer has finished, the i-th element in the array \c sendrecv_data was received from
+    /// the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     irequest ialltoall(T *sendrecv_data) const {
@@ -4190,20 +4230,20 @@ namespace mpl {
 
     /// Sends messages to all processes and receives messages from all processes in a
     /// non-blocking manner, in-place version.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for outgoing messages and for incoming
     /// messages
     /// \param sendrecvl memory layouts of the data to send and to receive
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends elements of type T to each process
-    /// (including itself) and receives elements of type T from each process. The memory
-    /// layouts of the incoming and the outgoing messages are described by sendrecvl.
-    /// The i-th memory block with the layout sendrecvl in the array sendrecv_data
+    /// \details Each process in the communicator sends elements of type \c T to each process
+    /// (including itself) and receives elements of type \c T from each process. The memory
+    /// layouts of the incoming and the outgoing messages are described by \c sendrecvl.
+    /// The i-th memory block with the layout \c sendrecvl in the array \c sendrecv_data
     /// is sent to the i-th process.  When the message transfer has finished, the i-th memory
-    /// block with the layout sendrecvl in the array sendrecv_data was received from the i-th
-    /// process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// block with the layout \c sendrecvl in the array \c sendrecv_data was received from the
+    /// i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     irequest ialltoall(T *sendrecv_data, const layout<T> &sendrecvl) const {
@@ -4221,19 +4261,20 @@ namespace mpl {
     // --- blocking all-to-all, in place ---
     /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes, in-place variant.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for outgoing and incoming messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \param sendrecvdispls displacements of the data to send and to receive
-    /// \details Each process in the communicator sends elements of type T to each process
-    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// \details Each process in the communicator sends elements of type \c T to each process
+    /// (including itself) and receives elements of type \c T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
-    /// sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array
-    /// sendrecv_data starts sendrecvdispls[i] bytes after the address given in sendrecv_data. The
-    /// i-th memory block is sent to the i-th process. When the function has finished, the i-th
-    /// memory block in the array sendrecv_data was received from the i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \c sendecvdata. The i-th memory block with the layout <tt>sendlrecvs[i]</tt> in the
+    /// array \c sendrecv_data starts <tt>sendrecvdispls[i]</tt> bytes after the address given
+    /// in \c sendrecv_data. The i-th memory block is sent to the i-th process. When the
+    /// function has finished, the i-th memory block in the array \c sendrecv_data was received
+    /// from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void alltoallv(T *sendrecv_data, const layouts<T> &sendrecvls,
@@ -4249,20 +4290,20 @@ namespace mpl {
 
     /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes, in-place variant.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for incoming and outgoing messages
     /// \param sendrecvls memory layouts of the data to send and to receive
-    /// \details Each process in the communicator sends elements of type T to each process
-    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// \details Each process in the communicator sends elements of type \c T to each process
+    /// (including itself) and receives elements of type \c T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
-    /// sendrecv_data. The i-th memory block with the layout sendrecvls[i] in the array
-    /// sendrecv_data starts at the address given in sendrecv_data. The i-th memory block is sent
-    /// to the i-th process. Note that the memory layouts need to include appropriate holes at
-    /// the beginning in order to avoid overlapping send-receive blocks. When the function has
-    /// finished, the i-th memory block in the array sendrecv_data was received from the
-    /// i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \c sendrecv_data. The i-th memory block with the layout <tt>sendrecvls[i]</tt> in the
+    /// array \c sendrecv_data starts at the address given in \c sendrecv_data. The i-th memory
+    /// block is sent to the i-th process. Note that the memory layouts need to include
+    /// appropriate holes at the beginning in order to avoid overlapping send-receive blocks.
+    /// When the function has finished, the i-th memory block in the array \c sendrecv_data was
+    /// received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     void alltoallv(T *sendrecv_data, const layouts<T> &sendrecvls) const {
@@ -4273,20 +4314,21 @@ namespace mpl {
     /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes in a non-blocking manner,
     /// in-place variant.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
+    /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
     /// \param sendrecv_data pointer to continuous storage for outgoing and incoming messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \param sendrecvdispls displacements of the data to send and to receive
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends elements of type T to each process
-    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// \details Each process in the communicator sends elements of type \c T to each process
+    /// (including itself) and receives elements of type \c T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
-    /// sendecvdata. The i-th memory block with the layout sendlrecvs[i] in the array
-    /// sendrecv_data starts sendrecvdispls[i] bytes after the address given in sendrecv_data. The
-    /// i-th memory block is sent to the i-th process. When the function has finished, the i-th
-    /// memory block in the array sendrecv_data was received from the i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \c sendecvdata. The i-th memory block with the layout <tt>sendlrecvs[i]</tt> in the
+    /// array \c sendrecv_data starts <tt>sendrecvdispls[i]</tt> bytes after the address given
+    /// in sendrecv_data. The i-th memory block is sent to the i-th process. When the function
+    /// has finished, the i-th memory block in the array \c sendrecv_data was received from the
+    /// i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     irequest ialltoallv(T *sendrecv_data, const layouts<T> &sendrecvls,
@@ -4310,21 +4352,20 @@ namespace mpl {
     /// Sends messages with a variable amount of data to all processes and receives
     /// messages with a variable amount of data from all processes in a non-blocking manner,
     /// in-place variant.
-    /// \tparam T type of the data to send, must meet the requirements as described in the \ref
-    /// data_types "data types" section
+    /// \tparam T type of the data to send, must meet the requirements as described in the
     /// \param sendrecv_data pointer to continuous storage for incoming and outgoing messages
     /// \param sendrecvls memory layouts of the data to send and to receive
     /// \return request representing the ongoing message transfer
-    /// \details Each process in the communicator sends elements of type T to each process
-    /// (including itself) and receives elements of type T from each process.  Send- and
+    /// \details Each process in the communicator sends elements of type \c T to each process
+    /// (including itself) and receives elements of type \c T from each process.  Send- and
     /// receive-data are stored in consecutive blocks of variable size in the buffer
-    /// sendrecv_data. The i-th memory block with the layout sendrecvls[i] in the array
-    /// sendrecv_data starts at the address given in sendrecv_data. The i-th memory block is sent
-    /// to the i-th process. Note that the memory layouts need to include appropriate holes at
-    /// the beginning in order to avoid overlapping send-receive blocks. When the function has
-    /// finished, the i-th memory block in the array sendrecv_data was received from the
-    /// i-th process.
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \c sendrecv_data. The i-th memory block with the layout <tt>sendrecvls[i]</tt> in the
+    /// array \c sendrecv_data starts at the address given in \c sendrecv_data. The i-th memory
+    /// block is sent to the i-th process. Note that the memory layouts need to include
+    /// appropriate holes at the beginning in order to avoid overlapping send-receive blocks.
+    /// When the function has finished, the i-th memory block in the array \c sendrecv_data was
+    /// received from the i-th process.
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
     irequest ialltoallv(T *sendrecv_data, const layouts<T> &sendrecvls) const {
@@ -4338,14 +4379,14 @@ namespace mpl {
     // --- blocking reduce, in place ---
     /// Performs a reduction operation over all processes, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input data for the reduction operation, will hold the result of the
     /// reduction operation if rank equals root_rank
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, T &sendrecv_data) const {
@@ -4360,14 +4401,15 @@ namespace mpl {
 
     /// Performs a reduction operation over all processes, non-root in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
     /// \param send_data input data for the reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T &send_data) const {
@@ -4378,15 +4420,16 @@ namespace mpl {
 
     /// Performs a reduction operation over all processes, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input buffer for the reduction operation, will hold the results of
-    /// the reduction operation if rank equals root_rank
+    /// the reduction operation if rank equals \c root_rank
     /// \param l memory layouts of the data to send and to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4401,15 +4444,16 @@ namespace mpl {
 
     /// Performs a reduction operation over all processes, non-root in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
     /// \param send_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void reduce(F f, int root_rank, const T *send_data, const contiguous_layout<T> &l) const {
@@ -4422,15 +4466,16 @@ namespace mpl {
     /// Performs a reduction operation over all processes in a non-blocking manner,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input data for the reduction operation, will hold the result of the
-    /// reduction operation if rank equals root_rank
+    /// reduction operation if rank equals \c root_rank
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, T &sendrecv_data) const {
@@ -4448,7 +4493,7 @@ namespace mpl {
     /// Performs a reduction operation over all processes in a non-blocking manner,
     /// non-root in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
     /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
     /// \param f reduction operation
@@ -4456,7 +4501,7 @@ namespace mpl {
     /// different from the rank of the calling process
     /// \param send_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, const T &send_data) const {
@@ -4470,16 +4515,17 @@ namespace mpl {
     /// Performs a reduction operation over all processes in non-blocking manner,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result
     /// \param sendrecv_data input buffer for the reduction operation, will hold the results of
-    /// the reduction operation if rank equals root_rank
+    /// the reduction operation if rank equals \c root_rank
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, T *sendrecv_data,
@@ -4500,16 +4546,17 @@ namespace mpl {
     /// Performs a reduction operation over all processes in a non-blocking manner,
     /// non-root in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param root_rank rank of the process that will receive the reduction result, must be
     /// different from the rank of the calling process
     /// \param send_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest ireduce(F f, int root_rank, const T *send_data,
@@ -4529,12 +4576,13 @@ namespace mpl {
     /// Performs a reduction operation over all processes and broadcasts the result,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void allreduce(F f, T &sendrecv_data) const {
@@ -4545,13 +4593,14 @@ namespace mpl {
     /// Performs a reduction operation over all processes and broadcasts the result,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void allreduce(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4564,13 +4613,14 @@ namespace mpl {
     /// Performs a reduction operation over all processes and broadcasts the result in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iallreduce(F f, T &sendrecv_data) const {
@@ -4584,14 +4634,15 @@ namespace mpl {
     /// Performs a reduction operation over all processes and broadcasts the result in
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iallreduce(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4610,12 +4661,13 @@ namespace mpl {
     /// Performs a partial reduction operation (scan) over all processes, in-place
     /// variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void scan(F f, T &sendrecv_data) const {
@@ -4626,13 +4678,14 @@ namespace mpl {
     /// Performs a partial reduction operation (scan) over all processes, in-place
     /// variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void scan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4645,13 +4698,14 @@ namespace mpl {
     /// Performs a partial reduction operation (scan) over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iscan(F f, T &sendrecv_data) const {
@@ -4664,14 +4718,15 @@ namespace mpl {
     /// Performs a partial reduction (scan) operation over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iscan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4690,12 +4745,13 @@ namespace mpl {
     /// Performs a partial reduction operation (exclusive scan) over all processes,
     /// in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void exscan(F f, T &sendrecv_data) const {
@@ -4706,13 +4762,14 @@ namespace mpl {
     /// Performs a partial reduction operation (exclusive scan) over all processes,
     /// in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     void exscan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4725,13 +4782,14 @@ namespace mpl {
     /// Performs a partial reduction operation (exclusive scan) over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the reduction operation, reduction operation is performed
-    /// on data of type T
+    /// on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input data for the reduction operation
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iexscan(F f, T &sendrecv_data) const {
@@ -4744,14 +4802,15 @@ namespace mpl {
     /// Performs a partial reduction operation (exclusive scan) over all processes in a
     /// non-blocking manner, in-place variant.
     /// \tparam F type representing the element-wise reduction operation, reduction operation is
-    /// performed on data of type T
+    /// performed on data of type \c T
     /// \tparam T type of input and output data of the reduction operation, must meet the
-    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
+    /// requirements as described in the \verbatim embed:rst:inline :doc:`data_types` \endverbatim
+    /// section
     /// \param f reduction operation
     /// \param sendrecv_data input buffer for the reduction operation
     /// \param l memory layouts of the data to send and to receive
     /// \return request representing the ongoing reduction operation
-    /// \note This is a collective operation and must be called (possibly by utilizing anther
+    /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T, typename F>
     irequest iexscan(F f, T *sendrecv_data, const contiguous_layout<T> &l) const {
@@ -4793,7 +4852,7 @@ namespace mpl {
     /// \param remote_leader rank of the remote group leader within the peer communicator
     /// \param t tag associated to this operation
     /// \note It is a collective operation over the union of the processes with the local
-    /// communicator and the peer comunicator.
+    /// communicator and the peer communicator.
     explicit inter_communicator(const communicator &local_communicator, int local_leader,
                                 const communicator &peer_communicator, int remote_leader,
                                 tag_t t = tag_t(0))
@@ -4805,7 +4864,7 @@ namespace mpl {
     /// Creates a new inter-communicator which is equivalent to an existing one.
     /// \param other the other inter-communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all local and
-    /// remote processes of the inter-communicator other.  Inter-communicators should not be
+    /// remote processes of the inter-communicator \c other.  Inter-communicators should not be
     /// copied unless a new independent communicator is wanted.  Inter-Communicators should be
     /// passed via references to functions to avoid unnecessary copying.
     inter_communicator(const inter_communicator &other) : base{} {
@@ -4817,7 +4876,7 @@ namespace mpl {
     /// \param other the other inter-communicator to copy from
     /// \return this inter-communicator
     /// \note This is a collective operation that needs to be carried out by all local and
-    /// remote processes of the communicator other. Inter-communicators should not be copied
+    /// remote processes of the communicator \c other. Inter-communicators should not be copied
     /// unless a new independent inter-communicator is wanted. Inter-communicators should be
     /// passed via references to functions to avoid unnecessary copying.
     inter_communicator &operator=(const inter_communicator &other) noexcept {
@@ -4830,7 +4889,7 @@ namespace mpl {
     /// \param other the other inter-communicator to move from
     /// \return this communicator
     /// \note This is a collective operation that needs to be carried out by all processes local
-    /// and remote processes of the inter-communicator other.
+    /// and remote processes of the inter-communicator \c other.
     inter_communicator &operator=(inter_communicator &&other) noexcept {
       if (this != &other)
         base::operator=(static_cast<base &&>(other));

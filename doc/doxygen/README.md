@@ -240,6 +240,6 @@ the presentation
 
 the book
 
-  * [Parallel Programming for Science and Engineering](https://pages.tacc.utexas.edu/~eijkhout/pdf/pcse/EijkhoutParComp.pdf) by Victor Eijkhout
+  * [Parallel Programming for Science and Engineering](https://web.corral.tacc.utexas.edu/CompEdu/pdf/pcse/EijkhoutParallelProgramming.pdf) by Victor Eijkhout
 
 and the files in the `examples` directory of the source package.

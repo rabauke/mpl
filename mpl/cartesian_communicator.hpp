@@ -12,7 +12,7 @@ namespace mpl {
 
   /// Helper class to represent source and destination ranks within a Cartesian
   /// communicator.
-  /// \see cartesian_communicator::shift
+  /// \see \c cartesian_communicator::shift
   struct shift_ranks {
     int source{0};
     int destination{0};
@@ -98,7 +98,7 @@ namespace mpl {
 
 
     /// Represents the inclusion or exclusion along all dimensions of a Cartesian
-    /// process topology when creating an new communicator.
+    /// process topology when creating a new communicator.
     class included_tags : private std::vector<included_tag> {
       using base = std::vector<included_tag>;
       using base::data;
@@ -186,7 +186,7 @@ namespace mpl {
           return not(*this == t);
         }
 
-        friend dimensions;
+        friend class dimensions;
       };
 
 
@@ -278,7 +278,7 @@ namespace mpl {
       /// equals the give parameter. Along all dimensions, no periodicity is defined.  The size,
       /// i.e., the number of processes, along each dimension is zero.
       /// \note A dimension object that is created by this constructor must be passed to
-      /// \ref dims_create before a new Cartesian communicator can be created.
+      /// \c dims_create before a new Cartesian communicator can be created.
       explicit dimensions(int size) : dims_(size, 0), periodic_(size, 0) {}
 
       /// Constructs a new dimensions object.
@@ -367,7 +367,7 @@ namespace mpl {
     /// Creates a new communicator which is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other. Communicators should not be copied unless a new independent
+    /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     cartesian_communicator(const cartesian_communicator &other) {
@@ -381,7 +381,7 @@ namespace mpl {
     /// \param reorder indicates if reordering is permitted, if false each process will have the
     /// same rank in the new communicator as in the old one
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other with the same arguments.
+    /// the communicator \c other with the same arguments.
     explicit cartesian_communicator(const communicator &other, const dimensions &dims,
                                     bool reorder = true) {
       MPI_Cart_create(other.comm_, dims.dims_.size(), dims.dims_.data(), dims.periodic_.data(),
@@ -394,7 +394,7 @@ namespace mpl {
     /// communicator
     /// \param is_included indicates along which dimensions to arrange sub-grids
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other with the same arguments.
+    /// the communicator \c other with the same arguments.
     explicit cartesian_communicator(const cartesian_communicator &other,
                                     const included_tags &is_included) {
 #if defined MPL_DEBUG
@@ -415,7 +415,7 @@ namespace mpl {
     /// is equivalent to an existing one.
     /// \param other the other communicator to copy from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other. Communicators should not be copied unless a new independent
+    /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     cartesian_communicator &operator=(const cartesian_communicator &other) noexcept {
@@ -436,7 +436,7 @@ namespace mpl {
     /// Move-assigns a communicator.
     /// \param other the other communicator to move from
     /// \note This is a collective operation that needs to be carried out by all processes of
-    /// the communicator other.
+    /// the communicator \c other.
     cartesian_communicator &operator=(cartesian_communicator &&other) noexcept {
       if (this != &other) {
         int result_1{0}, result_2{0};

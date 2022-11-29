@@ -2,13 +2,18 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Constants" href="constants.html" /><link rel="prev" title="Reduction operations" href="reduction_operations.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Constants" href="constants.html" /><link rel="prev" title="Reduction operations" href="reduction_operations.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
-        <title>Info objects - MPL - A message passing library 0.1</title>
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/>
+        <title>Info objects - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
 
@@ -122,7 +127,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +150,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -215,7 +220,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,13 +235,13 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="info-objects">
+          <section id="info-objects">
 <h1>Info objects<a class="headerlink" href="#info-objects" title="Permalink to this heading">#</a></h1>
-<div class="section" id="overview">
+<section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>Info objects store key-value pairs of string type.  The semantics of these key-value pairs is defined by the MPI standard and by the employed MPI implementation.  See the MPI standard and the documentation of your MPI implementation for details. Info objects are used by some MPL to pass the key-value pairs to the underlying MPI implementation to improve performance or resource utilization.</p>
-</div>
-<div class="section" id="class-documentation">
+</section>
+<section id="class-documentation">
 <h2>Class documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">#</a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4infoE">
@@ -245,16 +251,16 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4info4infoEv">
-<span id="_CPPv3N3mpl4info4infoEv"></span><span id="_CPPv2N3mpl4info4infoEv"></span><span id="mpl::info::info"></span><span class="target" id="classmpl_1_1info_1a1f90674e949acd32ba4382f9375a4920"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">info</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info4infoEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4info4infoEv"></span><span id="_CPPv2N3mpl4info4infoEv"></span><span id="mpl::info::info"></span><span class="target" id="classmpl_1_1info_1a8ece94e57064ea71801015df652bed08"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">info</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info4infoEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Creates a new info object with no key-value pairs attached. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4info4infoERK4info">
-<span id="_CPPv3N3mpl4info4infoERK4info"></span><span id="_CPPv2N3mpl4info4infoERK4info"></span><span id="mpl::info::info__infoCR"></span><span class="target" id="classmpl_1_1info_1a7d84d1df9bb36b56884aba340185a706"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">info</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4info4infoERK4info" title="mpl::info::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info4infoERK4info" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4info4infoERK4info"></span><span id="_CPPv2N3mpl4info4infoERK4info"></span><span id="mpl::info::info__infoCR"></span><span class="target" id="classmpl_1_1info_1accee79e7c35f9b80f2e90f91307ba488"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">info</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4info4infoERK4info" title="mpl::info::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info4infoERK4info" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Copy-constructs a new info object. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other info object to copy from </p>
 </dd>
 </dl>
@@ -262,10 +268,10 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4info4infoERR4info">
-<span id="_CPPv3N3mpl4info4infoERR4info"></span><span id="_CPPv2N3mpl4info4infoERR4info"></span><span id="mpl::info::info__infoRR"></span><span class="target" id="classmpl_1_1info_1a91960c685d95b448fea5544d86de1326"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">info</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4info4infoERR4info" title="mpl::info::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl4info4infoERR4info" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4info4infoERR4info"></span><span id="_CPPv2N3mpl4info4infoERR4info"></span><span id="mpl::info::info__infoRR"></span><span class="target" id="classmpl_1_1info_1a8fb96ab3f5da7f425eaa25ccbeca3fa3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">info</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4info4infoERR4info" title="mpl::info::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl4info4infoERR4info" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Move-constructs a new info object. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other info object to move from </p>
 </dd>
 </dl>
@@ -273,10 +279,10 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4infoclERK4info">
-<span id="_CPPv3N3mpl4infoclERK4info"></span><span id="_CPPv2N3mpl4infoclERK4info"></span><span id="mpl::info::call-operator__infoCR"></span><span class="target" id="classmpl_1_1info_1afe4437b51b06c3dd0a6c9ca7a9717199"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4infoclERK4info" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4infoclERK4info"></span><span id="_CPPv2N3mpl4infoclERK4info"></span><span id="mpl::info::call-operator__infoCR"></span><span class="target" id="classmpl_1_1info_1acd3afa66c5b502ed1a999225a0bbebb6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4infoclERK4info" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Copies an info object. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other info object to copy from </p>
 </dd>
 </dl>
@@ -284,10 +290,10 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4infoclERR4info">
-<span id="_CPPv3N3mpl4infoclERR4info"></span><span id="_CPPv2N3mpl4infoclERR4info"></span><span id="mpl::info::call-operator__infoRR"></span><span class="target" id="classmpl_1_1info_1aa9e680e8b331e6138795a0430a09c9d3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl4infoclERR4info" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4infoclERR4info"></span><span id="_CPPv2N3mpl4infoclERR4info"></span><span id="mpl::info::call-operator__infoRR"></span><span class="target" id="classmpl_1_1info_1ae13e653820806220aa4321cd49e9300c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4infoE" title="mpl::info"><span class="n"><span class="pre">info</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl4infoclERR4info" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Moves an info object. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other info object to move from </p>
 </dd>
 </dl>
@@ -295,16 +301,16 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4infoD0Ev">
-<span id="_CPPv3N3mpl4infoD0Ev"></span><span id="_CPPv2N3mpl4infoD0Ev"></span><span id="mpl::info::~info"></span><span class="target" id="classmpl_1_1info_1a9925d62d0290f5133564b77f916eba5d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~info</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4infoD0Ev" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4infoD0Ev"></span><span id="_CPPv2N3mpl4infoD0Ev"></span><span id="mpl::info::~info"></span><span class="target" id="classmpl_1_1info_1a45065457bf136cacb9d23ca00c3d5c8d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~info</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4infoD0Ev" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Destructor. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4info3setENSt11string_viewENSt11string_viewE">
-<span id="_CPPv3N3mpl4info3setENSt11string_viewENSt11string_viewE"></span><span id="_CPPv2N3mpl4info3setENSt11string_viewENSt11string_viewE"></span><span id="mpl::info::set__std::string_view.std::string_view"></span><span class="target" id="classmpl_1_1info_1a443eb93d17f780675d8455dc4fced833"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info3setENSt11string_viewENSt11string_viewE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4info3setENSt11string_viewENSt11string_viewE"></span><span id="_CPPv2N3mpl4info3setENSt11string_viewENSt11string_viewE"></span><span id="mpl::info::set__std::string_view.std::string_view"></span><span class="target" id="classmpl_1_1info_1aecd5a4d1b997832ee73865b38e9eb4ed"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info3setENSt11string_viewENSt11string_viewE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Stores a key-value pair. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>key</strong> – the key </p></li>
 <li><p><strong>value</strong> – the value </p></li>
@@ -315,10 +321,10 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4info6removeENSt11string_viewE">
-<span id="_CPPv3N3mpl4info6removeENSt11string_viewE"></span><span id="_CPPv2N3mpl4info6removeENSt11string_viewE"></span><span id="mpl::info::remove__std::string_view"></span><span class="target" id="classmpl_1_1info_1a20ee79b23b5689f7e9a6d5260641e37b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">remove</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info6removeENSt11string_viewE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3N3mpl4info6removeENSt11string_viewE"></span><span id="_CPPv2N3mpl4info6removeENSt11string_viewE"></span><span id="mpl::info::remove__std::string_view"></span><span class="target" id="classmpl_1_1info_1ad5fd19a4e1529b7f905b1927efc9ecf6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">remove</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4info6removeENSt11string_viewE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Removes a key-value pair with the the given key. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> – the key </p>
 </dd>
 </dl>
@@ -326,13 +332,13 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl4info5valueENSt11string_viewE">
-<span id="_CPPv3NK3mpl4info5valueENSt11string_viewE"></span><span id="_CPPv2NK3mpl4info5valueENSt11string_viewE"></span><span id="mpl::info::value__std::string_viewC"></span><span class="target" id="classmpl_1_1info_1ad2e0003149725af151efb617de855253"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4info5valueENSt11string_viewE" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl4info5valueENSt11string_viewE"></span><span id="_CPPv2NK3mpl4info5valueENSt11string_viewE"></span><span id="mpl::info::value__std::string_viewC"></span><span class="target" id="classmpl_1_1info_1a887e0f1ff2640afd48d7cf10fa32f382"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">key</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4info5valueENSt11string_viewE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Retrieves the value for a given key. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>key</strong> – the key </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the value if the info object contains a key-value pair with the given key. </p>
 </dd>
 </dl>
@@ -340,10 +346,10 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl4info4sizeEv">
-<span id="_CPPv3NK3mpl4info4sizeEv"></span><span id="_CPPv2NK3mpl4info4sizeEv"></span><span id="mpl::info::sizeC"></span><span class="target" id="classmpl_1_1info_1a58ce699f5989f6d2285f681ee8fd1d80"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4info4sizeEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl4info4sizeEv"></span><span id="_CPPv2NK3mpl4info4sizeEv"></span><span id="mpl::info::sizeC"></span><span class="target" id="classmpl_1_1info_1af9593d4a5ff4274efaf429cb4f9e57cc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4info4sizeEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Gets the number of key-value pairs. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>number of key-value pairs in the info object </p>
 </dd>
 </dl>
@@ -351,13 +357,13 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl4info3keyEi">
-<span id="_CPPv3NK3mpl4info3keyEi"></span><span id="_CPPv2NK3mpl4info3keyEi"></span><span id="mpl::info::key__iC"></span><span class="target" id="classmpl_1_1info_1a4b76892b9ce97a8c6da49b2410cb9012"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">key</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4info3keyEi" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl4info3keyEi"></span><span id="_CPPv2NK3mpl4info3keyEi"></span><span id="mpl::info::key__iC"></span><span class="target" id="classmpl_1_1info_1a92e4dc96ee94bd470f00940bca6be78c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">key</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4info3keyEi" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Gets the nth key. </p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>n</strong> – index, must be non-negative but less than <a class="reference internal" href="#classmpl_1_1info_1a58ce699f5989f6d2285f681ee8fd1d80"><span class="std std-ref">size()</span></a> </p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong> – index, must be non-negative but less than <a class="reference internal" href="#classmpl_1_1info_1af9593d4a5ff4274efaf429cb4f9e57cc"><span class="std std-ref">size()</span></a> </p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>the nth key in the info object </p>
 </dd>
 </dl>
@@ -374,8 +380,8 @@
 </div>
 </dd></dl>
 
-</div>
-</div>
+</section>
+</section>
 
         </article>
       </div>
@@ -389,10 +395,10 @@
                 </div>
                 <div class="title">Constants</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="reduction_operations.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -415,6 +421,11 @@
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/rabauke/mpl" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -428,7 +439,7 @@
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -454,5 +465,8 @@
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>

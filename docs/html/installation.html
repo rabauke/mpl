@@ -2,13 +2,18 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported data types" href="data_types.html" /><link rel="prev" title="MPL - A message passing library" href="index.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported data types" href="data_types.html" /><link rel="prev" title="MPL: A message passing library" href="index.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.06.21"/>
-        <title>Installation - MPL - A message passing library 0.1</title>
+    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/>
+        <title>Installation - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
 
@@ -122,7 +127,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL - A message passing library 0.1</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -145,7 +150,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">MPL - A message passing library 0.1</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
@@ -215,7 +220,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,59 +235,33 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="installation">
+          <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
-<p>MPL is built on MPI. An MPI implementation needs to be installed as a
-prerequisite, e.g., <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> or
-<a class="reference external" href="https://www.mpich.org/">MPICH</a>. MPL is a header-only library. Thus,
-it suffices to download the <a class="reference external" href="https://github.com/rabauke/mpl">source</a>
-and to copy the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> directory, which contains all header files to a
-folder, where the compiler will find it, e.g., <code class="docutils literal notranslate"><span class="pre">/usr/local/include</span></code> on
-a typical Unix/Linux system.</p>
-<p>For convenience and better integration into various IDEs, MPL also comes
-with CMake support. To install MPL via CMake get the sources and create
-a new <code class="docutils literal notranslate"><span class="pre">build</span></code> folder in the MPL source directory, e.g.,</p>
+<p>MPL is built on MPI. An MPI implementation needs to be installed as a prerequisite, e.g., <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> or <a class="reference external" href="https://www.mpich.org/">MPICH</a>. MPL is a header-only library. Thus, it suffices to download the <a class="reference external" href="https://github.com/rabauke/mpl">source</a> and to copy the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> directory, which contains all header files to a folder, where the compiler will find it, e.g., <code class="docutils literal notranslate"><span class="pre">/usr/local/include</span></code> on a typical Unix/Linux system.</p>
+<p>For convenience and better integration into various IDEs, MPL also comes with CMake support. To install MPL via CMake get the sources and create a new <code class="docutils literal notranslate"><span class="pre">build</span></code> folder in the MPL source directory, e.g.,</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl$ mkdir build
 user@host:~/mpl$ <span class="nb">cd</span> build
 </pre></div>
 </div>
-<p>Then, call the CMake tool to detect all dependencies and to generate the
-project configuration for your build system or IDE, e.g.,</p>
+<p>Then, call the CMake tool to detect all dependencies and to generate the project configuration for your build system or IDE, e.g.,</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local ..
 </pre></div>
 </div>
-<p>The option <code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX:PATH</span></code> specifies the installation
-path.</p>
-<p>Usually, CMake will find the required MPI installation as well as the
-Boost Test library automatically. Depending on the local setup, however,
-CMake may need some hints to find these dependencies. See the CMake
-documentation on
-<a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a>
-and
-<a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a>
-for further details.</p>
-<p>Cmake can also be utilized to install the MPL header files. Just
-call CMake a second time and specify the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option now, e.g.,</p>
+<p>The option <code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX:PATH</span></code> specifies the installation path.</p>
+<p>Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on <a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
+<p>Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option now, e.g.,</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake --install .
 </pre></div>
 </div>
-<p>A set of unit tests and a collection of examples that illustrate the
-usage of MPL can be complied via CMake, too, if required. To build the
-MPL unit tests add the option <code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=ON</span></code> to the initial
-CMake call. Similarly, <code class="docutils literal notranslate"><span class="pre">-DMPL_BUILD_EXAMPLES=ON</span></code> enables building
-example codes. Thus,</p>
+<p>A set of unit tests and a collection of examples that illustrate the usage of MPL can be complied via CMake, too, if required. To build the MPL unit tests add the option <code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=ON</span></code> to the initial CMake call. Similarly, <code class="docutils literal notranslate"><span class="pre">-DMPL_BUILD_EXAMPLES=ON</span></code> enables building example codes. Thus,</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local -DBUILD_TESTING<span class="o">=</span>ON -DMPL_BUILD_EXAMPLES<span class="o">=</span>ON ..
 </pre></div>
 </div>
-<p>enables both, building unit tests and examples. MPL unit tests utilize
-the
-<a class="reference external" href="https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html">Boost.Test</a>
-framework. Finally, build the unit tests and/or the example code via</p>
+<p>enables both, building unit tests and examples. MPL unit tests utilize the <a class="reference external" href="https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html">Boost.Test</a> framework. Finally, build the unit tests and/or the example code via</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake --build .
 </pre></div>
 </div>
-<p>After the unit test have been build successfully, they can be run
-conveniently by utilizing the CTest tool, i.e., via</p>
+<p>After the unit test have been build successfully, they can be run conveniently by utilizing the CTest tool, i.e., via</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ ctest
 Test project /home/user/mpl/build
       Start  <span class="m">1</span>: test_group
@@ -351,11 +331,8 @@ Total Test <span class="nb">time</span> <span class="o">(</span>real<span class=
 </pre></div>
 </div>
 <p>or via your IDE if it features support for CTest.</p>
-<p>Alternatively, MPL may be installed via the
-<a class="reference external" href="https://spack.readthedocs.io/">Spack</a> package manager. This will
-install the library headers ony but not compile the unit tests and the
-examples.</p>
-</div>
+<p>Alternatively, MPL may be installed via the <a class="reference external" href="https://spack.readthedocs.io/">Spack</a> package manager. This will install the library headers ony but not compile the unit tests and the examples.</p>
+</section>
 
         </article>
       </div>
@@ -369,10 +346,10 @@ examples.</p>
                 </div>
                 <div class="title">Supported data types</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -395,6 +372,11 @@ examples.</p>
           </div>
           <div class="right-details">
             <div class="icons">
+              <a class="muted-link " href="https://github.com/rabauke/mpl" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
               
             </div>
           </div>
@@ -414,5 +396,8 @@ examples.</p>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
     </body>
 </html>
