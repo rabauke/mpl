@@ -37,9 +37,8 @@ struct tuple {
   }
 };
 
-inline bool operator==(const tuple&t1, const tuple &t2)
-{
-  return t1.a== t2.a and t1.b == t2.b;
+inline bool operator==(const tuple &t1, const tuple &t2) {
+  return t1.a == t2.a and t1.b == t2.b;
 }
 
 inline tuple operator+(const tuple &t1, const tuple &t2) {

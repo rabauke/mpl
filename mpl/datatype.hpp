@@ -138,8 +138,8 @@ namespace mpl {
     /// \return reference to this \c struct_layout object (allows chaining)
     template<typename T>
     struct_layout &register_element(T &x) {
-      static_assert(not std::is_const<T>::value, "type must not be const");
-      static_assert(not std::is_pointer<T>::value, "type must not be pointer");
+      static_assert(not std::is_const_v<T>, "type must not be const");
+      static_assert(not std::is_pointer_v<T>, "type must not be pointer");
       block_lengths_.push_back(size(x));
       MPI_Aint address;
       MPI_Get_address(&x, &address);
@@ -227,7 +227,7 @@ namespace mpl {
 
   namespace detail {
 
-    template<typename F, typename T, std::size_t n>
+    template<typename F, typename T, std::size_t N>
     class apply_n {
       F &f_;
 
@@ -235,9 +235,9 @@ namespace mpl {
       explicit apply_n(F &f) : f_{f} {}
 
       void operator()(T &x) const {
-        apply_n<F, T, n - 1> next(f_);
+        apply_n<F, T, N - 1> next(f_);
         next(x);
-        f_(std::get<n - 1>(x));
+        f_(std::get<N - 1>(x));
       }
     };
 
