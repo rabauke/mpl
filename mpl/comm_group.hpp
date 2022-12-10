@@ -1677,7 +1677,8 @@ namespace mpl {
         int count{0};
         MPI_Get_count(ps, detail::datatype_traits<value_type>::get_datatype(), &count);
         check_count(count);
-        data.resize(count);
+        if constexpr (detail::has_resize_v<T>)
+          data.resize(count);
         MPI_Mrecv(data.size() > 0 ? &data[0] : nullptr, count,
                   detail::datatype_traits<value_type>::get_datatype(), &message, ps);
         return s;

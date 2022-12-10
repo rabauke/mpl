@@ -21,6 +21,9 @@
 #include <array>
 #include <cstddef>
 #include <type_traits>
+#if __cplusplus >= 202002L
+#include <span>
+#endif
 
 namespace mpl {
 
@@ -526,6 +529,14 @@ namespace mpl {
     public:
       using data_type_category = detail::contiguous_stl_container;
     };
+
+#if __cplusplus >= 202002L
+    template<typename T, std::size_t N>
+    class datatype_traits<std::span<T, N>> {
+    public:
+      using data_type_category = detail::contiguous_stl_container;
+    };
+#endif
 
     template<typename A>
     class datatype_traits<std::vector<bool, A>> {

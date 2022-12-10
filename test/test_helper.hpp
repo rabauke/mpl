@@ -8,7 +8,7 @@ template<typename, typename = void>
 struct has_size : std::false_type {};
 
 template<typename T>
-struct has_size<T, std::void_t<decltype(T().size())>> : std::true_type {};
+struct has_size<T, std::void_t<decltype(&T::size)>> : std::true_type {};
 
 
 template<typename, typename = void>

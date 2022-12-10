@@ -140,6 +140,17 @@ namespace mpl::detail {
       T, F, std::void_t<decltype(get_object<F>()(get_object<T>(), get_object<T>()))>>
       : std::is_convertible<decltype(get_object<F>()(get_object<T>(), get_object<T>())), T> {};
 
+  // -----------------------------------------------------------------
+
+  template<typename, typename = void>
+  struct has_resize : std::false_type {};
+
+  template<typename T>
+  struct has_resize<T, std::void_t<decltype(T().resize(1))>> : std::true_type {};
+
+  template<typename T>
+  inline constexpr bool has_resize_v = has_resize<T>::value;
+
 }  // namespace mpl::detail
 
 #endif
