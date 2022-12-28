@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="#" /><link rel="search" title="Search" href="search.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/><title>Index - MPL: A message passing library v0.2.0</title>
+    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 --><title>Index - MPL: A message passing library v0.2.0</title>
 <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -151,7 +151,7 @@
   <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -197,6 +197,7 @@
 <li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid_scatter_gather.html">Distributed grid collective operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/process_creation.html">Process creation</a></li>
 </ul>
 </li>
 </ul>
@@ -595,6 +596,8 @@
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl22cartesian_communicator4sizeEv">mpl::cartesian_communicator::size (C++ function)</a>
 </li>
+        <li><a href="communicator.html#_CPPv4NK3mpl22cartesian_communicator5spawnEi">mpl::cartesian_communicator::spawn (C++ function)</a>, <a href="communicator.html#_CPPv4NK3mpl22cartesian_communicator5spawnEiiRK12command_line">[1]</a>, <a href="communicator.html#_CPPv4NK3mpl22cartesian_communicator5spawnEiiRK12command_lineRKN3mpl4infoE">[2]</a>
+</li>
         <li><a href="communicator.html#_CPPv4N3mpl22cartesian_communicator5splitE">mpl::cartesian_communicator::split (C++ member)</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl22cartesian_communicator19split_shared_memoryE">mpl::cartesian_communicator::split_shared_memory (C++ member)</a>
@@ -624,6 +627,10 @@
         <li><a href="communicator.html#_CPPv4N3mpl22cartesian_communicator6vector10value_typeE">mpl::cartesian_communicator::vector::value_type (C++ type)</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl22cartesian_communicator6vector6vectorENSt16initializer_listIiEE">mpl::cartesian_communicator::vector::vector (C++ function)</a>, <a href="communicator.html#_CPPv4N3mpl22cartesian_communicator6vector6vectorEi">[1]</a>, <a href="communicator.html#_CPPv4N3mpl22cartesian_communicator6vector6vectorEv">[2]</a>
+</li>
+        <li><a href="auxiliary.html#_CPPv4N3mpl12command_lineE">mpl::command_line (C++ class)</a>
+</li>
+        <li><a href="auxiliary.html#_CPPv4N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE">mpl::command_line::command_line (C++ function)</a>, <a href="auxiliary.html#_CPPv4N3mpl12command_line12command_lineERK12command_line">[1]</a>, <a href="auxiliary.html#_CPPv4N3mpl12command_line12command_lineERR12command_line">[2]</a>, <a href="auxiliary.html#_CPPv4N3mpl12command_line12command_lineEv">[3]</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl12communicatorE">mpl::communicator (C++ class)</a>
 </li>
@@ -786,6 +793,8 @@
         <li><a href="communicator.html#_CPPv4N3mpl12communicator7similarE">mpl::communicator::similar (C++ member)</a>
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl12communicator4sizeEv">mpl::communicator::size (C++ function)</a>
+</li>
+        <li><a href="communicator.html#_CPPv4NK3mpl12communicator5spawnEi">mpl::communicator::spawn (C++ function)</a>, <a href="communicator.html#_CPPv4NK3mpl12communicator5spawnEiiRK12command_line">[1]</a>, <a href="communicator.html#_CPPv4NK3mpl12communicator5spawnEiiRK12command_lineRKN3mpl4infoE">[2]</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl12communicator5splitE">mpl::communicator::split (C++ member)</a>
 </li>
@@ -1064,6 +1073,8 @@
         <li><a href="communicator.html#_CPPv4N3mpl30distributed_graph_communicator7similarE">mpl::distributed_graph_communicator::similar (C++ member)</a>
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl30distributed_graph_communicator4sizeEv">mpl::distributed_graph_communicator::size (C++ function)</a>
+</li>
+        <li><a href="communicator.html#_CPPv4NK3mpl30distributed_graph_communicator5spawnEi">mpl::distributed_graph_communicator::spawn (C++ function)</a>, <a href="communicator.html#_CPPv4NK3mpl30distributed_graph_communicator5spawnEiiRK12command_line">[1]</a>, <a href="communicator.html#_CPPv4NK3mpl30distributed_graph_communicator5spawnEiiRK12command_lineRKN3mpl4infoE">[2]</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl30distributed_graph_communicator5splitE">mpl::distributed_graph_communicator::split (C++ member)</a>
 </li>
@@ -1455,6 +1466,8 @@
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl18graph_communicator4sizeEv">mpl::graph_communicator::size (C++ function)</a>
 </li>
+        <li><a href="communicator.html#_CPPv4NK3mpl18graph_communicator5spawnEi">mpl::graph_communicator::spawn (C++ function)</a>, <a href="communicator.html#_CPPv4NK3mpl18graph_communicator5spawnEiiRK12command_line">[1]</a>, <a href="communicator.html#_CPPv4NK3mpl18graph_communicator5spawnEiiRK12command_lineRKN3mpl4infoE">[2]</a>
+</li>
         <li><a href="communicator.html#_CPPv4N3mpl18graph_communicator5splitE">mpl::graph_communicator::split (C++ member)</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl18graph_communicator19split_shared_memoryE">mpl::graph_communicator::split_shared_memory (C++ member)</a>
@@ -1835,7 +1848,7 @@
 </li>
         <li><a href="communicator.html#_CPPv4I0ENK3mpl18inter_communicator6imrecvE8irequest5iterT5iterTR9message_t">mpl::inter_communicator::imrecv (C++ function)</a>, <a href="communicator.html#_CPPv4I0ENK3mpl18inter_communicator6imrecvE8irequestP1TRK6layoutI1TER9message_t">[1]</a>, <a href="communicator.html#_CPPv4I0ENK3mpl18inter_communicator6imrecvE8irequestR1TR9message_t">[2]</a>
 </li>
-        <li><a href="communicator.html#_CPPv4N3mpl18inter_communicator18inter_communicatorERK12communicatoriRK12communicatori5tag_t">mpl::inter_communicator::inter_communicator (C++ function)</a>, <a href="communicator.html#_CPPv4N3mpl18inter_communicator18inter_communicatorERK18inter_communicator">[1]</a>
+        <li><a href="communicator.html#_CPPv4N3mpl18inter_communicator18inter_communicatorERK12communicatoriRK12communicatori5tag_t">mpl::inter_communicator::inter_communicator (C++ function)</a>, <a href="communicator.html#_CPPv4N3mpl18inter_communicator18inter_communicatorERK18inter_communicator">[1]</a>, <a href="communicator.html#_CPPv4N3mpl18inter_communicator18inter_communicatorERR18inter_communicator">[2]</a>
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl18inter_communicator6iprobeEi5tag_t">mpl::inter_communicator::iprobe (C++ function)</a>
 </li>
@@ -1872,6 +1885,8 @@
         <li><a href="communicator.html#_CPPv4N3mpl18inter_communicatoraSERK18inter_communicator">mpl::inter_communicator::operator= (C++ function)</a>, <a href="communicator.html#_CPPv4N3mpl18inter_communicatoraSERR18inter_communicator">[1]</a>
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl18inter_communicatoreqERK12communicator">mpl::inter_communicator::operator== (C++ function)</a>
+</li>
+        <li><a href="communicator.html#_CPPv4N3mpl18inter_communicator6parentEv">mpl::inter_communicator::parent (C++ function)</a>
 </li>
         <li><a href="communicator.html#_CPPv4NK3mpl18inter_communicator5probeEi5tag_t">mpl::inter_communicator::probe (C++ function)</a>
 </li>
@@ -2337,6 +2352,12 @@
 </li>
         <li><a href="constants.html#_CPPv4N3mpl9proc_nullE">mpl::proc_null (C++ member)</a>
 </li>
+        <li><a href="auxiliary.html#_CPPv4N3mpl5ranksE">mpl::ranks (C++ class)</a>
+</li>
+        <li><a href="auxiliary.html#_CPPv4N3mpl5ranksclEv">mpl::ranks::operator() (C++ function)</a>, <a href="auxiliary.html#_CPPv4NK3mpl5ranksclEv">[1]</a>
+</li>
+        <li><a href="auxiliary.html#_CPPv4N3mpl5ranks5ranksE9size_type">mpl::ranks::ranks (C++ function)</a>, <a href="auxiliary.html#_CPPv4N3mpl5ranks5ranksENSt16initializer_listIiEE">[1]</a>, <a href="auxiliary.html#_CPPv4N3mpl5ranks5ranksERK5ranks">[2]</a>, <a href="auxiliary.html#_CPPv4N3mpl5ranks5ranksERR5ranks">[3]</a>
+</li>
         <li><a href="constants.html#_CPPv4N3mpl4rootE">mpl::root (C++ member)</a>
 </li>
         <li><a href="communicator.html#_CPPv4N3mpl11shift_ranksE">mpl::shift_ranks (C++ struct)</a>
@@ -2603,6 +2624,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

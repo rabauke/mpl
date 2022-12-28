@@ -8,6 +8,8 @@
 #include <optional>
 #include <mpl/layout.hpp>
 #include <mpl/vector.hpp>
+#include <mpl/command_line.hpp>
+#include <mpl/info.hpp>
 
 namespace mpl {
 
@@ -100,7 +102,9 @@ namespace mpl {
 
     /// Move-constructs a process group.
     /// \param other the other group to move from
-    group(group &&other) noexcept : gr_{other.gr_} { other.gr_ = MPI_GROUP_EMPTY; }
+    group(group &&other) noexcept : gr_{other.gr_} {
+      other.gr_ = MPI_GROUP_EMPTY;
+    }
 
     /// Creates a new group that consists of all processes of the given communicator.
     /// \param comm the communicator
@@ -189,7 +193,9 @@ namespace mpl {
     /// be useful when refactoring legacy MPI applications to MPL.
     /// \warning The handle must not be used to modify the MPI group that the handle points
     /// to.
-    [[nodiscard]] MPI_Group native_handle() const { return gr_; }
+    [[nodiscard]] MPI_Group native_handle() const {
+      return gr_;
+    }
 
     /// Determines the total number of processes in a process group.
     /// \return number of processes
@@ -323,14 +329,16 @@ namespace mpl {
 
       void check_root([[maybe_unused]] int root_rank) const {
 #if defined MPL_DEBUG
-        if (root_rank < 0 or root_rank >= size())
+        if ((root_rank < 0 or root_rank >= size()) and root_rank != mpl::root and
+            root_rank != mpl::proc_null)
           throw invalid_rank();
 #endif
       }
 
       void check_nonroot([[maybe_unused]] int root_rank) const {
 #if defined MPL_DEBUG
-        if (root_rank < 0 or root_rank >= size() or root_rank == rank())
+        check_nonroot(root_rank);
+        if (root_rank == rank())
           throw invalid_rank();
 #endif
       }
@@ -3339,14 +3347,16 @@ namespace mpl {
               recvl{recvl},
               counts{std::move(counts)},
               senddispls_int{std::move(senddispls_int)},
-              recvdispls_int{std::move(recvdispls_int)} {}
+              recvdispls_int{std::move(recvdispls_int)} {
+        }
         ialltoallv_state(const layouts<T> &recvl, std::vector<int> &&counts,
                          std::vector<int> &&recvdispls_int)
             : sendl{},
               recvl{recvl},
               counts{std::move(counts)},
               senddispls_int{},
-              recvdispls_int{std::move(recvdispls_int)} {}
+              recvdispls_int{std::move(recvdispls_int)} {
+        }
       };
 
       template<typename T>
@@ -3960,7 +3970,8 @@ namespace mpl {
     using base = impl::base_communicator;
 
   protected:
-    explicit communicator(MPI_Comm comm) : base{comm} {}
+    explicit communicator(MPI_Comm comm) : base{comm} {
+    }
 
   public:
     /// Creates an empty communicator with no associated process.
@@ -3972,7 +3983,9 @@ namespace mpl {
     /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
-    communicator(const communicator &other) : base{} { MPI_Comm_dup(other.comm_, &comm_); }
+    communicator(const communicator &other) : base{} {
+      MPI_Comm_dup(other.comm_, &comm_);
+    }
 
     /// Move-constructs a communicator.
     /// \param other the other communicator to move from
@@ -4098,29 +4111,41 @@ namespace mpl {
 
     /// Determines the total number of processes in a communicator.
     /// \return number of processes
-    [[nodiscard]] int size() const { return base::size(); }
+    [[nodiscard]] int size() const {
+      return base::size();
+    }
 
     /// Determines the rank within a communicator.
     /// \return the rank of the calling process in the communicator
-    [[nodiscard]] int rank() const { return base::rank(); }
+    [[nodiscard]] int rank() const {
+      return base::rank();
+    }
 
     /// Updates the hints of the communicator.
     /// \param i info object with new hints
-    void info(const mpl::info &i) const { base::info(i); }
+    void info(const mpl::info &i) const {
+      base::info(i);
+    }
 
     /// Get the the hints of the communicator.
     /// \return hints of the communicator
-    [[nodiscard]] mpl::info info() const { return base::info(); }
+    [[nodiscard]] mpl::info info() const {
+      return base::info();
+    }
 
     /// Tests for identity of communicators.
     /// \param other communicator to compare with
     /// \return true if identical
-    bool operator==(const communicator &other) const { return base::operator==(other); }
+    bool operator==(const communicator &other) const {
+      return base::operator==(other);
+    }
 
     /// Tests for identity of communicators.
     /// \param other communicator to compare with
     /// \return true if not identical
-    bool operator!=(const communicator &other) const { return base::operator!=(other); }
+    bool operator!=(const communicator &other) const {
+      return base::operator!=(other);
+    }
 
     /// Equality types for communicator comparison.
     enum class equality_type {
@@ -4822,6 +4847,36 @@ namespace mpl {
       return impl::base_irequest{req};
     }
 
+    /// Spawns new processes and establishes communication.
+    /// \param root_rank the root process, following arguments are ignored on non-root ranks
+    /// \param max_procs number of processes to span
+    /// \param command command and command-line options to the processes that are spawned
+    /// \return inter-communicator that establishes a communication channel between the
+    /// processes of this communicator and the new spawned processes
+    /// \note This is a collective operation and must be called (possibly by utilizing another
+    /// overload) by all processes in the communicator.
+    inter_communicator spawn(int root_rank, int max_procs, const command_line &command) const;
+
+    /// Spawns new processes and establishes communication.
+    /// \param root_rank the root process, following arguments are ignored on non-root ranks
+    /// \param max_procs number of processes to span
+    /// \param command command and command-line options to the processes that are spawned
+    /// \param i info object telling the underlying MPI runtime how to spawn the new processes
+    /// \return inter-communicator that establishes a communication channel between the
+    /// processes of this communicator and the new spawned processes
+    /// \note This is a collective operation and must be called (possibly by utilizing another
+    /// overload) by all processes in the communicator.
+    inter_communicator spawn(int root_rank, int max_procs, const command_line &command,
+                             const mpl::info &i) const;
+
+    /// Spawns new processes and establishes communication, non-root variant.
+    /// \param root_rank the root process
+    /// \return inter-communicator that establishes a communication channel between the
+    /// processes of this communicator and the new spawned processes
+    /// \note This is a collective operation and must be called (possibly by utilizing another
+    /// overload) by all processes in the communicator.
+    inter_communicator spawn(int root_rank) const;
+
     friend class group;
 
     friend class cartesian_communicator;
@@ -4841,6 +4896,9 @@ namespace mpl {
   /// non-overlapping groups.
   class inter_communicator : public impl::base_communicator {
     using base = impl::base_communicator;
+
+    explicit inter_communicator(MPI_Comm comm) : base{comm} {
+    }
 
   public:
     /// Creates a new inter-communicator from two existing communicators.
@@ -4872,6 +4930,26 @@ namespace mpl {
       MPI_Comm_dup(other.comm_, &comm_);
     }
 
+    /// Move-constructs an inter-communicator.
+    /// \param other the other inter-communicator to move from
+    inter_communicator(inter_communicator &&other) noexcept : base{other.comm_} {
+      other.comm_ = MPI_COMM_NULL;
+    }
+
+    /// Get the parent inter-communicator of the current process, which is created when the
+    /// process was spawned.
+    /// \return inter-communicator that establishes a communication channel between the
+    /// spawning process group and the new spawned processes
+    static const inter_communicator &parent() {
+      static auto get_parent = []() {
+        MPI_Comm comm;
+        MPI_Comm_get_parent(&comm);
+        return comm;
+      };
+      static inter_communicator s_parent{get_parent()};
+      return s_parent;
+    }
+
     /// Copy-assigns and creates a new inter-communicator which is equivalent to an
     /// existing one.
     /// \param other the other inter-communicator to copy from
@@ -4900,11 +4978,15 @@ namespace mpl {
     /// Determines the total number of processes in the local group of an
     /// inter-communicator.
     /// \return number of processes
-    [[nodiscard]] int size() const { return base::size(); }
+    [[nodiscard]] int size() const {
+      return base::size();
+    }
 
     /// Determines the rank within the local group of an inter-communicator.
     /// \return the rank of the calling process in the inter-communicator
-    [[nodiscard]] int rank() const { return base::rank(); }
+    [[nodiscard]] int rank() const {
+      return base::rank();
+    }
 
     /// Determines the total number of processes in the remote group of an
     /// inter-communicator.
@@ -4918,12 +5000,16 @@ namespace mpl {
     /// Tests for identity of inter-communicators.
     /// \param other inter-communicator to compare with
     /// \return true if identical
-    bool operator==(const communicator &other) const { return base::operator==(other); }
+    bool operator==(const communicator &other) const {
+      return base::operator==(other);
+    }
 
     /// Tests for identity of inter-communicators.
     /// \param other inter-communicator to compare with
     /// \return true if not identical
-    bool operator!=(const communicator &other) const { return base::operator!=(other); }
+    bool operator!=(const communicator &other) const {
+      return base::operator!=(other);
+    }
 
     /// Equality types for inter-communicator comparison.
     enum class equality_type {
@@ -4973,6 +5059,71 @@ namespace mpl {
       : base{} {
     const int high{order == merge_order_type::order_high};
     MPI_Intercomm_merge(other.comm_, high, &comm_);
+  }
+
+  inline inter_communicator communicator::spawn(int root_rank, int max_procs,
+                                                const command_line &command) const {
+    check_root(root_rank);
+    MPI_Comm comm;
+    if (root_rank == rank()) {
+#if defined MPL_DEBUG
+      if (command.size() < 1)
+        throw invalid_argument();
+#endif
+      // performing some deep copies in order to avoid const_cast
+      std::vector<std::vector<char>> args;
+      args.reserve(command.size() - 1);
+      for (command_line::size_type i{1}; i < command.size(); ++i)
+        args.push_back(std::vector<char>(command[i].begin(), command[i].end()));
+      std::vector<char *> args_pointers;
+      args_pointers.reserve(args.size() + 1);
+      for (auto &arg : args)
+        args_pointers.push_back(arg.data());
+      args_pointers.push_back(nullptr);
+      std::vector<int> error_codes(max_procs);
+      MPI_Comm_spawn(command[0].c_str(), args_pointers.data(), max_procs, MPI_INFO_NULL,
+                     root_rank, comm_, &comm, error_codes.data());
+    } else
+      MPI_Comm_spawn(nullptr, MPI_ARGV_NULL, 0, MPI_INFO_NULL, root_rank, comm_, &comm,
+                     MPI_ERRCODES_IGNORE);
+    return inter_communicator{comm};
+  }
+
+  inline inter_communicator communicator::spawn(int root_rank, int max_procs,
+                                                const command_line &command,
+                                                const mpl::info &i) const {
+    check_root(root_rank);
+    MPI_Comm comm;
+    if (root_rank == rank()) {
+#if defined MPL_DEBUG
+      if (command.size() < 1)
+        throw invalid_argument();
+#endif
+      // performing some deep copies in order to avoid const_cast
+      std::vector<std::vector<char>> args;
+      args.reserve(command.size() - 1);
+      for (command_line::size_type i{1}; i < command.size(); ++i)
+        args.push_back(std::vector<char>(command[i].begin(), command[i].end()));
+      std::vector<char *> args_pointers;
+      args_pointers.reserve(args.size() + 1);
+      for (auto &arg : args)
+        args_pointers.push_back(arg.data());
+      args_pointers.push_back(nullptr);
+      std::vector<int> error_codes(max_procs);
+      MPI_Comm_spawn(command[0].c_str(), args_pointers.data(), max_procs, i.info_, root_rank,
+                     comm_, &comm, error_codes.data());
+    } else
+      MPI_Comm_spawn(nullptr, MPI_ARGV_NULL, 0, MPI_INFO_NULL, root_rank, comm_, &comm,
+                     MPI_ERRCODES_IGNORE);
+    return inter_communicator{comm};
+  }
+
+  inline inter_communicator communicator::spawn(int root_rank) const {
+    check_nonroot(root_rank);
+    MPI_Comm comm;
+    MPI_Comm_spawn(nullptr, MPI_ARGV_NULL, 0, MPI_INFO_NULL, root_rank, comm_, &comm,
+                   MPI_ERRCODES_IGNORE);
+    return inter_communicator{comm};
   }
 
   //--------------------------------------------------------------------

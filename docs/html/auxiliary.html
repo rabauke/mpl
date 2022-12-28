@@ -2,13 +2,13 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Error handling" href="error.html" /><link rel="prev" title="Constants" href="constants.html" />
 
-    <meta name="generator" content="sphinx-5.0.2, furo 2022.09.29"/>
+    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>Auxiliary functions and classes - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=d81277517bee4d6b0349d71bb2661d4890b5617c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
@@ -153,7 +153,7 @@
   <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -199,6 +199,7 @@
 <li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid_scatter_gather.html">Distributed grid collective operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/process_creation.html">Process creation</a></li>
 </ul>
 </li>
 </ul>
@@ -249,6 +250,89 @@
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl7ssize_tE">
 <span id="_CPPv3N3mpl7ssize_tE"></span><span id="_CPPv2N3mpl7ssize_tE"></span><span class="target" id="namespacempl_1a7b04c6449aee9c6ec0044f5bd6cfcb19"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ssize_t</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><a class="headerlink" href="#_CPPv4N3mpl7ssize_tE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Signed integer type used for array indexing and address arithmetic. </p>
+</dd></dl>
+
+</section>
+<section id="ranks">
+<h2>Ranks<a class="headerlink" href="#ranks" title="Permalink to this heading">#</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5ranksE">
+<span id="_CPPv3N3mpl5ranksE"></span><span id="_CPPv2N3mpl5ranksE"></span><span id="mpl::ranks"></span><span class="target" id="classmpl_1_1ranks"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ranks</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl5ranksE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Represents a collection of ranks. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="group.html#classmpl_1_1group"><span class="std std-ref"><span class="pre">group</span></span></a></code> </p>
+</div>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5ranks5ranksE9size_type">
+<span id="_CPPv3N3mpl5ranks5ranksE9size_type"></span><span id="_CPPv2N3mpl5ranks5ranksE9size_type"></span><span id="mpl::ranks::ranks__size_type"></span><span class="target" id="classmpl_1_1ranks_1a91cc7a9c83dd20f4e5099079a49c3f32"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ranks</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_type</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5ranks5ranksE9size_type" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs collection of ranks with all ranks having value zero. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>n</strong> – initial size of the collection </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5ranks5ranksENSt16initializer_listIiEE">
+<span id="_CPPv3N3mpl5ranks5ranksENSt16initializer_listIiEE"></span><span id="_CPPv2N3mpl5ranks5ranksENSt16initializer_listIiEE"></span><span id="mpl::ranks::ranks__std::initializer_list:i:"></span><span class="target" id="classmpl_1_1ranks_1a2ef79d9e146af48c095bf906845e110e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ranks</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5ranks5ranksENSt16initializer_listIiEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs collection of ranks from a braces expression of integers. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init</strong> – list of initial values </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5ranks5ranksERK5ranks">
+<span id="_CPPv3N3mpl5ranks5ranksERK5ranks"></span><span id="_CPPv2N3mpl5ranks5ranksERK5ranks"></span><span id="mpl::ranks::ranks__ranksCR"></span><span class="target" id="classmpl_1_1ranks_1a2ce3093a9d6f988b9f360854845d8f0c"></span><span class="sig-name descname"><span class="n"><span class="pre">ranks</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5ranks5ranksERK5ranks" title="mpl::ranks::ranks"><span class="n"><span class="pre">ranks</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl5ranks5ranksERK5ranks" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs collection of ranks from another collection. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – the other collection to copy from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5ranks5ranksERR5ranks">
+<span id="_CPPv3N3mpl5ranks5ranksERR5ranks"></span><span id="_CPPv2N3mpl5ranks5ranksERR5ranks"></span><span id="mpl::ranks::ranks__ranksRR"></span><span class="target" id="classmpl_1_1ranks_1aaacbbfe00799759aaabb2b12196a01d0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ranks</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl5ranks5ranksERR5ranks" title="mpl::ranks::ranks"><span class="n"><span class="pre">ranks</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl5ranks5ranksERR5ranks" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Move-constructs collection of ranks from another collection. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – the other collection to move from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl5ranksclEv">
+<span id="_CPPv3NK3mpl5ranksclEv"></span><span id="_CPPv2NK3mpl5ranksclEv"></span><span id="mpl::ranks::call-operatorC"></span><span class="target" id="classmpl_1_1ranks_1a0c3f6defced7999dd354f10bb74eb8d8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl5ranksclEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Gives access to internal data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pointer to constant array </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5ranksclEv">
+<span id="_CPPv3N3mpl5ranksclEv"></span><span id="_CPPv2N3mpl5ranksclEv"></span><span id="mpl::ranks::call-operator"></span><span class="target" id="classmpl_1_1ranks_1ac2c46c7b2e78dd73d57553102f59abaa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5ranksclEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Gives access to internal data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pointer to array </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 </dd></dl>
 
 </section>
@@ -1080,6 +1164,62 @@
 
 </section>
 </section>
+<section id="command-line-arguments">
+<h2>Command-line arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this heading">#</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_lineE">
+<span id="_CPPv3N3mpl12command_lineE"></span><span id="_CPPv2N3mpl12command_lineE"></span><span id="mpl::command_line"></span><span class="target" id="classmpl_1_1command__line"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl12command_lineE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Represents a collection of command-line arguments. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>class <code class="docutils literal notranslate"><span class="pre">communicator::spawn</span></code> </p>
+</div>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineEv">
+<span id="_CPPv3N3mpl12command_line12command_lineEv"></span><span id="_CPPv2N3mpl12command_line12command_lineEv"></span><span id="mpl::command_line::command_line"></span><span class="target" id="classmpl_1_1command__line_1a79531c4dd7f7b210f811c85d70c96f63"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs an empty collection of command-line arguments. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE">
+<span id="_CPPv3N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE"></span><span id="_CPPv2N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE"></span><span id="mpl::command_line::command_line__std::initializer_list:ss:"></span><span class="target" id="classmpl_1_1command__line_1acf42d177cb272674b602233d90e85aef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs collection of command-line arguments from a braces expression of strings. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init</strong> – list of initial values </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineERK12command_line">
+<span id="_CPPv3N3mpl12command_line12command_lineERK12command_line"></span><span id="_CPPv2N3mpl12command_line12command_lineERK12command_line"></span><span id="mpl::command_line::command_line__command_lineCR"></span><span class="target" id="classmpl_1_1command__line_1a1b06b927e9c8209c0e19794c5882f269"></span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl12command_line12command_lineERK12command_line" title="mpl::command_line::command_line"><span class="n"><span class="pre">command_line</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineERK12command_line" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs collection of command-line arguments from another collection. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – the other collection to copy from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineERR12command_line">
+<span id="_CPPv3N3mpl12command_line12command_lineERR12command_line"></span><span id="_CPPv2N3mpl12command_line12command_lineERR12command_line"></span><span id="mpl::command_line::command_line__command_lineRR"></span><span class="target" id="classmpl_1_1command__line_1a4afbb02d9f7f1f195e822e76ae9bc7d8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl12command_line12command_lineERR12command_line" title="mpl::command_line::command_line"><span class="n"><span class="pre">command_line</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineERR12command_line" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Move-constructs collection of command-line arguments from another collection. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – the other collection to move from </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
 </section>
 
         </article>
@@ -1146,6 +1286,7 @@
             <ul>
 <li><a class="reference internal" href="#">Auxiliary functions and classes</a><ul>
 <li><a class="reference internal" href="#integer-types">Integer types</a></li>
+<li><a class="reference internal" href="#ranks">Ranks</a></li>
 <li><a class="reference internal" href="#types-for-probing-messages">Types for probing messages</a></li>
 <li><a class="reference internal" href="#memory-displacements">Memory displacements</a></li>
 <li><a class="reference internal" href="#requests">Requests</a><ul>
@@ -1154,6 +1295,7 @@
 <li><a class="reference internal" href="#persistent-communication-requests">Persistent communication requests</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#command-line-arguments">Command-line arguments</a></li>
 </ul>
 </li>
 </ul>
@@ -1170,6 +1312,7 @@
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>

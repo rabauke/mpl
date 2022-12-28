@@ -43,7 +43,6 @@ following features of the Message Passing Interface standard:
 Currently, the following MPI features are not yet supported by MPL:
 
 * error handling,
-* process creation and management,
 * one-sided communication and
 * I/O.
 

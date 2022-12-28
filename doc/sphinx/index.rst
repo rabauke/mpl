@@ -48,7 +48,6 @@ MPL gives currently access via a convenient C++ interface to the following featu
 Currently, the following MPI features are not yet supported by MPL:
 
 * error handling,
-* process creation and management,
 * one-sided communication and
 * file I/O.
 

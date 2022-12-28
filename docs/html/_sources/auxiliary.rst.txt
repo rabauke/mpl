@@ -8,6 +8,12 @@ Integer types
 .. doxygentypedef:: mpl::ssize_t
 
 
+Ranks
+-----
+
+.. doxygenclass:: mpl::ranks
+
+
 Types for probing messages
 --------------------------
 
@@ -47,3 +53,9 @@ Persistent communication requests
 
 .. doxygenclass:: mpl::prequest
 .. doxygenclass:: mpl::prequest_pool
+
+
+Command-line arguments
+----------------------
+
+.. doxygenclass:: mpl::command_line

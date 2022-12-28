@@ -112,6 +112,7 @@ namespace mpl {
     }
 
     friend class impl::base_communicator;
+    friend class communicator;
   };
 }  // namespace mpl
 

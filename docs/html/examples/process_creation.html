@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="STL containers" href="stl_container.html" /><link rel="prev" title="Using structs" href="struct.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Heat equation successive over-relaxation" href="heat_equation_successive_over-relaxation.html" />
 
     <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Arrays - MPL: A message passing library v0.2.0</title>
+        <title>Process creation - MPL: A message passing library v0.2.0</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -177,7 +177,7 @@
 <li class="toctree-l2"><a class="reference internal" href="hello_world.html">Hello world</a></li>
 <li class="toctree-l2"><a class="reference internal" href="standard_types.html">Standard types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="struct.html">Using structs</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrays.html">Arrays</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stl_container.html">STL containers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="iterators.html">Iterators</a></li>
 <li class="toctree-l2"><a class="reference internal" href="blocking.html">Blocking send and receive</a></li>
@@ -199,7 +199,7 @@
 <li class="toctree-l2"><a class="reference internal" href="distributed_grid_scatter_gather.html">Distributed grid collective operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="process_creation.html">Process creation</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Process creation</a></li>
 </ul>
 </li>
 </ul>
@@ -236,52 +236,55 @@
           </label>
         </div>
         <article role="main">
-          <section id="arrays">
-<h1>Arrays<a class="headerlink" href="#arrays" title="Permalink to this heading">#</a></h1>
-<p>Sends and receives arrays (C arrays and <code class="docutils literal notranslate"><span class="pre">std::array</span></code>) of fixed size, which must be known at compile time. The types of the array elements must be suited for communication. These rules may be applied recursively.</p>
+          <section id="process-creation">
+<h1>Process creation<a class="headerlink" href="#process-creation" title="Permalink to this heading">#</a></h1>
+<p>The following program illustrates dynamic creation of new processes and establishing a communication channel in the form of inter-communicator.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;numeric&gt;</span><span class="cp"></span>
+<span class="c1">// include MPL header file</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span><span class="cp"></span>
 
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">string_literals</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// get a reference to communicator &quot;world&quot;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="p">{</span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">()};</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// spawn 2 new processes</span>
+<span class="w">  </span><span class="n">mpl</span><span class="o">::</span><span class="n">info</span><span class="w"> </span><span class="n">info</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">info</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">inter_comm</span><span class="p">{</span><span class="n">comm_world</span><span class="p">.</span><span class="n">spawn</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;process_creation_client&quot;</span><span class="n">s</span><span class="p">},</span><span class="w"> </span><span class="n">info</span><span class="p">)};</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// broadcast a message to the created processes</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">message</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// root rank</span>
+<span class="w">    </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.23</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">mpl</span><span class="o">::</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// non-root ranks</span>
+<span class="w">    </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">mpl</span><span class="o">::</span><span class="n">proc_null</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The corresponding source of the spawned process is given as shown below:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="c1">// include MPL header file</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="p">{</span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">()};</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// run the program with two or more processes</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">comm_world</span><span class="p">.</span><span class="n">abort</span><span class="p">(</span><span class="n">EXIT_FAILURE</span><span class="p">);</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// send / receive a single array</span>
-<span class="w">  </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n</span><span class="p">{</span><span class="mi">10</span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">n</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">iota</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="n">comm_world</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">comm_world</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;arr[&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;] = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="c1">// send / receive a single two-dimensional array</span>
-<span class="w">  </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n_0</span><span class="p">{</span><span class="mi">2</span><span class="p">},</span><span class="w"> </span><span class="n">n_1</span><span class="p">{</span><span class="mi">3</span><span class="p">};</span><span class="w"></span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">n_0</span><span class="p">][</span><span class="n">n_1</span><span class="p">];</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j_1</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">j_1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j_1</span><span class="p">)</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j_0</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">j_0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j_0</span><span class="p">)</span><span class="w"></span>
-<span class="w">          </span><span class="n">arr</span><span class="p">[</span><span class="n">j_0</span><span class="p">][</span><span class="n">j_1</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">j_0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">j_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="n">comm_world</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">      </span><span class="n">comm_world</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j_1</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">j_1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j_1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">j_0</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">j_0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">j_0</span><span class="p">)</span><span class="w"></span>
-<span class="w">          </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;arr[&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">j_0</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">j_1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;] = &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">arr</span><span class="p">[</span><span class="n">j_0</span><span class="p">][</span><span class="n">j_1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
-<span class="w">      </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">}</span><span class="w"></span>
-<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">string_literals</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">  </span><span class="c1">// get a reference to communicator &quot;world&quot;</span>
+<span class="w">  </span><span class="p">[[</span><span class="n">maybe_unused</span><span class="p">]]</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="p">{</span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">()};</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// get the parent inter-communicator</span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="o">&amp;</span><span class="n">inter_comm</span><span class="p">{</span><span class="n">mpl</span><span class="o">::</span><span class="n">inter_communicator</span><span class="o">::</span><span class="n">parent</span><span class="p">()};</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello world! I am running on </span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">processor_name</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">. My rank is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; out of &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"></span>
+<span class="w">            </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; processes.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">message</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;got: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span><span class="w"></span>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
@@ -293,23 +296,15 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="stl_container.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">STL containers</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="struct.html">
+          
+          <a class="prev-page" href="heat_equation_successive_over-relaxation.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Using structs</div>
+                <div class="title">Heat equation successive over-relaxation</div>
                 
               </div>
             </a>

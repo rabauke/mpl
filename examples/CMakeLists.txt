@@ -43,6 +43,8 @@ add_mpl_executable(vibrating_string_mpl vibrating_string_mpl.cc)
 add_mpl_executable(standard_types standard_types.cc)
 add_mpl_executable(parallel_sort_mpl parallel_sort_mpl.cc)
 add_mpl_executable(intercommunicator intercommunicator.cc)
+add_mpl_executable(process_creation process_creation.cc)
+add_mpl_executable(process_creation_client process_creation_client.cc)
 
 # c only examples
 add_executable(vibrating_string_mpi vibrating_string_mpi.c)
