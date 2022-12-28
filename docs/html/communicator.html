@@ -1351,6 +1351,67 @@ Each process in the communicator sends elements of type <code class="docutils li
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl12communicator14spawn_multipleEiRK13command_lines">
+<span id="_CPPv3NK3mpl12communicator14spawn_multipleEiRK13command_lines"></span><span id="_CPPv2NK3mpl12communicator14spawn_multipleEiRK13command_lines"></span><span id="mpl::communicator::spawn_multiple__i.command_linesCRC"></span><span class="target" id="classmpl_1_1communicator_1af8e7ce293723a496acb440c2ba1c0251"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl12communicator14spawn_multipleEiRK13command_lines" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl12communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE">
+<span id="_CPPv3NK3mpl12communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="_CPPv2NK3mpl12communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="mpl::communicator::spawn_multiple__i.command_linesCR.mpl::infosCRC"></span><span class="target" id="classmpl_1_1communicator_1a9ffebf1354c17c78e83a97c3ed52621d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="info.html#_CPPv4N3mpl5infosE" title="mpl::infos"><span class="n"><span class="pre">infos</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl12communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+<li><p><strong>i</strong> – list of info object telling the underlying MPI runtime how to spawn the new processes </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl12communicator14spawn_multipleEi">
+<span id="_CPPv3NK3mpl12communicator14spawn_multipleEi"></span><span id="_CPPv2NK3mpl12communicator14spawn_multipleEi"></span><span id="mpl::communicator::spawn_multiple__iC"></span><span class="target" id="classmpl_1_1communicator_1a2ca1f75f275d4cef84b6ee085ab5fc3e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl12communicator14spawn_multipleEi" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication, non-root variant. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_rank</strong> – the root process </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl12communicator8alltoallEvPK1TP1T">
 <span id="_CPPv3I0ENK3mpl12communicator8alltoallEPK1TP1T"></span><span id="_CPPv2I0ENK3mpl12communicator8alltoallEPK1TP1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1communicator_1a6a16db2dda6c495ad3636216b01ff535"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alltoall</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK3mpl12communicator8alltoallEvPK1TP1T" title="mpl::communicator::alltoall::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">send_data</span></span>, <a class="reference internal" href="#_CPPv4I0ENK3mpl12communicator8alltoallEvPK1TP1T" title="mpl::communicator::alltoall::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">recv_data</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl12communicator8alltoallEvPK1TP1T" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Sends messages to all processes and receives messages from all processes. </p>
@@ -6944,6 +7005,67 @@ Each process in the communicator sends elements of type <code class="docutils li
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_lines">
+<span id="_CPPv3NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_lines"></span><span id="_CPPv2NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_lines"></span><span id="mpl::cartesian_communicator::spawn_multiple__i.command_linesCRC"></span><span class="target" id="classmpl_1_1communicator_1af8e7ce293723a496acb440c2ba1c0251"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_lines" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE">
+<span id="_CPPv3NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="_CPPv2NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="mpl::cartesian_communicator::spawn_multiple__i.command_linesCR.mpl::infosCRC"></span><span class="target" id="classmpl_1_1communicator_1a9ffebf1354c17c78e83a97c3ed52621d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="info.html#_CPPv4N3mpl5infosE" title="mpl::infos"><span class="n"><span class="pre">infos</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl22cartesian_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+<li><p><strong>i</strong> – list of info object telling the underlying MPI runtime how to spawn the new processes </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl22cartesian_communicator14spawn_multipleEi">
+<span id="_CPPv3NK3mpl22cartesian_communicator14spawn_multipleEi"></span><span id="_CPPv2NK3mpl22cartesian_communicator14spawn_multipleEi"></span><span id="mpl::cartesian_communicator::spawn_multiple__iC"></span><span class="target" id="classmpl_1_1communicator_1a2ca1f75f275d4cef84b6ee085ab5fc3e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl22cartesian_communicator14spawn_multipleEi" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication, non-root variant. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_rank</strong> – the root process </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl22cartesian_communicator13native_handleEv">
 <span id="_CPPv3NK3mpl22cartesian_communicator13native_handleEv"></span><span id="_CPPv2NK3mpl22cartesian_communicator13native_handleEv"></span><span id="mpl::cartesian_communicator::native_handleC"></span><span class="target" id="classmpl_1_1impl_1_1base__communicator_1a8d91ea05e16fc8a7a8ec66ac5618f2c3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">native_handle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl22cartesian_communicator13native_handleEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Get the underlying MPI handle of the communicator. </p>
@@ -12456,6 +12578,67 @@ Each process in the communicator sends elements of type <code class="docutils li
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl18graph_communicator14spawn_multipleEiRK13command_lines">
+<span id="_CPPv3NK3mpl18graph_communicator14spawn_multipleEiRK13command_lines"></span><span id="_CPPv2NK3mpl18graph_communicator14spawn_multipleEiRK13command_lines"></span><span id="mpl::graph_communicator::spawn_multiple__i.command_linesCRC"></span><span class="target" id="classmpl_1_1communicator_1af8e7ce293723a496acb440c2ba1c0251"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl18graph_communicator14spawn_multipleEiRK13command_lines" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl18graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE">
+<span id="_CPPv3NK3mpl18graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="_CPPv2NK3mpl18graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="mpl::graph_communicator::spawn_multiple__i.command_linesCR.mpl::infosCRC"></span><span class="target" id="classmpl_1_1communicator_1a9ffebf1354c17c78e83a97c3ed52621d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="info.html#_CPPv4N3mpl5infosE" title="mpl::infos"><span class="n"><span class="pre">infos</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl18graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+<li><p><strong>i</strong> – list of info object telling the underlying MPI runtime how to spawn the new processes </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl18graph_communicator14spawn_multipleEi">
+<span id="_CPPv3NK3mpl18graph_communicator14spawn_multipleEi"></span><span id="_CPPv2NK3mpl18graph_communicator14spawn_multipleEi"></span><span id="mpl::graph_communicator::spawn_multiple__iC"></span><span class="target" id="classmpl_1_1communicator_1a2ca1f75f275d4cef84b6ee085ab5fc3e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl18graph_communicator14spawn_multipleEi" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication, non-root variant. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_rank</strong> – the root process </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl18graph_communicator13native_handleEv">
 <span id="_CPPv3NK3mpl18graph_communicator13native_handleEv"></span><span id="_CPPv2NK3mpl18graph_communicator13native_handleEv"></span><span id="mpl::graph_communicator::native_handleC"></span><span class="target" id="classmpl_1_1impl_1_1base__communicator_1a8d91ea05e16fc8a7a8ec66ac5618f2c3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Comm</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">native_handle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl18graph_communicator13native_handleEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Get the underlying MPI handle of the communicator. </p>
@@ -17468,6 +17651,67 @@ Each process in the communicator sends elements of type <code class="docutils li
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl30distributed_graph_communicator5spawnEi">
 <span id="_CPPv3NK3mpl30distributed_graph_communicator5spawnEi"></span><span id="_CPPv2NK3mpl30distributed_graph_communicator5spawnEi"></span><span id="mpl::distributed_graph_communicator::spawn__iC"></span><span class="target" id="classmpl_1_1communicator_1a7d59bbdd88f963f960822f2b162a5bb9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl30distributed_graph_communicator5spawnEi" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication, non-root variant. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_rank</strong> – the root process </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_lines">
+<span id="_CPPv3NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_lines"></span><span id="_CPPv2NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_lines"></span><span id="mpl::distributed_graph_communicator::spawn_multiple__i.command_linesCRC"></span><span class="target" id="classmpl_1_1communicator_1af8e7ce293723a496acb440c2ba1c0251"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_lines" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE">
+<span id="_CPPv3NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="_CPPv2NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE"></span><span id="mpl::distributed_graph_communicator::spawn_multiple__i.command_linesCR.mpl::infosCRC"></span><span class="target" id="classmpl_1_1communicator_1a9ffebf1354c17c78e83a97c3ed52621d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl13command_linesE" title="mpl::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">commands</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="info.html#_CPPv4N3mpl5infosE" title="mpl::infos"><span class="n"><span class="pre">infos</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl30distributed_graph_communicator14spawn_multipleEiRK13command_linesRKN3mpl5infosE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Spawns new processes and establishes communication. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called (possibly by utilizing another overload) by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>root_rank</strong> – the root process, following arguments are ignored on non-root ranks </p></li>
+<li><p><strong>commands</strong> – command and command-line options to the processes that are spawned </p></li>
+<li><p><strong>i</strong> – list of info object telling the underlying MPI runtime how to spawn the new processes </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>inter-communicator that establishes a communication channel between the processes of this communicator and the new spawned processes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl30distributed_graph_communicator14spawn_multipleEi">
+<span id="_CPPv3NK3mpl30distributed_graph_communicator14spawn_multipleEi"></span><span id="_CPPv2NK3mpl30distributed_graph_communicator14spawn_multipleEi"></span><span id="mpl::distributed_graph_communicator::spawn_multiple__iC"></span><span class="target" id="classmpl_1_1communicator_1a2ca1f75f275d4cef84b6ee085ab5fc3e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl18inter_communicatorE" title="mpl::inter_communicator"><span class="n"><span class="pre">inter_communicator</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">spawn_multiple</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_rank</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl30distributed_graph_communicator14spawn_multipleEi" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>Spawns new processes and establishes communication, non-root variant. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

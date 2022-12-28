@@ -4877,6 +4877,35 @@ namespace mpl {
     /// overload) by all processes in the communicator.
     inter_communicator spawn(int root_rank) const;
 
+    /// Spawns new processes and establishes communication.
+    /// \param root_rank the root process, following arguments are ignored on non-root ranks
+    /// \param commands command and command-line options to the processes that are spawned
+    /// \return inter-communicator that establishes a communication channel between the
+    /// processes of this communicator and the new spawned processes
+    /// \note This is a collective operation and must be called (possibly by utilizing another
+    /// overload) by all processes in the communicator.
+    inter_communicator spawn_multiple(int root_rank, const command_lines &commands) const;
+
+    /// Spawns new processes and establishes communication.
+    /// \param root_rank the root process, following arguments are ignored on non-root ranks
+    /// \param commands command and command-line options to the processes that are spawned
+    /// \param i list of info object telling the underlying MPI runtime how to spawn the new
+    /// processes
+    /// \return inter-communicator that establishes a communication channel between the
+    /// processes of this communicator and the new spawned processes
+    /// \note This is a collective operation and must be called (possibly by utilizing another
+    /// overload) by all processes in the communicator.
+    inter_communicator spawn_multiple(int root_rank, const command_lines &commands,
+                                      const mpl::infos &i) const;
+
+    /// Spawns new processes and establishes communication, non-root variant.
+    /// \param root_rank the root process
+    /// \return inter-communicator that establishes a communication channel between the
+    /// processes of this communicator and the new spawned processes
+    /// \note This is a collective operation and must be called (possibly by utilizing another
+    /// overload) by all processes in the communicator.
+    inter_communicator spawn_multiple(int root_rank) const;
+
     friend class group;
 
     friend class cartesian_communicator;
@@ -5080,9 +5109,8 @@ namespace mpl {
       for (auto &arg : args)
         args_pointers.push_back(arg.data());
       args_pointers.push_back(nullptr);
-      std::vector<int> error_codes(max_procs);
       MPI_Comm_spawn(command[0].c_str(), args_pointers.data(), max_procs, MPI_INFO_NULL,
-                     root_rank, comm_, &comm, error_codes.data());
+                     root_rank, comm_, &comm, MPI_ERRCODES_IGNORE);
     } else
       MPI_Comm_spawn(nullptr, MPI_ARGV_NULL, 0, MPI_INFO_NULL, root_rank, comm_, &comm,
                      MPI_ERRCODES_IGNORE);
@@ -5109,9 +5137,8 @@ namespace mpl {
       for (auto &arg : args)
         args_pointers.push_back(arg.data());
       args_pointers.push_back(nullptr);
-      std::vector<int> error_codes(max_procs);
       MPI_Comm_spawn(command[0].c_str(), args_pointers.data(), max_procs, i.info_, root_rank,
-                     comm_, &comm, error_codes.data());
+                     comm_, &comm, MPI_ERRCODES_IGNORE);
     } else
       MPI_Comm_spawn(nullptr, MPI_ARGV_NULL, 0, MPI_INFO_NULL, root_rank, comm_, &comm,
                      MPI_ERRCODES_IGNORE);
@@ -5123,6 +5150,128 @@ namespace mpl {
     MPI_Comm comm;
     MPI_Comm_spawn(nullptr, MPI_ARGV_NULL, 0, MPI_INFO_NULL, root_rank, comm_, &comm,
                    MPI_ERRCODES_IGNORE);
+    return inter_communicator{comm};
+  }
+
+  inline inter_communicator communicator::spawn_multiple(int root_rank,
+                                                         const command_lines &commands) const {
+    check_root(root_rank);
+    MPI_Comm comm;
+    if (root_rank == rank()) {
+      int count{0};
+      std::vector<std::vector<char>> vector_of_commands;
+      std::vector<char *> vector_of_commands_ptr;
+      std::vector<std::vector<std::vector<char>>> vector_of_args;
+      std::vector<std::vector<char *>> vector_of_args_ptr;
+      std::vector<char **> vector_of_args_ptr_ptr;
+      std::vector<int> vector_of_maxprocs;
+      std::vector<MPI_Info> vector_of_info;
+      vector_of_commands.reserve(commands.size());
+      vector_of_commands_ptr.reserve(commands.size());
+      vector_of_args.reserve(commands.size());
+      vector_of_args_ptr.reserve(commands.size());
+      vector_of_args_ptr_ptr.reserve(commands.size());
+      vector_of_maxprocs.reserve(commands.size());
+      for (const auto &command : commands) {
+        ++count;
+#if defined MPL_DEBUG
+        if (command.size() < 1)
+          throw invalid_argument();
+#endif
+        vector_of_commands.push_back(std::vector<char>(command[0].begin(), command[0].end()));
+        vector_of_commands_ptr.push_back(vector_of_commands.back().data());
+        {
+          std::vector<std::vector<char>> args;
+          args.reserve(command.size() - 1);
+          for (command_line::size_type i{1}; i < command.size(); ++i)
+            args.push_back(std::vector<char>(command[i].begin(), command[i].end()));
+          vector_of_args.push_back(std::move(args));
+        }
+        std::vector<char *> args_pointers;
+        args_pointers.reserve(vector_of_args.back().size() + 1);
+        for (auto &arg : vector_of_args.back())
+          args_pointers.push_back(arg.data());
+        args_pointers.push_back(nullptr);
+        vector_of_args_ptr.push_back(std::move(args_pointers));
+        vector_of_args_ptr_ptr.push_back(vector_of_args_ptr.back().data());
+        vector_of_maxprocs.push_back(1);
+        vector_of_info.push_back(MPI_INFO_NULL);
+      }
+      MPI_Comm_spawn_multiple(count, vector_of_commands_ptr.data(),
+                              vector_of_args_ptr_ptr.data(), vector_of_maxprocs.data(),
+                              vector_of_info.data(), root_rank, comm_, &comm,
+                              MPI_ERRCODES_IGNORE);
+    } else
+      MPI_Comm_spawn_multiple(0, nullptr, MPI_ARGVS_NULL, nullptr, nullptr, root_rank, comm_,
+                              &comm, MPI_ERRCODES_IGNORE);
+    return inter_communicator{comm};
+  }
+
+  inline inter_communicator communicator::spawn_multiple(int root_rank,
+                                                         const command_lines &commands,
+                                                         const mpl::infos &i) const {
+    check_root(root_rank);
+#if defined MPL_DEBUG
+    if (commands.size() != i.size())
+      throw invalid_argument();
+#endif
+    MPI_Comm comm;
+    if (root_rank == rank()) {
+      int count{0};
+      std::vector<std::vector<char>> vector_of_commands;
+      std::vector<char *> vector_of_commands_ptr;
+      std::vector<std::vector<std::vector<char>>> vector_of_args;
+      std::vector<std::vector<char *>> vector_of_args_ptr;
+      std::vector<char **> vector_of_args_ptr_ptr;
+      std::vector<int> vector_of_maxprocs;
+      std::vector<MPI_Info> vector_of_info;
+      vector_of_commands.reserve(commands.size());
+      vector_of_commands_ptr.reserve(commands.size());
+      vector_of_args.reserve(commands.size());
+      vector_of_args_ptr.reserve(commands.size());
+      vector_of_args_ptr_ptr.reserve(commands.size());
+      vector_of_maxprocs.reserve(commands.size());
+      for (const auto &command : commands) {
+        ++count;
+#if defined MPL_DEBUG
+        if (command.size() < 1)
+          throw invalid_argument();
+#endif
+        vector_of_commands.push_back(std::vector<char>(command[0].begin(), command[0].end()));
+        vector_of_commands_ptr.push_back(vector_of_commands.back().data());
+        {
+          std::vector<std::vector<char>> args;
+          args.reserve(command.size() - 1);
+          for (command_line::size_type i{1}; i < command.size(); ++i)
+            args.push_back(std::vector<char>(command[i].begin(), command[i].end()));
+          vector_of_args.push_back(std::move(args));
+        }
+        std::vector<char *> args_pointers;
+        args_pointers.reserve(vector_of_args.back().size() + 1);
+        for (auto &arg : vector_of_args.back())
+          args_pointers.push_back(arg.data());
+        args_pointers.push_back(nullptr);
+        vector_of_args_ptr.push_back(std::move(args_pointers));
+        vector_of_args_ptr_ptr.push_back(vector_of_args_ptr.back().data());
+        vector_of_maxprocs.push_back(1);
+      }
+      for (const auto &info : i)
+        vector_of_info.push_back(info.info_);
+      MPI_Comm_spawn_multiple(count, vector_of_commands_ptr.data(),
+                              vector_of_args_ptr_ptr.data(), vector_of_maxprocs.data(),
+                              vector_of_info.data(), root_rank, comm_, &comm,
+                              MPI_ERRCODES_IGNORE);
+    } else
+      MPI_Comm_spawn_multiple(0, nullptr, MPI_ARGVS_NULL, nullptr, nullptr, root_rank, comm_,
+                              &comm, MPI_ERRCODES_IGNORE);
+    return inter_communicator{comm};
+  }
+
+  inline inter_communicator communicator::spawn_multiple(int root_rank) const {
+    check_nonroot(root_rank);
+    MPI_Comm comm;
+    MPI_Comm_spawn_multiple(0, nullptr, MPI_ARGVS_NULL, nullptr, nullptr, root_rank, comm_,
+                            &comm, MPI_ERRCODES_IGNORE);
     return inter_communicator{comm};
   }
 

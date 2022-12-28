@@ -238,7 +238,7 @@
         <article role="main">
           <section id="process-creation">
 <h1>Process creation<a class="headerlink" href="#process-creation" title="Permalink to this heading">#</a></h1>
-<p>The following program illustrates dynamic creation of new processes and establishing a communication channel in the form of inter-communicator.</p>
+<p>The following two programs illustrate dynamic creation of new processes and establishing a communication channel in the form of inter-communicator.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 <span class="c1">// include MPL header file</span>
@@ -266,13 +266,45 @@
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>The corresponding source of the spawned process is given as shown below:</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
 <span class="c1">// include MPL header file</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span><span class="cp"></span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">string_literals</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// get a reference to communicator &quot;world&quot;</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="p">{</span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">()};</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// spawn 2 new processes</span>
+<span class="w">  </span><span class="n">mpl</span><span class="o">::</span><span class="n">info</span><span class="w"> </span><span class="n">info</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">info</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="s">&quot;host&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;localhost&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">auto</span><span class="w"> </span><span class="n">inter_comm</span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="n">comm_world</span><span class="p">.</span><span class="n">spawn_multiple</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">                                </span><span class="p">{{</span><span class="s">&quot;process_creation_client&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arg1&quot;</span><span class="n">s</span><span class="p">},</span><span class="w"></span>
+<span class="w">                                 </span><span class="p">{</span><span class="s">&quot;process_creation_client&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arg1&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arg2&quot;</span><span class="n">s</span><span class="p">},</span><span class="w"></span>
+<span class="w">                                 </span><span class="p">{</span><span class="s">&quot;process_creation_client&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arg1&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arg2&quot;</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;arg3&quot;</span><span class="n">s</span><span class="p">}},</span><span class="w"></span>
+<span class="w">                                </span><span class="p">{</span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">})};</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// broadcast a message to the created processes</span>
+<span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">message</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// root rank</span>
+<span class="w">    </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.23</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">mpl</span><span class="o">::</span><span class="n">root</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// non-root ranks</span>
+<span class="w">    </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="n">mpl</span><span class="o">::</span><span class="n">proc_null</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The corresponding source of the spawned process is given as shown below:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span><span class="cp"></span>
+<span class="c1">// include MPL header file</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span><span class="cp"></span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="k">namespace</span><span class="w"> </span><span class="nn">std</span><span class="o">::</span><span class="nn">string_literals</span><span class="p">;</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// get a reference to communicator &quot;world&quot;</span>
@@ -282,6 +314,10 @@
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Hello world! I am running on </span><span class="se">\&quot;</span><span class="s">&quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">processor_name</span><span class="p">()</span><span class="w"></span>
 <span class="w">            </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\&quot;</span><span class="s">. My rank is &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; out of &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"></span>
 <span class="w">            </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot; processes.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;commandline arguments: &quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">argc</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">argv</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39; &#39;</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="kt">double</span><span class="w"> </span><span class="n">message</span><span class="p">;</span><span class="w"></span>
 <span class="w">  </span><span class="n">inter_comm</span><span class="p">.</span><span class="n">bcast</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">);</span><span class="w"></span>
 <span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;got: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>

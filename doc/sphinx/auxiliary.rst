@@ -59,3 +59,5 @@ Command-line arguments
 ----------------------
 
 .. doxygenclass:: mpl::command_line
+
+.. doxygenclass:: mpl::command_lines

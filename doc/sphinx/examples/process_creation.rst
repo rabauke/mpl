@@ -1,9 +1,12 @@
 Process creation
 ================
 
-The following program illustrates dynamic creation of new processes and establishing a communication channel in the form of inter-communicator.
+The following two programs illustrate dynamic creation of new processes and establishing a communication channel in the form of inter-communicator.
 
 .. literalinclude:: ../../../examples/process_creation.cc
+   :language: c++
+
+.. literalinclude:: ../../../examples/process_creation_multiple.cc
    :language: c++
 
 

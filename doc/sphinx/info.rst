@@ -11,3 +11,5 @@ Class documentation
 -------------------
 
 .. doxygenclass:: mpl::info
+
+.. doxygenclass:: mpl::infos

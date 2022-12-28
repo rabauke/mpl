@@ -1169,7 +1169,7 @@
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_lineE">
 <span id="_CPPv3N3mpl12command_lineE"></span><span id="_CPPv2N3mpl12command_lineE"></span><span id="mpl::command_line"></span><span class="target" id="classmpl_1_1command__line"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl12command_lineE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Represents a collection of command-line arguments. </p>
+<dd><p>Represents a set of command-line arguments. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
 <p>class <code class="docutils literal notranslate"><span class="pre">communicator::spawn</span></code> </p>
@@ -1180,13 +1180,13 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineEv">
 <span id="_CPPv3N3mpl12command_line12command_lineEv"></span><span id="_CPPv2N3mpl12command_line12command_lineEv"></span><span id="mpl::command_line::command_line"></span><span class="target" id="classmpl_1_1command__line_1a79531c4dd7f7b210f811c85d70c96f63"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineEv" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Constructs an empty collection of command-line arguments. </p>
+<dd><p>Constructs an empty set of command-line arguments. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE">
 <span id="_CPPv3N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE"></span><span id="_CPPv2N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE"></span><span id="mpl::command_line::command_line__std::initializer_list:ss:"></span><span class="target" id="classmpl_1_1command__line_1acf42d177cb272674b602233d90e85aef"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineENSt16initializer_listINSt6stringEEE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Constructs collection of command-line arguments from a braces expression of strings. </p>
+<dd><p>Constructs set of command-line arguments from a braces expression of strings. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>init</strong> – list of initial values </p>
@@ -1197,10 +1197,10 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineERK12command_line">
 <span id="_CPPv3N3mpl12command_line12command_lineERK12command_line"></span><span id="_CPPv2N3mpl12command_line12command_lineERK12command_line"></span><span id="mpl::command_line::command_line__command_lineCR"></span><span class="target" id="classmpl_1_1command__line_1a1b06b927e9c8209c0e19794c5882f269"></span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl12command_line12command_lineERK12command_line" title="mpl::command_line::command_line"><span class="n"><span class="pre">command_line</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineERK12command_line" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Constructs collection of command-line arguments from another collection. </p>
+<dd><p>Constructs set of command-line arguments from another set. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> – the other collection to copy from </p>
+<dd class="field-odd"><p><strong>other</strong> – the other set to copy from </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1208,10 +1208,63 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl12command_line12command_lineERR12command_line">
 <span id="_CPPv3N3mpl12command_line12command_lineERR12command_line"></span><span id="_CPPv2N3mpl12command_line12command_lineERR12command_line"></span><span id="mpl::command_line::command_line__command_lineRR"></span><span class="target" id="classmpl_1_1command__line_1a4afbb02d9f7f1f195e822e76ae9bc7d8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_line</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl12command_line12command_lineERR12command_line" title="mpl::command_line::command_line"><span class="n"><span class="pre">command_line</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl12command_line12command_lineERR12command_line" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Move-constructs collection of command-line arguments from another collection. </p>
+<dd><p>Move-constructs set of command-line arguments from another set. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>other</strong> – the other collection to move from </p>
+<dd class="field-odd"><p><strong>other</strong> – the other set to move from </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13command_linesE">
+<span id="_CPPv3N3mpl13command_linesE"></span><span id="_CPPv2N3mpl13command_linesE"></span><span id="mpl::command_lines"></span><span class="target" id="classmpl_1_1command__lines"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_lines</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl12command_lineE" title="mpl::command_line"><span class="n"><span class="pre">command_line</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl13command_linesE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Represents a list of command-line argument sets. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>class <code class="docutils literal notranslate"><span class="pre">communicator::spawn_multiple</span></code> </p>
+</div>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13command_lines13command_linesEv">
+<span id="_CPPv3N3mpl13command_lines13command_linesEv"></span><span id="_CPPv2N3mpl13command_lines13command_linesEv"></span><span id="mpl::command_lines::command_lines"></span><span class="target" id="classmpl_1_1command__lines_1abf3ad4687d0c73119faa5d0002a4faf7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_lines</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13command_lines13command_linesEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs an empty list of command-line argument sets. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13command_lines13command_linesENSt16initializer_listI12command_lineEE">
+<span id="_CPPv3N3mpl13command_lines13command_linesENSt16initializer_listI12command_lineEE"></span><span id="_CPPv2N3mpl13command_lines13command_linesENSt16initializer_listI12command_lineEE"></span><span id="mpl::command_lines::command_lines__std::initializer_list:command_line:"></span><span class="target" id="classmpl_1_1command__lines_1ab36111d9d69a7e821e12ac617866e4d1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_lines</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl12command_lineE" title="mpl::command_line"><span class="n"><span class="pre">command_line</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13command_lines13command_linesENSt16initializer_listI12command_lineEE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs list of command-line argument sets from a braces expression of strings. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>init</strong> – list of initial values </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13command_lines13command_linesERK13command_lines">
+<span id="_CPPv3N3mpl13command_lines13command_linesERK13command_lines"></span><span id="_CPPv2N3mpl13command_lines13command_linesERK13command_lines"></span><span id="mpl::command_lines::command_lines__command_linesCR"></span><span class="target" id="classmpl_1_1command__lines_1adcfb9c836c9f8594a6cedf1f55a94e37"></span><span class="sig-name descname"><span class="n"><span class="pre">command_lines</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13command_lines13command_linesERK13command_lines" title="mpl::command_lines::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl13command_lines13command_linesERK13command_lines" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Constructs list of command-line argument sets from another list. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – the other list to copy from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13command_lines13command_linesERR13command_lines">
+<span id="_CPPv3N3mpl13command_lines13command_linesERR13command_lines"></span><span id="_CPPv2N3mpl13command_lines13command_linesERR13command_lines"></span><span id="mpl::command_lines::command_lines__command_linesRR"></span><span class="target" id="classmpl_1_1command__lines_1ab6bc557610433c1519d0e797137e4932"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">command_lines</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl13command_lines13command_linesERR13command_lines" title="mpl::command_lines::command_lines"><span class="n"><span class="pre">command_lines</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4N3mpl13command_lines13command_linesERR13command_lines" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Move-constructs list of command-line argument sets from another list. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – the other list to move from </p>
 </dd>
 </dl>
 </dd></dl>

@@ -114,6 +114,44 @@ namespace mpl {
     friend class impl::base_communicator;
     friend class communicator;
   };
+
+
+  // Represents a list of info objects.
+  /// \see class \c communicator::spawn_multiple
+  class infos : private std::vector<info> {
+    using base = std::vector<info>;
+
+  public:
+    using base::size_type;
+    using base::value_type;
+    using base::iterator;
+    using base::const_iterator;
+
+    /// Constructs an empty list of info objects.
+    explicit infos() : base() {}
+
+    /// Constructs list of info objects from a braces expression of info objects.
+    /// \param init list of initial values
+    infos(std::initializer_list<info> init) : base(init) {}
+
+    /// Constructs list of info objects from another set.
+    /// \param other the other list to copy from
+    infos(const infos &other) = default;
+
+    /// Move-constructs list of info objects from another list.
+    /// \param other the other list to move from
+    infos(infos &&other) noexcept : base(std::move(other)) {}
+
+    using base::operator=;
+    using base::begin;
+    using base::end;
+    using base::cbegin;
+    using base::cend;
+    using base::operator[];
+    using base::size;
+    using base::push_back;
+  };
+
 }  // namespace mpl
 
 #endif  // MPL_INFO_HPP
