@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported data types" href="data_types.html" /><link rel="prev" title="MPL: A message passing library" href="index.html" />
 
     <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Installation - MPL: A message passing library v0.2.0</title>
+        <title>Installation - MPL: A message passing library v0.2.1</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -127,7 +127,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.0</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.1</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -150,7 +150,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
   
-  <span class="sidebar-brand-text">MPL: A message passing library v0.2.0</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.1</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -258,7 +258,7 @@ user@host:~/mpl$ <span class="nb">cd</span> build
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local -DBUILD_TESTING<span class="o">=</span>ON -DMPL_BUILD_EXAMPLES<span class="o">=</span>ON ..
 </pre></div>
 </div>
-<p>enables both, building unit tests and examples. MPL unit tests utilize the <a class="reference external" href="https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html">Boost.Test</a> framework. Finally, build the unit tests and/or the example code via</p>
+<p>enables both, building unit tests and examples. MPL unit tests utilize the <a class="reference external" href="https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html">Boost.Test</a> framework. Furthermore, adding <code class="docutils literal notranslate"><span class="pre">-DMPL_BUILD_DOCUMENTATION=ON</span></code> to the set of CMake options during configuration enables building the MPL documentation, which requires <a class="reference external" href="https://www.doxygen.nl">Doxygen</a>, <a class="reference external" href="https://www.breathe-doc.org">Breathe</a> and <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a>. Finally, build the unit tests, the example code and/or the documentation via</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake --build .
 </pre></div>
 </div>

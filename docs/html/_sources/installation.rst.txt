@@ -32,7 +32,7 @@ A set of unit tests and a collection of examples that illustrate the usage of MP
 
    user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
 
-enables both, building unit tests and examples. MPL unit tests utilize the `Boost.Test <https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html>`__ framework. Finally, build the unit tests and/or the example code via
+enables both, building unit tests and examples. MPL unit tests utilize the `Boost.Test <https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html>`__ framework. Furthermore, adding ``-DMPL_BUILD_DOCUMENTATION=ON`` to the set of CMake options during configuration enables building the MPL documentation, which requires `Doxygen <https://www.doxygen.nl>`__, `Breathe <https://www.breathe-doc.org>`__ and `Sphinx <https://www.sphinx-doc.org>`__. Finally, build the unit tests, the example code and/or the documentation via
 
 .. code:: shell
 

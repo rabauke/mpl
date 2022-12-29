@@ -50,7 +50,7 @@ set(documentation_sources
     sphinx/reduction_operations.rst
     sphinx/tags.rst
     sphinx/_static/custom.css)
-    
+
 add_custom_command(OUTPUT ${doxygen_binary_dir}/xml/index.xml
     COMMAND doxygen Doxyfile
     WORKING_DIRECTORY ${doxygen_binary_dir}
@@ -66,11 +66,16 @@ add_custom_command(OUTPUT ${sphinx_binary_dir}/html/index.html
     COMMENT "Generating API documentation with Sphinx & Breathe"
     VERBATIM)
 
-add_custom_target(documentation DEPENDS ${sphinx_binary_dir}/html/index.html)
+if(MPL_BUILD_DOCUMENTATION)
+  add_custom_target(documentation ALL DEPENDS ${sphinx_binary_dir}/html/index.html)
+else()
+  add_custom_target(documentation DEPENDS ${sphinx_binary_dir}/html/index.html)
+endif()
 
 # Documentation installation (Sphinx output only).
 include(GNUInstallDirs)
 install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sphinx/html/ DESTINATION ${CMAKE_INSTALL_DOCDIR} COMPONENT documentation PATTERN ".*" EXCLUDE)
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sphinx/html)
 
 set(documentation_output_dirs ${doxygen_binary_dir}/html ${doxygen_binary_dir}/xml ${sphinx_binary_dir}/html)
 

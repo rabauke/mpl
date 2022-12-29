@@ -3,9 +3,10 @@ cmake_minimum_required(VERSION 3.9)
 
 # FIXME I didn't see versioning info on github,
 # but semantic versioning should be considered
-project(mpl VERSION 0.3.0 LANGUAGES CXX C)
+project(mpl VERSION 0.2.1 LANGUAGES CXX C)
 
 include(CTest)
+set(BUILD_TESTING OFF)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
@@ -48,4 +49,5 @@ install(EXPORT mplTargets
     NAMESPACE mpl::
     FILE mplTargets.cmake)
 
+option(MPL_BUILD_DOCUMENTATION "build the mpl documentation using Doxygen and Sphinx" OFF)
 add_subdirectory(doc)
