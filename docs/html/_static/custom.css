@@ -1,3 +1,16 @@
 dl.function {
     margin-bottom: 1.25em;
 }
+
+p.breathe-sectiondef-title.rubric {
+  font-size: x-large;
+  font-weight: bolder;
+  line-height: inherit;
+  text-transform: none;
+}
+
+dl[class]:not(.option-list):not(.field-list):not(.footnote):not(.glossary):not(.simple) .field-list > dt {
+  font-size: var(--font-size--normal);
+  font-weight: bolder;
+  text-transform: none
+}
