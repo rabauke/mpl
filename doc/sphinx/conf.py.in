@@ -84,5 +84,6 @@ html_title = f'{project} v{version}'
 breathe_default_project = 'MPL'
 breathe_show_include = True
 breathe_default_members = ('members', 'undoc-members')
+breathe_projects = {'MPL': '@doxygen_binary_dir@/xml' }
 
 graphviz_dot_args = ['-Grankdir=LR', '-Nfontsize=12', '-Nfontname=Courier']

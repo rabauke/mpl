@@ -61,7 +61,7 @@ add_custom_command(OUTPUT ${sphinx_binary_dir}/html/index.html
     DEPENDS
     ${doxygen_binary_dir}/xml/index.xml
     ${documentation_sources}
-    COMMAND sphinx-build -b html -j auto -D breathe_projects.MPL=${doxygen_binary_dir}/xml -c ${sphinx_binary_dir} ${sphinx_source_dir} ${sphinx_binary_dir}/html
+    COMMAND sphinx-build -b html -j auto -c ${sphinx_binary_dir} ${sphinx_source_dir} ${sphinx_binary_dir}/html
     WORKING_DIRECTORY ${sphinx_binary_dir}
     COMMENT "Generating API documentation with Sphinx & Breathe"
     VERBATIM)
