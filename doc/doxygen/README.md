@@ -38,7 +38,8 @@ following features of the Message Passing Interface standard:
 * derived data types (happens automatically for many custom data types or via the `base_struct_builder` helper class and the layout classes of MPL),
 * communicator- and group-management and
 * process topologies (cartesian and graph topologies),
-* inter-communicators.
+* inter-communicators,
+* dynamic process creation.
 
 Currently, the following MPI features are not yet supported by MPL:
 
