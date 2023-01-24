@@ -11,10 +11,13 @@ namespace mpl {
   /// Class for representing tag parameters in communication operations.
   class tag_t {
   private:
-    int t = 0;
+    int t{0};
 
   public:
-    tag_t() = default;
+    /// Initializes tag from an integer value.
+    /// \param t tag value
+    explicit tag_t(int t = 0) : t{t} {
+    }
 
     /// Initializes tag from an enum value.  The enum's underlying type must be convertible to
     /// int without loss of precession (narrowing).
@@ -25,12 +28,10 @@ namespace mpl {
                     "not an enumeration type or underlying enumeration type too large");
     }
 
-    /// Initializes tag from an int value.
-    /// \param t tag value
-    explicit tag_t(int t) : t(t) {}
-
-    /// \return tag value as int
-    explicit operator int() const { return t; }
+    /// \return tag value as integer
+    explicit operator int() const {
+      return t;
+    }
 
     /// \return tag with largest value when converted to int
     static inline tag_t up();
