@@ -76,6 +76,7 @@ namespace mpl {
     friend class impl::base_request;
     template<typename T>
     friend class impl::request_pool;
+    friend class file;
   };
 
   static_assert(sizeof(MPI_Status) == sizeof(status_t));

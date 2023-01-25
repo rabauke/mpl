@@ -4917,6 +4917,8 @@ namespace mpl {
     friend class inter_communicator;
 
     friend class environment::detail::env;
+
+    friend class file;
   };
 
   //--------------------------------------------------------------------
