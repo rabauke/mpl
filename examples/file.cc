@@ -10,11 +10,14 @@ int main() {
   mpl::file file;
   file.open(comm_world, "test", mpl::file::openmode::create | mpl::file::openmode::read_write);
   file.preallocate(1024);
-  auto size{file.size()};
-  std::cout << size << '\n';
+  mpl::strided_vector_layout<std::uint8_t> l(256, 1, 2);
+  mpl::vector_layout<std::uint8_t> l_v(256);
+  file.set_view(3, l, "native");
   if (comm_world.rank() == 0) {
-    for (int i{0}; i < 1024; ++i)
-      file.write(i);
+    std::vector<std::uint8_t> v;
+    for (int i{0}; i < 256; ++i)
+      v.push_back(static_cast<std::uint8_t>(i));
+    file.write_at(8, v.data(), l_v);
   }
   file.close();
   return EXIT_SUCCESS;

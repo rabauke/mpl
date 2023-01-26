@@ -130,7 +130,7 @@ namespace mpl {
 
     /// get file size
     /// \return file size in bytes
-    ssize_t size() const {
+    [[nodiscard]] ssize_t size() const {
       MPI_Offset size{0};
       MPI_File_get_size(file_, &size);
       return size;
@@ -138,10 +138,46 @@ namespace mpl {
 
     /// get file open-mode
     /// \return file open-mode
-    openmode mode() const {
+    [[nodiscard]] openmode mode() const {
       int mode{0};
       MPI_File_get_amode(file_, &mode);
       return static_cast<openmode>(mode);
+    }
+
+    template<typename T>
+    /// \tparam T elementary read/write data type
+    void set_view(size_t displacement, const layout<T> &l, const char *representation) {
+      MPI_File_set_view(file_, displacement, detail::datatype_traits<T>::get_datatype(),
+                        detail::datatype_traits<layout<T>>::get_datatype(l), representation,
+                        MPI_INFO_NULL);
+    }
+
+    /// read data from file, blocking, non-collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_at(ssize_t offset, T &data) {
+      status_t s;
+      MPI_File_read_at(file_, offset, &data, 1, detail::datatype_traits<T>::get_datatype(),
+                       static_cast<MPI_Status *>(&s));
+      return s;
+    }
+
+    /// read data from file, blocking, non-collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_at(ssize_t offset, T *data, const layout<T> &l) {
+      status_t s;
+      MPI_File_read_at(file_, offset, data, 1,
+                       detail::datatype_traits<layout<T>>::get_datatype(l),
+                       static_cast<MPI_Status *>(&s));
+      return s;
     }
 
     /// read data from file, blocking, non-collective, file-pointer based
@@ -158,14 +194,42 @@ namespace mpl {
 
     /// read data from file, blocking, non-collective, file-pointer based
     /// \tparam T read data type
-    /// \param data value to read
+    /// \param data pointer to the data to read
     /// \param l layout used in associated i/o operation
     /// \return status of performed i/o operation
     template<typename T>
-    status_t read(T &data, const layout<T> &l) {
+    status_t read(T *data, const layout<T> &l) {
       status_t s;
-      MPI_File_read(file_, &data, 1, detail::datatype_traits<T>::get_datatype(l),
+      MPI_File_read(file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l),
                     static_cast<MPI_Status *>(&s));
+      return s;
+    }
+
+    /// write data to file, blocking, non-collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_at(ssize_t offset, const T &data) {
+      status_t s;
+      MPI_File_write_at(file_, offset, &data, 1, detail::datatype_traits<T>::get_datatype(),
+                        static_cast<MPI_Status *>(&s));
+      return s;
+    }
+
+    /// write data to file, blocking, non-collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_at(ssize_t offset, const T *data, const layout<T> &l) {
+      status_t s;
+      MPI_File_write_at(file_, offset, data, 1,
+                        detail::datatype_traits<layout<T>>::get_datatype(l),
+                        static_cast<MPI_Status *>(&s));
       return s;
     }
 
@@ -183,13 +247,13 @@ namespace mpl {
 
     /// write data to file, blocking, non-collective, file-pointer based
     /// \tparam T write data type
-    /// \param data value to write
+    /// \param data pointer to the data to write
     /// \param l layout used in associated i/o operation
     /// \return status of performed i/o operation
     template<typename T>
-    status_t write(const T &data, const layout<T> &l) {
+    status_t write(const T *data, const layout<T> &l) {
       status_t s;
-      MPI_File_write(file_, &data, 1, detail::datatype_traits<T>::get_datatype(l),
+      MPI_File_write(file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l),
                      static_cast<MPI_Status *>(&s));
       return s;
     }
