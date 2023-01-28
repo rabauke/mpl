@@ -14,6 +14,7 @@ MPL: A message passing library
    communicator
    layouts
    reduction_operations
+   file
    info
    constants
    auxiliary

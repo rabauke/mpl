@@ -1,0 +1,1088 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Info objects" href="info.html" /><link rel="prev" title="Reduction operations" href="reduction_operations.html" />
+
+    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+        <title>File - MPL: A message passing library v0.2.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.2.1</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">MPL: A message passing library v0.2.1</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_types.html">Supported data types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tags.html">Tags</a></li>
+<li class="toctree-l1"><a class="reference internal" href="communicator.html">Communicators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layouts.html">Data layouts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reduction_operations.html">Reduction operations</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">File</a></li>
+<li class="toctree-l1"><a class="reference internal" href="info.html">Info objects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/arrays.html">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/stl_container.html">STL containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/iterators.html">Iterators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/blocking.html">Blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/blocking_vector.html">Blocking send and receive of vectors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/nonblocking.html">Non-blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/nonblocking_mult.html">Gather via non-blocking send and receive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/probe.html">Probing messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/communicator.html">Communicator management</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/collective.html">Collective communication</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gather.html">Gather operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/gatherv.html">Variable gather operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/matrix_gather.html">Matrix gather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/reduce.html">Reduction operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/layouts.html">Layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/subarray.html">Subarray layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/parallel_sort.html">Parallel sorting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/vibrating_string.html">Vibrating string</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid.html">Distributed grid</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid_scatter_gather.html">Distributed grid collective operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/process_creation.html">Process creation</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="file">
+<h1>File<a class="headerlink" href="#file" title="Permalink to this heading">#</a></h1>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
+<p>Parallel file operations are implemented vai the <code class="docutils literal notranslate"><span class="pre">mpl::file</span></code> class.  It offers various read and write modalities (collective and non-collective, blocking and non-blocking etc.) by closely following the MPI standard.  See the MPI standard for a detailed description of the semantics of the various i/o operations.</p>
+</section>
+<section id="class-documentation">
+<h2>Class documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">#</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4fileE">
+<span id="_CPPv3N3mpl4fileE"></span><span id="_CPPv2N3mpl4fileE"></span><span id="mpl::file"></span><span class="target" id="classmpl_1_1file"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4fileE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>Class implementing parallel file i/o. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmodeE">
+<span id="_CPPv3N3mpl4file8openmodeE"></span><span id="_CPPv2N3mpl4file8openmodeE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">openmode</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmodeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode9read_onlyE">
+<span id="_CPPv3N3mpl4file8openmode9read_onlyE"></span><span id="_CPPv2N3mpl4file8openmode9read_onlyE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582abefe72871b2de8f4f0e20108517e31fe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_only</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode9read_onlyE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read-only file access </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10read_writeE">
+<span id="_CPPv3N3mpl4file8openmode10read_writeE"></span><span id="_CPPv2N3mpl4file8openmode10read_writeE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a06ad287ea83b37a6f9db3d8d10d72c8f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_write</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10read_writeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read and write file access </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10write_onlyE">
+<span id="_CPPv3N3mpl4file8openmode10write_onlyE"></span><span id="_CPPv2N3mpl4file8openmode10write_onlyE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a2629564984b808cf7e6cfc61a0286d69"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_only</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10write_onlyE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write-only file access </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode6createE">
+<span id="_CPPv3N3mpl4file8openmode6createE"></span><span id="_CPPv2N3mpl4file8openmode6createE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a76ea0bebb3c22822b4f0dd9c9fd021c5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode6createE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>create file it it does not exist </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10no_replaceE">
+<span id="_CPPv3N3mpl4file8openmode10no_replaceE"></span><span id="_CPPv2N3mpl4file8openmode10no_replaceE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582ab5ded1c6210547244a55ffd38b94d972"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_replace</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10no_replaceE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>raises an error when file to create already exists </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode15delete_on_closeE">
+<span id="_CPPv3N3mpl4file8openmode15delete_on_closeE"></span><span id="_CPPv2N3mpl4file8openmode15delete_on_closeE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582aa7eb5a740066e6c6e2dbd8e8a0e345f5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">delete_on_close</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode15delete_on_closeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>delete file when closed </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode11unique_openE">
+<span id="_CPPv3N3mpl4file8openmode11unique_openE"></span><span id="_CPPv2N3mpl4file8openmode11unique_openE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582afcc78bd6e3903ca2391914b49bf4ec40"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unique_open</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode11unique_openE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>file not opened concurrently </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10sequentialE">
+<span id="_CPPv3N3mpl4file8openmode10sequentialE"></span><span id="_CPPv2N3mpl4file8openmode10sequentialE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a6ec7489017b25b5fff20d353b6d2162e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sequential</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10sequentialE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>file will be accessed sequentially </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode6appendE">
+<span id="_CPPv3N3mpl4file8openmode6appendE"></span><span id="_CPPv2N3mpl4file8openmode6appendE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a9516dfb15f51c7ee19a4d46b8c0dbe1d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">append</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode6appendE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>set initial file position to end of file </p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileEv">
+<span id="_CPPv3N3mpl4file4fileEv"></span><span id="_CPPv2N3mpl4file4fileEv"></span><span id="mpl::file::file"></span><span class="target" id="classmpl_1_1file_1a1c73a4dbb5f1a359281e244d419f4337"></span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N3mpl4file4fileEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>default constructor </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorPKc8openmode">
+<span id="_CPPv3N3mpl4file4fileERK12communicatorPKc8openmode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorPKc8openmode"></span><span id="mpl::file::file__communicatorCR.cCP.openmode"></span><span class="target" id="classmpl_1_1file_1ac04325a4d1f12a817005dfef096c9458"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorPKc8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>constructs and opens a file </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comm</strong> – communicator </p></li>
+<li><p><strong>name</strong> – file name </p></li>
+<li><p><strong>mode</strong> – file open-mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode">
+<span id="_CPPv3N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode"></span><span id="mpl::file::file__communicatorCR.ssCR.openmode"></span><span class="target" id="classmpl_1_1file_1a5ef22667ad93347d045a7732adb7834c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>constructs and opens a file </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comm</strong> – communicator </p></li>
+<li><p><strong>name</strong> – file name </p></li>
+<li><p><strong>mode</strong> – file open-mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode">
+<span id="_CPPv3N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="mpl::file::file__communicatorCR.std::filesystem::pathCR.openmode"></span><span class="target" id="classmpl_1_1file_1aedd6a61bde761f713c306bc34da109fd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">filesystem</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">path</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>constructs and opens a file </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comm</strong> – communicator </p></li>
+<li><p><strong>name</strong> – file name </p></li>
+<li><p><strong>mode</strong> – file open-mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK4file">
+<span id="_CPPv3N3mpl4file4fileERK4file"></span><span id="_CPPv2N3mpl4file4fileERK4file"></span><span id="mpl::file::file__fileCR"></span><span class="target" id="classmpl_1_1file_1a22b7de617beae0da9b38cdcb78b9c1ad"></span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4file4fileERK4file" title="mpl::file::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK4file" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>deleted copy constructor </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERR4file">
+<span id="_CPPv3N3mpl4file4fileERR4file"></span><span id="_CPPv2N3mpl4file4fileERR4file"></span><span id="mpl::file::file__fileRR"></span><span class="target" id="classmpl_1_1file_1a141b4c0eba82fb58ee2bc349d9a2793c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4file4fileERR4file" title="mpl::file::file"><span class="n"><span class="pre">file</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERR4file" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>move constructor </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – file to move from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4fileD0Ev">
+<span id="_CPPv3N3mpl4fileD0Ev"></span><span id="_CPPv2N3mpl4fileD0Ev"></span><span id="mpl::file::~file"></span><span class="target" id="classmpl_1_1file_1a20af264b513cde9e133ca8d5c2bf6ef3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~file</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4fileD0Ev" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>destructor </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4fileaSERK4file">
+<span id="_CPPv3N3mpl4fileaSERK4file"></span><span id="_CPPv2N3mpl4fileaSERK4file"></span><span id="mpl::file::assign-operator__fileCR"></span><span class="target" id="classmpl_1_1file_1a6cbf0905ecca8df8b741c95a21d0a973"></span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">delete</span></span><a class="headerlink" href="#_CPPv4N3mpl4fileaSERK4file" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>deleted copy-assignment operator </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4fileaSERR4file">
+<span id="_CPPv3N3mpl4fileaSERR4file"></span><span id="_CPPv2N3mpl4fileaSERR4file"></span><span id="mpl::file::assign-operator__fileRR"></span><span class="target" id="classmpl_1_1file_1ac846b5affcb04393b0b05afdd0546a14"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4fileaSERR4file" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>move-assignment operator </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – file to move from </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorPKc8openmode">
+<span id="_CPPv3N3mpl4file4openERK12communicatorPKc8openmode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorPKc8openmode"></span><span id="mpl::file::open__communicatorCR.cCP.openmode"></span><span class="target" id="classmpl_1_1file_1a80a60aff24d78290cc76d47d1a75d6ba"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorPKc8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>open a file </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comm</strong> – communicator </p></li>
+<li><p><strong>name</strong> – file name </p></li>
+<li><p><strong>mode</strong> – file open-mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorRKNSt6stringE8openmode">
+<span id="_CPPv3N3mpl4file4openERK12communicatorRKNSt6stringE8openmode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorRKNSt6stringE8openmode"></span><span id="mpl::file::open__communicatorCR.ssCR.openmode"></span><span class="target" id="classmpl_1_1file_1a39457ba1289ad1cdd66e91552013dc8c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorRKNSt6stringE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>open a file </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comm</strong> – communicator </p></li>
+<li><p><strong>name</strong> – file name </p></li>
+<li><p><strong>mode</strong> – file open-mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode">
+<span id="_CPPv3N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="mpl::file::open__communicatorCR.std::filesystem::pathCR.openmode"></span><span class="target" id="classmpl_1_1file_1a24bd7b7b7b15bad5542a46c5ecb17858"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">filesystem</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">path</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>open a file </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called by all processes in the communicator. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>comm</strong> – communicator </p></li>
+<li><p><strong>name</strong> – file name </p></li>
+<li><p><strong>mode</strong> – file open-mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file5closeEv">
+<span id="_CPPv3N3mpl4file5closeEv"></span><span id="_CPPv2N3mpl4file5closeEv"></span><span id="mpl::file::close"></span><span class="target" id="classmpl_1_1file_1a5ae591df94fc66ccb85cbb6565368bca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">close</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file5closeEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>close a file </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8set_sizeE7ssize_t">
+<span id="_CPPv3N3mpl4file8set_sizeE7ssize_t"></span><span id="_CPPv2N3mpl4file8set_sizeE7ssize_t"></span><span id="mpl::file::set_size__ssize_t"></span><span class="target" id="classmpl_1_1file_1a0069708c6f96c73172afa72373080cb8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file8set_sizeE7ssize_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>resize file (shrink or grow as required) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>size</strong> – file size in bytes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11preallocateE7ssize_t">
+<span id="_CPPv3N3mpl4file11preallocateE7ssize_t"></span><span id="_CPPv2N3mpl4file11preallocateE7ssize_t"></span><span id="mpl::file::preallocate__ssize_t"></span><span class="target" id="classmpl_1_1file_1a2abee578760649918dbc9b6f25e6ae3e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">preallocate</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file11preallocateE7ssize_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>resize file (grow as required) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>size</strong> – file size in bytes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl4file4sizeEv">
+<span id="_CPPv3NK3mpl4file4sizeEv"></span><span id="_CPPv2NK3mpl4file4sizeEv"></span><span id="mpl::file::sizeC"></span><span class="target" id="classmpl_1_1file_1a4654f2f79f184bf4998c9fcc35b3170c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4file4sizeEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>get file size </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>file size in bytes </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl4file4modeEv">
+<span id="_CPPv3NK3mpl4file4modeEv"></span><span id="_CPPv2NK3mpl4file4modeEv"></span><span id="mpl::file::modeC"></span><span class="target" id="classmpl_1_1file_1a8a620c044c269d63f8ce4fa6aed6d65a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mode</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4file4modeEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>get file open-mode </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>file open-mode </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl4file4syncEv">
+<span id="_CPPv3NK3mpl4file4syncEv"></span><span id="_CPPv2NK3mpl4file4syncEv"></span><span id="mpl::file::syncC"></span><span class="target" id="classmpl_1_1file_1add87bcb6d2b71b3ceb39c7d9119321c4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sync</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4file4syncEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>flush write buffers and write pending data to device </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a collective operation and must be called by all processes in the communicator. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8set_viewEv6size_tRK6layoutI1TEPKc">
+<span id="_CPPv3I0EN3mpl4file8set_viewE6size_tRK6layoutI1TEPKc"></span><span id="_CPPv2I0EN3mpl4file8set_viewE6size_tRK6layoutI1TEPKc"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ab8ffa8b97382fa25c850590a56396ca0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl6size_tE" title="mpl::size_t"><span class="n"><span class="pre">size_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">displacement</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8set_viewEv6size_tRK6layoutI1TEPKc" title="mpl::file::set_view::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">representation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8set_viewEv6size_tRK6layoutI1TEPKc" title="Permalink to this definition">#</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – elementary read/write data type </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tR1T">
+<span id="_CPPv3I0EN3mpl4file7read_atE7ssize_tR1T"></span><span id="_CPPv2I0EN3mpl4file7read_atE7ssize_tR1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a2e65ce48e1b3addf95b3b8cc08479a6d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <a class="reference internal" href="#_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tR1T" title="mpl::file::read_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – value to read </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tP1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file7read_atE7ssize_tP1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file7read_atE7ssize_tP1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1af95826815d233425c8dd1c1aa403eaf2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <a class="reference internal" href="#_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tP1TRK6layoutI1TE" title="mpl::file::read_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tP1TRK6layoutI1TE" title="mpl::file::read_at::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file7read_atE8status_t7ssize_tP1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – pointer to the data to read </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file4readE8status_tR1T">
+<span id="_CPPv3I0EN3mpl4file4readER1T"></span><span id="_CPPv2I0EN3mpl4file4readER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a000bc31570a65d078fba1d5f00d46869"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file4readE8status_tR1T" title="mpl::file::read::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file4readE8status_tR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to read </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file4readE8status_tP1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file4readEP1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file4readEP1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a2e0beb8f767c2bcd353c5caf6eeab801"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file4readE8status_tP1TRK6layoutI1TE" title="mpl::file::read::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file4readE8status_tP1TRK6layoutI1TE" title="mpl::file::read::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file4readE8status_tP1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to read </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file11read_sharedE8status_tR1T">
+<span id="_CPPv3I0EN3mpl4file11read_sharedER1T"></span><span id="_CPPv2I0EN3mpl4file11read_sharedER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ad3a7f72dcb1e1df4f498387dfc8a752a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_shared</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file11read_sharedE8status_tR1T" title="mpl::file::read_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file11read_sharedE8status_tR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, blocking, non-collective, shared file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to read </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file11read_sharedE8status_tP1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file11read_sharedEP1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file11read_sharedEP1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a50fb73151113d5855d896ab1d5346c16"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_shared</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file11read_sharedE8status_tP1TRK6layoutI1TE" title="mpl::file::read_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file11read_sharedE8status_tP1TRK6layoutI1TE" title="mpl::file::read_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file11read_sharedE8status_tP1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, blocking, non-collective, shared file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to read </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tRK1T">
+<span id="_CPPv3I0EN3mpl4file8write_atE7ssize_tRK1T"></span><span id="_CPPv2I0EN3mpl4file8write_atE7ssize_tRK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1abdc407bff4d94e82f5b9dde3ebfeb6c1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tRK1T" title="mpl::file::write_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tRK1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – value to write </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tPK1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file8write_atE7ssize_tPK1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file8write_atE7ssize_tPK1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1abd67bcd7453091165f2878d087d7bde0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tPK1TRK6layoutI1TE" title="mpl::file::write_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tPK1TRK6layoutI1TE" title="mpl::file::write_at::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8write_atE8status_t7ssize_tPK1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – pointer to the data to write </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file5writeE8status_tRK1T">
+<span id="_CPPv3I0EN3mpl4file5writeERK1T"></span><span id="_CPPv2I0EN3mpl4file5writeERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a09ae9c8a8043a117c69830fad4941d71"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file5writeE8status_tRK1T" title="mpl::file::write::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file5writeE8status_tRK1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to write </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file5writeE8status_tPK1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file5writeEPK1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file5writeEPK1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a213515692fa71a92c04af6e3c8f83d21"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file5writeE8status_tPK1TRK6layoutI1TE" title="mpl::file::write::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file5writeE8status_tPK1TRK6layoutI1TE" title="mpl::file::write::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file5writeE8status_tPK1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to write </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file12write_sharedE8status_tRK1T">
+<span id="_CPPv3I0EN3mpl4file12write_sharedERK1T"></span><span id="_CPPv2I0EN3mpl4file12write_sharedERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a49ac1fff74b4c4f1702e6bf7c7347634"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_shared</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file12write_sharedE8status_tRK1T" title="mpl::file::write_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file12write_sharedE8status_tRK1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, blocking, non-collective, shared file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to write </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file12write_sharedE8status_tPK1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file12write_sharedEPK1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file12write_sharedEPK1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ae3668ad272ac1fea152415579adbd859"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_shared</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file12write_sharedE8status_tPK1TRK6layoutI1TE" title="mpl::file::write_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file12write_sharedE8status_tPK1TRK6layoutI1TE" title="mpl::file::write_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file12write_sharedE8status_tPK1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, blocking, non-collective, shred file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to write </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tR1T">
+<span id="_CPPv3I0EN3mpl4file8iread_atE7ssize_tR1T"></span><span id="_CPPv2I0EN3mpl4file8iread_atE7ssize_tR1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a282913c3c6d93bd231bc1290486325be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iread_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <a class="reference internal" href="#_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tR1T" title="mpl::file::iread_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, non-blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – value to read </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tP1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file8iread_atE7ssize_tP1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file8iread_atE7ssize_tP1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ada453e04103cefc280b325d1ab617164"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iread_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <a class="reference internal" href="#_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tP1TRK6layoutI1TE" title="mpl::file::iread_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tP1TRK6layoutI1TE" title="mpl::file::iread_at::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8iread_atE8irequest7ssize_tP1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, non-blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – pointer to the data to read </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file5ireadE8irequestR1T">
+<span id="_CPPv3I0EN3mpl4file5ireadER1T"></span><span id="_CPPv2I0EN3mpl4file5ireadER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ac66b63640412b7467adaf8bbfa25e71e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iread</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file5ireadE8irequestR1T" title="mpl::file::iread::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file5ireadE8irequestR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, non-blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to read </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file5ireadE8irequestP1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file5ireadEP1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file5ireadEP1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a8b7b2d53c2ffffd40ba5843bc5919528"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iread</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file5ireadE8irequestP1TRK6layoutI1TE" title="mpl::file::iread::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file5ireadE8irequestP1TRK6layoutI1TE" title="mpl::file::iread::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file5ireadE8irequestP1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, non-blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to read </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file12iread_sharedE8irequestR1T">
+<span id="_CPPv3I0EN3mpl4file12iread_sharedER1T"></span><span id="_CPPv2I0EN3mpl4file12iread_sharedER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1aba7c41c6d6aeb414fa3b64b414b03b36"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iread_shared</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file12iread_sharedE8irequestR1T" title="mpl::file::iread_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file12iread_sharedE8irequestR1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, non-blocking, non-collective, shared file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to read </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file12iread_sharedE8irequestP1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file12iread_sharedEP1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file12iread_sharedEP1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a38e8bfb1b38b16d9aedef3ed6a5a4052"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iread_shared</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0EN3mpl4file12iread_sharedE8irequestP1TRK6layoutI1TE" title="mpl::file::iread_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file12iread_sharedE8irequestP1TRK6layoutI1TE" title="mpl::file::iread_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file12iread_sharedE8irequestP1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>read data from file, non-blocking, non-collective, shared file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – read data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to read </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tRK1T">
+<span id="_CPPv3I0EN3mpl4file9iwrite_atE7ssize_tRK1T"></span><span id="_CPPv2I0EN3mpl4file9iwrite_atE7ssize_tRK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1aac771f4650779a8e1c9ebba71db6fc1f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iwrite_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tRK1T" title="mpl::file::iwrite_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tRK1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, non-blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – value to write </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tPK1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file9iwrite_atE7ssize_tPK1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file9iwrite_atE7ssize_tPK1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a146a3365e5a9df35a947a73109829bca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iwrite_at</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tPK1TRK6layoutI1TE" title="mpl::file::iwrite_at::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tPK1TRK6layoutI1TE" title="mpl::file::iwrite_at::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file9iwrite_atE8irequest7ssize_tPK1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, non-blocking, non-collective, explicit offset </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>offset</strong> – file offset in bytes </p></li>
+<li><p><strong>data</strong> – pointer to the data to write </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file6iwriteE8irequestRK1T">
+<span id="_CPPv3I0EN3mpl4file6iwriteERK1T"></span><span id="_CPPv2I0EN3mpl4file6iwriteERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ad57904f2353722d201dfdced0b90f1f4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iwrite</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file6iwriteE8irequestRK1T" title="mpl::file::iwrite::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file6iwriteE8irequestRK1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, non-blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to write </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file6iwriteE8irequestPK1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file6iwriteEPK1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file6iwriteEPK1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a7a3596bc61efcee7a5055a32f8e71349"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iwrite</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file6iwriteE8irequestPK1TRK6layoutI1TE" title="mpl::file::iwrite::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file6iwriteE8irequestPK1TRK6layoutI1TE" title="mpl::file::iwrite::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file6iwriteE8irequestPK1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, non-blocking, non-collective, individual file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to write </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestRK1T">
+<span id="_CPPv3I0EN3mpl4file13iwrite_sharedERK1T"></span><span id="_CPPv2I0EN3mpl4file13iwrite_sharedERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a5d7380640ec163a7f08feabee4926f20"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iwrite_shared</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestRK1T" title="mpl::file::iwrite_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestRK1T" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, non-blocking, non-collective, shared file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – value to write </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestPK1TRK6layoutI1TE">
+<span id="_CPPv3I0EN3mpl4file13iwrite_sharedEPK1TRK6layoutI1TE"></span><span id="_CPPv2I0EN3mpl4file13iwrite_sharedEPK1TRK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1a52630d7164a2f5436e1e7f61d8a34a64"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl8irequestE" title="mpl::irequest"><span class="n"><span class="pre">irequest</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iwrite_shared</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestPK1TRK6layoutI1TE" title="mpl::file::iwrite_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">data</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestPK1TRK6layoutI1TE" title="mpl::file::iwrite_shared::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file13iwrite_sharedE8irequestPK1TRK6layoutI1TE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>write data to file, non-blocking, non-collective, shred file-pointer based </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>T</strong> – write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>data</strong> – pointer to the data to write </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>request representing the ongoing i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="info.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Info objects</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="reduction_operations.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Reduction operations</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Heiko Bauke
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            <div class="icons">
+              <a class="muted-link " href="https://github.com/rabauke/mpl" aria-label="GitHub">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+                </svg>
+            </a>
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">File</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#class-documentation">Class documentation</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    </body>
+</html>
