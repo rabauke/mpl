@@ -241,10 +241,12 @@
 <h1>File<a class="headerlink" href="#file" title="Permalink to this heading">#</a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
-<p>Parallel file operations are implemented vai the <code class="docutils literal notranslate"><span class="pre">mpl::file</span></code> class.  It offers various read and write modalities (collective and non-collective, blocking and non-blocking etc.) by closely following the MPI standard.  See the MPI standard for a detailed description of the semantics of the various i/o operations.</p>
+<p>Parallel file operations are implemented via the <code class="docutils literal notranslate"><span class="pre">mpl::file</span></code> class.  It offers various read and write modalities (collective and non-collective, blocking and non-blocking etc.) by closely following the MPI standard.  See the MPI standard for a detailed description of the semantics of the various i/o operations.</p>
 </section>
 <section id="class-documentation">
 <h2>Class documentation<a class="headerlink" href="#class-documentation" title="Permalink to this heading">#</a></h2>
+<section id="file-class">
+<h3>File class<a class="headerlink" href="#file-class" title="Permalink to this heading">#</a></h3>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl4fileE">
 <span id="_CPPv3N3mpl4fileE"></span><span id="_CPPv2N3mpl4fileE"></span><span id="mpl::file"></span><span class="target" id="classmpl_1_1file"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4fileE" title="Permalink to this definition">#</a><br /></dt>
@@ -252,61 +254,87 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum-class">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmodeE">
-<span id="_CPPv3N3mpl4file8openmodeE"></span><span id="_CPPv2N3mpl4file8openmodeE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">openmode</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmodeE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p><em>Values:</em></p>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_modeE">
+<span id="_CPPv3N3mpl4file11access_modeE"></span><span id="_CPPv2N3mpl4file11access_modeE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">access_mode</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_modeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>file access mode </p>
+<p><em>Values:</em></p>
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode9read_onlyE">
-<span id="_CPPv3N3mpl4file8openmode9read_onlyE"></span><span id="_CPPv2N3mpl4file8openmode9read_onlyE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582abefe72871b2de8f4f0e20108517e31fe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_only</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode9read_onlyE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode9read_onlyE">
+<span id="_CPPv3N3mpl4file11access_mode9read_onlyE"></span><span id="_CPPv2N3mpl4file11access_mode9read_onlyE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8abefe72871b2de8f4f0e20108517e31fe"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_only</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode9read_onlyE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>read-only file access </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10read_writeE">
-<span id="_CPPv3N3mpl4file8openmode10read_writeE"></span><span id="_CPPv2N3mpl4file8openmode10read_writeE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a06ad287ea83b37a6f9db3d8d10d72c8f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_write</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10read_writeE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode10read_writeE">
+<span id="_CPPv3N3mpl4file11access_mode10read_writeE"></span><span id="_CPPv2N3mpl4file11access_mode10read_writeE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8a06ad287ea83b37a6f9db3d8d10d72c8f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">read_write</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode10read_writeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>read and write file access </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10write_onlyE">
-<span id="_CPPv3N3mpl4file8openmode10write_onlyE"></span><span id="_CPPv2N3mpl4file8openmode10write_onlyE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a2629564984b808cf7e6cfc61a0286d69"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_only</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10write_onlyE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode10write_onlyE">
+<span id="_CPPv3N3mpl4file11access_mode10write_onlyE"></span><span id="_CPPv2N3mpl4file11access_mode10write_onlyE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8a2629564984b808cf7e6cfc61a0286d69"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">write_only</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode10write_onlyE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>write-only file access </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode6createE">
-<span id="_CPPv3N3mpl4file8openmode6createE"></span><span id="_CPPv2N3mpl4file8openmode6createE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a76ea0bebb3c22822b4f0dd9c9fd021c5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode6createE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode6createE">
+<span id="_CPPv3N3mpl4file11access_mode6createE"></span><span id="_CPPv2N3mpl4file11access_mode6createE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8a76ea0bebb3c22822b4f0dd9c9fd021c5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode6createE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>create file it it does not exist </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10no_replaceE">
-<span id="_CPPv3N3mpl4file8openmode10no_replaceE"></span><span id="_CPPv2N3mpl4file8openmode10no_replaceE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582ab5ded1c6210547244a55ffd38b94d972"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_replace</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10no_replaceE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode10no_replaceE">
+<span id="_CPPv3N3mpl4file11access_mode10no_replaceE"></span><span id="_CPPv2N3mpl4file11access_mode10no_replaceE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8ab5ded1c6210547244a55ffd38b94d972"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">no_replace</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode10no_replaceE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>raises an error when file to create already exists </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode15delete_on_closeE">
-<span id="_CPPv3N3mpl4file8openmode15delete_on_closeE"></span><span id="_CPPv2N3mpl4file8openmode15delete_on_closeE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582aa7eb5a740066e6c6e2dbd8e8a0e345f5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">delete_on_close</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode15delete_on_closeE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode15delete_on_closeE">
+<span id="_CPPv3N3mpl4file11access_mode15delete_on_closeE"></span><span id="_CPPv2N3mpl4file11access_mode15delete_on_closeE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8aa7eb5a740066e6c6e2dbd8e8a0e345f5"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">delete_on_close</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode15delete_on_closeE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>delete file when closed </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode11unique_openE">
-<span id="_CPPv3N3mpl4file8openmode11unique_openE"></span><span id="_CPPv2N3mpl4file8openmode11unique_openE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582afcc78bd6e3903ca2391914b49bf4ec40"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unique_open</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode11unique_openE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode11unique_openE">
+<span id="_CPPv3N3mpl4file11access_mode11unique_openE"></span><span id="_CPPv2N3mpl4file11access_mode11unique_openE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8afcc78bd6e3903ca2391914b49bf4ec40"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unique_open</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode11unique_openE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>file not opened concurrently </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode10sequentialE">
-<span id="_CPPv3N3mpl4file8openmode10sequentialE"></span><span id="_CPPv2N3mpl4file8openmode10sequentialE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a6ec7489017b25b5fff20d353b6d2162e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sequential</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode10sequentialE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode10sequentialE">
+<span id="_CPPv3N3mpl4file11access_mode10sequentialE"></span><span id="_CPPv2N3mpl4file11access_mode10sequentialE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8a6ec7489017b25b5fff20d353b6d2162e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sequential</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode10sequentialE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>file will be accessed sequentially </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8openmode6appendE">
-<span id="_CPPv3N3mpl4file8openmode6appendE"></span><span id="_CPPv2N3mpl4file8openmode6appendE"></span><span class="target" id="classmpl_1_1file_1a90b98344c7a7b8f17ff921c111132582a9516dfb15f51c7ee19a4d46b8c0dbe1d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">append</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file8openmode6appendE" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11access_mode6appendE">
+<span id="_CPPv3N3mpl4file11access_mode6appendE"></span><span id="_CPPv2N3mpl4file11access_mode6appendE"></span><span class="target" id="classmpl_1_1file_1a56752adf66c38bd56e5d1cea7ecd41f8a9516dfb15f51c7ee19a4d46b8c0dbe1d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">append</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11access_mode6appendE" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>set initial file position to end of file </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11whence_modeE">
+<span id="_CPPv3N3mpl4file11whence_modeE"></span><span id="_CPPv2N3mpl4file11whence_modeE"></span><span class="target" id="classmpl_1_1file_1a075011877f10bed61dc017a5b5b3e1aa"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">whence_mode</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><a class="headerlink" href="#_CPPv4N3mpl4file11whence_modeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>file pointer positioning mode </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11whence_mode3setE">
+<span id="_CPPv3N3mpl4file11whence_mode3setE"></span><span id="_CPPv2N3mpl4file11whence_mode3setE"></span><span class="target" id="classmpl_1_1file_1a075011877f10bed61dc017a5b5b3e1aaacdaeeeba9b4a4c5ebf042c0215a7bb0e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11whence_mode3setE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>pointer positioning relative to the file’s beginning (absolute pointer positioning) </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11whence_mode7currentE">
+<span id="_CPPv3N3mpl4file11whence_mode7currentE"></span><span id="_CPPv2N3mpl4file11whence_mode7currentE"></span><span class="target" id="classmpl_1_1file_1a075011877f10bed61dc017a5b5b3e1aaa43b5c9175984c071f30b873fdce0a000"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">current</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11whence_mode7currentE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>pointer positioning relative to current position </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11whence_mode3endE">
+<span id="_CPPv3N3mpl4file11whence_mode3endE"></span><span id="_CPPv2N3mpl4file11whence_mode3endE"></span><span class="target" id="classmpl_1_1file_1a075011877f10bed61dc017a5b5b3e1aaa7f021a1415b86f2d013b2618fb31ae53"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">end</span></span></span><a class="headerlink" href="#_CPPv4N3mpl4file11whence_mode3endE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>pointer positioning relative to the file’s end </p>
 </dd></dl>
 
 </dd></dl>
@@ -321,8 +349,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorPKc8openmode">
-<span id="_CPPv3N3mpl4file4fileERK12communicatorPKc8openmode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorPKc8openmode"></span><span id="mpl::file::file__communicatorCR.cCP.openmode"></span><span class="target" id="classmpl_1_1file_1ac04325a4d1f12a817005dfef096c9458"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorPKc8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorPKc11access_mode">
+<span id="_CPPv3N3mpl4file4fileERK12communicatorPKc11access_mode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorPKc11access_mode"></span><span id="mpl::file::file__communicatorCR.cCP.access_mode"></span><span class="target" id="classmpl_1_1file_1a6452ee728956dc980220de0bd2a6640b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorPKc11access_mode" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>constructs and opens a file </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -336,8 +364,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode">
-<span id="_CPPv3N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode"></span><span id="mpl::file::file__communicatorCR.ssCR.openmode"></span><span class="target" id="classmpl_1_1file_1a5ef22667ad93347d045a7732adb7834c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorRKNSt6stringE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorRKNSt6stringE11access_mode">
+<span id="_CPPv3N3mpl4file4fileERK12communicatorRKNSt6stringE11access_mode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorRKNSt6stringE11access_mode"></span><span id="mpl::file::file__communicatorCR.ssCR.access_mode"></span><span class="target" id="classmpl_1_1file_1a5b692075e80c8e6d44a833a6f92f1694"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorRKNSt6stringE11access_mode" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>constructs and opens a file </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -351,8 +379,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode">
-<span id="_CPPv3N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="mpl::file::file__communicatorCR.std::filesystem::pathCR.openmode"></span><span class="target" id="classmpl_1_1file_1aedd6a61bde761f713c306bc34da109fd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">filesystem</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">path</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE11access_mode">
+<span id="_CPPv3N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE11access_mode"></span><span id="_CPPv2N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE11access_mode"></span><span id="mpl::file::file__communicatorCR.std::filesystem::pathCR.access_mode"></span><span class="target" id="classmpl_1_1file_1abb890deecaf22b87e3f7d7cd40ba1a6a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">file</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">filesystem</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">path</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4fileERK12communicatorRKNSt10filesystem4pathE11access_mode" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>constructs and opens a file </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -406,8 +434,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorPKc8openmode">
-<span id="_CPPv3N3mpl4file4openERK12communicatorPKc8openmode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorPKc8openmode"></span><span id="mpl::file::open__communicatorCR.cCP.openmode"></span><span class="target" id="classmpl_1_1file_1a80a60aff24d78290cc76d47d1a75d6ba"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorPKc8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorPKc11access_mode">
+<span id="_CPPv3N3mpl4file4openERK12communicatorPKc11access_mode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorPKc11access_mode"></span><span id="mpl::file::open__communicatorCR.cCP.access_mode"></span><span class="target" id="classmpl_1_1file_1ada61bea2a973de83380d087461d51c0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorPKc11access_mode" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>open a file </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -425,8 +453,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorRKNSt6stringE8openmode">
-<span id="_CPPv3N3mpl4file4openERK12communicatorRKNSt6stringE8openmode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorRKNSt6stringE8openmode"></span><span id="mpl::file::open__communicatorCR.ssCR.openmode"></span><span class="target" id="classmpl_1_1file_1a39457ba1289ad1cdd66e91552013dc8c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorRKNSt6stringE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorRKNSt6stringE11access_mode">
+<span id="_CPPv3N3mpl4file4openERK12communicatorRKNSt6stringE11access_mode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorRKNSt6stringE11access_mode"></span><span id="mpl::file::open__communicatorCR.ssCR.access_mode"></span><span class="target" id="classmpl_1_1file_1a85ab409b35c5bf16038e72353160bb46"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorRKNSt6stringE11access_mode" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>open a file </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -444,8 +472,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode">
-<span id="_CPPv3N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode"></span><span id="mpl::file::open__communicatorCR.std::filesystem::pathCR.openmode"></span><span class="target" id="classmpl_1_1file_1a24bd7b7b7b15bad5542a46c5ecb17858"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">filesystem</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">path</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE8openmode" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE11access_mode">
+<span id="_CPPv3N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE11access_mode"></span><span id="_CPPv2N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE11access_mode"></span><span id="mpl::file::open__communicatorCR.std::filesystem::pathCR.access_mode"></span><span class="target" id="classmpl_1_1file_1ad4ca3147eb8bdb6c2c0ed7c5fd0cce70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">open</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="communicator.html#_CPPv4N3mpl12communicatorE" title="mpl::communicator"><span class="n"><span class="pre">communicator</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">comm</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">filesystem</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">path</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4openERK12communicatorRKNSt10filesystem4pathE11access_mode" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>open a file </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -469,8 +497,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8set_sizeE7ssize_t">
-<span id="_CPPv3N3mpl4file8set_sizeE7ssize_t"></span><span id="_CPPv2N3mpl4file8set_sizeE7ssize_t"></span><span id="mpl::file::set_size__ssize_t"></span><span class="target" id="classmpl_1_1file_1a0069708c6f96c73172afa72373080cb8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_size</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file8set_sizeE7ssize_t" title="Permalink to this definition">#</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file6resizeE7ssize_t">
+<span id="_CPPv3N3mpl4file6resizeE7ssize_t"></span><span id="_CPPv2N3mpl4file6resizeE7ssize_t"></span><span id="mpl::file::resize__ssize_t"></span><span class="target" id="classmpl_1_1file_1a98b232fc30009dc5ecf17dc1dea30281"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">resize</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file6resizeE7ssize_t" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>resize file (shrink or grow as required) </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -503,7 +531,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl4file4modeEv">
-<span id="_CPPv3NK3mpl4file4modeEv"></span><span id="_CPPv2NK3mpl4file4modeEv"></span><span id="mpl::file::modeC"></span><span class="target" id="classmpl_1_1file_1a8a620c044c269d63f8ce4fa6aed6d65a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4file8openmodeE" title="mpl::file::openmode"><span class="n"><span class="pre">openmode</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mode</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4file4modeEv" title="Permalink to this definition">#</a><br /></dt>
+<span id="_CPPv3NK3mpl4file4modeEv"></span><span id="_CPPv2NK3mpl4file4modeEv"></span><span id="mpl::file::modeC"></span><span class="target" id="classmpl_1_1file_1a5347ccb76811948979a9c4a660834ad6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mode</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl4file4modeEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p>get file open-mode </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -523,11 +551,61 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8set_viewEv6size_tRK6layoutI1TEPKc">
-<span id="_CPPv3I0EN3mpl4file8set_viewE6size_tRK6layoutI1TEPKc"></span><span id="_CPPv2I0EN3mpl4file8set_viewE6size_tRK6layoutI1TEPKc"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1ab8ffa8b97382fa25c850590a56396ca0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl6size_tE" title="mpl::size_t"><span class="n"><span class="pre">size_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">displacement</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8set_viewEv6size_tRK6layoutI1TEPKc" title="mpl::file::set_view::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">representation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8set_viewEv6size_tRK6layoutI1TEPKc" title="Permalink to this definition">#</a><br /></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN3mpl4file8set_viewEv7ssize_tRK6layoutI1TEPKc">
+<span id="_CPPv3I0EN3mpl4file8set_viewE7ssize_tRK6layoutI1TEPKc"></span><span id="_CPPv2I0EN3mpl4file8set_viewE7ssize_tRK6layoutI1TEPKc"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1file_1aaa2f63c1317c8925014d4fa28ced9550"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_view</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">displacement</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN3mpl4file8set_viewEv7ssize_tRK6layoutI1TEPKc" title="mpl::file::set_view::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">representation</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN3mpl4file8set_viewEv7ssize_tRK6layoutI1TEPKc" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>set the process’s file view </p>
+<dl class="field-list simple">
 <dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – elementary read/write data type </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>displacement</strong> – beginning of the view in bytes from the beginning of the file </p></li>
+<li><p><strong>l</strong> – layout used in associated i/o operation </p></li>
+<li><p><strong>representation</strong> – data representation, e.g., “native”, “internal” or “external32” </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>status of performed i/o operation </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file4seekE7ssize_t11whence_mode">
+<span id="_CPPv3N3mpl4file4seekE7ssize_t11whence_mode"></span><span id="_CPPv2N3mpl4file4seekE7ssize_t11whence_mode"></span><span id="mpl::file::seek__ssize_t.whence_mode"></span><span class="target" id="classmpl_1_1file_1a9d7cc496ce23e05a0ae4fc9c0f41356d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">seek</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4file11whence_modeE" title="mpl::file::whence_mode"><span class="n"><span class="pre">whence_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">whence</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file4seekE7ssize_t11whence_mode" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>update current individual file pointer </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>offset</strong> – file pointer offset </p></li>
+<li><p><strong>whence</strong> – file pointer positioning mode </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file8positionEv">
+<span id="_CPPv3N3mpl4file8positionEv"></span><span id="_CPPv2N3mpl4file8positionEv"></span><span id="mpl::file::position"></span><span class="target" id="classmpl_1_1file_1a9ffd7c713d161afeb9f04df0e6c2752b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">position</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file8positionEv" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>get current individual file pointer </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>current individual file pointer </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl4file11byte_offsetE7ssize_t">
+<span id="_CPPv3N3mpl4file11byte_offsetE7ssize_t"></span><span id="_CPPv2N3mpl4file11byte_offsetE7ssize_t"></span><span id="mpl::file::byte_offset__ssize_t"></span><span class="target" id="classmpl_1_1file_1af0f0adc86d7f10f4b84ab65d340e3e3b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">byte_offset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="auxiliary.html#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl4file11byte_offsetE7ssize_t" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>get absolute byte position in file </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>offset</strong> – file pointer offset </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>absolute byte position in file that corresponds to the given view-relative offset </p>
 </dd>
 </dl>
 </dd></dl>
@@ -993,8 +1071,104 @@
 </dd></dl>
 
 </div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-friends">Friends</p>
+<dl>
+<dt class="sig sig-object cpp">
+<em class="property"><span class="pre">friend</span> <span class="pre">class</span></em> <span class="pre">group</span></dt>
+</dl>
+
+</div>
 </dd></dl>
 
+</section>
+<section id="file-access-mode-operations">
+<h3>File access mode operations<a class="headerlink" href="#file-access-mode-operations" title="Permalink to this heading">#</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mplorEN4file11access_modeEN4file11access_modeE">
+<span id="_CPPv3N3mplorEN4file11access_modeEN4file11access_modeE"></span><span id="_CPPv2N3mplorEN4file11access_modeEN4file11access_modeE"></span><span id="mpl::or-operator__file::access_mode.file::access_mode"></span><span class="target" id="namespacempl_1ad385701612965aef3a08447408b55b07"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">|</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode1</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mplorEN4file11access_modeEN4file11access_modeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>bit-wise disjunction operator for file access modes </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode1</strong> – 1st access mode </p></li>
+<li><p><strong>mode2</strong> – 2nd access mode </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>combined file access mode </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mploRERN4file11access_modeEN4file11access_modeE">
+<span id="_CPPv3N3mploRERN4file11access_modeEN4file11access_modeE"></span><span id="_CPPv2N3mploRERN4file11access_modeEN4file11access_modeE"></span><span id="mpl::or-assign-operator__file::access_modeR.file::access_mode"></span><span class="target" id="namespacempl_1a412f8b333059da07d71592a7c2e9e099"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">|=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mode1</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mploRERN4file11access_modeEN4file11access_modeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>bit-wise disjunction assignment operator for file access modes </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode1</strong> – 1st access mode </p></li>
+<li><p><strong>mode2</strong> – 2nd access mode </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>combined file access mode </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mplanEN4file11access_modeEN4file11access_modeE">
+<span id="_CPPv3N3mplanEN4file11access_modeEN4file11access_modeE"></span><span id="_CPPv2N3mplanEN4file11access_modeEN4file11access_modeE"></span><span id="mpl::and-operator__file::access_mode.file::access_mode"></span><span class="target" id="namespacempl_1ac98b7b08b2fd87125e5c1916c92c131c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&amp;</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode1</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mplanEN4file11access_modeEN4file11access_modeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>bit-wise conjunction operator for file access modes </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode1</strong> – 1st access mode </p></li>
+<li><p><strong>mode2</strong> – 2nd access mode </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>combined file access mode </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mplaNERN4file11access_modeEN4file11access_modeE">
+<span id="_CPPv3N3mplaNERN4file11access_modeEN4file11access_modeE"></span><span id="_CPPv2N3mplaNERN4file11access_modeEN4file11access_modeE"></span><span id="mpl::and-assign-operator__file::access_modeR.file::access_mode"></span><span class="target" id="namespacempl_1a9087e191c8bc6616532e7e33ac1545a9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">&amp;=</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mode1</span></span>, <a class="reference internal" href="#_CPPv4N3mpl4fileE" title="mpl::file"><span class="n"><span class="pre">file</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N3mpl4file11access_modeE" title="mpl::file::access_mode"><span class="n"><span class="pre">access_mode</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">mode2</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mplaNERN4file11access_modeEN4file11access_modeE" title="Permalink to this definition">#</a><br /></dt>
+<dd><p>bit-wise conjunction assignment operator for file access modes </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode1</strong> – 1st access mode </p></li>
+<li><p><strong>mode2</strong> – 2nd access mode </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>combined file access mode </p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="error-handling">
+<h3>Error handling<a class="headerlink" href="#error-handling" title="Permalink to this heading">#</a></h3>
+<p>Methods of <code class="docutils literal notranslate"><span class="pre">mpl::file</span></code> class may throw an exception of the type <code class="docutils literal notranslate"><span class="pre">mpl::io_failure</span></code> in the case of run-time i/o failures.  Thus, file operations should be wrapped into a <code class="docutils literal notranslate"><span class="pre">try</span></code> block and possible exceptions should be caught in a matching <code class="docutils literal notranslate"><span class="pre">catch</span></code> clause as demonstrated in the following example:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">mpl</span><span class="o">::</span><span class="n">file</span><span class="w"> </span><span class="n">file</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="n">file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">comm_world</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;file_name.bin&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="n">mpl</span><span class="o">::</span><span class="n">file</span><span class="o">::</span><span class="n">access_mode</span><span class="o">::</span><span class="n">create</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">file</span><span class="o">::</span><span class="n">access_mode</span><span class="o">::</span><span class="n">read_write</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// further file operations</span>
+<span class="w">  </span><span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">mpl</span><span class="o">::</span><span class="n">io_failure</span><span class="w"> </span><span class="o">&amp;</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="c1">// catch and handle i/o failures</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -1062,7 +1236,12 @@
             <ul>
 <li><a class="reference internal" href="#">File</a><ul>
 <li><a class="reference internal" href="#overview">Overview</a></li>
-<li><a class="reference internal" href="#class-documentation">Class documentation</a></li>
+<li><a class="reference internal" href="#class-documentation">Class documentation</a><ul>
+<li><a class="reference internal" href="#file-class">File class</a></li>
+<li><a class="reference internal" href="#file-access-mode-operations">File access mode operations</a></li>
+<li><a class="reference internal" href="#error-handling">Error handling</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

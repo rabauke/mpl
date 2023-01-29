@@ -23,6 +23,8 @@ namespace mpl {
 
   class inter_communicator;
 
+  class file;
+
   namespace environment::detail {
 
     class env;
@@ -114,6 +116,11 @@ namespace mpl {
     /// given inter-communicator.
     /// \param comm the inter-communicator
     explicit group(const inter_communicator &comm);
+
+    /// Creates a new group that consists of all processes of the local group of the
+    /// given %file.
+    /// \param f the file
+    explicit group(const file &f);
 
     /// Creates a new group that consists of the union of two existing process groups.
     /// \param tag indicates the unification of two existing process groups

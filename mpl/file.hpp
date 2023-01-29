@@ -16,7 +16,8 @@ namespace mpl {
     MPI_File file_{MPI_FILE_NULL};
 
   public:
-    enum class openmode : int {
+    /// %file access mode
+    enum class access_mode : int {
       read_only = MPI_MODE_RDONLY,   ///< read-only file access
       read_write = MPI_MODE_RDWR,    ///< read and write file access
       write_only = MPI_MODE_WRONLY,  ///< write-only file access
@@ -28,6 +29,13 @@ namespace mpl {
       append = MPI_MODE_APPEND                     ///< set initial file position to end of file
     };
 
+    /// %file pointer positioning mode
+    enum class whence_mode : int {
+      set = MPI_SEEK_SET,      ///< pointer positioning relative to the file's beginning (absolute pointer positioning)
+      current = MPI_SEEK_CUR,  ///< pointer positioning relative to current position
+      end = MPI_SEEK_END       ///< pointer positioning relative to the file's end
+    };
+
     /// default constructor
     file() = default;
 
@@ -35,7 +43,7 @@ namespace mpl {
     /// \param comm communicator
     /// \param name file name
     /// \param mode file open-mode
-    explicit file(const communicator &comm, const char *name, openmode mode) {
+    explicit file(const communicator &comm, const char *name, access_mode mode) {
       open(comm, name, mode);
     }
 
@@ -43,7 +51,7 @@ namespace mpl {
     /// \param comm communicator
     /// \param name file name
     /// \param mode file open-mode
-    explicit file(const communicator &comm, const std::string &name, openmode mode) {
+    explicit file(const communicator &comm, const std::string &name, access_mode mode) {
       open(comm, name, mode);
     }
 
@@ -51,7 +59,8 @@ namespace mpl {
     /// \param comm communicator
     /// \param name file name
     /// \param mode file open-mode
-    explicit file(const communicator &comm, const std::filesystem::path &name, openmode mode) {
+    explicit file(const communicator &comm, const std::filesystem::path &name,
+                  access_mode mode) {
       open(comm, name, mode);
     }
 
@@ -90,8 +99,8 @@ namespace mpl {
     /// \param mode file open-mode
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void open(const communicator &comm, const char *name, openmode mode) {
-      using int_type = std::underlying_type_t<file::openmode>;
+    void open(const communicator &comm, const char *name, access_mode mode) {
+      using int_type = std::underlying_type_t<file::access_mode>;
       const int err{
           MPI_File_open(comm.comm_, name, static_cast<int_type>(mode), MPI_INFO_NULL, &file_)};
       if (err != MPI_SUCCESS)
@@ -104,8 +113,8 @@ namespace mpl {
     /// \param mode file open-mode
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void open(const communicator &comm, const std::string &name, openmode mode) {
-      using int_type = std::underlying_type_t<file::openmode>;
+    void open(const communicator &comm, const std::string &name, access_mode mode) {
+      using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
                                   MPI_INFO_NULL, &file_)};
       if (err != MPI_SUCCESS)
@@ -118,8 +127,8 @@ namespace mpl {
     /// \param mode file open-mode
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void open(const communicator &comm, const std::filesystem::path &name, openmode mode) {
-      using int_type = std::underlying_type_t<file::openmode>;
+    void open(const communicator &comm, const std::filesystem::path &name, access_mode mode) {
+      using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
                                   MPI_INFO_NULL, &file_)};
       if (err != MPI_SUCCESS)
@@ -135,7 +144,7 @@ namespace mpl {
 
     /// resize file (shrink or grow as required)
     /// \param size file size in bytes
-    void set_size(ssize_t size) {
+    void resize(ssize_t size) {
       const int err{MPI_File_set_size(file_, size)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
@@ -161,12 +170,12 @@ namespace mpl {
 
     /// get file open-mode
     /// \return file open-mode
-    [[nodiscard]] openmode mode() const {
+    [[nodiscard]] access_mode mode() const {
       int mode{0};
       const int err{MPI_File_get_amode(file_, &mode)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
-      return static_cast<openmode>(mode);
+      return static_cast<access_mode>(mode);
     }
 
     /// flush write buffers and write pending data to device
@@ -178,14 +187,53 @@ namespace mpl {
         throw io_failure(err);
     }
 
-    template<typename T>
+    /// set the process's file view
     /// \tparam T elementary read/write data type
-    void set_view(size_t displacement, const layout<T> &l, const char *representation) {
+    /// \param displacement beginning of the view in bytes from the beginning of the file
+    /// \param l layout used in associated i/o operation
+    /// \param representation data representation, e.g., "native", "internal" or "external32"
+    /// \return status of performed i/o operation
+    template<typename T>
+    void set_view(ssize_t displacement, const layout<T> &l, const char *representation) {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
           detail::datatype_traits<layout<T>>::get_datatype(l), representation, MPI_INFO_NULL)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
+    }
+
+    /// update current individual %file pointer
+    /// \param offset %file pointer offset
+    /// \param whence %file pointer positioning mode
+    void seek(ssize_t offset, whence_mode whence) {
+      const int err{
+        MPI_File_seek(file_, offset, static_cast<int>(whence))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// get current individual %file pointer
+    /// \return current individual %file pointer
+    ssize_t position() {
+      MPI_Offset offset{0};
+      const int err{
+        MPI_File_get_position(file_, &offset)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return offset;
+    }
+
+    /// get absolute byte position in %file
+    /// \param offset %file pointer offset
+    /// \return absolute byte position in %file that corresponds to the given view-relative
+    /// offset
+    ssize_t byte_offset(ssize_t offset) {
+      MPI_Offset displ{0};
+      const int err{
+        MPI_File_get_byte_offset(file_, offset, &displ)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return displ;
     }
 
     /// read data from file, blocking, non-collective, explicit offset
@@ -552,21 +600,59 @@ namespace mpl {
         throw io_failure(err);
       return impl::base_irequest{req};
     }
+
+    friend class group;
   };
 
 
-  inline file::openmode operator|(file::openmode mode1, file::openmode mode2) {
-    using int_type = std::underlying_type_t<file::openmode>;
-    return static_cast<file::openmode>(static_cast<int_type>(mode1) |
-                                       static_cast<int_type>(mode2));
+  /// bit-wise disjunction operator for %file access modes
+  /// \param mode1 1st access mode
+  /// \param mode2 2nd access mode
+  /// \return combined %file access mode
+  inline file::access_mode operator|(file::access_mode mode1, file::access_mode mode2) {
+    using int_type = std::underlying_type_t<file::access_mode>;
+    return static_cast<file::access_mode>(static_cast<int_type>(mode1) |
+                                          static_cast<int_type>(mode2));
   }
 
 
-  inline file::openmode &operator|=(file::openmode &mode1, file::openmode mode2) {
-    using int_type = std::underlying_type_t<file::openmode>;
-    mode1 = static_cast<file::openmode>(static_cast<int_type>(mode1) |
-                                        static_cast<int_type>(mode2));
+  /// bit-wise disjunction assignment operator for %file access modes
+  /// \param mode1 1st access mode
+  /// \param mode2 2nd access mode
+  /// \return combined %file access mode
+  inline file::access_mode &operator|=(file::access_mode &mode1, file::access_mode mode2) {
+    using int_type = std::underlying_type_t<file::access_mode>;
+    mode1 = static_cast<file::access_mode>(static_cast<int_type>(mode1) |
+                                           static_cast<int_type>(mode2));
     return mode1;
+  }
+
+
+  /// bit-wise conjunction operator for %file access modes
+  /// \param mode1 1st access mode
+  /// \param mode2 2nd access mode
+  /// \return combined %file access mode
+  inline file::access_mode operator&(file::access_mode mode1, file::access_mode mode2) {
+    using int_type = std::underlying_type_t<file::access_mode>;
+    return static_cast<file::access_mode>(static_cast<int_type>(mode1) &
+                                          static_cast<int_type>(mode2));
+  }
+
+
+  /// bit-wise conjunction assignment operator for %file access modes
+  /// \param mode1 1st access mode
+  /// \param mode2 2nd access mode
+  /// \return combined %file access mode
+  inline file::access_mode &operator&=(file::access_mode &mode1, file::access_mode mode2) {
+    using int_type = std::underlying_type_t<file::access_mode>;
+    mode1 = static_cast<file::access_mode>(static_cast<int_type>(mode1) &
+                                           static_cast<int_type>(mode2));
+    return mode1;
+  }
+
+
+  inline group::group(const file &f) {
+    MPI_File_get_group(f.file_, &gr_);
   }
 
 }  // namespace mpl

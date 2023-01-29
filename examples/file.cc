@@ -9,8 +9,8 @@ int main() {
 
   mpl::file file;
   try {
-    file.open(comm_world, "/test",
-              mpl::file::openmode::create | mpl::file::openmode::read_write);
+    file.open(comm_world, "test.bin",
+              mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     file.preallocate(1024);
     mpl::strided_vector_layout<std::uint8_t> l(256, 1, 2);
     mpl::vector_layout<std::uint8_t> l_v(256);
@@ -22,8 +22,7 @@ int main() {
       file.write_at(8, v.data(), l_v);
     }
     file.close();
-  }
-  catch (mpl::error &error) {
+  } catch (mpl::error &error) {
     std::cerr << error.what() << '\n';
   }
   return EXIT_SUCCESS;
