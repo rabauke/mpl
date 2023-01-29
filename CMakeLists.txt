@@ -5,8 +5,10 @@ cmake_minimum_required(VERSION 3.9)
 # but semantic versioning should be considered
 project(mpl VERSION 0.2.1 LANGUAGES CXX C)
 
+if(NOT DEFINED CACHE{BUILD_TESTING})
+  set(BUILD_TESTING OFF CACHE BOOL "")
+endif()
 include(CTest)
-set(BUILD_TESTING OFF)
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 
