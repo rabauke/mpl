@@ -31,7 +31,8 @@ namespace mpl {
 
     /// %file pointer positioning mode
     enum class whence_mode : int {
-      set = MPI_SEEK_SET,      ///< pointer positioning relative to the file's beginning (absolute pointer positioning)
+      set =
+          MPI_SEEK_SET,  ///< pointer positioning relative to the file's beginning (absolute pointer positioning)
       current = MPI_SEEK_CUR,  ///< pointer positioning relative to current position
       end = MPI_SEEK_END       ///< pointer positioning relative to the file's end
     };
@@ -206,8 +207,7 @@ namespace mpl {
     /// \param offset %file pointer offset
     /// \param whence %file pointer positioning mode
     void seek(ssize_t offset, whence_mode whence) {
-      const int err{
-        MPI_File_seek(file_, offset, static_cast<int>(whence))};
+      const int err{MPI_File_seek(file_, offset, static_cast<int>(whence))};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -216,8 +216,7 @@ namespace mpl {
     /// \return current individual %file pointer
     ssize_t position() {
       MPI_Offset offset{0};
-      const int err{
-        MPI_File_get_position(file_, &offset)};
+      const int err{MPI_File_get_position(file_, &offset)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return offset;
@@ -229,8 +228,7 @@ namespace mpl {
     /// offset
     ssize_t byte_offset(ssize_t offset) {
       MPI_Offset displ{0};
-      const int err{
-        MPI_File_get_byte_offset(file_, offset, &displ)};
+      const int err{MPI_File_get_byte_offset(file_, offset, &displ)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return displ;
@@ -269,67 +267,6 @@ namespace mpl {
       return s;
     }
 
-    /// read data from file, blocking, non-collective, individual file-pointer based
-    /// \tparam T read data type
-    /// \param data value to read
-    /// \return status of performed i/o operation
-    template<typename T>
-    status_t read(T &data) {
-      status_t s;
-      const int err{MPI_File_read(file_, &data, 1, detail::datatype_traits<T>::get_datatype(),
-                                  static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return s;
-    }
-
-    /// read data from file, blocking, non-collective, individual file-pointer based
-    /// \tparam T read data type
-    /// \param data pointer to the data to read
-    /// \param l layout used in associated i/o operation
-    /// \return status of performed i/o operation
-    template<typename T>
-    status_t read(T *data, const layout<T> &l) {
-      status_t s;
-      const int err{MPI_File_read(file_, data, 1,
-                                  detail::datatype_traits<layout<T>>::get_datatype(l),
-                                  static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return s;
-    }
-
-    /// read data from file, blocking, non-collective, shared file-pointer based
-    /// \tparam T read data type
-    /// \param data value to read
-    /// \return status of performed i/o operation
-    template<typename T>
-    status_t read_shared(T &data) {
-      status_t s;
-      const int err{MPI_File_read_shared(file_, &data, 1,
-                                         detail::datatype_traits<T>::get_datatype(),
-                                         static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return s;
-    }
-
-    /// read data from file, blocking, non-collective, shared file-pointer based
-    /// \tparam T read data type
-    /// \param data pointer to the data to read
-    /// \param l layout used in associated i/o operation
-    /// \return status of performed i/o operation
-    template<typename T>
-    status_t read_shared(T *data, const layout<T> &l) {
-      status_t s;
-      const int err{MPI_File_read_shared(file_, data, 1,
-                                         detail::datatype_traits<layout<T>>::get_datatype(l),
-                                         static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return s;
-    }
-
     /// write data to file, blocking, non-collective, explicit offset
     /// \tparam T write data type
     /// \param offset file offset in bytes
@@ -358,6 +295,98 @@ namespace mpl {
       const int err{MPI_File_write_at(file_, offset, data, 1,
                                       detail::datatype_traits<layout<T>>::get_datatype(l),
                                       static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, non-blocking, non-collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data value to read
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_at(ssize_t offset, T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iread_at(file_, offset, &data, 1,
+                                      detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, non-blocking, non-collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_at(ssize_t offset, T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_iread_at(
+          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// write data to file, non-blocking, non-collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data value to write
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iwrite_at(ssize_t offset, const T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iwrite_at(file_, offset, &data, 1,
+                                       detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// write data to file, non-blocking, non-collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iwrite_at(ssize_t offset, const T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_iwrite_at(
+          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, blocking, non-collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read(T &data) {
+      status_t s;
+      const int err{MPI_File_read(file_, &data, 1, detail::datatype_traits<T>::get_datatype(),
+                                  static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, non-collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read(T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read(file_, data, 1,
+                                  detail::datatype_traits<layout<T>>::get_datatype(l),
+                                  static_cast<MPI_Status *>(&s))};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return s;
@@ -393,67 +422,6 @@ namespace mpl {
       return s;
     }
 
-    /// write data to file, blocking, non-collective, shared file-pointer based
-    /// \tparam T write data type
-    /// \param data value to write
-    /// \return status of performed i/o operation
-    template<typename T>
-    status_t write_shared(const T &data) {
-      status_t s;
-      const int err{MPI_File_write(file_, &data, 1, detail::datatype_traits<T>::get_datatype(),
-                                   static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return s;
-    }
-
-    /// write data to file, blocking, non-collective, shred file-pointer based
-    /// \tparam T write data type
-    /// \param data pointer to the data to write
-    /// \param l layout used in associated i/o operation
-    /// \return status of performed i/o operation
-    template<typename T>
-    status_t write_shared(const T *data, const layout<T> &l) {
-      status_t s;
-      const int err{MPI_File_write(file_, data, 1,
-                                   detail::datatype_traits<layout<T>>::get_datatype(l),
-                                   static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return s;
-    }
-
-    /// read data from file, non-blocking, non-collective, explicit offset
-    /// \tparam T read data type
-    /// \param offset file offset in bytes
-    /// \param data value to read
-    /// \return request representing the ongoing i/o operation
-    template<typename T>
-    irequest iread_at(ssize_t offset, T &data) {
-      MPI_Request req;
-      const int err{MPI_File_iread_at(file_, offset, &data, 1,
-                                      detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return impl::base_irequest{req};
-    }
-
-    /// read data from file, non-blocking, non-collective, explicit offset
-    /// \tparam T read data type
-    /// \param offset file offset in bytes
-    /// \param data pointer to the data to read
-    /// \param l layout used in associated i/o operation
-    /// \return request representing the ongoing i/o operation
-    template<typename T>
-    irequest iread_at(ssize_t offset, T *data, const layout<T> &l) {
-      MPI_Request req;
-      const int err{MPI_File_read_at(
-          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return impl::base_irequest{req};
-    }
-
     /// read data from file, non-blocking, non-collective, individual file-pointer based
     /// \tparam T read data type
     /// \param data value to read
@@ -462,7 +430,7 @@ namespace mpl {
     irequest iread(T &data) {
       MPI_Request req;
       const int err{
-          MPI_File_read(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
+          MPI_File_iread(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return impl::base_irequest{req};
@@ -476,68 +444,8 @@ namespace mpl {
     template<typename T>
     irequest iread(T *data, const layout<T> &l) {
       MPI_Request req;
-      const int err{MPI_File_read(file_, data, 1,
-                                  detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return impl::base_irequest{req};
-    }
-
-    /// read data from file, non-blocking, non-collective, shared file-pointer based
-    /// \tparam T read data type
-    /// \param data value to read
-    /// \return request representing the ongoing i/o operation
-    template<typename T>
-    irequest iread_shared(T &data) {
-      MPI_Request req;
-      const int err{MPI_File_read_shared(file_, &data, 1,
-                                         detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return impl::base_irequest{req};
-    }
-
-    /// read data from file, non-blocking, non-collective, shared file-pointer based
-    /// \tparam T read data type
-    /// \param data pointer to the data to read
-    /// \param l layout used in associated i/o operation
-    /// \return request representing the ongoing i/o operation
-    template<typename T>
-    irequest iread_shared(T *data, const layout<T> &l) {
-      MPI_Request req;
-      const int err{MPI_File_read_shared(
-          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return impl::base_irequest{req};
-    }
-
-    /// write data to file, non-blocking, non-collective, explicit offset
-    /// \tparam T write data type
-    /// \param offset file offset in bytes
-    /// \param data value to write
-    /// \return request representing the ongoing i/o operation
-    template<typename T>
-    irequest iwrite_at(ssize_t offset, const T &data) {
-      MPI_Request req;
-      const int err{MPI_File_write_at(file_, offset, &data, 1,
-                                      detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
-      return impl::base_irequest{req};
-    }
-
-    /// write data to file, non-blocking, non-collective, explicit offset
-    /// \tparam T write data type
-    /// \param offset file offset in bytes
-    /// \param data pointer to the data to write
-    /// \param l layout used in associated i/o operation
-    /// \return request representing the ongoing i/o operation
-    template<typename T>
-    irequest iwrite_at(ssize_t offset, const T *data, const layout<T> &l) {
-      MPI_Request req;
-      const int err{MPI_File_write_at(
-          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      const int err{MPI_File_iread(file_, data, 1,
+                                   detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return impl::base_irequest{req};
@@ -551,7 +459,7 @@ namespace mpl {
     irequest iwrite(const T &data) {
       MPI_Request req;
       const int err{
-          MPI_File_write(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
+          MPI_File_iwrite(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return impl::base_irequest{req};
@@ -565,8 +473,99 @@ namespace mpl {
     template<typename T>
     irequest iwrite(const T *data, const layout<T> &l) {
       MPI_Request req;
-      const int err{MPI_File_write(file_, data, 1,
-                                   detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      const int err{MPI_File_iwrite(file_, data, 1,
+                                    detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, blocking, non-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_shared(T &data) {
+      status_t s;
+      const int err{MPI_File_read_shared(file_, &data, 1,
+                                         detail::datatype_traits<T>::get_datatype(),
+                                         static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, non-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_shared(T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_shared(file_, data, 1,
+                                         detail::datatype_traits<layout<T>>::get_datatype(l),
+                                         static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, non-collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_shared(const T &data) {
+      status_t s;
+      const int err{MPI_File_write_shared(file_, &data, 1,
+                                          detail::datatype_traits<T>::get_datatype(),
+                                          static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, non-collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_shared(const T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_write_shared(file_, data, 1,
+                                          detail::datatype_traits<layout<T>>::get_datatype(l),
+                                          static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, non-blocking, non-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_shared(T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iread_shared(file_, &data, 1,
+                                          detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, non-blocking, non-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_shared(T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_iread_shared(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return impl::base_irequest{req};
@@ -579,14 +578,14 @@ namespace mpl {
     template<typename T>
     irequest iwrite_shared(const T &data) {
       MPI_Request req;
-      const int err{
-          MPI_File_write(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
+      const int err{MPI_File_iwrite_shared(file_, &data, 1,
+                                           detail::datatype_traits<T>::get_datatype(), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return impl::base_irequest{req};
     }
 
-    /// write data to file, non-blocking, non-collective, shred file-pointer based
+    /// write data to file, non-blocking, non-collective, shared file-pointer based
     /// \tparam T write data type
     /// \param data pointer to the data to write
     /// \param l layout used in associated i/o operation
@@ -594,11 +593,622 @@ namespace mpl {
     template<typename T>
     irequest iwrite_shared(const T *data, const layout<T> &l) {
       MPI_Request req;
-      const int err{MPI_File_write(file_, data, 1,
-                                   detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      const int err{MPI_File_iwrite_shared(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return impl::base_irequest{req};
+    }
+
+    /// read data from file, blocking, collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_at_all(ssize_t offset, T &data) {
+      status_t s;
+      const int err{MPI_File_read_at_all(file_, offset, &data, 1,
+                                         detail::datatype_traits<T>::get_datatype(),
+                                         static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_at_all(ssize_t offset, T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_at_all(file_, offset, data, 1,
+                                         detail::datatype_traits<layout<T>>::get_datatype(l),
+                                         static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_at_all(ssize_t offset, const T &data) {
+      status_t s;
+      const int err{MPI_File_write_at_all(file_, offset, &data, 1,
+                                          detail::datatype_traits<T>::get_datatype(),
+                                          static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_at_all(ssize_t offset, const T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_write_at_all(file_, offset, data, 1,
+                                          detail::datatype_traits<layout<T>>::get_datatype(l),
+                                          static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, non-blocking, collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data value to read
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_at_all(ssize_t offset, T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iread_at_all(file_, offset, &data, 1,
+                                          detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, non-blocking, collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_at_all(ssize_t offset, T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_read_at_all(
+          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// write data to file, non-blocking, collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data value to write
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iwrite_at_all(ssize_t offset, const T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iwrite_at_all(file_, offset, &data, 1,
+                                           detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// write data to file, non-blocking, collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iwrite_at_all(ssize_t offset, const T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_iwrite_at_all(
+          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, blocking, collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_all(T &data) {
+      status_t s;
+      const int err{MPI_File_read_all(file_, &data, 1,
+                                      detail::datatype_traits<T>::get_datatype(),
+                                      static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_all(T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_all(file_, data, 1,
+                                      detail::datatype_traits<layout<T>>::get_datatype(l),
+                                      static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_all(const T &data) {
+      status_t s;
+      const int err{MPI_File_write_all(file_, &data, 1,
+                                       detail::datatype_traits<T>::get_datatype(),
+                                       static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_all(const T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_write_all(file_, data, 1,
+                                       detail::datatype_traits<layout<T>>::get_datatype(l),
+                                       static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, non-blocking, collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_all(T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iread_all(file_, &data, 1,
+                                       detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, non-blocking, collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iread_all(T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_iread_all(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// write data to file, non-blocking, collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iwrite_all(const T &data) {
+      MPI_Request req;
+      const int err{MPI_File_iwrite_all(file_, &data, 1,
+                                        detail::datatype_traits<T>::get_datatype(), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// write data to file, non-blocking, collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return request representing the ongoing i/o operation
+    template<typename T>
+    irequest iwrite_all(const T *data, const layout<T> &l) {
+      MPI_Request req;
+      const int err{MPI_File_iwrite_all(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return impl::base_irequest{req};
+    }
+
+    /// read data from file, blocking, collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_ordered(T &data) {
+      status_t s;
+      const int err{MPI_File_read_ordered(file_, &data, 1,
+                                          detail::datatype_traits<T>::get_datatype(),
+                                          static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_ordered(T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_ordered(file_, data, 1,
+                                          detail::datatype_traits<layout<T>>::get_datatype(l),
+                                          static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_ordered(const T &data) {
+      status_t s;
+      const int err{MPI_File_write_ordered(file_, &data, 1,
+                                           detail::datatype_traits<T>::get_datatype(),
+                                           static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_ordered(const T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_write_ordered(file_, data, 1,
+                                           detail::datatype_traits<layout<T>>::get_datatype(l),
+                                           static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, split-collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data value to read
+    template<typename T>
+    void read_at_all_begin(ssize_t offset, T &data) {
+      const int err{MPI_File_read_at_all_begin(file_, offset, &data, 1,
+                                               detail::datatype_traits<T>::get_datatype())};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// read data from file, blocking, split-collective, explicit offset
+    /// \tparam T read data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    template<typename T>
+    void read_at_all_begin(ssize_t offset, T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_at_all_begin(
+          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// finish reading data from file, blocking, split-collective, explicit offset
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_at_all_end(T &data) {
+      status_t s;
+      const int err{MPI_File_read_at_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// finish reading data from file, blocking, split-collective, explicit offset
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_at_all_end(T *data) {
+      status_t s;
+      const int err{MPI_File_read_at_all_end(file_, data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, split-collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data value to write
+    template<typename T>
+    void write_at_all_begin(ssize_t offset, const T &data) {
+      const int err{MPI_File_write_at_all_begin(file_, offset, &data, 1,
+                                                detail::datatype_traits<T>::get_datatype())};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// write data to file, blocking, split-collective, explicit offset
+    /// \tparam T write data type
+    /// \param offset file offset in bytes
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    template<typename T>
+    status_t write_at_all_begin(ssize_t offset, const T *data, const layout<T> &l) {
+      const int err{MPI_File_write_at_all(file_, offset, data, 1,
+                                          detail::datatype_traits<layout<T>>::get_datatype(l))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// finish writing data to file, blocking, split-collective, explicit offset
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_at_all_end(const T &data) {
+      status_t s;
+      const int err{MPI_File_write_at_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// finish writing data to file, blocking, split-collective, explicit offset
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_at_all_end(const T *data) {
+      status_t s;
+      const int err{MPI_File_write_at_all_end(file_, data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, split-collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    template<typename T>
+    void read_all_begin(T &data) {
+      const int err{
+          MPI_File_read_all_begin(file_, &data, 1, detail::datatype_traits<T>::get_datatype())};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// read data from file, blocking, split-collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    template<typename T>
+    void read_all_begin(T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_all_begin(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// finish reading data from file, blocking, split-collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_all_end(T &data) {
+      status_t s;
+      const int err{MPI_File_read_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// finish reading data from file, blocking, split-collective, individual file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_all_end(T *data) {
+      status_t s;
+      const int err{MPI_File_read_all_end(file_, data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, split-collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    template<typename T>
+    void write_all_begin(const T &data) {
+      const int err{MPI_File_write_all_begin(file_, &data, 1,
+                                             detail::datatype_traits<T>::get_datatype())};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// write data to file, blocking, split-collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    template<typename T>
+    status_t write_all_begin(const T *data, const layout<T> &l) {
+      const int err{MPI_File_write_all(file_, data, 1,
+                                       detail::datatype_traits<layout<T>>::get_datatype(l))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// finish writing data to file, blocking, split-collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_all_end(const T &data) {
+      status_t s;
+      const int err{MPI_File_write_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// finish writing data to file, blocking, split-collective, individual file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_all_end(const T *data) {
+      status_t s;
+      const int err{MPI_File_write_all_end(file_, data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// read data from file, blocking, split-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    template<typename T>
+    void read_ordered_begin(T &data) {
+      const int err{MPI_File_read_ordered_begin(file_, &data, 1,
+                                                detail::datatype_traits<T>::get_datatype())};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// read data from file, blocking, split-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \param l layout used in associated i/o operation
+    template<typename T>
+    void read_ordered_begin(T *data, const layout<T> &l) {
+      status_t s;
+      const int err{MPI_File_read_ordered_begin(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// finish reading data from file, blocking, split-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data value to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_ordered_end(T &data) {
+      status_t s;
+      const int err{MPI_File_read_ordered_end(file_, &data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// finish reading data from file, blocking, split-collective, shared file-pointer based
+    /// \tparam T read data type
+    /// \param data pointer to the data to read
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t read_ordered_end(T *data) {
+      status_t s;
+      const int err{MPI_File_read_ordered_end(file_, data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// write data to file, blocking, split-collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    template<typename T>
+    void write_ordered_begin(const T &data) {
+      const int err{MPI_File_write_ordered_begin(file_, &data, 1,
+                                                 detail::datatype_traits<T>::get_datatype())};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// write data to file, blocking, split-collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \param l layout used in associated i/o operation
+    template<typename T>
+    status_t write_ordered_begin(const T *data, const layout<T> &l) {
+      const int err{MPI_File_write_all(file_, data, 1,
+                                       detail::datatype_traits<layout<T>>::get_datatype(l))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// finish writing data to file, blocking, split-collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data value to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_ordered_end(const T &data) {
+      status_t s;
+      const int err{MPI_File_write_ordered_end(file_, &data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
+    }
+
+    /// finish writing data to file, blocking, split-collective, shared file-pointer based
+    /// \tparam T write data type
+    /// \param data pointer to the data to write
+    /// \return status of performed i/o operation
+    template<typename T>
+    status_t write_ordered_end(const T *data) {
+      status_t s;
+      const int err{MPI_File_write_ordered_end(file_, data, static_cast<MPI_Status *>(&s))};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return s;
     }
 
     friend class group;
