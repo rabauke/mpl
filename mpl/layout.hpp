@@ -69,7 +69,7 @@ namespace mpl {
     class base_communicator;
     class topology_communicator;
 
-  }
+  }  // namespace impl
 
   //--------------------------------------------------------------------
 
@@ -89,7 +89,8 @@ namespace mpl {
 
   public:
     /// Default constructor creates a layout of zero objects.
-    layout() : type_(MPI_DATATYPE_NULL) {}
+    layout() : type_(MPI_DATATYPE_NULL) {
+    }
 
     /// Copy constructor creates a new layout that describes the same memory layout as
     /// the other one.
@@ -102,7 +103,9 @@ namespace mpl {
     /// Move constructor creates a new layout that describes the same memory layout as
     /// the other one.
     /// \param l the layout to move from
-    layout(layout &&l) noexcept : type_(l.type_) { l.type_ = MPI_DATATYPE_NULL; }
+    layout(layout &&l) noexcept : type_(l.type_) {
+      l.type_ = MPI_DATATYPE_NULL;
+    }
 
     /// Copy assignment operator creates a new layout that describes the same memory
     /// layout as the other one.
@@ -138,7 +141,9 @@ namespace mpl {
     /// may be useful when refactoring legacy MPI applications to MPL.
     /// \warning The handle must not be used to modify the MPI data type that the handle points
     /// to.
-    [[nodiscard]] MPI_Datatype native_handle() const { return type_; }
+    [[nodiscard]] MPI_Datatype native_handle() const {
+      return type_;
+    }
 
     /// Get the byte extent of the layout.
     /// \return the extent in bytes
@@ -187,7 +192,7 @@ namespace mpl {
     [[nodiscard]] ssize_t extent() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{byte_extent()};
-      if (res / sizeof(T) * sizeof(T) != res)
+      if (static_cast<ssize_t>(res / sizeof(T) * sizeof(T)) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
@@ -200,7 +205,7 @@ namespace mpl {
     [[nodiscard]] ssize_t lower_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{byte_lower_bound()};
-      if (res / sizeof(T) * sizeof(T) != res)
+      if (static_cast<ssize_t>(res / sizeof(T) * sizeof(T)) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
@@ -213,7 +218,7 @@ namespace mpl {
     [[nodiscard]] ssize_t upper_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
       const ssize_t res{byte_upper_bound()};
-      if (res / sizeof(T) * sizeof(T) != res)
+      if (static_cast<ssize_t>(res / sizeof(T) * sizeof(T)) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
@@ -320,7 +325,9 @@ namespace mpl {
 
     /// Swap with other layout.
     /// \param l other layout
-    void swap(layout &l) { std::swap(type_, l.type_); }
+    void swap(layout &l) {
+      std::swap(type_, l.type_);
+    }
 
     /// Destroy layout.
     ~layout() {
@@ -372,16 +379,20 @@ namespace mpl {
 
   public:
     /// default constructor
-    null_layout() noexcept : layout<T>(MPI_DATATYPE_NULL) {}
+    null_layout() noexcept : layout<T>(MPI_DATATYPE_NULL) {
+    }
 
     /// copy constructor
-    null_layout([[maybe_unused]] const null_layout &l) noexcept : null_layout() {}
+    null_layout([[maybe_unused]] const null_layout &l) noexcept : null_layout() {
+    }
 
-    null_layout([[maybe_unused]] null_layout &&l) noexcept : null_layout() {}
+    null_layout([[maybe_unused]] null_layout &&l) noexcept : null_layout() {
+    }
 
     /// swap two instances of null_layout
     /// \note This a no-op, as all instances of \c null_layout are equal.
-    void swap([[maybe_unused]] null_layout<T> &other) {}
+    void swap([[maybe_unused]] null_layout<T> &other) {
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -410,15 +421,18 @@ namespace mpl {
 
   public:
     /// default constructor
-    empty_layout() : layout<T>(build()) {}
+    empty_layout() : layout<T>(build()) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    empty_layout(const empty_layout &l) : layout<T>(l) {}
+    empty_layout(const empty_layout &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    empty_layout(empty_layout &&l) noexcept : layout<T>(std::move(l)) {}
+    empty_layout(empty_layout &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -432,7 +446,9 @@ namespace mpl {
 
     /// exchanges two empty layouts
     /// \param other the layout to swap with
-    void swap(empty_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(empty_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -484,23 +500,28 @@ namespace mpl {
 
     size_t count_;
 
-    [[nodiscard]] size_t size() const { return count_; }
+    [[nodiscard]] size_t size() const {
+      return count_;
+    }
 
   public:
     /// constructs layout for contiguous storage several objects of type T
     /// \param count number of objects
-    explicit contiguous_layout(size_t count = 0) : layout<T>(build(count)), count_(count) {}
+    explicit contiguous_layout(size_t count = 0) : layout<T>(build(count)), count_(count) {
+    }
 
     /// constructs layout for data with memory layout that is a homogenous sequence of
     /// some other contiguous layout
     /// \param count number of layouts in sequence
     /// \param l the layout of a single element
     explicit contiguous_layout(size_t count, const contiguous_layout<T> &l)
-        : layout<T>(build(count, l.type_)), count_(l.count_ * count) {}
+        : layout<T>(build(count, l.type_)), count_(l.count_ * count) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count_(l.count_) {}
+    contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count_(l.count_) {
+    }
 
     /// move constructor
     /// \param l layout to move from
@@ -595,21 +616,26 @@ namespace mpl {
   public:
     /// constructs layout for contiguous storage several objects of type T
     /// \param count number of objects
-    explicit vector_layout(size_t count = 0) : layout<T>(build(count)) {}
+    explicit vector_layout(size_t count = 0) : layout<T>(build(count)) {
+    }
 
     /// constructs layout for data with memory layout that is a homogenous sequence of some
     /// other layout
     /// \param count number of layouts in sequence
     /// \param l the layout of a single element
-    explicit vector_layout(size_t count, const layout<T> &l) : layout<T>(build(count, l.type_)) {}
+    explicit vector_layout(size_t count, const layout<T> &l)
+        : layout<T>(build(count, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    vector_layout(const vector_layout<T> &l) : layout<T>(l) {}
+    vector_layout(const vector_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    vector_layout(vector_layout &&l) noexcept : layout<T>(std::move(l)) {}
+    vector_layout(vector_layout &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -623,7 +649,9 @@ namespace mpl {
 
     /// exchanges two contiguous layouts
     /// \param other the layout to swap with
-    void swap(vector_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(vector_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -661,14 +689,16 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    strided_vector_layout() : layout<T>(build()) {}
+    strided_vector_layout() : layout<T>(build()) {
+    }
 
     /// constructs a layout with several strided objects of type T
     /// \param count the number of blocks (non-negative)
     /// \param blocklength number of data elements in each block (non-negative)
     /// \param stride number or elements between start of each block
     explicit strided_vector_layout(int count, int blocklength, int stride)
-        : layout<T>(build(count, blocklength, stride)) {}
+        : layout<T>(build(count, blocklength, stride)) {
+    }
 
     /// constructs a layout with several strided objects of some other layout
     /// \param count the number of blocks (non-negative)
@@ -677,15 +707,18 @@ namespace mpl {
     /// size given by the extend of the layout given by parameter \c l
     /// \param l the layout of a single element in each block
     explicit strided_vector_layout(int count, int blocklength, int stride, const layout<T> &l)
-        : layout<T>(build(count, blocklength, stride, l.type_)) {}
+        : layout<T>(build(count, blocklength, stride, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    strided_vector_layout(const strided_vector_layout<T> &l) : layout<T>(l) {}
+    strided_vector_layout(const strided_vector_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    strided_vector_layout(strided_vector_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    strided_vector_layout(strided_vector_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -699,7 +732,9 @@ namespace mpl {
 
     /// exchanges two contiguous layouts
     /// \param other the layout to swap with
-    void swap(strided_vector_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(strided_vector_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -779,25 +814,30 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    indexed_layout() : layout<T>(build()) {}
+    indexed_layout() : layout<T>(build()) {
+    }
 
     /// constructs indexed layout for data of type \c T
     /// \param par parameter containing information about the layout
-    explicit indexed_layout(const parameter &par) : layout<T>(build(par)) {}
+    explicit indexed_layout(const parameter &par) : layout<T>(build(par)) {
+    }
 
     /// constructs indexed layout for data with some other layout
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
     explicit indexed_layout(const parameter &par, const layout<T> &l)
-        : layout<T>(build(par, l.type_)) {}
+        : layout<T>(build(par, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    indexed_layout(const indexed_layout<T> &l) : layout<T>(l) {}
+    indexed_layout(const indexed_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    indexed_layout(indexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    indexed_layout(indexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -811,7 +851,9 @@ namespace mpl {
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(indexed_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(indexed_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -897,27 +939,32 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    hindexed_layout() : layout<T>(build()) {}
+    hindexed_layout() : layout<T>(build()) {
+    }
 
     /// constructs heterogeneously indexed layout for data of type \c T
     /// \param par parameter containing information about the layout
     /// \note displacements are given in bytes
-    explicit hindexed_layout(const parameter &par) : layout<T>(build(par)) {}
+    explicit hindexed_layout(const parameter &par) : layout<T>(build(par)) {
+    }
 
     /// constructs heterogeneously indexed layout for data with some other layout
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
     /// \note displacements are given bytes
     explicit hindexed_layout(const parameter &par, const layout<T> &l)
-        : layout<T>(build(par, l.type_)) {}
+        : layout<T>(build(par, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    hindexed_layout(const hindexed_layout<T> &l) : layout<T>(l) {}
+    hindexed_layout(const hindexed_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    hindexed_layout(hindexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    hindexed_layout(hindexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -931,7 +978,9 @@ namespace mpl {
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(hindexed_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(hindexed_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -981,7 +1030,9 @@ namespace mpl {
 
       /// add an additional block
       /// \param displacement displacement (relative to the beginning of the first block)
-      void add(int displacement) { displacements.push_back(displacement); }
+      void add(int displacement) {
+        displacements.push_back(displacement);
+      }
 
       friend class indexed_block_layout;
     };
@@ -1004,14 +1055,16 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    indexed_block_layout() : layout<T>(build()) {}
+    indexed_block_layout() : layout<T>(build()) {
+    }
 
     /// constructs indexed layout for data of type T
     /// \param blocklength the length of each block
     /// \param par parameter containing information about the layout
     /// \note displacements are given in multiples of the extent of \c T
     explicit indexed_block_layout(int blocklength, const parameter &par)
-        : layout<T>(build(blocklength, par)) {}
+        : layout<T>(build(blocklength, par)) {
+    }
 
     /// constructs indexed layout for data with some other layout
     /// \param blocklength the length of each block
@@ -1019,15 +1072,18 @@ namespace mpl {
     /// \param l the layout of a single element
     /// \note displacements are given in multiples of the extent of \c l
     explicit indexed_block_layout(int blocklength, const parameter &par, const layout<T> &l)
-        : layout<T>(build(blocklength, par, l.type_)) {}
+        : layout<T>(build(blocklength, par, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    indexed_block_layout(const indexed_block_layout<T> &l) : layout<T>(l) {}
+    indexed_block_layout(const indexed_block_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    indexed_block_layout(indexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    indexed_block_layout(indexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -1041,7 +1097,9 @@ namespace mpl {
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(indexed_block_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(indexed_block_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -1121,14 +1179,16 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    hindexed_block_layout() : layout<T>(build()) {}
+    hindexed_block_layout() : layout<T>(build()) {
+    }
 
     /// constructs heterogeneously indexed layout for data of type T
     /// \param blocklength the length of each block
     /// \param par parameter containing information about the layout
     /// \note displacements are given in bytes
     explicit hindexed_block_layout(int blocklength, const parameter &par)
-        : layout<T>(build(blocklength, par)) {}
+        : layout<T>(build(blocklength, par)) {
+    }
 
     /// constructs heterogeneously indexed layout for data with some other layout
     /// \param blocklength the length of each block
@@ -1136,15 +1196,18 @@ namespace mpl {
     /// \param l the layout of a single element
     /// \note displacements are given bytes
     explicit hindexed_block_layout(int blocklength, const parameter &par, const layout<T> &l)
-        : layout<T>(build(blocklength, par, l.type_)) {}
+        : layout<T>(build(blocklength, par, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    hindexed_block_layout(const hindexed_block_layout<T> &l) : layout<T>(l) {}
+    hindexed_block_layout(const hindexed_block_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    hindexed_block_layout(hindexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    hindexed_block_layout(hindexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -1158,7 +1221,9 @@ namespace mpl {
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(hindexed_block_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(hindexed_block_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -1254,7 +1319,8 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    iterator_layout() : layout<T>(build()) {}
+    iterator_layout() : layout<T>(build()) {
+    }
 
     /// constructs iterator layout for data of type T
     /// \tparam iter_T iterator type
@@ -1262,11 +1328,13 @@ namespace mpl {
     /// \param last iterator pointing after the last element
     template<typename iter_T>
     explicit iterator_layout(iter_T first, iter_T last)
-        : layout<T>(build(parameter(first, last))) {}
+        : layout<T>(build(parameter(first, last))) {
+    }
 
     /// constructs iterator layout for data of type T
     /// \param par parameter containing information about the layout
-    explicit iterator_layout(const parameter &par) : layout<T>(build(par)) {}
+    explicit iterator_layout(const parameter &par) : layout<T>(build(par)) {
+    }
 
     /// constructs iterator layout for data with some other layout
     /// \tparam itert_T iterator type
@@ -1275,21 +1343,25 @@ namespace mpl {
     /// \param l the layout of a single element
     template<typename iter_T>
     explicit iterator_layout(iter_T first, iter_T last, const layout<T> &l)
-        : layout<T>(build(parameter(first, last), l.type_)) {}
+        : layout<T>(build(parameter(first, last), l.type_)) {
+    }
 
     /// constructs iterator layout for data with some other layout
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
     explicit iterator_layout(const parameter &par, const layout<T> &l)
-        : layout<T>(build(par, l.type_)) {}
+        : layout<T>(build(par, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    iterator_layout(const iterator_layout<T> &l) : layout<T>(l) {}
+    iterator_layout(const iterator_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    iterator_layout(iterator_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    iterator_layout(iterator_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -1303,7 +1375,9 @@ namespace mpl {
 
     /// exchanges two iterator layouts
     /// \param other the layout to swap with
-    void swap(iterator_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(iterator_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -1381,11 +1455,15 @@ namespace mpl {
 
       /// set the array order
       /// \param new_order the array order
-      void order(array_orders new_order) { order_ = new_order; }
+      void order(array_orders new_order) {
+        order_ = new_order;
+      }
 
       /// get the array order
       /// \return array order
-      [[nodiscard]] array_orders order() const { return order_; }
+      [[nodiscard]] array_orders order() const {
+        return order_;
+      }
 
       friend class subarray_layout;
     };
@@ -1415,25 +1493,30 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    subarray_layout() : layout<T>(build()) {}
+    subarray_layout() : layout<T>(build()) {
+    }
 
     /// constructs subarray layout for data of type T
     /// \param par parameter containing information about the layout
-    explicit subarray_layout(const parameter &par) : layout<T>(build(par)) {}
+    explicit subarray_layout(const parameter &par) : layout<T>(build(par)) {
+    }
 
     /// constructs subarray layout for data with some other layout
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
     explicit subarray_layout(const parameter &par, const layout<T> &l)
-        : layout<T>(build(par, l.type_)) {}
+        : layout<T>(build(par, l.type_)) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
-    subarray_layout(const subarray_layout<T> &l) : layout<T>(l) {}
+    subarray_layout(const subarray_layout<T> &l) : layout<T>(l) {
+    }
 
     /// move constructor
     /// \param l layout to move from
-    subarray_layout(subarray_layout<T> &&l) noexcept : layout<T>(std::move(l)) {}
+    subarray_layout(subarray_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -1447,7 +1530,9 @@ namespace mpl {
 
     /// exchanges two subarray layouts
     /// \param other the layout to swap with
-    void swap(subarray_layout<T> &other) { std::swap(type_, other.type_); }
+    void swap(subarray_layout<T> &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<T>::byte_extent;
     using layout<T>::byte_lower_bound;
@@ -1478,7 +1563,8 @@ namespace mpl {
     MPI_Datatype datatype_;
 
     explicit absolute_data(T *address, MPI_Datatype datatype)
-        : address_{address}, datatype_{datatype} {}
+        : address_{address}, datatype_{datatype} {
+    }
 
     friend class heterogeneous_layout;
 
@@ -1496,7 +1582,8 @@ namespace mpl {
     MPI_Datatype datatype_;
 
     explicit absolute_data(const T *address, MPI_Datatype datatype)
-        : address_{address}, datatype_{datatype} {}
+        : address_{address}, datatype_{datatype} {
+    }
 
     friend class heterogeneous_layout;
 
@@ -1518,7 +1605,8 @@ namespace mpl {
       std::vector<MPI_Aint> displacements_;
       std::vector<MPI_Datatype> types_;
 
-      void add() const {}
+      void add() const {
+      }
 
     public:
       /// creates parameters for a heterogeneous layout representing an empty data set
@@ -1579,11 +1667,13 @@ namespace mpl {
 
   public:
     /// constructs a layout with no data
-    heterogeneous_layout() : layout<void>(build()) {}
+    heterogeneous_layout() : layout<void>(build()) {
+    }
 
     /// constructs heterogeneous layout
     /// \param par parameter containing information about the layout
-    explicit heterogeneous_layout(const parameter &par) : layout<void>(build(par)) {}
+    explicit heterogeneous_layout(const parameter &par) : layout<void>(build(par)) {
+    }
 
     /// constructs heterogeneous layout
     /// \tparam T type of the first heterogeneous data element
@@ -1592,7 +1682,8 @@ namespace mpl {
     /// \param xs further data elements (parameter pack)
     template<typename T, typename... Ts>
     explicit heterogeneous_layout(const T &x, const Ts &...xs)
-        : layout<void>(build(parameter(x, xs...))) {}
+        : layout<void>(build(parameter(x, xs...))) {
+    }
 
     /// copy constructor
     /// \param l layout to copy from
@@ -1600,7 +1691,8 @@ namespace mpl {
 
     /// move constructor
     /// \param l layout to move from
-    heterogeneous_layout(heterogeneous_layout &&l) noexcept : layout<void>(std::move(l)) {}
+    heterogeneous_layout(heterogeneous_layout &&l) noexcept : layout<void>(std::move(l)) {
+    }
 
     /// copy assignment operator
     /// \param l layout to copy from
@@ -1614,7 +1706,9 @@ namespace mpl {
 
     /// exchanges two heterogeneous layouts
     /// \param other the layout to swap with
-    void swap(heterogeneous_layout &other) { std::swap(type_, other.type_); }
+    void swap(heterogeneous_layout &other) {
+      std::swap(type_, other.type_);
+    }
 
     using layout<void>::byte_extent;
     using layout<void>::byte_lower_bound;
@@ -1655,7 +1749,9 @@ namespace mpl {
 
     template<typename T>
     struct datatype_traits<layout<T>> {
-      static MPI_Datatype get_datatype(const layout<T> &l) { return l.type_; }
+      static MPI_Datatype get_datatype(const layout<T> &l) {
+        return l.type_;
+      }
     };
 
   }  // namespace detail
@@ -1673,16 +1769,19 @@ namespace mpl {
     using typename base::size_type;
 
     /// constructs a layout container with no data
-    layouts() : base() {}
+    layouts() : base() {
+    }
 
     /// constructs a layout container of empty layouts
     /// \param n number of initial layouts in container
-    explicit layouts(size_type n) : base(n, empty_layout<T>()) {}
+    explicit layouts(size_type n) : base(n, empty_layout<T>()) {
+    }
 
     /// constructs a layout container
     /// \param n number of initial layouts in container
     /// \param l layout used to initialize the layout container
-    explicit layouts(size_type n, const layout<T> &l) : base(n, l) {}
+    explicit layouts(size_type n, const layout<T> &l) : base(n, l) {
+    }
 
     using base::begin;
     using base::end;
@@ -1697,7 +1796,9 @@ namespace mpl {
     friend class communicator;
 
   private:
-    const layout<T> *operator()() const { return base::data(); }
+    const layout<T> *operator()() const {
+      return base::data();
+    }
   };
 
   //--------------------------------------------------------------------
@@ -1714,11 +1815,13 @@ namespace mpl {
     using typename base::size_type;
 
     /// constructs a layout container with no data
-    contiguous_layouts() : base() {}
+    contiguous_layouts() : base() {
+    }
 
     /// constructs a layout container of empty layouts
     /// \param n number of initial layouts in container
-    explicit contiguous_layouts(size_type n) : base(n, contiguous_layout<T>()), s() {}
+    explicit contiguous_layouts(size_type n) : base(n, contiguous_layout<T>()), s() {
+    }
 
     using base::begin;
     using base::end;
@@ -1732,7 +1835,9 @@ namespace mpl {
     friend class impl::topology_communicator;
 
   private:
-    const contiguous_layout<T> *operator()() const { return base::data(); }
+    const contiguous_layout<T> *operator()() const {
+      return base::data();
+    }
 
     const int *sizes() const {
       s.clear();

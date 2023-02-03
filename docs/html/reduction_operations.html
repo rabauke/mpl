@@ -242,7 +242,7 @@
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading">#</a></h2>
 <p>MPL supports various communication operations that perform a reduction operation over all processes within a communicator.  The reduction operation is passed as an argument to the communicator class method that realizes to communication operation.  The reduction operation can be given by a user-defined two-arguments functor class, a lambda function, e.g.,</p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">comm</span><span class="p">.</span><span class="n">reduce</span><span class="p">([](</span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">...);</span><span class="w"></span>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">comm</span><span class="p">.</span><span class="n">reduce</span><span class="p">([](</span><span class="k">auto</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="p">...);</span>
 </pre></div>
 </div>
 <p>or by any of the template classes as documented below.</p>
@@ -835,7 +835,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Heiko Bauke
+                Copyright &#169; 2023, Heiko Bauke
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             

@@ -45,13 +45,13 @@ MPL gives currently access via a convenient C++ interface to the following featu
 * communicator- and group-management and
 * process topologies (cartesian and graph topologies),
 * inter-communicators,
-* dynamic process creation.
+* dynamic process creation and
+* file I/O.
 
 Currently, the following MPI features are not yet supported by MPL:
 
-* error handling,
-* one-sided communication and
-* file I/O.
+* error handling and
+* one-sided communication.
 
 Although MPL covers a subset of the MPI functionality only, it has probably the largest MPI-feature coverage among all alternative C++ interfaces to MPI.
 

@@ -1,5 +1,5 @@
 <map id="%3" name="%3">
 <area shape="rect" id="node1" title="layout&lt; T &gt;" alt="" coords="284,5,395,53"/>
 <area shape="rect" id="node2" title="strided_vector_layout&lt; T &gt;" alt="" coords="5,5,236,53"/>
-<area shape="poly" id="edge1" title="public&#45;inheritance" alt="" coords="236,27,270,27,270,32,236,32"/>
+<area shape="poly" id="edge1" title="public&#45;inheritance" alt="" coords="236,27,268,27,268,32,236,32"/>
 </map>

@@ -18,7 +18,7 @@
 # -- Project information -----------------------------------------------------
 
 project = 'MPL: A message passing library'
-copyright = '2022, Heiko Bauke'
+copyright = '2023, Heiko Bauke'
 author = 'Heiko Bauke'
 version = '@CMAKE_PROJECT_VERSION_MAJOR@.@CMAKE_PROJECT_VERSION_MINOR@.@CMAKE_PROJECT_VERSION_PATCH@'
 release = '@CMAKE_PROJECT_VERSION_MAJOR@.@CMAKE_PROJECT_VERSION_MINOR@.@CMAKE_PROJECT_VERSION_PATCH@'

@@ -4,6 +4,7 @@
 
 #include <mpl/utility.hpp>
 #include <mpl/request.hpp>
+#include <mpl/info.hpp>
 #include <string>
 #include <filesystem>
 #include <type_traits>
@@ -40,29 +41,34 @@ namespace mpl {
     /// default constructor
     file() = default;
 
-    /// constructs and opens a file
+    /// constructs and opens a %file
     /// \param comm communicator
-    /// \param name file name
-    /// \param mode file open-mode
-    explicit file(const communicator &comm, const char *name, access_mode mode) {
-      open(comm, name, mode);
+    /// \param name %file name
+    /// \param mode %file open-mode
+    /// \param i hints
+    explicit file(const communicator &comm, const char *name, access_mode mode,
+                  const info &i = info()) {
+      open(comm, name, mode, i);
     }
 
-    /// constructs and opens a file
+    /// constructs and opens a %file
     /// \param comm communicator
-    /// \param name file name
-    /// \param mode file open-mode
-    explicit file(const communicator &comm, const std::string &name, access_mode mode) {
-      open(comm, name, mode);
+    /// \param name %file name
+    /// \param mode %file open-mode
+    /// \param i hints
+    explicit file(const communicator &comm, const std::string &name, access_mode mode,
+                  const info &i = info()) {
+      open(comm, name, mode, i);
     }
 
-    /// constructs and opens a file
+    /// constructs and opens a %file
     /// \param comm communicator
-    /// \param name file name
-    /// \param mode file open-mode
-    explicit file(const communicator &comm, const std::filesystem::path &name,
-                  access_mode mode) {
-      open(comm, name, mode);
+    /// \param name %file name
+    /// \param mode %file open-mode
+    /// \param i hints
+    explicit file(const communicator &comm, const std::filesystem::path &name, access_mode mode,
+                  const info &i = info()) {
+      open(comm, name, mode, i);
     }
 
     /// deleted copy constructor
@@ -86,7 +92,7 @@ namespace mpl {
     file &operator=(const file &) = delete;
 
     /// move-assignment operator
-    /// \param other file to move from
+    /// \param other %file to move from
     file &operator=(file &&other) {
       close();
       file_ = other.file_;
@@ -94,16 +100,18 @@ namespace mpl {
       return *this;
     }
 
-    /// open a file
+    /// open a %file
     /// \param comm communicator
-    /// \param name file name
-    /// \param mode file open-mode
+    /// \param name %file name
+    /// \param mode %file open-mode
+    /// \param i hints
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void open(const communicator &comm, const char *name, access_mode mode) {
+    void open(const communicator &comm, const char *name, access_mode mode,
+              const info &i = info()) {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{
-          MPI_File_open(comm.comm_, name, static_cast<int_type>(mode), MPI_INFO_NULL, &file_)};
+          MPI_File_open(comm.comm_, name, static_cast<int_type>(mode), i.info_, &file_)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -112,12 +120,14 @@ namespace mpl {
     /// \param comm communicator
     /// \param name file name
     /// \param mode file open-mode
+    /// \param i hints
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void open(const communicator &comm, const std::string &name, access_mode mode) {
+    void open(const communicator &comm, const std::string &name, access_mode mode,
+              const info &i = info()) {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
-                                  MPI_INFO_NULL, &file_)};
+                                  i.info_, &file_)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -126,12 +136,14 @@ namespace mpl {
     /// \param comm communicator
     /// \param name file name
     /// \param mode file open-mode
+    /// \param i hints
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void open(const communicator &comm, const std::filesystem::path &name, access_mode mode) {
+    void open(const communicator &comm, const std::filesystem::path &name, access_mode mode,
+              const info &i = info()) {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
-                                  MPI_INFO_NULL, &file_)};
+                                  i.info_, &file_)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -145,6 +157,8 @@ namespace mpl {
 
     /// resize file (shrink or grow as required)
     /// \param size file size in bytes
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     void resize(ssize_t size) {
       const int err{MPI_File_set_size(file_, size)};
       if (err != MPI_SUCCESS)
@@ -153,6 +167,8 @@ namespace mpl {
 
     /// resize file (grow as required)
     /// \param size file size in bytes
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
     void preallocate(ssize_t size) {
       const int err{MPI_File_preallocate(file_, size)};
       if (err != MPI_SUCCESS)
@@ -182,7 +198,7 @@ namespace mpl {
     /// flush write buffers and write pending data to device
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void sync() const {
+    void sync() {
       const int err{MPI_File_sync(file_)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
@@ -193,12 +209,14 @@ namespace mpl {
     /// \param displacement beginning of the view in bytes from the beginning of the file
     /// \param l layout used in associated i/o operation
     /// \param representation data representation, e.g., "native", "internal" or "external32"
+    /// \param i hints
     /// \return status of performed i/o operation
     template<typename T>
-    void set_view(ssize_t displacement, const layout<T> &l, const char *representation) {
+    void set_view(ssize_t displacement, const layout<T> &l, const char *representation,
+                  const info &i = info()) {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
-          detail::datatype_traits<layout<T>>::get_datatype(l), representation, MPI_INFO_NULL)};
+          detail::datatype_traits<layout<T>>::get_datatype(l), representation, i.info_)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -214,7 +232,7 @@ namespace mpl {
 
     /// get current individual %file pointer
     /// \return current individual %file pointer
-    ssize_t position() {
+    ssize_t position() const {
       MPI_Offset offset{0};
       const int err{MPI_File_get_position(file_, &offset)};
       if (err != MPI_SUCCESS)
@@ -226,12 +244,32 @@ namespace mpl {
     /// \param offset %file pointer offset
     /// \return absolute byte position in %file that corresponds to the given view-relative
     /// offset
-    ssize_t byte_offset(ssize_t offset) {
+    ssize_t byte_offset(ssize_t offset) const {
       MPI_Offset displ{0};
       const int err{MPI_File_get_byte_offset(file_, offset, &displ)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return displ;
+    }
+
+    /// set %file hint
+    /// \param i hint
+    /// \note This is a collective operation and must be called by all processes in the
+    /// communicator.
+    void set_info(info &i) {
+      const int err{MPI_File_set_info(file_, i.info_)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// get %file hint
+    /// \return %file hint
+    info get_info() const {
+      MPI_Info i;
+      const int err{MPI_File_get_info(file_, &i)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+      return info(i);
     }
 
     /// read data from file, blocking, non-collective, explicit offset
@@ -690,7 +728,7 @@ namespace mpl {
     template<typename T>
     irequest iread_at_all(ssize_t offset, T *data, const layout<T> &l) {
       MPI_Request req;
-      const int err{MPI_File_read_at_all(
+      const int err{MPI_File_iread_at_all(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
@@ -980,9 +1018,9 @@ namespace mpl {
     /// \param data pointer to the data to write
     /// \param l layout used in associated i/o operation
     template<typename T>
-    status_t write_at_all_begin(ssize_t offset, const T *data, const layout<T> &l) {
-      const int err{MPI_File_write_at_all(file_, offset, data, 1,
-                                          detail::datatype_traits<layout<T>>::get_datatype(l))};
+    void write_at_all_begin(ssize_t offset, const T *data, const layout<T> &l) {
+      const int err{MPI_File_write_at_all_begin(
+          file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -1079,9 +1117,9 @@ namespace mpl {
     /// \param data pointer to the data to write
     /// \param l layout used in associated i/o operation
     template<typename T>
-    status_t write_all_begin(const T *data, const layout<T> &l) {
-      const int err{MPI_File_write_all(file_, data, 1,
-                                       detail::datatype_traits<layout<T>>::get_datatype(l))};
+    void write_all_begin(const T *data, const layout<T> &l) {
+      const int err{MPI_File_write_all_begin(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
@@ -1178,9 +1216,9 @@ namespace mpl {
     /// \param data pointer to the data to write
     /// \param l layout used in associated i/o operation
     template<typename T>
-    status_t write_ordered_begin(const T *data, const layout<T> &l) {
-      const int err{MPI_File_write_all(file_, data, 1,
-                                       detail::datatype_traits<layout<T>>::get_datatype(l))};
+    void write_ordered_begin(const T *data, const layout<T> &l) {
+      const int err{MPI_File_write_ordered_begin(
+          file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }

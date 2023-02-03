@@ -241,95 +241,95 @@
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
 <p>MPL is built on MPI. An MPI implementation needs to be installed as a prerequisite, e.g., <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> or <a class="reference external" href="https://www.mpich.org/">MPICH</a>. MPL is a header-only library. Thus, it suffices to download the <a class="reference external" href="https://github.com/rabauke/mpl">source</a> and to copy the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> directory, which contains all header files to a folder, where the compiler will find it, e.g., <code class="docutils literal notranslate"><span class="pre">/usr/local/include</span></code> on a typical Unix/Linux system.</p>
 <p>For convenience and better integration into various IDEs, MPL also comes with CMake support. To install MPL via CMake get the sources and create a new <code class="docutils literal notranslate"><span class="pre">build</span></code> folder in the MPL source directory, e.g.,</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl$ mkdir build
-user@host:~/mpl$ <span class="nb">cd</span> build
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl$<span class="w"> </span>mkdir<span class="w"> </span>build
+user@host:~/mpl$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
 </pre></div>
 </div>
 <p>Then, call the CMake tool to detect all dependencies and to generate the project configuration for your build system or IDE, e.g.,</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local ..
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local<span class="w"> </span>..
 </pre></div>
 </div>
 <p>The option <code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX:PATH</span></code> specifies the installation path.</p>
 <p>Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on <a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
 <p>Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option now, e.g.,</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake --install .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span>.
 </pre></div>
 </div>
 <p>A set of unit tests and a collection of examples that illustrate the usage of MPL can be complied via CMake, too, if required. To build the MPL unit tests add the option <code class="docutils literal notranslate"><span class="pre">-DBUILD_TESTING=ON</span></code> to the initial CMake call. Similarly, <code class="docutils literal notranslate"><span class="pre">-DMPL_BUILD_EXAMPLES=ON</span></code> enables building example codes. Thus,</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local -DBUILD_TESTING<span class="o">=</span>ON -DMPL_BUILD_EXAMPLES<span class="o">=</span>ON ..
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX:PATH<span class="o">=</span>/usr/local<span class="w"> </span>-DBUILD_TESTING<span class="o">=</span>ON<span class="w"> </span>-DMPL_BUILD_EXAMPLES<span class="o">=</span>ON<span class="w"> </span>..
 </pre></div>
 </div>
 <p>enables both, building unit tests and examples. MPL unit tests utilize the <a class="reference external" href="https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html">Boost.Test</a> framework. Furthermore, adding <code class="docutils literal notranslate"><span class="pre">-DMPL_BUILD_DOCUMENTATION=ON</span></code> to the set of CMake options during configuration enables building the MPL documentation, which requires <a class="reference external" href="https://www.doxygen.nl">Doxygen</a>, <a class="reference external" href="https://www.breathe-doc.org">Breathe</a> and <a class="reference external" href="https://www.sphinx-doc.org">Sphinx</a>. Finally, build the unit tests, the example code and/or the documentation via</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ cmake --build .
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$<span class="w"> </span>cmake<span class="w"> </span>--build<span class="w"> </span>.
 </pre></div>
 </div>
 <p>After the unit test have been build successfully, they can be run conveniently by utilizing the CTest tool, i.e., via</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$ ctest
-Test project /home/user/mpl/build
-      Start  <span class="m">1</span>: test_group
- <span class="m">1</span>/30 Test  <span class="c1">#1: test_group ...............................   Passed    0.44 sec</span>
-      Start  <span class="m">2</span>: test_communicator
- <span class="m">2</span>/30 Test  <span class="c1">#2: test_communicator ........................   Passed    0.31 sec</span>
-      Start  <span class="m">3</span>: test_cartesian_communicator
- <span class="m">3</span>/30 Test  <span class="c1">#3: test_cartesian_communicator ..............   Passed    0.38 sec</span>
-      Start  <span class="m">4</span>: test_graph_communicator
- <span class="m">4</span>/30 Test  <span class="c1">#4: test_graph_communicator ..................   Passed    0.30 sec</span>
-      Start  <span class="m">5</span>: test_dist_graph_communicator
- <span class="m">5</span>/30 Test  <span class="c1">#5: test_dist_graph_communicator .............   Passed    0.31 sec</span>
-      Start  <span class="m">6</span>: test_communicator_send_recv
- <span class="m">6</span>/30 Test  <span class="c1">#6: test_communicator_send_recv ..............   Passed    0.36 sec</span>
-      Start  <span class="m">7</span>: test_communicator_isend_irecv
- <span class="m">7</span>/30 Test  <span class="c1">#7: test_communicator_isend_irecv ............   Passed    0.30 sec</span>
-      Start  <span class="m">8</span>: test_communicator_init_send_init_recv
- <span class="m">8</span>/30 Test  <span class="c1">#8: test_communicator_init_send_init_recv ....   Passed    0.34 sec</span>
-      Start  <span class="m">9</span>: test_communicator_sendrecv
- <span class="m">9</span>/30 Test  <span class="c1">#9: test_communicator_sendrecv ...............   Passed    0.29 sec</span>
-      Start <span class="m">10</span>: test_communicator_probe
-<span class="m">10</span>/30 Test <span class="c1">#10: test_communicator_probe ..................   Passed    0.34 sec</span>
-      Start <span class="m">11</span>: test_communicator_mprobe_mrecv
-<span class="m">11</span>/30 Test <span class="c1">#11: test_communicator_mprobe_mrecv ...........   Passed    0.38 sec</span>
-      Start <span class="m">12</span>: test_communicator_barrier
-<span class="m">12</span>/30 Test <span class="c1">#12: test_communicator_barrier ................   Passed    0.37 sec</span>
-      Start <span class="m">13</span>: test_communicator_bcast
-<span class="m">13</span>/30 Test <span class="c1">#13: test_communicator_bcast ..................   Passed    0.30 sec</span>
-      Start <span class="m">14</span>: test_communicator_gather
-<span class="m">14</span>/30 Test <span class="c1">#14: test_communicator_gather .................   Passed    0.29 sec</span>
-      Start <span class="m">15</span>: test_communicator_gatherv
-<span class="m">15</span>/30 Test <span class="c1">#15: test_communicator_gatherv ................   Passed    0.30 sec</span>
-      Start <span class="m">16</span>: test_communicator_allgather
-<span class="m">16</span>/30 Test <span class="c1">#16: test_communicator_allgather ..............   Passed    0.40 sec</span>
-      Start <span class="m">17</span>: test_communicator_allgatherv
-<span class="m">17</span>/30 Test <span class="c1">#17: test_communicator_allgatherv .............   Passed    0.31 sec</span>
-      Start <span class="m">18</span>: test_communicator_scatter
-<span class="m">18</span>/30 Test <span class="c1">#18: test_communicator_scatter ................   Passed    0.29 sec</span>
-      Start <span class="m">19</span>: test_communicator_scatterv
-<span class="m">19</span>/30 Test <span class="c1">#19: test_communicator_scatterv ...............   Passed    0.29 sec</span>
-      Start <span class="m">20</span>: test_communicator_alltoall
-<span class="m">20</span>/30 Test <span class="c1">#20: test_communicator_alltoall ...............   Passed    0.29 sec</span>
-      Start <span class="m">21</span>: test_communicator_alltoallv
-<span class="m">21</span>/30 Test <span class="c1">#21: test_communicator_alltoallv ..............   Passed    0.36 sec</span>
-      Start <span class="m">22</span>: test_communicator_reduce
-<span class="m">22</span>/30 Test <span class="c1">#22: test_communicator_reduce .................   Passed    0.31 sec</span>
-      Start <span class="m">23</span>: test_communicator_allreduce
-<span class="m">23</span>/30 Test <span class="c1">#23: test_communicator_allreduce ..............   Passed    0.29 sec</span>
-      Start <span class="m">24</span>: test_communicator_reduce_scatter_block
-<span class="m">24</span>/30 Test <span class="c1">#24: test_communicator_reduce_scatter_block ...   Passed    0.34 sec</span>
-      Start <span class="m">25</span>: test_communicator_reduce_scatter
-<span class="m">25</span>/30 Test <span class="c1">#25: test_communicator_reduce_scatter .........   Passed    0.38 sec</span>
-      Start <span class="m">26</span>: test_communicator_scan
-<span class="m">26</span>/30 Test <span class="c1">#26: test_communicator_scan ...................   Passed    0.32 sec</span>
-      Start <span class="m">27</span>: test_communicator_exscan
-<span class="m">27</span>/30 Test <span class="c1">#27: test_communicator_exscan .................   Passed    0.29 sec</span>
-      Start <span class="m">28</span>: test_displacements
-<span class="m">28</span>/30 Test <span class="c1">#28: test_displacements .......................   Passed    0.06 sec</span>
-      Start <span class="m">29</span>: test_inter_communicator
-<span class="m">29</span>/30 Test <span class="c1">#29: test_inter_communicator ..................   Passed    0.29 sec</span>
-      Start <span class="m">30</span>: test_info
-<span class="m">30</span>/30 Test <span class="c1">#30: test_info ................................   Passed    0.29 sec</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$<span class="w"> </span>ctest
+Test<span class="w"> </span>project<span class="w"> </span>/home/user/mpl/build
+<span class="w">      </span>Start<span class="w">  </span><span class="m">1</span>:<span class="w"> </span>test_group
+<span class="w"> </span><span class="m">1</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#1: test_group ...............................   Passed    0.44 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">2</span>:<span class="w"> </span>test_communicator
+<span class="w"> </span><span class="m">2</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#2: test_communicator ........................   Passed    0.31 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">3</span>:<span class="w"> </span>test_cartesian_communicator
+<span class="w"> </span><span class="m">3</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#3: test_cartesian_communicator ..............   Passed    0.38 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">4</span>:<span class="w"> </span>test_graph_communicator
+<span class="w"> </span><span class="m">4</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#4: test_graph_communicator ..................   Passed    0.30 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">5</span>:<span class="w"> </span>test_dist_graph_communicator
+<span class="w"> </span><span class="m">5</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#5: test_dist_graph_communicator .............   Passed    0.31 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">6</span>:<span class="w"> </span>test_communicator_send_recv
+<span class="w"> </span><span class="m">6</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#6: test_communicator_send_recv ..............   Passed    0.36 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">7</span>:<span class="w"> </span>test_communicator_isend_irecv
+<span class="w"> </span><span class="m">7</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#7: test_communicator_isend_irecv ............   Passed    0.30 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">8</span>:<span class="w"> </span>test_communicator_init_send_init_recv
+<span class="w"> </span><span class="m">8</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#8: test_communicator_init_send_init_recv ....   Passed    0.34 sec</span>
+<span class="w">      </span>Start<span class="w">  </span><span class="m">9</span>:<span class="w"> </span>test_communicator_sendrecv
+<span class="w"> </span><span class="m">9</span>/30<span class="w"> </span>Test<span class="w">  </span><span class="c1">#9: test_communicator_sendrecv ...............   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">10</span>:<span class="w"> </span>test_communicator_probe
+<span class="m">10</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#10: test_communicator_probe ..................   Passed    0.34 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">11</span>:<span class="w"> </span>test_communicator_mprobe_mrecv
+<span class="m">11</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#11: test_communicator_mprobe_mrecv ...........   Passed    0.38 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">12</span>:<span class="w"> </span>test_communicator_barrier
+<span class="m">12</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#12: test_communicator_barrier ................   Passed    0.37 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">13</span>:<span class="w"> </span>test_communicator_bcast
+<span class="m">13</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#13: test_communicator_bcast ..................   Passed    0.30 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">14</span>:<span class="w"> </span>test_communicator_gather
+<span class="m">14</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#14: test_communicator_gather .................   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">15</span>:<span class="w"> </span>test_communicator_gatherv
+<span class="m">15</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#15: test_communicator_gatherv ................   Passed    0.30 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">16</span>:<span class="w"> </span>test_communicator_allgather
+<span class="m">16</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#16: test_communicator_allgather ..............   Passed    0.40 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">17</span>:<span class="w"> </span>test_communicator_allgatherv
+<span class="m">17</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#17: test_communicator_allgatherv .............   Passed    0.31 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">18</span>:<span class="w"> </span>test_communicator_scatter
+<span class="m">18</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#18: test_communicator_scatter ................   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">19</span>:<span class="w"> </span>test_communicator_scatterv
+<span class="m">19</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#19: test_communicator_scatterv ...............   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">20</span>:<span class="w"> </span>test_communicator_alltoall
+<span class="m">20</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#20: test_communicator_alltoall ...............   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">21</span>:<span class="w"> </span>test_communicator_alltoallv
+<span class="m">21</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#21: test_communicator_alltoallv ..............   Passed    0.36 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">22</span>:<span class="w"> </span>test_communicator_reduce
+<span class="m">22</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#22: test_communicator_reduce .................   Passed    0.31 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">23</span>:<span class="w"> </span>test_communicator_allreduce
+<span class="m">23</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#23: test_communicator_allreduce ..............   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">24</span>:<span class="w"> </span>test_communicator_reduce_scatter_block
+<span class="m">24</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#24: test_communicator_reduce_scatter_block ...   Passed    0.34 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">25</span>:<span class="w"> </span>test_communicator_reduce_scatter
+<span class="m">25</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#25: test_communicator_reduce_scatter .........   Passed    0.38 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">26</span>:<span class="w"> </span>test_communicator_scan
+<span class="m">26</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#26: test_communicator_scan ...................   Passed    0.32 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">27</span>:<span class="w"> </span>test_communicator_exscan
+<span class="m">27</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#27: test_communicator_exscan .................   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">28</span>:<span class="w"> </span>test_displacements
+<span class="m">28</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#28: test_displacements .......................   Passed    0.06 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">29</span>:<span class="w"> </span>test_inter_communicator
+<span class="m">29</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#29: test_inter_communicator ..................   Passed    0.29 sec</span>
+<span class="w">      </span>Start<span class="w"> </span><span class="m">30</span>:<span class="w"> </span>test_info
+<span class="m">30</span>/30<span class="w"> </span>Test<span class="w"> </span><span class="c1">#30: test_info ................................   Passed    0.29 sec</span>
 
-<span class="m">100</span>% tests passed, <span class="m">0</span> tests failed out of <span class="m">30</span>
+<span class="m">100</span>%<span class="w"> </span>tests<span class="w"> </span>passed,<span class="w"> </span><span class="m">0</span><span class="w"> </span>tests<span class="w"> </span>failed<span class="w"> </span>out<span class="w"> </span>of<span class="w"> </span><span class="m">30</span>
 
-Total Test <span class="nb">time</span> <span class="o">(</span>real<span class="o">)</span> <span class="o">=</span>   <span class="m">9</span>.57 sec
+Total<span class="w"> </span>Test<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="o">(</span>real<span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w">   </span><span class="m">9</span>.57<span class="w"> </span>sec
 </pre></div>
 </div>
 <p>or via your IDE if it features support for CTest.</p>
@@ -365,7 +365,7 @@ Total Test <span class="nb">time</span> <span class="o">(</span>real<span class=
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2022, Heiko Bauke
+                Copyright &#169; 2023, Heiko Bauke
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
