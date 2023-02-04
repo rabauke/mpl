@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Parallel sorting" href="parallel_sort.html" /><link rel="prev" title="Layouts" href="layouts.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="Process creation" href="process_creation.html" />
 
     <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
-        <title>Subarray layouts - MPL: A message passing library v0.2.1</title>
+        <title>File i/o - MPL: A message passing library v0.2.1</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
@@ -193,7 +193,7 @@
 <li class="toctree-l2"><a class="reference internal" href="matrix_gather.html">Matrix gather</a></li>
 <li class="toctree-l2"><a class="reference internal" href="reduce.html">Reduction operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="layouts.html">Layouts</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Subarray layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="subarray.html">Subarray layouts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="parallel_sort.html">Parallel sorting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="vibrating_string.html">Vibrating string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="distributed_grid.html">Distributed grid</a></li>
@@ -201,7 +201,7 @@
 <li class="toctree-l2"><a class="reference internal" href="heat_equation_Jacobi_method.html">Heat equation Jacobi solver</a></li>
 <li class="toctree-l2"><a class="reference internal" href="heat_equation_successive_over-relaxation.html">Heat equation successive over-relaxation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="process_creation.html">Process creation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="file.html">File i/o</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">File i/o</a></li>
 </ul>
 </li>
 </ul>
@@ -238,46 +238,42 @@
           </label>
         </div>
         <article role="main">
-          <section id="subarray-layouts">
-<h1>Subarray layouts<a class="headerlink" href="#subarray-layouts" title="Permalink to this heading">#</a></h1>
-<p>Construction and usage of subarray layouts.</p>
+          <section id="file-i-o">
+<h1>File i/o<a class="headerlink" href="#file-i-o" title="Permalink to this heading">#</a></h1>
+<p>Simple program performing basic file-based i/o operations.</p>
 <div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdlib&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;cstdint&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
-<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iomanip&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;array&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;vector&gt;</span>
+<span class="c1">// include MPL header file</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;mpl/mpl.hpp&gt;</span>
 
 <span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// get a reference to communicator &quot;world&quot;</span>
 <span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">communicator</span><span class="w"> </span><span class="o">&amp;</span><span class="n">comm_world</span><span class="p">{</span><span class="n">mpl</span><span class="o">::</span><span class="n">environment</span><span class="o">::</span><span class="n">comm_world</span><span class="p">()};</span>
-<span class="w">  </span><span class="c1">// run the program with two or more processes</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_FAILURE</span><span class="p">;</span>
-<span class="w">  </span><span class="c1">// test layout for a subarray</span>
-<span class="w">  </span><span class="c1">// layouts on sending and receiving side may differ but must be compatible</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">n_0</span><span class="p">{</span><span class="mi">20</span><span class="p">},</span><span class="w"> </span><span class="n">n_1</span><span class="p">{</span><span class="mi">8</span><span class="p">};</span><span class="w">  </span><span class="c1">// size of two-dimensional array</span>
-<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">s_0</span><span class="p">{</span><span class="mi">11</span><span class="p">},</span><span class="w"> </span><span class="n">s_1</span><span class="p">{</span><span class="mi">3</span><span class="p">};</span><span class="w">  </span><span class="c1">// size of two-dimensional subarray</span>
-<span class="w">  </span><span class="c1">// process 0 sends</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// C order matrix with two-dimensional C arrays</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">n_1</span><span class="p">][</span><span class="n">n_0</span><span class="p">];</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i_1</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">i_1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i_1</span><span class="p">)</span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i_0</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">i_0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">n_0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i_0</span><span class="p">)</span>
-<span class="w">        </span><span class="n">a</span><span class="p">[</span><span class="n">i_1</span><span class="p">][</span><span class="n">i_0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i_0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">0.01</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">i_1</span><span class="p">;</span>
-<span class="w">    </span><span class="n">mpl</span><span class="o">::</span><span class="n">subarray_layout</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">subarray</span><span class="p">{{</span>
-<span class="w">        </span><span class="p">{</span><span class="n">n_1</span><span class="p">,</span><span class="w"> </span><span class="n">s_1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w">  </span><span class="c1">// 2nd dimension: size of array, size of subarray, start of subarray</span>
-<span class="w">        </span><span class="p">{</span><span class="n">n_0</span><span class="p">,</span><span class="w"> </span><span class="n">s_0</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">}</span><span class="w">   </span><span class="c1">// 1st dimension: size of array, size of subarray, start of subarray</span>
-<span class="w">    </span><span class="p">}};</span>
-<span class="w">    </span><span class="n">comm_world</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">subarray</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="c1">// process 1 receives</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kt">double</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">s_1</span><span class="p">][</span><span class="n">s_0</span><span class="p">];</span>
-<span class="w">    </span><span class="n">mpl</span><span class="o">::</span><span class="n">contiguous_layout</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="w"> </span><span class="n">array</span><span class="p">{</span><span class="n">s_0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s_1</span><span class="p">};</span>
-<span class="w">    </span><span class="n">comm_world</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="o">&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">array</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i_1</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">i_1</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">s_1</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i_1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i_0</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">i_0</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">s_0</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i_0</span><span class="p">)</span>
-<span class="w">        </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">fixed</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">setprecision</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">[</span><span class="n">i_1</span><span class="p">][</span><span class="n">i_0</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;  &quot;</span><span class="p">;</span>
-<span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
-<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// generate some data</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">value_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint8_t</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">value_type</span><span class="o">&gt;</span><span class="w"> </span><span class="n">vec</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">i</span><span class="p">{</span><span class="mi">0</span><span class="p">};</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">16</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">vec</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span>
+<span class="w">        </span><span class="p">{</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span><span class="w"> </span><span class="k">static_cast</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="kt">uint8_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)});</span>
+<span class="w">  </span><span class="c1">// write data into file</span>
+<span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// wrap i/o operations in try-catch block, i/o operations may throw</span>
+<span class="w">    </span><span class="n">mpl</span><span class="o">::</span><span class="n">file</span><span class="w"> </span><span class="n">file</span><span class="p">;</span>
+<span class="w">    </span><span class="c1">// opening a file is collective over all processes within the employed communicator</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="n">comm_world</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;test.bin&quot;</span><span class="p">,</span>
+<span class="w">              </span><span class="n">mpl</span><span class="o">::</span><span class="n">file</span><span class="o">::</span><span class="n">access_mode</span><span class="o">::</span><span class="n">create</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">mpl</span><span class="o">::</span><span class="n">file</span><span class="o">::</span><span class="n">access_mode</span><span class="o">::</span><span class="n">read_write</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// set file view</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">set_view</span><span class="o">&lt;</span><span class="n">value_type</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;native&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// write data</span>
+<span class="w">    </span><span class="n">mpl</span><span class="o">::</span><span class="n">vector_layout</span><span class="o">&lt;</span><span class="n">value_type</span><span class="o">&gt;</span><span class="w"> </span><span class="n">write_layout</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">write_at_all</span><span class="p">(</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">(),</span><span class="w"> </span><span class="n">vec</span><span class="p">.</span><span class="n">data</span><span class="p">(),</span><span class="w"> </span><span class="n">write_layout</span><span class="p">);</span>
+<span class="w">    </span><span class="c1">// close file</span>
+<span class="w">    </span><span class="n">file</span><span class="p">.</span><span class="n">close</span><span class="p">();</span>
+<span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">mpl</span><span class="o">::</span><span class="n">error</span><span class="w"> </span><span class="o">&amp;</span><span class="n">error</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">cerr</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">what</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="sc">&#39;\n&#39;</span><span class="p">;</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">EXIT_SUCCESS</span><span class="p">;</span>
 <span class="p">}</span>
@@ -290,23 +286,15 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="parallel_sort.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">Parallel sorting</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="layouts.html">
+          
+          <a class="prev-page" href="process_creation.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Layouts</div>
+                <div class="title">Process creation</div>
                 
               </div>
             </a>

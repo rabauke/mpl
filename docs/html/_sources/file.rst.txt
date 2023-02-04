@@ -4,7 +4,7 @@ File
 Overview
 --------
 
-Parallel file operations are implemented via the ``mpl::file`` class.  It offers various read and write modalities (collective and non-collective, blocking and non-blocking etc.) by closely following the MPI standard.  See the MPI standard for a detailed description of the semantics of the various i/o operations.
+Parallel file operations are implemented via the ``mpl::file`` class.  It offers various read and write modalities (collective and non-collective, blocking and non-blocking etc.) by closely following the MPI standard.  See the `MPI standard <https://www.mpi-forum.org/docs/>`_ for a detailed description of the semantics of the various i/o operations.
 
 
 Class documentation

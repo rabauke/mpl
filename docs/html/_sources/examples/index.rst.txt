@@ -29,3 +29,4 @@ Examples
    heat_equation_Jacobi_method
    heat_equation_successive_over-relaxation
    process_creation
+   file

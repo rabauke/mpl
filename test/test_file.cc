@@ -15,8 +15,7 @@ bool read_at_write_at_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_at(comm_world.rank(), val);
     file.close();
   } catch (mpl::error &error) {
@@ -28,8 +27,7 @@ bool read_at_write_at_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_at(comm_world.rank(), val2);
     file.close();
   } catch (mpl::error &error) {
@@ -52,8 +50,7 @@ bool read_at_write_at_test(const std::vector<T> &val, const mpl::layout<T> &layo
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_at(comm_world.rank() * layout.extent(), val.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -65,8 +62,7 @@ bool read_at_write_at_test(const std::vector<T> &val, const mpl::layout<T> &layo
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_at(comm_world.rank() * layout.extent(), val2.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -89,8 +85,7 @@ bool iread_at_iwrite_at_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iwrite_at(comm_world.rank(), val)};
     r.wait();
     file.close();
@@ -103,8 +98,7 @@ bool iread_at_iwrite_at_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iread_at(comm_world.rank(), val2)};
     r.wait();
     file.close();
@@ -128,8 +122,7 @@ bool iread_at_iwrite_at_test(const std::vector<T> &val, const mpl::layout<T> &la
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iwrite_at(comm_world.rank() * layout.extent(), val.data(), layout)};
     r.wait();
     file.close();
@@ -142,8 +135,7 @@ bool iread_at_iwrite_at_test(const std::vector<T> &val, const mpl::layout<T> &la
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iread_at(comm_world.rank() * layout.extent(), val2.data(), layout)};
     r.wait();
     file.close();
@@ -168,7 +160,7 @@ bool read_write_test(const T &val) {
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.write(val);
     file.close();
   } catch (mpl::error &error) {
@@ -181,7 +173,7 @@ bool read_write_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.read(val2);
     file.close();
   } catch (mpl::error &error) {
@@ -205,7 +197,7 @@ bool read_write_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.write(val.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -218,7 +210,7 @@ bool read_write_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.read(val2.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -242,7 +234,7 @@ bool iread_iwrite_test(const T &val) {
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iwrite(val)};
     r.wait();
     file.close();
@@ -256,7 +248,7 @@ bool iread_iwrite_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iread(val2)};
     r.wait();
     file.close();
@@ -281,7 +273,7 @@ bool iread_iwrite_test(const std::vector<T> &val, const mpl::layout<T> &layout) 
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iwrite(val.data(), layout)};
     r.wait();
     file.close();
@@ -295,7 +287,7 @@ bool iread_iwrite_test(const std::vector<T> &val, const mpl::layout<T> &layout) 
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iread(val2.data(), layout)};
     r.wait();
     file.close();
@@ -319,8 +311,7 @@ bool read_shared_write_shared_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_shared(val);
     file.close();
   } catch (mpl::error &error) {
@@ -332,8 +323,7 @@ bool read_shared_write_shared_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_shared(val2);
     file.close();
   } catch (mpl::error &error) {
@@ -356,8 +346,7 @@ bool read_shared_write_shared_test(const std::vector<T> &val, const mpl::layout<
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_shared(val.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -369,8 +358,7 @@ bool read_shared_write_shared_test(const std::vector<T> &val, const mpl::layout<
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_shared(val2.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -393,8 +381,7 @@ bool iread_shared_iwrite_shared_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iwrite_shared(val)};
     r.wait();
     file.close();
@@ -407,8 +394,7 @@ bool iread_shared_iwrite_shared_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iread_shared(val2)};
     r.wait();
     file.close();
@@ -432,8 +418,7 @@ bool iread_shared_iwrite_shared_test(const std::vector<T> &val, const mpl::layou
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iwrite_shared(val.data(), layout)};
     r.wait();
     file.close();
@@ -446,8 +431,7 @@ bool iread_shared_iwrite_shared_test(const std::vector<T> &val, const mpl::layou
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iread_shared(val2.data(), layout)};
     r.wait();
     file.close();
@@ -471,8 +455,7 @@ bool read_at_all_write_at_all_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_at_all(comm_world.rank(), val);
     file.close();
   } catch (mpl::error &error) {
@@ -484,8 +467,7 @@ bool read_at_all_write_at_all_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_at_all(comm_world.rank(), val2);
     file.close();
   } catch (mpl::error &error) {
@@ -508,8 +490,7 @@ bool read_at_all_write_at_all_test(const std::vector<T> &val, const mpl::layout<
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_at_all(comm_world.rank() * layout.extent(), val.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -521,8 +502,7 @@ bool read_at_all_write_at_all_test(const std::vector<T> &val, const mpl::layout<
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_at_all(comm_world.rank() * layout.extent(), val2.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -545,8 +525,7 @@ bool iread_at_all_iwrite_at_all_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iwrite_at_all(comm_world.rank(), val)};
     r.wait();
     file.close();
@@ -559,8 +538,7 @@ bool iread_at_all_iwrite_at_all_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iread_at_all(comm_world.rank(), val2)};
     r.wait();
     file.close();
@@ -584,8 +562,7 @@ bool iread_at_all_iwrite_at_all_test(const std::vector<T> &val, const mpl::layou
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iwrite_at_all(comm_world.rank() * layout.extent(), val.data(), layout)};
     r.wait();
     file.close();
@@ -598,8 +575,7 @@ bool iread_at_all_iwrite_at_all_test(const std::vector<T> &val, const mpl::layou
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     auto r{file.iread_at_all(comm_world.rank() * layout.extent(), val2.data(), layout)};
     r.wait();
     file.close();
@@ -624,7 +600,7 @@ bool read_all_write_all_test(const T &val) {
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.write_all(val);
     file.close();
   } catch (mpl::error &error) {
@@ -637,7 +613,7 @@ bool read_all_write_all_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.read_all(val2);
     file.close();
   } catch (mpl::error &error) {
@@ -661,7 +637,7 @@ bool read_all_write_all_test(const std::vector<T> &val, const mpl::layout<T> &la
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.write_all(val.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -674,7 +650,7 @@ bool read_all_write_all_test(const std::vector<T> &val, const mpl::layout<T> &la
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.read_all(val2.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -698,7 +674,7 @@ bool iread_all_iwrite_all_test(const T &val) {
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iwrite_all(val)};
     r.wait();
     file.close();
@@ -712,7 +688,7 @@ bool iread_all_iwrite_all_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iread_all(val2)};
     r.wait();
     file.close();
@@ -737,7 +713,7 @@ bool iread_all_iwrite_all_test(const std::vector<T> &val, const mpl::layout<T> &
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iwrite_all(val.data(), layout)};
     r.wait();
     file.close();
@@ -751,7 +727,7 @@ bool iread_all_iwrite_all_test(const std::vector<T> &val, const mpl::layout<T> &
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     auto r{file.iread_all(val2.data(), layout)};
     r.wait();
     file.close();
@@ -775,8 +751,7 @@ bool read_ordered_write_ordered_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_ordered(val);
     file.close();
   } catch (mpl::error &error) {
@@ -788,8 +763,7 @@ bool read_ordered_write_ordered_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_ordered(val2);
     file.close();
   } catch (mpl::error &error) {
@@ -812,8 +786,7 @@ bool read_ordered_write_ordered_test(const std::vector<T> &val, const mpl::layou
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_ordered(val.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -825,8 +798,7 @@ bool read_ordered_write_ordered_test(const std::vector<T> &val, const mpl::layou
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_ordered(val2.data(), layout);
     file.close();
   } catch (mpl::error &error) {
@@ -849,8 +821,7 @@ bool read_at_all_split_write_at_all_split_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_at_all_begin(comm_world.rank(), val);
     file.write_at_all_end(val);
     // file.close();
@@ -863,8 +834,7 @@ bool read_at_all_split_write_at_all_split_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_at_all_begin(comm_world.rank(), val2);
     file.read_at_all_end(val2);
     file.close();
@@ -889,8 +859,7 @@ bool read_at_all_split_write_at_all_split_test(const std::vector<T> &val,
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_at_all_begin(comm_world.rank() * layout.extent(), val.data(), layout);
     file.write_at_all_end(val.data());
     file.close();
@@ -903,8 +872,7 @@ bool read_at_all_split_write_at_all_split_test(const std::vector<T> &val,
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_at_all_begin(comm_world.rank() * layout.extent(), val2.data(), layout);
     file.read_at_all_end(val2.data());
     file.close();
@@ -929,7 +897,7 @@ bool read_all_split_write_all_split_test(const T &val) {
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.write_all_begin(val);
     file.write_all_end(val);
     file.close();
@@ -943,7 +911,7 @@ bool read_all_split_write_all_split_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{1, comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.read_all_begin(val2);
     file.read_all_end(val2);
     file.close();
@@ -969,7 +937,7 @@ bool read_all_split_write_all_split_test(const std::vector<T> &val,
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.write_all_begin(val.data(), layout);
     file.write_all_end(val.data());
     file.close();
@@ -983,7 +951,7 @@ bool read_all_split_write_all_split_test(const std::vector<T> &val,
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
     mpl::indexed_layout<T> l({{layout.extent(), layout.extent() * comm_world.rank()}});
-    file.set_view(0, l, "native");
+    file.set_view("native", l);
     file.read_all_begin(val2.data(), layout);
     file.read_all_end(val2.data());
     file.close();
@@ -1007,8 +975,7 @@ bool read_ordered_split_write_ordered_split_test(const T &val) {
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_ordered_begin(val);
     file.write_ordered_end(val);
     file.close();
@@ -1021,8 +988,7 @@ bool read_ordered_split_write_ordered_split_test(const T &val) {
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_ordered_begin(val2);
     file.read_ordered_end(val2);
     file.close();
@@ -1046,8 +1012,7 @@ bool read_ordered_split_write_ordered_split_test(const std::vector<T> &val, cons
     mpl::file file;
     file.open(comm_world, filename,
               mpl::file::access_mode::create | mpl::file::access_mode::read_write);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.write_ordered_begin(val.data(), layout);
     file.write_ordered_end(val.data());
     file.close();
@@ -1060,8 +1025,7 @@ bool read_ordered_split_write_ordered_split_test(const std::vector<T> &val, cons
   try {
     mpl::file file;
     file.open(comm_world, filename, mpl::file::access_mode::read_only);
-    mpl::vector_layout<T> l(comm_world.size() * layout.extent());
-    file.set_view(0, l, "native");
+    file.set_view<T>("native");
     file.read_ordered_begin(val2.data(), layout);
     file.read_ordered_end(val2.data());
     file.close();

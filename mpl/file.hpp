@@ -47,7 +47,7 @@ namespace mpl {
     /// \param mode %file open-mode
     /// \param i hints
     explicit file(const communicator &comm, const char *name, access_mode mode,
-                  const info &i = info()) {
+                  const info &i = info{}) {
       open(comm, name, mode, i);
     }
 
@@ -57,7 +57,7 @@ namespace mpl {
     /// \param mode %file open-mode
     /// \param i hints
     explicit file(const communicator &comm, const std::string &name, access_mode mode,
-                  const info &i = info()) {
+                  const info &i = info{}) {
       open(comm, name, mode, i);
     }
 
@@ -67,7 +67,7 @@ namespace mpl {
     /// \param mode %file open-mode
     /// \param i hints
     explicit file(const communicator &comm, const std::filesystem::path &name, access_mode mode,
-                  const info &i = info()) {
+                  const info &i = info{}) {
       open(comm, name, mode, i);
     }
 
@@ -76,7 +76,7 @@ namespace mpl {
 
     /// move constructor
     /// \param other file to move from
-    file(file &&other) : file_{other.file_} {
+    file(file &&other) noexcept : file_{other.file_} {
       other.file_ = MPI_FILE_NULL;
     }
 
@@ -85,6 +85,7 @@ namespace mpl {
       try {
         close();
       } catch (io_failure &) {
+        // must not throw
       }
     }
 
@@ -93,8 +94,12 @@ namespace mpl {
 
     /// move-assignment operator
     /// \param other %file to move from
-    file &operator=(file &&other) {
-      close();
+    file &operator=(file &&other) noexcept {
+      try {
+        close();
+      } catch (io_failure &) {
+        // must not throw
+      }
       file_ = other.file_;
       other.file_ = MPI_FILE_NULL;
       return *this;
@@ -108,7 +113,7 @@ namespace mpl {
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
     void open(const communicator &comm, const char *name, access_mode mode,
-              const info &i = info()) {
+              const info &i = info{}) {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{
           MPI_File_open(comm.comm_, name, static_cast<int_type>(mode), i.info_, &file_)};
@@ -124,7 +129,7 @@ namespace mpl {
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
     void open(const communicator &comm, const std::string &name, access_mode mode,
-              const info &i = info()) {
+              const info &i = info{}) {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
                                   i.info_, &file_)};
@@ -140,7 +145,7 @@ namespace mpl {
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
     void open(const communicator &comm, const std::filesystem::path &name, access_mode mode,
-              const info &i = info()) {
+              const info &i = info{}) {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
                                   i.info_, &file_)};
@@ -206,14 +211,30 @@ namespace mpl {
 
     /// set the process's file view
     /// \tparam T elementary read/write data type
-    /// \param displacement beginning of the view in bytes from the beginning of the file
-    /// \param l layout used in associated i/o operation
     /// \param representation data representation, e.g., "native", "internal" or "external32"
+    /// \param displacement beginning of the view in bytes from the beginning of the file
     /// \param i hints
     /// \return status of performed i/o operation
     template<typename T>
-    void set_view(ssize_t displacement, const layout<T> &l, const char *representation,
-                  const info &i = info()) {
+    void set_view(const char *representation, ssize_t displacement = 0,
+                  const info &i = info{}) {
+      const int err{MPI_File_set_view(
+          file_, displacement, detail::datatype_traits<T>::get_datatype(),
+          detail::datatype_traits<T>::get_datatype(), representation, i.info_)};
+      if (err != MPI_SUCCESS)
+        throw io_failure(err);
+    }
+
+    /// set the process's file view
+    /// \tparam T elementary read/write data type
+    /// \param representation data representation, e.g., "native", "internal" or "external32"
+    /// \param l layout defining the file view
+    /// \param displacement beginning of the view in bytes from the beginning of the file
+    /// \param i hints
+    /// \return status of performed i/o operation
+    template<typename T>
+    void set_view(const char *representation, const layout<T> &l, ssize_t displacement = 0,
+                  const info &i = info{}) {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
           detail::datatype_traits<layout<T>>::get_datatype(l), representation, i.info_)};
@@ -232,7 +253,7 @@ namespace mpl {
 
     /// get current individual %file pointer
     /// \return current individual %file pointer
-    ssize_t position() const {
+    [[nodiscard]] ssize_t position() const {
       MPI_Offset offset{0};
       const int err{MPI_File_get_position(file_, &offset)};
       if (err != MPI_SUCCESS)
@@ -244,7 +265,7 @@ namespace mpl {
     /// \param offset %file pointer offset
     /// \return absolute byte position in %file that corresponds to the given view-relative
     /// offset
-    ssize_t byte_offset(ssize_t offset) const {
+    [[nodiscard]] ssize_t byte_offset(ssize_t offset) const {
       MPI_Offset displ{0};
       const int err{MPI_File_get_byte_offset(file_, offset, &displ)};
       if (err != MPI_SUCCESS)
@@ -264,12 +285,21 @@ namespace mpl {
 
     /// get %file hint
     /// \return %file hint
-    info get_info() const {
+    [[nodiscard]] info get_info() const {
       MPI_Info i;
       const int err{MPI_File_get_info(file_, &i)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
       return info(i);
+    }
+
+    /// Get the underlying MPI handle of the file.
+    /// \return MPI handle of the file
+    /// \note This function returns a non-owning handle to the underlying MPI file, which may
+    /// be useful when refactoring legacy MPI applications to MPL.
+    /// \warning This method will be removed in a future version.
+    [[nodiscard]] MPI_File native_handle() const {
+      return file_;
     }
 
     /// read data from file, blocking, non-collective, explicit offset
