@@ -199,7 +199,7 @@ namespace mpl {
     /// \note This function returns a non-owning handle to the underlying MPI group, which may
     /// be useful when refactoring legacy MPI applications to MPL.
     /// \warning The handle must not be used to modify the MPI group that the handle points
-    /// to.
+    /// to. This method will be removed in a future version.
     [[nodiscard]] MPI_Group native_handle() const {
       return gr_;
     }
@@ -511,7 +511,7 @@ namespace mpl {
       /// \note This function returns a non-owning handle to the underlying MPI communicator,
       /// which may be useful when refactoring legacy MPI applications to MPL.
       /// \warning The handle must not be used to modify the MPI communicator that the handle
-      /// points to.
+      /// points to. This method will be removed in a future version.
       [[nodiscard]] MPI_Comm native_handle() const {
         return comm_;
       }
