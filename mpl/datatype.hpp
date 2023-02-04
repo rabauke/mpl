@@ -238,7 +238,7 @@ namespace mpl {
       explicit apply_n(F &f) : f_{f} {}
 
       void operator()(T &x) const {
-        apply_n<F, T, N - 1> next(f_);
+        apply_n<F, T, N - 1> next{f_};
         next(x);
         f_(std::get<N - 1>(x));
       }
@@ -256,7 +256,7 @@ namespace mpl {
 
     template<typename F, typename... Args>
     void apply(std::tuple<Args...> &t, F &f) {
-      apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...>>::value> app(f);
+      apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...>>::value> app{f};
       app(t);
     }
 
@@ -288,8 +288,8 @@ namespace mpl {
       std::tuple<Ts...> tuple;
       layout_.register_struct(tuple);
       base::define_struct(layout_);
-      detail::register_element<Ts...> reg(layout_);
-      detail::apply<detail::register_element<Ts...>>(tuple, reg);
+      detail::register_element<Ts...> reg{layout_};
+      detail::apply(tuple, reg);
       base::define_struct(layout_);
     }
   };
