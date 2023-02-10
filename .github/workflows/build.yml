@@ -17,5 +17,11 @@ jobs:
           ls ${{ github.workspace }}
       - name: Install build dependencies
         run: |
-          sudo apt install libopenmpi-dev
+          sudo apt install libopenmpi-dev cmake ninja-build g++ libboost-test-dev
+      - name: Build mpl
+        run: |
+          mkdir build
+          cd build
+          cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
+          cmake --build . -j
       - run: echo "🍏 This job's status is ${{ job.status }}."
