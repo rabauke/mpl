@@ -1,5 +1,8 @@
 # MPL - A message passing library
 
+[![build-with-openmpi](https://github.com/rabauke/mpl/actions/workflows/build-with-openmpi.yml/badge.svg)](https://github.com/rabauke/mpl/actions/workflows/build-with-openmpi.yml)
+[![build-with-mpich](https://github.com/rabauke/mpl/actions/workflows/build-with-mpich.yml/badge.svg)](https://github.com/rabauke/mpl/actions/workflows/build-with-mpich.yml)
+
 MPL is a message passing library written in C++17 based on the
 [Message Passing Interface](http://mpi-forum.org/) (MPI) standard. 
 Since the C++ API has been dropped from the MPI standard in version 
