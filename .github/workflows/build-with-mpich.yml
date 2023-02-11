@@ -1,20 +1,12 @@
 name: build-with-mpich
-run-name: Build with MPICH by ${{ github.actor }}
+run-name: Build MPL with MPICH
 on: [push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-22.04
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
         uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
       - name: Install build dependencies
         run: |
           sudo apt install libmpich-dev cmake ninja-build g++ libboost-test-dev
@@ -23,10 +15,10 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
           cmake --build . -j
       - name: Test mpl
         run: |
           cd build
           ctest
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - run: echo "This job's status is ${{ job.status }}."
