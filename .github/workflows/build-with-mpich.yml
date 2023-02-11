@@ -1,5 +1,5 @@
-name: build
-run-name: Build by ${{ github.actor }}
+name: build-with-mpich
+run-name: Build with MPICH by ${{ github.actor }}
 on: [push]
 jobs:
   Explore-GitHub-Actions:
@@ -17,7 +17,7 @@ jobs:
           ls ${{ github.workspace }}
       - name: Install build dependencies
         run: |
-          sudo apt install libopenmpi-dev cmake ninja-build g++ libboost-test-dev
+          sudo apt install libmpich-dev cmake ninja-build g++ libboost-test-dev
       - name: Build mpl
         run: |
           mkdir build
