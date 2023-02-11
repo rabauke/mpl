@@ -24,4 +24,8 @@ jobs:
           cd build
           cmake -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
           cmake --build . -j
+      - name: Test mpl
+        run: |
+          cd build
+          ctest
       - run: echo "🍏 This job's status is ${{ job.status }}."
