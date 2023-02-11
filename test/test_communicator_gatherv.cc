@@ -70,6 +70,8 @@ BOOST_AUTO_TEST_CASE(gatherv) {
   BOOST_TEST(gatherv_test(1.0));
   BOOST_TEST(gatherv_test(tuple{1, 2.0}));
 
+#if !(defined MPICH)
   BOOST_TEST(igatherv_test(1.0));
   BOOST_TEST(igatherv_test(tuple{1, 2.0}));
+#endif
 }

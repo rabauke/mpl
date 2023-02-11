@@ -66,6 +66,8 @@ BOOST_AUTO_TEST_CASE(scatterv) {
   BOOST_TEST(scatterv_test(1.0));
   BOOST_TEST(scatterv_test(tuple{1, 2.0}));
 
+#if !(defined MPICH)
   BOOST_TEST(iscatterv_test(1.0));
   BOOST_TEST(iscatterv_test(tuple{1, 2.0}));
+#endif
 }

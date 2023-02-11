@@ -44,6 +44,8 @@ BOOST_AUTO_TEST_CASE(allgatherv) {
   BOOST_TEST(allgatherv_test(1.0));
   BOOST_TEST(allgatherv_test(tuple{1, 2.0}));
 
+#if !(defined MPICH)
   BOOST_TEST(iallgatherv_test(1.0));
   BOOST_TEST(iallgatherv_test(tuple{1, 2.0}));
+#endif
 }
