@@ -3,7 +3,6 @@
 #define MPL_INFO_HPP
 
 #include <string>
-#include <string_view>
 #include <optional>
 
 
@@ -72,7 +71,7 @@ namespace mpl {
     /// Stores a key-value pair.
     /// \param key the key
     /// \param value the value
-    void set(std::string_view key, std::string_view value) {
+    void set(const std::string &key, const std::string &value) {
       if (info_ == MPI_INFO_NULL)
         MPI_Info_create(&info_);
       MPI_Info_set(info_, key.data(), value.data());
@@ -80,7 +79,7 @@ namespace mpl {
 
     /// Removes a key-value pair with the the given key.
     /// \param key the key
-    void remove(std::string_view key) {
+    void remove(const std::string &key) {
       if (info_ == MPI_INFO_NULL)
         MPI_Info_create(&info_);
       MPI_Info_delete(info_, key.data());
@@ -89,7 +88,7 @@ namespace mpl {
     /// Retrieves the value for a given key.
     /// \param key the key
     /// \return the value if the info object contains a key-value pair with the given key.
-    [[nodiscard]] std::optional<std::string> value(std::string_view key) const {
+    [[nodiscard]] std::optional<std::string> value(const std::string &key) const {
       if (info_ == MPI_INFO_NULL)
         MPI_Info_create(&info_);
       int flag{0};
@@ -98,8 +97,9 @@ namespace mpl {
       MPI_Info_get(info_, key.data(), MPI_MAX_INFO_VAL, str.data(), &flag);
 #else
       int bufflen{0};
-      MPI_Info_get_string(info_, key.data(), &bufflen, nullptr, &flag);
-      std::vector<char> str(bufflen);
+      std::vector<char> str(1);
+      MPI_Info_get_string(info_, key.data(), &bufflen, str.data(), &flag);
+      str.resize(bufflen);
       MPI_Info_get_string(info_, key.data(), &bufflen, str.data(), &flag);
 #endif
       if (flag)
