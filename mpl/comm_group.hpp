@@ -3368,7 +3368,7 @@ namespace mpl {
 
       template<typename T>
       static int ialltoallv_query(void *state, MPI_Status *s) {
-        ialltoallv_state<T> *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
+        auto *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
         const int error_backup{s->MPI_ERROR};
         *s = sendrecv_state->status;
         s->MPI_ERROR = error_backup;
@@ -3377,7 +3377,7 @@ namespace mpl {
 
       template<typename T>
       static int ialltoallv_free(void *state) {
-        ialltoallv_state<T> *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
+        auto *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
         delete sendrecv_state;
         return MPI_SUCCESS;
       }
@@ -3439,7 +3439,7 @@ namespace mpl {
         check_size(sendls);
         check_size(recvdispls);
         check_size(recvls);
-        ialltoallv_state<T> *state{
+        auto *state{
             new ialltoallv_state<T>(sendls, recvls, std::vector<int>(recvls.size(), 1),
                                     std::vector<int>(senddispls.begin(), senddispls.end()),
                                     std::vector<int>(recvdispls.begin(), recvdispls.end()))};

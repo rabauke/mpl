@@ -79,23 +79,22 @@ namespace mpl {
   template<typename T>
   class layout {
   private:
-    MPI_Datatype type_;
+    MPI_Datatype type_{MPI_DATATYPE_NULL};
 
   protected:
-    explicit layout(MPI_Datatype new_type) : type_(new_type) {
+    explicit layout(MPI_Datatype new_type) : type_{new_type} {
       if (type_ != MPI_DATATYPE_NULL)
         MPI_Type_commit(&type_);
     }
 
   public:
     /// Default constructor creates a layout of zero objects.
-    layout() : type_(MPI_DATATYPE_NULL) {
-    }
+    layout() = default;
 
     /// Copy constructor creates a new layout that describes the same memory layout as
     /// the other one.
     /// \param l the layout to copy from
-    layout(const layout &l) : type_(MPI_DATATYPE_NULL) {
+    layout(const layout &l) {
       if (l.type_ != MPI_DATATYPE_NULL)
         MPI_Type_dup(l.type_, &type_);
     }
@@ -103,7 +102,7 @@ namespace mpl {
     /// Move constructor creates a new layout that describes the same memory layout as
     /// the other one.
     /// \param l the layout to move from
-    layout(layout &&l) noexcept : type_(l.type_) {
+    layout(layout &&l) noexcept : type_{l.type_} {
       l.type_ = MPI_DATATYPE_NULL;
     }
 
@@ -126,12 +125,10 @@ namespace mpl {
     /// layout as the other one.
     /// \param l the layout to move from
     layout &operator=(layout &&l) noexcept {
-      if (this != &l) {
-        if (type_ != MPI_DATATYPE_NULL)
-          MPI_Type_free(&type_);
-        type_ = l.type_;
-        l.type_ = MPI_DATATYPE_NULL;
-      }
+      if (type_ != MPI_DATATYPE_NULL)
+        MPI_Type_free(&type_);
+      type_ = l.type_;
+      l.type_ = MPI_DATATYPE_NULL;
       return *this;
     }
 
