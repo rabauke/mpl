@@ -287,7 +287,6 @@ namespace mpl {
     struct_builder() {
       std::tuple<Ts...> tuple;
       layout_.register_struct(tuple);
-      base::define_struct(layout_);
       detail::register_element<Ts...> reg{layout_};
       detail::apply(tuple, reg);
       base::define_struct(layout_);
