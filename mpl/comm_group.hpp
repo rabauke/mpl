@@ -344,7 +344,7 @@ namespace mpl {
 
       void check_nonroot([[maybe_unused]] int root_rank) const {
 #if defined MPL_DEBUG
-        check_nonroot(root_rank);
+        check_root(root_rank);
         if (root_rank == rank())
           throw invalid_rank();
 #endif
