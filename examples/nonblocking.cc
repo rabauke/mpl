@@ -63,6 +63,8 @@ int main() {
     }
     {
       mpl::irequest_pool r;
+      const int size{comm_world.bsend_size(l)};
+      mpl::bsend_buffer buff(size);
       r.push(comm_world.isend(v_1.data(), l, 1));   // send v1 to rank 1 via standard send
       r.push(comm_world.ibsend(v_2.data(), l, 1));  // send v2 to rank 1 via buffered send
       r.push(comm_world.issend(v_3.data(), l, 1));  // send v3 to rank 1 via synchronous send
