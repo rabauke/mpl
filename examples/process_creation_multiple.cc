@@ -12,9 +12,9 @@ int main() {
   info.set("host", "localhost");
   auto inter_comm{
       comm_world.spawn_multiple(0,
-                                {{"process_creation_client"s, "arg1"s},
-                                 {"process_creation_client"s, "arg1"s, "arg2"s},
-                                 {"process_creation_client"s, "arg1"s, "arg2"s, "arg3"s}},
+                                {{"./process_creation_client"s, "arg1"s},
+                                 {"./process_creation_client"s, "arg1"s, "arg2"s},
+                                 {"./process_creation_client"s, "arg1"s, "arg2"s, "arg3"s}},
                                 {info, info, info})};
   // broadcast a message to the created processes
   double message;

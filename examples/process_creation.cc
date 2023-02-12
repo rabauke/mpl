@@ -10,7 +10,7 @@ int main() {
   // spawn 2 new processes
   mpl::info info;
   info.set("host", "localhost");
-  auto inter_comm{comm_world.spawn(0, 2, {"process_creation_client"s}, info)};
+  auto inter_comm{comm_world.spawn(0, 2, {"./process_creation_client"s}, info)};
   // broadcast a message to the created processes
   double message;
   if (comm_world.rank() == 0) {
