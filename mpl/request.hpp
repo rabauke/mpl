@@ -33,10 +33,11 @@ namespace mpl {
     class request_pool;
 
     class base_irequest {
-      MPI_Request req = MPI_REQUEST_NULL;
+      MPI_Request request_{MPI_REQUEST_NULL};
 
     public:
-      explicit base_irequest(MPI_Request req) : req(req) {}
+      explicit base_irequest(MPI_Request request) : request_{request} {
+      }
 
       friend class base_request<base_irequest>;
 
@@ -44,10 +45,11 @@ namespace mpl {
     };
 
     class base_prequest {
-      MPI_Request req = MPI_REQUEST_NULL;
+      MPI_Request request_{MPI_REQUEST_NULL};
 
     public:
-      explicit base_prequest(MPI_Request req) : req(req) {}
+      explicit base_prequest(MPI_Request request) : request_{request} {
+      }
 
       friend class base_request<base_prequest>;
 
@@ -59,41 +61,43 @@ namespace mpl {
     template<typename T>
     class base_request {
     protected:
-      MPI_Request req;
+      MPI_Request request_;
 
     public:
       base_request() = delete;
 
       base_request(const base_request &) = delete;
 
-      explicit base_request(const base_irequest &req) : req{req.req} {}
-      explicit base_request(const base_prequest &req) : req{req.req} {}
+      explicit base_request(const base_irequest &req) : request_{req.request_} {
+      }
+      explicit base_request(const base_prequest &req) : request_{req.request_} {
+      }
 
-      base_request(base_request &&other) noexcept : req(other.req) {
-        other.req = MPI_REQUEST_NULL;
+      base_request(base_request &&other) noexcept : request_(other.request_) {
+        other.request_ = MPI_REQUEST_NULL;
       }
 
       ~base_request() {
-        if (req != MPI_REQUEST_NULL)
-          MPI_Request_free(&req);
+        if (request_ != MPI_REQUEST_NULL)
+          MPI_Request_free(&request_);
       }
 
       void operator=(const base_request &) = delete;
 
       base_request &operator=(base_request &&other) noexcept {
         if (this != &other) {
-          if (req != MPI_REQUEST_NULL)
-            MPI_Request_free(&req);
-          req = other.req;
-          other.req = MPI_REQUEST_NULL;
+          if (request_ != MPI_REQUEST_NULL)
+            MPI_Request_free(&request_);
+          request_ = other.request_;
+          other.request_ = MPI_REQUEST_NULL;
         }
         return *this;
       }
 
       /// Cancels the request if it is pending.
       void cancel() {
-        if (req != MPI_REQUEST_NULL)
-          MPI_Cancel(&req);
+        if (request_ != MPI_REQUEST_NULL)
+          MPI_Cancel(&request_);
       }
 
       /// Tests for the completion.
@@ -101,7 +105,7 @@ namespace mpl {
       std::optional<status_t> test() {
         int result{true};
         status_t s;
-        MPI_Test(&req, &result, static_cast<MPI_Status *>(&s));
+        MPI_Test(&request_, &result, static_cast<MPI_Status *>(&s));
         if (result != 0)
           return s;
         return {};
@@ -111,7 +115,7 @@ namespace mpl {
       /// \return operation's status after completion
       status_t wait() {
         status_t s;
-        MPI_Wait(&req, static_cast<MPI_Status *>(&s));
+        MPI_Wait(&request_, static_cast<MPI_Status *>(&s));
         return s;
       }
 
@@ -120,7 +124,7 @@ namespace mpl {
       std::optional<status_t> get_status() {
         int result{true};
         status_t s;
-        MPI_Request_get_status(req, &result, static_cast<MPI_Status *>(&s));
+        MPI_Request_get_status(request_, &result, static_cast<MPI_Status *>(&s));
         if (result != 0)
           return s;
         return {};
@@ -132,8 +136,8 @@ namespace mpl {
     template<typename T>
     class request_pool {
     protected:
-      std::vector<MPI_Request> reqs;
-      std::vector<status_t> stats;
+      std::vector<MPI_Request> requests_;
+      std::vector<status_t> statuses_;
 
     public:
       /// Type used in all index-based operations.
@@ -144,58 +148,65 @@ namespace mpl {
       request_pool(const request_pool &) = delete;
 
       request_pool(request_pool &&other) noexcept
-          : reqs(std::move(other.reqs)), stats(std::move(other.stats)) {}
+          : requests_(std::move(other.requests_)), statuses_{std::move(other.statuses_)} {
+      }
 
       ~request_pool() {
-        for (std::vector<MPI_Request>::iterator i(reqs.begin()), i_end(reqs.end()); i != i_end;
-             ++i)
-          if ((*i) != MPI_REQUEST_NULL)
-            MPI_Request_free(&(*i));
+        for (auto &request : requests_)
+          if (request != MPI_REQUEST_NULL)
+            MPI_Request_free(&request);
       }
 
       void operator=(const request_pool &) = delete;
 
       request_pool &operator=(request_pool &&other) noexcept {
         if (this != &other) {
-          for (std::vector<MPI_Request>::iterator i(reqs.begin()), i_end(reqs.end());
-               i != i_end; ++i)
-            if ((*i) != MPI_REQUEST_NULL)
-              MPI_Request_free(&(*i));
-          reqs = std::move(other.reqs);
-          stats = std::move(other.stats);
+          for (auto &request : requests_)
+            if (request != MPI_REQUEST_NULL)
+              MPI_Request_free(&request);
+          requests_ = std::move(other.requests_);
+          statuses_ = std::move(other.statuses_);
         }
         return *this;
       }
 
       /// Determine the size of request pool.
       /// \return number of requests currently in request pool
-      [[nodiscard]] size_type size() const { return reqs.size(); }
+      [[nodiscard]] size_type size() const {
+        return requests_.size();
+      }
 
       /// Determine if request pool is empty.
       /// \return true if number of requests currently in request pool is non-zero
-      [[nodiscard]] bool empty() const { return reqs.empty(); }
+      [[nodiscard]] bool empty() const {
+        return requests_.empty();
+      }
 
       /// Get status of a request.
       /// \param i index of the request for which the status will be returned
       /// \return status of request
-      [[nodiscard]] const status_t &get_status(size_type i) const { return stats[i]; }
+      [[nodiscard]] const status_t &get_status(size_type i) const {
+        return statuses_[i];
+      }
 
       /// Cancels a pending request in the pool.
       /// \param i index of the request for which shall be cancelled
-      void cancel(size_type i) { MPI_Cancel(&reqs[i]); }
+      void cancel(size_type i) {
+        MPI_Cancel(&requests_[i]);
+      }
 
       /// Cancels all requests in the pool.
       void cancelall() {
-        for (size_type i = 0; i < reqs.size(); ++i)
+        for (size_type i = 0; i < requests_.size(); ++i)
           cancel(i);
       }
 
       /// Move a request into the request pool.
       /// \param request request to move into the pool
       void push(T &&request) {
-        reqs.push_back(request.req);
-        request.req = MPI_REQUEST_NULL;
-        stats.push_back(status_t());
+        requests_.push_back(request.request_);
+        request.request_ = MPI_REQUEST_NULL;
+        statuses_.push_back(status_t());
       }
 
       /// Wait for completion of any pending communication operation.
@@ -204,9 +215,9 @@ namespace mpl {
       std::pair<test_result, size_type> waitany() {
         int index;
         status_t s;
-        MPI_Waitany(size(), &reqs[0], &index, static_cast<MPI_Status *>(&s));
+        MPI_Waitany(size(), &requests_[0], &index, static_cast<MPI_Status *>(&s));
         if (index != MPI_UNDEFINED) {
-          stats[index] = s;
+          statuses_[index] = s;
           return std::make_pair(test_result::completed, static_cast<size_type>(index));
         }
         return std::make_pair(test_result::no_active_requests, size());
@@ -218,9 +229,9 @@ namespace mpl {
       std::pair<test_result, size_type> testany() {
         int index, flag;
         status_t s;
-        MPI_Testany(size(), &reqs[0], &index, &flag, static_cast<MPI_Status *>(&s));
+        MPI_Testany(size(), &requests_[0], &index, &flag, static_cast<MPI_Status *>(&s));
         if (flag != 0 and index != MPI_UNDEFINED) {
-          stats[index] = s;
+          statuses_[index] = s;
           return std::make_pair(test_result::completed, static_cast<size_type>(index));
         }
         if (flag != 0 and index == MPI_UNDEFINED)
@@ -229,13 +240,15 @@ namespace mpl {
       }
 
       /// Waits for completion of all pending requests.
-      void waitall() { MPI_Waitall(size(), &reqs[0], static_cast<MPI_Status *>(&stats[0])); }
+      void waitall() {
+        MPI_Waitall(size(), &requests_[0], static_cast<MPI_Status *>(&statuses_[0]));
+      }
 
       /// Tests for completion of all pending requests.
       /// \return true if all pending requests have completed
       bool testall() {
         int flag;
-        MPI_Testall(size(), &reqs[0], &flag, static_cast<MPI_Status *>(&stats[0]));
+        MPI_Testall(size(), &requests_[0], &flag, static_cast<MPI_Status *>(&statuses_[0]));
         return static_cast<bool>(flag);
       }
 
@@ -246,11 +259,11 @@ namespace mpl {
         std::vector<int> out_indices(size());
         std::vector<status_t> out_statuses(size());
         int count;
-        MPI_Waitsome(size(), &reqs[0], &count, out_indices.data(),
+        MPI_Waitsome(size(), &requests_[0], &count, out_indices.data(),
                      static_cast<MPI_Status *>(&out_statuses[0]));
         if (count != MPI_UNDEFINED) {
           for (int i{0}; i < count; ++i)
-            stats[out_indices[i]] = out_statuses[i];
+            statuses_[out_indices[i]] = out_statuses[i];
           return std::make_pair(
               test_result::completed,
               std::vector<size_t>(out_indices.begin(), out_indices.begin() + count));
@@ -265,11 +278,11 @@ namespace mpl {
         std::vector<int> out_indices(size());
         std::vector<status_t> out_statuses(size());
         int count;
-        MPI_Testsome(size(), &reqs[0], &count, out_indices.data(),
+        MPI_Testsome(size(), &requests_[0], &count, out_indices.data(),
                      static_cast<MPI_Status *>(&out_statuses[0]));
         if (count != MPI_UNDEFINED) {
           for (int i{0}; i < count; ++i)
-            stats[out_indices[i]] = out_statuses[i];
+            statuses_[out_indices[i]] = out_statuses[i];
           return std::make_pair(
               count == 0 ? test_result::no_completed : test_result::completed,
               std::vector<size_t>(out_indices.begin(), out_indices.begin() + count));
@@ -285,11 +298,12 @@ namespace mpl {
   /// Represents a non-blocking communication request.
   class irequest : public impl::base_request<impl::base_irequest> {
     using base = impl::base_request<impl::base_irequest>;
-    using base::req;
+    using base::request_;
 
   public:
 #if (!defined MPL_DOXYGEN_SHOULD_SKIP_THIS)
-    irequest(const impl::base_irequest &r) : base(r) {}
+    irequest(const impl::base_irequest &r) : base{r} {
+    }
 #endif
 
     /// Deleted copy constructor.
@@ -297,7 +311,8 @@ namespace mpl {
 
     /// Move constructor.
     /// \param other the request to move from
-    irequest(irequest &&other) noexcept : base(std::move(other)) {}
+    irequest(irequest &&other) noexcept : base{std::move(other)} {
+    }
 
     /// Deleted copy operator.
     void operator=(const irequest &) = delete;
@@ -306,8 +321,7 @@ namespace mpl {
     /// \param other the request to move from
     /// \return reference to the moved-to request
     irequest &operator=(irequest &&other) noexcept {
-      if (this != &other)
-        base::operator=(std::move(other));
+      base::operator=(std::move(other));
       return *this;
     }
 
@@ -329,7 +343,8 @@ namespace mpl {
 
     /// Move constructor.
     /// \param other the request pool to move from
-    irequest_pool(irequest_pool &&other) noexcept : base(std::move(other)) {}
+    irequest_pool(irequest_pool &&other) noexcept : base{std::move(other)} {
+    }
 
     /// Deleted copy operator.
     void operator=(const irequest_pool &) = delete;
@@ -338,8 +353,7 @@ namespace mpl {
     /// \param other the request pool to move from
     /// \return reference to the moved-to request pool
     irequest_pool &operator=(irequest_pool &&other) noexcept {
-      if (this != &other)
-        base::operator=(std::move(other));
+      base::operator=(std::move(other));
       return *this;
     }
   };
@@ -349,11 +363,12 @@ namespace mpl {
   /// Represents a persistent communication request.
   class prequest : public impl::base_request<impl::base_prequest> {
     using base = impl::base_request<impl::base_prequest>;
-    using base::req;
+    using base::request_;
 
   public:
 #if (!defined MPL_DOXYGEN_SHOULD_SKIP_THIS)
-    prequest(const impl::base_prequest &r) : base(r) {}
+    prequest(const impl::base_prequest &r) : base{r} {
+    }
 #endif
 
     /// Deleted copy constructor.
@@ -361,7 +376,8 @@ namespace mpl {
 
     /// Move constructor.
     /// \param other the request to move from
-    prequest(prequest &&other) noexcept : base(std::move(other)) {}
+    prequest(prequest &&other) noexcept : base{std::move(other)} {
+    }
 
     /// Deleted copy operator.
     void operator=(const prequest &) = delete;
@@ -370,13 +386,14 @@ namespace mpl {
     /// \param other the request to move from
     /// \return reference to the moved-to request
     prequest &operator=(prequest &&other) noexcept {
-      if (this != &other)
-        base::operator=(std::move(other));
+      base::operator=(std::move(other));
       return *this;
     }
 
     /// Start communication operation.
-    void start() { MPI_Start(&req); }
+    void start() {
+      MPI_Start(&request_);
+    }
 
     friend class impl::request_pool<prequest>;
   };
@@ -386,7 +403,7 @@ namespace mpl {
   /// Container for managing a list of persisting communication requests.
   class prequest_pool : public impl::request_pool<prequest> {
     using base = impl::request_pool<prequest>;
-    using base::reqs;
+    using base::requests_;
 
   public:
     /// Constructs an empty pool of persistent communication requests.
@@ -397,7 +414,8 @@ namespace mpl {
 
     /// Move constructor.
     /// \param other the request pool to move from
-    prequest_pool(prequest_pool &&other) noexcept : base(std::move(other)) {}
+    prequest_pool(prequest_pool &&other) noexcept : base{std::move(other)} {
+    }
 
     /// Deleted copy constructor.
     void operator=(const prequest_pool &) = delete;
@@ -405,13 +423,14 @@ namespace mpl {
     /// Move operator.
     /// \param other the request pool to move from
     prequest_pool &operator=(prequest_pool &&other) noexcept {
-      if (this != &other)
-        base::operator=(std::move(other));
+      base::operator=(std::move(other));
       return *this;
     }
 
     /// Start all persistent requests in the pool.
-    void startall() { MPI_Startall(size(), &reqs[0]); }
+    void startall() {
+      MPI_Startall(size(), &requests_[0]);
+    }
   };
 
 }  // namespace mpl
