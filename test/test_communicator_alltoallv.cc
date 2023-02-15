@@ -258,13 +258,11 @@ BOOST_AUTO_TEST_CASE(alltoallv) {
   BOOST_TEST(alltoallv_without_displacements_test(1.0));
   BOOST_TEST(alltoallv_without_displacements_test(tuple{1, 2.0}));
 
-#if !(defined MPICH)
   BOOST_TEST(ialltoallv_with_displacements_test(1.0));
   BOOST_TEST(ialltoallv_with_displacements_test(tuple{1, 2.0}));
 
   BOOST_TEST(ialltoallv_without_displacements_test(1.0));
   BOOST_TEST(ialltoallv_without_displacements_test(tuple{1, 2.0}));
-#endif
 
   BOOST_TEST(alltoallv_in_place_with_displacements_test(1.0));
   BOOST_TEST(alltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
@@ -272,11 +270,9 @@ BOOST_AUTO_TEST_CASE(alltoallv) {
   BOOST_TEST(alltoallv_in_place_without_displacements_test(1.0));
   BOOST_TEST(alltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
 
-#if !(defined MPICH)
   BOOST_TEST(ialltoallv_in_place_with_displacements_test(1.0));
   BOOST_TEST(ialltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
 
   BOOST_TEST(ialltoallv_in_place_without_displacements_test(1.0));
   BOOST_TEST(ialltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
-#endif
 }

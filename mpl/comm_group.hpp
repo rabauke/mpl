@@ -277,26 +277,30 @@ namespace mpl {
 
     class base_communicator {
     protected:
-      struct isend_irecv_state {
-        MPI_Request req{};
-        int source{MPI_ANY_SOURCE};
-        int tag{MPI_ANY_TAG};
+      struct isend_irecv_request_state {
         MPI_Datatype datatype{MPI_DATATYPE_NULL};
         int count{MPI_UNDEFINED};
+        int source{MPI_ANY_SOURCE};
+        int tag{MPI_ANY_TAG};
+      };
+
+      struct isend_irecv_state {
+        MPI_Request req{};
+        isend_irecv_request_state *request_state;
       };
 
       static int isend_irecv_query(void *state, MPI_Status *s) {
-        isend_irecv_state *sendrecv_state{static_cast<isend_irecv_state *>(state)};
-        MPI_Status_set_elements(s, sendrecv_state->datatype, sendrecv_state->count);
+        auto *request_state{static_cast<isend_irecv_request_state *>(state)};
+        MPI_Status_set_elements(s, request_state->datatype, request_state->count);
         MPI_Status_set_cancelled(s, 0);
-        s->MPI_SOURCE = sendrecv_state->source;
-        s->MPI_TAG = sendrecv_state->tag;
+        s->MPI_SOURCE = request_state->source;
+        s->MPI_TAG = request_state->tag;
         return MPI_SUCCESS;
       }
 
       static int isend_irecv_free(void *state) {
-        isend_irecv_state *sendrecv_state{static_cast<isend_irecv_state *>(state)};
-        delete sendrecv_state;
+        auto *request_state{static_cast<isend_irecv_request_state *>(state)};
+        delete request_state;
         return MPI_SUCCESS;
       }
 
@@ -633,7 +637,7 @@ namespace mpl {
       }
 
       template<typename T>
-      void isend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void isend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                  detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const int count(data.size());
@@ -643,29 +647,31 @@ namespace mpl {
                   static_cast<int>(t), comm_, &req);
         MPI_Status s;
         MPI_Wait(&req, &s);
-        isend_state->source = s.MPI_SOURCE;
-        isend_state->tag = s.MPI_TAG;
-        isend_state->datatype = datatype;
-        isend_state->count = 0;
-        MPI_Grequest_complete(isend_state->req);
+        state->request_state->source = s.MPI_SOURCE;
+        state->request_state->tag = s.MPI_TAG;
+        state->request_state->datatype = datatype;
+        state->request_state->count = 0;
+        MPI_Grequest_complete(state->req);
+        delete state;
       }
 
       template<typename T>
-      void isend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void isend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                  detail::stl_container) const {
         using value_type = detail::remove_const_from_members_t<typename T::value_type>;
         const detail::vector<value_type> serial_data(data.size(), std::begin(data));
-        isend(serial_data, destination, t, isend_state,
-              detail::contiguous_const_stl_container{});
+        isend(serial_data, destination, t, state, detail::contiguous_const_stl_container{});
       }
 
       template<typename T, typename C>
       base_irequest isend(const T &data, int destination, tag_t t, C) const {
-        isend_irecv_state *send_state{new isend_irecv_state()};
+        auto *request_state{new isend_irecv_request_state()};
         MPI_Request req;
-        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
-                           &req);
+        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
+                           request_state, &req);
+        auto *send_state{new isend_irecv_state()};
         send_state->req = req;
+        send_state->request_state = request_state;
         std::thread thread([this, &data, destination, t, send_state]() {
           isend(data, destination, t, send_state, C{});
         });
@@ -939,7 +945,7 @@ namespace mpl {
       }
 
       template<typename T>
-      void ibsend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void ibsend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                   detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const int count(data.size());
@@ -949,29 +955,31 @@ namespace mpl {
                    static_cast<int>(t), comm_, &req);
         MPI_Status s;
         MPI_Wait(&req, &s);
-        isend_state->source = s.MPI_SOURCE;
-        isend_state->tag = s.MPI_TAG;
-        isend_state->datatype = datatype;
-        isend_state->count = 0;
-        MPI_Grequest_complete(isend_state->req);
+        state->request_state->source = s.MPI_SOURCE;
+        state->request_state->tag = s.MPI_TAG;
+        state->request_state->datatype = datatype;
+        state->request_state->count = 0;
+        MPI_Grequest_complete(state->req);
+        delete state;
       }
 
       template<typename T>
-      void ibsend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void ibsend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                   detail::stl_container) const {
         using value_type = detail::remove_const_from_members_t<typename T::value_type>;
         detail::vector<value_type> serial_data(data.size(), std::begin(data));
-        ibsend(serial_data, destination, t, isend_state,
-               detail::contiguous_const_stl_container{});
+        ibsend(serial_data, destination, t, state, detail::contiguous_const_stl_container{});
       }
 
       template<typename T, typename C>
       irequest ibsend(const T &data, int destination, tag_t t, C) const {
-        isend_irecv_state *send_state{new isend_irecv_state()};
+        auto *request_state{new isend_irecv_request_state()};
         MPI_Request req;
-        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
-                           &req);
+        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
+                           request_state, &req);
+        auto *send_state{new isend_irecv_state()};
         send_state->req = req;
+        send_state->request_state = request_state;
         std::thread thread([this, &data, destination, t, send_state]() {
           ibsend(data, destination, t, send_state, C{});
         });
@@ -1216,7 +1224,7 @@ namespace mpl {
       }
 
       template<typename T>
-      void issend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void issend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                   detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const int count(data.size());
@@ -1226,29 +1234,31 @@ namespace mpl {
                    static_cast<int>(t), comm_, &req);
         MPI_Status s;
         MPI_Wait(&req, &s);
-        isend_state->source = s.MPI_SOURCE;
-        isend_state->tag = s.MPI_TAG;
-        isend_state->datatype = datatype;
-        isend_state->count = 0;
-        MPI_Grequest_complete(isend_state->req);
+        state->request_state->source = s.MPI_SOURCE;
+        state->request_state->tag = s.MPI_TAG;
+        state->request_state->datatype = datatype;
+        state->request_state->count = 0;
+        MPI_Grequest_complete(state->req);
+        delete state;
       }
 
       template<typename T>
-      void issend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void issend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                   detail::stl_container) const {
         using value_type = detail::remove_const_from_members_t<typename T::value_type>;
         detail::vector<value_type> serial_data(data.size(), std::begin(data));
-        issend(serial_data, destination, t, isend_state,
-               detail::contiguous_const_stl_container{});
+        issend(serial_data, destination, t, state, detail::contiguous_const_stl_container{});
       }
 
       template<typename T, typename C>
       irequest issend(const T &data, int destination, tag_t t, C) const {
-        isend_irecv_state *send_state{new isend_irecv_state()};
+        auto *request_state{new isend_irecv_request_state()};
         MPI_Request req;
-        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
-                           &req);
+        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
+                           request_state, &req);
+        auto *send_state{new isend_irecv_state()};
         send_state->req = req;
+        send_state->request_state = request_state;
         std::thread thread([this, &data, destination, t, send_state]() {
           issend(data, destination, t, send_state, C{});
         });
@@ -1494,7 +1504,7 @@ namespace mpl {
       }
 
       template<typename T>
-      void irsend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void irsend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                   detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const int count(data.size());
@@ -1504,29 +1514,31 @@ namespace mpl {
                    static_cast<int>(t), comm_, &req);
         MPI_Status s;
         MPI_Wait(&req, &s);
-        isend_state->source = s.MPI_SOURCE;
-        isend_state->tag = s.MPI_TAG;
-        isend_state->datatype = datatype;
-        isend_state->count = 0;
-        MPI_Grequest_complete(isend_state->req);
+        state->request_state->source = s.MPI_SOURCE;
+        state->request_state->tag = s.MPI_TAG;
+        state->request_state->datatype = datatype;
+        state->request_state->count = 0;
+        MPI_Grequest_complete(state->req);
+        delete state;
       }
 
       template<typename T>
-      void irsend(const T &data, int destination, tag_t t, isend_irecv_state *isend_state,
+      void irsend(const T &data, int destination, tag_t t, isend_irecv_state *state,
                   detail::stl_container) const {
         using value_type = detail::remove_const_from_members_t<typename T::value_type>;
         detail::vector<value_type> serial_data(data.size(), std::begin(data));
-        irsend(serial_data, destination, t, isend_state,
-               detail::contiguous_const_stl_container{});
+        irsend(serial_data, destination, t, state, detail::contiguous_const_stl_container{});
       }
 
       template<typename T, typename C>
       irequest irsend(const T &data, int destination, tag_t t, C) const {
-        isend_irecv_state *send_state{new isend_irecv_state()};
+        auto *request_state{new isend_irecv_request_state()};
         MPI_Request req;
-        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, send_state,
-                           &req);
+        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
+                           request_state, &req);
+        auto *send_state{new isend_irecv_state()};
         send_state->req = req;
+        send_state->request_state = request_state;
         std::thread thread([this, &data, destination, t, send_state]() {
           irsend(data, destination, t, send_state, C{});
         });
@@ -1793,24 +1805,27 @@ namespace mpl {
       }
 
       template<typename T>
-      void irecv(T &data, int source, tag_t t, isend_irecv_state *irecv_state,
+      void irecv(T &data, int source, tag_t t, isend_irecv_state *state,
                  detail::stl_container) const {
         using value_type = detail::remove_const_from_members_t<typename T::value_type>;
         const status_t s{recv(data, source, t)};
-        irecv_state->source = s.source();
-        irecv_state->tag = static_cast<int>(s.tag());
-        irecv_state->datatype = detail::datatype_traits<value_type>::get_datatype();
-        irecv_state->count = s.get_count<value_type>();
-        MPI_Grequest_complete(irecv_state->req);
+        state->request_state->source = s.source();
+        state->request_state->tag = static_cast<int>(s.tag());
+        state->request_state->datatype = detail::datatype_traits<value_type>::get_datatype();
+        state->request_state->count = s.get_count<value_type>();
+        MPI_Grequest_complete(state->req);
+        delete state;
       }
 
       template<typename T, typename C>
       irequest irecv(T &data, int source, tag_t t, C) const {
-        isend_irecv_state *recv_state{new isend_irecv_state()};
+        auto *request_state{new isend_irecv_request_state()};
         MPI_Request req;
-        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel, recv_state,
-                           &req);
+        MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
+                           request_state, &req);
+        auto *recv_state{new isend_irecv_state()};
         recv_state->req = req;
+        recv_state->request_state = request_state;
         std::thread thread([this, &data, source, t, recv_state]() {
           irecv(data, source, t, recv_state, C{});
         });
@@ -3338,6 +3353,10 @@ namespace mpl {
 
       // --- non-blocking all-to-all ---
     protected:
+      struct ialltoallv_request_state {
+        MPI_Status status{};
+      };
+
       template<typename T>
       struct ialltoallv_state {
         MPI_Request req{};
@@ -3346,7 +3365,8 @@ namespace mpl {
         std::vector<int> counts;
         std::vector<int> senddispls_int;
         std::vector<int> recvdispls_int;
-        MPI_Status status{};
+        ialltoallv_request_state *request_state;
+
         ialltoallv_state(const layouts<T> &sendl, const layouts<T> &recvl,
                          std::vector<int> &&counts, std::vector<int> &&senddispls_int,
                          std::vector<int> &&recvdispls_int)
@@ -3366,19 +3386,17 @@ namespace mpl {
         }
       };
 
-      template<typename T>
       static int ialltoallv_query(void *state, MPI_Status *s) {
-        auto *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
+        auto *request_state{static_cast<ialltoallv_request_state *>(state)};
         const int error_backup{s->MPI_ERROR};
-        *s = sendrecv_state->status;
+        *s = request_state->status;
         s->MPI_ERROR = error_backup;
         return MPI_SUCCESS;
       }
 
-      template<typename T>
       static int ialltoallv_free(void *state) {
-        auto *sendrecv_state{static_cast<ialltoallv_state<T> *>(state)};
-        delete sendrecv_state;
+        auto *request_state{static_cast<ialltoallv_request_state *>(state)};
+        delete request_state;
         return MPI_SUCCESS;
       }
 
@@ -3404,8 +3422,9 @@ namespace mpl {
                          reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
         MPI_Status s;
         MPI_Wait(&req, &s);
-        state->status = s;
+        state->request_state->status = s;
         MPI_Grequest_complete(state->req);
+        delete state;
       }
 
     public:
@@ -3439,16 +3458,18 @@ namespace mpl {
         check_size(sendls);
         check_size(recvdispls);
         check_size(recvls);
-        auto *state{
+        auto *request_state{new ialltoallv_request_state()};
+        MPI_Request req;
+        MPI_Grequest_start(ialltoallv_query, ialltoallv_free, ialltoallv_cancel, request_state,
+                           &req);
+        auto *alltoall_state{
             new ialltoallv_state<T>(sendls, recvls, std::vector<int>(recvls.size(), 1),
                                     std::vector<int>(senddispls.begin(), senddispls.end()),
                                     std::vector<int>(recvdispls.begin(), recvdispls.end()))};
-        MPI_Request req;
-        MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
-                           &req);
-        state->req = req;
-        std::thread thread([this, send_data, recv_data, state]() {
-          ialltoallv_task(send_data, recv_data, state);
+        alltoall_state->req = req;
+        alltoall_state->request_state = request_state;
+        std::thread thread([this, send_data, recv_data, alltoall_state]() {
+          ialltoallv_task(send_data, recv_data, alltoall_state);
         });
         thread.detach();
         return base_irequest{req};
@@ -4368,15 +4389,17 @@ namespace mpl {
                         const displacements &sendrecvdispls) const {
       check_size(sendrecvdispls);
       check_size(sendrecvls);
-      ialltoallv_state<T> *state{new ialltoallv_state<T>(
+      auto *request_state{new ialltoallv_request_state()};
+      MPI_Request req;
+      MPI_Grequest_start(ialltoallv_query, ialltoallv_free, ialltoallv_cancel, request_state,
+                         &req);
+      auto *alltoall_state{new ialltoallv_state<T>(
           sendrecvls, std::vector<int>(sendrecvls.size(), 1),
           std::vector<int>(sendrecvdispls.begin(), sendrecvdispls.end()))};
-      MPI_Request req;
-      MPI_Grequest_start(ialltoallv_query<T>, ialltoallv_free<T>, ialltoallv_cancel, state,
-                         &req);
-      state->req = req;
-      std::thread thread([this, sendrecv_data, state]() {
-        ialltoallv_task(static_cast<T *>(nullptr), sendrecv_data, state);
+      alltoall_state->req = req;
+      alltoall_state->request_state = request_state;
+      std::thread thread([this, sendrecv_data, alltoall_state]() {
+        ialltoallv_task(static_cast<T *>(nullptr), sendrecv_data, alltoall_state);
       });
       thread.detach();
       return impl::base_irequest{req};
