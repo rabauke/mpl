@@ -42,11 +42,11 @@ MPL gives currently access via a convenient C++ interface to the following featu
 * point-to-point communication (blocking and non-blocking),
 * collective communication (blocking and non-blocking),
 * derived data types (happens automatically for many custom data types or via the ``base_struct_builder`` helper class and the layout classes of MPL),
-* communicator- and group-management and
+* communicator- and group-management,
 * process topologies (cartesian and graph topologies),
 * inter-communicators,
 * dynamic process creation and
-* file I/O.
+* file i/o.
 
 Currently, the following MPI features are not yet supported by MPL:
 
