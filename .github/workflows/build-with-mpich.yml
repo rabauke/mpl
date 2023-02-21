@@ -20,5 +20,5 @@ jobs:
       - name: Test mpl
         run: |
           cd build
-          ctest
+          ctest --output-on-failure
       - run: echo "This job's status is ${{ job.status }}."
