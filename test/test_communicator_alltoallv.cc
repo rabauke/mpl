@@ -270,9 +270,12 @@ BOOST_AUTO_TEST_CASE(alltoallv) {
   BOOST_TEST(alltoallv_in_place_without_displacements_test(1.0));
   BOOST_TEST(alltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
 
+  // exclude tests that fail due to bugs in MPICH
+#if !defined MPICH_NUMVERSION || MPICH_NUMVERSION > 40100000
   BOOST_TEST(ialltoallv_in_place_with_displacements_test(1.0));
   BOOST_TEST(ialltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
 
   BOOST_TEST(ialltoallv_in_place_without_displacements_test(1.0));
   BOOST_TEST(ialltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
+#endif
 }

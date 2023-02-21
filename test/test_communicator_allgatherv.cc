@@ -44,9 +44,6 @@ BOOST_AUTO_TEST_CASE(allgatherv) {
   BOOST_TEST(allgatherv_test(1.0));
   BOOST_TEST(allgatherv_test(tuple{1, 2.0}));
 
-  // exclude tests that fail due to bugs in MPICH
-#if !defined MPICH_NUMVERSION || MPICH_NUMVERSION > 40100000
   BOOST_TEST(iallgatherv_test(1.0));
   BOOST_TEST(iallgatherv_test(tuple{1, 2.0}));
-#endif
 }
