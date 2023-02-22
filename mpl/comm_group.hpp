@@ -575,7 +575,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      void send(const T &data, int destination, tag_t t = tag_t(0)) const {
+      void send(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -591,7 +591,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       template<typename T>
-      void send(const T *data, const layout<T> &l, int destination, tag_t t = tag_t(0)) const {
+      void send(const T *data, const layout<T> &l, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Send(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
@@ -612,7 +612,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      void send(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      void send(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -692,7 +692,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      irequest isend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      irequest isend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -711,7 +711,7 @@ namespace mpl {
       /// \return request representing the ongoing message transfer
       template<typename T>
       irequest isend(const T *data, const layout<T> &l, int destination,
-                     tag_t t = tag_t(0)) const {
+                     tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -735,7 +735,7 @@ namespace mpl {
       /// characteristics. Use alternative overloads in performance critical code sections.
       /// \return request representing the ongoing message transfer
       template<typename iterT>
-      irequest isend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      irequest isend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -759,7 +759,7 @@ namespace mpl {
       /// \return persistent communication request
       /// \note Sending STL containers is not supported.
       template<typename T>
-      prequest send_init(const T &data, int destination, tag_t t = tag_t(0)) const {
+      prequest send_init(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -779,7 +779,7 @@ namespace mpl {
       /// \return persistent communication request
       template<typename T>
       prequest send_init(const T *data, const layout<T> &l, int destination,
-                         tag_t t = tag_t(0)) const {
+                         tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -803,7 +803,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      prequest send_init(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      prequest send_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         if constexpr (detail::is_contiguous_iterator_v<iterT>) {
           const vector_layout<value_type> l(std::distance(begin, end));
@@ -883,7 +883,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      void bsend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      void bsend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -899,7 +899,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       template<typename T>
-      void bsend(const T *data, const layout<T> &l, int destination, tag_t t = tag_t(0)) const {
+      void bsend(const T *data, const layout<T> &l, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Bsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
@@ -920,7 +920,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      void bsend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      void bsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1001,7 +1001,7 @@ namespace mpl {
       /// sections.
       /// \anchor communicator_ibsend
       template<typename T>
-      irequest ibsend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      irequest ibsend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -1020,7 +1020,7 @@ namespace mpl {
       /// \return request representing the ongoing message transfer
       template<typename T>
       irequest ibsend(const T *data, const layout<T> &l, int destination,
-                      tag_t t = tag_t(0)) const {
+                      tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1044,7 +1044,7 @@ namespace mpl {
       /// characteristics. Use alternative overloads in performance critical code sections.
       /// \return request representing the ongoing message transfer
       template<typename iterT>
-      irequest ibsend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      irequest ibsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1068,7 +1068,7 @@ namespace mpl {
       /// \return persistent communication request
       /// \note Sending STL containers is not supported.
       template<typename T>
-      prequest bsend_init(const T &data, int destination, tag_t t = tag_t(0)) const {
+      prequest bsend_init(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1088,7 +1088,7 @@ namespace mpl {
       /// \return persistent communication request
       template<typename T>
       prequest bsend_init(const T *data, const layout<T> &l, int destination,
-                          tag_t t = tag_t(0)) const {
+                          tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1112,7 +1112,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      prequest bsend_init(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      prequest bsend_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1163,7 +1163,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      void ssend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      void ssend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         ssend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
@@ -1178,7 +1178,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       template<typename T>
-      void ssend(const T *data, const layout<T> &l, int destination, tag_t t = tag_t(0)) const {
+      void ssend(const T *data, const layout<T> &l, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Ssend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
@@ -1199,7 +1199,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      void ssend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      void ssend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1280,7 +1280,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      irequest issend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      irequest issend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -1299,7 +1299,7 @@ namespace mpl {
       /// \return request representing the ongoing message transfer
       template<typename T>
       irequest issend(const T *data, const layout<T> &l, int destination,
-                      tag_t t = tag_t(0)) const {
+                      tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1323,7 +1323,7 @@ namespace mpl {
       /// characteristics. Use alternative overloads in performance critical code sections.
       /// \return request representing the ongoing message transfer
       template<typename iterT>
-      irequest issend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      irequest issend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1347,7 +1347,7 @@ namespace mpl {
       /// \return persistent communication request
       /// \note Sending STL containers is not supported.
       template<typename T>
-      prequest ssend_init(const T &data, int destination, tag_t t = tag_t(0)) const {
+      prequest ssend_init(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1367,7 +1367,7 @@ namespace mpl {
       /// \return persistent communication request
       template<typename T>
       prequest ssend_init(const T *data, const layout<T> &l, int destination,
-                          tag_t t = tag_t(0)) const {
+                          tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1391,7 +1391,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      prequest ssend_init(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      prequest ssend_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1442,7 +1442,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      void rsend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      void rsend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -1458,7 +1458,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       template<typename T>
-      void rsend(const T *data, const layout<T> &l, int destination, tag_t t = tag_t(0)) const {
+      void rsend(const T *data, const layout<T> &l, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Rsend(data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
@@ -1479,7 +1479,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      void rsend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      void rsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1559,7 +1559,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      irequest irsend(const T &data, int destination, tag_t t = tag_t(0)) const {
+      irequest irsend(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         check_container_size(data);
@@ -1578,7 +1578,7 @@ namespace mpl {
       /// \return request representing the ongoing message transfer
       template<typename T>
       irequest irsend(const T *data, const layout<T> &l, int destination,
-                      tag_t t = tag_t(0)) const {
+                      tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1602,7 +1602,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      irequest irsend(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      irequest irsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1626,7 +1626,7 @@ namespace mpl {
       /// \return persistent communication request
       /// \note Sending STL containers is not supported.
       template<typename T>
-      prequest rsend_init(const T &data, int destination, tag_t t = tag_t(0)) const {
+      prequest rsend_init(const T &data, int destination, tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1646,7 +1646,7 @@ namespace mpl {
       /// \return persistent communication request
       template<typename T>
       prequest rsend_init(const T *data, const layout<T> &l, int destination,
-                          tag_t t = tag_t(0)) const {
+                          tag_t t = tag_t{0}) const {
         check_dest(destination);
         check_send_tag(t);
         MPI_Request req;
@@ -1670,7 +1670,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      prequest rsend_init(iterT begin, iterT end, int destination, tag_t t = tag_t(0)) const {
+      prequest rsend_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1743,7 +1743,7 @@ namespace mpl {
       /// sections.
       /// \anchor communicator_recv
       template<typename T>
-      status_t recv(T &data, int source, tag_t t = tag_t(0)) const {
+      status_t recv(T &data, int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         return recv(data, source, t, typename detail::datatype_traits<T>::data_type_category{});
@@ -1758,7 +1758,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return status of the receive operation
       template<typename T>
-      status_t recv(T *data, const layout<T> &l, int source, tag_t t = tag_t(0)) const {
+      status_t recv(T *data, const layout<T> &l, int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         status_t s;
@@ -1781,7 +1781,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      status_t recv(iterT begin, iterT end, int source, tag_t t = tag_t(0)) const {
+      status_t recv(iterT begin, iterT end, int source, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1846,7 +1846,7 @@ namespace mpl {
       /// performance characteristics. Use alternative overloads in performance critical code
       /// sections.
       template<typename T>
-      irequest irecv(T &data, int source, tag_t t = tag_t(0)) const {
+      irequest irecv(T &data, int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         return irecv(data, source, t,
@@ -1863,7 +1863,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing receive operation
       template<typename T>
-      irequest irecv(T *data, const layout<T> &l, int source, tag_t t = tag_t(0)) const {
+      irequest irecv(T *data, const layout<T> &l, int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         MPI_Request req;
@@ -1887,7 +1887,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      irequest irecv(iterT begin, iterT end, int source, tag_t t = tag_t(0)) const {
+      irequest irecv(iterT begin, iterT end, int source, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         static_assert(std::is_lvalue_reference_v<decltype(*begin)>,
                       "iterator de-referencing must yield a reference");
@@ -1911,7 +1911,7 @@ namespace mpl {
       /// \return persistent communication request
       /// \note Receiving STL containers is not supported.
       template<typename T>
-      prequest recv_init(T &data, int source, tag_t t = tag_t(0)) const {
+      prequest recv_init(T &data, int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         MPI_Request req;
@@ -1930,7 +1930,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return persistent communication request
       template<typename T>
-      prequest recv_init(T *data, const layout<T> &l, int source, tag_t t = tag_t(0)) const {
+      prequest recv_init(T *data, const layout<T> &l, int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         MPI_Request req;
@@ -1954,7 +1954,7 @@ namespace mpl {
       /// \note This is a convenience method, which may have non-optimal performance
       /// characteristics. Use alternative overloads in performance critical code sections.
       template<typename iterT>
-      prequest recv_init(iterT begin, iterT end, int source, tag_t t = tag_t(0)) const {
+      prequest recv_init(iterT begin, iterT end, int source, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
         if constexpr (detail::is_contiguous_iterator_v<iterT>) {
           const vector_layout<value_type> l(std::distance(begin, end));
@@ -1971,7 +1971,7 @@ namespace mpl {
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return status of the pending message
-      [[nodiscard]] status_t probe(int source, tag_t t = tag_t(0)) const {
+      [[nodiscard]] status_t probe(int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         status_t s;
@@ -1984,7 +1984,7 @@ namespace mpl {
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return status of the pending message if there is any pending message
-      [[nodiscard]] std::optional<status_t> iprobe(int source, tag_t t = tag_t(0)) const {
+      [[nodiscard]] std::optional<status_t> iprobe(int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         int result;
@@ -2002,7 +2002,7 @@ namespace mpl {
       /// \param source rank of the sending process
       /// \param t tag associated to this message
       /// \return message handle and status of the pending message
-      [[nodiscard]] mprobe_status mprobe(int source, tag_t t = tag_t(0)) const {
+      [[nodiscard]] mprobe_status mprobe(int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         status_t s;
@@ -2017,7 +2017,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return message handle and status of the pending message if there is a pending message
       /// by the given source and with the given tag
-      [[nodiscard]] std::optional<mprobe_status> improbe(int source, tag_t t = tag_t(0)) const {
+      [[nodiscard]] std::optional<mprobe_status> improbe(int source, tag_t t = tag_t{0}) const {
         check_source(source);
         check_recv_tag(t);
         int result;
@@ -2528,7 +2528,7 @@ namespace mpl {
       template<typename T>
       void gather(int root_rank, const T &send_data) const {
         check_nonroot(root_rank);
-        MPI_Gather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
+        MPI_Gather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), nullptr, 0,
                    MPI_DATATYPE_NULL, root_rank, comm_);
       }
 
@@ -2544,8 +2544,8 @@ namespace mpl {
       template<typename T>
       void gather(int root_rank, const T *send_data, const layout<T> &sendl) const {
         check_nonroot(root_rank);
-        MPI_Gather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
-                   MPI_DATATYPE_NULL, root_rank, comm_);
+        MPI_Gather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                   nullptr, 0, MPI_DATATYPE_NULL, root_rank, comm_);
       }
 
       // --- non-blocking gather, non-root variant ---
@@ -2563,7 +2563,7 @@ namespace mpl {
       irequest igather(int root_rank, const T &send_data) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Igather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), 0, 0,
+        MPI_Igather(&send_data, 1, detail::datatype_traits<T>::get_datatype(), nullptr, 0,
                     MPI_DATATYPE_NULL, root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -2583,8 +2583,8 @@ namespace mpl {
       irequest igather(int root_rank, const T *send_data, const layout<T> &sendl) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Igather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), 0, 0,
-                    MPI_DATATYPE_NULL, root_rank, comm_, &req);
+        MPI_Igather(send_data, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                    nullptr, 0, MPI_DATATYPE_NULL, root_rank, comm_, &req);
         return base_irequest{req};
       }
       // === root gets varying amount of data from each rank and stores in non-contiguous memory
@@ -2979,7 +2979,7 @@ namespace mpl {
       template<typename T>
       void scatter(int root_rank, T &recv_data) const {
         check_nonroot(root_rank);
-        MPI_Scatter(0, 0, MPI_DATATYPE_NULL, &recv_data, 1,
+        MPI_Scatter(nullptr, 0, MPI_DATATYPE_NULL, &recv_data, 1,
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
@@ -2993,7 +2993,7 @@ namespace mpl {
       template<typename T>
       void scatter(int root_rank, T *recv_data, const layout<T> &recvl) const {
         check_root(root_rank);
-        MPI_Scatter(0, 0, MPI_DATATYPE_NULL, recv_data, 1,
+        MPI_Scatter(nullptr, 0, MPI_DATATYPE_NULL, recv_data, 1,
                     detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_);
       }
 
@@ -3010,7 +3010,7 @@ namespace mpl {
       irequest iscatter(int root_rank, T &recv_data) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, &recv_data, 1,
+        MPI_Iscatter(nullptr, 0, MPI_DATATYPE_NULL, &recv_data, 1,
                      detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
         return base_irequest{req};
       }
@@ -3028,7 +3028,7 @@ namespace mpl {
       irequest iscatter(int root_rank, T *recv_data, const layout<T> &recvl) const {
         check_nonroot(root_rank);
         MPI_Request req;
-        MPI_Iscatter(0, 0, MPI_DATATYPE_NULL, recv_data, 1,
+        MPI_Iscatter(nullptr, 0, MPI_DATATYPE_NULL, recv_data, 1,
                      detail::datatype_traits<layout<T>>::get_datatype(recvl), root_rank, comm_,
                      &req);
         return base_irequest{req};
@@ -3417,8 +3417,8 @@ namespace mpl {
                          state->counts.data(), state->recvdispls_int.data(),
                          reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
         else
-          MPI_Ialltoallw(MPI_IN_PLACE, 0, 0, 0, recv_data, state->counts.data(),
-                         state->recvdispls_int.data(),
+          MPI_Ialltoallw(MPI_IN_PLACE, nullptr, nullptr, nullptr, recv_data,
+                         state->counts.data(), state->recvdispls_int.data(),
                          reinterpret_cast<const MPI_Datatype *>(state->recvl()), comm_, &req);
         MPI_Status s;
         MPI_Wait(&req, &s);
@@ -4070,7 +4070,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the given group.
     explicit communicator([[maybe_unused]] group_collective_tag group_collective,
-                          const communicator &other, const group &gr, tag_t t = tag_t(0)) {
+                          const communicator &other, const group &gr, tag_t t = tag_t{0}) {
       MPI_Comm_create_group(other.comm_, gr.gr_, static_cast<int>(t), &comm_);
     }
 
@@ -4337,7 +4337,7 @@ namespace mpl {
       check_size(sendrecvls);
       const std::vector<int> counts(sendrecvls.size(), 1);
       const std::vector<int> sendrecvdispls_int(sendrecvdispls.begin(), sendrecvdispls.end());
-      MPI_Alltoallw(MPI_IN_PLACE, 0, 0, 0, sendrecv_data, counts.data(),
+      MPI_Alltoallw(MPI_IN_PLACE, nullptr, nullptr, nullptr, sendrecv_data, counts.data(),
                     sendrecvdispls_int.data(),
                     reinterpret_cast<const MPI_Datatype *>(sendrecvls()), comm_);
     }
@@ -4975,7 +4975,7 @@ namespace mpl {
     /// communicator and the peer communicator.
     explicit inter_communicator(const communicator &local_communicator, int local_leader,
                                 const communicator &peer_communicator, int remote_leader,
-                                tag_t t = tag_t(0))
+                                tag_t t = tag_t{0})
         : base{} {
       MPI_Intercomm_create(local_communicator.comm_, local_leader, peer_communicator.comm_,
                            remote_leader, static_cast<int>(t), &comm_);
