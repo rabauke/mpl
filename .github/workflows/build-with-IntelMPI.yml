@@ -1,0 +1,29 @@
+name: build-with-IntelMPI
+run-name: Build MPL with IntelMPI
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install build dependencies
+        run: |
+          sudo apt install cmake ninja-build g++ libboost-test-dev
+          wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS.PUB | gpg --dearmor | sudo tee /usr/share/keyrings/oneapi-archive-keyring.gpg > /dev/null
+          echo "deb [signed-by=/usr/share/keyrings/oneapi-archive-keyring.gpg] https://apt.repos.intel.com/oneapi all main" | sudo tee /etc/apt/sources.list.d/oneAPI.list
+          sudo apt update
+          sudo apt install intel-oneapi-mpi-devel
+      - name: Build mpl
+        run: |
+          mkdir build
+          cd build
+          . /opt/intel/oneapi/setvars.sh
+          cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
+          cmake --build . -j
+      - name: Test mpl
+        run: |
+          cd build
+          . /opt/intel/oneapi/setvars.sh
+          ctest --output-on-failure
+      - run: echo "This job's status is ${{ job.status }}."
