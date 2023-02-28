@@ -15,8 +15,9 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
+          cmake -G Ninja -DCMAKE_INSTALL_PREFIX="$HOME/mpl" -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
           cmake --build . -j
+          cmake --build . --target install
       - name: Test mpl
         run: |
           cd build
