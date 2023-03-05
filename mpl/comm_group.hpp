@@ -3063,7 +3063,7 @@ namespace mpl {
         if (rank() == root_rank)
           alltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
         else
-          alltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n), recvdispls);
+          alltoallv(send_data, mpl::layouts<T>(n), senddispls, recv_data, recvls, recvdispls);
       }
 
       /// Scatter messages with a variable amount of data from a single root process to all
@@ -3113,7 +3113,7 @@ namespace mpl {
         if (rank() == root_rank)
           return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
         else
-          return ialltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n),
+          return ialltoallv(send_data, mpl::layouts<T>(n), senddispls, recv_data, recvls,
                             recvdispls);
       }
 

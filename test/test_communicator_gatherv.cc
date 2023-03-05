@@ -6,7 +6,7 @@
 #include "test_helper.hpp"
 
 
-template<typename T>
+template<use_non_root_overload variant, typename T>
 bool gatherv_test(const T &val) {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   const int N{(comm_world.size() * comm_world.size() + comm_world.size()) / 2};
@@ -25,17 +25,27 @@ bool gatherv_test(const T &val) {
     ++t_val;
   std::iota(begin(v_send), end(v_send), t_val);
   mpl::vector_layout<T> layout(comm_world.rank() + 1);
-  if (comm_world.rank() == 0) {
-    comm_world.gatherv(0, v_send.data(), layout, v_gather.data(), layouts);
-    return v_gather == v_expected;
+  if constexpr (variant == use_non_root_overload::yes) {
+    if (comm_world.rank() == 0) {
+      comm_world.gatherv(0, v_send.data(), layout, v_gather.data(), layouts);
+      return v_gather == v_expected;
+    } else {
+      comm_world.gatherv(0, v_send.data(), layout);
+      return true;
+    }
   } else {
-    comm_world.gatherv(0, v_send.data(), layout);
-    return true;
+    if (comm_world.rank() == 0) {
+      comm_world.gatherv(0, v_send.data(), layout, v_gather.data(), layouts);
+      return v_gather == v_expected;
+    } else {
+      comm_world.gatherv(0, v_send.data(), layout, v_gather.data(), layouts);
+      return true;
+    }
   }
 }
 
 
-template<typename T>
+template<use_non_root_overload variant, typename T>
 bool igatherv_test(const T &val) {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   const int N{(comm_world.size() * comm_world.size() + comm_world.size()) / 2};
@@ -54,22 +64,40 @@ bool igatherv_test(const T &val) {
     ++t_val;
   std::iota(begin(v_send), end(v_send), t_val);
   mpl::vector_layout<T> layout(comm_world.rank() + 1);
-  if (comm_world.rank() == 0) {
-    auto r{comm_world.igatherv(0, v_send.data(), layout, v_gather.data(), layouts)};
-    r.wait();
-    return v_gather == v_expected;
+  if constexpr (variant == use_non_root_overload::yes) {
+    if (comm_world.rank() == 0) {
+      auto r{comm_world.igatherv(0, v_send.data(), layout, v_gather.data(), layouts)};
+      r.wait();
+      return v_gather == v_expected;
+    } else {
+      auto r{comm_world.igatherv(0, v_send.data(), layout)};
+      r.wait();
+      return true;
+    }
   } else {
-    auto r{comm_world.igatherv(0, v_send.data(), layout)};
-    r.wait();
-    return true;
+    if (comm_world.rank() == 0) {
+      auto r{comm_world.igatherv(0, v_send.data(), layout, v_gather.data(), layouts)};
+      r.wait();
+      return v_gather == v_expected;
+    } else {
+      auto r{comm_world.igatherv(0, v_send.data(), layout, v_gather.data(), layouts)};
+      r.wait();
+      return true;
+    }
   }
 }
 
 
 BOOST_AUTO_TEST_CASE(gatherv) {
-  BOOST_TEST(gatherv_test(1.0));
-  BOOST_TEST(gatherv_test(tuple{1, 2.0}));
+  BOOST_TEST(gatherv_test<use_non_root_overload::no>(1.0));
+  BOOST_TEST(gatherv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(igatherv_test(1.0));
-  BOOST_TEST(igatherv_test(tuple{1, 2.0}));
+  BOOST_TEST(gatherv_test<use_non_root_overload::yes>(1.0));
+  BOOST_TEST(gatherv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+
+  BOOST_TEST(igatherv_test<use_non_root_overload::no>(1.0));
+  BOOST_TEST(igatherv_test<use_non_root_overload::no>(tuple{1, 2.0}));
+
+  BOOST_TEST(igatherv_test<use_non_root_overload::yes>(1.0));
+  BOOST_TEST(igatherv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
 }
