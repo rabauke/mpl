@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9)
 
 # FIXME I didn't see versioning info on github,
 # but semantic versioning should be considered
-project(mpl VERSION 0.2.1 LANGUAGES CXX C)
+project(mpl VERSION 0.3.0 LANGUAGES CXX C)
 
 if(NOT DEFINED CACHE{BUILD_TESTING})
   set(BUILD_TESTING OFF CACHE BOOL "")
