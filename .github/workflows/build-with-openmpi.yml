@@ -2,7 +2,7 @@ name: build-with-openmpi
 run-name: Build MPL with OpenMPI
 on: [push]
 jobs:
-  Explore-GitHub-Actions:
+  compile-mpl:
     runs-on: ubuntu-22.04
     steps:
       - name: Check out repository code
