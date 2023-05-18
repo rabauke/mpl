@@ -1,6 +1,6 @@
 name: build-with-openmpi
 run-name: Build MPL with OpenMPI
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   compile-mpl:
     runs-on: ubuntu-22.04

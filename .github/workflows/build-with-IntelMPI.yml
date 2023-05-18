@@ -1,6 +1,6 @@
 name: build-with-IntelMPI
 run-name: Build MPL with IntelMPI
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   compile-mpl:
     runs-on: ubuntu-22.04
