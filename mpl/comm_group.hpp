@@ -4106,7 +4106,7 @@ namespace mpl {
     template<typename key_type = int>
     explicit communicator([[maybe_unused]] split_shared_memory_tag split_shared_memory,
                           const communicator &other, key_type key = 0) {
-      static_assert(detail::is_valid_tag_v<key_type>,
+      static_assert(detail::is_valid_key_v<key_type>,
                     "not an enumeration type or underlying enumeration type too large");
       MPI_Comm_split_type(other.comm_, MPI_COMM_TYPE_SHARED,
                           detail::underlying_type<key_type>::value(key), MPI_INFO_NULL, &comm_);

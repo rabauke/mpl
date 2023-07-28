@@ -64,6 +64,17 @@ bool communicator_comm_world_split_test() {
 }
 
 
+// test properties of a newly created communicator
+bool communicator_comm_world_split_shared_memory_test() {
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  const int rank{comm_world.rank()};
+  mpl::communicator comm_new{mpl::communicator::split_shared_memory, comm_world, rank % 2 == 0};
+  if (not comm_new.is_valid())
+    return false;
+  return true;
+}
+
+
 bool communicator_comm_self_test() {
   const mpl::communicator &comm_self{mpl::environment::comm_self()};
   if (not comm_self.is_valid())
@@ -92,5 +103,6 @@ BOOST_AUTO_TEST_CASE(communicator) {
   BOOST_TEST(communicator_comm_world_test());
   BOOST_TEST(communicator_comm_world_copy_test());
   BOOST_TEST(communicator_comm_world_split_test());
+  BOOST_TEST(communicator_comm_world_split_shared_memory_test());
   BOOST_TEST(communicator_comm_self_test());
 }
