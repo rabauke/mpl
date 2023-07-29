@@ -64,8 +64,8 @@ bool iscatterv_test(const T &val) {
       r.wait();
     }
   } else {
-      auto r{comm_world.iscatterv(0, v_scatter.data(), layouts, v_recv.data(), layout)};
-      r.wait();
+    auto r{comm_world.iscatterv(0, v_scatter.data(), layouts, v_recv.data(), layout)};
+    r.wait();
   }
   return v_recv == v_expected;
 }
