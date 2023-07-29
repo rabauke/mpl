@@ -78,9 +78,11 @@ BOOST_AUTO_TEST_CASE(scatterv) {
   BOOST_TEST(scatterv_test<use_non_root_overload::yes>(1.0));
   BOOST_TEST(scatterv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
 
+#if !defined MPICH || MPICH_NUMVERSION >= 40101000
   BOOST_TEST(iscatterv_test<use_non_root_overload::no>(1.0));
   BOOST_TEST(iscatterv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
   BOOST_TEST(iscatterv_test<use_non_root_overload::yes>(1.0));
   BOOST_TEST(iscatterv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+#endif
 }
