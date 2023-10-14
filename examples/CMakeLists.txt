@@ -9,9 +9,9 @@ function(add_mpl_executable TARGET_NAME SOURCES)
           -Wall>
      $<$<CXX_COMPILER_ID:MSVC>:
           /permissive- /W4 /WX>)
-  target_link_libraries(${TARGET_NAME} PUBLIC mpl::mpl)
+  target_link_libraries(${TARGET_NAME} PRIVATE mpl::mpl)
   # add MPL_Debug definition if building in debug mode
-  target_compile_definitions(${TARGET_NAME} PUBLIC 
+  target_compile_definitions(${TARGET_NAME} PRIVATE
     $<$<CONFIG:Debug>:MPL_DEBUG>)
 endfunction()
 
