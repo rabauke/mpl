@@ -1,17 +1,17 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Environmental management" href="environmental_management.html" /><link rel="prev" title="Installation" href="installation.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Environmental management" href="environmental_management.html" /><link rel="prev" title="CMake integration" href="cmake_integration.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
         <title>Supported data types - MPL: A message passing library v0.3.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
@@ -161,6 +161,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmake_integration.html">CMake integration</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Supported data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
@@ -174,7 +175,7 @@
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
@@ -272,7 +273,7 @@
 <dd><p>Base class used to manage information about structures/classes and their public members. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -312,7 +313,7 @@
 <dd><p>Template class used to manage information about structures/classes and their public members. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1base__struct__builder"><span class="std std-ref"><span class="pre">base_struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1base__struct__builder"><span class="std std-ref"><span class="pre">base_struct_builder</span></span></a></code></p>
 </div>
 </p>
 <div class="admonition note">
@@ -340,7 +341,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for fixed-size one-dimensional STL arrays. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -367,7 +368,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for STL pairs. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -394,7 +395,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for STL tuples. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -418,7 +419,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for fixed-size one-dimensional C-style arrays. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -445,7 +446,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for fixed-size two-dimensional C-style arrays. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -473,7 +474,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for fixed-size three-dimensional C-style arrays. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -502,7 +503,7 @@
 <dd><p>Specialization of <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> for fixed-size four-dimensional C-style arrays. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code> </p>
+<p>class <code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1struct__builder"><span class="std std-ref"><span class="pre">struct_builder</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -597,14 +598,14 @@
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="installation.html">
+          <a class="prev-page" href="cmake_integration.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Installation</div>
+                <div class="title">CMake integration</div>
                 
               </div>
             </a>
@@ -665,9 +666,6 @@
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

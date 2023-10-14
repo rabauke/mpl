@@ -7,6 +7,7 @@ MPL: A message passing library
    :caption: Contents:
 
    installation
+   cmake_integration
    data_types
    environmental_management
    group

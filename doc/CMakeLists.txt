@@ -9,6 +9,7 @@ configure_file(${sphinx_source_dir}/conf.py.in ${sphinx_binary_dir}/conf.py @ONL
 
 set(documentation_sources
     sphinx/auxiliary.rst
+    sphinx/cmake_integration.rst
     sphinx/communicator.rst
     sphinx/conf.py.in
     sphinx/constants.rst

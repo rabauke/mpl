@@ -1,3 +1,5 @@
+.. _Installation:
+
 Installation
 ============
 
@@ -20,7 +22,7 @@ The option ``-DCMAKE_INSTALL_PREFIX:PATH`` specifies the installation path.
 
 Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on `FindMPI <https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi>`__ and `FindBoost <https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints>`__ for further details.
 
-Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the ``--install`` option now, e.g.,
+CMake can also be utilized to install the MPL header files. Just call CMake a second time and specify the ``--install`` option now, e.g.,
 
 .. code:: shell
 

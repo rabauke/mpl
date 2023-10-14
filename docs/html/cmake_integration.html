@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Auxiliary functions and classes" href="auxiliary.html" /><link rel="prev" title="Info objects" href="info.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported data types" href="data_types.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
-        <title>Constants - MPL: A message passing library v0.3.0</title>
+        <title>CMake integration - MPL: A message passing library v0.3.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
@@ -161,7 +161,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cmake_integration.html">CMake integration</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">CMake integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_types.html">Supported data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
@@ -171,7 +171,7 @@
 <li class="toctree-l1"><a class="reference internal" href="reduction_operations.html">Reduction operations</a></li>
 <li class="toctree-l1"><a class="reference internal" href="file.html">File</a></li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">Info objects</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
@@ -239,45 +239,31 @@
           </label>
         </div>
         <article role="main">
-          <section id="constants">
-<h1>Constants<a class="headerlink" href="#constants" title="Permalink to this heading">#</a></h1>
-<p>MPL defines the following global constants:</p>
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl9proc_nullE">
-<span id="_CPPv3N3mpl9proc_nullE"></span><span id="_CPPv2N3mpl9proc_nullE"></span><span id="mpl::proc_null__i"></span><span class="target" id="namespacempl_1abb6a29150305d07b04679a8ddde9f12e"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">proc_null</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_PROC_NULL</span></span><a class="headerlink" href="#_CPPv4N3mpl9proc_nullE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special value that can be used instead of a rank wherever a source or a destination argument is required in a call to indicate that the communication shall have no effect. </p>
-</dd></dl>
+          <section id="cmake-integration">
+<h1>CMake integration<a class="headerlink" href="#cmake-integration" title="Permalink to this heading">#</a></h1>
+<p>MPL provides supporting files for CMake integration. These are also installed during the installation step.  CMake integration is realized via the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> CMake package, which provides the library target <code class="docutils literal notranslate"><span class="pre">mpl::mpl</span></code>.  The following example <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> file illustrates the usage of the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> CMake package for creating an MPL application. First, the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> package is loaded via the <code class="docutils literal notranslate"><span class="pre">find_package</span></code> function. Then, all targets with MPL dependency must be linked against <code class="docutils literal notranslate"><span class="pre">mpl::mpl</span></code>.  In this way, CMake adds all necessary compiler flags and linker flags that are required for building an MPL application.</p>
+<div class="highlight-CMake notranslate"><div class="highlight"><pre><span></span><span class="c"># MPI CMake module available since version 3.10</span>
+<span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.10</span><span class="p">)</span>
 
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl9undefinedE">
-<span id="_CPPv3N3mpl9undefinedE"></span><span id="_CPPv2N3mpl9undefinedE"></span><span id="mpl::undefined__i"></span><span class="target" id="namespacempl_1a5a6f438e47865cfd798463641da57422"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">undefined</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_UNDEFINED</span></span><a class="headerlink" href="#_CPPv4N3mpl9undefinedE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special value that is used to indicate an invalid return value or function parameter in some functions. </p>
-</dd></dl>
+<span class="nb">project</span><span class="p">(</span><span class="s">hello_mpl</span><span class="p">)</span>
 
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl4rootE">
-<span id="_CPPv3N3mpl4rootE"></span><span id="_CPPv2N3mpl4rootE"></span><span id="mpl::root__i"></span><span class="target" id="namespacempl_1abd8218c11dd51770a3c4f4c7a7752ba1"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">root</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_ROOT</span></span><a class="headerlink" href="#_CPPv4N3mpl4rootE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special value to indicate the root process in some inter-communicator collective operations. </p>
-</dd></dl>
+<span class="c"># project requires c++17 to build</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD</span><span class="w"> </span><span class="s">17</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">ON</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span><span class="s">CMAKE_CXX_EXTENSIONS</span><span class="w"> </span><span class="s">OFF</span><span class="p">)</span>
 
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl8absoluteE">
-<span id="_CPPv3N3mpl8absoluteE"></span><span id="_CPPv2N3mpl8absoluteE"></span><span id="mpl::absolute__voidP"></span><span class="target" id="namespacempl_1a33f7eddf281d299c919c670b4907e44b"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">absolute</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_BOTTOM</span></span><a class="headerlink" href="#_CPPv4N3mpl8absoluteE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special constant to indicate the start of the address range of message buffers. </p>
-<p><span class="target" id="namespacempl_1absolute"></span></p>
-</dd></dl>
+<span class="c"># find the MPL library and its dependencies, e.g., an MPI library</span>
+<span class="nb">find_package</span><span class="p">(</span><span class="s">mpl</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
 
-<dl class="cpp var">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl14bsend_overheadE">
-<span id="_CPPv3N3mpl14bsend_overheadE"></span><span id="_CPPv2N3mpl14bsend_overheadE"></span><span id="mpl::bsend_overhead__i"></span><span class="target" id="namespacempl_1ae68cf5f9eb647bf76c082b62a59f4d45"></span><span class="k"><span class="pre">constexpr</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">bsend_overhead</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_BSEND_OVERHEAD</span></span><a class="headerlink" href="#_CPPv4N3mpl14bsend_overheadE" title="Permalink to this definition">#</a><br /></dt>
-<dd><p>Special constant representing an upper bound on the additional space consumed when buffering messages. </p>
-<p><div class="admonition seealso">
-<p class="admonition-title">See also</p>
-<p><code class="docutils literal notranslate"><span class="pre">communicator::bsend</span></code> <span class="target" id="namespacempl_1bsend_overhead"></span></p>
+<span class="c"># create executable and link against mpl and its dependencies</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">hello_world</span><span class="w"> </span><span class="s">hello_world.cc</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">hello_world</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">mpl::mpl</span><span class="p">)</span>
+</pre></div>
 </div>
-</p>
-</dd></dl>
-
+<p>When using <code class="docutils literal notranslate"><span class="pre">find_package</span></code>, CMake searches in a set of platform-dependent standard directories for the requested CMake package.  CMake may fail to find the MPL CMake package when MPL was installed in a custom directory.  If MPL was installed in a custom directory, add the installation directory (given via <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_PREFIX</span></code> during MPL configuration see <a class="reference internal" href="installation.html#installation"><span class="std std-ref">Installation</span></a>) to the <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> variable during the configuration of the MPL application, e.g.:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/hello_mpl/build$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_PREFIX_PATH:PATH<span class="o">=</span>/path/to/mpl<span class="w"> </span>..
+</pre></div>
+</div>
 </section>
 
         </article>
@@ -285,23 +271,23 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="auxiliary.html">
+          <a class="next-page" href="data_types.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Auxiliary functions and classes</div>
+                <div class="title">Supported data types</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="info.html">
+          <a class="prev-page" href="installation.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Info objects</div>
+                <div class="title">Installation</div>
                 
               </div>
             </a>

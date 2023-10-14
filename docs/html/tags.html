@@ -1,17 +1,17 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Communicators" href="communicator.html" /><link rel="prev" title="Group" href="group.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
         <title>Tags - MPL: A message passing library v0.3.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
@@ -161,6 +161,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmake_integration.html">CMake integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_types.html">Supported data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
@@ -174,7 +175,7 @@
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
@@ -303,7 +304,7 @@
 <span id="_CPPv3N3mpl5tag_t3anyEv"></span><span id="_CPPv2N3mpl5tag_t3anyEv"></span><span id="mpl::tag_t::any"></span><span class="target" id="classmpl_1_1tag__t_1af6eefcda9591c27a9c06697aa87e41f5"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5tag_tE" title="mpl::tag_t"><span class="n"><span class="pre">tag_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">any</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5tag_t3anyEv" title="Permalink to this definition">#</a><br /></dt>
 <dd><p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="docutils literal notranslate"><a class="reference internal" href="#namespacempl_1ac7e586e30b161c19300b6d6914f92c32"><span class="std std-ref"><span class="pre">any_source</span></span></a></code> </p>
+<p><code class="docutils literal notranslate"><a class="reference internal" href="#namespacempl_1ac7e586e30b161c19300b6d6914f92c32"><span class="std std-ref"><span class="pre">any_source</span></span></a></code></p>
 </div>
 </p>
 <dl class="field-list simple">
@@ -322,7 +323,7 @@
 <dd><p>Wildcard value to indicate in a receive operation, e.g., <code class="docutils literal notranslate"><span class="pre">communicator::recv</span></code>, that any source is acceptable. </p>
 <p><div class="admonition seealso">
 <p class="admonition-title">See also</p>
-<p><code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1tag__t_1af6eefcda9591c27a9c06697aa87e41f5"><span class="std std-ref"><span class="pre">tag_t::any</span></span></a></code> </p>
+<p><code class="docutils literal notranslate"><a class="reference internal" href="#classmpl_1_1tag__t_1af6eefcda9591c27a9c06697aa87e41f5"><span class="std std-ref"><span class="pre">tag_t::any</span></span></a></code></p>
 </div>
 </p>
 </dd></dl>
@@ -407,9 +408,6 @@
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>

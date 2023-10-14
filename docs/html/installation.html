@@ -1,17 +1,17 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Supported data types" href="data_types.html" /><link rel="prev" title="MPL: A message passing library" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="CMake integration" href="cmake_integration.html" /><link rel="prev" title="MPL: A message passing library" href="index.html" />
 
-    <!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <!-- Generated with Sphinx 6.2.1 and Furo 2023.09.10 -->
         <title>Installation - MPL: A message passing library v0.3.0</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=369552022d0b975c8e74270ce6eabe0fb7978f24" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
@@ -161,6 +161,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cmake_integration.html">CMake integration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_types.html">Supported data types</a></li>
 <li class="toctree-l1"><a class="reference internal" href="environmental_management.html">Environmental management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="group.html">Group</a></li>
@@ -174,7 +175,7 @@
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
@@ -239,7 +240,7 @@
         </div>
         <article role="main">
           <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
+<span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">#</a></h1>
 <p>MPL is built on MPI. An MPI implementation needs to be installed as a prerequisite, e.g., <a class="reference external" href="https://www.open-mpi.org/">Open MPI</a> or <a class="reference external" href="https://www.mpich.org/">MPICH</a>. MPL is a header-only library. Thus, it suffices to download the <a class="reference external" href="https://github.com/rabauke/mpl">source</a> and to copy the <code class="docutils literal notranslate"><span class="pre">mpl</span></code> directory, which contains all header files to a folder, where the compiler will find it, e.g., <code class="docutils literal notranslate"><span class="pre">/usr/local/include</span></code> on a typical Unix/Linux system.</p>
 <p>For convenience and better integration into various IDEs, MPL also comes with CMake support. To install MPL via CMake get the sources and create a new <code class="docutils literal notranslate"><span class="pre">build</span></code> folder in the MPL source directory, e.g.,</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl$<span class="w"> </span>mkdir<span class="w"> </span>build
@@ -252,7 +253,7 @@ user@host:~/mpl$<span class="w"> </span><span class="nb">cd</span><span class="w
 </div>
 <p>The option <code class="docutils literal notranslate"><span class="pre">-DCMAKE_INSTALL_PREFIX:PATH</span></code> specifies the installation path.</p>
 <p>Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on <a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi">FindMPI</a> and <a class="reference external" href="https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints">FindBoost</a> for further details.</p>
-<p>Cmake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option now, e.g.,</p>
+<p>CMake can also be utilized to install the MPL header files. Just call CMake a second time and specify the <code class="docutils literal notranslate"><span class="pre">--install</span></code> option now, e.g.,</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>user@host:~/mpl/build$<span class="w"> </span>cmake<span class="w"> </span>--install<span class="w"> </span>.
 </pre></div>
 </div>
@@ -342,12 +343,12 @@ Total<span class="w"> </span>Test<span class="w"> </span><span class="nb">time</
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="data_types.html">
+          <a class="next-page" href="cmake_integration.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Supported data types</div>
+                <div class="title">CMake integration</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -394,9 +395,6 @@ Total<span class="w"> </span>Test<span class="w"> </span><span class="nb">time</
     </aside>
   </div>
 </div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/scripts/furo.js"></script>
