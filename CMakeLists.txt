@@ -1,5 +1,5 @@
-# 3.9 required for mpi targets, 3.5 required for boost targets
-cmake_minimum_required(VERSION 3.9)
+# 3.10 required for mpi targets, 3.5 required for boost targets
+cmake_minimum_required(VERSION 3.10)
 
 # FIXME I didn't see versioning info on github,
 # but semantic versioning should be considered
