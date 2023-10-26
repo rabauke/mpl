@@ -3365,7 +3365,7 @@ namespace mpl {
         std::vector<int> counts;
         std::vector<int> senddispls_int;
         std::vector<int> recvdispls_int;
-        ialltoallv_request_state *request_state;
+        ialltoallv_request_state *request_state{nullptr};
 
         ialltoallv_state(const layouts<T> &sendl, const layouts<T> &recvl,
                          std::vector<int> &&counts, std::vector<int> &&senddispls_int,
