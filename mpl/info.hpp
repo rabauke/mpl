@@ -149,8 +149,7 @@ namespace mpl {
     using base::const_iterator;
 
     /// Constructs an empty list of info objects.
-    explicit infos() : base() {
-    }
+    infos() = default;
 
     /// Constructs list of info objects from a braces expression of info objects.
     /// \param init list of initial values

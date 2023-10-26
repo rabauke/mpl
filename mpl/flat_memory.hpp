@@ -26,7 +26,11 @@ namespace mpl::detail {
       std::copy(i1, i2, first);
     }
 
+    flat_memory_in(const flat_memory_in &) = delete;
+
     ~flat_memory_in() { delete[] first; }
+
+    flat_memory_in & operator=(const flat_memory_in &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 
@@ -34,6 +38,7 @@ namespace mpl::detail {
 
     const T &operator[](std::size_t i) const { return data()[i]; }
   };
+
 
   template<typename T>
   class flat_memory_in<T, T *> {
@@ -47,7 +52,11 @@ namespace mpl::detail {
   public:
     flat_memory_in(const T *i1, const T *i2) : n(std::distance(i1, i2)), first(i1) {}
 
+    flat_memory_in(const flat_memory_in &) = delete;
+
     ~flat_memory_in() = default;
+
+    flat_memory_in & operator=(const flat_memory_in &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 
@@ -55,6 +64,7 @@ namespace mpl::detail {
 
     const T &operator[](std::size_t i) const { return data()[i]; }
   };
+
 
   // a more general implementation would be possible with
   // contiguous_iterator_tag of C++17
@@ -69,9 +79,13 @@ namespace mpl::detail {
     iterator first;
 
   public:
+    flat_memory_in(const flat_memory_in &) = delete;
+
     flat_memory_in(iterator i1, iterator i2) : n(std::distance(i1, i2)), first(i1) {}
 
     ~flat_memory_in() = default;
+
+    flat_memory_in & operator=(const flat_memory_in &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 
@@ -79,6 +93,7 @@ namespace mpl::detail {
 
     const T &operator[](std::size_t i) const { return data()[i]; }
   };
+
 
   template<typename T>
   class flat_memory_in<T, typename std::vector<T>::const_iterator> {
@@ -91,10 +106,14 @@ namespace mpl::detail {
     const_iterator first;
 
   public:
+    flat_memory_in(const flat_memory_in &) = delete;
+
     flat_memory_in(const_iterator i1, const_iterator i2)
         : n(std::distance(i1, i2)), first(i1) {}
 
     ~flat_memory_in() = default;
+
+    flat_memory_in & operator=(const flat_memory_in &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 
@@ -116,9 +135,13 @@ namespace mpl::detail {
     T *first;
 
   public:
+    flat_memory_out(const flat_memory_out &) = delete;
+
     flat_memory_out(size_type n, I first_out) : n(n), first_out(first_out), first(new T[n]) {}
 
     ~flat_memory_out() { delete[] first; }
+
+    flat_memory_out & operator=(const flat_memory_out &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 
@@ -135,6 +158,7 @@ namespace mpl::detail {
     }
   };
 
+
   template<typename T>
   class flat_memory_out<T, T *> {
   public:
@@ -146,9 +170,13 @@ namespace mpl::detail {
     T *first;
 
   public:
+    flat_memory_out(const flat_memory_out &) = delete;
+
     flat_memory_out(size_type n, T *first_out) : n(n), first_out(first_out), first(first_out) {}
 
     ~flat_memory_out() = default;
+
+    flat_memory_out & operator=(const flat_memory_out &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 
@@ -162,6 +190,7 @@ namespace mpl::detail {
 
     T *copy_back(size_type m) const { return first_out + std::min(m, n); }
   };
+
 
   // a more general implementation would be possible with
   // contiguous_iterator_tag of C++17
@@ -177,10 +206,14 @@ namespace mpl::detail {
     iterator first;
 
   public:
+    flat_memory_out(const flat_memory_out &) = delete;
+
     flat_memory_out(size_type n, iterator first_out)
         : n(n), first_out(first_out), first(first_out) {}
 
     ~flat_memory_out() = default;
+
+    flat_memory_out & operator=(const flat_memory_out &) = delete;
 
     [[nodiscard]] size_type size() const { return n; }
 

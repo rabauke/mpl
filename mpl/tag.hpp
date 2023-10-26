@@ -14,6 +14,10 @@ namespace mpl {
     int t{0};
 
   public:
+    /// Copy-constructor.
+    /// \param t tag value
+    tag_t(const tag_t &t) = default;
+
     /// Initializes tag from an integer value.
     /// \param t tag value
     explicit tag_t(int t = 0) : t{t} {
@@ -27,6 +31,10 @@ namespace mpl {
       static_assert(detail::is_valid_tag_v<T>,
                     "not an enumeration type or underlying enumeration type too large");
     }
+
+    /// Copy-assignmnet operator.
+    /// \param t tag value
+    tag_t & operator=(const tag_t &t) = default;
 
     /// \return tag value as integer
     explicit operator int() const {
