@@ -4885,7 +4885,7 @@ namespace mpl {
     /// processes of this communicator and the new spawned processes
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
-    inter_communicator spawn(int root_rank, int max_procs, const command_line &command) const;
+    [[nodiscard]] inter_communicator spawn(int root_rank, int max_procs, const command_line &command) const;
 
     /// Spawns new processes and establishes communication.
     /// \param root_rank the root process, following arguments are ignored on non-root ranks
@@ -4896,7 +4896,7 @@ namespace mpl {
     /// processes of this communicator and the new spawned processes
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
-    inter_communicator spawn(int root_rank, int max_procs, const command_line &command,
+    [[nodiscard]] inter_communicator spawn(int root_rank, int max_procs, const command_line &command,
                              const mpl::info &i) const;
 
     /// Spawns new processes and establishes communication, non-root variant.
@@ -4905,7 +4905,7 @@ namespace mpl {
     /// processes of this communicator and the new spawned processes
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
-    inter_communicator spawn(int root_rank) const;
+    [[nodiscard]] inter_communicator spawn(int root_rank) const;
 
     /// Spawns new processes and establishes communication.
     /// \param root_rank the root process, following arguments are ignored on non-root ranks
@@ -4914,7 +4914,7 @@ namespace mpl {
     /// processes of this communicator and the new spawned processes
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
-    inter_communicator spawn_multiple(int root_rank, const command_lines &commands) const;
+    [[nodiscard]] inter_communicator spawn_multiple(int root_rank, const command_lines &commands) const;
 
     /// Spawns new processes and establishes communication.
     /// \param root_rank the root process, following arguments are ignored on non-root ranks
@@ -4925,7 +4925,7 @@ namespace mpl {
     /// processes of this communicator and the new spawned processes
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
-    inter_communicator spawn_multiple(int root_rank, const command_lines &commands,
+    [[nodiscard]] inter_communicator spawn_multiple(int root_rank, const command_lines &commands,
                                       const mpl::infos &i) const;
 
     /// Spawns new processes and establishes communication, non-root variant.
@@ -4934,7 +4934,7 @@ namespace mpl {
     /// processes of this communicator and the new spawned processes
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
-    inter_communicator spawn_multiple(int root_rank) const;
+    [[nodiscard]] inter_communicator spawn_multiple(int root_rank) const;
 
     friend class group;
 
