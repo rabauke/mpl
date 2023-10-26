@@ -33,7 +33,9 @@ namespace mpl::detail {
     }
 
     explicit vector(size_type size, uninitialized)
-        : size_{size}, data_{static_cast<pointer>(operator new(size_ * sizeof(T)))} {
+        : size_{size},
+          data_{static_cast<pointer>(operator new(size_ * sizeof(T),
+                                                  std::align_val_t{alignof(T)}))} {
       if (not std::is_trivially_copyable<value_type>::value)
         for (size_type i{0}; i < size; ++i)
           new (&data_[i]) value_type();
@@ -41,7 +43,9 @@ namespace mpl::detail {
 
     template<typename IterT>
     explicit vector(size_type size, IterT iter)
-        : size_{size}, data_{static_cast<pointer>(operator new(size_ * sizeof(T)))} {
+        : size_{size},
+          data_{static_cast<pointer>(operator new(size_ * sizeof(T),
+                                                  std::align_val_t{alignof(T)}))} {
       for (size_type i{0}; i < size; ++i) {
         new (&data_[i]) value_type(*iter);
         ++iter;
