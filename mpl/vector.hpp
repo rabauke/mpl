@@ -51,18 +51,44 @@ namespace mpl::detail {
     vector(const vector &) = delete;
     vector &operator=(const vector &) = delete;
 
-    [[nodiscard]] size_type size() const { return size_; }
-    [[nodiscard]] bool empty() const { return size_ == 0; }
-    pointer data() { return data_; }
-    const_pointer data() const { return data_; }
+    [[nodiscard]] size_type size() const {
+      return size_;
+    }
 
-    reference operator[](size_type i) { return data_[i]; }
-    const_reference operator[](size_type i) const { return data_[i]; }
+    [[nodiscard]] bool empty() const {
+      return size_ == 0;
+    }
 
-    iterator begin() { return data_; }
-    const_iterator begin() const { return data_; }
-    iterator end() { return data_ + size_; }
-    const_iterator end() const { return data_ + size_; }
+    pointer data() {
+      return data_;
+    }
+
+    const_pointer data() const {
+      return data_;
+    }
+
+    reference operator[](size_type i) {
+      return data_[i];
+    }
+    const_reference operator[](size_type i) const {
+      return data_[i];
+    }
+
+    iterator begin() {
+      return data_;
+    }
+
+    const_iterator begin() const {
+      return data_;
+    }
+
+    iterator end() {
+      return data_ + size_;
+    }
+
+    const_iterator end() const {
+      return data_ + size_;
+    }
 
     ~vector() {
       for (auto &val : *this)

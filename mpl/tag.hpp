@@ -27,7 +27,7 @@ namespace mpl {
     /// int without loss of precession (narrowing).
     /// \param t tag value
     template<typename T>
-    tag_t(T t) : t(static_cast<int>(t)) {
+    tag_t(T t) : t{static_cast<int>(t)} {
       static_assert(detail::is_valid_tag_v<T>,
                     "not an enumeration type or underlying enumeration type too large");
     }
