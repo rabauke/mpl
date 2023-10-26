@@ -997,7 +997,6 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     template<typename T>
     void read_at_all_begin(ssize_t offset, T *data, const layout<T> &l) {
-      status_t s;
       const int err{MPI_File_read_at_all_begin(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       if (err != MPI_SUCCESS)
@@ -1098,7 +1097,6 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     template<typename T>
     void read_all_begin(T *data, const layout<T> &l) {
-      status_t s;
       const int err{MPI_File_read_all_begin(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       if (err != MPI_SUCCESS)
@@ -1197,7 +1195,6 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     template<typename T>
     void read_ordered_begin(T *data, const layout<T> &l) {
-      status_t s;
       const int err{MPI_File_read_ordered_begin(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       if (err != MPI_SUCCESS)
