@@ -42,6 +42,21 @@ bool communicator_comm_world_copy_test() {
 }
 
 
+// test properties of a newly created communicator via attaching an existing MPI_Comm
+bool communicator_comm_world_copy_test() {
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  mpl::communicator comm_new;
+  comm_new.attach(MPI_COMM_WORLD);
+  if (not comm_new.is_valid())
+    return false;
+  if (comm_world.size() != comm_new.size())
+    return false;
+  if (comm_new.compare(comm_world) != mpl::communicator::congruent)
+    return false;
+  return true;
+}
+
+
 // test properties of a newly created communicator
 bool communicator_comm_world_split_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
