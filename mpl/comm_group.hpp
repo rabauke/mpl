@@ -277,6 +277,8 @@ namespace mpl {
 
     class base_communicator {
     protected:
+      bool attached = false;
+
       struct isend_irecv_request_state {
         MPI_Datatype datatype{MPI_DATATYPE_NULL};
         int count{MPI_UNDEFINED};
@@ -434,7 +436,7 @@ namespace mpl {
       }
 
       ~base_communicator() {
-        if (is_valid()) {
+        if (!attached && is_valid()) {
           int result_1;
           MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
           int result_2;
@@ -4135,6 +4137,15 @@ namespace mpl {
       if (this != &other)
         base::operator=(static_cast<base &&>(other));
       return *this;
+    }
+
+    void attach(MPI_Comm comm_c) {
+      attached = true;
+      comm_ = comm_c;
+    }
+
+    void attach(int comm_f) {
+      attach(MPI_Comm_f2c(comm_f));
     }
 
     /// Determines the total number of processes in a communicator.
