@@ -277,8 +277,6 @@ namespace mpl {
 
     class base_communicator {
     protected:
-      bool attached = false;
-
       struct isend_irecv_request_state {
         MPI_Datatype datatype{MPI_DATATYPE_NULL};
         int count{MPI_UNDEFINED};
@@ -400,6 +398,7 @@ namespace mpl {
       }
 
       MPI_Comm comm_{MPI_COMM_NULL};
+      bool attached_ = false;
 
     public:
       /// Indicates the creation of a new communicator by an operation that is collective
@@ -451,14 +450,15 @@ namespace mpl {
         if (this != &other) {
           destroy();
           comm_ = other.comm_;
+          attached_ = other.attached_;
           other.comm_ = MPI_COMM_NULL;
-          attached = other.attached;
+          other.attached_ = false;  // not necessary, but for clarity
         }
         return *this;
       }
 
       void destroy() {
-        if (!attached && is_valid()) {
+        if (!attached_ && is_valid()) {
           int result_1;
           MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
           int result_2;
@@ -466,7 +466,7 @@ namespace mpl {
           if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
             MPI_Comm_free(&comm_);
         }
-        attached = false;
+        attached_ = false;
       }
 
       [[nodiscard]] int size() const {
@@ -4133,7 +4133,7 @@ namespace mpl {
 
     void attach(MPI_Comm comm_c) {
       destroy();
-      attached = true;
+      attached_ = true;
       comm_ = comm_c;
     }
 
