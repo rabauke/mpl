@@ -452,6 +452,7 @@ namespace mpl {
           destroy();
           comm_ = other.comm_;
           other.comm_ = MPI_COMM_NULL;
+          attached = other.attached;
         }
         return *this;
       }
