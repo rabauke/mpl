@@ -436,6 +436,27 @@ namespace mpl {
       }
 
       ~base_communicator() {
+        destroy();
+      }
+
+      base_communicator &operator=(const base_communicator &other) noexcept {
+        if (this != &other) {
+          destroy();
+          MPI_Comm_dup(other.comm_, &comm_);
+        }
+        return *this;
+      }
+
+      base_communicator &operator=(base_communicator &&other) noexcept {
+        if (this != &other) {
+          destroy();
+          comm_ = other.comm_;
+          other.comm_ = MPI_COMM_NULL;
+        }
+        return *this;
+      }
+
+      void destroy() {
         if (!attached && is_valid()) {
           int result_1;
           MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
@@ -444,37 +465,7 @@ namespace mpl {
           if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
             MPI_Comm_free(&comm_);
         }
-      }
-
-      base_communicator &operator=(const base_communicator &other) noexcept {
-        if (this != &other) {
-          if (is_valid()) {
-            int result_1;
-            MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-            int result_2;
-            MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-            if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-              MPI_Comm_free(&comm_);
-          }
-          MPI_Comm_dup(other.comm_, &comm_);
-        }
-        return *this;
-      }
-
-      base_communicator &operator=(base_communicator &&other) noexcept {
-        if (this != &other) {
-          if (is_valid()) {
-            int result_1;
-            MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-            int result_2;
-            MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-            if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-              MPI_Comm_free(&comm_);
-          }
-          comm_ = other.comm_;
-          other.comm_ = MPI_COMM_NULL;
-        }
-        return *this;
+        attached = false;
       }
 
       [[nodiscard]] int size() const {
@@ -4140,6 +4131,7 @@ namespace mpl {
     }
 
     void attach(MPI_Comm comm_c) {
+      destroy();
       attached = true;
       comm_ = comm_c;
     }
