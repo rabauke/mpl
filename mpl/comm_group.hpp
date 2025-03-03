@@ -4137,6 +4137,7 @@ namespace mpl {
       comm_ = comm_c;
     }
 
+    template<typename T = MPI_Comm, std::enable_if_t<!std::is_same_v<T, int>, int> = 0>
     void attach(int comm_f) {
       attach(MPI_Comm_f2c(comm_f));
     }
