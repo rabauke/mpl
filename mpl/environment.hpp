@@ -38,7 +38,12 @@ namespace mpl {
             MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
           }
 
-          ~initializer() { MPI_Finalize(); }
+          ~initializer() {
+            int is_finalized;
+            MPI_Finalized(&is_finalized);
+            if (!is_finalized)
+              MPI_Finalize();
+          }
 
           [[nodiscard]] threading_modes thread_mode() const {
             switch (thread_mode_) {
