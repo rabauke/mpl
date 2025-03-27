@@ -147,8 +147,13 @@ namespace mpl {
     void open(const communicator &comm, const std::filesystem::path &name, access_mode mode,
               const info &i = info{}) {
       using int_type = std::underlying_type_t<file::access_mode>;
-      const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
-                                  i.info_, &file_)};
+      const int err{MPI_File_open(comm.comm_,
+#ifdef _WIN32
+                                  name.string().c_str(),
+#else
+                                  name.c_str(),
+#endif
+                                  static_cast<int_type>(mode), i.info_, &file_)};
       if (err != MPI_SUCCESS)
         throw io_failure(err);
     }
