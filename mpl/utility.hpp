@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <vector>
 #include <valarray>
+#include <string>
 
 namespace mpl::detail {
 
