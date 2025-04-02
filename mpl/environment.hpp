@@ -35,7 +35,12 @@ namespace mpl {
 
         public:
           initializer() {
-            MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
+            int is_initialized;
+            MPI_Initialized(&is_initialized);
+            if (!is_initialized)
+              MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
+            else
+              MPI_Query_thread(&thread_mode_);
           }
 
           ~initializer() {
