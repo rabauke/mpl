@@ -5134,8 +5134,10 @@ namespace mpl {
       // performing some deep copies in order to avoid const_cast
       std::vector<std::vector<char>> args;
       args.reserve(command.size() - 1);
-      for (command_line::size_type i{1}; i < command.size(); ++i)
+      for (command_line::size_type i{1}; i < command.size(); ++i) {
         args.push_back(std::vector<char>(command[i].begin(), command[i].end()));
+        args.back().push_back('\0');  // std::string is not null-terminated
+      }
       std::vector<char *> args_pointers;
       args_pointers.reserve(args.size() + 1);
       for (auto &arg : args)
