@@ -307,7 +307,7 @@ namespace mpl {
 
   public:
     struct_builder() {
-      T array[N0];
+      T array[N0]{};
       layout_.register_struct(array);
       layout_.register_element(array);
       base::define_struct(layout_);
