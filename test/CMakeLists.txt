@@ -1,4 +1,11 @@
-find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+if(POLICY CMP0167)
+  # The FindBoost module is removed. Boost 1.70.0 and later provide a
+  # BoostConfig.cmake package configuration file.
+  find_package(Boost 1.70.0 COMPONENTS unit_test_framework CONFIG REQUIRED)
+else()
+  # Use build-in FindBoost module.
+  find_package(Boost COMPONENTS unit_test_framework REQUIRED)
+endif()
 
 function(add_test_executable TARGET_NAME SOURCES)
   add_executable(${TARGET_NAME} ${SOURCES})
