@@ -24,6 +24,7 @@ endfunction()
 
 add_test_executable(test_group test_group.cc)
 add_test_executable(test_communicator test_communicator.cc)
+add_test_executable(test_initialization test_initialization.cc)
 add_test_executable(test_cartesian_communicator test_cartesian_communicator.cc)
 add_test_executable(test_graph_communicator test_graph_communicator.cc)
 add_test_executable(test_dist_graph_communicator test_dist_graph_communicator.cc)
