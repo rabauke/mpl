@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <type_traits>
 
+
 namespace mpl {
 
   /// Class implementing parallel file i/o.
@@ -22,7 +23,7 @@ namespace mpl {
       read_only = MPI_MODE_RDONLY,   ///< read-only file access
       read_write = MPI_MODE_RDWR,    ///< read and write file access
       write_only = MPI_MODE_WRONLY,  ///< write-only file access
-      create = MPI_MODE_CREATE,      ///< create file it it does not exist
+      create = MPI_MODE_CREATE,      ///< create file if it does not exist
       no_replace = MPI_MODE_EXCL,    ///< raises an error when file to create already exists
       delete_on_close = MPI_MODE_DELETE_ON_CLOSE,  ///< delete file when closed
       unique_open = MPI_MODE_UNIQUE_OPEN,          ///< file not opened concurrently

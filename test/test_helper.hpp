@@ -4,6 +4,7 @@
 #include <type_traits>
 #include <mpl/mpl.hpp>
 
+
 template<typename, typename = void>
 struct has_size : std::false_type {};
 
@@ -51,7 +52,9 @@ MPL_REFLECTION(tuple, a, b)
 template<typename T>
 class add {
 public:
-  T operator()(const T &a, const T &b) const { return a + b; }
+  T operator()(const T &a, const T &b) const {
+    return a + b;
+  }
 };
 
 

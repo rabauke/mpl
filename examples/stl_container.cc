@@ -9,12 +9,14 @@
 #include <cmath>
 #include <mpl/mpl.hpp>
 
+
 // print elements of a pair
 template<typename ch, typename tr, typename T1, typename T2>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
                                        const std::pair<T1, T2> &p) {
   return out << '(' << p.first << ',' << p.second << ')';
 }
+
 
 // print all elements of a container
 template<typename ch, typename tr, typename C>
@@ -28,12 +30,14 @@ std::basic_ostream<ch, tr> &print_container(std::basic_ostream<ch, tr> &out, con
   return out << ')';
 }
 
+
 // print all elements of a vector
 template<typename ch, typename tr, typename T, typename A>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
                                        const std::vector<T, A> &v) {
   return print_container(out, v);
 }
+
 
 // print all elements of a list
 template<typename ch, typename tr, typename T, typename A>
@@ -42,12 +46,14 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   return print_container(out, l);
 }
 
+
 // print all elements of a map
 template<typename ch, typename tr, typename K, typename C, typename A>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
                                        const std::map<K, C, A> &m) {
   return print_container(out, m);
 }
+
 
 // print all elements of a map
 template<typename ch, typename tr, typename T>
@@ -56,11 +62,13 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   return print_container(out, v);
 }
 
+
 // send an STL container
 template<typename T>
 void send(const mpl::communicator &comm, const T &x) {
   comm.send(x, 1);
 }
+
 
 // send an STL container
 template<typename T>
@@ -68,6 +76,7 @@ void isend(const mpl::communicator &comm, const T &x) {
   mpl::irequest r{comm.isend(x, 1)};
   r.wait();
 }
+
 
 // receive an STL container
 template<typename T>
@@ -78,6 +87,7 @@ void recv(const mpl::communicator &comm) {
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
 
+
 // receive an STL container
 template<typename T>
 void irecv(const mpl::communicator &comm) {
@@ -87,6 +97,7 @@ void irecv(const mpl::communicator &comm) {
   mpl::status_t s{r.wait()};
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
+
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

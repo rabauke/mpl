@@ -4,6 +4,7 @@
 
 #include <exception>
 
+
 namespace mpl {
 
   /// Base class for all MPL exception classes that will be thrown in case of run-time errors.

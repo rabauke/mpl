@@ -4,11 +4,13 @@
 #include <numeric>
 #include <mpl/mpl.hpp>
 
+
 // some structures
 struct structure {
   double d{0};
   int i[9]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 };
+
 
 // print elements of structure
 template<typename ch, typename tr>
@@ -19,10 +21,12 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out, const st
   return out << "])";
 }
 
+
 struct structure_2 {
   double d{0};
   structure str;
 };
+
 
 // print elements of structure2
 template<typename ch, typename tr>
@@ -53,11 +57,13 @@ namespace mpl {
 
 }  // namespace mpl
 
+
 // MPL_REFLECTION is a convenient macro which creates the required
 // specialization of the struct_builder template automatically.  Just
 // pass the class name and the public members as arguments to the
 // macro.  MPL_REFLECTION is limited to 120 class members.
 MPL_REFLECTION(structure_2, d, str)
+
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

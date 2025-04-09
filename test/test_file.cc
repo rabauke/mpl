@@ -1002,7 +1002,8 @@ bool read_ordered_split_write_ordered_split_test(const T &val) {
 
 
 template<typename T>
-bool read_ordered_split_write_ordered_split_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
+bool read_ordered_split_write_ordered_split_test(const std::vector<T> &val,
+                                                 const mpl::layout<T> &layout) {
   auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)

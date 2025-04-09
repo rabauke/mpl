@@ -4,6 +4,7 @@
 
 #include <mpi.h>
 
+
 namespace mpl {
 
   namespace impl {
@@ -24,23 +25,31 @@ namespace mpl {
   class status_t : private MPI_Status {
   public:
     /// \return source of the message
-    [[nodiscard]] int source() const { return MPI_Status::MPI_SOURCE; }
+    [[nodiscard]] int source() const {
+      return MPI_Status::MPI_SOURCE;
+    }
 
     /// \return tag value of the message
-    [[nodiscard]] mpl::tag_t tag() const { return mpl::tag_t(MPI_Status::MPI_TAG); }
+    [[nodiscard]] mpl::tag_t tag() const {
+      return mpl::tag_t(MPI_Status::MPI_TAG);
+    }
 
     /// \return error code associated with the message
-    [[nodiscard]] int error() const { return MPI_Status::MPI_ERROR; }
+    [[nodiscard]] int error() const {
+      return MPI_Status::MPI_ERROR;
+    }
 
-    /// \return true if associated request has been been canceled
+    /// \return true if associated request has been canceled
     [[nodiscard]] bool is_cancelled() const {
       int result;
       MPI_Test_cancelled(static_cast<const MPI_Status *>(this), &result);
       return result != 0;
     }
 
-    /// \return true if associated request has been been canceled
-    [[nodiscard]] bool is_canceled() const { return is_cancelled(); }
+    /// \return true if associated request has been canceled
+    [[nodiscard]] bool is_canceled() const {
+      return is_cancelled();
+    }
 
     /// \tparam T received data type
     /// \return number of top level elements of type \c T received in associated message

@@ -95,7 +95,7 @@ bool cartesian_communicator_neighbor_alltoall_test(const T &val) {
   T expected_val{val};
   std::vector<T> expected_values;
   for (int i{0}; i < comm_c.size(); ++i) {
-      expected_values.push_back(expected_val);
+    expected_values.push_back(expected_val);
     ++expected_val;
   }
   std::vector<T> expected;
@@ -121,7 +121,7 @@ bool cartesian_communicator_neighbor_alltoall_layout_test(const T &val) {
   T expected_val{val};
   std::vector<T> expected_values;
   for (int i{0}; i < comm_c.size(); ++i) {
-      expected_values.push_back(expected_val);
+    expected_values.push_back(expected_val);
     ++expected_val;
   }
   std::vector<T> expected;
@@ -149,7 +149,7 @@ bool cartesian_communicator_ineighbor_alltoall_test(const T &val) {
   T expected_val{val};
   std::vector<T> expected_values;
   for (int i{0}; i < comm_c.size(); ++i) {
-      expected_values.push_back(expected_val);
+    expected_values.push_back(expected_val);
     ++expected_val;
   }
   std::vector<T> expected;
@@ -176,7 +176,7 @@ bool cartesian_communicator_ineighbor_alltoall_layout_test(const T &val) {
   T expected_val{val};
   std::vector<T> expected_values;
   for (int i{0}; i < comm_c.size(); ++i) {
-      expected_values.push_back(expected_val);
+    expected_values.push_back(expected_val);
     ++expected_val;
   }
   std::vector<T> expected;

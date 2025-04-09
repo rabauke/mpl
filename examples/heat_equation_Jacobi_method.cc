@@ -40,6 +40,7 @@ void scatter(const mpl::cartesian_communicator &communicator, int root,
                         distributed_grid.data(), distributed_grid.interior_layout());
 }
 
+
 template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cartesian_communicator &communicator, int root,
              mpl::distributed_grid<dim, T, A> &distributed_grid) {
@@ -54,6 +55,7 @@ void gather(const mpl::cartesian_communicator &communicator, int root,
   communicator.gatherv(root, distributed_grid.data(), distributed_grid.interior_layout(),
                        local_grid.data(), local_grid.sub_layouts());
 }
+
 
 template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cartesian_communicator &communicator, int root,

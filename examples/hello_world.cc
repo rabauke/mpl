@@ -3,6 +3,7 @@
 // include MPL header file
 #include <mpl/mpl.hpp>
 
+
 int main() {
   // get a reference to communicator "world"
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

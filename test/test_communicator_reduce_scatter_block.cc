@@ -128,5 +128,5 @@ BOOST_AUTO_TEST_CASE(reduce_scatter_block) {
   BOOST_TEST(ireduce_scatter_block_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
   BOOST_TEST(ireduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
   BOOST_TEST(ireduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; },
-                                                   tuple{1, 2.0}));
+                                                    tuple{1, 2.0}));
 }

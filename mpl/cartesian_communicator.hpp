@@ -8,6 +8,7 @@
 #include <tuple>
 #include <iterator>
 
+
 namespace mpl {
 
   /// Helper class to represent source and destination ranks within a Cartesian
@@ -65,11 +66,13 @@ namespace mpl {
 
       /// Creates a multi-dimensional vector with components equal to zero.
       /// \param dimension number of elements of the new vector
-      explicit vector(int dimension) : base(dimension, 0) {}
+      explicit vector(int dimension) : base(dimension, 0) {
+      }
 
       /// Creates a multi-dimensional vector with components given by the list.
       /// \param init vector components
-      vector(std::initializer_list<int> init) : base(init) {}
+      vector(std::initializer_list<int> init) : base(init) {
+      }
 
       using base::operator=;
       using base::begin;
@@ -79,19 +82,27 @@ namespace mpl {
 
       /// Determines the number of dimensions.
       /// \return dimensionality, number of elements in the vector
-      [[nodiscard]] int dimensions() const { return static_cast<int>(base::size()); }
+      [[nodiscard]] int dimensions() const {
+        return static_cast<int>(base::size());
+      }
 
       /// Access a vector element.
       /// \param index non-negative index to the vector element
-      reference operator[](int index) { return base::operator[](index); }
+      reference operator[](int index) {
+        return base::operator[](index);
+      }
 
       /// Access a vector element.
       /// \param index non-negative index to the vector element
-      const_reference operator[](int index) const { return base::operator[](index); }
+      const_reference operator[](int index) const {
+        return base::operator[](index);
+      }
 
       /// Add an additional element to the end of the vector.
       /// \param coordinate value of the new vector element
-      void add(int coordinate) { push_back(coordinate); }
+      void add(int coordinate) {
+        push_back(coordinate);
+      }
 
       friend class cartesian_communicator;
     };
@@ -115,11 +126,13 @@ namespace mpl {
 
       /// Creates a non-empty inclusion tags list with default values excluded.
       /// \param dimension number of elements of the new list
-      explicit included_tags(int dimension) : base(dimension, included_tag::excluded) {}
+      explicit included_tags(int dimension) : base(dimension, included_tag::excluded) {
+      }
 
       /// Creates a non-empty inclusion tags list with values given by the list.
       /// \param init exclusion or inclusion tags
-      included_tags(std::initializer_list<included_tag> init) : base(init) {}
+      included_tags(std::initializer_list<included_tag> init) : base(init) {
+      }
 
       using base::operator=;
       using base::begin;
@@ -129,19 +142,27 @@ namespace mpl {
 
       /// Determines the number of inclusion tags.
       /// \return dimensionality, number of elements in the vector
-      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+      [[nodiscard]] int size() const {
+        return static_cast<int>(base::size());
+      }
 
       /// Access list element.
       /// \param index non-negative index to list element
-      reference operator[](int index) { return base::operator[](index); }
+      reference operator[](int index) {
+        return base::operator[](index);
+      }
 
       /// Access list element.
       /// \param index non-negative index to list element
-      const_reference operator[](int index) const { return base::operator[](index); }
+      const_reference operator[](int index) const {
+        return base::operator[](index);
+      }
 
-      /// Add an additional element to the end of the vector.
+      /// Add an element to the end of the vector.
       /// \param is_included value of the new vector element
-      void add(included_tag is_included) { push_back(is_included); }
+      void add(included_tag is_included) {
+        push_back(is_included);
+      }
 
       friend class cartesian_communicator;
     };
@@ -158,7 +179,8 @@ namespace mpl {
         int &is_periodic_;
 
         dimension_periodicity_proxy(int &dim, int &is_periodic)
-            : dim_{dim}, is_periodic_{is_periodic} {}
+            : dim_{dim}, is_periodic_{is_periodic} {
+        }
 
       public:
         template<std::size_t N>
@@ -207,9 +229,12 @@ namespace mpl {
         using pointer = value_type *;
         using reference = dimensions::reference;
 
-        explicit iterator(dimensions *dims, int index = 0) : dimensions_{dims}, index_{index} {}
+        explicit iterator(dimensions *dims, int index = 0) : dimensions_{dims}, index_{index} {
+        }
 
-        reference operator*() const { return (*dimensions_)[index_]; }
+        reference operator*() const {
+          return (*dimensions_)[index_];
+        }
 
         iterator &operator++() {
           ++index_;
@@ -224,11 +249,11 @@ namespace mpl {
 
         friend bool operator==(const iterator &a, const iterator &b) {
           return a.dimensions_ == b.dimensions_ and a.index_ == b.index_;
-        };
+        }
 
         friend bool operator!=(const iterator &a, const iterator &b) {
           return a.dimensions_ != b.dimensions_ or a.index_ != b.index_;
-        };
+        }
       };
 
 
@@ -245,9 +270,12 @@ namespace mpl {
         using reference = dimensions::const_reference;
 
         explicit const_iterator(const dimensions *dims, int index = 0)
-            : dimensions_{dims}, index_{index} {}
+            : dimensions_{dims}, index_{index} {
+        }
 
-        reference operator*() const { return (*dimensions_)[index_]; }
+        reference operator*() const {
+          return (*dimensions_)[index_];
+        }
 
         const_iterator &operator++() {
           ++index_;
@@ -262,11 +290,11 @@ namespace mpl {
 
         friend bool operator==(const const_iterator &a, const const_iterator &b) {
           return a.dimensions_ == b.dimensions_ and a.index_ == b.index_;
-        };
+        }
 
         friend bool operator!=(const const_iterator &a, const const_iterator &b) {
           return a.dimensions_ != b.dimensions_ or a.index_ != b.index_;
-        };
+        }
       };
 
       /// Constructs a new empty dimensions object.
@@ -279,7 +307,8 @@ namespace mpl {
       /// i.e., the number of processes, along each dimension is zero.
       /// \note A dimension object that is created by this constructor must be passed to
       /// \c dims_create before a new Cartesian communicator can be created.
-      explicit dimensions(int size) : dims_(size, 0), periodic_(size, 0) {}
+      explicit dimensions(int size) : dims_(size, 0), periodic_(size, 0) {
+      }
 
       /// Constructs a new dimensions object.
       /// \details Characterizes a communicator with Cartesian process topology. Its dimension
@@ -315,12 +344,16 @@ namespace mpl {
 
       /// Determines the dimensionality.
       /// \return dimensionality (number of dimensions)
-      [[nodiscard]] int dimensionality() const { return static_cast<int>(dims_.size()); }
+      [[nodiscard]] int dimensionality() const {
+        return static_cast<int>(dims_.size());
+      }
 
       /// Determines the number of processes along a dimension.
       /// \param dimension the rank of the dimension
       /// \return the number of processes
-      [[nodiscard]] int size(int dimension) const { return dims_[dimension]; }
+      [[nodiscard]] int size(int dimension) const {
+        return dims_[dimension];
+      }
 
       /// Determines the periodicity of a dimension.
       /// \param dimension the rank of the dimension
@@ -345,13 +378,26 @@ namespace mpl {
         return {dims_[dimension], periodic_[dimension]};
       }
 
-      [[nodiscard]] iterator begin() { return iterator{this}; }
-      [[nodiscard]] const_iterator begin() const { return const_iterator{this}; }
-      [[nodiscard]] const_iterator cbegin() const { return const_iterator{this}; }
-      [[nodiscard]] iterator end() { return iterator{this, dimensionality()}; }
+      [[nodiscard]] iterator begin() {
+        return iterator{this};
+      }
+
+      [[nodiscard]] const_iterator begin() const {
+        return const_iterator{this};
+      }
+
+      [[nodiscard]] const_iterator cbegin() const {
+        return const_iterator{this};
+      }
+
+      [[nodiscard]] iterator end() {
+        return iterator{this, dimensionality()};
+      }
+
       [[nodiscard]] const_iterator end() const {
         return const_iterator{this, dimensionality()};
       }
+
       [[nodiscard]] const_iterator cend() const {
         return const_iterator{this, dimensionality()};
       }

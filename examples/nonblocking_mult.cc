@@ -3,6 +3,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
+
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   double x{1.23456 + comm_world.rank()};

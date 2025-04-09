@@ -4,11 +4,12 @@
 
 #include <mpi.h>
 
+
 namespace mpl {
 
   /// Status of a received message.
   using message_t = MPI_Message;
 
-}
+}  // namespace mpl
 
 #endif

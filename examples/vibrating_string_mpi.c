@@ -5,9 +5,11 @@
 #include <math.h>
 #include "mpi.h"
 
+
 const int N = 1001;  // total global number of grid points
 const double L = 1, c = 1, dt = 0.001, t_end = 2.4;
 enum { left_copy, right_copy };
+
 
 // update string elongation
 void string(const double *u, const double *u_old, double *u_new, int N, double eps) {
@@ -17,12 +19,14 @@ void string(const double *u, const double *u_old, double *u_new, int N, double e
   u_new[N - 1] = u[N - 1];
 }
 
+
 void *secure_malloc(size_t size) {
   void *p = malloc(size);
   if (p == NULL)
     MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
   return p;
 }
+
 
 // initial elongation
 static inline double u_0(double x) {
@@ -31,10 +35,12 @@ static inline double u_0(double x) {
   return exp(-200.0 * (x - 0.5 * L) * (x - 0.5 * L));
 }
 
+
 // initial velocity
 static inline double u_0_dt(double x) {
   return 0.0;
 }
+
 
 int main(int argc, char *argv[]) {
   int C_rank, C_size, *N_l, *N0_l;

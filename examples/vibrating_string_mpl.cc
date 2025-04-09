@@ -7,13 +7,16 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
+
 const int n{1001};        // total number of grid points
 const double l{1};        // lengths of domain
 const double c{1};        // speed of sound
 const double dt{0.001};   // temporal step width
 const double t_end{2.4};  // simulation time
 
+
 enum class copy : int { left, right };
+
 
 // update grid points
 void string(const std::vector<double> &u, const std::vector<double> &u_old,
@@ -26,6 +29,7 @@ void string(const std::vector<double> &u, const std::vector<double> &u_old,
   u_new[N - 1] = u[N - 1];
 }
 
+
 // initial elongation of string
 inline double u_0(double x) {
   if (x <= 0 or x >= l)
@@ -33,10 +37,12 @@ inline double u_0(double x) {
   return std::exp(-200.0 * (x - 0.5 * l) * (x - 0.5 * l));
 }
 
+
 // initial velocity of string
 inline double u_0_dt([[maybe_unused]] double x) {
   return 0.0;
 }
+
 
 int main() {
   const double dx{l / (n - 1)};  // grid spacing

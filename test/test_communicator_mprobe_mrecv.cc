@@ -46,7 +46,7 @@ bool mprobe_iter_test(const T &data) {
   if (comm_world.rank() == 0)
     comm_world.send(data, 1);
   if (comm_world.rank() == 1) {
-    auto[m, s]{comm_world.mprobe(0)};
+    auto [m, s]{comm_world.mprobe(0)};
     if (s.source() != 0)
       return false;
     int count{s.get_count<typename T::value_type>()};

@@ -6,6 +6,7 @@
 #include <mpl/cartesian_communicator.hpp>
 #include <mpl/layout.hpp>
 
+
 namespace mpl {
 
   template<std::size_t dim, typename T, typename A>
@@ -74,7 +75,8 @@ namespace mpl {
       /// copy of data hold by adjacent processes
       size_type overlap{0};
       /// Creates a size-overlap pair.
-      size_overlap_pair(size_type size, size_type overlap) : size{size}, overlap{overlap} {}
+      size_overlap_pair(size_type size, size_type overlap) : size{size}, overlap{overlap} {
+      }
     };
 
 
@@ -93,15 +95,18 @@ namespace mpl {
       dimensions(const size_overlap_pair &size_0) : size_overlap_{size_0} {
         static_assert(dim == 1, "invalid number of arguments");
       }
+
       dimensions(const size_overlap_pair &size_0, const size_overlap_pair &size_1)
           : size_overlap_{size_0, size_1} {
         static_assert(dim == 2, "invalid number of arguments");
       }
+
       dimensions(const size_overlap_pair &size_0, const size_overlap_pair &size_1,
                  const size_overlap_pair &size_2)
           : size_overlap_{size_0, size_1, size_2} {
         static_assert(dim == 3, "invalid number of arguments");
       }
+
       dimensions(const size_overlap_pair &size_0, const size_overlap_pair &size_1,
                  const size_overlap_pair &size_2, const size_overlap_pair &size_3)
           : size_overlap_{size_0, size_1, size_2, size_3} {
@@ -144,12 +149,29 @@ namespace mpl {
         return size_overlap_[dimension];
       }
 
-      [[nodiscard]] iterator begin() { return size_overlap_.begin(); }
-      [[nodiscard]] const_iterator begin() const { return size_overlap_.begin(); }
-      [[nodiscard]] const_iterator cbegin() const { return size_overlap_.cbegin(); }
-      [[nodiscard]] iterator end() { return size_overlap_.end(); }
-      [[nodiscard]] const_iterator end() const { return size_overlap_.end(); }
-      [[nodiscard]] const_iterator cend() const { return size_overlap_.xend(); }
+      [[nodiscard]] iterator begin() {
+        return size_overlap_.begin();
+      }
+
+      [[nodiscard]] const_iterator begin() const {
+        return size_overlap_.begin();
+      }
+
+      [[nodiscard]] const_iterator cbegin() const {
+        return size_overlap_.cbegin();
+      }
+
+      [[nodiscard]] iterator end() {
+        return size_overlap_.end();
+      }
+
+      [[nodiscard]] const_iterator end() const {
+        return size_overlap_.end();
+      }
+
+      [[nodiscard]] const_iterator cend() const {
+        return size_overlap_.xend();
+      }
 
       friend class distributed_grid;
     };
@@ -218,49 +240,65 @@ namespace mpl {
     /// Determines the global size of the grid along a dimension.
     /// \param d dimension
     /// \return global size
-    [[nodiscard]] size_type gsize(size_type d) const { return global_size_[d]; }
+    [[nodiscard]] size_type gsize(size_type d) const {
+      return global_size_[d];
+    }
 
     /// Determines the smallest index into the global distributed grid to the local
     /// portion of the grid.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type gbegin(size_type d) const { return global_begin_[d]; };
+    [[nodiscard]] size_type gbegin(size_type d) const {
+      return global_begin_[d];
+    }
 
     /// Determines the smallest index into the global distributed grid that is beyond the
     /// local portion of the grid.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type gend(size_type d) const { return global_end_[d]; };
+    [[nodiscard]] size_type gend(size_type d) const {
+      return global_end_[d];
+    }
 
     /// Determines the size of the local portion of the distributed data grid along a
     /// dimension.
     /// \param d dimension
     /// \return local grid size
-    [[nodiscard]] size_type size(size_type d) const { return size_[d]; }
+    [[nodiscard]] size_type size(size_type d) const {
+      return size_[d];
+    }
 
     /// Determines the lowest index to access the local portion of the distributed data
     /// grid along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type begin(size_type d) const { return overlap_[d]; };
+    [[nodiscard]] size_type begin(size_type d) const {
+      return overlap_[d];
+    }
 
     /// Determines the last index (plus one) to access the local portion of the
     /// distributed data grid along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type end(size_type d) const { return size_[d] + overlap_[d]; };
+    [[nodiscard]] size_type end(size_type d) const {
+      return size_[d] + overlap_[d];
+    }
 
     /// Determines the lowest index to access the local portion of the distributed grid
     /// including the overlap data along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type obegin([[maybe_unused]] size_type d) const { return 0; };
+    [[nodiscard]] size_type obegin([[maybe_unused]] size_type d) const {
+      return 0;
+    }
 
     /// Determines the last index (plus one) to access the local portion of the
     /// distributed grid including the overlap data along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type oend(size_type d) const { return overlap_end_[d]; };
+    [[nodiscard]] size_type oend(size_type d) const {
+      return overlap_end_[d];
+    }
 
     /// Translates an index to access the local portion of the distributed data grid into
     /// an index into the global grid.
@@ -367,11 +405,15 @@ namespace mpl {
 
     /// Grands access to the flattened grid data.
     /// \return pointer to grid data
-    [[nodiscard]] pointer data() { return v_.data(); }
+    [[nodiscard]] pointer data() {
+      return v_.data();
+    }
 
     /// Grands access to the flattened grid data.
     /// \return pointer to grid data
-    [[nodiscard]] const_pointer data() const { return v_.data(); }
+    [[nodiscard]] const_pointer data() const {
+      return v_.data();
+    }
 
     /// Get the memory layout for receiving data when updating data in overlap regions
     /// along a given dimension.
@@ -413,7 +455,9 @@ namespace mpl {
     /// \return memory layout
     /// \details The returned memory layout represents inner grid data without the overlap
     /// regions.
-    const subarray_layout<T> &interior_layout() const { return interior_layout_; }
+    const subarray_layout<T> &interior_layout() const {
+      return interior_layout_;
+    }
 
     /// Swaps this distributed data grid with another.
     /// \param other other distributed data grid
@@ -492,18 +536,22 @@ namespace mpl {
       dimensions(const size_type &size_0) : size_{size_0} {
         static_assert(dim == 1, "invalid number of arguments");
       }
+
       dimensions(const size_type &size_0, const size_type &size_1) : size_{size_0, size_1} {
         static_assert(dim == 2, "invalid number of arguments");
       }
+
       dimensions(const size_type &size_0, const size_type &size_1, const size_type &size_2)
           : size_{size_0, size_1, size_2} {
         static_assert(dim == 3, "invalid number of arguments");
       }
+
       dimensions(const size_type &size_0, const size_type &size_1, const size_type &size_2,
                  const size_type &size_3)
           : size_{size_0, size_1, size_2, size_3} {
         static_assert(dim == 4, "invalid number of arguments");
       }
+
       /// Determines the dimensionality.
       /// \return dimensionality (number of dimensions)
       [[nodiscard]] size_type dimensionality() const {
@@ -513,7 +561,9 @@ namespace mpl {
       /// Determines the total size of a dimension.
       /// \param dimension the rank of the dimension
       /// \return the total size of the dimension
-      [[nodiscard]] size_type size(size_type dimension) const { return size_[dimension]; }
+      [[nodiscard]] size_type size(size_type dimension) const {
+        return size_[dimension];
+      }
 
       /// Determines then total size along a dimension of a dimension.
       /// \param dimension the rank of the dimension
@@ -525,14 +575,33 @@ namespace mpl {
       /// Determines then total size along a dimension.
       /// \param dimension the rank of the dimension
       /// \return the size and the overlap
-      [[nodiscard]] reference operator[](size_type dimension) { return size_[dimension]; }
+      [[nodiscard]] reference operator[](size_type dimension) {
+        return size_[dimension];
+      }
 
-      [[nodiscard]] iterator begin() { return size_.begin(); }
-      [[nodiscard]] const_iterator begin() const { return size_.begin(); }
-      [[nodiscard]] const_iterator cbegin() const { return size_.cbegin(); }
-      [[nodiscard]] iterator end() { return size_.end(); }
-      [[nodiscard]] const_iterator end() const { return size_.end(); }
-      [[nodiscard]] const_iterator cend() const { return size_.xend(); }
+      [[nodiscard]] iterator begin() {
+        return size_.begin();
+      }
+
+      [[nodiscard]] const_iterator begin() const {
+        return size_.begin();
+      }
+
+      [[nodiscard]] const_iterator cbegin() const {
+        return size_.cbegin();
+      }
+
+      [[nodiscard]] iterator end() {
+        return size_.end();
+      }
+
+      [[nodiscard]] const_iterator end() const {
+        return size_.end();
+      }
+
+      [[nodiscard]] const_iterator cend() const {
+        return size_.xend();
+      }
 
       friend class local_grid;
     };
@@ -572,17 +641,23 @@ namespace mpl {
     /// Determines the size of the data grid along a dimension.
     /// \param d dimension
     /// \return local grid size
-    [[nodiscard]] size_type size(size_type d) const { return global_size_[d]; }
+    [[nodiscard]] size_type size(size_type d) const {
+      return global_size_[d];
+    }
 
     /// Determines the lowest index to access the data grid along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type begin([[maybe_unused]] size_type d) const { return 0; };
+    [[nodiscard]] size_type begin([[maybe_unused]] size_type d) const {
+      return 0;
+    }
 
     /// Determines the last index (plus one) to access the data grid along a dimension.
     /// \param d dimension
     /// \return grid index
-    [[nodiscard]] size_type end(size_type d) const { return global_size_[d]; };
+    [[nodiscard]] size_type end(size_type d) const {
+      return global_size_[d];
+    }
 
     /// Element access.
     /// \param i_0 1st dimension index
@@ -680,11 +755,15 @@ namespace mpl {
 
     /// Grands access to the flattened grid data.
     /// \return pointer to grid data
-    [[nodiscard]] pointer data() { return v_.data(); }
+    [[nodiscard]] pointer data() {
+      return v_.data();
+    }
 
     /// Grands access to the flattened grid data.
     /// \return pointer to grid data
-    [[nodiscard]] const_pointer data() const { return v_.data(); }
+    [[nodiscard]] const_pointer data() const {
+      return v_.data();
+    }
 
     /// Get layouts for scatting and gathering of the grid data.
     /// \return set of layouts
@@ -692,7 +771,9 @@ namespace mpl {
     /// same Cartesian communicator argument and if both grids have the same total size then
     /// the i-th returned layout is suitable to send a sub-set of data from the local_grid to
     /// the distributed grid at the process with rank i in the Cartesian communicator.
-    [[nodiscard]] const layouts<T> &sub_layouts() const { return sub_layouts_; }
+    [[nodiscard]] const layouts<T> &sub_layouts() const {
+      return sub_layouts_;
+    }
 
     void swap(local_grid<dim, T, A> &other) {
       global_size_.swap(other.global_size_);

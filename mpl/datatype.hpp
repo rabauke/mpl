@@ -25,6 +25,7 @@
 #include <span>
 #endif
 
+
 namespace mpl {
 
   namespace detail {
@@ -183,7 +184,9 @@ namespace mpl {
     void operator=(const base_struct_builder &) = delete;
 
   protected:
-    ~base_struct_builder() { MPI_Type_free(&type_); }
+    ~base_struct_builder() {
+      MPI_Type_free(&type_);
+    }
 
     using data_type_category = detail::basic_or_fixed_size_type;
 
@@ -235,7 +238,8 @@ namespace mpl {
       F &f_;
 
     public:
-      explicit apply_n(F &f) : f_{f} {}
+      explicit apply_n(F &f) : f_{f} {
+      }
 
       void operator()(T &x) const {
         apply_n<F, T, N - 1> next{f_};
@@ -249,9 +253,12 @@ namespace mpl {
       F &f_;
 
     public:
-      explicit apply_n(F &f) : f_{f} {}
+      explicit apply_n(F &f) : f_{f} {
+      }
 
-      void operator()(T &x) const { f_(std::get<0>(x)); }
+      void operator()(T &x) const {
+        f_(std::get<0>(x));
+      }
     };
 
     template<typename F, typename... Args>
@@ -265,7 +272,8 @@ namespace mpl {
       struct_layout<std::tuple<Ts...>> &layout_;
 
     public:
-      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout_{layout} {}
+      explicit register_element(struct_layout<std::tuple<Ts...>> &layout) : layout_{layout} {
+      }
 
       template<typename T>
       void operator()(T &x) const {
@@ -416,16 +424,17 @@ namespace mpl {
       using underlying = std::underlying_type_t<T>;
 
     public:
-      static MPI_Datatype get_datatype() { return datatype_traits<underlying>::get_datatype(); }
+      static MPI_Datatype get_datatype() {
+        return datatype_traits<underlying>::get_datatype();
+      }
       using data_type_category = typename datatype_traits<underlying>::data_type_category;
     };
 
 #if defined MPL_HOMOGENEOUS
     template<typename T>
     class datatype_traits_impl<
-        T, std::enable_if_t<
-               std::is_trivially_copyable_v<T> and std::is_copy_assignable_v<T> and
-               not std::is_enum_v<T> and not std::is_array_v<T>>> {
+        T, std::enable_if_t<std::is_trivially_copyable_v<T> and std::is_copy_assignable_v<T> and
+                            not std::is_enum_v<T> and not std::is_array_v<T>>> {
     public:
       static MPI_Datatype get_datatype() {
         return datatype_traits_impl<unsigned char[sizeof(T)]>::get_datatype();
@@ -444,13 +453,15 @@ namespace mpl {
       using data_type_category = typename detail::datatype_traits_impl<T>::data_type_category;
     };
 
-#define MPL_DATATYPE_TRAITS(type, mpi_type)                        \
-    template<>                                                     \
-    class datatype_traits<type> {                                  \
-    public:                                                        \
-      static MPI_Datatype get_datatype() { return mpi_type; }      \
-      using data_type_category = detail::basic_or_fixed_size_type; \
-    }
+#define MPL_DATATYPE_TRAITS(type, mpi_type)                      \
+  template<>                                                     \
+  class datatype_traits<type> {                                  \
+  public:                                                        \
+    static MPI_Datatype get_datatype() {                         \
+      return mpi_type;                                           \
+    }                                                            \
+    using data_type_category = detail::basic_or_fixed_size_type; \
+  }
 
     MPL_DATATYPE_TRAITS(char, MPI_CHAR);
 

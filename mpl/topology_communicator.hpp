@@ -5,6 +5,7 @@
 #include <mpi.h>
 #include <vector>
 
+
 namespace mpl::impl {
 
   /// Base class for communicators with a topology.

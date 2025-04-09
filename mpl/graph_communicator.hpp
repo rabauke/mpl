@@ -9,9 +9,10 @@
 #include <algorithm>
 #include <numeric>
 
+
 namespace mpl {
 
-/// Communicator with general graph topology.
+  /// Communicator with general graph topology.
   class graph_communicator : public impl::topology_communicator {
   public:
     /// Set of edges, pairs of nodes represented by non-negative integers.
@@ -31,7 +32,8 @@ namespace mpl {
 
       /// Creates a set of edges given by the list.
       /// \param init set of edges
-      edge_set(std::initializer_list<value_type> init) : base(init) {}
+      edge_set(std::initializer_list<value_type> init) : base(init) {
+      }
 
       using base::operator=;
       using base::begin;
@@ -41,11 +43,15 @@ namespace mpl {
 
       /// Determines the number edges.
       /// \return number of edges in the edge set
-      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+      [[nodiscard]] int size() const {
+        return static_cast<int>(base::size());
+      }
 
-      /// Add an additional edge to the set.
+      /// Add an edge to the set.
       /// \param edge tuple of two non-negative integers
-      void add(const value_type &edge) { insert(edge); }
+      void add(const value_type &edge) {
+        insert(edge);
+      }
     };
 
 
@@ -66,11 +72,13 @@ namespace mpl {
 
       /// Creates non-empty list of nodes.
       /// \param nodes number of elements of the node list
-      explicit node_list(int nodes) : base(nodes, 0) {}
+      explicit node_list(int nodes) : base(nodes, 0) {
+      }
 
       /// Creates non-empty list of nodes with nodes given by the list.
       /// \param init vector components
-      node_list(std::initializer_list<int> init) : base(init) {}
+      node_list(std::initializer_list<int> init) : base(init) {
+      }
 
       using base::operator=;
       using base::begin;
@@ -80,19 +88,27 @@ namespace mpl {
 
       /// Determines the number of nodes.
       /// \return number of nodes in the list
-      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+      [[nodiscard]] int size() const {
+        return static_cast<int>(base::size());
+      }
 
       /// Access a list element.
       /// \param index non-negative index to the list element
-      reference operator[](int index) { return base::operator[](index); }
+      reference operator[](int index) {
+        return base::operator[](index);
+      }
 
       /// Access a list element.
       /// \param index non-negative index to the list element
-      const_reference operator[](int index) const { return base::operator[](index); }
+      const_reference operator[](int index) const {
+        return base::operator[](index);
+      }
 
-      /// Add an additional element to the end of the node list.
+      /// Add an element to the end of the node list.
       /// \param node the node that is added
-      void add(int node) { push_back(node); }
+      void add(int node) {
+        push_back(node);
+      }
 
       friend class graph_communicator;
     };
@@ -199,7 +215,9 @@ namespace mpl {
 
     /// Determines the number of neighbours of the calling process.
     /// \return number of direct neighbours of the calling process
-    [[nodiscard]] int degree() const { return degree(rank()); };
+    [[nodiscard]] int degree() const {
+      return degree(rank());
+    };
 
     /// Determines the neighbours of some process.
     /// \param rank process rank
@@ -213,7 +231,9 @@ namespace mpl {
 
     /// Determines the neighbours of the calling process.
     /// \return direct neighbours of the calling process
-    [[nodiscard]] node_list neighbors() const { return neighbors(rank()); }
+    [[nodiscard]] node_list neighbors() const {
+      return neighbors(rank());
+    }
   };
 
 

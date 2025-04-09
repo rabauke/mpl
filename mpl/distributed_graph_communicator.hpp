@@ -11,6 +11,7 @@
 #include <algorithm>
 #include <numeric>
 
+
 namespace mpl {
 
   /// Communicator with general graph topology.
@@ -22,7 +23,8 @@ namespace mpl {
       int rank{0};
       int weight{0};
       /// Creates a rank-weight pair.
-      rank_weight_pair(int rank, int weight = 0) : rank{rank}, weight{weight} {}
+      rank_weight_pair(int rank, int weight = 0) : rank{rank}, weight{weight} {
+      }
     };
 
   private:
@@ -54,7 +56,8 @@ namespace mpl {
 
       /// Creates a set of edges given by the list.
       /// \param init set of edges
-      neighbours_set(std::initializer_list<value_type> init) : base(init) {}
+      neighbours_set(std::initializer_list<value_type> init) : base(init) {
+      }
 
       using base::operator=;
       using base::begin;
@@ -64,11 +67,15 @@ namespace mpl {
 
       /// Determines the number edges.
       /// \return number of edges in the edge set
-      [[nodiscard]] int size() const { return static_cast<int>(base::size()); }
+      [[nodiscard]] int size() const {
+        return static_cast<int>(base::size());
+      }
 
-      /// Add an additional edge to the set.
+      /// Add an edge to the set.
       /// \param edge tuple of two non-negative integers
-      void add(const value_type &edge) { insert(edge); }
+      void add(const value_type &edge) {
+        insert(edge);
+      }
     };
 
 
@@ -185,11 +192,15 @@ namespace mpl {
 
     /// Determines the number of edges into this process.
     /// \return in-degree
-    [[nodiscard]] int in_degree() const { return std::get<0>(in_out_degree()); };
+    [[nodiscard]] int in_degree() const {
+      return std::get<0>(in_out_degree());
+    }
 
     /// Determines the number of edges out of this process.
     /// \return out-degree
-    [[nodiscard]] int out_degree() const { return std::get<1>(in_out_degree()); };
+    [[nodiscard]] int out_degree() const {
+      return std::get<1>(in_out_degree());
+    }
 
     /// Determines the ranks of the processes for which the calling process is a
     /// destination.

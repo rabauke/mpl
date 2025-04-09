@@ -57,13 +57,17 @@ struct data_type_helper<std::array<T, n>> {
 
 template<typename T1, typename T2>
 struct data_type_helper<std::pair<T1, T2>> {
-  static std::pair<T1, T2> get(int val) { return std::make_pair<T1, T2>(T1(val), T2(val)); }
+  static std::pair<T1, T2> get(int val) {
+    return std::make_pair<T1, T2>(T1(val), T2(val));
+  }
 };
 
 
 template<typename... Ts>
 struct data_type_helper<std::tuple<Ts...>> {
-  static std::tuple<Ts...> get(int val) { return std::make_tuple<Ts...>(Ts(val)...); }
+  static std::tuple<Ts...> get(int val) {
+    return std::make_tuple<Ts...>(Ts(val)...);
+  }
 };
 
 
@@ -83,7 +87,7 @@ struct data_type_helper<std::list<T>> {
 };
 
 
-  template<typename T>
+template<typename T>
 bool sendrecv_replace_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   const int rank{comm_world.rank()};

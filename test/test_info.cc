@@ -3,6 +3,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 BOOST_AUTO_TEST_CASE(info) {
   [[maybe_unused]] const mpl::communicator &comm_world{mpl::environment::comm_world()};
 

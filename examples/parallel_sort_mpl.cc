@@ -4,17 +4,21 @@
 #include <algorithm>
 #include <mpl/mpl.hpp>
 
+
 static std::random_device rd;
 static std::mt19937_64 mt(rd());
+
 
 double get_random() {
   std::uniform_real_distribution<double> dist(0, 1);
   return dist(mt);
 }
 
+
 void fill_random(std::vector<double> &v) {
   std::generate(std::begin(v), std::end(v), get_random);
 }
+
 
 // parallel sort algorithm for distributed memory computers
 //
@@ -68,6 +72,7 @@ void parallel_sort(std::vector<T> &v) {
   std::sort(begin(v_2), end(v_2));
   swap(v, v_2);
 }
+
 
 int main() {
   const auto &comm_world{mpl::environment::comm_world()};

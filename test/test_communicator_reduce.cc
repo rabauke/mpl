@@ -4,6 +4,7 @@
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
 template<typename F, typename T>
 bool reduce_test(F f, const T &val) {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -246,7 +247,8 @@ BOOST_AUTO_TEST_CASE(reduce) {
   BOOST_TEST(reduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
   BOOST_TEST(reduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
   BOOST_TEST(reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+  BOOST_TEST(
+      reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
   BOOST_TEST(ireduce_test_inplace(add<double>(), 1.0));
   BOOST_TEST(ireduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
@@ -260,5 +262,6 @@ BOOST_AUTO_TEST_CASE(reduce) {
   BOOST_TEST(ireduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
   BOOST_TEST(ireduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
   BOOST_TEST(ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+  BOOST_TEST(
+      ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 }

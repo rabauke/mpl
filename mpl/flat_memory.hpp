@@ -10,6 +10,7 @@
 #include <type_traits>
 #include <mpl/utility.hpp>
 
+
 namespace mpl::detail {
 
   template<typename T, typename I>
@@ -28,15 +29,23 @@ namespace mpl::detail {
 
     flat_memory_in(const flat_memory_in &) = delete;
 
-    ~flat_memory_in() { delete[] first; }
+    ~flat_memory_in() {
+      delete[] first;
+    }
 
-    flat_memory_in & operator=(const flat_memory_in &) = delete;
+    flat_memory_in &operator=(const flat_memory_in &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return first; }
+    const T *data() const {
+      return first;
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
   };
 
 
@@ -50,19 +59,26 @@ namespace mpl::detail {
     const T *first;
 
   public:
-    flat_memory_in(const T *i1, const T *i2) : n(std::distance(i1, i2)), first(i1) {}
+    flat_memory_in(const T *i1, const T *i2) : n(std::distance(i1, i2)), first(i1) {
+    }
 
     flat_memory_in(const flat_memory_in &) = delete;
 
     ~flat_memory_in() = default;
 
-    flat_memory_in & operator=(const flat_memory_in &) = delete;
+    flat_memory_in &operator=(const flat_memory_in &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return first; }
+    [[nodiscard]] const T *data() const {
+      return first;
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
   };
 
 
@@ -81,17 +97,24 @@ namespace mpl::detail {
   public:
     flat_memory_in(const flat_memory_in &) = delete;
 
-    flat_memory_in(iterator i1, iterator i2) : n(std::distance(i1, i2)), first(i1) {}
+    flat_memory_in(iterator i1, iterator i2) : n(std::distance(i1, i2)), first(i1) {
+    }
 
     ~flat_memory_in() = default;
 
-    flat_memory_in & operator=(const flat_memory_in &) = delete;
+    flat_memory_in &operator=(const flat_memory_in &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return &(*first); }
+    [[nodiscard]] const T *data() const {
+      return &(*first);
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
   };
 
 
@@ -108,18 +131,24 @@ namespace mpl::detail {
   public:
     flat_memory_in(const flat_memory_in &) = delete;
 
-    flat_memory_in(const_iterator i1, const_iterator i2)
-        : n(std::distance(i1, i2)), first(i1) {}
+    flat_memory_in(const_iterator i1, const_iterator i2) : n(std::distance(i1, i2)), first(i1) {
+    }
 
     ~flat_memory_in() = default;
 
-    flat_memory_in & operator=(const flat_memory_in &) = delete;
+    flat_memory_in &operator=(const flat_memory_in &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return &(*first); }
+    const T *data() const {
+      return &(*first);
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
   };
 
   //--------------------------------------------------------------------
@@ -137,21 +166,34 @@ namespace mpl::detail {
   public:
     flat_memory_out(const flat_memory_out &) = delete;
 
-    flat_memory_out(size_type n, I first_out) : n(n), first_out(first_out), first(new T[n]) {}
+    flat_memory_out(size_type n, I first_out) : n(n), first_out(first_out), first(new T[n]) {
+    }
 
-    ~flat_memory_out() { delete[] first; }
+    ~flat_memory_out() {
+      delete[] first;
+    }
 
-    flat_memory_out & operator=(const flat_memory_out &) = delete;
+    flat_memory_out &operator=(const flat_memory_out &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return first; }
+    [[nodiscard]] const T *data() const {
+      return first;
+    }
 
-    T *data() { return first; }
+    [[nodiscard]] T *data() {
+      return first;
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
 
-    T &operator[](std::size_t i) { return data()[i]; }
+    T &operator[](std::size_t i) {
+      return data()[i];
+    }
 
     I copy_back(size_type m) const {
       return std::copy(first, first + std::min(m, n), first_out);
@@ -172,23 +214,36 @@ namespace mpl::detail {
   public:
     flat_memory_out(const flat_memory_out &) = delete;
 
-    flat_memory_out(size_type n, T *first_out) : n(n), first_out(first_out), first(first_out) {}
+    flat_memory_out(size_type n, T *first_out) : n(n), first_out(first_out), first(first_out) {
+    }
 
     ~flat_memory_out() = default;
 
-    flat_memory_out & operator=(const flat_memory_out &) = delete;
+    flat_memory_out &operator=(const flat_memory_out &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return first; }
+    [[nodiscard]] const T *data() const {
+      return first;
+    }
 
-    T *data() { return first; }
+    [[nodiscard]] T *data() {
+      return first;
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
 
-    T &operator[](std::size_t i) { return data()[i]; }
+    T &operator[](std::size_t i) {
+      return data()[i];
+    }
 
-    T *copy_back(size_type m) const { return first_out + std::min(m, n); }
+    T *copy_back(size_type m) const {
+      return first_out + std::min(m, n);
+    }
   };
 
 
@@ -209,23 +264,36 @@ namespace mpl::detail {
     flat_memory_out(const flat_memory_out &) = delete;
 
     flat_memory_out(size_type n, iterator first_out)
-        : n(n), first_out(first_out), first(first_out) {}
+        : n(n), first_out(first_out), first(first_out) {
+    }
 
     ~flat_memory_out() = default;
 
-    flat_memory_out & operator=(const flat_memory_out &) = delete;
+    flat_memory_out &operator=(const flat_memory_out &) = delete;
 
-    [[nodiscard]] size_type size() const { return n; }
+    [[nodiscard]] size_type size() const {
+      return n;
+    }
 
-    const T *data() const { return &(*first); }
+    [[nodiscard]] const T *data() const {
+      return &(*first);
+    }
 
-    T *data() { return &(*first); }
+    [[nodiscard]] T *data() {
+      return &(*first);
+    }
 
-    const T &operator[](std::size_t i) const { return data()[i]; }
+    const T &operator[](std::size_t i) const {
+      return data()[i];
+    }
 
-    T &operator[](std::size_t i) { return data()[i]; }
+    T &operator[](std::size_t i) {
+      return data()[i];
+    }
 
-    iterator copy_back(size_type m) const { return first_out + std::min(m, n); }
+    iterator copy_back(size_type m) const {
+      return first_out + std::min(m, n);
+    }
   };
 
 }  // namespace mpl::detail

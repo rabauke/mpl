@@ -3,6 +3,7 @@
 #include <sstream>
 #include <mpl/mpl.hpp>
 
+
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   // split communicator comm_world into two groups consisting of processes with odd and even

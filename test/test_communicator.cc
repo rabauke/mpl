@@ -3,6 +3,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 // test properties of the predefined communicator comm_word
 bool communicator_comm_world_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

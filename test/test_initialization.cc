@@ -3,6 +3,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 // test manual external initialization of MPI environment
 bool initialization_test() {
   MPI_Init(nullptr, nullptr);

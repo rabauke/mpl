@@ -3,6 +3,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 template<typename T>
 bool scatter_test(const T &val) {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

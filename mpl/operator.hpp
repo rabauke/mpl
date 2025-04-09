@@ -8,6 +8,7 @@
 #include <memory>
 #include <ciso646>
 
+
 namespace mpl {
 
   /// Function object for calculating the maximum of two values in reduction operations
@@ -18,7 +19,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return maximum of the two arguments
-    T operator()(const T &x, const T &y) const { return (x < y) ? y : x; }
+    T operator()(const T &x, const T &y) const {
+      return (x < y) ? y : x;
+    }
   };
 
   /// Function object for calculating the minimum of two values in reduction operations
@@ -29,7 +32,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return minimum of the two arguments
-    T operator()(const T &x, const T &y) const { return not(y < x) ? x : y; }
+    T operator()(const T &x, const T &y) const {
+      return not(y < x) ? x : y;
+    }
   };
 
   /// Function object for calculating the sum of two values in reduction operations as
@@ -40,7 +45,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return sum of the two arguments
-    T operator()(const T &x, const T &y) const { return x + y; }
+    T operator()(const T &x, const T &y) const {
+      return x + y;
+    }
   };
 
   /// Function object for calculating the product of two values in reduction operations
@@ -51,7 +58,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return product of the two arguments
-    T operator()(const T &x, const T &y) const { return x * y; }
+    T operator()(const T &x, const T &y) const {
+      return x * y;
+    }
   };
 
   /// Function object for calculating the logical conjunction of two values in reduction
@@ -62,7 +71,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return logical conjunction of the two arguments
-    T operator()(const T &x, const T &y) const { return x and y; }
+    T operator()(const T &x, const T &y) const {
+      return x and y;
+    }
   };
 
   /// Function object for calculating the logical (inclusive) disjunction of two values
@@ -73,7 +84,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return logical (inclusive) disjunction of the two arguments
-    T operator()(const T &x, const T &y) const { return x or y; }
+    T operator()(const T &x, const T &y) const {
+      return x or y;
+    }
   };
 
   /// Function object for calculating the logical exclusive disjunction of two values in
@@ -84,7 +97,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return logical exclusive disjunction of the two arguments
-    T operator()(const T &x, const T &y) const { return x xor y; }
+    T operator()(const T &x, const T &y) const {
+      return x xor y;
+    }
   };
 
   /// Function object for calculating the bitwise conjunction of two values in reduction
@@ -95,7 +110,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return bitwise conjunction of the two arguments
-    T operator()(const T &x, const T &y) const { return x & y; }
+    T operator()(const T &x, const T &y) const {
+      return x & y;
+    }
   };
 
   /// Function object for calculating the bitwise (inclusive) disjunction of two values
@@ -106,7 +123,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return bitwise (inclusive) disjunction of the two arguments
-    T operator()(const T &x, const T &y) const { return x | y; }
+    T operator()(const T &x, const T &y) const {
+      return x | y;
+    }
   };
 
   /// Function object for calculating the bitwise exclusive disjunction of two values in
@@ -117,7 +136,9 @@ namespace mpl {
     /// \param x first argument
     /// \param y second argument
     /// \return bitwise exclusive disjunction of the two arguments
-    T operator()(const T &x, const T &y) const { return x ^ y; }
+    T operator()(const T &x, const T &y) const {
+      return x ^ y;
+    }
   };
 
   // -------------------------------------------------------------------
@@ -254,7 +275,9 @@ namespace mpl {
     public:
       op(op const &) = delete;
 
-      ~op() { MPI_Op_free(&mpi_op); }
+      ~op() {
+        MPI_Op_free(&mpi_op);
+      }
 
       void operator=(op const &) = delete;
 

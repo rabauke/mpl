@@ -2,6 +2,7 @@
 #include <iostream>
 #include <mpl/mpl.hpp>
 
+
 template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cartesian_communicator &communicator, int root,
              const mpl::local_grid<dim, T, A> &local_grid,
@@ -9,6 +10,7 @@ void scatter(const mpl::cartesian_communicator &communicator, int root,
   communicator.scatterv(root, local_grid.data(), local_grid.sub_layouts(),
                         distributed_grid.data(), distributed_grid.interior_layout());
 }
+
 
 template<std::size_t dim, typename T, typename A>
 void scatter(const mpl::cartesian_communicator &communicator, int root,
@@ -24,6 +26,7 @@ void gather(const mpl::cartesian_communicator &communicator, int root,
   communicator.gatherv(root, distributed_grid.data(), distributed_grid.interior_layout(),
                        local_grid.data(), local_grid.sub_layouts());
 }
+
 
 template<std::size_t dim, typename T, typename A>
 void gather(const mpl::cartesian_communicator &communicator, int root,
@@ -43,7 +46,7 @@ int main() {
   const int c_size{comm_c.size()};
   for (auto j{grid.obegin(1)}, j_end{grid.oend(1)}; j < j_end; ++j)
     for (auto i{grid.obegin(0)}, i_end{grid.oend(0)}; i < i_end; ++i)
-      grid(i, j) = c_rank + 1 ;
+      grid(i, j) = c_rank + 1;
   if (comm_world.rank() == 0) {
     mpl::local_grid<2, int> local_grid(comm_c, {nx, ny});
     for (auto j{local_grid.begin(1)}, j_end{local_grid.end(1)}; j < j_end; ++j)

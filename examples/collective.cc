@@ -9,12 +9,18 @@ struct my_array {
   static constexpr int n_1{4};
   double data[n_0][n_1]{};
   // overload operators for some syntactical sugar
-  const double &operator()(int i_0, int i_1) const { return data[i_0][i_1]; }
-  double &operator()(int i_0, int i_1) { return data[i_0][i_1]; }
+  const double &operator()(int i_0, int i_1) const {
+    return data[i_0][i_1];
+  }
+  double &operator()(int i_0, int i_1) {
+    return data[i_0][i_1];
+  }
 };
+
 
 // use reflection macro to make the struct compatible with mpl
 MPL_REFLECTION(my_array, data)
+
 
 // overload plus operator
 my_array operator+(const my_array &a, const my_array &b) {

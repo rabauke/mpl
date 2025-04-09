@@ -7,8 +7,10 @@
 #include <random>
 #include <mpl/mpl.hpp>
 
+
 // data type to store the data and the position of the global minimum
 using pair_t = std::pair<double, int>;
+
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -22,7 +24,7 @@ int main() {
     return std::make_pair(uniform(g), comm_world.rank());
   });
   // calculate minimum and its location and send result to rank root
-  const int root {0};
+  const int root{0};
   mpl::contiguous_layout<pair_t> layout(n);
   if (comm_world.rank() == root) {
     std::vector<pair_t> result(n);

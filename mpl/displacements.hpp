@@ -6,6 +6,7 @@
 #include <vector>
 #include <utility>
 
+
 namespace mpl {
 
   /// Indicates the beginning of data buffers in various collective communication
@@ -21,11 +22,13 @@ namespace mpl {
 
     /// Constructs a set of displacements with displacement zero.
     /// \param n number of displacements
-    explicit displacements(size_type n = 0) : base(n, 0) {}
+    explicit displacements(size_type n = 0) : base(n, 0) {
+    }
 
     /// Constructs a set of displacements with given displacements.
     /// \param init initial displacements
-    explicit displacements(std::initializer_list<MPI_Aint> init) : base(init) {}
+    explicit displacements(std::initializer_list<MPI_Aint> init) : base(init) {
+    }
 
     /// Copy constructor.
     /// \param other the other set of displacements to copy from
@@ -46,7 +49,9 @@ namespace mpl {
 
     /// Get raw displacement data.
     /// \return pointer to array of displacements
-    const MPI_Aint *operator()() const { return base::data(); }
+    const MPI_Aint *operator()() const {
+      return base::data();
+    }
   };
 
 }  // namespace mpl

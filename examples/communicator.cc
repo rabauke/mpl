@@ -2,6 +2,7 @@
 #include <iostream>
 #include <mpl/mpl.hpp>
 
+
 int main() {
   // check communicator properties of comm_world
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

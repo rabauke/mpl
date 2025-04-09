@@ -2,15 +2,15 @@
 #include <iostream>
 #include <mpl/mpl.hpp>
 
+
 template<std::size_t dim, typename T, typename A>
 void update_overlap(const mpl::cartesian_communicator &cartesian_communicator,
                     mpl::distributed_grid<dim, T, A> &grid, mpl::tag_t tag = mpl::tag_t()) {
   for (std::size_t i{0}; i < dim; ++i) {
     // send to left
     auto [source_l, destination_l] = cartesian_communicator.shift(i, -1);
-    cartesian_communicator.sendrecv(grid.data(), grid.left_border_layout(i), destination_l,
-                                    tag, grid.data(), grid.right_mirror_layout(i), source_l,
-                                    tag);
+    cartesian_communicator.sendrecv(grid.data(), grid.left_border_layout(i), destination_l, tag,
+                                    grid.data(), grid.right_mirror_layout(i), source_l, tag);
     // send to right
     auto [source_r, destination_r] = cartesian_communicator.shift(i, +1);
     cartesian_communicator.sendrecv(grid.data(), grid.right_border_layout(i), destination_r,

@@ -6,12 +6,14 @@
 #include <utility>
 #include <mpl/mpl.hpp>
 
+
 // print elements of a pair
 template<typename ch, typename tr, typename T1, typename T2>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
                                        const std::pair<T1, T2> &p) {
   return out << '(' << p.first << ',' << p.second << ')';
 }
+
 
 // helper function for printing all elements of a tuple/ an array
 template<typename ch, typename tr, typename tuple, std::size_t... IS>
@@ -23,6 +25,7 @@ void print_tuple_impl(std::basic_ostream<ch, tr> &out, const tuple &t,
   [[maybe_unused]] std::initializer_list<int> _{(print_element(IS, std::get<IS>(t)), 0)...};
 }
 
+
 // print all elements of a tuple
 template<typename ch, typename tr, typename... args>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
@@ -31,6 +34,7 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   print_tuple_impl(out, t, std::index_sequence_for<args...>{});
   return out << ')';
 }
+
 
 // print all elements of an array
 template<typename ch, typename tr, typename ty, std::size_t s>
@@ -41,17 +45,20 @@ std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out,
   return out << ')';
 }
 
+
 // print a byte
 template<typename ch, typename tr>
 std::basic_ostream<ch, tr> &operator<<(std::basic_ostream<ch, tr> &out, const std::byte &t) {
   return out << std::to_integer<int>(t);
 }
 
+
 // send some item of a standard type
 template<typename T>
 void send(const mpl::communicator &comm, const T &x) {
   comm.send(x, 1);
 }
+
 
 // receive some item of a standard type
 template<typename T>
@@ -60,6 +67,7 @@ void recv(const mpl::communicator &comm) {
   comm.recv(x, 0);
   std::cout << "x = " << std::boolalpha << x << '\n';
 }
+
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -106,7 +114,7 @@ int main() {
     send(comm_world, t_18);
     std::pair<int, double> t_19{-2, 0.1234};
     send(comm_world, t_19);
-    std::tuple<int, std::complex<double>> t_20{-2, 0.1234};
+    std::tuple<int, std::complex<double>> t_20{-2, {0.1234, 1.0}};
     send(comm_world, t_20);
     std::array<int, 4> t_21{1, 2, 3, 4};
     send(comm_world, t_21);

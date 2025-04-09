@@ -5,21 +5,25 @@
 #include "mpi.h"
 #include <unistd.h>
 
+
 typedef struct vector {
   double *data;
   size_t N;
 } vector;
+
 
 void fill_random(vector v) {
   for (size_t i = 0; i < v.N; ++i)
     v.data[i] = (double)rand() / (RAND_MAX + 1.);
 }
 
+
 static int cmp_double(const void *p1_, const void *p2_) {
   const double *const p1 = p1_;
   const double *const p2 = p2_;
   return (*p1 == *p2) ? 0 : (*p1 < *p2 ? -1 : 1);
 }
+
 
 double *partition(double *first, double *last, double pivot) {
   for (; first != last; ++first)
@@ -37,6 +41,7 @@ double *partition(double *first, double *last, double pivot) {
   }
   return first;
 }
+
 
 vector parallel_sort(vector v) {
   int rank, size;
@@ -94,6 +99,7 @@ vector parallel_sort(vector v) {
   free(local_pivots);
   return (vector){v2, recv_pos};
 }
+
 
 int main(int argc, char *argv[]) {
   MPI_Init(&argc, &argv);

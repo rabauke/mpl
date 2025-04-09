@@ -9,8 +9,11 @@ AllowShortLoopsOnASingleLine: false
 ColumnLimit: 96
 MaxEmptyLinesToKeep: 2
 NamespaceIndentation: All
+RequiresClausePosition: OwnLine
+IndentRequiresClause: false
 SpaceAfterTemplateKeyword: false
 SortIncludes: false
 SortUsingDeclarations: false
 CommentPragmas: '^/'
+Standard: c++20
 ...

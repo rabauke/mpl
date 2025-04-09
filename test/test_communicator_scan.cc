@@ -4,6 +4,7 @@
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
 template<typename F, typename T>
 bool scan_test(F f, const T &val) {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

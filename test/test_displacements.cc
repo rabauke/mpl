@@ -3,6 +3,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 BOOST_AUTO_TEST_CASE(displacements) {
   mpl::displacements displacements_1(10);
   mpl::displacements displacements_2{1, 2, 3};

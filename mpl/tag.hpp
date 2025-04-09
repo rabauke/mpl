@@ -6,6 +6,7 @@
 #include <ostream>
 #include <istream>
 
+
 namespace mpl {
 
   /// Class for representing tag parameters in communication operations.
@@ -34,14 +35,14 @@ namespace mpl {
 
     /// Copy-assignmnet operator.
     /// \param t tag value
-    tag_t & operator=(const tag_t &t) = default;
+    tag_t &operator=(const tag_t &t) = default;
 
     /// \return tag value as integer
     explicit operator int() const {
       return t;
     }
 
-    /// \return tag with largest value when converted to int
+    /// \return tag with the largest value when converted to int
     static inline tag_t up();
 
     /// \return wildcard tag to be used in receive operations, e.g., \c communicator::recv, to

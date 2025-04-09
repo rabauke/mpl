@@ -4,6 +4,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
+
 // some basic matrix class
 template<typename T>
 class matrix : private std::vector<T> {
@@ -20,13 +21,16 @@ private:
   size_type nx, ny;
 
 public:
-  matrix(size_type nx, size_type ny) : base(nx * ny), nx(nx), ny(ny) {}
+  matrix(size_type nx, size_type ny) : base(nx * ny), nx(nx), ny(ny) {
+  }
 
   const_reference operator()(size_type ix, size_type iy) const {
     return base::operator[](ix + nx * iy);
   }
 
-  reference operator()(size_type ix, size_type iy) { return base::operator[](ix + nx * iy); }
+  reference operator()(size_type ix, size_type iy) {
+    return base::operator[](ix + nx * iy);
+  }
 
   using base::begin;
   using base::end;
@@ -43,7 +47,7 @@ int main() {
   while (p / px * px != p)
     --px;
   int py{p / px};
-  int nx{31}, ny{29};                // total size of the matrix
+  int nx{31}, ny{29};                      // total size of the matrix
   matrix<int> nx_l(px, py), ny_l(px, py);  // sizes of sub matrices for both dimensions
   matrix<int> nx_0(px, py), ny_0(px, py);  // starts of sub matrices for both dimensions
   // matrix of layouts

@@ -3,6 +3,7 @@
 #include <boost/test/included/unit_test.hpp>
 #include <mpl/mpl.hpp>
 
+
 bool graph_communicator_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   const int size{comm_world.size()};

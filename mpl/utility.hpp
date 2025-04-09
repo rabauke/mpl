@@ -8,6 +8,7 @@
 #include <vector>
 #include <valarray>
 
+
 namespace mpl::detail {
 
   template<typename T>
@@ -40,14 +41,18 @@ namespace mpl::detail {
   struct underlying_type<T, true> {
     using type = std::underlying_type_t<T>;
 
-    static constexpr int value(const T &v) { return static_cast<int>(v); }
+    static constexpr int value(const T &v) {
+      return static_cast<int>(v);
+    }
   };
 
   template<typename T>
   struct underlying_type<T, false> {
     using type = T;
 
-    static constexpr int value(const T &v) { return static_cast<int>(v); }
+    static constexpr int value(const T &v) {
+      return static_cast<int>(v);
+    }
   };
 
   template<typename T>
@@ -64,18 +69,18 @@ namespace mpl::detail {
 
   template<typename T>
   struct is_valid_color
-      : public std::integral_constant<
-            bool, (std::is_integral_v<T> or
-                   std::is_enum_v<T>)and is_not_narrowing_v<underlying_type_t<T>, int>> {};
+      : public std::integral_constant<bool, (std::is_integral_v<T> or std::is_enum_v<T>) and
+                                                is_not_narrowing_v<underlying_type_t<T>, int>> {
+  };
 
   template<typename T>
   inline constexpr bool is_valid_color_v = is_valid_color<T>::value;
 
   template<typename T>
   struct is_valid_key
-      : public std::integral_constant<
-            bool, (std::is_integral_v<T> or
-                   std::is_enum_v<T>)and is_not_narrowing_v<underlying_type_t<T>, int>> {};
+      : public std::integral_constant<bool, (std::is_integral_v<T> or std::is_enum_v<T>) and
+                                                is_not_narrowing_v<underlying_type_t<T>, int>> {
+  };
 
   template<typename T>
   inline constexpr bool is_valid_key_v = is_valid_key<T>::value;

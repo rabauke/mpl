@@ -6,6 +6,7 @@
 #include <random>
 #include <mpl/mpl.hpp>
 
+
 // calculate the least common multiple of two arguments
 template<typename T>
 class lcm {
@@ -33,6 +34,7 @@ public:
     return t;
   }
 };
+
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

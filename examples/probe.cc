@@ -4,6 +4,7 @@
 #include <numeric>
 #include <mpl/mpl.hpp>
 
+
 template<typename I>
 void print_range(const char *const str, I i_1, I i_2) {
   std::cout << str;
@@ -13,6 +14,7 @@ void print_range(const char *const str, I i_1, I i_2) {
     std::cout << ((i_1 != i_2) ? ' ' : '\n');
   }
 }
+
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};

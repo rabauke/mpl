@@ -3,6 +3,7 @@
 #include <vector>
 #include <mpl/mpl.hpp>
 
+
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   const auto c_rank{comm_world.rank()};
