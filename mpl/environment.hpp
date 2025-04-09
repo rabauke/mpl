@@ -33,19 +33,22 @@ namespace mpl {
       class env {
         class initializer {
           int thread_mode_{MPI_THREAD_SINGLE};
+          bool is_externally_initialized_{false};
 
         public:
           initializer() {
             int is_initialized{0};
             MPI_Initialized(&is_initialized);
-            if (is_initialized == 0)
-              MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
-            else
+            is_externally_initialized_ = is_initialized != 0;
+            if (is_externally_initialized_)
               MPI_Query_thread(&thread_mode_);
+            else
+              MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
           }
 
           ~initializer() {
-            MPI_Finalize();
+            if (not is_externally_initialized_)
+              MPI_Finalize();
           }
 
           [[nodiscard]] threading_modes thread_mode() const {
