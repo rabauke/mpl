@@ -4156,7 +4156,7 @@ namespace mpl {
       base::info(i);
     }
 
-    /// Get the the hints of the communicator.
+    /// Get the hints of the communicator.
     /// \return hints of the communicator
     [[nodiscard]] mpl::info info() const {
       return base::info();
