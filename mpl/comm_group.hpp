@@ -4963,6 +4963,7 @@ namespace mpl {
   class inter_communicator : public impl::base_communicator {
     using base = impl::base_communicator;
 
+  protected:
     explicit inter_communicator(MPI_Comm comm) : base{comm} {
     }
 
@@ -5347,6 +5348,85 @@ namespace mpl {
   inline group::group(group::exclude_tag, const group &other, const ranks &rank) {
     MPI_Group_excl(other.gr_, rank.size(), rank(), &gr_);
   }
+
+  //--------------------------------------------------------------------
+
+  /// Specifies the communication context for a communication operation.
+  /// \note This is a non-owning wrapper around a raw MPI communicator. It is provided
+  /// for interoperability of MPL with MPI.
+  class mpi_communicator : public communicator {
+    using base = communicator;
+
+  public:
+    /// Creates a new communicator form an MPI communicator.
+    /// \param comm MPI communicator that will be wrapped
+    explicit mpi_communicator(MPI_Comm comm) : communicator{comm} {
+    }
+
+    mpi_communicator(const mpi_communicator &other) = delete;
+
+    /// Move-constructs a communicator.
+    /// \param other the other communicator to move from
+    mpi_communicator(mpi_communicator &&other) noexcept : base{other.comm_} {
+      other.comm_ = MPI_COMM_NULL;
+    }
+
+    /// Destructor.
+    ~mpi_communicator() {
+      comm_ = MPI_COMM_NULL;
+    }
+
+    mpi_communicator &operator=(const mpi_communicator &other) = delete;
+
+    /// Move-assigns a communicator.
+    /// \param other the other communicator to move from
+    /// \return this communicator
+    mpi_communicator &operator=(mpi_communicator &&other) noexcept {
+      comm_ = other.comm_;
+      other.comm_ = MPI_COMM_NULL;
+      return *this;
+    }
+  };
+
+  //--------------------------------------------------------------------
+
+  /// Specifies the communication context for a communication operation between two
+  /// non-overlapping groups.
+  /// \note This is a non-owning wrapper around a raw MPI communicator. It is provided
+  /// for interoperability of MPL with MPI.
+  class mpi_inter_communicator : public inter_communicator {
+    using base = inter_communicator;
+
+  public:
+    /// Creates a new inter-communicator form an MPI communicator.
+    /// \param comm MPI inter-communicator that will be wrapped
+    explicit mpi_inter_communicator(MPI_Comm comm) : inter_communicator{comm} {
+    }
+
+    mpi_inter_communicator(const mpi_communicator &other) = delete;
+
+    /// Move-constructs an inter-communicator.
+    /// \param other the other inter-communicator to move from
+    mpi_inter_communicator(mpi_inter_communicator &&other) noexcept : base{other.comm_} {
+      other.comm_ = MPI_COMM_NULL;
+    }
+
+    /// Destructor.
+    ~mpi_inter_communicator() {
+      comm_ = MPI_COMM_NULL;
+    }
+
+    mpi_inter_communicator &operator=(const mpi_inter_communicator &other) = delete;
+
+    /// Move-assigns an inter-communicator.
+    /// \param other the other communicator to move from
+    /// \return this communicator
+    mpi_inter_communicator &operator=(mpi_inter_communicator &&other) noexcept {
+      comm_ = other.comm_;
+      other.comm_ = MPI_COMM_NULL;
+      return *this;
+    }
+  };
 
 }  // namespace mpl
 
