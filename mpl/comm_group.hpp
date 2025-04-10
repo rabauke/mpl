@@ -4098,7 +4098,7 @@ namespace mpl {
 
     /// Constructs a new communicator from an existing one by spitting the communicator
     /// into disjoint subgroups each of which can create a shared memory region.
-    /// \tparam color_type color type, must be integral type
+    /// \tparam key_type color type, must be integral type
     /// \param split_shared_memory tag to indicate the mode of construction
     /// \param other the communicator
     /// \param key control of rank assignment
