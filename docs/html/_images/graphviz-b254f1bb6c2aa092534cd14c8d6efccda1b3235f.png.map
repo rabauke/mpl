@@ -1,0 +1,5 @@
+<map id="%1" name="%1">
+<area shape="rect" id="node1" title="layout&lt; T &gt;" alt="" coords="283,5,392,53"/>
+<area shape="rect" id="node2" title="strided_vector_layout&lt; T &gt;" alt="" coords="5,5,235,53"/>
+<area shape="poly" id="edge1" title="public&#45;inheritance" alt="" coords="235,27,267,27,267,32,235,32"/>
+</map>

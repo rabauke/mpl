@@ -1,0 +1,5 @@
+<map id="%1" name="%1">
+<area shape="rect" id="node1" title="layout&lt; T &gt;" alt="" coords="219,5,328,53"/>
+<area shape="rect" id="node2" title="vector_layout&lt; T &gt;" alt="" coords="5,5,171,53"/>
+<area shape="poly" id="edge1" title="public&#45;inheritance" alt="" coords="171,27,203,27,203,32,171,32"/>
+</map>

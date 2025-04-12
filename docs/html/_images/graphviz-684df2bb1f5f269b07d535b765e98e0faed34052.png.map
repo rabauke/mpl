@@ -1,0 +1,5 @@
+<map id="%1" name="%1">
+<area shape="rect" id="node1" title="contiguous_layout&lt; T &gt;" alt="" coords="5,5,203,53"/>
+<area shape="rect" id="node2" title="layout&lt; T &gt;" alt="" coords="251,5,360,53"/>
+<area shape="poly" id="edge1" title="public&#45;inheritance" alt="" coords="203,27,235,27,235,32,203,32"/>
+</map>

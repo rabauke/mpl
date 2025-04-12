@@ -1,0 +1,29 @@
+<map id="%1" name="%1">
+<area shape="rect" id="node1" title="layout&lt; T &gt;" alt="" coords="512,401,621,449"/>
+<area shape="rect" id="node2" title="contiguous_layout&lt; T &gt;" alt="" coords="251,5,448,53"/>
+<area shape="poly" id="edge1" title="public&#45;inheritance" alt="" coords="450,51,466,63,495,100,519,142,536,186,549,231,564,317,568,386,563,386,559,318,544,232,531,188,514,144,491,103,462,67,447,55"/>
+<area shape="rect" id="node3" title="empty_layout&lt; T &gt;" alt="" coords="271,77,428,125"/>
+<area shape="poly" id="edge2" title="public&#45;inheritance" alt="" coords="430,113,449,122,466,135,490,163,510,195,539,263,557,330,565,386,560,386,551,331,534,265,506,197,486,167,462,139,446,127,427,118"/>
+<area shape="rect" id="node4" title="heterogeneous_layout" alt="" coords="5,509,187,557"/>
+<area shape="rect" id="node10" title="layout&lt; void &gt;" alt="" coords="283,509,416,557"/>
+<area shape="poly" id="edge3" title="public&#45;inheritance" alt="" coords="187,531,267,531,267,536,187,536"/>
+<area shape="rect" id="node5" title="hindexed_block_layout&lt; T &gt;" alt="" coords="235,149,464,197"/>
+<area shape="poly" id="edge4" title="public&#45;inheritance" alt="" coords="449,196,466,207,502,249,529,296,548,344,560,386,555,387,542,346,524,298,497,252,462,211,446,200"/>
+<area shape="rect" id="node6" title="hindexed_layout&lt; T &gt;" alt="" coords="259,221,440,269"/>
+<area shape="poly" id="edge5" title="public&#45;inheritance" alt="" coords="442,265,466,279,492,303,516,331,550,386,545,389,511,334,489,307,462,283,439,270"/>
+<area shape="rect" id="node7" title="indexed_block_layout&lt; T &gt;" alt="" coords="239,293,460,341"/>
+<area shape="poly" id="edge6" title="public&#45;inheritance" alt="" coords="439,339,465,351,526,390,523,394,463,356,437,344"/>
+<area shape="rect" id="node8" title="indexed_layout&lt; T &gt;" alt="" coords="263,365,436,413"/>
+<area shape="poly" id="edge7" title="public&#45;inheritance" alt="" coords="437,401,497,411,496,416,436,406"/>
+<area shape="rect" id="node9" title="iterator_layout&lt; T &gt;" alt="" coords="259,437,440,485"/>
+<area shape="poly" id="edge8" title="public&#45;inheritance" alt="" coords="440,444,496,434,497,439,441,449"/>
+<area shape="poly" id="edge9" title="template&#45;instance" alt="" coords="415,514,463,495,523,456,526,461,465,500,417,519"/>
+<area shape="rect" id="node11" title="null_layout&lt; T &gt;" alt="" coords="275,581,424,629"/>
+<area shape="poly" id="edge10" title="public&#45;inheritance" alt="" coords="423,587,462,567,489,544,511,517,545,462,550,465,516,520,492,548,466,572,425,592"/>
+<area shape="rect" id="node12" title="strided_vector_layout&lt; T &gt;" alt="" coords="235,653,464,701"/>
+<area shape="poly" id="edge11" title="public&#45;inheritance" alt="" coords="446,651,462,639,497,599,524,552,542,505,555,464,560,465,548,507,529,554,502,602,466,643,449,655"/>
+<area shape="rect" id="node13" title="subarray_layout&lt; T &gt;" alt="" coords="259,725,440,773"/>
+<area shape="poly" id="edge12" title="public&#45;inheritance" alt="" coords="439,728,462,711,486,684,506,653,534,586,551,519,560,464,565,465,557,521,539,588,510,656,490,687,466,715,442,732"/>
+<area shape="rect" id="node14" title="vector_layout&lt; T &gt;" alt="" coords="267,797,432,845"/>
+<area shape="poly" id="edge13" title="public&#45;inheritance" alt="" coords="431,804,448,795,462,783,491,747,514,707,531,663,544,618,559,533,563,465,568,465,564,534,549,620,536,665,519,709,495,750,466,787,451,799,434,809"/>
+</map>
