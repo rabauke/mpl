@@ -138,7 +138,7 @@ namespace mpl {
     /// \note This function returns a non-owning handle to the underlying MPI data type, which
     /// may be useful when refactoring legacy MPI applications to MPL.
     /// \warning The handle must not be used to modify the MPI data type that the handle points
-    /// to. This method will be removed in a future version.
+    /// to.
     [[nodiscard]] MPI_Datatype native_handle() const {
       return type_;
     }

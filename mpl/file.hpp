@@ -298,7 +298,6 @@ namespace mpl {
     /// \return MPI handle of the file
     /// \note This function returns a non-owning handle to the underlying MPI file, which may
     /// be useful when refactoring legacy MPI applications to MPL.
-    /// \warning This method will be removed in a future version.
     [[nodiscard]] MPI_File native_handle() const {
       return file_;
     }
