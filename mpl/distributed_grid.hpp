@@ -461,7 +461,7 @@ namespace mpl {
 
     /// Swaps this distributed data grid with another.
     /// \param other other distributed data grid
-    void swap(distributed_grid<dim, T, A> &other) {
+    void swap(distributed_grid &other) noexcept {
       global_size_.swap(other.global_size_);
       global_begin_.swap(other.global_begin_);
       global_end_.swap(other.global_end_);
@@ -775,7 +775,7 @@ namespace mpl {
       return sub_layouts_;
     }
 
-    void swap(local_grid<dim, T, A> &other) {
+    void swap(local_grid &other) noexcept {
       global_size_.swap(other.global_size_);
       v_.swap(other.v_);
       sub_layouts_.swap(other.sub_layouts_);

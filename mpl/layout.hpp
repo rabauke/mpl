@@ -323,7 +323,7 @@ namespace mpl {
 
     /// Swap with other layout.
     /// \param l other layout
-    void swap(layout &l) {
+    void swap(layout &l) noexcept {
       std::swap(type_, l.type_);
     }
 
@@ -333,7 +333,7 @@ namespace mpl {
         MPI_Type_free(&type_);
     }
 
-    friend class detail::datatype_traits<layout<T>>;
+    friend class detail::datatype_traits<layout>;
 
     friend class null_layout<T>;
 
@@ -359,9 +359,9 @@ namespace mpl {
 
     friend class heterogeneous_layout;
 
-    friend absolute_data<T *> make_absolute<>(T *, const layout<T> &);
+    friend absolute_data<T *> make_absolute<>(T *, const layout &);
 
-    friend absolute_data<const T *> make_absolute<>(const T *, const layout<T> &);
+    friend absolute_data<const T *> make_absolute<>(const T *, const layout &);
   };
 
   //--------------------------------------------------------------------
@@ -389,7 +389,7 @@ namespace mpl {
 
     /// swap two instances of null_layout
     /// \note This a no-op, as all instances of \c null_layout are equal.
-    void swap([[maybe_unused]] null_layout<T> &other) {
+    void swap([[maybe_unused]] null_layout &other) noexcept {
     }
 
     using layout<T>::byte_extent;
@@ -435,16 +435,16 @@ namespace mpl {
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    empty_layout<T> &operator=(const empty_layout<T> &l) = default;
+    empty_layout &operator=(const empty_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    empty_layout<T> &operator=(empty_layout<T> &&l) noexcept = default;
+    empty_layout &operator=(empty_layout &&l) noexcept = default;
 
     /// exchanges two empty layouts
     /// \param other the layout to swap with
-    void swap(empty_layout<T> &other) {
+    void swap(empty_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -512,13 +512,13 @@ namespace mpl {
     /// some other contiguous layout
     /// \param count number of layouts in sequence
     /// \param l the layout of a single element
-    explicit contiguous_layout(size_t count, const contiguous_layout<T> &l)
+    explicit contiguous_layout(size_t count, const contiguous_layout &l)
         : layout<T>(build(count, l.type_)), count_(l.count_ * count) {
     }
 
     /// copy constructor
     /// \param l layout to copy from
-    contiguous_layout(const contiguous_layout<T> &l) : layout<T>(l), count_(l.count_) {
+    contiguous_layout(const contiguous_layout &l) : layout<T>(l), count_(l.count_) {
     }
 
     /// move constructor
@@ -531,7 +531,7 @@ namespace mpl {
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    contiguous_layout<T> &operator=(const contiguous_layout<T> &l) {
+    contiguous_layout &operator=(const contiguous_layout &l) {
       if (&l != this) {
         layout<T>::operator=(l);
         count_ = l.count_;
@@ -542,7 +542,7 @@ namespace mpl {
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    contiguous_layout<T> &operator=(contiguous_layout<T> &&l) noexcept {
+    contiguous_layout &operator=(contiguous_layout &&l) noexcept {
       if (this != &l) {
         layout<T>::operator=(std::move(l));
         count_ = l.count_;
@@ -553,7 +553,7 @@ namespace mpl {
 
     /// exchanges two contiguous layouts
     /// \param other the layout to swap with
-    void swap(contiguous_layout<T> &other) {
+    void swap(contiguous_layout&other) noexcept {
       std::swap(type_, other.type_);
       std::swap(count_, other.count_);
     }
@@ -627,7 +627,7 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    vector_layout(const vector_layout<T> &l) : layout<T>(l) {
+    vector_layout(const vector_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
@@ -638,16 +638,16 @@ namespace mpl {
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    vector_layout<T> &operator=(const vector_layout<T> &l) = default;
+    vector_layout &operator=(const vector_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    vector_layout<T> &operator=(vector_layout<T> &&l) noexcept = default;
+    vector_layout &operator=(vector_layout &&l) noexcept = default;
 
     /// exchanges two contiguous layouts
     /// \param other the layout to swap with
-    void swap(vector_layout<T> &other) {
+    void swap(vector_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -710,27 +710,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    strided_vector_layout(const strided_vector_layout<T> &l) : layout<T>(l) {
+    strided_vector_layout(const strided_vector_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    strided_vector_layout(strided_vector_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    strided_vector_layout(strided_vector_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    strided_vector_layout<T> &operator=(const strided_vector_layout<T> &l) = default;
+    strided_vector_layout &operator=(const strided_vector_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    strided_vector_layout<T> &operator=(strided_vector_layout<T> &&l) noexcept = default;
+    strided_vector_layout &operator=(strided_vector_layout &&l) noexcept = default;
 
     /// exchanges two contiguous layouts
     /// \param other the layout to swap with
-    void swap(strided_vector_layout<T> &other) {
+    void swap(strided_vector_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -829,27 +829,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    indexed_layout(const indexed_layout<T> &l) : layout<T>(l) {
+    indexed_layout(const indexed_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    indexed_layout(indexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    indexed_layout(indexed_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    indexed_layout<T> &operator=(const indexed_layout<T> &l) = default;
+    indexed_layout &operator=(const indexed_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    indexed_layout<T> &operator=(indexed_layout<T> &&l) noexcept = default;
+    indexed_layout &operator=(indexed_layout &&l) noexcept = default;
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(indexed_layout<T> &other) {
+    void swap(indexed_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -956,27 +956,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    hindexed_layout(const hindexed_layout<T> &l) : layout<T>(l) {
+    hindexed_layout(const hindexed_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    hindexed_layout(hindexed_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    hindexed_layout(hindexed_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    hindexed_layout<T> &operator=(const hindexed_layout<T> &l) = default;
+    hindexed_layout &operator=(const hindexed_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    hindexed_layout<T> &operator=(hindexed_layout<T> &&l) noexcept = default;
+    hindexed_layout &operator=(hindexed_layout &&l) noexcept = default;
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(hindexed_layout<T> &other) {
+    void swap(hindexed_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -1075,27 +1075,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    indexed_block_layout(const indexed_block_layout<T> &l) : layout<T>(l) {
+    indexed_block_layout(const indexed_block_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    indexed_block_layout(indexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    indexed_block_layout(indexed_block_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    indexed_block_layout<T> &operator=(const indexed_block_layout<T> &l) = default;
+    indexed_block_layout &operator=(const indexed_block_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    indexed_block_layout<T> &operator=(indexed_block_layout<T> &&l) noexcept = default;
+    indexed_block_layout &operator=(indexed_block_layout &&l) noexcept = default;
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(indexed_block_layout<T> &other) {
+    void swap(indexed_block_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -1199,27 +1199,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    hindexed_block_layout(const hindexed_block_layout<T> &l) : layout<T>(l) {
+    hindexed_block_layout(const hindexed_block_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    hindexed_block_layout(hindexed_block_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    hindexed_block_layout(hindexed_block_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    hindexed_block_layout<T> &operator=(const hindexed_block_layout<T> &l) = default;
+    hindexed_block_layout &operator=(const hindexed_block_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    hindexed_block_layout<T> &operator=(hindexed_block_layout<T> &&l) noexcept = default;
+    hindexed_block_layout &operator=(hindexed_block_layout &&l) noexcept = default;
 
     /// exchanges two indexed layouts
     /// \param other the layout to swap with
-    void swap(hindexed_block_layout<T> &other) {
+    void swap(hindexed_block_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -1353,27 +1353,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    iterator_layout(const iterator_layout<T> &l) : layout<T>(l) {
+    iterator_layout(const iterator_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    iterator_layout(iterator_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    iterator_layout(iterator_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    iterator_layout<T> &operator=(const iterator_layout<T> &l) = default;
+    iterator_layout &operator=(const iterator_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    iterator_layout<T> &operator=(iterator_layout<T> &&l) noexcept = default;
+    iterator_layout &operator=(iterator_layout &&l) noexcept = default;
 
     /// exchanges two iterator layouts
     /// \param other the layout to swap with
-    void swap(iterator_layout<T> &other) {
+    void swap(iterator_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -1508,27 +1508,27 @@ namespace mpl {
 
     /// copy constructor
     /// \param l layout to copy from
-    subarray_layout(const subarray_layout<T> &l) : layout<T>(l) {
+    subarray_layout(const subarray_layout &l) : layout<T>(l) {
     }
 
     /// move constructor
     /// \param l layout to move from
-    subarray_layout(subarray_layout<T> &&l) noexcept : layout<T>(std::move(l)) {
+    subarray_layout(subarray_layout &&l) noexcept : layout<T>(std::move(l)) {
     }
 
     /// copy assignment operator
     /// \param l layout to copy from
     /// \return reference to this object
-    subarray_layout<T> &operator=(const subarray_layout<T> &l) = default;
+    subarray_layout &operator=(const subarray_layout &l) = default;
 
     /// move assignment operator
     /// \param l layout to move from
     /// \return reference to this object
-    subarray_layout<T> &operator=(subarray_layout<T> &&l) noexcept = default;
+    subarray_layout &operator=(subarray_layout &&l) noexcept = default;
 
     /// exchanges two subarray layouts
     /// \param other the layout to swap with
-    void swap(subarray_layout<T> &other) {
+    void swap(subarray_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
@@ -1566,7 +1566,7 @@ namespace mpl {
 
     friend class heterogeneous_layout;
 
-    friend absolute_data<T *> make_absolute<>(T *, const layout<T> &);
+    friend absolute_data make_absolute<>(T *, const layout<T> &);
   };
 
 
@@ -1585,7 +1585,7 @@ namespace mpl {
 
     friend class heterogeneous_layout;
 
-    friend absolute_data<const T *> make_absolute<>(const T *, const layout<T> &);
+    friend absolute_data make_absolute<>(const T *, const layout<T> &);
   };
 
 
@@ -1704,7 +1704,7 @@ namespace mpl {
 
     /// exchanges two heterogeneous layouts
     /// \param other the layout to swap with
-    void swap(heterogeneous_layout &other) {
+    void swap(heterogeneous_layout &other) noexcept {
       std::swap(type_, other.type_);
     }
 
