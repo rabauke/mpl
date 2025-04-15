@@ -567,7 +567,7 @@ namespace mpl {
 
     friend class impl::base_communicator;
     friend class communicator;
-    friend class communicator;
+    friend class inter_communicator;
     friend class contiguous_layouts<T>;
   };
 
