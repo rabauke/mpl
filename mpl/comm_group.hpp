@@ -287,7 +287,7 @@ namespace mpl {
 
       struct isend_irecv_state {
         MPI_Request req{};
-        isend_irecv_request_state *request_state;
+        isend_irecv_request_state *request_state{nullptr};
       };
 
       static int isend_irecv_query(void *state, MPI_Status *s) {
@@ -978,9 +978,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
                            request_state, &req);
-        auto *send_state{new isend_irecv_state()};
-        send_state->req = req;
-        send_state->request_state = request_state;
+        auto *send_state{new isend_irecv_state{req, request_state}};
         std::thread thread([this, &data, destination, t, send_state]() {
           ibsend(data, destination, t, send_state, C{});
         });
@@ -1257,9 +1255,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
                            request_state, &req);
-        auto *send_state{new isend_irecv_state()};
-        send_state->req = req;
-        send_state->request_state = request_state;
+        auto *send_state{new isend_irecv_state{req, request_state}};
         std::thread thread([this, &data, destination, t, send_state]() {
           issend(data, destination, t, send_state, C{});
         });
@@ -1537,9 +1533,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
                            request_state, &req);
-        auto *send_state{new isend_irecv_state()};
-        send_state->req = req;
-        send_state->request_state = request_state;
+        auto *send_state{new isend_irecv_state{req, request_state}};
         std::thread thread([this, &data, destination, t, send_state]() {
           irsend(data, destination, t, send_state, C{});
         });
@@ -1824,9 +1818,7 @@ namespace mpl {
         MPI_Request req;
         MPI_Grequest_start(isend_irecv_query, isend_irecv_free, isend_irecv_cancel,
                            request_state, &req);
-        auto *recv_state{new isend_irecv_state()};
-        recv_state->req = req;
-        recv_state->request_state = request_state;
+        auto *recv_state{new isend_irecv_state{req, request_state}};
         std::thread thread([this, &data, source, t, recv_state]() {
           irecv(data, source, t, recv_state, C{});
         });
