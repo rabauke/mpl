@@ -363,6 +363,14 @@ namespace mpl {
 #endif
       }
 
+      template<typename T>
+      void check_size([[maybe_unused]] const contiguous_layouts<T> &l) const {
+#if defined MPL_DEBUG
+        if (static_cast<int>(l.size()) > size())
+          throw invalid_size();
+#endif
+      }
+
       void check_size([[maybe_unused]] const displacements &d) const {
 #if defined MPL_DEBUG
         if (static_cast<int>(d.size()) > size())
@@ -2629,6 +2637,39 @@ namespace mpl {
         gatherv(root_rank, send_data, sendl, recv_data, recvls, displacements(size()));
       }
 
+      /// Gather messages with a variable amount of data from all processes at a single
+      /// root process.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
+      /// \param send_data data to send
+      /// \param sendl memory layout of the data to send
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
+      /// pointer at non-root processes
+      /// \param recvls memory layouts of the data to receive by the root rank
+      /// \param recvdispls displacements of the data to receive by the root rank
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      void gatherv(int root_rank, const T *send_data, const contiguous_layout<T> &sendl,
+                   T *recv_data, const contiguous_layouts<T> &recvls,
+                   const displacements &recvdispls) const {
+        check_root(root_rank);
+        check_size(recvls);
+        check_size(recvdispls);
+        std::vector<int> recvcounts;
+        recvcounts.reserve(recvls.size());
+        for (const auto &layout : recvls)
+          recvcounts.push_back(static_cast<int>(layout.size()));
+        std::vector<int> displs;
+        displs.reserve(recvdispls.size());
+        for (const auto &displacement : recvdispls)
+          displs.push_back(static_cast<int>(displacement));
+        MPI_Gatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
+                    recv_data, recvcounts.data(), displs.data(),
+                    detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
+      }
+
       // --- non-blocking gather ---
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process in a non-blocking manner.
@@ -2680,6 +2721,42 @@ namespace mpl {
         return igatherv(root_rank, send_data, sendl, recv_data, recvls, displacements(size()));
       }
 
+      /// Gather messages with a variable amount of data from all processes at a single
+      /// root process in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
+      /// \param send_data data to send
+      /// \param sendl memory layout of the data to send
+      /// \param recv_data pointer to continuous storage for incoming messages, may be a null
+      /// pointer at non-root processes
+      /// \param recvls memory layouts of the data to receive by the root rank
+      /// \param recvdispls displacements of the data to receive by the root rank
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      irequest igatherv(int root_rank, const T *send_data, const contiguous_layout<T> &sendl,
+                        T *recv_data, const contiguous_layouts<T> &recvls,
+                        const displacements &recvdispls) const {
+        check_root(root_rank);
+        check_size(recvls);
+        check_size(recvdispls);
+        std::vector<int> recvcounts;
+        recvcounts.reserve(recvls.size());
+        for (const auto &layout : recvls)
+          recvcounts.push_back(static_cast<int>(layout.size()));
+        std::vector<int> displs;
+        displs.reserve(recvdispls.size());
+        for (const auto &displacement : recvdispls)
+          displs.push_back(static_cast<int>(displacement));
+        MPI_Request req;
+        MPI_Igatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
+                     recv_data, recvcounts.data(), displs.data(),
+                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
+        return base_irequest{req};
+      }
+
       // --- blocking gather, non-root variant ---
       /// Gather messages with a variable amount of data from all processes at a single
       /// root process.
@@ -2700,6 +2777,23 @@ namespace mpl {
         sendls[root_rank] = sendl;
         alltoallv(send_data, sendls, sendrecvdispls, static_cast<T *>(nullptr),
                   mpl::layouts<T>(n), sendrecvdispls);
+      }
+
+      /// Gather messages with a variable amount of data from all processes at a single
+      /// root process.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
+      /// \param send_data data to send
+      /// \param sendl memory layout of the data to send
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator. This particular overload can only be
+      /// called by non-root processes.
+      template<typename T>
+      void gatherv(int root_rank, const T *send_data, const contiguous_layout<T> &sendl) const {
+        check_nonroot(root_rank);
+        MPI_Gatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
+                    nullptr, nullptr, nullptr, MPI_DATATYPE_NULL, root_rank, comm_);
       }
 
       // --- non-blocking gather, non-root variant ---
@@ -2723,6 +2817,27 @@ namespace mpl {
         sendls[root_rank] = sendl;
         return ialltoallv(send_data, sendls, sendrecvdispls, static_cast<T *>(nullptr),
                           mpl::layouts<T>(n), sendrecvdispls);
+      }
+
+      /// Gather messages with a variable amount of data from all processes at a single
+      /// root process in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the receiving process
+      /// \param send_data data to send
+      /// \param sendl memory layout of the data to send
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator. This particular overload can only be
+      /// called by non-root processes.
+      template<typename T>
+      irequest igatherv(int root_rank, const T *send_data,
+                        const contiguous_layout<T> &sendl) const {
+        check_nonroot(root_rank);
+        MPI_Request req;
+        MPI_Igatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
+                     nullptr, nullptr, nullptr, MPI_DATATYPE_NULL, root_rank, comm_, &req);
+        return base_irequest{req};
       }
 
       // === allgather ===
@@ -3077,6 +3192,39 @@ namespace mpl {
         scatterv(root_rank, send_data, sendls, displacements(size()), recv_data, recvl);
       }
 
+      /// Scatter messages with a variable amount of data from a single root process to all
+      /// processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the sending process
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
+      /// pointer at non-root processes
+      /// \param sendls memory layouts of the data to send
+      /// \param senddispls displacements of the data to send by the root rank
+      /// \param recv_data pointer to continuous storage for incoming messages
+      /// \param recvl memory layout of the data to receive by the root rank
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      void scatterv(int root_rank, const T *send_data, const contiguous_layouts<T> &sendls,
+                    const displacements &senddispls, T *recv_data,
+                    const contiguous_layout<T> &recvl) const {
+        check_root(root_rank);
+        check_size(sendls);
+        check_size(senddispls);
+        std::vector<int> sendcounts;
+        sendcounts.reserve(sendls.size());
+        for (const auto &layout : sendls)
+          sendcounts.push_back(static_cast<int>(layout.size()));
+        std::vector<int> displs;
+        displs.reserve(senddispls.size());
+        for (const auto &displacement : senddispls)
+          displs.push_back(static_cast<int>(displacement));
+        MPI_Scatterv(send_data, sendcounts.data(), displs.data(),
+                     detail::datatype_traits<T>::get_datatype(), recv_data, recvl.size(),
+                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
+      }
+
       // --- non-blocking scatter ---
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes in a non-blocking manner.
@@ -3129,6 +3277,44 @@ namespace mpl {
         return iscatterv(root_rank, send_data, sendls, displacements(size()), recv_data, recvl);
       }
 
+      /// Scatter messages with a variable amount of data from a single root process to all
+      /// processes in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the sending process
+      /// \param send_data pointer to continuous storage for outgoing messages, may be a null
+      /// pointer at non-root processes
+      /// \param sendls memory layouts of the data to send
+      /// \param senddispls displacements of the data to send by the root rank
+      /// \param recv_data pointer to continuous storage for incoming messages
+      /// \param recvl memory layout of the data to receive by the root rank
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      irequest iscatterv(int root_rank, const T *send_data,
+                         const contiguous_layouts<T> &sendls,
+                         const displacements &senddispls, T *recv_data,
+                         const contiguous_layout<T> &recvl) const {
+        check_root(root_rank);
+        check_size(sendls);
+        check_size(senddispls);
+
+        std::vector<int> sendcounts;
+        sendcounts.reserve(sendls.size());
+        for (const auto &layout : sendls)
+          sendcounts.push_back(static_cast<int>(layout.size()));
+        std::vector<int> displs;
+        displs.reserve(senddispls.size());
+        for (const auto &displacement : senddispls)
+          displs.push_back(static_cast<int>(displacement));
+        MPI_Request req;
+        MPI_Iscatterv(send_data, sendcounts.data(), displs.data(),
+                      detail::datatype_traits<T>::get_datatype(), recv_data, recvl.size(),
+                      detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
+        return base_irequest{req};
+      }
+
       // --- blocking scatter, non-root variant ---
       /// Scatter messages with a variable amount of data from a single root process to all
       /// processes.
@@ -3149,6 +3335,23 @@ namespace mpl {
         recvls[root_rank] = recvl;
         alltoallv(static_cast<const T *>(nullptr), mpl::layouts<T>(n), sendrecvdispls,
                   recv_data, recvls, sendrecvdispls);
+      }
+
+      /// Scatter messages with a variable amount of data from a single root process to all
+      /// processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the sending process
+      /// \param recv_data pointer to continuous storage for incoming messages
+      /// \param recvl memory layout of the data to receive by the root rank
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator. This particular overload can only be
+      /// called by non-root processes.
+      template<typename T>
+      void scatterv(int root_rank, T *recv_data, const contiguous_layout<T> &recvl) const {
+        check_root(root_rank);
+        MPI_Scatterv(nullptr, nullptr, nullptr, MPI_DATATYPE_NULL, recv_data, recvl.size(),
+                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
       }
 
       // --- non-blocking scatter, non-root variant ---
@@ -3172,6 +3375,27 @@ namespace mpl {
         recvls[root_rank] = recvl;
         return ialltoallv(static_cast<const T *>(nullptr), mpl::layouts<T>(n), sendrecvdispls,
                           recv_data, recvls, sendrecvdispls);
+      }
+
+      /// Scatter messages with a variable amount of data from a single root process to all
+      /// processes in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param root_rank rank of the sending process
+      /// \param recv_data pointer to continuous storage for incoming messages
+      /// \param recvl memory layout of the data to receive by the root rank
+      /// \return request representing the ongoing message transfer
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator. This particular overload can only be
+      /// called by non-root processes.
+      template<typename T>
+      irequest iscatterv(int root_rank, T *recv_data,
+                         const contiguous_layout<T> &recvl) const {
+        check_root(root_rank);
+        MPI_Request req;
+        MPI_Iscatterv(nullptr, nullptr, nullptr, MPI_DATATYPE_NULL, recv_data, recvl.size(),
+                      detail::datatype_traits<T>::get_datatype(), root_rank, comm_, &req);
+        return base_irequest{req};
       }
 
       // === all-to-all ===
