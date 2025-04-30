@@ -2661,10 +2661,7 @@ namespace mpl {
         recvcounts.reserve(recvls.size());
         for (const auto &layout : recvls)
           recvcounts.push_back(static_cast<int>(layout.size()));
-        std::vector<int> displs;
-        displs.reserve(recvdispls.size());
-        for (const auto &displacement : recvdispls)
-          displs.push_back(static_cast<int>(displacement));
+        const std::vector<int> displs(recvdispls.begin(), recvdispls.end());
         MPI_Gatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
                     recv_data, recvcounts.data(), displs.data(),
                     detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
@@ -2746,10 +2743,7 @@ namespace mpl {
         recvcounts.reserve(recvls.size());
         for (const auto &layout : recvls)
           recvcounts.push_back(static_cast<int>(layout.size()));
-        std::vector<int> displs;
-        displs.reserve(recvdispls.size());
-        for (const auto &displacement : recvdispls)
-          displs.push_back(static_cast<int>(displacement));
+        const std::vector<int> displs(recvdispls.begin(), recvdispls.end());
         MPI_Request req;
         MPI_Igatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
                      recv_data, recvcounts.data(), displs.data(),
@@ -2973,10 +2967,7 @@ namespace mpl {
         recvcounts.reserve(recvls.size());
         for (const auto &layout : recvls)
           recvcounts.push_back(static_cast<int>(layout.size()));
-        std::vector<int> displs;
-        displs.reserve(recvdispls.size());
-        for (const auto &displacement : recvdispls)
-          displs.push_back(static_cast<int>(displacement));
+        const std::vector<int> displs(recvdispls.begin(), recvdispls.end());
         MPI_Allgatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
                        recv_data, recvcounts.data(), displs.data(),
                        detail::datatype_traits<T>::get_datatype(), comm_);
@@ -3045,10 +3036,7 @@ namespace mpl {
         recvcounts.reserve(recvls.size());
         for (const auto &layout : recvls)
           recvcounts.push_back(static_cast<int>(layout.size()));
-        std::vector<int> displs;
-        displs.reserve(recvdispls.size());
-        for (const auto &displacement : recvdispls)
-          displs.push_back(static_cast<int>(displacement));
+        const std::vector<int> displs(recvdispls.begin(), recvdispls.end());
         MPI_Request req;
         MPI_Iallgatherv(send_data, sendl.size(), detail::datatype_traits<T>::get_datatype(),
                         recv_data, recvcounts.data(), displs.data(),
@@ -3279,10 +3267,7 @@ namespace mpl {
         sendcounts.reserve(sendls.size());
         for (const auto &layout : sendls)
           sendcounts.push_back(static_cast<int>(layout.size()));
-        std::vector<int> displs;
-        displs.reserve(senddispls.size());
-        for (const auto &displacement : senddispls)
-          displs.push_back(static_cast<int>(displacement));
+        const std::vector<int> displs(senddispls.begin(), senddispls.end());
         MPI_Scatterv(send_data, sendcounts.data(), displs.data(),
                      detail::datatype_traits<T>::get_datatype(), recv_data, recvl.size(),
                      detail::datatype_traits<T>::get_datatype(), root_rank, comm_);
@@ -3366,10 +3351,7 @@ namespace mpl {
         sendcounts.reserve(sendls.size());
         for (const auto &layout : sendls)
           sendcounts.push_back(static_cast<int>(layout.size()));
-        std::vector<int> displs;
-        displs.reserve(senddispls.size());
-        for (const auto &displacement : senddispls)
-          displs.push_back(static_cast<int>(displacement));
+        const std::vector<int> displs(senddispls.begin(), senddispls.end());
         MPI_Request req;
         MPI_Iscatterv(send_data, sendcounts.data(), displs.data(),
                       detail::datatype_traits<T>::get_datatype(), recv_data, recvl.size(),
