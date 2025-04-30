@@ -2843,7 +2843,7 @@ namespace mpl {
       // === allgather ===
       // === get a single value from each rank and stores in contiguous memory
       // --- blocking allgather ---
-      /// Gather messages from all processes and distribute result to all processes.
+      /// Gather messages from all processes and distribute the result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
@@ -2856,7 +2856,7 @@ namespace mpl {
                       detail::datatype_traits<T>::get_datatype(), comm_);
       }
 
-      /// Gather messages from all processes and distribute result to all processes.
+      /// Gather messages from all processes and distribute the result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
@@ -2874,7 +2874,7 @@ namespace mpl {
       }
 
       // --- non-blocking allgather ---
-      /// Gather messages from all processes and distribute result to all processes in a
+      /// Gather messages from all processes and distribute the result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -2891,7 +2891,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Gather messages from all processes and distribute result to all processes in a
+      /// Gather messages from all processes and distribute the result to all processes in a
       /// non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -2915,7 +2915,7 @@ namespace mpl {
       // === get varying amount of data from each rank and stores in non-contiguous memory
       // --- blocking allgather ---
       /// Gather messages with a variable amount of data from all processes and
-      /// distribute result to all processes.
+      /// distribute the result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
@@ -2937,7 +2937,7 @@ namespace mpl {
       }
 
       /// Gather messages with a variable amount of data from all processes and
-      /// distribute result to all processes.
+      /// distribute the result to all processes.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
@@ -2954,7 +2954,7 @@ namespace mpl {
 
       // --- non-blocking allgather ---
       /// Gather messages with a variable amount of data from all processes and
-      /// distribute result to all processes in a non-blocking manner.
+      /// distribute the result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
@@ -2977,7 +2977,7 @@ namespace mpl {
       }
 
       /// Gather messages with a variable amount of data from all processes and
-      /// distribute result to all processes in a non-blocking manner.
+      /// distribute the result to all processes in a non-blocking manner.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data data to send
