@@ -120,6 +120,10 @@ the presentation
 
 the book
 
-  * [Parallel Programming for Science and Engineering](https://web.corral.tacc.utexas.edu/CompEdu/pdf/pcse/EijkhoutParallelProgramming.pdf) by Victor Eijkhout
+  * [Parallel Programming for Science and Engineering](https://web.corral.tacc.utexas.edu/CompEdu/pdf/pcse/EijkhoutParallelProgramming.pdf) by Victor Eijkhout, or
+
+the workshop material
+
+  * [SMU O'Donnell Data Science and Research Computing Institute Parallel C++ Workshop](https://southernmethodistuniversity.github.io/parallel_cpp/intro.html)
 
 and the files in the `examples` directory of the source package.
