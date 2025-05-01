@@ -35,11 +35,12 @@ bool allgatherv_contiguous_test(const T &val) {
   mpl::displacements displacements;
   for (int i{0}, i_end{comm_world.size()}, offset{0}; i < i_end; ++i) {
     l.push_back(mpl::contiguous_layout<T>(i + 1));
-    displacements.push_back(offset);
+    displacements.push_back(sizeof(T) * offset);
     offset += i + 1;
   }
   const auto rank{comm_world.rank()};
-  comm_world.allgatherv(v1.data() + displacements[rank], l[rank], v2.data(), l, displacements);
+  comm_world.allgatherv(v1.data() + displacements[rank] / sizeof(T), l[rank], v2.data(), l,
+                        displacements);
   return v1 == v2;
 }
 
@@ -73,12 +74,12 @@ bool iallgatherv_contiguous_test(const T &val) {
   mpl::displacements displacements;
   for (int i{0}, i_end{comm_world.size()}, offset{0}; i < i_end; ++i) {
     l.push_back(mpl::contiguous_layout<T>(i + 1));
-    displacements.push_back(offset);
+    displacements.push_back(sizeof(T) * offset);
     offset += i + 1;
   }
   const auto rank{comm_world.rank()};
-  auto r{comm_world.iallgatherv(v1.data() + displacements[rank], l[rank], v2.data(), l,
-                                displacements)};
+  auto r{comm_world.iallgatherv(v1.data() + displacements[rank] / sizeof(T), l[rank], v2.data(),
+                                l, displacements)};
   r.wait();
   return v1 == v2;
 }

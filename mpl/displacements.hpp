@@ -9,8 +9,9 @@
 
 namespace mpl {
 
-  /// Indicates the beginning of data buffers in various collective communication
-  /// operations.
+  /// Set of %displacements indicates the beginning of data buffers in various collective
+  /// communication operations.
+  /// \note Individual %displacements are always given in bytes.
   class displacements : private std::vector<MPI_Aint> {
     using base = std::vector<MPI_Aint>;
 
@@ -48,7 +49,7 @@ namespace mpl {
     using base::resize;
 
     /// Get raw displacement data.
-    /// \return pointer to array of displacements
+    /// \return pointer to the array of displacements
     const MPI_Aint *operator()() const {
       return base::data();
     }

@@ -49,7 +49,7 @@ bool gatherv_contiguous_test(const T &val) {
   mpl::displacements displacements;
   for (int i{0}, i_end{comm_world.size()}, offset{0}; i < i_end; ++i) {
     layouts.push_back(mpl::contiguous_layout<T>(i + 1));
-    displacements.push_back(offset);
+    displacements.push_back(sizeof(T) * offset);
     offset += i + 1;
   }
   T t_val{val};
@@ -117,7 +117,7 @@ bool igatherv_contiguous_test(const T &val) {
   mpl::displacements displacements;
   for (int i{0}, i_end{comm_world.size()}, offset{0}; i < i_end; ++i) {
     layouts.push_back(mpl::contiguous_layout<T>(i + 1));
-    displacements.push_back(offset);
+    displacements.push_back(sizeof(T) * offset);
     offset += i + 1;
   }
   T t_val{val};
