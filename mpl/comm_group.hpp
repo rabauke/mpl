@@ -406,6 +406,42 @@ namespace mpl {
                              typename detail::datatype_traits<T>::data_type_category{});
       }
 
+      template<typename T>
+      std::vector<int> sizes_as_vector_of_ints(const contiguous_layouts<T> &layouts) const {
+        std::vector<int> counts;
+        counts.reserve(layouts.size());
+        std::transform(layouts.begin(), layouts.end(), std::back_inserter(counts),
+                       [](const auto &layout) {
+                         return static_cast<int>(layout.size());
+                       });
+        return counts;
+     }
+
+      template<typename T>
+      std::vector<int> count_displacements_as_vector_of_ints(const displacements &displs) const {
+        std::vector<int> displs_as_int;
+        displs_as_int.reserve(displs.size());
+        std::transform(displs.begin(), displs.end(), std::back_inserter(displs_as_int),
+                       [](const auto &displ) {
+#if defined MPL_DEBUG
+                         if (displ / sizeof(T) * sizeof(T) != displ)
+                           throw invalid_displacement();
+#endif
+                         return static_cast<int>(displ / sizeof(T));
+                       });
+        return displs_as_int;
+      }
+
+      std::vector<int> byte_displacements_as_vector_of_ints(const displacements &displs) const {
+        std::vector<int> displs_as_int;
+        displs_as_int.reserve(displs.size());
+        std::transform(displs.begin(), displs.end(), std::back_inserter(displs_as_int),
+                       [](const auto &displ) {
+                         return static_cast<int>(displ);
+                       });
+        return displs_as_int;
+      }
+
       MPI_Comm comm_{MPI_COMM_NULL};
 
     public:
@@ -3589,6 +3625,46 @@ namespace mpl {
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param send_data pointer to continuous storage for outgoing messages
       /// \param sendls memory layouts of the data to send
+      /// \param senddispls displacements of the data to send
+      /// \param recv_data pointer to continuous storage for incoming messages
+      /// \param recvls memory layouts of the data to receive
+      /// \param recvdispls displacements of the data to receive
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process.  Send- and
+      /// receive-data are stored in consecutive blocks of variable size in the buffers
+      /// \c send_data and \c recv_data, respectively. The i-th memory block with the layout
+      /// <tt>sendls[i]</tt> in the array \c send_data starts \c senddispls[i] bytes after the address
+      /// given in send_data. The i-th memory block is sent to the i-th process. The i-th memory
+      /// block with the layout <tt>recvls[i]</tt> in the array recv_data starts \c recvdispls[i]
+      /// bytes after the address given in \c recv_data.  When the function has finished, the
+      /// i-th memory block in the array \c recv_data was received from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      void alltoallv(const T *send_data, const contiguous_layouts<T> &sendls,
+                     const displacements &senddispls, T *recv_data,
+                     const contiguous_layouts<T> &recvls,
+                     const displacements &recvdispls) const {
+        check_size(senddispls);
+        check_size(sendls);
+        check_size(recvdispls);
+        check_size(recvls);
+        const auto sendcounts{sizes_as_vector_of_ints(sendls)};
+        const auto senddispls_as_int{count_displacements_as_vector_of_ints<T>(senddispls)};
+        const auto recvcounts{sizes_as_vector_of_ints(recvls)};
+        const auto recvdispls_as_int{count_displacements_as_vector_of_ints<T>(recvdispls)};
+        MPI_Alltoallv(send_data, sendcounts.data(), senddispls_as_int.data(),
+                      detail::datatype_traits<T>::get_datatype(), recv_data, recvcounts.data(),
+                      recvdispls_as_int.data(), detail::datatype_traits<T>::get_datatype(),
+                      comm_);
+      }
+
+      /// Sends messages with a variable amount of data to all processes and receives
+      /// messages with a variable amount of data from all processes.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param send_data pointer to continuous storage for outgoing messages
+      /// \param sendls memory layouts of the data to send
       /// \param recv_data pointer to continuous storage for incoming messages
       /// \param recvls memory layouts of the data to receive
       /// \details Each process in the communicator sends elements of type \c T to each process
@@ -3732,6 +3808,48 @@ namespace mpl {
           ialltoallv_task(send_data, recv_data, alltoall_state);
         });
         thread.detach();
+        return base_irequest{req};
+      }
+
+      /// Sends messages with a variable amount of data to all processes and receives
+      /// messages with a variable amount of data from all processes in a non-blocking manner.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param send_data pointer to continuous storage for outgoing messages
+      /// \param sendls memory layouts of the data to send
+      /// \param senddispls displacements of the data to send
+      /// \param recv_data pointer to continuous storage for incoming messages
+      /// \param recvls memory layouts of the data to receive
+      /// \param recvdispls displacements of the data to receive
+      /// \return request representing the ongoing message transfer
+      /// \details Each process in the communicator sends elements of type \c T to each process
+      /// (including itself) and receives elements of type \c T from each process.  Send- and
+      /// receive-data are stored in consecutive blocks of variable size in the buffers
+      /// \c send_data and \c recv_data, respectively. The i-th memory block with the layout
+      /// <tt>sendls[i]</tt> in the array \c send_data starts \c senddispls[i] bytes after the address
+      /// given in send_data. The i-th memory block is sent to the i-th process. The i-th memory
+      /// block with the layout <tt>recvls[i]</tt> in the array \c recv_data starts \c recvdispls[i]
+      /// bytes after the address given in \c recv_data.  When the function has finished, the
+      /// i-th memory block in the array \c recv_data was received from the i-th process.
+      /// \note This is a collective operation and must be called (possibly by utilizing another
+      /// overload) by all processes in the communicator.
+      template<typename T>
+      irequest ialltoallv(const T *send_data, const contiguous_layouts<T> &sendls,
+                          const displacements &senddispls, T *recv_data,
+                          const contiguous_layouts<T> &recvls, const displacements &recvdispls) const {
+        check_size(senddispls);
+        check_size(sendls);
+        check_size(recvdispls);
+        check_size(recvls);
+        const auto sendcounts{sizes_as_vector_of_ints(sendls)};
+        const auto senddispls_as_int{count_displacements_as_vector_of_ints<T>(senddispls)};
+        const auto recvcounts{sizes_as_vector_of_ints(recvls)};
+        const auto recvdispls_as_int{count_displacements_as_vector_of_ints<T>(recvdispls)};
+        MPI_Request req;
+        MPI_Ialltoallv(send_data, sendcounts.data(), senddispls_as_int.data(),
+                       detail::datatype_traits<T>::get_datatype(), recv_data, recvcounts.data(),
+                       recvdispls_as_int.data(), detail::datatype_traits<T>::get_datatype(),
+                       comm_, &req);
         return base_irequest{req};
       }
 

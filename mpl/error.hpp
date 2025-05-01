@@ -51,6 +51,13 @@ namespace mpl {
     }
   };
 
+  /// Will be thrown in case of invalid count argument.
+  class invalid_displacement : public error {
+  public:
+    invalid_displacement() : error{"invalid displacement"} {
+    }
+  };
+
   /// Will be thrown in case of invalid layout argument.
   class invalid_layout : public error {
   public:
