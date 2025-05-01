@@ -424,7 +424,8 @@ namespace mpl {
         std::transform(displs.begin(), displs.end(), std::back_inserter(displs_as_int),
                        [](const auto &displ) {
 #if defined MPL_DEBUG
-                         if (displ / sizeof(T) * sizeof(T) != displ)
+                         if (displ / sizeof(T) * sizeof(T) != displ or
+                             displ / sizeof(T) > std::numeric_limits<int>::max)
                            throw invalid_displacement();
 #endif
                          return static_cast<int>(displ / sizeof(T));
@@ -437,6 +438,10 @@ namespace mpl {
         displs_as_int.reserve(displs.size());
         std::transform(displs.begin(), displs.end(), std::back_inserter(displs_as_int),
                        [](const auto &displ) {
+#if defined MPL_DEBUG
+                         if (displ > std::numeric_limits<int>::max())
+                           throw invalid_displacement();
+#endif
                          return static_cast<int>(displ);
                        });
         return displs_as_int;
