@@ -62,8 +62,8 @@ namespace mpl {
     /// Indicates that groups are identical, i.e., groups have same the members in same rank
     /// order.
     static constexpr equality_type identical = equality_type::identical;
-    /// Indicates that groups are similar, i.e., groups have same tha members in different rank
-    /// order.
+    /// Indicates that groups are similar, i.e., groups have the same members but in different
+    /// rank order.
     static constexpr equality_type similar = equality_type::similar;
     /// Indicates that groups are unequal, i.e., groups have different sets of members.
     static constexpr equality_type unequal = equality_type::unequal;
@@ -232,7 +232,7 @@ namespace mpl {
     }
 
     /// Determines the relative numbering of the same process in two different groups.
-    /// \param rank a set valid ranks in the given process group
+    /// \param rank a set of valid ranks in the given process group
     /// \param other process group
     /// \return corresponding ranks in this process group
     [[nodiscard]] ranks translate(const ranks &rank, const group &other) const {
@@ -532,7 +532,7 @@ namespace mpl {
       /// Checks if a communicator is valid, i.e., is not an empty communicator with no
       /// associated process.
       /// \return true if communicator is valid
-      /// \note A default constructed communicator is a non valid communicator.
+      /// \note A default constructed communicator is a non-valid communicator.
       [[nodiscard]] bool is_valid() const {
         return comm_ != MPI_COMM_NULL;
       }
@@ -581,7 +581,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note Sending STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       void send(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -591,7 +591,7 @@ namespace mpl {
         send(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -607,7 +607,7 @@ namespace mpl {
                  static_cast<int>(t), comm_);
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -619,7 +619,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       void send(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -698,7 +698,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing message transfer
       /// \note Sending STL containers is a  convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       irequest isend(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -729,7 +729,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -741,7 +741,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       /// \return request representing the ongoing message transfer
       template<typename iterT>
       irequest isend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
@@ -777,7 +777,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -797,7 +797,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -810,7 +810,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return persistent communication request
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       prequest send_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -889,7 +889,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note Sending STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       void bsend(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -899,7 +899,7 @@ namespace mpl {
         bsend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
@@ -915,7 +915,7 @@ namespace mpl {
                   static_cast<int>(t), comm_);
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -927,7 +927,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       void bsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1004,7 +1004,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing message transfer
       /// \note Sending STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       /// \anchor communicator_ibsend
       template<typename T>
@@ -1036,7 +1036,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1048,7 +1048,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       /// \return request representing the ongoing message transfer
       template<typename iterT>
       irequest ibsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
@@ -1084,7 +1084,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values having a specific memory layout via a buffered send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -1104,7 +1104,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1117,7 +1117,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return persistent communication request
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       prequest bsend_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1167,7 +1167,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note Sending STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       void ssend(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -1176,7 +1176,7 @@ namespace mpl {
         ssend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -1192,7 +1192,7 @@ namespace mpl {
                   static_cast<int>(t), comm_);
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1204,7 +1204,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       void ssend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1282,7 +1282,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing message transfer
       /// \note Sending STL containers  is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       irequest issend(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -1313,7 +1313,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1325,7 +1325,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       /// \return request representing the ongoing message transfer
       template<typename iterT>
       irequest issend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
@@ -1361,7 +1361,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values having a specific memory layout via a blocking synchronous send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -1381,7 +1381,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1394,7 +1394,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return persistent communication request
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       prequest ssend_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1444,7 +1444,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note Sending STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       void rsend(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -1454,7 +1454,7 @@ namespace mpl {
         rsend(data, destination, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// Sends a message with a several values having a specific memory layout via a
+      /// Sends a message with several values having a specific memory layout via a
       /// blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -1470,7 +1470,7 @@ namespace mpl {
                   static_cast<int>(t), comm_);
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1482,7 +1482,7 @@ namespace mpl {
       /// \param destination rank of the receiving process
       /// \param t tag associated to this message
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       void rsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1559,7 +1559,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing message transfer
       /// \note Sending STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       irequest irsend(const T &data, int destination, tag_t t = tag_t{0}) const {
@@ -1590,7 +1590,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Sends a message with a several values given by a pair of iterators via a
+      /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1603,7 +1603,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing message transfer
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       irequest irsend(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1638,7 +1638,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values having a specific memory layout via a blocking ready send operation.
       /// \tparam T type of the data to send, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -1658,7 +1658,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to send a message with a several
+      /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1671,7 +1671,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return persistent communication request
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       prequest rsend_init(iterT begin, iterT end, int destination, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1742,7 +1742,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return status of the receive operation
       /// \note Receiving STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       /// \anchor communicator_recv
       template<typename T>
@@ -1752,7 +1752,7 @@ namespace mpl {
         return recv(data, source, t, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// Receives a message with a several values having a specific memory layout.
+      /// Receives a message with several values having a specific memory layout.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
@@ -1770,7 +1770,7 @@ namespace mpl {
         return s;
       }
 
-      /// Receives a message with a several values given by a pair of iterators.
+      /// Receives a message with several values given by a pair of iterators.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
       /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
@@ -1782,7 +1782,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return status of the receive operation
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       status_t recv(iterT begin, iterT end, int source, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1844,7 +1844,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing receive operation
       /// \note Receiving STL containers is a convenience feature, which may have non-optimal
-      /// performance characteristics. Use alternative overloads in performance critical code
+      /// performance characteristics. Use alternative overloads in performance-critical code
       /// sections.
       template<typename T>
       irequest irecv(T &data, int source, tag_t t = tag_t{0}) const {
@@ -1873,7 +1873,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Receives a message with a several values given by a pair of iterators via a
+      /// Receives a message with several values given by a pair of iterators via a
       /// non-blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1886,7 +1886,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return request representing the ongoing message transfer
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       irequest irecv(iterT begin, iterT end, int source, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -1921,7 +1921,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to receive a message with a several
+      /// Creates a persistent communication request to receive a message with several
       /// values having a specific memory layout via a blocking standard send operation.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
@@ -1940,7 +1940,7 @@ namespace mpl {
         return base_prequest{req};
       }
 
-      /// Creates a persistent communication request to receive a message with a several
+      /// Creates a persistent communication request to receive a message with several
       /// values given by a pair of iterators via a blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -1953,7 +1953,7 @@ namespace mpl {
       /// \param t tag associated to this message
       /// \return persistent communication request
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       prequest recv_init(iterT begin, iterT end, int source, tag_t t = tag_t{0}) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -2049,7 +2049,7 @@ namespace mpl {
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section or an STL container
       /// that holds elements that comply with the mentioned requirements
       /// \param data value to receive
-      /// \param m message handle of message to receive
+      /// \param m message handle of the message to receive
       /// \return status of the receive operation
       /// \note Receiving STL containers is not supported.
       template<typename T>
@@ -2057,13 +2057,13 @@ namespace mpl {
         return mrecv(data, m, typename detail::datatype_traits<T>::data_type_category{});
       }
 
-      /// Receives a message with a several values having a specific memory layout by a
+      /// Receives a message with several values having a specific memory layout by a
       /// message handle.
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
-      /// \param m message handle of message to receive
+      /// \param m message handle of the message to receive
       /// \return status of the receive operation
       template<typename T>
       status_t mrecv(T *data, const layout<T> &l, message_t &m) const {
@@ -2073,7 +2073,7 @@ namespace mpl {
         return s;
       }
 
-      /// Receives a message with a several values given by a pair of iterators by a
+      /// Receives a message with several values given by a pair of iterators by a
       /// message handle.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -2082,10 +2082,10 @@ namespace mpl {
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
-      /// \param m message handle of message to receive
+      /// \param m message handle of the message to receive
       /// \return status of the receive operation
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       status_t mrecv(iterT begin, iterT end, message_t &m) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -2115,7 +2115,7 @@ namespace mpl {
       /// \tparam T type of the data to receive, must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
-      /// \param m message handle of message to receive
+      /// \param m message handle of the message to receive
       /// \return request representing the ongoing receive operation
       /// \note Receiving STL containers is not supported.
       template<typename T>
@@ -2129,7 +2129,7 @@ namespace mpl {
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param data pointer to the data to receive
       /// \param l memory layout of the data to receive
-      /// \param m message handle of message to receive
+      /// \param m message handle of the message to receive
       /// \return request representing the ongoing receive operation
       template<typename T>
       irequest imrecv(T *data, const layout<T> &l, message_t &m) const {
@@ -2138,7 +2138,7 @@ namespace mpl {
         return base_irequest{req};
       }
 
-      /// Receives a message with a several values given by a pair of iterators via a
+      /// Receives a message with several values given by a pair of iterators via a
       /// non-blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
       /// <a
@@ -2147,10 +2147,10 @@ namespace mpl {
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
       /// \param end iterator pointing one element beyond the last data value to receive
-      /// \param m message handle of message to receive
+      /// \param m message handle of the message to receive
       /// \return request representing the ongoing message transfer
       /// \note This is a convenience method, which may have non-optimal performance
-      /// characteristics. Use alternative overloads in performance critical code sections.
+      /// characteristics. Use alternative overloads in performance-critical code sections.
       template<typename iterT>
       irequest imrecv(iterT begin, iterT end, message_t &m) const {
         using value_type = typename std::iterator_traits<iterT>::value_type;
@@ -4305,7 +4305,7 @@ namespace mpl {
     /// \param order affects the process ordering in the new communicator
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the local and the remote groups of  the inter-communicator \c other. The order parameter
-    /// must be the same for all process within in the local group as well as within the remote
+    /// must be the same for all processes within in the local group as well as within the remote
     /// group.  It should differ for both groups.
     explicit communicator(const inter_communicator &other, merge_order_type order);
 
@@ -5617,7 +5617,7 @@ namespace mpl {
     using base = communicator;
 
   public:
-    /// Creates a new communicator form an MPI communicator.
+    /// Creates a new communicator from an MPI communicator.
     /// \param comm MPI communicator that will be wrapped
     explicit mpi_communicator(MPI_Comm comm) : communicator{comm} {
     }
