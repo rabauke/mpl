@@ -14,6 +14,7 @@ set(documentation_sources
     sphinx/conf.py.in
     sphinx/constants.rst
     sphinx/data_types.rst
+    sphinx/design.rst
     sphinx/environmental_management.rst
     sphinx/error.rst
     sphinx/examples/arrays.rst
@@ -47,6 +48,7 @@ set(documentation_sources
     sphinx/index.rst
     sphinx/info.rst
     sphinx/installation.rst
+    sphinx/interoperability.rst
     sphinx/layouts.rst
     sphinx/reduction_operations.rst
     sphinx/tags.rst

@@ -220,6 +220,7 @@
 <li class="toctree-l1"><a class="reference internal" href="auxiliary.html">Auxiliary functions and classes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="error.html">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interoperability.html">MPL-MPI interoperability</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
@@ -292,7 +293,7 @@
         <article role="main" id="furo-main-content">
           <section id="library-design-principles">
 <span id="design"></span><h1>Library design principles<a class="headerlink" href="#library-design-principles" title="Link to this heading">¶</a></h1>
-<p>MPL is designed on the basis of the following</p>
+<p>MPL is designed on the basis of the following design principles:</p>
 <section id="resource-management">
 <h2>Resource management<a class="headerlink" href="#resource-management" title="Link to this heading">¶</a></h2>
 <p>In a typical MPI program, a number of resources, e.g., communicators,
@@ -312,10 +313,30 @@ resources.</p>
 <section id="custom-data-types">
 <h2>Custom data types<a class="headerlink" href="#custom-data-types" title="Link to this heading">¶</a></h2>
 <p>Custom data types are one of the most versatile features of MPI.  With
-custom data types, it is possible to write very well structured
+custom data types, it is possible to write very well-structured
 code by hiding details of the complex communication pattern in
 well-designed custom data types.  Therefore, MPL makes it easy to
 create and use custom data types.  These are called layouts in MPL.</p>
+<p>The size argument of MPI communication functions is usually redundant.
+The information that it provides can be incorporated into the
+data type argument with a custom data type. Therefore, MPL communication
+functions do not require a size argument. All information about the
+amount and memory layout of exchanged data is provided by data layout
+arguments.</p>
+</section>
+<section id="avoid-programming-errors-by-strong-typing">
+<h2>Avoid programming errors by strong typing<a class="headerlink" href="#avoid-programming-errors-by-strong-typing" title="Link to this heading">¶</a></h2>
+<p>It is a common error in MPI programs to pass logically inconsistent
+arguments to an MPI function. For example, one might pass a pointer
+to <code class="docutils literal notranslate"><span class="pre">double</span></code> as a buffer argument and pass <code class="docutils literal notranslate"><span class="pre">MPI_FLOAT</span></code> as the
+data type argument.  The classic MPI api does not protect one from such
+kind of errors, i.e., no compiler error is caused.</p>
+<p>MPL leverages the strong type system of C++ to detect such kinds of
+programming mistakes at compile time, i.e., to make such programming
+errors impossible. For example, buffer arguments expect pointers of a
+specific type, rather than untyped pointers to <code class="docutils literal notranslate"><span class="pre">void</span></code>, and MPL
+infers internally the right MPI data type on the basis of the pointer
+type.</p>
 </section>
 </section>
 
@@ -384,6 +405,7 @@ create and use custom data types.  These are called layouts in MPL.</p>
 <li><a class="reference internal" href="#">Library design principles</a><ul>
 <li><a class="reference internal" href="#resource-management">Resource management</a></li>
 <li><a class="reference internal" href="#custom-data-types">Custom data types</a></li>
+<li><a class="reference internal" href="#avoid-programming-errors-by-strong-typing">Avoid programming errors by strong typing</a></li>
 </ul>
 </li>
 </ul>

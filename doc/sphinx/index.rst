@@ -22,6 +22,7 @@ MPL: A message passing library
    auxiliary
    error
    grid
+   interoperability
    examples/index
 
 
