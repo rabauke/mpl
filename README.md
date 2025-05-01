@@ -120,7 +120,7 @@ the presentation
 
 the book
 
-  * [Parallel Programming for Science and Engineering](https://web.corral.tacc.utexas.edu/CompEdu/pdf/pcse/EijkhoutParallelProgramming.pdf) by Victor Eijkhout, or
+  * [Parallel Programming for Science and Engineering](https://theartofhpc.com/pcse.html) by Victor Eijkhout, or
 
 the workshop material
 
