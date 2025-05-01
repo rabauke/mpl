@@ -6,6 +6,7 @@ MPL: A message passing library
    :maxdepth: 2
    :caption: Contents:
 
+   design
    installation
    cmake_integration
    data_types
