@@ -241,6 +241,7 @@
 <li class="toctree-l2"><a class="reference internal" href="examples/reduce.html">Reduction operations</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/layouts.html">Layouts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/subarray.html">Subarray layouts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples/custom_initialization.html">Custom initialization of the MPI environment</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/parallel_sort.html">Parallel sorting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/vibrating_string.html">Vibrating string</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/distributed_grid.html">Distributed grid</a></li>
@@ -331,7 +332,7 @@
 <dd><p>Provides access to a predefined communicator that includes only the calling process itself. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>communicator including only the precess itself </p>
+<dd class="field-odd"><p>communicator including only the process itself </p>
 </dd>
 </dl>
 </dd></dl>
@@ -345,7 +346,7 @@
 <dd><p>Determines if the current thread is the main thread, i.e., the thread that has initialized the MPI environment of the underlying MPI implementation. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>true if current thread is the main thread </p>
+<dd class="field-odd"><p>true if the current thread is the main thread </p>
 </dd>
 </dl>
 </dd></dl>
@@ -375,13 +376,13 @@
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl15threading_modes8funneledE">
 <span id="_CPPv3N3mpl15threading_modes8funneledE"></span><span id="_CPPv2N3mpl15threading_modes8funneledE"></span><span class="target" id="namespacempl_1a808a1539fd8c7b75ff1536a53f926094a2110cc27d60e873203472314639a3c8a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">funneled</span></span></span><a class="headerlink" href="#_CPPv4N3mpl15threading_modes8funneledE" title="Link to this definition">¶</a><br /></dt>
-<dd><p>the application is multi-threaded, however all MPL calls will be issued from the main thread only </p>
+<dd><p>the application is multi-threaded, however, all MPL calls will be issued from the main thread only </p>
 </dd></dl>
 
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl15threading_modes10serializedE">
 <span id="_CPPv3N3mpl15threading_modes10serializedE"></span><span id="_CPPv2N3mpl15threading_modes10serializedE"></span><span class="target" id="namespacempl_1a808a1539fd8c7b75ff1536a53f926094afb741eb55bd67db2031aa661671fba7c"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">serialized</span></span></span><a class="headerlink" href="#_CPPv4N3mpl15threading_modes10serializedE" title="Link to this definition">¶</a><br /></dt>
-<dd><p>the application is multi-threaded and any thread may issue MPL calls, however different threads will never issue MPL calls at the same time </p>
+<dd><p>the application is multi-threaded and any thread may issue MPL calls, however, different threads will never issue MPL calls at the same time </p>
 </dd></dl>
 
 <dl class="cpp enumerator">

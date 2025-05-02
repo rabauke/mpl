@@ -22,6 +22,7 @@ Examples
    reduce
    layouts
    subarray
+   custom_initialization
    parallel_sort
    vibrating_string
    distributed_grid

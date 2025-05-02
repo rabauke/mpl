@@ -15,10 +15,10 @@ namespace mpl {
   enum class threading_modes {
     /// the application is single-threaded
     single = MPI_THREAD_SINGLE,
-    /// the application is multi-threaded, however all MPL calls will be issued from the main
+    /// the application is multi-threaded, however, all MPL calls will be issued from the main
     /// thread only
     funneled = MPI_THREAD_FUNNELED,
-    /// the application is multi-threaded and any thread may issue MPL calls, however
+    /// the application is multi-threaded and any thread may issue MPL calls, however,
     /// different threads will never issue MPL calls at the same time
     serialized = MPI_THREAD_SERIALIZED,
     /// the application is multi-threaded, any thread may issue MPI calls and different threads
@@ -158,7 +158,7 @@ namespace mpl {
 
     /// Determines if the current thread is the main thread, i.e., the thread that has
     /// initialized the MPI environment of the underlying MPI implementation.
-    /// \return true if current thread is the main thread
+    /// \return true if the current thread is the main thread
     inline bool is_thread_main() {
       return detail::get_env().is_thread_main();
     }
@@ -180,7 +180,7 @@ namespace mpl {
 
     /// Provides access to a predefined communicator that includes only the calling
     /// process itself.
-    /// \return communicator including only the precess itself
+    /// \return communicator including only the process itself
     inline const communicator &comm_self() {
       return detail::get_env().comm_self();
     }
