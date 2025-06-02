@@ -1,10 +1,7 @@
-# 3.10 required for mpi targets, 3.5 required for boost targets
-cmake_minimum_required(VERSION 3.10)
+# 3.21 required for PROJECT_IS_TOP_LEVEL, 3.10 required for mpi targets, 3.5 required for boost targets
+cmake_minimum_required(VERSION 3.21)
 
 project(mpl VERSION 0.4.0 LANGUAGES CXX C)
-
-# https://cmake.org/cmake/help/latest/variable/PROJECT_IS_TOP_LEVEL.html
-string(COMPARE EQUAL ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_SOURCE_DIR} PROJECT_IS_TOP_LEVEL)
 
 if(NOT DEFINED CACHE{BUILD_TESTING})
   set(BUILD_TESTING OFF CACHE BOOL "")
@@ -20,7 +17,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(MPI 3.1 REQUIRED C)
+find_package(MPI 3.1 REQUIRED C CXX)
 
 add_library(mpl INTERFACE)
 target_include_directories(mpl
@@ -30,7 +27,7 @@ target_include_directories(mpl
 
 # convention for allowing use as a subdirectory
 add_library(mpl::mpl ALIAS mpl)
-target_link_libraries(mpl INTERFACE MPI::MPI_C)
+target_link_libraries(mpl INTERFACE MPI::MPI_CXX)
 
 option(MPL_BUILD_EXAMPLES "build the mpl examples" ${PROJECT_IS_TOP_LEVEL})
 if(MPL_BUILD_EXAMPLES)
