@@ -183,6 +183,39 @@ namespace mpl {
         return requests_.empty();
       }
 
+      /// Tests for the completion for a request in the pool.
+      /// \param i index of the request for which shall be tested
+      /// \return the operation's status if completed successfully
+      std::optional<status_t> test(size_type i) {
+        int result{true};
+        status_t s;
+        MPI_Test(&requests_[i], &result, static_cast<MPI_Status *>(&s));
+        if (result != 0)
+          return s;
+        return {};
+      }
+
+      /// Wait for a pending request in the pool.
+      /// \param i index of the request for which shall be waited
+      /// \return operation's status after completion
+      status_t wait(size_type i) {
+        status_t s;
+        MPI_Wait(&requests_[i], static_cast<MPI_Status *>(&s));
+        return s;
+      }
+
+      /// Access information associated with a request in the pool without freeing the request.
+      /// \param i index of the request for which the status will be returned
+      /// \return the operation's status if completed successfully
+      std::optional<status_t> get_status_of(size_type i) {
+        int result{true};
+        status_t s;
+        MPI_Request_get_status(requests_[i], &result, static_cast<MPI_Status *>(&s));
+        if (result != 0)
+          return s;
+        return {};
+      }
+
       /// Get status of a request.
       /// \param i index of the request for which the status will be returned
       /// \return status of request
@@ -193,7 +226,8 @@ namespace mpl {
       /// Cancels a pending request in the pool.
       /// \param i index of the request for which shall be cancelled
       void cancel(size_type i) {
-        MPI_Cancel(&requests_[i]);
+        if (requests_[i] != MPI_REQUEST_NULL)
+          MPI_Cancel(&requests_[i]);
       }
 
       /// Cancels all requests in the pool.
@@ -426,6 +460,12 @@ namespace mpl {
     prequest_pool &operator=(prequest_pool &&other) noexcept {
       base::operator=(std::move(other));
       return *this;
+    }
+
+    /// Start a persistent requests in the pool.
+    /// \param i index of the request for which shall be started
+    void start(size_type i) {
+      MPI_Start(&requests_[i]);
     }
 
     /// Start all persistent requests in the pool.
