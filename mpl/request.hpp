@@ -207,7 +207,7 @@ namespace mpl {
       /// Access information associated with a request in the pool without freeing the request.
       /// \param i index of the request for which the status will be returned
       /// \return the operation's status if completed successfully
-      std::optional<status_t> get_status_of(size_type i) {
+      std::optional<status_t> try_get_status(size_type i) {
         int result{true};
         status_t s;
         MPI_Request_get_status(requests_[i], &result, static_cast<MPI_Status *>(&s));
