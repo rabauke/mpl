@@ -398,7 +398,7 @@ namespace mpl {
 
   public:
     struct_builder() {
-      std::array<T, N> array;
+      std::array<T, N> array{};
       layout_.register_struct(array);
       layout_.register_element(array);
       base::define_struct(layout_);
