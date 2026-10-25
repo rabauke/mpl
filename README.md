@@ -105,6 +105,29 @@ int main() {
 ```
 
 
+## Building and Testing
+
+MPL can be built and tested using standard CMake commands:
+
+```bash
+cmake -B build -DCMAKE_BUILD_TYPE=Release -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON
+cmake --build build -j
+ctest --test-dir build --output-on-failure
+```
+
+### MPICH / hwloc Troubleshooting
+
+When running unit tests or executables directly via `mpirun` or `mpiexec` under MPICH on systems with `libhwloc` GL plugins installed (`hwloc_gl.so`), MPI initialization may hang in remote, headless, or containerized environments if an unreachable `$DISPLAY` socket endpoint is queried via `XOpenDisplay`.
+
+While CTest targets in MPL configure this automatically, when executing binaries directly under MPICH, disable the hwloc OpenGL discovery component by setting:
+
+```bash
+export HWLOC_COMPONENTS=-gl
+# or prepend to direct mpiexec invocations:
+HWLOC_COMPONENTS=-gl mpiexec -n 2 ./build/test/test_communicator_send_recv
+```
+
+
 ## Documentation
 
 For further documentation see the

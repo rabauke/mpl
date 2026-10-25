@@ -20,6 +20,7 @@ function(add_test_executable TARGET_NAME SOURCES)
           /permissive- /W4 /WX>)
   target_link_libraries(${TARGET_NAME} PRIVATE mpl::mpl Boost::unit_test_framework)
   add_test(NAME ${TARGET_NAME} COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./${TARGET_NAME} ${MPIEXEC_POSTFLAGS})
+  set_tests_properties(${TARGET_NAME} PROPERTIES ENVIRONMENT "HWLOC_COMPONENTS=-gl")
 endfunction()
 
 add_test_executable(test_group test_group.cc)

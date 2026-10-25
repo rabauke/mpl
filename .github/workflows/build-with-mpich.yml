@@ -19,6 +19,8 @@ jobs:
           cmake --build . -j
           cmake --build . --target install
       - name: Test mpl
+        env:
+          HWLOC_COMPONENTS: -gl
         run: |
           cd build
           ctest --output-on-failure
