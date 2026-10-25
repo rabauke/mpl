@@ -1,10 +1,12 @@
-#define BOOST_TEST_MODULE communicator_scatterv
-
-#include <boost/test/included/unit_test.hpp>
-#include <mpl/mpl.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <numeric>
 #include <tuple>
+#include <vector>
+#include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<use_non_root_overload variant, typename T>
 bool scatterv_test(const T &val) {
@@ -143,32 +145,44 @@ bool iscatterv_contiguous_test(const T &val) {
   return v_recv == v_expected;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(scatterv) {
-  BOOST_TEST(scatterv_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(scatterv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(scatterv_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(scatterv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+SCENARIO("variable-length data scattering from root process using layout vectors",
+         "[communicator][scatterv]") {
+  GIVEN("a world communicator with root rank 0 scattering variable length blocks") {
+    WHEN("scattering variable lengths synchronously using scatterv") {
+      THEN("each process receives its expected variable slice correctly across overload variants") {
+        REQUIRE(scatterv_test<use_non_root_overload::no>(1.0));
+        REQUIRE(scatterv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(scatterv_contiguous_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(scatterv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
+        REQUIRE(scatterv_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(scatterv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
 
-  BOOST_TEST(scatterv_contiguous_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(scatterv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+        REQUIRE(scatterv_contiguous_test<use_non_root_overload::no>(1.0));
+        REQUIRE(scatterv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  // skip tests for older versions of MPICH due to a bug in MPICH's implementation of Alltoallw
+        REQUIRE(scatterv_contiguous_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(scatterv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+      }
+    }
+
+    WHEN("scattering variable lengths asynchronously using iscatterv") {
+      THEN("each process receives its expected variable slice upon request completion") {
 #if !defined MPICH || MPICH_NUMVERSION >= 40101000
-  BOOST_TEST(iscatterv_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(iscatterv_test<use_non_root_overload::no>(tuple{1, 2.0}));
+        REQUIRE(iscatterv_test<use_non_root_overload::no>(1.0));
+        REQUIRE(iscatterv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(iscatterv_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(iscatterv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+        REQUIRE(iscatterv_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(iscatterv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
 #endif
 
-  BOOST_TEST(iscatterv_contiguous_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(iscatterv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
+        REQUIRE(iscatterv_contiguous_test<use_non_root_overload::no>(1.0));
+        REQUIRE(iscatterv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(iscatterv_contiguous_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(iscatterv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+        REQUIRE(iscatterv_contiguous_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(iscatterv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+      }
+    }
+  }
 }

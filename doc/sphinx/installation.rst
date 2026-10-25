@@ -20,7 +20,7 @@ Then, call the CMake tool to detect all dependencies and to generate the project
 
 The option ``-DCMAKE_INSTALL_PREFIX:PATH`` specifies the installation path.
 
-Usually, CMake will find the required MPI installation as well as the Boost Test library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on `FindMPI <https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi>`__ and `FindBoost <https://cmake.org/cmake/help/git-master/module/FindBoost.html?highlight=boost#hints>`__ for further details.
+Usually, CMake will find the required MPI installation as well as the Catch2 library automatically. Depending on the local setup, however, CMake may need some hints to find these dependencies. See the CMake documentation on `FindMPI <https://cmake.org/cmake/help/git-master/module/FindMPI.html#variables-for-locating-mpi>`__ and `Catch2 <https://github.com/catchorg/Catch2>`__ for further details.
 
 CMake can also be utilized to install the MPL header files. Just call CMake a second time and specify the ``--install`` option now, e.g.,
 
@@ -34,7 +34,7 @@ A set of unit tests and a collection of examples that illustrate the usage of MP
 
    user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TESTING=ON -DMPL_BUILD_EXAMPLES=ON ..
 
-enables both, building unit tests and examples. MPL unit tests utilize the `Boost.Test <https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html>`__ framework. Furthermore, adding ``-DMPL_BUILD_DOCUMENTATION=ON`` to the set of CMake options during configuration enables building the MPL documentation, which requires `Doxygen <https://www.doxygen.nl>`__, `Breathe <https://www.breathe-doc.org>`__ and `Sphinx <https://www.sphinx-doc.org>`__. Finally, build the unit tests, the example code and/or the documentation via
+enables both, building unit tests and examples. MPL unit tests utilize the `Catch2 <https://github.com/catchorg/Catch2>`__ framework. Furthermore, adding ``-DMPL_BUILD_DOCUMENTATION=ON`` to the set of CMake options during configuration enables building the MPL documentation, which requires `Doxygen <https://www.doxygen.nl>`__, `Breathe <https://www.breathe-doc.org>`__ and `Sphinx <https://www.sphinx-doc.org>`__. Finally, build the unit tests, the example code and/or the documentation via
 
 .. code:: shell
 

@@ -1,11 +1,11 @@
-#define BOOST_TEST_MODULE communicator_allgather
-
-#include <boost/test/included/unit_test.hpp>
-#include <mpl/mpl.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <algorithm>
 #include <array>
 #include <vector>
+#include <mpl/mpl.hpp>
 
+
+namespace {
 
 template<typename T>
 bool allgather_test(const T &val) {
@@ -25,11 +25,24 @@ bool iallgather_test(const T &val) {
   return std::all_of(v.begin(), v.end(), [&val](const auto &x) { return x == val; });
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(allgather) {
-  BOOST_TEST(allgather_test(1.0));
-  BOOST_TEST(allgather_test(std::array{1, 2, 3, 4}));
 
-  BOOST_TEST(iallgather_test(1.0));
-  BOOST_TEST(iallgather_test(std::array{1, 2, 3, 4}));
+SCENARIO("allgather distributes data from all processes to all processes",
+         "[communicator][allgather]") {
+  GIVEN("a world communicator where every process contributes data") {
+    WHEN("performing allgather synchronously") {
+      THEN("all processes receive the full collection of data") {
+        REQUIRE(allgather_test(1.0));
+        REQUIRE(allgather_test(std::array{1, 2, 3, 4}));
+      }
+    }
+
+    WHEN("performing allgather asynchronously using iallgather") {
+      THEN("all processes receive the full collection upon completion") {
+        REQUIRE(iallgather_test(1.0));
+        REQUIRE(iallgather_test(std::array{1, 2, 3, 4}));
+      }
+    }
+  }
 }

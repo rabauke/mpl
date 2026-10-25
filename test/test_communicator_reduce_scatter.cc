@@ -1,9 +1,10 @@
-#define BOOST_TEST_MODULE communicator_reduce_scatter
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename F, typename T>
 bool reduce_scatter_test(F f, const T &val) {
@@ -59,19 +60,32 @@ bool ireduce_scatter_test(F f, const T &val) {
   return v_y == v_expected;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(reduce_scatter) {
-  BOOST_TEST(reduce_scatter_test(add<double>(), 1.0));
-  BOOST_TEST(reduce_scatter_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_scatter_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_scatter_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_scatter_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_scatter_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(ireduce_scatter_test(add<double>(), 1.0));
-  BOOST_TEST(ireduce_scatter_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_scatter_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_scatter_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_scatter_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_scatter_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+SCENARIO("reduce_scatter reduces and scatters variable blocks across processes",
+         "[communicator][reduce_scatter]") {
+  GIVEN("a world communicator combining and partitioning blocks of data") {
+    WHEN("performing synchronous reduce_scatter with functors, operators, and lambdas") {
+      THEN("each process receives its correctly reduced variable slice") {
+        REQUIRE(reduce_scatter_test(add<double>(), 1.0));
+        REQUIRE(reduce_scatter_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_test(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_scatter_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(reduce_scatter_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
+
+    WHEN("performing asynchronous ireduce_scatter with functors, operators, and lambdas") {
+      THEN("each process receives its reduced variable slice upon completion") {
+        REQUIRE(ireduce_scatter_test(add<double>(), 1.0));
+        REQUIRE(ireduce_scatter_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_scatter_test(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_scatter_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_scatter_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(ireduce_scatter_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
+  }
 }

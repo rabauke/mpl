@@ -1,9 +1,10 @@
-#define BOOST_TEST_MODULE communicator_alltoallv
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename T>
 bool alltoallv_with_displacements_test(const T &val) {
@@ -321,38 +322,50 @@ bool ialltoallv_in_place_without_displacements_test(const T &val) {
   return sendrecv_data == expected;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(alltoallv) {
-  BOOST_TEST(alltoallv_with_displacements_test(1.0));
-  BOOST_TEST(alltoallv_with_displacements_test(tuple{1, 2.0}));
 
-  BOOST_TEST(alltoallv_with_displacements_contiguous_test(1.0));
-  BOOST_TEST(alltoallv_with_displacements_contiguous_test(tuple{1, 2.0}));
+SCENARIO("all-to-all variable length communication with displacements and in-place transfers",
+         "[communicator][alltoallv]") {
+  GIVEN("a world communicator configured for variable-sized all-to-all transposition") {
+    WHEN("performing alltoallv synchronously with and without displacements and in-place") {
+      THEN("all transposed partitions match expected partitioned data") {
+        REQUIRE(alltoallv_with_displacements_test(1.0));
+        REQUIRE(alltoallv_with_displacements_test(tuple{1, 2.0}));
 
-   BOOST_TEST(alltoallv_without_displacements_test(1.0));
-   BOOST_TEST(alltoallv_without_displacements_test(tuple{1, 2.0}));
+        REQUIRE(alltoallv_with_displacements_contiguous_test(1.0));
+        REQUIRE(alltoallv_with_displacements_contiguous_test(tuple{1, 2.0}));
 
-   BOOST_TEST(ialltoallv_with_displacements_test(1.0));
-   BOOST_TEST(ialltoallv_with_displacements_test(tuple{1, 2.0}));
+        REQUIRE(alltoallv_without_displacements_test(1.0));
+        REQUIRE(alltoallv_without_displacements_test(tuple{1, 2.0}));
 
-   BOOST_TEST(ialltoallv_with_displacements_contiguous_test(1.0));
-   BOOST_TEST(ialltoallv_with_displacements_contiguous_test(tuple{1, 2.0}));
+        REQUIRE(alltoallv_in_place_with_displacements_test(1.0));
+        REQUIRE(alltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
 
-  BOOST_TEST(ialltoallv_without_displacements_test(1.0));
-  BOOST_TEST(ialltoallv_without_displacements_test(tuple{1, 2.0}));
+        REQUIRE(alltoallv_in_place_without_displacements_test(1.0));
+        REQUIRE(alltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
+      }
+    }
 
-  BOOST_TEST(alltoallv_in_place_with_displacements_test(1.0));
-  BOOST_TEST(alltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
+    WHEN("performing alltoallv asynchronously using ialltoallv") {
+      THEN("all transposed partitions match upon completion") {
+        REQUIRE(ialltoallv_with_displacements_test(1.0));
+        REQUIRE(ialltoallv_with_displacements_test(tuple{1, 2.0}));
 
-  BOOST_TEST(alltoallv_in_place_without_displacements_test(1.0));
-  BOOST_TEST(alltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
+        REQUIRE(ialltoallv_with_displacements_contiguous_test(1.0));
+        REQUIRE(ialltoallv_with_displacements_contiguous_test(tuple{1, 2.0}));
 
-  // skip tests for older versions of MPICH due to a bug in MPICH's implementation of Alltoallw
+        REQUIRE(ialltoallv_without_displacements_test(1.0));
+        REQUIRE(ialltoallv_without_displacements_test(tuple{1, 2.0}));
+
 #if !defined MPICH_NUMVERSION || MPICH_NUMVERSION > 40100000
-  BOOST_TEST(ialltoallv_in_place_with_displacements_test(1.0));
-  BOOST_TEST(ialltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
+        REQUIRE(ialltoallv_in_place_with_displacements_test(1.0));
+        REQUIRE(ialltoallv_in_place_with_displacements_test(tuple{1, 2.0}));
 
-  BOOST_TEST(ialltoallv_in_place_without_displacements_test(1.0));
-  BOOST_TEST(ialltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
+        REQUIRE(ialltoallv_in_place_without_displacements_test(1.0));
+        REQUIRE(ialltoallv_in_place_without_displacements_test(tuple{1, 2.0}));
 #endif
+      }
+    }
+  }
 }

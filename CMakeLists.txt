@@ -1,4 +1,4 @@
-# 3.21 required for PROJECT_IS_TOP_LEVEL, 3.10 required for mpi targets, 3.5 required for boost targets
+# 3.21 required for PROJECT_IS_TOP_LEVEL, 3.10 required for mpi targets
 cmake_minimum_required(VERSION 3.21)
 
 project(mpl VERSION 0.4.0 LANGUAGES CXX C)

@@ -1,8 +1,8 @@
-#define BOOST_TEST_MODULE graph_communicator
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <mpl/mpl.hpp>
 
+
+namespace {
 
 bool graph_communicator_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -55,8 +55,24 @@ bool graph_communicator_test_2() {
   return true;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(graph_communicator) {
-  BOOST_TEST(graph_communicator_test());
-  BOOST_TEST(graph_communicator_test_2());
+
+SCENARIO("graph topology communicators define arbitrary process networks",
+         "[graph_communicator]") {
+  GIVEN("a star graph topology centered on rank 0") {
+    WHEN("querying node degrees and neighbor lists") {
+      THEN("degrees and neighbor sets match the star graph structure") {
+        REQUIRE(graph_communicator_test());
+      }
+    }
+  }
+
+  GIVEN("a custom 4-node graph topology") {
+    WHEN("querying degrees and neighbor lists for all nodes") {
+      THEN("degrees and neighbor node lists match the configured edges") {
+        REQUIRE(graph_communicator_test_2());
+      }
+    }
+  }
 }

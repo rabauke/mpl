@@ -1,11 +1,4 @@
-if(POLICY CMP0167)
-  # The FindBoost module is removed. Boost 1.70.0 and later provide a
-  # BoostConfig.cmake package configuration file.
-  find_package(Boost 1.70.0 COMPONENTS unit_test_framework CONFIG REQUIRED)
-else()
-  # Use build-in FindBoost module.
-  find_package(Boost COMPONENTS unit_test_framework REQUIRED)
-endif()
+find_package(Catch2 3 REQUIRED)
 
 function(add_test_executable TARGET_NAME SOURCES)
   add_executable(${TARGET_NAME} ${SOURCES})
@@ -18,7 +11,7 @@ function(add_test_executable TARGET_NAME SOURCES)
           -Wall>
      $<$<CXX_COMPILER_ID:MSVC>:
           /permissive- /W4 /WX>)
-  target_link_libraries(${TARGET_NAME} PRIVATE mpl::mpl Boost::unit_test_framework)
+  target_link_libraries(${TARGET_NAME} PRIVATE mpl::mpl Catch2::Catch2WithMain)
   add_test(NAME ${TARGET_NAME} COMMAND ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS} ${MPIEXEC_PREFLAGS} ./${TARGET_NAME} ${MPIEXEC_POSTFLAGS})
   set_tests_properties(${TARGET_NAME} PROPERTIES ENVIRONMENT "HWLOC_COMPONENTS=-gl")
 endfunction()

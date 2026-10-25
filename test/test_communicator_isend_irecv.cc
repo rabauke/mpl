@@ -1,15 +1,13 @@
-#define BOOST_TEST_MODULE communicator_isend_irecv
-
-#include <boost/test/included/unit_test.hpp>
-#include <limits>
-#include <cstddef>
+#include <catch2/catch_test_macros.hpp>
 #include <complex>
-#include <string>
-#include <vector>
+#include <cstddef>
+#include <limits>
 #include <list>
 #include <set>
+#include <string>
 #include <tuple>
 #include <utility>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
@@ -183,24 +181,30 @@ bool irsend_irecv_test(const T &data) {
     auto r{comm_world.irsend(data, 1)};
     r.wait();
   } else if (comm_world.rank() == 1) {
-    // must ensure that MPI_Recv is called before mpl::communicator::rsend
+    // must ensure that MPI_Irecv is called before mpl::communicator::irsend
     if constexpr (has_begin_end<T>() and has_size<T>() and has_resize<T>()) {
       // T is an STL container
       T data_r;
       data_r.resize(data.size());
-      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
+      mpl::irequest r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
       comm_world.barrier();
       r.wait();
       return data_r == data;
-    } else if constexpr (has_begin_end<T>() and has_size<T>()) {
-      // T is an STL container without resize member, e.g., std::set
-      std::vector<typename T::value_type> data_r;
-      data_r.resize(data.size());
-      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
-      comm_world.barrier();
-      while (not r.test()) {
+    } else if constexpr (has_begin_end<T>() and has_size<T>() and not has_resize<T>()) {
+      if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data))>>) {
+        T data_r;
+        mpl::irequest r{comm_world.irecv(data_r, 0)};
+        comm_world.barrier();
+        r.wait();
+        return data_r == data;
+      } else {
+        // T is an std::array
+        T data_r;
+        mpl::irequest r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
+        comm_world.barrier();
+        r.wait();
+        return data_r == data;
       }
-      return std::equal(begin(data_r), end(data_r), begin(data));
     } else {
       // T is some fundamental type
       // mpl::communicator::irecv does not suffice in the cases above as the irecv performs a
@@ -208,8 +212,7 @@ bool irsend_irecv_test(const T &data) {
       T data_r;
       mpl::irequest r{comm_world.irecv(data_r, 0)};
       comm_world.barrier();
-      while (not r.test()) {
-      }
+      r.wait();
       return data_r == data;
     }
   } else
@@ -226,27 +229,32 @@ bool irsend_irecv_iter_test(const T &data) {
   if (comm_world.rank() == 0) {
     comm_world.barrier();
     auto r{comm_world.irsend(std::begin(data), std::end(data), 1)};
-    while (not r.test()) {
-    }
+    r.wait();
   } else if (comm_world.rank() == 1) {
-    // must ensure that MPI_Recv is called before mpl::communicator::rsend
+    // must ensure that MPI_Irecv is called before mpl::communicator::irsend
     if constexpr (has_begin_end<T>() and has_size<T>() and has_resize<T>()) {
+      // T is an STL container
       T data_r;
       data_r.resize(data.size());
-      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
+      mpl::irequest r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
       comm_world.barrier();
-      while (not r.test()) {
-      }
+      r.wait();
       return data_r == data;
-    } else if constexpr (has_begin_end<T>() and has_size<T>()) {
-      // T is an STL container without resize member, e.g., std::set
-      std::vector<typename T::value_type> data_r;
-      data_r.resize(data.size());
-      mpl::irequest r{comm_world.irecv(begin(data_r), end(data_r), 0)};
-      comm_world.barrier();
-      while (not r.test()) {
+    } else if constexpr (has_begin_end<T>() and has_size<T>() and not has_resize<T>()) {
+      if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data))>>) {
+        T data_r;
+        mpl::irequest r{comm_world.irecv(data_r, 0)};
+        comm_world.barrier();
+        r.wait();
+        return data_r == data;
+      } else {
+        // T is an std::array
+        T data_r;
+        mpl::irequest r{comm_world.irecv(std::begin(data_r), std::end(data_r), 0)};
+        comm_world.barrier();
+        r.wait();
+        return data_r == data;
       }
-      return std::equal(begin(data_r), end(data_r), begin(data));
     } else {
       // T is some fundamental type
       // mpl::communicator::irecv does not suffice in the cases above as the irecv performs a
@@ -254,205 +262,12 @@ bool irsend_irecv_iter_test(const T &data) {
       T data_r;
       mpl::irequest r{comm_world.irecv(data_r, 0)};
       comm_world.barrier();
-      while (not r.test()) {
-      }
+      r.wait();
       return data_r == data;
     }
   } else
     comm_world.barrier();
   return true;
-}
-
-
-BOOST_AUTO_TEST_CASE(isend_irecv) {
-  // integer types
-  BOOST_TEST(isend_irecv_test(std::byte(77)));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(isend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(isend_irecv_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(isend_irecv_test(static_cast<char16_t>('A')));
-  BOOST_TEST(isend_irecv_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(isend_irecv_test(static_cast<float>(3.14)));
-  BOOST_TEST(isend_irecv_test(static_cast<double>(3.14)));
-  BOOST_TEST(isend_irecv_test(static_cast<long double>(3.14)));
-  BOOST_TEST(isend_irecv_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(isend_irecv_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(isend_irecv_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(isend_irecv_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(isend_irecv_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(isend_irecv_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(isend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(isend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // strings and STL containers
-  BOOST_TEST(isend_irecv_test(std::string{"Hello World"}));
-  BOOST_TEST(isend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(isend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(isend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(isend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(isend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(isend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(isend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(isend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
-BOOST_AUTO_TEST_CASE(ibsend_irecv) {
-  // integer types
-  BOOST_TEST(ibsend_irecv_test(std::byte(77)));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(ibsend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(ibsend_irecv_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(ibsend_irecv_test(static_cast<char16_t>('A')));
-  BOOST_TEST(ibsend_irecv_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(ibsend_irecv_test(static_cast<float>(3.14)));
-  BOOST_TEST(ibsend_irecv_test(static_cast<double>(3.14)));
-  BOOST_TEST(ibsend_irecv_test(static_cast<long double>(3.14)));
-  BOOST_TEST(ibsend_irecv_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(ibsend_irecv_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(ibsend_irecv_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(ibsend_irecv_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(ibsend_irecv_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(ibsend_irecv_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(ibsend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(ibsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // strings and STL containers
-  BOOST_TEST(ibsend_irecv_test(std::string{"Hello World"}));
-  BOOST_TEST(ibsend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(ibsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ibsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ibsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(ibsend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ibsend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ibsend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ibsend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
-BOOST_AUTO_TEST_CASE(issend_irecv) {
-  // integer types
-  BOOST_TEST(issend_irecv_test(std::byte(77)));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(issend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(issend_irecv_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(issend_irecv_test(static_cast<char16_t>('A')));
-  BOOST_TEST(issend_irecv_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(issend_irecv_test(static_cast<float>(3.14)));
-  BOOST_TEST(issend_irecv_test(static_cast<double>(3.14)));
-  BOOST_TEST(issend_irecv_test(static_cast<long double>(3.14)));
-  BOOST_TEST(issend_irecv_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(issend_irecv_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(issend_irecv_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(issend_irecv_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(issend_irecv_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(issend_irecv_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(issend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(issend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // strings and STL containers
-  BOOST_TEST(issend_irecv_test(std::string{"Hello World"}));
-  BOOST_TEST(issend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(issend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(issend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(issend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(issend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(issend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(issend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(issend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
-BOOST_AUTO_TEST_CASE(irsend_irecv) {
-  // integer types
-  BOOST_TEST(irsend_irecv_test(std::byte(77)));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(irsend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(irsend_irecv_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(irsend_irecv_test(static_cast<char16_t>('A')));
-  BOOST_TEST(irsend_irecv_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(irsend_irecv_test(static_cast<float>(3.14)));
-  BOOST_TEST(irsend_irecv_test(static_cast<double>(3.14)));
-  BOOST_TEST(irsend_irecv_test(static_cast<long double>(3.14)));
-  BOOST_TEST(irsend_irecv_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(irsend_irecv_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(irsend_irecv_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(irsend_irecv_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(irsend_irecv_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(irsend_irecv_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(irsend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(irsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // strings and STL containers
-  BOOST_TEST(irsend_irecv_test(std::string{"Hello World"}));
-  BOOST_TEST(irsend_irecv_test(std::wstring{L"Hello World"}));
-  BOOST_TEST(irsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(irsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(irsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(irsend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(irsend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(irsend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(irsend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
 }
 
 
@@ -533,7 +348,183 @@ bool irequest_pool_test_test() {
 }
 
 
-BOOST_AUTO_TEST_CASE(irequest_pool_individual) {
-  BOOST_TEST(irequest_pool_wait_test());
-  BOOST_TEST(irequest_pool_test_test());
+SCENARIO("non-blocking point-to-point communication and request pools",
+         "[communicator][isend_irecv]") {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+
+  GIVEN("a world communicator with sender rank 0 and receiver rank 1") {
+    if (comm_world.size() < 2)
+      return;
+
+    WHEN("transmitting data using non-blocking isend and irecv") {
+      THEN("all data types are received correctly") {
+        REQUIRE(isend_irecv_test(std::byte(77)));
+        REQUIRE(isend_irecv_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(isend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(isend_irecv_test(static_cast<wchar_t>('A')));
+        REQUIRE(isend_irecv_test(static_cast<char16_t>('A')));
+        REQUIRE(isend_irecv_test(static_cast<char32_t>('A')));
+        REQUIRE(isend_irecv_test(static_cast<float>(3.14)));
+        REQUIRE(isend_irecv_test(static_cast<double>(3.14)));
+        REQUIRE(isend_irecv_test(static_cast<long double>(3.14)));
+        REQUIRE(isend_irecv_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(isend_irecv_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(isend_irecv_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(isend_irecv_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(isend_irecv_test(my_enum::val));
+        REQUIRE(isend_irecv_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(isend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(isend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_test(std::string{"Hello World"}));
+        REQUIRE(isend_irecv_test(std::wstring{L"Hello World"}));
+        REQUIRE(isend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(isend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("transmitting data using non-blocking buffered ibsend and irecv") {
+      THEN("all data types are received correctly") {
+        REQUIRE(ibsend_irecv_test(std::byte(77)));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(ibsend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(ibsend_irecv_test(static_cast<wchar_t>('A')));
+        REQUIRE(ibsend_irecv_test(static_cast<char16_t>('A')));
+        REQUIRE(ibsend_irecv_test(static_cast<char32_t>('A')));
+        REQUIRE(ibsend_irecv_test(static_cast<float>(3.14)));
+        REQUIRE(ibsend_irecv_test(static_cast<double>(3.14)));
+        REQUIRE(ibsend_irecv_test(static_cast<long double>(3.14)));
+        REQUIRE(ibsend_irecv_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(ibsend_irecv_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(ibsend_irecv_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(ibsend_irecv_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(ibsend_irecv_test(my_enum::val));
+        REQUIRE(ibsend_irecv_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(ibsend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(ibsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_test(std::string{"Hello World"}));
+        REQUIRE(ibsend_irecv_test(std::wstring{L"Hello World"}));
+        REQUIRE(ibsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ibsend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("transmitting data using non-blocking synchronous issend and irecv") {
+      THEN("all data types are received correctly") {
+        REQUIRE(issend_irecv_test(std::byte(77)));
+        REQUIRE(issend_irecv_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(issend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(issend_irecv_test(static_cast<wchar_t>('A')));
+        REQUIRE(issend_irecv_test(static_cast<char16_t>('A')));
+        REQUIRE(issend_irecv_test(static_cast<char32_t>('A')));
+        REQUIRE(issend_irecv_test(static_cast<float>(3.14)));
+        REQUIRE(issend_irecv_test(static_cast<double>(3.14)));
+        REQUIRE(issend_irecv_test(static_cast<long double>(3.14)));
+        REQUIRE(issend_irecv_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(issend_irecv_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(issend_irecv_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(issend_irecv_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(issend_irecv_test(my_enum::val));
+        REQUIRE(issend_irecv_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(issend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(issend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_test(std::string{"Hello World"}));
+        REQUIRE(issend_irecv_test(std::wstring{L"Hello World"}));
+        REQUIRE(issend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(issend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("transmitting data using non-blocking ready irsend and irecv") {
+      THEN("all data types are received correctly") {
+        REQUIRE(irsend_irecv_test(std::byte(77)));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(irsend_irecv_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(irsend_irecv_test(static_cast<wchar_t>('A')));
+        REQUIRE(irsend_irecv_test(static_cast<char16_t>('A')));
+        REQUIRE(irsend_irecv_test(static_cast<char32_t>('A')));
+        REQUIRE(irsend_irecv_test(static_cast<float>(3.14)));
+        REQUIRE(irsend_irecv_test(static_cast<double>(3.14)));
+        REQUIRE(irsend_irecv_test(static_cast<long double>(3.14)));
+        REQUIRE(irsend_irecv_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(irsend_irecv_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(irsend_irecv_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(irsend_irecv_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(irsend_irecv_test(my_enum::val));
+        REQUIRE(irsend_irecv_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(irsend_irecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(irsend_irecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_test(std::string{"Hello World"}));
+        REQUIRE(irsend_irecv_test(std::wstring{L"Hello World"}));
+        REQUIRE(irsend_irecv_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_test(std::set<int>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(irsend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("managing multiple requests in an irequest_pool") {
+      THEN("individual wait and test operations complete successfully") {
+        REQUIRE(irequest_pool_wait_test());
+        REQUIRE(irequest_pool_test_test());
+      }
+    }
+  }
 }

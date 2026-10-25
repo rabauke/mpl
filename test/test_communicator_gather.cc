@@ -1,9 +1,12 @@
-#define BOOST_TEST_MODULE communicator_gather
-
-#include <boost/test/included/unit_test.hpp>
-#include <mpl/mpl.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <algorithm>
+#include <array>
 #include <iterator>
+#include <vector>
+#include <mpl/mpl.hpp>
 
+
+namespace {
 
 template<typename T>
 bool gather_test(const T &val) {
@@ -78,25 +81,38 @@ bool igather_test(const std::vector<T> &send, const std::vector<T> &expected,
   }
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(gather) {
-  BOOST_TEST(gather_test(1.0));
-  BOOST_TEST(gather_test(std::array{1, 2, 3, 4}));
-  {
-    const std::vector send{1, 2, 3, 4, 5, 6};
-    const std::vector expected{0, 2, 3, 0, 5, 0};
-    mpl::indexed_layout<int> l{{{2, 1}, {1, 4}}};
-    l.resize(0, 6);
-    BOOST_TEST(gather_test(send, expected, l));
-  }
 
-  BOOST_TEST(igather_test(1.0));
-  BOOST_TEST(igather_test(std::array{1, 2, 3, 4}));
-  {
-    const std::vector send{1, 2, 3, 4, 5, 6};
-    const std::vector expected{0, 2, 3, 0, 5, 0};
-    mpl::indexed_layout<int> l{{{2, 1}, {1, 4}}};
-    l.resize(0, 6);
-    BOOST_TEST(igather_test(send, expected, l));
+SCENARIO("gathering data from all communicator processes to the root process",
+         "[communicator][gather]") {
+  GIVEN("a world communicator with sender processes and root rank 0") {
+    WHEN("gathering fundamental, array, and layout-configured vector data synchronously") {
+      THEN("root receives data gathered across all processes") {
+        REQUIRE(gather_test(1.0));
+        REQUIRE(gather_test(std::array{1, 2, 3, 4}));
+        {
+          const std::vector send{1, 2, 3, 4, 5, 6};
+          const std::vector expected{0, 2, 3, 0, 5, 0};
+          mpl::indexed_layout<int> l{{{2, 1}, {1, 4}}};
+          l.resize(0, 6);
+          REQUIRE(gather_test(send, expected, l));
+        }
+      }
+    }
+
+    WHEN("gathering data asynchronously using igather") {
+      THEN("root receives gathered data upon request completion") {
+        REQUIRE(igather_test(1.0));
+        REQUIRE(igather_test(std::array{1, 2, 3, 4}));
+        {
+          const std::vector send{1, 2, 3, 4, 5, 6};
+          const std::vector expected{0, 2, 3, 0, 5, 0};
+          mpl::indexed_layout<int> l{{{2, 1}, {1, 4}}};
+          l.resize(0, 6);
+          REQUIRE(igather_test(send, expected, l));
+        }
+      }
+    }
   }
 }

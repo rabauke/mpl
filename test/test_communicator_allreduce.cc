@@ -1,9 +1,10 @@
-#define BOOST_TEST_MODULE communicator_allreduce
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename F, typename T>
 bool allreduce_test(F f, const T &val) {
@@ -93,9 +94,9 @@ bool allreduce_test_inplace(F f, const T &val) {
   T x{val};
   for (int i{0}; i < comm_world.rank(); ++i)
     ++x;
-  T x2{val};
   comm_world.allreduce(f, x);
-  T expected{x2};
+  T expected{val};
+  T x2{val};
   for (int i{1}; i < comm_world.size(); ++i) {
     ++x2;
     expected = f(expected, x2);
@@ -164,64 +165,80 @@ bool iallreduce_test_with_layout_inplace(F f, const T &val) {
   return v_x == v_expected;
 }
 
-
-BOOST_AUTO_TEST_CASE(allreduce) {
-  BOOST_TEST(allreduce_test(add<double>(), 1.0));
-  BOOST_TEST(allreduce_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(allreduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(allreduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
-
-  BOOST_TEST(allreduce_test_with_layout(add<double>(), 1.0));
-  BOOST_TEST(allreduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test_with_layout(mpl::plus<double>(), 1.0));
-  BOOST_TEST(allreduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(allreduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
-
-  BOOST_TEST(iallreduce_test(add<double>(), 1.0));
-  BOOST_TEST(iallreduce_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(iallreduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(iallreduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
-
-  BOOST_TEST(iallreduce_test_with_layout(add<double>(), 1.0));
-  BOOST_TEST(iallreduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test_with_layout(mpl::plus<double>(), 1.0));
-  BOOST_TEST(iallreduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(iallreduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+}  // namespace
 
 
-  BOOST_TEST(allreduce_test_inplace(add<double>(), 1.0));
-  BOOST_TEST(allreduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(allreduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(allreduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+SCENARIO("allreduce collective reduction across all processes",
+         "[communicator][allreduce]") {
+  GIVEN("a world communicator combining values globally across all processes") {
+    WHEN("performing allreduce synchronously with custom and built-in operators") {
+      THEN("all processes compute and receive the reduced result") {
+        REQUIRE(allreduce_test(add<double>(), 1.0));
+        REQUIRE(allreduce_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test(mpl::plus<double>(), 1.0));
+        REQUIRE(allreduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(allreduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(allreduce_test_with_layout_inplace(add<double>(), 1.0));
-  BOOST_TEST(allreduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(allreduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(allreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(
-      allreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(allreduce_test_with_layout(add<double>(), 1.0));
+        REQUIRE(allreduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test_with_layout(mpl::plus<double>(), 1.0));
+        REQUIRE(allreduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(allreduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
 
-  BOOST_TEST(iallreduce_test_inplace(add<double>(), 1.0));
-  BOOST_TEST(iallreduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(iallreduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(iallreduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+    WHEN("performing allreduce asynchronously using iallreduce") {
+      THEN("all processes compute and receive the reduced result upon completion") {
+        REQUIRE(iallreduce_test(add<double>(), 1.0));
+        REQUIRE(iallreduce_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test(mpl::plus<double>(), 1.0));
+        REQUIRE(iallreduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(iallreduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(iallreduce_test_with_layout_inplace(add<double>(), 1.0));
-  BOOST_TEST(iallreduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(iallreduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(iallreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(
-      iallreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_with_layout(add<double>(), 1.0));
+        REQUIRE(iallreduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_with_layout(mpl::plus<double>(), 1.0));
+        REQUIRE(iallreduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(iallreduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
+
+    WHEN("performing in-place allreduce and iallreduce operations") {
+      THEN("all processes compute in-place reductions properly") {
+        REQUIRE(allreduce_test_inplace(add<double>(), 1.0));
+        REQUIRE(allreduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(allreduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(allreduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+
+        REQUIRE(allreduce_test_with_layout_inplace(add<double>(), 1.0));
+        REQUIRE(allreduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(allreduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(allreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(allreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; },
+                                                  tuple{1, 2.0}));
+
+        REQUIRE(iallreduce_test_inplace(add<double>(), 1.0));
+        REQUIRE(iallreduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(iallreduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(iallreduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+
+        REQUIRE(iallreduce_test_with_layout_inplace(add<double>(), 1.0));
+        REQUIRE(iallreduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(iallreduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(iallreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(iallreduce_test_with_layout_inplace([](auto a, auto b) { return a + b; },
+                                                   tuple{1, 2.0}));
+      }
+    }
+  }
 }

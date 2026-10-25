@@ -1,9 +1,10 @@
-#define BOOST_TEST_MODULE communicator_reduce_scatter_block
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename F, typename T>
 bool reduce_scatter_block_test(F f, const T &val) {
@@ -98,35 +99,49 @@ bool ireduce_scatter_block_test_with_layout(F f, const T &val) {
   return v_y == v_expected;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(reduce_scatter_block) {
-  BOOST_TEST(reduce_scatter_block_test(add<double>(), 1.0));
-  BOOST_TEST(reduce_scatter_block_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_scatter_block_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_scatter_block_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_scatter_block_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_scatter_block_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(reduce_scatter_block_test_with_layout(add<double>(), 1.0));
-  BOOST_TEST(reduce_scatter_block_test_with_layout(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_scatter_block_test_with_layout(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_scatter_block_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; },
-                                                   tuple{1, 2.0}));
+SCENARIO("reduce_scatter_block reduces and scatters equal-sized blocks across processes",
+         "[communicator][reduce_scatter_block]") {
+  GIVEN("a world communicator combining and partitioning uniform blocks") {
+    WHEN("performing synchronous reduce_scatter_block with scalars and vector layouts") {
+      THEN("each process receives its correctly reduced equal block") {
+        REQUIRE(reduce_scatter_block_test(add<double>(), 1.0));
+        REQUIRE(reduce_scatter_block_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_block_test(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_scatter_block_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_block_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(reduce_scatter_block_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(ireduce_scatter_block_test(add<double>(), 1.0));
-  BOOST_TEST(ireduce_scatter_block_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_scatter_block_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_scatter_block_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_scatter_block_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_scatter_block_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_block_test_with_layout(add<double>(), 1.0));
+        REQUIRE(reduce_scatter_block_test_with_layout(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_block_test_with_layout(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_scatter_block_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(reduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; },
+                                                     tuple{1, 2.0}));
+      }
+    }
 
-  BOOST_TEST(ireduce_scatter_block_test_with_layout(add<double>(), 1.0));
-  BOOST_TEST(ireduce_scatter_block_test_with_layout(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_scatter_block_test_with_layout(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_scatter_block_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; },
-                                                    tuple{1, 2.0}));
+    WHEN("performing asynchronous ireduce_scatter_block with scalars and vector layouts") {
+      THEN("each process receives its reduced equal block upon completion") {
+        REQUIRE(ireduce_scatter_block_test(add<double>(), 1.0));
+        REQUIRE(ireduce_scatter_block_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_scatter_block_test(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_scatter_block_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_scatter_block_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(ireduce_scatter_block_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+
+        REQUIRE(ireduce_scatter_block_test_with_layout(add<double>(), 1.0));
+        REQUIRE(ireduce_scatter_block_test_with_layout(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_scatter_block_test_with_layout(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_scatter_block_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(
+            ireduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(ireduce_scatter_block_test_with_layout([](auto a, auto b) { return a + b; },
+                                                      tuple{1, 2.0}));
+      }
+    }
+  }
 }

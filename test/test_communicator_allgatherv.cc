@@ -1,11 +1,11 @@
-#define BOOST_TEST_MODULE communicator_allgatherv
-
-#include <boost/test/included/unit_test.hpp>
-#include <mpl/mpl.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <numeric>
 #include <vector>
+#include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename T>
 bool allgatherv_test(const T &val) {
@@ -84,17 +84,30 @@ bool iallgatherv_contiguous_test(const T &val) {
   return v1 == v2;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(allgatherv) {
-  BOOST_TEST(allgatherv_test(1.0));
-  BOOST_TEST(allgatherv_test(tuple{1, 2.0}));
 
-  BOOST_TEST(allgatherv_contiguous_test(1.0));
-  BOOST_TEST(allgatherv_contiguous_test(tuple{1, 2.0}));
+SCENARIO("allgatherv distributes variable-length vector data across all processes",
+         "[communicator][allgatherv]") {
+  GIVEN("a world communicator with variable-length local partitions") {
+    WHEN("performing allgatherv synchronously with indexed and contiguous layouts") {
+      THEN("all processes receive the full combined data vector") {
+        REQUIRE(allgatherv_test(1.0));
+        REQUIRE(allgatherv_test(tuple{1, 2.0}));
 
-  BOOST_TEST(iallgatherv_test(1.0));
-  BOOST_TEST(iallgatherv_test(tuple{1, 2.0}));
+        REQUIRE(allgatherv_contiguous_test(1.0));
+        REQUIRE(allgatherv_contiguous_test(tuple{1, 2.0}));
+      }
+    }
 
-  BOOST_TEST(allgatherv_contiguous_test(1.0));
-  BOOST_TEST(allgatherv_contiguous_test(tuple{1, 2.0}));
+    WHEN("performing allgatherv asynchronously using iallgatherv") {
+      THEN("all processes receive the full combined data vector upon completion") {
+        REQUIRE(iallgatherv_test(1.0));
+        REQUIRE(iallgatherv_test(tuple{1, 2.0}));
+
+        REQUIRE(iallgatherv_contiguous_test(1.0));
+        REQUIRE(iallgatherv_contiguous_test(tuple{1, 2.0}));
+      }
+    }
+  }
 }

@@ -1,6 +1,5 @@
-#define BOOST_TEST_MODULE info
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <iostream>
 #include <mpl/mpl.hpp>
 
 
@@ -1039,97 +1038,130 @@ bool read_ordered_split_write_ordered_split_test(const std::vector<T> &val,
 }
 
 
-BOOST_AUTO_TEST_CASE(read_at_write_at) {
-  BOOST_TEST(read_at_write_at_test(1.0));
-  BOOST_TEST(read_at_write_at_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(read_at_write_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+SCENARIO("parallel MPI file input and output operations", "[file]") {
+  [[maybe_unused]] const mpl::communicator &comm_world{mpl::environment::comm_world()};
 
-BOOST_AUTO_TEST_CASE(iread_at_iwrite_at) {
-  BOOST_TEST(iread_at_iwrite_at_test(1.0));
-  BOOST_TEST(iread_at_iwrite_at_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(
-      iread_at_iwrite_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+  GIVEN("a parallel file opened across comm_world") {
+    WHEN("performing positioned read_at and write_at operations") {
+      THEN("data matches after writing and reading back") {
+        REQUIRE(read_at_write_at_test(1.0));
+        REQUIRE(read_at_write_at_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_at_write_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_write) {
-  BOOST_TEST(read_write_test(1.0));
-  BOOST_TEST(read_write_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(read_write_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+    WHEN("performing non-blocking positioned iread_at and iwrite_at operations") {
+      THEN("data matches after completing asynchronous transfers") {
+        REQUIRE(iread_at_iwrite_at_test(1.0));
+        REQUIRE(iread_at_iwrite_at_test(std::array{1, 2, 3, 4}));
+        REQUIRE(iread_at_iwrite_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(iread_iwrite) {
-  BOOST_TEST(iread_iwrite_test(1.0));
-  BOOST_TEST(iread_iwrite_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(iread_iwrite_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+    WHEN("performing individual file pointer read and write operations") {
+      THEN("data matches after individual transfers") {
+        REQUIRE(read_write_test(1.0));
+        REQUIRE(read_write_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_write_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_shared_write_shared) {
-  BOOST_TEST(read_shared_write_shared_test(1.0));
-  BOOST_TEST(read_shared_write_shared_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(
-      read_shared_write_shared_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+    WHEN("performing non-blocking individual file pointer iread and iwrite operations") {
+      THEN("data matches after completing asynchronous individual transfers") {
+        REQUIRE(iread_iwrite_test(1.0));
+        REQUIRE(iread_iwrite_test(std::array{1, 2, 3, 4}));
+        REQUIRE(iread_iwrite_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(iread_shared_iwrite_shared) {
-  BOOST_TEST(iread_shared_iwrite_shared_test(1.0));
-  BOOST_TEST(iread_shared_iwrite_shared_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(iread_shared_iwrite_shared_test(std::vector{1.0, 2.0, 3.0},
-                                             mpl::vector_layout<double>(3)));
-}
+    WHEN("performing shared file pointer read_shared and write_shared operations") {
+      THEN("data matches after shared pointer transfers") {
+        REQUIRE(read_shared_write_shared_test(1.0));
+        REQUIRE(read_shared_write_shared_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_shared_write_shared_test(std::vector{1.0, 2.0, 3.0},
+                                              mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_at_all_write_at_all) {
-  BOOST_TEST(read_at_all_write_at_all_test(1.0));
-  BOOST_TEST(read_at_all_write_at_all_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(
-      read_at_all_write_at_all_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+    WHEN("performing non-blocking shared pointer iread_shared and iwrite_shared operations") {
+      THEN("data matches after non-blocking shared pointer transfers") {
+        REQUIRE(iread_shared_iwrite_shared_test(1.0));
+        REQUIRE(iread_shared_iwrite_shared_test(std::array{1, 2, 3, 4}));
+        REQUIRE(iread_shared_iwrite_shared_test(std::vector{1.0, 2.0, 3.0},
+                                                mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(iread_at_all_iwrite_at_all) {
-  BOOST_TEST(iread_at_all_iwrite_at_all_test(1.0));
-  BOOST_TEST(iread_at_all_iwrite_at_all_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(iread_at_all_iwrite_at_all_test(std::vector{1.0, 2.0, 3.0},
-                                             mpl::vector_layout<double>(3)));
-}
+    WHEN("performing collective positioned read_at_all and write_at_all operations") {
+      THEN("data matches after collective positioned transfers") {
+        REQUIRE(read_at_all_write_at_all_test(1.0));
+        REQUIRE(read_at_all_write_at_all_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_at_all_write_at_all_test(std::vector{1.0, 2.0, 3.0},
+                                              mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_all_write_all) {
-  BOOST_TEST(read_all_write_all_test(1.0));
-  BOOST_TEST(read_all_write_all_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(
-      read_all_write_all_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+    WHEN("performing non-blocking collective positioned iread_at_all and iwrite_at_all operations") {
+      THEN("data matches after non-blocking collective positioned transfers") {
+        REQUIRE(iread_at_all_iwrite_at_all_test(1.0));
+        REQUIRE(iread_at_all_iwrite_at_all_test(std::array{1, 2, 3, 4}));
+        REQUIRE(iread_at_all_iwrite_at_all_test(std::vector{1.0, 2.0, 3.0},
+                                                mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(iread_all_iwrite_all) {
-  BOOST_TEST(iread_all_iwrite_all_test(1.0));
-  BOOST_TEST(iread_all_iwrite_all_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(
-      iread_all_iwrite_all_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
-}
+    WHEN("performing collective read_all and write_all operations") {
+      THEN("data matches after collective transfers") {
+        REQUIRE(read_all_write_all_test(1.0));
+        REQUIRE(read_all_write_all_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_all_write_all_test(std::vector{1.0, 2.0, 3.0},
+                                        mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_ordered_write_ordered) {
-  BOOST_TEST(read_ordered_write_ordered_test(1.0));
-  BOOST_TEST(read_ordered_write_ordered_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(read_ordered_write_ordered_test(std::vector{1.0, 2.0, 3.0},
-                                             mpl::vector_layout<double>(3)));
-}
+    WHEN("performing non-blocking collective iread_all and iwrite_all operations") {
+      THEN("data matches after non-blocking collective transfers") {
+        REQUIRE(iread_all_iwrite_all_test(1.0));
+        REQUIRE(iread_all_iwrite_all_test(std::array{1, 2, 3, 4}));
+        REQUIRE(iread_all_iwrite_all_test(std::vector{1.0, 2.0, 3.0},
+                                          mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_at_all_split_write_at_all_split) {
-  BOOST_TEST(read_at_all_split_write_at_all_split_test(1.0));
-  BOOST_TEST(read_at_all_split_write_at_all_split_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(read_at_all_split_write_at_all_split_test(std::vector{1.0, 2.0, 3.0},
-                                                       mpl::vector_layout<double>(3)));
-}
+    WHEN("performing ordered collective read_ordered and write_ordered operations") {
+      THEN("data matches after ordered transfers") {
+        REQUIRE(read_ordered_write_ordered_test(1.0));
+        REQUIRE(read_ordered_write_ordered_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_ordered_write_ordered_test(std::vector{1.0, 2.0, 3.0},
+                                                mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_all_split_write_all_split) {
-  BOOST_TEST(read_all_split_write_all_split_test(1.0));
-  BOOST_TEST(read_all_split_write_all_split_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(read_all_split_write_all_split_test(std::vector{1.0, 2.0, 3.0},
-                                                 mpl::vector_layout<double>(3)));
-}
+    WHEN("performing split collective read_at_all_split and write_at_all_split operations") {
+      THEN("data matches after split collective positioned transfers") {
+        REQUIRE(read_at_all_split_write_at_all_split_test(1.0));
+        REQUIRE(read_at_all_split_write_at_all_split_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_at_all_split_write_at_all_split_test(std::vector{1.0, 2.0, 3.0},
+                                                          mpl::vector_layout<double>(3)));
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(read_ordered_split_write_ordered_split) {
-  BOOST_TEST(read_ordered_split_write_ordered_split_test(1.0));
-  BOOST_TEST(read_ordered_split_write_ordered_split_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(read_ordered_split_write_ordered_split_test(std::vector{1.0, 2.0, 3.0},
-                                                         mpl::vector_layout<double>(3)));
+    WHEN("performing split collective read_all_split and write_all_split operations") {
+      THEN("data matches after split collective transfers") {
+        REQUIRE(read_all_split_write_all_split_test(1.0));
+        REQUIRE(read_all_split_write_all_split_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_all_split_write_all_split_test(std::vector{1.0, 2.0, 3.0},
+                                                    mpl::vector_layout<double>(3)));
+      }
+    }
+
+    WHEN("performing split collective ordered read_ordered_split and write_ordered_split operations") {
+      THEN("data matches after split collective ordered transfers") {
+        REQUIRE(read_ordered_split_write_ordered_split_test(1.0));
+        REQUIRE(read_ordered_split_write_ordered_split_test(std::array{1, 2, 3, 4}));
+        REQUIRE(read_ordered_split_write_ordered_split_test(std::vector{1.0, 2.0, 3.0},
+                                                           mpl::vector_layout<double>(3)));
+      }
+    }
+  }
 }

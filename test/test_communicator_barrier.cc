@@ -1,8 +1,8 @@
-#define BOOST_TEST_MODULE communicator_barrier
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <mpl/mpl.hpp>
 
+
+namespace {
 
 bool barrier_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
@@ -18,8 +18,21 @@ bool ibarrier_test() {
   return true;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(barrier) {
-  BOOST_TEST(barrier_test());
-  BOOST_TEST(ibarrier_test());
+
+SCENARIO("communicator barrier synchronization", "[communicator][barrier]") {
+  GIVEN("a world communicator across all processes") {
+    WHEN("synchronizing processes via blocking barrier") {
+      THEN("all ranks reach the barrier and proceed") {
+        REQUIRE(barrier_test());
+      }
+    }
+
+    WHEN("synchronizing processes via non-blocking ibarrier") {
+      THEN("all ranks wait for the non-blocking barrier request") {
+        REQUIRE(ibarrier_test());
+      }
+    }
+  }
 }

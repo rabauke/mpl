@@ -1,8 +1,8 @@
-#define BOOST_TEST_MODULE dist_graph_communicator
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <mpl/mpl.hpp>
 
+
+namespace {
 
 bool dist_graph_communicator_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -34,7 +34,16 @@ bool dist_graph_communicator_test() {
   return true;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(dist_graph_communicator) {
-  BOOST_TEST(dist_graph_communicator_test());
+
+SCENARIO("distributed graph communicators specify localized process graph neighborhoods",
+         "[dist_graph_communicator]") {
+  GIVEN("a distributed graph topology with localized source and destination sets") {
+    WHEN("querying in-degrees and out-degrees on root and worker ranks") {
+      THEN("degrees match the distributed neighborhood definitions") {
+        REQUIRE(dist_graph_communicator_test());
+      }
+    }
+  }
 }

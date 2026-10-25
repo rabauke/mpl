@@ -1,8 +1,8 @@
-#define BOOST_TEST_MODULE communicator
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <mpl/mpl.hpp>
 
+
+namespace {
 
 class my_mpi_environment {
 public:
@@ -28,13 +28,22 @@ bool initialization_test() {
   // Perform some MPI operations.
   int size{0};
   MPI_Comm_size(MPI_COMM_WORLD, &size);
-  BOOST_CHECK_GT(size, 0);
+  if (size <= 0)
+    return false;
   // Do some MPL stuff.
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   return comm_world.is_valid();
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(initialization) {
-  BOOST_TEST(initialization_test());
+
+SCENARIO("external initialization of the MPI environment", "[initialization]") {
+  GIVEN("an external MPI initialization before any MPL calls") {
+    WHEN("performing MPI and MPL operations") {
+      THEN("communicator is valid and operations succeed") {
+        REQUIRE(initialization_test());
+      }
+    }
+  }
 }

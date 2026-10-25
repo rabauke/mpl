@@ -1,13 +1,21 @@
-#define BOOST_TEST_MODULE communicator_sendrecv
-
-#include <boost/test/included/unit_test.hpp>
-#include <limits>
-#include <cstddef>
+#include <catch2/catch_test_macros.hpp>
+#include <algorithm>
 #include <complex>
+#include <cstddef>
+#include <limits>
+#include <list>
+#include <set>
+#include <tuple>
 #include <type_traits>
+#include <utility>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
+
+enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
 
 template<typename T>
 bool sendrecv_test(const T &data) {
@@ -118,90 +126,85 @@ bool sendrecv_replace_iter_test() {
   return x == expected;
 }
 
-
-BOOST_AUTO_TEST_CASE(sendrecv) {
-  // integer types
-  BOOST_TEST(sendrecv_test(std::byte(77)));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(sendrecv_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(sendrecv_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(sendrecv_test(static_cast<char16_t>('A')));
-  BOOST_TEST(sendrecv_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(sendrecv_test(static_cast<float>(3.14)));
-  BOOST_TEST(sendrecv_test(static_cast<double>(3.14)));
-  BOOST_TEST(sendrecv_test(static_cast<long double>(3.14)));
-  BOOST_TEST(sendrecv_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(sendrecv_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(sendrecv_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(sendrecv_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(sendrecv_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(sendrecv_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(sendrecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(sendrecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(sendrecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(sendrecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(sendrecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(sendrecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
+}  // namespace
 
 
-BOOST_AUTO_TEST_CASE(sendrecv_replace) {
-  // integer types
-  BOOST_TEST(sendrecv_replace_test<std::byte>());
-  BOOST_TEST(sendrecv_replace_test<char>());
-  BOOST_TEST(sendrecv_replace_test<signed char>());
-  BOOST_TEST(sendrecv_replace_test<unsigned char>());
-  BOOST_TEST(sendrecv_replace_test<signed short>());
-  BOOST_TEST(sendrecv_replace_test<unsigned short>());
-  BOOST_TEST(sendrecv_replace_test<signed int>());
-  BOOST_TEST(sendrecv_replace_test<unsigned int>());
-  BOOST_TEST(sendrecv_replace_test<signed long>());
-  BOOST_TEST(sendrecv_replace_test<unsigned long>());
-  BOOST_TEST(sendrecv_replace_test<signed long long>());
-  BOOST_TEST(sendrecv_replace_test<unsigned long long>());
-  // character types
-  BOOST_TEST(sendrecv_replace_test<wchar_t>());
-  BOOST_TEST(sendrecv_replace_test<char16_t>());
-  BOOST_TEST(sendrecv_replace_test<char32_t>());
-  // floating point number types
-  BOOST_TEST(sendrecv_replace_test<float>());
-  BOOST_TEST(sendrecv_replace_test<double>());
-  BOOST_TEST(sendrecv_replace_test<long double>());
-  BOOST_TEST(sendrecv_replace_test<float>());
-  BOOST_TEST(sendrecv_replace_test<double>());
-  BOOST_TEST(sendrecv_replace_test<long double>());
-  // logical type
-  BOOST_TEST(sendrecv_replace_test<bool>());
-  // enums
-  enum class my_enum : int;
-  BOOST_TEST(sendrecv_replace_test<my_enum>());
-  // pairs, tuples and arrays
-  using std_pair = std::pair<int, double>;
-  BOOST_TEST(sendrecv_replace_test<std_pair>());
-  using std_tuple = std::tuple<int, double, bool>;
-  BOOST_TEST(sendrecv_replace_test<std_tuple>());
-  using array = std::array<int, 5>;
-  BOOST_TEST(sendrecv_replace_test<array>());
-  // iterators
-  BOOST_TEST(sendrecv_replace_iter_test<array>());
-  using vector = std::vector<int>;
-  BOOST_TEST(sendrecv_replace_iter_test<vector>());
-  using list = std::list<int>;
-  BOOST_TEST(sendrecv_replace_iter_test<list>());
+SCENARIO("combined send-and-receive operations exchange data circularly",
+         "[communicator][sendrecv]") {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+
+  GIVEN("a world communicator configured for ring exchange") {
+    WHEN("performing separate buffer sendrecv operations") {
+      THEN("all data types are shifted across ranks accurately") {
+        REQUIRE(sendrecv_test(std::byte(77)));
+        REQUIRE(sendrecv_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(sendrecv_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(sendrecv_test(static_cast<wchar_t>('A')));
+        REQUIRE(sendrecv_test(static_cast<char16_t>('A')));
+        REQUIRE(sendrecv_test(static_cast<char32_t>('A')));
+        REQUIRE(sendrecv_test(static_cast<float>(3.14)));
+        REQUIRE(sendrecv_test(static_cast<double>(3.14)));
+        REQUIRE(sendrecv_test(static_cast<long double>(3.14)));
+        REQUIRE(sendrecv_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(sendrecv_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(sendrecv_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(sendrecv_test(true));
+        REQUIRE(sendrecv_test(my_enum::val));
+        REQUIRE(sendrecv_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(sendrecv_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(sendrecv_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        if (comm_world.size() >= 2) {
+          REQUIRE(sendrecv_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+          REQUIRE(sendrecv_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+          REQUIRE(sendrecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+          REQUIRE(sendrecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+        }
+      }
+    }
+
+    WHEN("performing in-place sendrecv_replace operations") {
+      THEN("all data types are replaced in-place with received neighbor values") {
+        REQUIRE(sendrecv_replace_test<std::byte>());
+        REQUIRE(sendrecv_replace_test<char>());
+        REQUIRE(sendrecv_replace_test<signed char>());
+        REQUIRE(sendrecv_replace_test<unsigned char>());
+        REQUIRE(sendrecv_replace_test<signed short>());
+        REQUIRE(sendrecv_replace_test<unsigned short>());
+        REQUIRE(sendrecv_replace_test<signed int>());
+        REQUIRE(sendrecv_replace_test<unsigned int>());
+        REQUIRE(sendrecv_replace_test<signed long>());
+        REQUIRE(sendrecv_replace_test<unsigned long>());
+        REQUIRE(sendrecv_replace_test<signed long long>());
+        REQUIRE(sendrecv_replace_test<unsigned long long>());
+        REQUIRE(sendrecv_replace_test<wchar_t>());
+        REQUIRE(sendrecv_replace_test<char16_t>());
+        REQUIRE(sendrecv_replace_test<char32_t>());
+        REQUIRE(sendrecv_replace_test<float>());
+        REQUIRE(sendrecv_replace_test<double>());
+        REQUIRE(sendrecv_replace_test<long double>());
+        REQUIRE(sendrecv_replace_test<bool>());
+        REQUIRE(sendrecv_replace_test<my_enum>());
+        using std_pair = std::pair<int, double>;
+        REQUIRE(sendrecv_replace_test<std_pair>());
+        using std_tuple = std::tuple<int, double, bool>;
+        REQUIRE(sendrecv_replace_test<std_tuple>());
+        using array = std::array<int, 5>;
+        REQUIRE(sendrecv_replace_test<array>());
+        REQUIRE(sendrecv_replace_iter_test<array>());
+        using vector = std::vector<int>;
+        REQUIRE(sendrecv_replace_iter_test<vector>());
+        using list = std::list<int>;
+        REQUIRE(sendrecv_replace_iter_test<list>());
+      }
+    }
+  }
 }

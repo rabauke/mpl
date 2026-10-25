@@ -1,13 +1,11 @@
-#define BOOST_TEST_MODULE communicator_mprobe_mrecv
-
-#include <boost/test/included/unit_test.hpp>
-#include <limits>
-#include <cstddef>
+#include <catch2/catch_test_macros.hpp>
 #include <complex>
-#include <vector>
+#include <cstddef>
+#include <limits>
 #include <list>
 #include <tuple>
 #include <utility>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
@@ -124,83 +122,71 @@ bool improbe_iter_test(const T &data) {
 }
 
 
-BOOST_AUTO_TEST_CASE(mprobe) {
-  // integer types
-  BOOST_TEST(mprobe_test(std::byte(77)));
-  BOOST_TEST(mprobe_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(mprobe_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(mprobe_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(mprobe_test(static_cast<char16_t>('A')));
-  BOOST_TEST(mprobe_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(mprobe_test(static_cast<float>(3.14)));
-  BOOST_TEST(mprobe_test(static_cast<double>(3.14)));
-  BOOST_TEST(mprobe_test(static_cast<long double>(3.14)));
-  BOOST_TEST(mprobe_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(mprobe_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(mprobe_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(mprobe_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(mprobe_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(mprobe_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(mprobe_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(mprobe_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(mprobe_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(mprobe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(mprobe_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-}
+SCENARIO("matched message probing and receiving", "[communicator][mprobe_mrecv]") {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
 
+  GIVEN("a world communicator with sender rank 0 and receiver rank 1") {
+    if (comm_world.size() < 2)
+      return;
 
-BOOST_AUTO_TEST_CASE(improbe) {
-  // integer types
-  BOOST_TEST(improbe_test(std::byte(77)));
-  BOOST_TEST(improbe_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(improbe_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(improbe_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(improbe_test(static_cast<char16_t>('A')));
-  BOOST_TEST(improbe_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(improbe_test(static_cast<float>(3.14)));
-  BOOST_TEST(improbe_test(static_cast<double>(3.14)));
-  BOOST_TEST(improbe_test(static_cast<long double>(3.14)));
-  BOOST_TEST(improbe_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(improbe_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(improbe_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(improbe_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(improbe_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(improbe_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(improbe_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(improbe_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(improbe_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(improbe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(improbe_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+    WHEN("performing blocking matched probing (mprobe) and receive (mrecv)") {
+      THEN("message is matched and payload received accurately") {
+        REQUIRE(mprobe_test(std::byte(77)));
+        REQUIRE(mprobe_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(mprobe_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(mprobe_test(static_cast<wchar_t>('A')));
+        REQUIRE(mprobe_test(static_cast<char16_t>('A')));
+        REQUIRE(mprobe_test(static_cast<char32_t>('A')));
+        REQUIRE(mprobe_test(static_cast<float>(3.14)));
+        REQUIRE(mprobe_test(static_cast<double>(3.14)));
+        REQUIRE(mprobe_test(static_cast<long double>(3.14)));
+        REQUIRE(mprobe_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(mprobe_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(mprobe_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(mprobe_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(mprobe_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(mprobe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(mprobe_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("performing non-blocking matched probing (improbe) and receive (imrecv)") {
+      THEN("message is polled, matched, and payload received accurately") {
+        REQUIRE(improbe_test(std::byte(77)));
+        REQUIRE(improbe_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(improbe_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(improbe_test(static_cast<wchar_t>('A')));
+        REQUIRE(improbe_test(static_cast<char16_t>('A')));
+        REQUIRE(improbe_test(static_cast<char32_t>('A')));
+        REQUIRE(improbe_test(static_cast<float>(3.14)));
+        REQUIRE(improbe_test(static_cast<double>(3.14)));
+        REQUIRE(improbe_test(static_cast<long double>(3.14)));
+        REQUIRE(improbe_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(improbe_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(improbe_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(improbe_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(improbe_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(improbe_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(improbe_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+      }
+    }
+  }
 }

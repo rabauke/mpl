@@ -1,10 +1,12 @@
-#define BOOST_TEST_MODULE communicator_gatherv
-
-#include <boost/test/included/unit_test.hpp>
-#include <mpl/mpl.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <numeric>
 #include <tuple>
+#include <vector>
+#include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<use_non_root_overload variant, typename T>
 bool gatherv_test(const T &val) {
@@ -143,32 +145,44 @@ bool igatherv_contiguous_test(const T &val) {
   return comm_world.rank() == 0 ? v_gather == v_expected : true;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(gatherv) {
-  BOOST_TEST(gatherv_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(gatherv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(gatherv_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(gatherv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+SCENARIO("variable-length data gathering to root process with layout vectors",
+         "[communicator][gatherv]") {
+  GIVEN("communicator processes sending variable length data blocks") {
+    WHEN("gathering variable lengths synchronously using gatherv") {
+      THEN("root receives gathered variable data correctly across overload variants") {
+        REQUIRE(gatherv_test<use_non_root_overload::no>(1.0));
+        REQUIRE(gatherv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(gatherv_contiguous_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(gatherv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
+        REQUIRE(gatherv_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(gatherv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
 
-  BOOST_TEST(gatherv_contiguous_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(gatherv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+        REQUIRE(gatherv_contiguous_test<use_non_root_overload::no>(1.0));
+        REQUIRE(gatherv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  // skip tests for older versions of MPICH due to a bug in MPICH's implementation of Alltoallw
+        REQUIRE(gatherv_contiguous_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(gatherv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+      }
+    }
+
+    WHEN("gathering variable lengths asynchronously using igatherv") {
+      THEN("root receives gathered variable data upon request completion") {
 #if !defined MPICH || MPICH_NUMVERSION >= 40101000
-  BOOST_TEST(igatherv_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(igatherv_test<use_non_root_overload::no>(tuple{1, 2.0}));
+        REQUIRE(igatherv_test<use_non_root_overload::no>(1.0));
+        REQUIRE(igatherv_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(igatherv_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(igatherv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+        REQUIRE(igatherv_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(igatherv_test<use_non_root_overload::yes>(tuple{1, 2.0}));
 #endif
 
-  BOOST_TEST(igatherv_contiguous_test<use_non_root_overload::no>(1.0));
-  BOOST_TEST(igatherv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
+        REQUIRE(igatherv_contiguous_test<use_non_root_overload::no>(1.0));
+        REQUIRE(igatherv_contiguous_test<use_non_root_overload::no>(tuple{1, 2.0}));
 
-  BOOST_TEST(igatherv_contiguous_test<use_non_root_overload::yes>(1.0));
-  BOOST_TEST(igatherv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+        REQUIRE(igatherv_contiguous_test<use_non_root_overload::yes>(1.0));
+        REQUIRE(igatherv_contiguous_test<use_non_root_overload::yes>(tuple{1, 2.0}));
+      }
+    }
+  }
 }

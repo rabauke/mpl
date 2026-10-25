@@ -1,8 +1,10 @@
-#define BOOST_TEST_MODULE communicator_bcast
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <array>
+#include <vector>
 #include <mpl/mpl.hpp>
 
+
+namespace {
 
 template<typename T>
 bool bcast_test(const T &val) {
@@ -57,15 +59,28 @@ bool ibcast_test(const std::vector<T> &send, const std::vector<T> &expected,
     return x == expected;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(bcast) {
-  BOOST_TEST(bcast_test(1.0));
-  BOOST_TEST(bcast_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(bcast_test(std::vector{1, 2, 3, 4, 5, 6}, std::vector{0, 2, 3, 0, 5, 0},
-                        mpl::indexed_layout<int>{{{2, 1}, {1, 4}}}));
 
-  BOOST_TEST(ibcast_test(1.0));
-  BOOST_TEST(ibcast_test(std::array{1, 2, 3, 4}));
-  BOOST_TEST(ibcast_test(std::vector{1, 2, 3, 4, 5, 6}, std::vector{0, 2, 3, 0, 5, 0},
-                         mpl::indexed_layout<int>{{{2, 1}, {1, 4}}}));
+SCENARIO("broadcasting data from root rank to all communicator processes",
+         "[communicator][bcast]") {
+  GIVEN("a root process with scalar, array, and layout-configured vector data") {
+    WHEN("broadcasting data synchronously using bcast") {
+      THEN("all ranks receive the broadcasted data") {
+        REQUIRE(bcast_test(1.0));
+        REQUIRE(bcast_test(std::array{1, 2, 3, 4}));
+        REQUIRE(bcast_test(std::vector{1, 2, 3, 4, 5, 6}, std::vector{0, 2, 3, 0, 5, 0},
+                           mpl::indexed_layout<int>{{{2, 1}, {1, 4}}}));
+      }
+    }
+
+    WHEN("broadcasting data asynchronously using ibcast") {
+      THEN("all ranks receive the broadcasted data after completion") {
+        REQUIRE(ibcast_test(1.0));
+        REQUIRE(ibcast_test(std::array{1, 2, 3, 4}));
+        REQUIRE(ibcast_test(std::vector{1, 2, 3, 4, 5, 6}, std::vector{0, 2, 3, 0, 5, 0},
+                            mpl::indexed_layout<int>{{{2, 1}, {1, 4}}}));
+      }
+    }
+  }
 }

@@ -1,11 +1,13 @@
-#define BOOST_TEST_MODULE communicator_init_send_init_recv
-
-#include <boost/test/included/unit_test.hpp>
-#include <limits>
-#include <cstddef>
+#include <catch2/catch_test_macros.hpp>
 #include <complex>
+#include <cstddef>
+#include <limits>
+#include <list>
+#include <set>
+#include <string>
 #include <tuple>
 #include <utility>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
@@ -271,19 +273,70 @@ bool rsend_init_recv_init_test(const T &data) {
     r.wait();
   } else if (comm_world.rank() == 1) {
     bool ok{true};
-    T data_r;
-    auto r{comm_world.recv_init(data_r, 0)};
-    r.start();
-    comm_world.barrier();
-    while (not r.test()) {
+    // must ensure that MPI_Recv_init is called before mpl::communicator::rsend_init
+    if constexpr (has_begin_end<T>() and has_size<T>() and has_resize<T>()) {
+      // T is an STL container
+      T data_r;
+      data_r.resize(data.size());
+      auto r{comm_world.recv_init(std::begin(data_r), std::end(data_r), 0)};
+      r.start();
+      comm_world.barrier();
+      while (not r.test()) {
+      }
+      ok = ok and data_r == data;
+      r.start();
+      comm_world.barrier();
+      while (not r.test()) {
+      }
+      ok = ok and data_r == data;
+      return ok;
+    } else if constexpr (has_begin_end<T>() and has_size<T>() and not has_resize<T>()) {
+      if constexpr (std::is_const_v<std::remove_reference_t<decltype(*std::begin(data))>>) {
+        T data_r;
+        auto r{comm_world.recv_init(data_r, 0)};
+        r.start();
+        comm_world.barrier();
+        while (not r.test()) {
+        }
+        ok = ok and data_r == data;
+        r.start();
+        comm_world.barrier();
+        while (not r.test()) {
+        }
+        ok = ok and data_r == data;
+        return ok;
+      } else {
+        // T is an std::array
+        T data_r;
+        auto r{comm_world.recv_init(std::begin(data_r), std::end(data_r), 0)};
+        r.start();
+        comm_world.barrier();
+        while (not r.test()) {
+        }
+        ok = ok and data_r == data;
+        r.start();
+        comm_world.barrier();
+        while (not r.test()) {
+        }
+        ok = ok and data_r == data;
+        return ok;
+      }
+    } else {
+      // T is some fundamental type
+      T data_r;
+      auto r{comm_world.recv_init(data_r, 0)};
+      r.start();
+      comm_world.barrier();
+      while (not r.test()) {
+      }
+      ok = ok and data_r == data;
+      r.start();
+      comm_world.barrier();
+      while (not r.test()) {
+      }
+      ok = ok and data_r == data;
+      return ok;
     }
-    ok = ok and data_r == data;
-    r.start();
-    comm_world.barrier();
-    while (not r.test()) {
-    }
-    ok = ok and data_r == data;
-    return ok;
   } else {
     comm_world.barrier();
     comm_world.barrier();
@@ -348,174 +401,6 @@ bool rsend_init_recv_init_iter_test(const T &data) {
 }
 
 
-BOOST_AUTO_TEST_CASE(send_init_recv_init) {
-  // integer types
-  BOOST_TEST(send_init_recv_init_test(std::byte(77)));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(send_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(send_init_recv_init_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(send_init_recv_init_test(static_cast<char16_t>('A')));
-  BOOST_TEST(send_init_recv_init_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(send_init_recv_init_test(static_cast<float>(3.14)));
-  BOOST_TEST(send_init_recv_init_test(static_cast<double>(3.14)));
-  BOOST_TEST(send_init_recv_init_test(static_cast<long double>(3.14)));
-  BOOST_TEST(send_init_recv_init_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(send_init_recv_init_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(send_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(send_init_recv_init_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(send_init_recv_init_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(send_init_recv_init_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(send_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(send_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(send_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(send_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(send_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(send_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
-BOOST_AUTO_TEST_CASE(bsend_init_recv_init) {
-  // integer types
-  BOOST_TEST(bsend_init_recv_init_test(std::byte(77)));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(bsend_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(bsend_init_recv_init_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(bsend_init_recv_init_test(static_cast<char16_t>('A')));
-  BOOST_TEST(bsend_init_recv_init_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(bsend_init_recv_init_test(static_cast<float>(3.14)));
-  BOOST_TEST(bsend_init_recv_init_test(static_cast<double>(3.14)));
-  BOOST_TEST(bsend_init_recv_init_test(static_cast<long double>(3.14)));
-  BOOST_TEST(bsend_init_recv_init_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(bsend_init_recv_init_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(bsend_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(bsend_init_recv_init_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(bsend_init_recv_init_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(bsend_init_recv_init_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(bsend_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(bsend_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(bsend_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(bsend_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(bsend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(bsend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
-BOOST_AUTO_TEST_CASE(ssend_init_recv_init) {
-  // integer types
-  BOOST_TEST(ssend_init_recv_init_test(std::byte(77)));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(ssend_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(ssend_init_recv_init_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(ssend_init_recv_init_test(static_cast<char16_t>('A')));
-  BOOST_TEST(ssend_init_recv_init_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(ssend_init_recv_init_test(static_cast<float>(3.14)));
-  BOOST_TEST(ssend_init_recv_init_test(static_cast<double>(3.14)));
-  BOOST_TEST(ssend_init_recv_init_test(static_cast<long double>(3.14)));
-  BOOST_TEST(ssend_init_recv_init_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(ssend_init_recv_init_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(ssend_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(ssend_init_recv_init_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(ssend_init_recv_init_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(ssend_init_recv_init_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(ssend_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(ssend_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(ssend_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ssend_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ssend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(ssend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
-BOOST_AUTO_TEST_CASE(rsend_init_recv_init) {
-  // integer types
-  BOOST_TEST(rsend_init_recv_init_test(std::byte(77)));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<char>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
-  BOOST_TEST(rsend_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
-  // character types
-  BOOST_TEST(rsend_init_recv_init_test(static_cast<wchar_t>('A')));
-  BOOST_TEST(rsend_init_recv_init_test(static_cast<char16_t>('A')));
-  BOOST_TEST(rsend_init_recv_init_test(static_cast<char32_t>('A')));
-  // floating point number types
-  BOOST_TEST(rsend_init_recv_init_test(static_cast<float>(3.14)));
-  BOOST_TEST(rsend_init_recv_init_test(static_cast<double>(3.14)));
-  BOOST_TEST(rsend_init_recv_init_test(static_cast<long double>(3.14)));
-  BOOST_TEST(rsend_init_recv_init_test(std::complex<float>(3.14, 2.72)));
-  BOOST_TEST(rsend_init_recv_init_test(std::complex<double>(3.14, 2.72)));
-  BOOST_TEST(rsend_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
-  // logical type
-  BOOST_TEST(rsend_init_recv_init_test(true));
-  // enums
-  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
-  BOOST_TEST(rsend_init_recv_init_test(my_enum::val));
-  // pairs, tuples and arrays
-  BOOST_TEST(rsend_init_recv_init_test(std::pair<int, double>{1, 2.3}));
-  BOOST_TEST(rsend_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
-  BOOST_TEST(rsend_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  // iterators
-  BOOST_TEST(rsend_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
-  BOOST_TEST(rsend_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(rsend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
-  BOOST_TEST(rsend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
-}
-
-
 bool prequest_pool_individual_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.size() < 2)
@@ -562,6 +447,162 @@ bool prequest_pool_individual_test() {
 }
 
 
-BOOST_AUTO_TEST_CASE(prequest_pool_individual) {
-  BOOST_TEST(prequest_pool_individual_test());
+SCENARIO("persistent communication requests and request pools",
+         "[communicator][init_send_init_recv]") {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+
+  GIVEN("a world communicator configured for persistent communication") {
+    if (comm_world.size() < 2)
+      return;
+
+    WHEN("transmitting data iteratively using send_init and recv_init") {
+      THEN("data is received across multiple start/wait cycles correctly") {
+        REQUIRE(send_init_recv_init_test(std::byte(77)));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(send_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(send_init_recv_init_test(static_cast<wchar_t>('A')));
+        REQUIRE(send_init_recv_init_test(static_cast<char16_t>('A')));
+        REQUIRE(send_init_recv_init_test(static_cast<char32_t>('A')));
+        REQUIRE(send_init_recv_init_test(static_cast<float>(3.14)));
+        REQUIRE(send_init_recv_init_test(static_cast<double>(3.14)));
+        REQUIRE(send_init_recv_init_test(static_cast<long double>(3.14)));
+        REQUIRE(send_init_recv_init_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(send_init_recv_init_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(send_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(send_init_recv_init_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(send_init_recv_init_test(my_enum::val));
+        REQUIRE(send_init_recv_init_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(send_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(send_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(send_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(send_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(send_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(send_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("transmitting data iteratively using bsend_init and recv_init") {
+      THEN("data is received across multiple start/wait cycles correctly") {
+        REQUIRE(bsend_init_recv_init_test(std::byte(77)));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(bsend_init_recv_init_test(static_cast<wchar_t>('A')));
+        REQUIRE(bsend_init_recv_init_test(static_cast<char16_t>('A')));
+        REQUIRE(bsend_init_recv_init_test(static_cast<char32_t>('A')));
+        REQUIRE(bsend_init_recv_init_test(static_cast<float>(3.14)));
+        REQUIRE(bsend_init_recv_init_test(static_cast<double>(3.14)));
+        REQUIRE(bsend_init_recv_init_test(static_cast<long double>(3.14)));
+        REQUIRE(bsend_init_recv_init_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(bsend_init_recv_init_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(bsend_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(bsend_init_recv_init_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(bsend_init_recv_init_test(my_enum::val));
+        REQUIRE(bsend_init_recv_init_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(bsend_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(bsend_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(bsend_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(bsend_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(bsend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(bsend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("transmitting data iteratively using ssend_init and recv_init") {
+      THEN("data is received across multiple start/wait cycles correctly") {
+        REQUIRE(ssend_init_recv_init_test(std::byte(77)));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(ssend_init_recv_init_test(static_cast<wchar_t>('A')));
+        REQUIRE(ssend_init_recv_init_test(static_cast<char16_t>('A')));
+        REQUIRE(ssend_init_recv_init_test(static_cast<char32_t>('A')));
+        REQUIRE(ssend_init_recv_init_test(static_cast<float>(3.14)));
+        REQUIRE(ssend_init_recv_init_test(static_cast<double>(3.14)));
+        REQUIRE(ssend_init_recv_init_test(static_cast<long double>(3.14)));
+        REQUIRE(ssend_init_recv_init_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(ssend_init_recv_init_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(ssend_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(ssend_init_recv_init_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(ssend_init_recv_init_test(my_enum::val));
+        REQUIRE(ssend_init_recv_init_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(ssend_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(ssend_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(ssend_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(ssend_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ssend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(ssend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("transmitting data iteratively using rsend_init and recv_init") {
+      THEN("data is received across multiple start/wait cycles correctly") {
+        REQUIRE(rsend_init_recv_init_test(std::byte(77)));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<char>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<signed char>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<unsigned char>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<signed short>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<unsigned short>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<signed int>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<unsigned int>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<signed long>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<unsigned long>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<signed long long>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(std::numeric_limits<unsigned long long>::max() - 1));
+        REQUIRE(rsend_init_recv_init_test(static_cast<wchar_t>('A')));
+        REQUIRE(rsend_init_recv_init_test(static_cast<char16_t>('A')));
+        REQUIRE(rsend_init_recv_init_test(static_cast<char32_t>('A')));
+        REQUIRE(rsend_init_recv_init_test(static_cast<float>(3.14)));
+        REQUIRE(rsend_init_recv_init_test(static_cast<double>(3.14)));
+        REQUIRE(rsend_init_recv_init_test(static_cast<long double>(3.14)));
+        REQUIRE(rsend_init_recv_init_test(std::complex<float>(3.14, 2.72)));
+        REQUIRE(rsend_init_recv_init_test(std::complex<double>(3.14, 2.72)));
+        REQUIRE(rsend_init_recv_init_test(std::complex<long double>(3.14, 2.72)));
+        REQUIRE(rsend_init_recv_init_test(true));
+        enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+        REQUIRE(rsend_init_recv_init_test(my_enum::val));
+        REQUIRE(rsend_init_recv_init_test(std::pair<int, double>{1, 2.3}));
+        REQUIRE(rsend_init_recv_init_test(std::tuple<int, double, bool>{1, 2.3, true}));
+        REQUIRE(rsend_init_recv_init_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(rsend_init_recv_init_iter_test(std::array<int, 5>{1, 2, 3, 4, 5}));
+        REQUIRE(rsend_init_recv_init_iter_test(std::vector<int>{1, 2, 3, 4, 5}));
+        REQUIRE(rsend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
+        REQUIRE(rsend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
+      }
+    }
+
+    WHEN("managing persistent requests in a prequest_pool") {
+      THEN("individual persistent start, wait, and test operations work correctly") {
+        REQUIRE(prequest_pool_individual_test());
+      }
+    }
+  }
 }

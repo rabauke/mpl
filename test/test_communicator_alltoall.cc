@@ -1,9 +1,10 @@
-#define BOOST_TEST_MODULE communicator_alltoall
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename T>
 bool alltoall_test(const T &val) {
@@ -125,23 +126,36 @@ bool ialltoall_inplace_test(const T &val) {
   return sendrecv_data == expected;
 }
 
+}  // namespace
 
-BOOST_AUTO_TEST_CASE(alltoall) {
-  BOOST_TEST(alltoall_test(1.0));
-  BOOST_TEST(alltoall_test(tuple{1, 2.0}));
 
-  BOOST_TEST(alltoall_layout_test(1.0));
-  BOOST_TEST(alltoall_layout_test(tuple{1, 2.0}));
+SCENARIO("all-to-all communication transposes data across all processes",
+         "[communicator][alltoall]") {
+  GIVEN("a world communicator with per-process distinct send data") {
+    WHEN("performing alltoall synchronously in out-of-place, layout, and in-place modes") {
+      THEN("each process receives data transposed from all processes") {
+        REQUIRE(alltoall_test(1.0));
+        REQUIRE(alltoall_test(tuple{1, 2.0}));
 
-  BOOST_TEST(alltoall_inplace_test(1.0));
-  BOOST_TEST(alltoall_inplace_test(tuple{1, 2.0}));
+        REQUIRE(alltoall_layout_test(1.0));
+        REQUIRE(alltoall_layout_test(tuple{1, 2.0}));
 
-  BOOST_TEST(ialltoall_test(1.0));
-  BOOST_TEST(ialltoall_test(tuple{1, 2.0}));
+        REQUIRE(alltoall_inplace_test(1.0));
+        REQUIRE(alltoall_inplace_test(tuple{1, 2.0}));
+      }
+    }
 
-  BOOST_TEST(ialltoall_layout_test(1.0));
-  BOOST_TEST(ialltoall_layout_test(tuple{1, 2.0}));
+    WHEN("performing alltoall asynchronously using ialltoall") {
+      THEN("each process receives transposed data upon request completion") {
+        REQUIRE(ialltoall_test(1.0));
+        REQUIRE(ialltoall_test(tuple{1, 2.0}));
 
-  BOOST_TEST(ialltoall_inplace_test(1.0));
-  BOOST_TEST(ialltoall_inplace_test(tuple{1, 2.0}));
+        REQUIRE(ialltoall_layout_test(1.0));
+        REQUIRE(ialltoall_layout_test(tuple{1, 2.0}));
+
+        REQUIRE(ialltoall_inplace_test(1.0));
+        REQUIRE(ialltoall_inplace_test(tuple{1, 2.0}));
+      }
+    }
+  }
 }

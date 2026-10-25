@@ -1,9 +1,13 @@
-#define BOOST_TEST_MODULE cartesian_communicator
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <algorithm>
+#include <numeric>
+#include <tuple>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 bool cartesian_communicator_test() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -190,66 +194,81 @@ bool cartesian_communicator_ineighbor_alltoall_layout_test(const T &val) {
   return recv_data == expected;
 }
 
-
-BOOST_AUTO_TEST_CASE(cartesian_communicator) {
-  BOOST_TEST(cartesian_communicator_test());
-}
+}  // namespace
 
 
-BOOST_AUTO_TEST_CASE(cartesian_communicator_vector) {
-  mpl::cartesian_communicator::vector vector{1, 2, 3, 4, 5};
-  BOOST_TEST(vector.dimensions() == 5);
-  vector.add(6);
-  BOOST_TEST(vector.dimensions() == 6);
-  BOOST_TEST((std::accumulate(vector.begin(), vector.end(), 0) == 21));
-  BOOST_TEST((std::accumulate(vector.cbegin(), vector.cend(), 0) == 21));
-}
+SCENARIO("cartesian topology communicators manage multi-dimensional grids",
+         "[cartesian_communicator]") {
+  GIVEN("a 2D cartesian grid with periodic and non-periodic dimensions") {
+    WHEN("querying topology dimensions, coordinates, shifts, and neighbor operations") {
+      THEN("all topology queries and shifts return expected ranks") {
+        REQUIRE(cartesian_communicator_test());
+      }
+    }
+  }
 
+  GIVEN("cartesian communicator helper types") {
+    WHEN("manipulating cartesian vector objects") {
+      mpl::cartesian_communicator::vector vector{1, 2, 3, 4, 5};
+      THEN("vector dimensions and accumulated values match") {
+        REQUIRE(vector.dimensions() == 5);
+        vector.add(6);
+        REQUIRE(vector.dimensions() == 6);
+        REQUIRE(std::accumulate(vector.begin(), vector.end(), 0) == 21);
+        REQUIRE(std::accumulate(vector.cbegin(), vector.cend(), 0) == 21);
+      }
+    }
 
-BOOST_AUTO_TEST_CASE(cartesian_communicator_include_tags) {
-  const auto included = mpl::cartesian_communicator::included;
-  const auto excluded = mpl::cartesian_communicator::excluded;
-  mpl::cartesian_communicator::included_tags is_included{10};
-  BOOST_TEST(is_included.size() == 10);
-  is_included.add(included);
-  is_included.add(excluded);
-  BOOST_TEST(is_included.size() == 12);
-  BOOST_TEST(
-      (std::find(is_included.begin(), is_included.end(), included) != is_included.end()));
-}
+    WHEN("manipulating included_tags collections") {
+      const auto included = mpl::cartesian_communicator::included;
+      const auto excluded = mpl::cartesian_communicator::excluded;
+      mpl::cartesian_communicator::included_tags is_included{10};
+      THEN("tags can be added and queried") {
+        REQUIRE(is_included.size() == 10);
+        is_included.add(included);
+        is_included.add(excluded);
+        REQUIRE(is_included.size() == 12);
+        REQUIRE(std::find(is_included.begin(), is_included.end(), included) != is_included.end());
+      }
+    }
 
+    WHEN("manipulating dimensions objects") {
+      mpl::cartesian_communicator::dimensions dimensions{mpl::cartesian_communicator::periodic,
+                                                         mpl::cartesian_communicator::non_periodic,
+                                                         mpl::cartesian_communicator::non_periodic};
+      THEN("periodicities and sizes are correctly stored and modified") {
+        REQUIRE(dimensions.dimensionality() == 3);
+        REQUIRE(dimensions.periodicity(0) == mpl::cartesian_communicator::periodic);
+        REQUIRE(dimensions.periodicity(1) == mpl::cartesian_communicator::non_periodic);
+        REQUIRE(dimensions.periodicity(2) == mpl::cartesian_communicator::non_periodic);
+        dimensions[1] = {10, mpl::cartesian_communicator::periodic};
+        REQUIRE(dimensions.periodicity(1) == mpl::cartesian_communicator::periodic);
+        REQUIRE(dimensions.size(1) == 10);
+        dimensions.add(11, mpl::cartesian_communicator::non_periodic);
+        REQUIRE(dimensions.periodicity(3) == mpl::cartesian_communicator::non_periodic);
+        REQUIRE(dimensions.size(3) == 11);
+        REQUIRE(std::find(dimensions.begin(), dimensions.end(),
+                          std::tuple{11, mpl::cartesian_communicator::non_periodic}) !=
+                dimensions.end());
+      }
+    }
+  }
 
-BOOST_AUTO_TEST_CASE(cartesian_communicator_dimensions) {
-  mpl::cartesian_communicator::dimensions dimensions{mpl::cartesian_communicator::periodic,
-                                                     mpl::cartesian_communicator::non_periodic,
-                                                     mpl::cartesian_communicator::non_periodic};
+  GIVEN("a 1D periodic cartesian grid") {
+    WHEN("performing neighbor all-to-all exchanges with fundamental and compound types") {
+      THEN("neighbor data is exchanged correctly across blocking and non-blocking calls") {
+        REQUIRE(cartesian_communicator_neighbor_alltoall_test(1.0));
+        REQUIRE(cartesian_communicator_neighbor_alltoall_test(tuple{1, 2.0}));
 
-  BOOST_TEST(dimensions.dimensionality() == 3);
-  BOOST_TEST(dimensions.periodicity(0) == mpl::cartesian_communicator::periodic);
-  BOOST_TEST(dimensions.periodicity(1) == mpl::cartesian_communicator::non_periodic);
-  BOOST_TEST(dimensions.periodicity(2) == mpl::cartesian_communicator::non_periodic);
-  dimensions[1] = {10, mpl::cartesian_communicator::periodic};
-  BOOST_TEST(dimensions.periodicity(1) == mpl::cartesian_communicator::periodic);
-  BOOST_TEST(dimensions.size(1) == 10);
-  dimensions.add(11, mpl::cartesian_communicator::non_periodic);
-  BOOST_TEST(dimensions.periodicity(3) == mpl::cartesian_communicator::non_periodic);
-  BOOST_TEST(dimensions.size(3) == 11);
-  BOOST_TEST((std::find(dimensions.begin(), dimensions.end(),
-                        std::tuple{11, mpl::cartesian_communicator::non_periodic}) !=
-              dimensions.end()));
-}
+        REQUIRE(cartesian_communicator_neighbor_alltoall_layout_test(1.0));
+        REQUIRE(cartesian_communicator_neighbor_alltoall_layout_test(tuple{1, 2.0}));
 
+        REQUIRE(cartesian_communicator_ineighbor_alltoall_test(1.0));
+        REQUIRE(cartesian_communicator_ineighbor_alltoall_test(tuple{1, 2.0}));
 
-BOOST_AUTO_TEST_CASE(cartesian_communicator_neighbor_alltoall) {
-  BOOST_TEST(cartesian_communicator_neighbor_alltoall_test(1.0));
-  BOOST_TEST(cartesian_communicator_neighbor_alltoall_test(tuple{1, 2.0}));
-
-  BOOST_TEST(cartesian_communicator_neighbor_alltoall_layout_test(1.0));
-  BOOST_TEST(cartesian_communicator_neighbor_alltoall_layout_test(tuple{1, 2.0}));
-
-  BOOST_TEST(cartesian_communicator_ineighbor_alltoall_test(1.0));
-  BOOST_TEST(cartesian_communicator_ineighbor_alltoall_test(tuple{1, 2.0}));
-
-  BOOST_TEST(cartesian_communicator_ineighbor_alltoall_layout_test(1.0));
-  BOOST_TEST(cartesian_communicator_ineighbor_alltoall_layout_test(tuple{1, 2.0}));
+        REQUIRE(cartesian_communicator_ineighbor_alltoall_layout_test(1.0));
+        REQUIRE(cartesian_communicator_ineighbor_alltoall_layout_test(tuple{1, 2.0}));
+      }
+    }
+  }
 }

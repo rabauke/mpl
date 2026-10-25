@@ -1,9 +1,10 @@
-#define BOOST_TEST_MODULE communicator_reduce
-
-#include <boost/test/included/unit_test.hpp>
+#include <catch2/catch_test_macros.hpp>
+#include <vector>
 #include <mpl/mpl.hpp>
 #include "test_helper.hpp"
 
+
+namespace {
 
 template<typename F, typename T>
 bool reduce_test(F f, const T &val) {
@@ -204,64 +205,80 @@ bool ireduce_test_with_layout_inplace(F f, const T &val) {
   }
 }
 
-
-BOOST_AUTO_TEST_CASE(reduce) {
-  BOOST_TEST(reduce_test(add<double>(), 1.0));
-  BOOST_TEST(reduce_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
-
-  BOOST_TEST(reduce_test_with_layout(add<double>(), 1.0));
-  BOOST_TEST(reduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test_with_layout(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
-
-  BOOST_TEST(ireduce_test(add<double>(), 1.0));
-  BOOST_TEST(ireduce_test(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
-
-  BOOST_TEST(ireduce_test_with_layout(add<double>(), 1.0));
-  BOOST_TEST(ireduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test_with_layout(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+}  // namespace
 
 
-  BOOST_TEST(reduce_test_inplace(add<double>(), 1.0));
-  BOOST_TEST(reduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(reduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+SCENARIO("collective reduce operations across communicator processes",
+         "[communicator][reduce]") {
+  GIVEN("a world communicator combining values to root rank 0") {
+    WHEN("performing synchronous reduce with custom and built-in operators") {
+      THEN("root computes the reduced result correctly") {
+        REQUIRE(reduce_test(add<double>(), 1.0));
+        REQUIRE(reduce_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(reduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(reduce_test_with_layout_inplace(add<double>(), 1.0));
-  BOOST_TEST(reduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(reduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(
-      reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(reduce_test_with_layout(add<double>(), 1.0));
+        REQUIRE(reduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test_with_layout(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(reduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
 
-  BOOST_TEST(ireduce_test_inplace(add<double>(), 1.0));
-  BOOST_TEST(ireduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(ireduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+    WHEN("performing asynchronous ireduce with custom and built-in operators") {
+      THEN("root computes the reduced result upon request completion") {
+        REQUIRE(ireduce_test(add<double>(), 1.0));
+        REQUIRE(ireduce_test(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_test(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(ireduce_test([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
 
-  BOOST_TEST(ireduce_test_with_layout_inplace(add<double>(), 1.0));
-  BOOST_TEST(ireduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
-  BOOST_TEST(ireduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
-  BOOST_TEST(ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-  BOOST_TEST(
-      ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(ireduce_test_with_layout(add<double>(), 1.0));
+        REQUIRE(ireduce_test_with_layout(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test_with_layout(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_test_with_layout(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test_with_layout([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(ireduce_test_with_layout([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
+
+    WHEN("performing in-place reduce and ireduce operations") {
+      THEN("root computes in-place reductions properly") {
+        REQUIRE(reduce_test_inplace(add<double>(), 1.0));
+        REQUIRE(reduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(reduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+
+        REQUIRE(reduce_test_with_layout_inplace(add<double>(), 1.0));
+        REQUIRE(reduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(reduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(
+            reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+
+        REQUIRE(ireduce_test_inplace(add<double>(), 1.0));
+        REQUIRE(ireduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_test_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(ireduce_test_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+
+        REQUIRE(ireduce_test_with_layout_inplace(add<double>(), 1.0));
+        REQUIRE(ireduce_test_with_layout_inplace(add<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
+        REQUIRE(ireduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
+        REQUIRE(ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
+        REQUIRE(
+            ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+      }
+    }
+  }
 }

@@ -91,7 +91,7 @@ user@host:~/mpl/build$ cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr/local -DBUILD_TEST
 ```
 enables both, building unit tests and examples.  MPL unit tests utilize
 the 
-[Boost.Test](https://www.boost.org/doc/libs/1_77_0/libs/test/doc/html/index.html) 
+[Catch2](https://github.com/catchorg/Catch2)
 framework.  Finally, build the unit tests and/or the example code via
 ```shell
 user@host:~/mpl/build$ cmake --build .
