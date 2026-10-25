@@ -27,10 +27,8 @@ namespace mpl {
     /// Initializes tag from an enum value.  The enum's underlying type must be convertible to
     /// int without loss of precession (narrowing).
     /// \param t tag value
-    template<typename T>
+    template<typename T, typename = std::enable_if_t<detail::is_valid_tag_v<T>>>
     tag_t(T t) : t{static_cast<int>(t)} {
-      static_assert(detail::is_valid_tag_v<T>,
-                    "not an enumeration type or underlying enumeration type too large");
     }
 
     /// Copy-assignmnet operator.

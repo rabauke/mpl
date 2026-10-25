@@ -58,29 +58,32 @@ namespace mpl::detail {
   template<typename T>
   using underlying_type_t = typename underlying_type<T>::type;
 
+  template<typename T, bool = std::is_enum_v<T>>
+  struct is_valid_tag : public std::false_type {};
+
   template<typename T>
-  struct is_valid_tag
-      : public std::integral_constant<bool, std::is_enum_v<T> and
-                                                is_not_narrowing_v<underlying_type_t<T>, int>> {
-  };
+  struct is_valid_tag<T, true>
+      : public std::integral_constant<bool, is_not_narrowing_v<underlying_type_t<T>, int>> {};
 
   template<typename T>
   inline constexpr bool is_valid_tag_v = is_valid_tag<T>::value;
 
+  template<typename T, bool = std::is_integral_v<T> or std::is_enum_v<T>>
+  struct is_valid_color : public std::false_type {};
+
   template<typename T>
-  struct is_valid_color
-      : public std::integral_constant<bool, (std::is_integral_v<T> or std::is_enum_v<T>) and
-                                                is_not_narrowing_v<underlying_type_t<T>, int>> {
-  };
+  struct is_valid_color<T, true>
+      : public std::integral_constant<bool, is_not_narrowing_v<underlying_type_t<T>, int>> {};
 
   template<typename T>
   inline constexpr bool is_valid_color_v = is_valid_color<T>::value;
 
+  template<typename T, bool = std::is_integral_v<T> or std::is_enum_v<T>>
+  struct is_valid_key : public std::false_type {};
+
   template<typename T>
-  struct is_valid_key
-      : public std::integral_constant<bool, (std::is_integral_v<T> or std::is_enum_v<T>) and
-                                                is_not_narrowing_v<underlying_type_t<T>, int>> {
-  };
+  struct is_valid_key<T, true>
+      : public std::integral_constant<bool, is_not_narrowing_v<underlying_type_t<T>, int>> {};
 
   template<typename T>
   inline constexpr bool is_valid_key_v = is_valid_key<T>::value;
