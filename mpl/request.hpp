@@ -202,6 +202,25 @@ namespace mpl {
           cancel(i);
       }
 
+      /// Wait for completion of a single pending communication operation in the pool.
+      /// \param i index of the request to wait for
+      /// \return operation's status after completion
+      status_t wait(size_type i) {
+        MPI_Wait(&requests_[i], static_cast<MPI_Status *>(&statuses_[i]));
+        return statuses_[i];
+      }
+
+      /// Tests for completion of a single pending communication operation in the pool.
+      /// \param i index of the request to test
+      /// \return the operation's status if completed successfully
+      std::optional<status_t> test(size_type i) {
+        int result{true};
+        MPI_Test(&requests_[i], &result, static_cast<MPI_Status *>(&statuses_[i]));
+        if (result != 0)
+          return statuses_[i];
+        return {};
+      }
+
       /// Move a request into the request pool.
       /// \param request request to move into the pool
       void push(T &&request) {
@@ -407,6 +426,8 @@ namespace mpl {
     using base::requests_;
 
   public:
+    using size_type = typename base::size_type;
+
     /// Constructs an empty pool of persistent communication requests.
     prequest_pool() = default;
 
@@ -426,6 +447,12 @@ namespace mpl {
     prequest_pool &operator=(prequest_pool &&other) noexcept {
       base::operator=(std::move(other));
       return *this;
+    }
+
+    /// Start a single persistent request in the pool.
+    /// \param i index of the persistent request to start
+    void start(size_type i) {
+      MPI_Start(&requests_[i]);
     }
 
     /// Start all persistent requests in the pool.

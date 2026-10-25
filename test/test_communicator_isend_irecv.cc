@@ -454,3 +454,86 @@ BOOST_AUTO_TEST_CASE(irsend_irecv) {
   BOOST_TEST(irsend_irecv_iter_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(irsend_irecv_iter_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
+
+bool irequest_pool_wait_test() {
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  if (comm_world.size() < 2)
+    return false;
+  if (comm_world.rank() == 0) {
+    int val1{42};
+    int val2{84};
+    int val3{126};
+    mpl::irequest_pool pool;
+    pool.push(comm_world.isend(val1, 1, mpl::tag_t(101)));
+    pool.push(comm_world.isend(val2, 1, mpl::tag_t(102)));
+    pool.push(comm_world.isend(val3, 1, mpl::tag_t(103)));
+    pool.wait(2);
+    pool.wait(0);
+    pool.wait(1);
+    return true;
+  }
+  if (comm_world.rank() == 1) {
+    int val1{0};
+    int val2{0};
+    int val3{0};
+    mpl::irequest_pool pool;
+    pool.push(comm_world.irecv(val1, 0, mpl::tag_t(101)));
+    pool.push(comm_world.irecv(val2, 0, mpl::tag_t(102)));
+    pool.push(comm_world.irecv(val3, 0, mpl::tag_t(103)));
+    auto status2{pool.wait(2)};
+    auto status0{pool.wait(0)};
+    auto status1{pool.wait(1)};
+    bool ok{(val1 == 42 and val2 == 84 and val3 == 126)};
+    ok = ok and
+         (status0.tag() == mpl::tag_t(101) and pool.get_status(0).tag() == mpl::tag_t(101));
+    ok = ok and
+         (status1.tag() == mpl::tag_t(102) and pool.get_status(1).tag() == mpl::tag_t(102));
+    ok = ok and
+         (status2.tag() == mpl::tag_t(103) and pool.get_status(2).tag() == mpl::tag_t(103));
+    ok = ok and (status0.source() == 0 and status1.source() == 0 and status2.source() == 0);
+    return ok;
+  }
+  return true;
+}
+
+
+bool irequest_pool_test_test() {
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  if (comm_world.size() < 2)
+    return false;
+  if (comm_world.rank() == 0) {
+    int val1{11};
+    int val2{22};
+    mpl::irequest_pool pool;
+    pool.push(comm_world.isend(val1, 1, mpl::tag_t(201)));
+    pool.push(comm_world.isend(val2, 1, mpl::tag_t(202)));
+    while (not pool.test(1)) {
+    }
+    while (not pool.test(0)) {
+    }
+    return true;
+  }
+  if (comm_world.rank() == 1) {
+    int val1{0};
+    int val2{0};
+    mpl::irequest_pool pool;
+    pool.push(comm_world.irecv(val1, 0, mpl::tag_t(201)));
+    pool.push(comm_world.irecv(val2, 0, mpl::tag_t(202)));
+    while (not pool.test(1)) {
+    }
+    while (not pool.test(0)) {
+    }
+    bool ok{(val1 == 11 and val2 == 22)};
+    ok = ok and (pool.get_status(0).tag() == mpl::tag_t(201));
+    ok = ok and (pool.get_status(1).tag() == mpl::tag_t(202));
+    return ok;
+  }
+  return true;
+}
+
+
+BOOST_AUTO_TEST_CASE(irequest_pool_individual) {
+  BOOST_TEST(irequest_pool_wait_test());
+  BOOST_TEST(irequest_pool_test_test());
+}

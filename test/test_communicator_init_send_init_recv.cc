@@ -514,3 +514,54 @@ BOOST_AUTO_TEST_CASE(rsend_init_recv_init) {
   BOOST_TEST(rsend_init_recv_init_iter_test(std::list<int>{1, 2, 3, 4, 5}));
   BOOST_TEST(rsend_init_recv_init_iter_test(std::set<int>{1, 2, 3, 4, 5}));
 }
+
+
+bool prequest_pool_individual_test() {
+  const mpl::communicator &comm_world{mpl::environment::comm_world()};
+  if (comm_world.size() < 2)
+    return false;
+  if (comm_world.rank() == 0) {
+    int val1{10};
+    int val2{20};
+    mpl::prequest_pool pool;
+    pool.push(comm_world.send_init(val1, 1, mpl::tag_t(301)));
+    pool.push(comm_world.send_init(val2, 1, mpl::tag_t(302)));
+    for (int iter{0}; iter < 3; ++iter) {
+      val1 = 10 * (iter + 1);
+      val2 = 20 * (iter + 1);
+      pool.start(0);
+      pool.wait(0);
+      pool.start(1);
+      while (not pool.test(1)) {
+      }
+    }
+    return true;
+  }
+  if (comm_world.rank() == 1) {
+    int val1{0};
+    int val2{0};
+    mpl::prequest_pool pool;
+    pool.push(comm_world.recv_init(val1, 0, mpl::tag_t(301)));
+    pool.push(comm_world.recv_init(val2, 0, mpl::tag_t(302)));
+    bool ok{true};
+    for (int iter{0}; iter < 3; ++iter) {
+      pool.start(0);
+      auto status0{pool.wait(0)};
+      ok = ok and (val1 == 10 * (iter + 1));
+      ok = ok and
+           (status0.tag() == mpl::tag_t(301) and pool.get_status(0).tag() == mpl::tag_t(301));
+      pool.start(1);
+      while (not pool.test(1)) {
+      }
+      ok = ok and (val2 == 20 * (iter + 1));
+      ok = ok and (pool.get_status(1).tag() == mpl::tag_t(302));
+    }
+    return ok;
+  }
+  return true;
+}
+
+
+BOOST_AUTO_TEST_CASE(prequest_pool_individual) {
+  BOOST_TEST(prequest_pool_individual_test());
+}
