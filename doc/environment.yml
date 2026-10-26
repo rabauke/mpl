@@ -1,0 +1,13 @@
+name: mpl-doc
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python>=3.11
+  - doxygen
+  - graphviz
+  - sphinx
+  - breathe
+  - furo
+  - sphinx-copybutton
+  - sphinx-design

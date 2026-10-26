@@ -1,18 +1,18 @@
 <!doctype html>
 <html class="no-js" lang="en" data-content_root="./">
-  <head><meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Grids" href="grid.html" /><link rel="prev" title="Auxiliary functions and classes" href="auxiliary.html" />
+<link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Grids" href="grid.html"><link rel="prev" title="Auxiliary functions and classes" href="auxiliary.html">
 
-    <!-- Generated with Sphinx 8.2.3 and Furo 2024.08.06 -->
-        <title>Error handling - MPL: A message passing library v0.4.0</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=354aac6f" />
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.12.19 -->
+        <title>Error handling - MPL: A message passing library v0.5.0</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d111a655" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=7bdb33bb" />
     <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=302659d7" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=e9504241" />
     
     
@@ -20,8 +20,8 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
-  --color-code-foreground: black;
+    --color-code-background: #f2f2f2;
+  --color-code-foreground: #1e1e1e;
   
   }
   @media not print {
@@ -148,14 +148,10 @@
   </symbol>
 </svg>
 
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
-<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
-<label class="overlay sidebar-overlay" for="__navigation">
-  <div class="visually-hidden">Hide navigation sidebar</div>
-</label>
-<label class="overlay toc-overlay" for="__toc">
-  <div class="visually-hidden">Hide table of contents sidebar</div>
-</label>
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
 
 <a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
 
@@ -165,17 +161,15 @@
   <header class="mobile-header">
     <div class="header-left">
       <label class="nav-overlay-icon" for="__navigation">
-        <div class="visually-hidden">Toggle site navigation sidebar</div>
-        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
       </label>
     </div>
     <div class="header-center">
-      <a href="index.html"><div class="brand">MPL: A message passing library v0.4.0</div></a>
+      <a href="index.html"><div class="brand">MPL: A message passing library v0.5.0</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
-        <button class="theme-toggle">
-          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
           <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
           <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
           <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -183,8 +177,7 @@
         </button>
       </div>
       <label class="toc-overlay-icon toc-header-icon" for="__toc">
-        <div class="visually-hidden">Toggle table of contents sidebar</div>
-        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
       </label>
     </div>
   </header>
@@ -193,8 +186,7 @@
       
       <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
   
-  
-  <span class="sidebar-brand-text">MPL: A message passing library v0.4.0</span>
+  <span class="sidebar-brand-text">MPL: A message passing library v0.5.0</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -221,7 +213,7 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Error handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="grid.html">Grids</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interoperability.html">MPL-MPI interoperability</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Examples</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples/index.html">Examples</a><input aria-label="Toggle navigation of Examples" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="examples/hello_world.html">Hello world</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/standard_types.html">Standard types</a></li>
 <li class="toctree-l2"><a class="reference internal" href="examples/struct.html">Using structs</a></li>
@@ -278,8 +270,7 @@
   </a>
 </div>
 <div class="theme-toggle-container theme-toggle-content">
-            <button class="theme-toggle">
-              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
               <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
               <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
               <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
@@ -287,8 +278,7 @@
             </button>
           </div>
           <label class="toc-overlay-icon toc-content-icon" for="__toc">
-            <div class="visually-hidden">Toggle table of contents sidebar</div>
-            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
           </label>
         </div>
         <article role="main" id="furo-main-content">
@@ -303,11 +293,26 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl5error5errorEPCKc">
-<span id="_CPPv3N3mpl5error5errorEPCKc"></span><span id="_CPPv2N3mpl5error5errorEPCKc"></span><span id="mpl::error::error__cCPC"></span><span class="target" id="classmpl_1_1error_1a9b79ea395b0a6a8a5d853fd60160766d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">message</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;unknown&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5error5errorEPCKc" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5error5errorEv">
+<span id="_CPPv3N3mpl5error5errorEv"></span><span id="_CPPv2N3mpl5error5errorEv"></span><span id="mpl::error::error"></span><span class="target" id="classmpl_1_1error_1a43b8d30b879d4f09ceb059b02af2bc02"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5error5errorEv" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5error5errorERKNSt6stringE">
+<span id="_CPPv3N3mpl5error5errorERKNSt6stringE"></span><span id="_CPPv2N3mpl5error5errorERKNSt6stringE"></span><span id="mpl::error::error__ssCR"></span><span class="target" id="classmpl_1_1error_1aab7d5ef5e0ba1f7bebda10fa7c821af2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">message</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5error5errorERKNSt6stringE" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>message</strong> – error message that will be returned by what method </p>
+<dd class="field-odd"><p><strong>message</strong> – error message that will be returned by <a class="reference internal" href="#classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"><span class="std std-ref">what</span></a> method </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl5error5errorEPCKc">
+<span id="_CPPv3N3mpl5error5errorEPCKc"></span><span id="_CPPv2N3mpl5error5errorEPCKc"></span><span id="mpl::error::error__cCPC"></span><span class="target" id="classmpl_1_1error_1a16e0f0715ca7d6caa42d264d279ab44f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">message</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl5error5errorEPCKc" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – error message that will be returned by <a class="reference internal" href="#classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"><span class="std std-ref">what</span></a> method </p>
 </dd>
 </dl>
 </dd></dl>
@@ -338,7 +343,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl12invalid_rank4whatEv">
-<span id="_CPPv3NK3mpl12invalid_rank4whatEv"></span><span id="_CPPv2NK3mpl12invalid_rank4whatEv"></span><span id="mpl::invalid_rank::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl12invalid_rank4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl12invalid_rank4whatEv"></span><span id="_CPPv2NK3mpl12invalid_rank4whatEv"></span><span id="mpl::invalid_rank::whatC"></span><span class="target" id="id0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl12invalid_rank4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -362,7 +367,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl11invalid_tag4whatEv">
-<span id="_CPPv3NK3mpl11invalid_tag4whatEv"></span><span id="_CPPv2NK3mpl11invalid_tag4whatEv"></span><span id="mpl::invalid_tag::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl11invalid_tag4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl11invalid_tag4whatEv"></span><span id="_CPPv2NK3mpl11invalid_tag4whatEv"></span><span id="mpl::invalid_tag::whatC"></span><span class="target" id="id1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl11invalid_tag4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -386,7 +391,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl12invalid_size4whatEv">
-<span id="_CPPv3NK3mpl12invalid_size4whatEv"></span><span id="_CPPv2NK3mpl12invalid_size4whatEv"></span><span id="mpl::invalid_size::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl12invalid_size4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl12invalid_size4whatEv"></span><span id="_CPPv2NK3mpl12invalid_size4whatEv"></span><span id="mpl::invalid_size::whatC"></span><span class="target" id="id2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl12invalid_size4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -410,7 +415,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl13invalid_count4whatEv">
-<span id="_CPPv3NK3mpl13invalid_count4whatEv"></span><span id="_CPPv2NK3mpl13invalid_count4whatEv"></span><span id="mpl::invalid_count::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl13invalid_count4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl13invalid_count4whatEv"></span><span id="_CPPv2NK3mpl13invalid_count4whatEv"></span><span id="mpl::invalid_count::whatC"></span><span class="target" id="id3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl13invalid_count4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -434,7 +439,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl14invalid_layout4whatEv">
-<span id="_CPPv3NK3mpl14invalid_layout4whatEv"></span><span id="_CPPv2NK3mpl14invalid_layout4whatEv"></span><span id="mpl::invalid_layout::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl14invalid_layout4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl14invalid_layout4whatEv"></span><span id="_CPPv2NK3mpl14invalid_layout4whatEv"></span><span id="mpl::invalid_layout::whatC"></span><span class="target" id="id4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl14invalid_layout4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -458,7 +463,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl11invalid_dim4whatEv">
-<span id="_CPPv3NK3mpl11invalid_dim4whatEv"></span><span id="_CPPv2NK3mpl11invalid_dim4whatEv"></span><span id="mpl::invalid_dim::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl11invalid_dim4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl11invalid_dim4whatEv"></span><span id="_CPPv2NK3mpl11invalid_dim4whatEv"></span><span id="mpl::invalid_dim::whatC"></span><span class="target" id="id5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl11invalid_dim4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -482,7 +487,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl22invalid_datatype_bound4whatEv">
-<span id="_CPPv3NK3mpl22invalid_datatype_bound4whatEv"></span><span id="_CPPv2NK3mpl22invalid_datatype_bound4whatEv"></span><span id="mpl::invalid_datatype_bound::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl22invalid_datatype_bound4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl22invalid_datatype_bound4whatEv"></span><span id="_CPPv2NK3mpl22invalid_datatype_bound4whatEv"></span><span id="mpl::invalid_datatype_bound::whatC"></span><span class="target" id="id6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl22invalid_datatype_bound4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -506,7 +511,7 @@
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl16invalid_argument4whatEv">
-<span id="_CPPv3NK3mpl16invalid_argument4whatEv"></span><span id="_CPPv2NK3mpl16invalid_argument4whatEv"></span><span id="mpl::invalid_argument::whatC"></span><span class="target" id="classmpl_1_1error_1abf843cbb29dec939d0731e491bab6f70"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl16invalid_argument4whatEv" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3NK3mpl16invalid_argument4whatEv"></span><span id="_CPPv2NK3mpl16invalid_argument4whatEv"></span><span id="mpl::invalid_argument::whatC"></span><span class="target" id="id7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl16invalid_argument4whatEv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>character pointer to error message </p>
@@ -548,7 +553,7 @@
         <div class="bottom-of-page">
           <div class="left-details">
             <div class="copyright">
-                Copyright &#169; 2025, Heiko Bauke
+                Copyright &#169; 2015-2026, Heiko Bauke
             </div>
             Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
             
@@ -583,6 +588,8 @@
             <ul>
 <li><a class="reference internal" href="#">Error handling</a><ul>
 <li><a class="reference internal" href="#_CPPv4N3mpl5errorE"><code class="docutils literal notranslate"><span class="pre">mpl::error</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mpl5error5errorEv"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl5error5errorERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl5error5errorEPCKc"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl5error4whatEv"><code class="docutils literal notranslate"><span class="pre">what()</span></code></a></li>
 </ul>
@@ -638,10 +645,10 @@
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=1437fa6d"></script>
+</div><script src="_static/documentation_options.js?v=70f82a29"></script>
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/furo.js?v=5fa4622c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>

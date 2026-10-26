@@ -1,7 +1,7 @@
 # 3.21 required for PROJECT_IS_TOP_LEVEL, 3.10 required for mpi targets
 cmake_minimum_required(VERSION 3.21)
 
-project(mpl VERSION 0.4.0 LANGUAGES CXX C)
+project(mpl VERSION 0.5.0 LANGUAGES CXX C)
 
 if(NOT DEFINED CACHE{BUILD_TESTING})
   set(BUILD_TESTING OFF CACHE BOOL "")
