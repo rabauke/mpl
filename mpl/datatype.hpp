@@ -123,8 +123,8 @@ namespace mpl {
     }
 
     MPI_Aint base_{};
-    std::vector<int> block_lengths_;
-    std::vector<MPI_Aint> displacements_;
+    std::vector<MPI_Count> block_lengths_;
+    std::vector<MPI_Count> displacements_;
     std::vector<MPI_Datatype> data_types_;
 
   public:
@@ -144,7 +144,7 @@ namespace mpl {
     struct_layout &register_element(T &x) {
       static_assert(not std::is_const_v<T>, "type must not be const");
       static_assert(not std::is_pointer_v<T>, "type must not be pointer");
-      block_lengths_.push_back(size(x));
+      block_lengths_.push_back(static_cast<MPI_Count>(size(x)));
       MPI_Aint address;
       MPI_Get_address(&x, &address);
       displacements_.push_back(address - base_);
@@ -169,8 +169,9 @@ namespace mpl {
   protected:
     void define_struct(const struct_layout<T> &str) {
       MPI_Datatype temp_type;
-      MPI_Type_create_struct(str.block_lengths_.size(), str.block_lengths_.data(),
-                             str.displacements_.data(), str.data_types_.data(), &temp_type);
+      MPI_Type_create_struct_c(static_cast<MPI_Count>(str.block_lengths_.size()),
+                               str.block_lengths_.data(), str.displacements_.data(),
+                               str.data_types_.data(), &temp_type);
       MPI_Type_commit(&temp_type);
       MPI_Type_create_resized(temp_type, 0, sizeof(T), &type_);
       MPI_Type_commit(&type_);

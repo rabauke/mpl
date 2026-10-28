@@ -12,7 +12,7 @@ include(CMakePackageConfigHelpers)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-find_package(MPI 3.1 REQUIRED C CXX)
+find_package(MPI 4.1 REQUIRED COMPONENTS C CXX)
 
 add_library(mpl INTERFACE)
 target_include_directories(mpl

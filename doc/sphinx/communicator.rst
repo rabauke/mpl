@@ -20,12 +20,6 @@ Standard communicators
 .. doxygenclass:: mpl::communicator
 
 
-Standard communicators for MPI interoperability
------------------------------------------------
-
-.. doxygenclass:: mpl::mpi_communicator
-
-
 Cartesian communicators
 -----------------------
 
@@ -58,9 +52,3 @@ Inter-communicators
 -------------------
 
 .. doxygenclass:: mpl::inter_communicator
-
-
-Inter-communicators for MPI interoperability
------------------------------------------------
-
-.. doxygenclass:: mpl::mpi_inter_communicator

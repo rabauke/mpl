@@ -1,5 +1,9 @@
 #include <catch2/catch_test_macros.hpp>
+#include <type_traits>
 #include <mpl/mpl.hpp>
+
+
+static_assert(std::is_same_v<mpl::displacements::value_type, mpl::ssize_t>);
 
 
 SCENARIO("displacements container manages memory offsets for layout indexing",

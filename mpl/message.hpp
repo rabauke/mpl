@@ -8,7 +8,11 @@
 namespace mpl {
 
   /// Status of a received message.
-  using message_t = MPI_Message;
+  struct message_t {
+    message_t() = default;
+
+    MPI_Message message_{MPI_MESSAGE_NULL};
+  };
 
 }  // namespace mpl
 

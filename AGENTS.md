@@ -1,6 +1,6 @@
 # MPL AI Coding Agent Guidelines
 
-MPL is a modern, header-only C++17 message passing library for high-performance computing wrapping the MPI 3.1+ standard.
+MPL is a modern, header-only C++17 message passing library for high-performance computing wrapping the MPI 4.1 standard.
 
 ## 1. Build and Test Workflow
 

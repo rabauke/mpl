@@ -12,6 +12,31 @@
 #include "test_helper.hpp"
 
 
+struct large_count_test_container {
+  using value_type = char;
+
+  char value{};
+
+  [[nodiscard]] std::size_t size() const {
+    return static_cast<std::size_t>(std::numeric_limits<int>::max()) + 1;
+  }
+
+  const char &operator[](std::size_t) const {
+    return value;
+  }
+};
+
+namespace mpl::detail {
+
+  template<>
+  class datatype_traits<large_count_test_container> {
+  public:
+    using data_type_category = contiguous_stl_container;
+  };
+
+}  // namespace mpl::detail
+
+
 template<typename T>
 bool isend_irecv_test(const T &data) {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
@@ -29,6 +54,17 @@ bool isend_irecv_test(const T &data) {
     return data_r == data;
   }
   return true;
+}
+
+
+TEST_CASE("nonblocking send handles counts greater than int", "[communicator][isend_irecv]") {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  const large_count_test_container data{};
+  REQUIRE(data.size() > static_cast<std::size_t>(std::numeric_limits<int>::max()));
+
+  mpl::irequest request{comm_world.isend(data, mpl::proc_null)};
+  const mpl::status_t status{request.wait()};
+  REQUIRE(status.get_count<char>() == 0);
 }
 
 

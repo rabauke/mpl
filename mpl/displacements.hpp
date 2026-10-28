@@ -12,8 +12,8 @@ namespace mpl {
   /// Set of %displacements indicates the beginning of data buffers in various collective
   /// communication operations.
   /// \note Individual %displacements are always given in bytes.
-  class displacements : private std::vector<MPI_Aint> {
-    using base = std::vector<MPI_Aint>;
+  class displacements : private std::vector<ssize_t> {
+    using base = std::vector<ssize_t>;
 
   public:
     using size_type = base::size_type;
@@ -28,15 +28,15 @@ namespace mpl {
 
     /// Constructs a set of displacements with given displacements.
     /// \param init initial displacements
-    explicit displacements(std::initializer_list<MPI_Aint> init) : base(init) {
+    explicit displacements(std::initializer_list<ssize_t> init) : base(init) {
     }
 
     /// Copy constructor.
     /// \param other the other set of displacements to copy from
-    displacements(const displacements &other) = default;
+    displacements(const displacements& other) = default;
     /// Move constructor.
     /// \param other the other set of displacements to move from
-    displacements(displacements &&other) = default;
+    displacements(displacements&& other) = default;
 
     using base::operator=;
     using base::begin;
@@ -47,12 +47,6 @@ namespace mpl {
     using base::size;
     using base::push_back;
     using base::resize;
-
-    /// Get raw displacement data.
-    /// \return pointer to the array of displacements
-    const MPI_Aint *operator()() const {
-      return base::data();
-    }
   };
 
 }  // namespace mpl

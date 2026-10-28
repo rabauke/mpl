@@ -22,12 +22,7 @@ negligible run-time overhead.
 
 ## Supported features
 
-MPL assumes that the underlying MPI implementation supports the 
-[version 3.1](https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report.pdf) 
-of the Message Passing Interface standard.  Future versions of MPL 
-may also employ features of the new 
-[version 4.0](https://www.mpi-forum.org/docs/mpi-4.0/mpi40-report.pdf) 
-or later MPI versions.  
+MPL requires an MPI 4.1 implementation and uses its large-count interfaces.
 
 MPL gives currently access via a convenient C++ interface to the 
 following features of the Message Passing Interface standard:

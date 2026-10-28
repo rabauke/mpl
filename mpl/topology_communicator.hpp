@@ -10,6 +10,15 @@ namespace mpl::impl {
 
   /// Base class for communicators with a topology.
   class topology_communicator : public mpl::communicator {
+  private:
+    static std::vector<MPI_Aint> to_mpi_displacements(const displacements& displs) {
+      std::vector<MPI_Aint> result;
+      result.reserve(displs.size());
+      for (const ssize_t displacement : displs)
+        result.push_back(static_cast<MPI_Aint>(displacement));
+      return result;
+    }
+
   protected:
     /// Default constructor.
     /// \note Objects of this class should not be instantiated by MPL users, just a base
@@ -20,17 +29,17 @@ namespace mpl::impl {
     /// \param other the other communicator to copy from
     /// \note Objects of this class should not be instantiated by MPL users, just a base
     /// class.
-    topology_communicator(const topology_communicator &other) = default;
+    topology_communicator(const topology_communicator& other) = default;
 
     /// Move constructor.
     /// \param other the other communicator to move from
     /// \note Objects of this class should not be instantiated by MPL users, just a base
     /// class.
-    topology_communicator(topology_communicator &&other) = default;
+    topology_communicator(topology_communicator&& other) = default;
 
   public:
     /// Deleted copy assignment operator.
-    void operator=(const topology_communicator &) = delete;
+    void operator=(const topology_communicator&) = delete;
 
     // === neighbor collective =========================================
     // === neighbor allgather ===
@@ -44,9 +53,9 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all  processes in the communicator.
     template<typename T>
-    void neighbor_allgather(const T &senddata, T *recvdata) const {
-      MPI_Neighbor_allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
-                             1, detail::datatype_traits<T>::get_datatype(), comm_);
+    void neighbor_allgather(const T& senddata, T* recvdata) const {
+      MPI_Neighbor_allgather_c(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
     /// Gather messages from all neighboring processes.
@@ -59,11 +68,11 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
-                            const layout<T> &recvl) const {
-      MPI_Neighbor_allgather(senddata, 1,
-                             detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata,
-                             1, detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
+    void neighbor_allgather(const T* senddata, const layout<T>& sendl, T* recvdata,
+                            const layout<T>& recvl) const {
+      MPI_Neighbor_allgather_c(
+          senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
+          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
     }
 
     // --- nonblocking neighbor allgather ---
@@ -76,11 +85,11 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_allgather(const T &senddata, T *recvdata) const {
+    mpl::irequest ineighbor_allgather(const T& senddata, T* recvdata) const {
       MPI_Request req;
-      MPI_Ineighbor_allgather(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
-                              recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
-                              &req);
+      MPI_Ineighbor_allgather_c(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                                recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
+                                &req);
       return impl::base_irequest{req};
     }
 
@@ -95,10 +104,10 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
-                                      const layout<T> &recvl) const {
+    mpl::irequest ineighbor_allgather(const T* senddata, const layout<T>& sendl, T* recvdata,
+                                      const layout<T>& recvl) const {
       MPI_Request req;
-      MPI_Ineighbor_allgather(
+      MPI_Ineighbor_allgather_c(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
           detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
       return impl::base_irequest{req};
@@ -117,8 +126,8 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
-                             const layouts<T> &recvls, const displacements &recvdispls) const {
+    void neighbor_allgatherv(const T* senddata, const layout<T>& sendl, T* recvdata,
+                             const layouts<T>& recvls, const displacements& recvdispls) const {
       const int n(recvdispls.size());
       const displacements senddispls(n);
       const layouts<T> sendls(n, sendl);
@@ -135,8 +144,8 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
-                             const layouts<T> &recvls) const {
+    void neighbor_allgatherv(const T* senddata, const layout<T>& sendl, T* recvdata,
+                             const layouts<T>& recvls) const {
       neighbor_allgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
     }
 
@@ -154,9 +163,9 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
-                                       const layouts<T> &recvls,
-                                       const displacements &recvdispls) const {
+    mpl::irequest ineighbor_allgatherv(const T* senddata, const layout<T>& sendl, T* recvdata,
+                                       const layouts<T>& recvls,
+                                       const displacements& recvdispls) const {
       const int n(recvdispls.size());
       const displacements senddispls(n);
       const layouts<T> sendls(n, sendl);
@@ -175,8 +184,8 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_allgatherv(const T *senddata, const layout<T> &sendl, T *recvdata,
-                                       const layouts<T> &recvls) const {
+    mpl::irequest ineighbor_allgatherv(const T* senddata, const layout<T>& sendl, T* recvdata,
+                                       const layouts<T>& recvls) const {
       return ineighbor_allgatherv(senddata, sendl, recvdata, recvls, displacements(size()));
     }
 
@@ -197,9 +206,9 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_alltoall(const T *senddata, T *recvdata) const {
-      MPI_Neighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
-                            1, detail::datatype_traits<T>::get_datatype(), comm_);
+    void neighbor_alltoall(const T* senddata, T* recvdata) const {
+      MPI_Neighbor_alltoall_c(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
+                              1, detail::datatype_traits<T>::get_datatype(), comm_);
     }
 
     /// Sends messages to all neighbouring processes and receives messages from all
@@ -221,11 +230,11 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
-                           const layout<T> &recvl) const {
-      MPI_Neighbor_alltoall(senddata, 1,
-                            detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata,
-                            1, detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
+    void neighbor_alltoall(const T* senddata, const layout<T>& sendl, T* recvdata,
+                           const layout<T>& recvl) const {
+      MPI_Neighbor_alltoall_c(
+          senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
+          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
     }
 
     // --- nonblocking neighbor all-to-all ---
@@ -244,10 +253,11 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_alltoall(const T *senddata, T *recvdata) const {
+    mpl::irequest ineighbor_alltoall(const T* senddata, T* recvdata) const {
       MPI_Request req;
-      MPI_Ineighbor_alltoall(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
-                             1, detail::datatype_traits<T>::get_datatype(), comm_, &req);
+      MPI_Ineighbor_alltoall_c(senddata, 1, detail::datatype_traits<T>::get_datatype(),
+                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
+                               &req);
       return impl::base_irequest{req};
     }
 
@@ -271,10 +281,10 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
-                                     const layout<T> &recvl) const {
+    mpl::irequest ineighbor_alltoall(const T* senddata, const layout<T>& sendl, T* recvdata,
+                                     const layout<T>& recvl) const {
       MPI_Request req;
-      MPI_Ineighbor_alltoall(
+      MPI_Ineighbor_alltoall_c(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
           detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
       return impl::base_irequest{req};
@@ -306,17 +316,19 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_alltoallv(const T *senddata, const layouts<T> &sendls,
-                            const displacements &senddispls, T *recvdata,
-                            const layouts<T> &recvls, const displacements &recvdispls) const {
-      const std::vector<int> counts(recvls.size(), 1);
+    void neighbor_alltoallv(const T* senddata, const layouts<T>& sendls,
+                            const displacements& senddispls, T* recvdata,
+                            const layouts<T>& recvls, const displacements& recvdispls) const {
+      const std::vector<MPI_Count> counts(recvls.size(), 1);
+      const auto senddispls_as_mpi{to_mpi_displacements(senddispls)};
+      const auto recvdispls_as_mpi{to_mpi_displacements(recvdispls)};
       static_assert(
           sizeof(decltype(*sendls())) == sizeof(MPI_Datatype),
           "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
-      MPI_Neighbor_alltoallw(senddata, counts.data(), senddispls(),
-                             reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata,
-                             counts.data(), recvdispls(),
-                             reinterpret_cast<const MPI_Datatype *>(recvls()), comm_);
+      MPI_Neighbor_alltoallw_c(senddata, counts.data(), senddispls_as_mpi.data(),
+                               reinterpret_cast<const MPI_Datatype*>(sendls()), recvdata,
+                               counts.data(), recvdispls_as_mpi.data(),
+                               reinterpret_cast<const MPI_Datatype*>(recvls()), comm_);
     }
 
     /// Sends messages with a variable amount of data to all neighbouring processes and
@@ -340,8 +352,8 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    void neighbor_alltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
-                            const layouts<T> &recvls) const {
+    void neighbor_alltoallv(const T* senddata, const layouts<T>& sendls, T* recvdata,
+                            const layouts<T>& recvls) const {
       const displacements sendrecvdispls(size());
       neighbor_alltoallv(senddata, sendls, sendrecvdispls, recvdata, recvls, sendrecvdispls);
     }
@@ -372,19 +384,21 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_alltoallv(const T *senddata, const layouts<T> &sendls,
-                                      const displacements &senddispls, T *recvdata,
-                                      const layouts<T> &recvls,
-                                      const displacements &recvdispls) const {
-      std::vector<int> counts(recvls.size(), 1);
+    mpl::irequest ineighbor_alltoallv(const T* senddata, const layouts<T>& sendls,
+                                      const displacements& senddispls, T* recvdata,
+                                      const layouts<T>& recvls,
+                                      const displacements& recvdispls) const {
+      std::vector<MPI_Count> counts(recvls.size(), 1);
+      const auto senddispls_as_mpi{to_mpi_displacements(senddispls)};
+      const auto recvdispls_as_mpi{to_mpi_displacements(recvdispls)};
       MPI_Request req;
       static_assert(
           sizeof(decltype(*sendls())) == sizeof(MPI_Datatype),
           "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
-      MPI_Ineighbor_alltoallw(senddata, counts.data(), senddispls(),
-                              reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata,
-                              counts.data(), recvdispls(),
-                              reinterpret_cast<const MPI_Datatype *>(recvls()), comm_, &req);
+      MPI_Ineighbor_alltoallw_c(senddata, counts.data(), senddispls_as_mpi.data(),
+                                reinterpret_cast<const MPI_Datatype*>(sendls()), recvdata,
+                                counts.data(), recvdispls_as_mpi.data(),
+                                reinterpret_cast<const MPI_Datatype*>(recvls()), comm_, &req);
       return impl::base_irequest{req};
     }
 
@@ -411,8 +425,8 @@ namespace mpl::impl {
     /// \note This is a collective operation and must be called (possibly by utilizing another
     /// overload) by all processes in the communicator.
     template<typename T>
-    mpl::irequest ineighbor_alltoallv(const T *senddata, const layouts<T> &sendls, T *recvdata,
-                                      const layouts<T> &recvls) const {
+    mpl::irequest ineighbor_alltoallv(const T* senddata, const layouts<T>& sendls, T* recvdata,
+                                      const layouts<T>& recvls) const {
       const displacements sendrecvdispls(size());
       return ineighbor_alltoallv(senddata, sendls, sendrecvdispls, recvdata, recvls,
                                  sendrecvdispls);

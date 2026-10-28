@@ -5,6 +5,7 @@
 #include <list>
 #include <set>
 #include <string>
+#include <type_traits>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -12,9 +13,14 @@
 #include "test_helper.hpp"
 
 
+static_assert(
+    std::is_same_v<decltype(std::declval<mpl::status_t>().get_count<int>()), mpl::ssize_t>);
+static_assert(std::is_class_v<mpl::message_t>);
+
+
 template<typename T>
-bool probe_test(const T &data) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+bool probe_test(const T& data) {
+  const mpl::communicator& comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -39,8 +45,8 @@ bool probe_test(const T &data) {
 
 
 template<typename T>
-bool probe_iter_test(const T &data) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+bool probe_iter_test(const T& data) {
+  const mpl::communicator& comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -49,7 +55,7 @@ bool probe_iter_test(const T &data) {
     mpl::status_t s{comm_world.probe(0)};
     if (s.source() != 0)
       return false;
-    int count{s.get_count<typename T::value_type>()};
+    mpl::ssize_t count{s.get_count<typename T::value_type>()};
     if (count != static_cast<int>(data.size()))
       return false;
     T data_r{};
@@ -63,8 +69,8 @@ bool probe_iter_test(const T &data) {
 
 
 template<typename T>
-bool iprobe_test(const T &data) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+bool iprobe_test(const T& data) {
+  const mpl::communicator& comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -94,8 +100,8 @@ bool iprobe_test(const T &data) {
 
 
 template<typename T>
-bool iprobe_iter_test(const T &data) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+bool iprobe_iter_test(const T& data) {
+  const mpl::communicator& comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -106,7 +112,7 @@ bool iprobe_iter_test(const T &data) {
       if (s) {
         if (s->source() != 0)
           return false;
-        int count{s->template get_count<typename T::value_type>()};
+        mpl::ssize_t count{s->template get_count<typename T::value_type>()};
         if (count != static_cast<int>(data.size()))
           return false;
         T data_r{};
@@ -122,8 +128,34 @@ bool iprobe_iter_test(const T &data) {
 }
 
 
+SCENARIO("layouts represent counts larger than int", "[layout]") {
+  (void)mpl::environment::comm_world();
+
+  const size_t count{static_cast<size_t>(std::numeric_limits<int>::max()) + 1};
+  const mpl::contiguous_layout<char> contiguous{count};
+  REQUIRE(contiguous.byte_extent() == static_cast<ssize_t>(count));
+
+  const mpl::vector_layout<char> vector{count};
+  REQUIRE(vector.byte_extent() == static_cast<ssize_t>(count));
+
+  const mpl::strided_vector_layout<char> strided{static_cast<mpl::ssize_t>(count), 1, 2};
+  REQUIRE(strided.byte_extent() == static_cast<ssize_t>(2 * count - 1));
+
+  const mpl::hindexed_layout<char> hindexed{{{2, 0}, {3, 5}}};
+  REQUIRE(hindexed.byte_extent() == 8);
+
+  const mpl::hindexed_block_layout<char> hindexed_block{2, {0, 4}};
+  REQUIRE(hindexed_block.byte_extent() == 6);
+
+  const std::vector<int> iterator_data{1, 2, 3, 4};
+  const mpl::iterator_layout<int> iterator{iterator_data.begin(), iterator_data.end()};
+  REQUIRE(iterator.byte_extent() ==
+          static_cast<mpl::ssize_t>(iterator_data.size() * sizeof(int)));
+}
+
+
 SCENARIO("probing incoming message status and metadata", "[communicator][probe]") {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
+  const mpl::communicator& comm_world = mpl::environment::comm_world();
 
   GIVEN("a world communicator with sender rank 0 and receiver rank 1") {
     if (comm_world.size() < 2)
