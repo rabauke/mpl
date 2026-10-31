@@ -6,7 +6,6 @@
 #include <functional>
 #include <type_traits>
 #include <memory>
-#include <ciso646>
 
 
 namespace mpl {
@@ -256,11 +255,11 @@ namespace mpl {
       static constexpr bool is_commutative = op_traits<functor>::is_commutative;
       static std::unique_ptr<functor> f;
 
-      static void apply(void *in_vector, void *in_out_vector, int *len,
+      static void apply(void *in_vector, void *in_out_vector, MPI_Count *len,
                         [[maybe_unused]] MPI_Datatype *datatype) {
         auto *i_1{static_cast<T *>(in_vector)};
         auto *i_2{static_cast<T *>(in_out_vector)};
-        for (int i{0}, i_end{*len}; i < i_end; ++i, ++i_1, ++i_2)
+        for (ssize_t i{0}, i_end{*len}; i < i_end; ++i, ++i_1, ++i_2)
           *i_2 = (*f)(*i_1, *i_2);
       }
 
@@ -269,7 +268,7 @@ namespace mpl {
     private:
       explicit op(F f_) {
         f.reset(new F(f_));
-        MPI_Op_create(op::apply, is_commutative, &mpi_op);
+        MPI_Op_create_c(op::apply, is_commutative, &mpi_op);
       }
 
     public:

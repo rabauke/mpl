@@ -126,14 +126,14 @@ namespace mpl {
           return MPI_Wtick();
         }
 
-        void buffer_attach(void *buff, int size) const {
-          MPI_Buffer_attach(buff, size);
+        void buffer_attach(void *buff, ssize_t size) const {
+          MPI_Buffer_attach_c(buff, size);
         }
 
-        [[nodiscard]] std::pair<void *, int> buffer_detach() const {
+        [[nodiscard]] std::pair<void *, ssize_t> buffer_detach() const {
           void *buff;
-          int size;
-          MPI_Buffer_detach(&buff, &size);
+          MPI_Count size;
+          MPI_Buffer_detach_c(&buff, &size);
           return {buff, size};
         }
       };
@@ -211,7 +211,7 @@ namespace mpl {
     /// \param buff pointer to user-provided buffer
     /// \param size size of the buffer in bytes, must be non-negative
     /// \see \c buffer_detach
-    inline void buffer_attach(void *buff, int size) {
+    inline void buffer_attach(void *buff, MPI_Count size) {
       return detail::get_env().buffer_attach(buff, size);
     }
 
@@ -219,7 +219,7 @@ namespace mpl {
     /// \return pair representing the buffer location and size, i.e., the parameters provided to
     /// <tt>\ref buffer_attach</tt>
     /// \see \c buffer_attach
-    inline std::pair<void *, int> buffer_detach() {
+    inline std::pair<void *, MPI_Count> buffer_detach() {
       return detail::get_env().buffer_detach();
     }
 
@@ -262,7 +262,7 @@ namespace mpl {
     /// <tt>\ref bsend_overhead</tt> for each buffered send operation.  Use
     /// \c communicator::bsend_size to calculate the required buffer size.
     /// \see \c communicator::bsend and \c communicator::ibsend
-    explicit bsend_buffer(int size) : buff_{operator new(size)} {
+    explicit bsend_buffer(ssize_t size) : buff_{operator new(size)} {
       environment::buffer_attach(buff_, size);
     }
 

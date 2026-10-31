@@ -850,9 +850,9 @@ namespace mpl {
       /// in a series of  buffered send operations
       /// \return message buffer size
       template<typename T>
-      [[nodiscard]] int bsend_size(int number = 1) const {
-        int pack_size{0};
-        MPI_Pack_size(number, detail::datatype_traits<T>::get_datatype(), comm_, &pack_size);
+      [[nodiscard]] ssize_t bsend_size(ssize_t number = 1) const {
+        MPI_Count pack_size{0};
+        MPI_Pack_size_c(number, detail::datatype_traits<T>::get_datatype(), comm_, &pack_size);
         return pack_size + MPI_BSEND_OVERHEAD;
       }
 
@@ -864,10 +864,10 @@ namespace mpl {
       /// \param number quantity of buffered send operations with the given data type and layout
       /// \return message buffer size
       template<typename T>
-      [[nodiscard]] int bsend_size(const layout<T>& l, int number = 1) const {
-        int pack_size{0};
-        MPI_Pack_size(number, detail::datatype_traits<layout<T>>::get_datatype(l), comm_,
-                      &pack_size);
+      [[nodiscard]] ssize_t bsend_size(const layout<T>& l, ssize_t number = 1) const {
+        MPI_Count pack_size{0};
+        MPI_Pack_size_c(number, detail::datatype_traits<layout<T>>::get_datatype(l), comm_,
+                        &pack_size);
         return pack_size + MPI_BSEND_OVERHEAD;
       }
 

@@ -36,7 +36,7 @@ int main() {
     {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
-      const int size{comm_world.bsend_size(l)};
+      const mpl::ssize_t size{comm_world.bsend_size(l)};
       mpl::bsend_buffer buff{size};
       comm_world.bsend(v.data(), l, 1);  // send x to rank 1 via buffered send
     }

@@ -4,6 +4,7 @@
 
 #include <mpi.h>
 #include <cstddef>
+#include <type_traits>
 
 
 namespace mpl {
@@ -40,6 +41,9 @@ namespace mpl {
 
   /// Signed integer type used for array indexing and address arithmetic.
   using ssize_t = std::ptrdiff_t;
+
+  static_assert(std::is_signed_v<std::ptrdiff_t> == std::is_signed_v<MPI_Count> and
+                sizeof(std::ptrdiff_t) == sizeof(MPI_Count), "incompatible MPI_Count type");
 
 }  // namespace mpl
 
