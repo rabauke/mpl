@@ -1,4 +1,4 @@
-#if !(defined MPL_TOPOLOGY_COMMUNICATOR_HPP)
+#ifndef MPL_TOPOLOGY_COMMUNICATOR_HPP
 
 #define MPL_TOPOLOGY_COMMUNICATOR_HPP
 
@@ -10,7 +10,6 @@ namespace mpl::impl {
 
   /// Base class for communicators with a topology.
   class topology_communicator : public mpl::communicator {
-  private:
     static std::vector<MPI_Aint> to_mpi_displacements(const displacements& displs) {
       std::vector<MPI_Aint> result;
       result.reserve(displs.size());
@@ -388,7 +387,7 @@ namespace mpl::impl {
                                       const displacements& senddispls, T* recvdata,
                                       const layouts<T>& recvls,
                                       const displacements& recvdispls) const {
-      std::vector<MPI_Count> counts(recvls.size(), 1);
+      const std::vector<MPI_Count> counts(recvls.size(), 1);
       const auto senddispls_as_mpi{to_mpi_displacements(senddispls)};
       const auto recvdispls_as_mpi{to_mpi_displacements(recvdispls)};
       MPI_Request req;

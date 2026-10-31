@@ -1,4 +1,4 @@
-#if !(defined MPL_DISTRIBUTED_GRID_HPP)
+#ifndef MPL_DISTRIBUTED_GRID_HPP
 
 #define MPL_DISTRIBUTED_GRID_HPP
 
@@ -184,7 +184,7 @@ namespace mpl {
     /// parameter must be equal.
     explicit distributed_grid(const cartesian_communicator &communicator,
                               const dimensions &dims) {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
       if (communicator.dimensionality() != dim or global_size_.size() != dim or
           overlap_.size() != dim)
         throw invalid_dim();
@@ -614,7 +614,7 @@ namespace mpl {
     /// parameter must be equal.
     local_grid(const cartesian_communicator &communicator, const dimensions &dims)
         : global_size_(dims.size_) {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
       if (communicator.dimensionality() != dim or global_size_.size() != dim)
         throw invalid_dim();
 #endif

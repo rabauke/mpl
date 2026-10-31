@@ -24,7 +24,7 @@ int main() {
     return EXIT_FAILURE;
   const int n{12};
   std::vector<int> v(n);             // vector of n elements lying contiguously in memory
-  mpl::contiguous_layout<int> l(n);  // corresponding memory layout
+  const mpl::contiguous_layout<int> l(n);  // corresponding memory layout
   // process 0 sends
   if (comm_world.rank() == 0) {
     // see MPI Standard for the semantics of standard send, buffered send,

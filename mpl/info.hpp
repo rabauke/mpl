@@ -1,4 +1,4 @@
-#if !(defined MPL_INFO_HPP)
+#ifndef MPL_INFO_HPP
 
 #define MPL_INFO_HPP
 

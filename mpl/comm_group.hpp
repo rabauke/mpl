@@ -1,4 +1,4 @@
-#if !(defined MPL_COMM_GROUP_HPP)
+#ifndef MPL_COMM_GROUP_HPP
 
 #define MPL_COMM_GROUP_HPP
 
@@ -56,7 +56,7 @@ namespace mpl {
       /// groups are similar, i.e., groups have same tha members in different rank order
       similar = MPI_SIMILAR,
       /// groups are unequal, i.e., groups have different sets of members
-      unequal = MPI_UNEQUAL
+      unequal = MPI_UNEQUAL,
     };
 
     /// Indicates that groups are identical, i.e., groups have same the members in same rank
@@ -281,7 +281,7 @@ namespace mpl {
       };
 
       static int isend_irecv_query(void* state, MPI_Status* s) {
-        auto* request_state{static_cast<isend_irecv_request_state*>(state)};
+        const auto* request_state{static_cast<isend_irecv_request_state*>(state)};
         MPI_Status_set_elements_c(s, request_state->datatype, request_state->count);
         MPI_Status_set_cancelled(s, 0);
         s->MPI_SOURCE = request_state->source;
@@ -290,7 +290,7 @@ namespace mpl {
       }
 
       static int isend_irecv_free(void* state) {
-        auto* request_state{static_cast<isend_irecv_request_state*>(state)};
+        const auto* request_state{static_cast<isend_irecv_request_state*>(state)};
         delete request_state;
         return MPI_SUCCESS;
       }
@@ -301,28 +301,28 @@ namespace mpl {
       }
 
       void check_dest([[maybe_unused]] int dest) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (dest != proc_null and (dest < 0 or dest >= size()))
           throw invalid_rank();
 #endif
       }
 
       void check_source([[maybe_unused]] int source) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (source != proc_null and source != any_source and (source < 0 or source >= size()))
           throw invalid_rank();
 #endif
       }
 
       void check_send_tag([[maybe_unused]] tag_t t) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (static_cast<int>(t) < 0 or static_cast<int>(t) > static_cast<int>(tag_t::up()))
           throw invalid_tag();
 #endif
       }
 
       void check_recv_tag([[maybe_unused]] tag_t t) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (static_cast<int>(t) != static_cast<int>(tag_t::any()) and
             (static_cast<int>(t) < 0 or static_cast<int>(t) > static_cast<int>(tag_t::up())))
           throw invalid_tag();
@@ -330,7 +330,7 @@ namespace mpl {
       }
 
       void check_root([[maybe_unused]] int root_rank) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if ((root_rank < 0 or root_rank >= size()) and root_rank != mpl::root and
             root_rank != mpl::proc_null)
           throw invalid_rank();
@@ -338,7 +338,7 @@ namespace mpl {
       }
 
       void check_nonroot([[maybe_unused]] int root_rank) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         check_root(root_rank);
         if (root_rank == rank())
           throw invalid_rank();
@@ -347,7 +347,7 @@ namespace mpl {
 
       template<typename T>
       void check_size([[maybe_unused]] const layouts<T>& l) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (l.size() > static_cast<decltype(l.size())>(size()))
           throw invalid_size();
 #endif
@@ -355,21 +355,21 @@ namespace mpl {
 
       template<typename T>
       void check_size([[maybe_unused]] const contiguous_layouts<T>& l) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (l.size() > static_cast<decltype(l.size())>(size()))
           throw invalid_size();
 #endif
       }
 
       void check_size([[maybe_unused]] const displacements& d) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (d.size() > static_cast<decltype(d.size())>(size()))
           throw invalid_size();
 #endif
       }
 
       void check_count([[maybe_unused]] MPI_Count count) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (count == MPI_UNDEFINED)
           throw invalid_count();
 #endif
@@ -383,7 +383,7 @@ namespace mpl {
       template<typename T>
       void check_container_size([[maybe_unused]] const T& container,
                                 detail::stl_container) const {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (container.size() >
             static_cast<decltype(container.size())>(std::numeric_limits<MPI_Count>::max()))
           throw invalid_count();
@@ -415,7 +415,7 @@ namespace mpl {
         std::transform(displs.begin(), displs.end(), std::back_inserter(displs_as_int),
                        [](const auto& displ) {
                          const MPI_Aint element_size{static_cast<MPI_Aint>(sizeof(T))};
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
                          if (displ % element_size != 0)
                            throw invalid_displacement();
 #endif
@@ -627,8 +627,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
@@ -667,7 +666,7 @@ namespace mpl {
                  detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const MPI_Count count(data.size());
-        MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
+        const MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
         MPI_Request req;
         MPI_Isend_c(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                     static_cast<int>(t), comm_, &req);
@@ -749,8 +748,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -817,8 +815,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a blocking standard send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -935,8 +932,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
@@ -975,7 +971,7 @@ namespace mpl {
                   detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const MPI_Count count(data.size());
-        MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
+        const MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
         MPI_Request req;
         MPI_Ibsend_c(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                      static_cast<int>(t), comm_, &req);
@@ -1056,8 +1052,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim  section
       /// \param begin iterator pointing to the first data value to send
@@ -1124,8 +1119,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a buffered send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1212,8 +1206,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1252,7 +1245,7 @@ namespace mpl {
                   detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const MPI_Count count(data.size());
-        MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
+        const MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
         MPI_Request req;
         MPI_Issend_c(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                      static_cast<int>(t), comm_, &req);
@@ -1333,8 +1326,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1401,8 +1393,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a blocking synchronous send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1490,8 +1481,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1530,7 +1520,7 @@ namespace mpl {
                   detail::contiguous_const_stl_container) const {
         using value_type = typename T::value_type;
         const MPI_Count count(data.size());
-        MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
+        const MPI_Datatype datatype{detail::datatype_traits<value_type>::get_datatype()};
         MPI_Request req;
         MPI_Irsend_c(data.size() > 0 ? &data[0] : nullptr, count, datatype, destination,
                      static_cast<int>(t), comm_, &req);
@@ -1610,8 +1600,7 @@ namespace mpl {
       /// Sends a message with several values given by a pair of iterators via a
       /// non-blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1678,8 +1667,7 @@ namespace mpl {
       /// Creates a persistent communication request to send a message with several
       /// values given by a pair of iterators via a blocking ready send operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send
@@ -1789,8 +1777,7 @@ namespace mpl {
 
       /// Receives a message with several values given by a pair of iterators.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
@@ -1893,8 +1880,7 @@ namespace mpl {
       /// Receives a message with several values given by a pair of iterators via a
       /// non-blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
@@ -1960,8 +1946,7 @@ namespace mpl {
       /// Creates a persistent communication request to receive a message with several
       /// values given by a pair of iterators via a blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
@@ -2010,8 +1995,7 @@ namespace mpl {
         MPI_Iprobe(source, static_cast<int>(t), comm_, &result, static_cast<MPI_Status*>(&s));
         if (result == 0)
           return {};
-        else
-          return s;
+        return s;
       }
 
       // === matching probe ===
@@ -2046,8 +2030,7 @@ namespace mpl {
                     static_cast<MPI_Status*>(&s));
         if (result == 0)
           return {};
-        else
-          return mprobe_status{m, s};
+        return mprobe_status{m, s};
       }
 
       // === matching receive ===
@@ -2094,8 +2077,7 @@ namespace mpl {
       /// Receives a message with several values given by a pair of iterators by a
       /// message handle.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
@@ -2160,8 +2142,7 @@ namespace mpl {
       /// Receives a message with several values given by a pair of iterators via a
       /// non-blocking receive operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to receive
@@ -2241,13 +2222,11 @@ namespace mpl {
 
       /// Sends a message and receives a message in a single operation.
       /// \tparam iterT1 iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \tparam iterT2 iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin_1 iterator pointing to the first data value to send
@@ -2338,8 +2317,7 @@ namespace mpl {
 
       /// Sends a message and receives a message in a single operation.
       /// \tparam iterT iterator type, must fulfill the requirements of a
-      /// <a
-      /// href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
       /// the iterator's value-type must meet the requirements as described in the
       /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
       /// \param begin iterator pointing to the first data value to send and to receive
@@ -2711,9 +2689,8 @@ namespace mpl {
         sendls[root_rank] = sendl;
         if (rank() == root_rank)
           return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
-        else
-          return ialltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n),
-                            recvdispls);
+        return ialltoallv(send_data, sendls, senddispls, recv_data, mpl::layouts<T>(n),
+                          recvdispls);
       }
 
       /// Gather messages with a variable amount of data from all processes at a single
@@ -3312,9 +3289,8 @@ namespace mpl {
         recvls[root_rank] = recvl;
         if (rank() == root_rank)
           return ialltoallv(send_data, sendls, senddispls, recv_data, recvls, recvdispls);
-        else
-          return ialltoallv(send_data, mpl::layouts<T>(n), senddispls, recv_data, recvls,
-                            recvdispls);
+        return ialltoallv(send_data, mpl::layouts<T>(n), senddispls, recv_data, recvls,
+                          recvdispls);
       }
 
       /// Scatter messages with a variable amount of data from a single root process to all
@@ -3697,7 +3673,7 @@ namespace mpl {
       };
 
       static int ialltoallv_query(void* state, MPI_Status* s) {
-        auto* request_state{static_cast<ialltoallv_request_state*>(state)};
+        const auto* request_state{static_cast<ialltoallv_request_state*>(state)};
         const int error_backup{s->MPI_ERROR};
         *s = request_state->status;
         s->MPI_ERROR = error_backup;
@@ -3705,7 +3681,7 @@ namespace mpl {
       }
 
       static int ialltoallv_free(void* state) {
-        auto* request_state{static_cast<ialltoallv_request_state*>(state)};
+        const auto* request_state{static_cast<ialltoallv_request_state*>(state)};
         delete request_state;
         return MPI_SUCCESS;
       }
@@ -4547,7 +4523,7 @@ namespace mpl {
       /// order
       similar = MPI_SIMILAR,
       /// communicators are unequal, i.e., communicators have different sets of members
-      unequal = MPI_UNEQUAL
+      unequal = MPI_UNEQUAL,
     };
 
     /// indicates that communicators are identical, i.e., communicators represent the same
@@ -5457,7 +5433,7 @@ namespace mpl {
       similar = MPI_SIMILAR,
       /// inter-communicators are unequal, i.e., inter-communicators have different local and
       /// remote groups
-      unequal = MPI_UNEQUAL
+      unequal = MPI_UNEQUAL,
     };
 
     /// indicates that inter-communicators are identical, i.e., inter-communicators represent
@@ -5499,7 +5475,7 @@ namespace mpl {
     check_root(root_rank);
     MPI_Comm comm;
     if (root_rank == rank()) {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
       if (command.size() < 1)
         throw invalid_argument();
 #endif
@@ -5529,7 +5505,7 @@ namespace mpl {
     check_root(root_rank);
     MPI_Comm comm;
     if (root_rank == rank()) {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
       if (command.size() < 1)
         throw invalid_argument();
 #endif
@@ -5580,7 +5556,7 @@ namespace mpl {
       vector_of_maxprocs.reserve(commands.size());
       for (const auto& command : commands) {
         ++count;
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (command.size() < 1)
           throw invalid_argument();
 #endif
@@ -5617,7 +5593,7 @@ namespace mpl {
                                                          const command_lines& commands,
                                                          const mpl::infos& i) const {
     check_root(root_rank);
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
     if (commands.size() != i.size())
       throw invalid_argument();
 #endif
@@ -5639,7 +5615,7 @@ namespace mpl {
       vector_of_maxprocs.reserve(commands.size());
       for (const auto& command : commands) {
         ++count;
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (command.size() < 1)
           throw invalid_argument();
 #endif

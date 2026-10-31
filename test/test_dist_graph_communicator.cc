@@ -19,7 +19,7 @@ bool dist_graph_communicator_test() {
     sources.add(0);
     destination.add({0, 0});
   }
-  mpl::distributed_graph_communicator comm_g(comm_world, sources, destination);
+  const mpl::distributed_graph_communicator comm_g(comm_world, sources, destination);
   if (rank == 0) {
     if (comm_g.in_degree() != comm_g.size() - 1)
       return false;

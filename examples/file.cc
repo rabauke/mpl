@@ -26,7 +26,7 @@ int main() {
     // set file view
     file.set_view<value_type>("native");
     // write data
-    mpl::vector_layout<value_type> write_layout(vec.size());
+    const mpl::vector_layout<value_type> write_layout(vec.size());
     file.write_at_all(vec.size() * comm_world.rank(), vec.data(), write_layout);
     // close file
     file.close();

@@ -64,7 +64,7 @@ int main() {
   // 1st propagation step uses current elongation and velocity
   // calculate all grid points including overlapping border data
   for (int i{0}; i < n_l[c_rank]; ++i) {
-    double x = (i + n_0_l[c_rank]) * dx;
+    const double x = (i + n_0_l[c_rank]) * dx;
     u_old_l[i] = u_0(x);
     u_l[i] = 0.5 * eps * (u_0(x - dx) + u_0(x + dx)) + (1.0 - eps) * u_0(x) + dt * u_0_dt(x);
   }
@@ -92,7 +92,7 @@ int main() {
   mpl::layouts<double> layouts;
   for (int i{0}; i < c_size; ++i)
     layouts.push_back(mpl::indexed_layout<double>({{n_l[i] - 2, n_0_l[i] + 1}}));
-  mpl::contiguous_layout<double> layout(n_l[c_rank] - 2);
+  const mpl::contiguous_layout<double> layout(n_l[c_rank] - 2);
   if (c_rank == 0) {
     std::vector<double> u(n, 0);
     comm_world.gatherv(0, u_l.data() + 1, layout, u.data(), layouts);

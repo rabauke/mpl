@@ -1,4 +1,4 @@
-#if !(defined MPL_ENVIRONMENT_HPP)
+#ifndef MPL_ENVIRONMENT_HPP
 
 #define MPL_ENVIRONMENT_HPP
 
@@ -61,8 +61,9 @@ namespace mpl {
                 return threading_modes::serialized;
               case MPI_THREAD_MULTIPLE:
                 return threading_modes::multiple;
+              default:
+                return threading_modes::single;  // make compiler happy
             }
-            return threading_modes::single;  // make compiler happy
           }
         };
 
@@ -70,7 +71,7 @@ namespace mpl {
         mpl::communicator comm_world_, comm_self_;
 
       public:
-        env() : init{}, comm_world_{MPI_COMM_WORLD}, comm_self_{MPI_COMM_SELF} {
+        env() : comm_world_{MPI_COMM_WORLD}, comm_self_{MPI_COMM_SELF} {
           int size;
           MPI_Comm_size(MPI_COMM_WORLD, &size);
         }
@@ -112,10 +113,10 @@ namespace mpl {
         }
 
         [[nodiscard]] std::string processor_name() const {
-          char name[MPI_MAX_PROCESSOR_NAME];
+          std::array<char, MPI_MAX_PROCESSOR_NAME> name;
           int len;
-          MPI_Get_processor_name(name, &len);
-          return name;
+          MPI_Get_processor_name(name.data(), &len);
+          return name.data();
         }
 
         [[nodiscard]] double wtime() const {

@@ -10,8 +10,8 @@ int main() {
   const auto c_size{comm_world.size()};
   // gather a single int from all ranks to rank root=0
   {
-    int root{0};
-    int x{c_rank + 1};
+    const int root{0};
+    const int x{c_rank + 1};
     std::vector<int> y(c_rank == root ? c_size : 0);
     comm_world.gather(root, x, y.data());
     if (c_rank == root) {
@@ -24,7 +24,7 @@ int main() {
   // root and non-root rank use different function overloads of gather
   {
     const int root{0};
-    int x{-(c_rank + 1)};
+    const int x{-(c_rank + 1)};
     if (c_rank == root) {
       std::vector<int> y(c_size);
       comm_world.gather(root, x, y.data());
@@ -37,9 +37,9 @@ int main() {
   // gather several ints from all ranks to rank root=0
   {
     const int root{0}, n{3};
-    std::vector<int> x(n, c_rank + 1);
+    const std::vector<int> x(n, c_rank + 1);
     std::vector<int> y(c_rank == root ? n * c_size : 0);
-    mpl::contiguous_layout<int> l(n);
+    const mpl::contiguous_layout<int> l(n);
     comm_world.gather(root, x.data(), l, y.data(), l);
     if (c_rank == root) {
       for (int i{0}; i < c_size * n; ++i)

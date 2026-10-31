@@ -1,4 +1,4 @@
-#if !(defined MPL_STATUS_HPP)
+#ifndef MPL_STATUS_HPP
 
 #define MPL_STATUS_HPP
 

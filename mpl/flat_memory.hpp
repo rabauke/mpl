@@ -1,4 +1,4 @@
-#if !(defined MPL_FLAT_MEMORY_HPP)
+#ifndef MPL_FLAT_MEMORY_HPP
 
 #define MPL_FLAT_MEMORY_HPP
 

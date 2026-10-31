@@ -21,10 +21,9 @@ bool reduce_test(F f, const T &val) {
       expected = f(expected, x);
     }
     return y == expected;
-  } else {
-    comm_world.reduce(f, 0, x);
-    return true;
   }
+  comm_world.reduce(f, 0, x);
+  return true;
 }
 
 
@@ -47,10 +46,9 @@ bool reduce_test_with_layout(F f, const T &val) {
     }
     std::vector<T> v_expected(n, expected);
     return v_y == v_expected;
-  } else {
-    comm_world.reduce(f, 0, v_x.data(), l);
-    return true;
   }
+  comm_world.reduce(f, 0, v_x.data(), l);
+  return true;
 }
 
 
@@ -70,11 +68,10 @@ bool ireduce_test(F f, const T &val) {
       expected = f(expected, x);
     }
     return y == expected;
-  } else {
-    auto r{comm_world.ireduce(f, 0, x)};
-    r.wait();
-    return true;
   }
+  auto r{comm_world.ireduce(f, 0, x)};
+  r.wait();
+  return true;
 }
 
 
@@ -98,11 +95,10 @@ bool ireduce_test_with_layout(F f, const T &val) {
     }
     std::vector<T> v_expected(n, expected);
     return v_y == v_expected;
-  } else {
-    auto r{comm_world.ireduce(f, 0, v_x.data(), l)};
-    r.wait();
-    return true;
   }
+  auto r{comm_world.ireduce(f, 0, v_x.data(), l)};
+  r.wait();
+  return true;
 }
 
 
@@ -121,10 +117,9 @@ bool reduce_test_inplace(F f, const T &val) {
       expected = f(expected, x2);
     }
     return x == expected;
-  } else {
-    comm_world.reduce(f, 0, x);
-    return true;
   }
+  comm_world.reduce(f, 0, x);
+  return true;
 }
 
 
@@ -146,11 +141,10 @@ bool reduce_test_with_layout_inplace(F f, const T &val) {
     }
     std::vector<T> v_expected(n, expected);
     return v_x == v_expected;
-  } else {
-    const std::vector<T> &const_v_x{v_x};
-    comm_world.reduce(f, 0, const_v_x.data(), l);
-    return true;
   }
+  const std::vector<T> &const_v_x{v_x};
+  comm_world.reduce(f, 0, const_v_x.data(), l);
+  return true;
 }
 
 
@@ -170,11 +164,10 @@ bool ireduce_test_inplace(F f, const T &val) {
       expected = f(expected, x2);
     }
     return x == expected;
-  } else {
-    auto r{comm_world.ireduce(f, 0, x)};
-    r.wait();
-    return true;
   }
+  auto r{comm_world.ireduce(f, 0, x)};
+  r.wait();
+  return true;
 }
 
 
@@ -197,12 +190,11 @@ bool ireduce_test_with_layout_inplace(F f, const T &val) {
     }
     std::vector<T> v_expected(n, expected);
     return v_x == v_expected;
-  } else {
-    const std::vector<T> &const_v_x{v_x};
-    auto r{comm_world.ireduce(f, 0, const_v_x.data(), l)};
-    r.wait();
-    return true;
   }
+  const std::vector<T> &const_v_x{v_x};
+  auto r{comm_world.ireduce(f, 0, const_v_x.data(), l)};
+  r.wait();
+  return true;
 }
 
 }  // namespace

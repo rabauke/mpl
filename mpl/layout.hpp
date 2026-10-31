@@ -1,4 +1,4 @@
-#if !(defined MPL_LAYOUT_HPP)
+#ifndef MPL_LAYOUT_HPP
 
 #define MPL_LAYOUT_HPP
 
@@ -53,6 +53,10 @@ namespace mpl {
 
   class heterogeneous_layout;
 
+  /// Helper class for \c heterogeneous_layout,
+  /// <tt>make_absolute(T *x, const layout<T> &l)</tt> and
+  /// <tt>make_absolute(const T *x, const layout<T> &l)</tt>.
+  /// \tparam T data type
   template<typename T>
   class absolute_data;
 
@@ -103,7 +107,6 @@ namespace mpl {
   /// \tparam T type of the objects that the layout refers to (the base element type)
   template<typename T>
   class layout {
-  private:
     MPI_Datatype type_{MPI_DATATYPE_NULL};
 
   protected:
@@ -1002,7 +1005,7 @@ namespace mpl {
       /// converts an initializer list into an indexed block layout parameter
       /// \param list initializer list with integers representing displacements
       parameter(std::initializer_list<ssize_t> list) {
-        for (ssize_t i : list)
+        for (const ssize_t i : list)
           add(i);
       }
 
@@ -1256,7 +1259,7 @@ namespace mpl {
       parameter() = default;
 
       /// converts an iterator pair into an iterator layout  parameter
-      /// \tparam itert_T iterator type
+      /// \tparam iter_T iterator type
       /// \param first iterator to the first element
       /// \param last iterator pointing after the last element
       template<typename iter_T>
@@ -1310,7 +1313,7 @@ namespace mpl {
     }
 
     /// constructs iterator layout for data with some other layout
-    /// \tparam itert_T iterator type
+    /// \tparam iter_T iterator type
     /// \param first iterator to the first element
     /// \param last iterator pointing after the last element
     /// \param l the layout of a single element
@@ -1524,13 +1527,6 @@ namespace mpl {
   /// <tt>make_absolute(const T *x, const layout<T> &l)</tt>.
   /// \tparam T data type
   template<typename T>
-  class absolute_data;
-
-  /// Helper class for \c heterogeneous_layout,
-  /// <tt>make_absolute(T *x, const layout<T> &l)</tt> and
-  /// <tt>make_absolute(const T *x, const layout<T> &l)</tt>.
-  /// \tparam T data type
-  template<typename T>
   class absolute_data<T*> {
     T* address_{nullptr};
     MPI_Datatype datatype_;
@@ -1721,7 +1717,8 @@ namespace mpl {
   namespace detail {
 
     template<typename T>
-    struct datatype_traits<layout<T>> {
+    class datatype_traits<layout<T>> {
+    public:
       static MPI_Datatype get_datatype(const layout<T>& l) {
         return l.type_;
       }

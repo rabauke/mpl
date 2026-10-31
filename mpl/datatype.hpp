@@ -1,26 +1,25 @@
-#if !(defined MPL_DATATYPE_HPP)
+#ifndef MPL_DATATYPE_HPP
 
 #define MPL_DATATYPE_HPP
 
 #include <mpi.h>
+#include <array>
+#include <complex>
 #include <cstddef>
 #include <cstdint>
-#include <vector>
 #include <deque>
 #include <forward_list>
 #include <list>
-#include <set>
 #include <map>
-#include <unordered_set>
-#include <unordered_map>
+#include <set>
 #include <string>
-#include <valarray>
-#include <complex>
-#include <utility>
 #include <tuple>
-#include <array>
-#include <cstddef>
 #include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <valarray>
+#include <vector>
 #if __cplusplus >= 202002L
 #include <span>
 #endif
@@ -63,62 +62,62 @@ namespace mpl {
   template<typename S>
   class struct_layout {
     template<typename T>
-    inline constexpr std::size_t size(const T &) const {
+    constexpr std::size_t size(const T &) const {
       return 1;
     }
 
     template<typename T, std::size_t N0>
-    inline constexpr std::size_t size(const std::array<T, N0> &) const {
+    constexpr std::size_t size(const std::array<T, N0> &) const {
       return N0;
     }
 
     template<typename T, std::size_t N0>
-    inline constexpr std::size_t size(const T (&)[N0]) const {
+    constexpr std::size_t size(const T (&)[N0]) const {
       return N0;
     }
 
     template<typename T, std::size_t N0, std::size_t N1>
-    inline constexpr std::size_t size(const T (&)[N0][N1]) const {
+    constexpr std::size_t size(const T (&)[N0][N1]) const {
       return N0 * N1;
     }
 
     template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
-    inline constexpr std::size_t size(const T (&)[N0][N1][N2]) const {
+    constexpr std::size_t size(const T (&)[N0][N1][N2]) const {
       return N0 * N1 * N2;
     }
 
     template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
-    inline constexpr std::size_t size(const T (&)[N0][N1][N2][N3]) const {
+    constexpr std::size_t size(const T (&)[N0][N1][N2][N3]) const {
       return N0 * N1 * N2 * N3;
     }
 
     template<typename T>
-    inline MPI_Datatype get_datatype(const T &) const {
+    MPI_Datatype get_datatype(const T &) const {
       return detail::datatype_traits<T>().get_datatype();
     }
 
     template<typename T, std::size_t N0>
-    inline MPI_Datatype get_datatype(const std::array<T, N0> &) const {
+    MPI_Datatype get_datatype(const std::array<T, N0> &) const {
       return detail::datatype_traits<T>().get_datatype();
     }
 
     template<typename T, std::size_t N0>
-    inline MPI_Datatype get_datatype(const T (&)[N0]) const {
+    MPI_Datatype get_datatype(const T (&)[N0]) const {
       return detail::datatype_traits<T>().get_datatype();
     }
 
     template<typename T, std::size_t N0, std::size_t N1>
-    inline MPI_Datatype get_datatype(const T (&)[N0][N1]) const {
+    MPI_Datatype get_datatype(const T (&)[N0][N1]) const {
       return detail::datatype_traits<T>().get_datatype();
     }
 
     template<typename T, std::size_t N0, std::size_t N1, std::size_t N2>
-    inline MPI_Datatype get_datatype(const T (&)[N0][N1][N2]) const {
+    MPI_Datatype get_datatype(const T (&)[N0][N1][N2]) const {
       return detail::datatype_traits<T>().get_datatype();
     }
 
     template<typename T, std::size_t N0, std::size_t N1, std::size_t N2, std::size_t N3>
-    inline MPI_Datatype get_datatype(const T (&)[N0][N1][N2][N3]) const {
+    MPI_Datatype get_datatype(const T (&)[N0][N1][N2][N3]) const {
       return detail::datatype_traits<T>().get_datatype();
     }
 
@@ -163,7 +162,6 @@ namespace mpl {
   /// \see class \c struct_builder
   template<typename T>
   class base_struct_builder {
-  private:
     MPI_Datatype type_;
 
   protected:
@@ -264,7 +262,7 @@ namespace mpl {
 
     template<typename F, typename... Args>
     void apply(std::tuple<Args...> &t, F &f) {
-      apply_n<F, std::tuple<Args...>, std::tuple_size<std::tuple<Args...>>::value> app{f};
+      apply_n<F, std::tuple<Args...>, std::tuple_size_v<std::tuple<Args...>>> app{f};
       app(t);
     }
 
@@ -421,7 +419,7 @@ namespace mpl {
     };
 
     template<typename T>
-    class datatype_traits_impl<T, std::enable_if_t<std::is_enum<T>::value>> {
+    class datatype_traits_impl<T, std::enable_if_t<std::is_enum_v<T>>> {
       using underlying = std::underlying_type_t<T>;
 
     public:
@@ -431,7 +429,7 @@ namespace mpl {
       using data_type_category = typename datatype_traits<underlying>::data_type_category;
     };
 
-#if defined MPL_HOMOGENEOUS
+#ifdef MPL_HOMOGENEOUS
     template<typename T>
     class datatype_traits_impl<
         T, std::enable_if_t<std::is_trivially_copyable_v<T> and std::is_copy_assignable_v<T> and

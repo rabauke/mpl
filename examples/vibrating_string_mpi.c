@@ -38,6 +38,7 @@ static inline double u_0(double x) {
 
 // initial velocity
 static inline double u_0_dt(double x) {
+  (void)x;
   return 0.0;
 }
 
@@ -66,7 +67,7 @@ int main(int argc, char *argv[]) {
   u_new_l = secure_malloc((N_l[C_rank]) * sizeof(*u_new_l));
   // 1st time step uses elongation and velocity
   for (int i = 0; i < N_l[C_rank]; ++i) {
-    double x = (i + N0_l[C_rank]) * dx;
+    const double x = (i + N0_l[C_rank]) * dx;
     u_old_l[i] = u_0(x);
     u_l[i] = 0.5 * eps * (u_0(x - dx) + u_0(x + dx)) + (1.0 - eps) * u_0(x) + dt * u_0_dt(x);
   }

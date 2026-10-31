@@ -33,7 +33,7 @@ double *partition(double *first, double *last, double pivot) {
     return first;
   for (double *i = first + 1; i != last; ++i) {
     if ((*i) < pivot) {
-      double temp = *i;
+      const double temp = *i;
       *i = *first;
       *first = temp;
       ++first;
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
   if (v == NULL)
     MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
   fill_random((vector){v, N});
-  vector sorted = parallel_sort((vector){v, N});
+  const vector sorted = parallel_sort((vector){v, N});
   free(sorted.data);
   free(v);
   MPI_Finalize();

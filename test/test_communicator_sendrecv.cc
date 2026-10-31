@@ -99,7 +99,7 @@ template<typename T>
 bool sendrecv_replace_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   const int rank{comm_world.rank()};
-  int size{comm_world.size()};
+  const int size{comm_world.size()};
   T x, expected;
   if constexpr (std::is_constructible_v<T, int> or std::is_enum_v<T>) {
     x = T(rank);
@@ -118,7 +118,7 @@ template<typename T>
 bool sendrecv_replace_iter_test() {
   const mpl::communicator &comm_world = mpl::environment::comm_world();
   const int rank{comm_world.rank()};
-  int size{comm_world.size()};
+  const int size{comm_world.size()};
   T x = data_type_helper<T>::get(rank);
   T expected = data_type_helper<T>::get((rank + size - 1) % size);
   comm_world.sendrecv_replace(std::begin(x), std::end(x), (rank + 1) % size, mpl::tag_t(0),

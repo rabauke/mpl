@@ -1,4 +1,4 @@
-#if !(defined MPL_COMMANDLINE_HPP)
+#ifndef MPL_COMMANDLINE_HPP
 
 #define MPL_COMMANDLINE_HPP
 

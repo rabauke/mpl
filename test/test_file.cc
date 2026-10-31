@@ -5,7 +5,7 @@
 
 template<typename T>
 bool read_at_write_at_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -40,7 +40,7 @@ bool read_at_write_at_test(const T &val) {
 
 template<typename T>
 bool read_at_write_at_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -75,7 +75,7 @@ bool read_at_write_at_test(const std::vector<T> &val, const mpl::layout<T> &layo
 
 template<typename T>
 bool iread_at_iwrite_at_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -112,7 +112,7 @@ bool iread_at_iwrite_at_test(const T &val) {
 
 template<typename T>
 bool iread_at_iwrite_at_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -149,7 +149,7 @@ bool iread_at_iwrite_at_test(const std::vector<T> &val, const mpl::layout<T> &la
 
 template<typename T>
 bool read_write_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -186,7 +186,7 @@ bool read_write_test(const T &val) {
 
 template<typename T>
 bool read_write_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -223,7 +223,7 @@ bool read_write_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
 
 template<typename T>
 bool iread_iwrite_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -262,7 +262,7 @@ bool iread_iwrite_test(const T &val) {
 
 template<typename T>
 bool iread_iwrite_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -301,7 +301,7 @@ bool iread_iwrite_test(const std::vector<T> &val, const mpl::layout<T> &layout) 
 
 template<typename T>
 bool read_shared_write_shared_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -336,7 +336,7 @@ bool read_shared_write_shared_test(const T &val) {
 
 template<typename T>
 bool read_shared_write_shared_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -371,7 +371,7 @@ bool read_shared_write_shared_test(const std::vector<T> &val, const mpl::layout<
 
 template<typename T>
 bool iread_shared_iwrite_shared_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -408,7 +408,7 @@ bool iread_shared_iwrite_shared_test(const T &val) {
 
 template<typename T>
 bool iread_shared_iwrite_shared_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -445,7 +445,7 @@ bool iread_shared_iwrite_shared_test(const std::vector<T> &val, const mpl::layou
 
 template<typename T>
 bool read_at_all_write_at_all_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -480,7 +480,7 @@ bool read_at_all_write_at_all_test(const T &val) {
 
 template<typename T>
 bool read_at_all_write_at_all_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -515,7 +515,7 @@ bool read_at_all_write_at_all_test(const std::vector<T> &val, const mpl::layout<
 
 template<typename T>
 bool iread_at_all_iwrite_at_all_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -552,7 +552,7 @@ bool iread_at_all_iwrite_at_all_test(const T &val) {
 
 template<typename T>
 bool iread_at_all_iwrite_at_all_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -589,7 +589,7 @@ bool iread_at_all_iwrite_at_all_test(const std::vector<T> &val, const mpl::layou
 
 template<typename T>
 bool read_all_write_all_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -626,7 +626,7 @@ bool read_all_write_all_test(const T &val) {
 
 template<typename T>
 bool read_all_write_all_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -663,7 +663,7 @@ bool read_all_write_all_test(const std::vector<T> &val, const mpl::layout<T> &la
 
 template<typename T>
 bool iread_all_iwrite_all_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -702,7 +702,7 @@ bool iread_all_iwrite_all_test(const T &val) {
 
 template<typename T>
 bool iread_all_iwrite_all_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -741,7 +741,7 @@ bool iread_all_iwrite_all_test(const std::vector<T> &val, const mpl::layout<T> &
 
 template<typename T>
 bool read_ordered_write_ordered_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -776,7 +776,7 @@ bool read_ordered_write_ordered_test(const T &val) {
 
 template<typename T>
 bool read_ordered_write_ordered_test(const std::vector<T> &val, const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -811,7 +811,7 @@ bool read_ordered_write_ordered_test(const std::vector<T> &val, const mpl::layou
 
 template<typename T>
 bool read_at_all_split_write_at_all_split_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -849,7 +849,7 @@ bool read_at_all_split_write_at_all_split_test(const T &val) {
 template<typename T>
 bool read_at_all_split_write_at_all_split_test(const std::vector<T> &val,
                                                const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -886,7 +886,7 @@ bool read_at_all_split_write_at_all_split_test(const std::vector<T> &val,
 
 template<typename T>
 bool read_all_split_write_all_split_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -926,7 +926,7 @@ bool read_all_split_write_all_split_test(const T &val) {
 template<typename T>
 bool read_all_split_write_all_split_test(const std::vector<T> &val,
                                          const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -965,7 +965,7 @@ bool read_all_split_write_all_split_test(const std::vector<T> &val,
 
 template<typename T>
 bool read_ordered_split_write_ordered_split_test(const T &val) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);
@@ -1003,7 +1003,7 @@ bool read_ordered_split_write_ordered_split_test(const T &val) {
 template<typename T>
 bool read_ordered_split_write_ordered_split_test(const std::vector<T> &val,
                                                  const mpl::layout<T> &layout) {
-  auto filename{"test.bin"};
+  const auto filename{"test.bin"};
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   if (comm_world.rank() == 0)
     std::remove(filename);

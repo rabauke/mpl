@@ -10,7 +10,7 @@ int main() {
   // spawn 2 new processes
   mpl::info info;
   info.set("host", "localhost");
-  auto inter_comm{
+  const auto inter_comm{
       comm_world.spawn_multiple(0,
                                 {{"./process_creation_client"s, "arg1"s},
                                  {"./process_creation_client"s, "arg1"s, "arg2"s},

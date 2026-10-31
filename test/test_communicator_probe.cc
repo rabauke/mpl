@@ -26,7 +26,7 @@ bool probe_test(const T& data) {
   if (comm_world.rank() == 0)
     comm_world.send(data, 1);
   if (comm_world.rank() == 1) {
-    mpl::status_t s{comm_world.probe(0)};
+    const mpl::status_t s{comm_world.probe(0)};
     if (s.source() != 0)
       return false;
     if constexpr (has_size<T>::value) {
@@ -52,7 +52,7 @@ bool probe_iter_test(const T& data) {
   if (comm_world.rank() == 0)
     comm_world.send(data, 1);
   if (comm_world.rank() == 1) {
-    mpl::status_t s{comm_world.probe(0)};
+    const mpl::status_t s{comm_world.probe(0)};
     if (s.source() != 0)
       return false;
     mpl::ssize_t count{s.get_count<typename T::value_type>()};

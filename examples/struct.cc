@@ -96,7 +96,7 @@ int main() {
   // send / receive a vector of structures
   const int field_size{8};
   std::vector<structure> str_field(field_size);
-  mpl::contiguous_layout<structure> str_field_layout(field_size);
+  const mpl::contiguous_layout<structure> str_field_layout(field_size);
   if (comm_world.rank() == 0) {
     // populate vector of structures
     for (int k{0}; k < field_size; ++k) {

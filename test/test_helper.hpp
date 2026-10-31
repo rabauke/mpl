@@ -1,4 +1,4 @@
-#if !(defined MPL_TEST_HELPER_HPP)
+#ifndef MPL_TEST_HELPER_HPP
 #define MPL_TEST_HELPER_HPP
 
 #include <type_traits>

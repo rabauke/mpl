@@ -1,4 +1,4 @@
-#if !(defined MPL_GRAPH_COMMUNICATOR_HPP)
+#ifndef MPL_GRAPH_COMMUNICATOR_HPP
 
 #define MPL_GRAPH_COMMUNICATOR_HPP
 
@@ -146,7 +146,7 @@ namespace mpl {
                                 bool reorder = true) {
       int nodes{0};
       for (const auto &e : edges) {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
         if (std::get<0>(e) < 0 or std::get<1>(e) < 0)
           throw invalid_argument();
 #endif

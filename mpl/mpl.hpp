@@ -1,4 +1,4 @@
-#if !(defined MPL_HPP)
+#ifndef MPL_HPP
 
 #define MPL_HPP
 

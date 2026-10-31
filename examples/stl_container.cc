@@ -94,7 +94,7 @@ void irecv(const mpl::communicator &comm) {
   using value_type = mpl::detail::remove_const_from_members_t<typename T::value_type>;
   T x;
   mpl::irequest r{comm.irecv(x, 0)};
-  mpl::status_t s{r.wait()};
+  const mpl::status_t s{r.wait()};
   std::cout << "x = " << x << " with " << s.template get_count<value_type>() << " elements\n";
 }
 
@@ -106,19 +106,19 @@ int main() {
     comm_world.abort(EXIT_FAILURE);
   // process 0 sends
   if (comm_world.rank() == 0) {
-    std::string t_1{"Hello World!"};
+    const std::string t_1{"Hello World!"};
     send(comm_world, t_1);
     isend(comm_world, t_1);
-    std::vector<int> t_2{0, 1, 2, 3, 4, 5, 6, 77, 42};
+    const std::vector<int> t_2{0, 1, 2, 3, 4, 5, 6, 77, 42};
     send(comm_world, t_2);
     isend(comm_world, t_2);
-    std::vector<std::tuple<int, double>> t_3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
+    const std::vector<std::tuple<int, double>> t_3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
     send(comm_world, t_3);
     isend(comm_world, t_3);
-    std::vector<bool> t_4{false, true, false, true, true};
+    const std::vector<bool> t_4{false, true, false, true, true};
     send(comm_world, t_4);
     isend(comm_world, t_4);
-    std::valarray<double> t_5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};
+    const std::valarray<double> t_5{1, 2, 3, 4, 42, 4 * std::atan(1.0)};
     send(comm_world, t_5);
     isend(comm_world, t_5);
   }

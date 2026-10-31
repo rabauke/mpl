@@ -29,8 +29,7 @@ struct large_count_test_container {
 namespace mpl::detail {
 
   template<>
-  class datatype_traits<large_count_test_container> {
-  public:
+  struct datatype_traits<large_count_test_container> {
     using data_type_category = contiguous_stl_container;
   };
 
@@ -312,9 +311,9 @@ bool irequest_pool_wait_test() {
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0) {
-    int val1{42};
-    int val2{84};
-    int val3{126};
+    const int val1{42};
+    const int val2{84};
+    const int val3{126};
     mpl::irequest_pool pool;
     pool.push(comm_world.isend(val1, 1, mpl::tag_t(101)));
     pool.push(comm_world.isend(val2, 1, mpl::tag_t(102)));
@@ -332,9 +331,9 @@ bool irequest_pool_wait_test() {
     pool.push(comm_world.irecv(val1, 0, mpl::tag_t(101)));
     pool.push(comm_world.irecv(val2, 0, mpl::tag_t(102)));
     pool.push(comm_world.irecv(val3, 0, mpl::tag_t(103)));
-    auto status2{pool.wait(2)};
-    auto status0{pool.wait(0)};
-    auto status1{pool.wait(1)};
+    const auto status2{pool.wait(2)};
+    const auto status0{pool.wait(0)};
+    const auto status1{pool.wait(1)};
     bool ok{(val1 == 42 and val2 == 84 and val3 == 126)};
     ok = ok and
          (status0.tag() == mpl::tag_t(101) and pool.get_status(0).tag() == mpl::tag_t(101));
@@ -354,8 +353,8 @@ bool irequest_pool_test_test() {
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0) {
-    int val1{11};
-    int val2{22};
+    const int val1{11};
+    const int val2{22};
     mpl::irequest_pool pool;
     pool.push(comm_world.isend(val1, 1, mpl::tag_t(201)));
     pool.push(comm_world.isend(val2, 1, mpl::tag_t(202)));

@@ -20,7 +20,7 @@ int main() {
     for (int i_1{0}; i_1 < n_1; ++i_1)
       for (int i_0{0}; i_0 < n_0; ++i_0)
         a[i_1][i_0] = i_0 + 0.01 * i_1;
-    mpl::subarray_layout<double> subarray{{
+    const mpl::subarray_layout<double> subarray{{
         {n_1, s_1, 2},  // 2nd dimension: size of array, size of subarray, start of subarray
         {n_0, s_0, 4}   // 1st dimension: size of array, size of subarray, start of subarray
     }};
@@ -29,7 +29,7 @@ int main() {
   // process 1 receives
   if (comm_world.rank() == 1) {
     double a[s_1][s_0];
-    mpl::contiguous_layout<double> array{s_0 * s_1};
+    const mpl::contiguous_layout<double> array{s_0 * s_1};
     comm_world.recv(&a[0][0], array, 0);
     for (int i_1{0}; i_1 < s_1; ++i_1) {
       for (int i_0{0}; i_0 < s_0; ++i_0)

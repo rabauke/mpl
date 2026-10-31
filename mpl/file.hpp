@@ -1,4 +1,4 @@
-#if !(defined MPL_FILE_HPP)
+#ifndef MPL_FILE_HPP
 
 #define MPL_FILE_HPP
 
@@ -14,7 +14,6 @@ namespace mpl {
 
   /// Class implementing parallel file i/o.
   class file {
-  private:
     MPI_File file_{MPI_FILE_NULL};
 
   public:

@@ -46,7 +46,7 @@ int main() {
   std::vector<int> v(n);
   std::generate(v.begin(), v.end(), [&g, &uniform]() { return uniform(g); });
   // calculate the least common multiple and send result to rank 0
-  mpl::contiguous_layout<int> layout(n);
+  const mpl::contiguous_layout<int> layout(n);
   if (comm_world.rank() == 0) {
     std::vector<int> result(n);
     // calculate the least common multiple
@@ -56,13 +56,13 @@ int main() {
     for (int r{0}; r < comm_world.size(); ++r) {
       if (r > 0)
         comm_world.recv(v.data(), layout, r);
-      for (auto i : v)
+      for (const auto i : v)
         std::cout << i << '\t';
       std::cout << '\n';
     }
     // display results of global reduction
     std::cout << "\nResults:\n";
-    for (auto i : result)
+    for (const auto i : result)
       std::cout << i << '\t';
     std::cout << '\n';
   } else {

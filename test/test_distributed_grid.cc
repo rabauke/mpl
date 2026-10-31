@@ -84,9 +84,9 @@ SCENARIO("distributed_grid overlap regions are updated from neighboring processe
          "[distributed_grid][halo]") {
   GIVEN("a 2D grid with overlap regions filled with global values in its interior") {
     const mpl::communicator& comm_world{mpl::environment::comm_world()};
-    mpl::cartesian_communicator::dimensions dimensions{
+    const mpl::cartesian_communicator::dimensions dimensions{
         mpl::cartesian_communicator::non_periodic, mpl::cartesian_communicator::non_periodic};
-    mpl::cartesian_communicator comm_c{comm_world,
+    const mpl::cartesian_communicator comm_c{comm_world,
                                        mpl::dims_create(comm_world.size(), dimensions)};
     mpl::distributed_grid<2, int> grid{comm_c, {{nx, overlap_x}, {ny, overlap_y}}};
     for (auto j{grid.obegin(1)}; j < grid.oend(1); ++j)

@@ -1,4 +1,4 @@
-#if !(defined MPL_OPERATOR_HPP)
+#ifndef MPL_OPERATOR_HPP
 
 #define MPL_OPERATOR_HPP
 
@@ -238,7 +238,7 @@ namespace mpl {
     class op;
 
     template<typename T, typename F>
-    inline op<T, F> &get_op(F f) {
+    op<T, F> &get_op(F f) {
       static op<T, F> op_(f);
       return op_;
     }

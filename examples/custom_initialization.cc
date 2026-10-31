@@ -6,7 +6,6 @@
 
 // a custom initializer
 class my_initializer final {
-private:
   explicit my_initializer(int *argc, char **argv[]) {
     // initialize MPI by calling MPI_Init or MPI_Init_thread
     MPI_Init(argc, argv);

@@ -10,12 +10,12 @@ int main() {
   // rank in comm_world
   const int world_rank{comm_world.rank()};
   const int my_group{world_rank % 2};
-  mpl::communicator local_communicator{mpl::communicator::split, comm_world, my_group};
+  const mpl::communicator local_communicator{mpl::communicator::split, comm_world, my_group};
   const int local_leader{0};
   const int remote_leader{my_group == 0 ? 1 : 0};
   // comm_world is used as the communicator that can communicate with processes in the local
   // group as well as in the remote group
-  mpl::inter_communicator icom{local_communicator, local_leader, comm_world, remote_leader};
+  const mpl::inter_communicator icom{local_communicator, local_leader, comm_world, remote_leader};
   // gather data from all processes in the remote group
   const int send_data{world_rank};  // as an example, send rank in comm_world
   std::vector<int> recv_data(icom.remote_size());
@@ -27,7 +27,7 @@ int main() {
          << "inter communicator rank: " << icom.rank() << ";\t"
          << "inter communicator remote size: " << icom.remote_size() << ";\t"
          << "gathered data: ";
-  for (auto &val : recv_data)
+  for (const auto &val : recv_data)
     stream << val << ' ';
   stream << '\n';
   std::cout << stream.str();

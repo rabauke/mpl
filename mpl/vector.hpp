@@ -1,4 +1,4 @@
-#if !(defined MPL_VECTOR_HPP)
+#ifndef MPL_VECTOR_HPP
 
 #define MPL_VECTOR_HPP
 
@@ -37,7 +37,7 @@ namespace mpl::detail {
         : size_{size},
           data_{static_cast<pointer>(operator new(size_ * sizeof(T),
                                                   std::align_val_t{alignof(T)}))} {
-      if (not std::is_trivially_copyable<value_type>::value)
+      if (not std::is_trivially_copyable_v<value_type>)
         for (size_type i{0}; i < size; ++i)
           new (&data_[i]) value_type();
     }

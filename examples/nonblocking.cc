@@ -72,13 +72,12 @@ int main() {
       r.push(comm_world.issend(v_3.data(), l, 1));  // send v3 to rank 1 via synchronous send
       r.push(comm_world.irsend(v_4.data(), l, 1));  // send v4 to rank 1 via ready send
       while (true) {
-        auto finished{r.waitsome()};  // wait until one or more sends have finished
-        if (finished.first ==
-            mpl::test_result::no_active_requests)  // there have been no pending sends
+        auto [fst, snd]{r.waitsome()};  // wait until one or more sends have finished
+        if (fst == mpl::test_result::no_active_requests)  // there have been no pending sends
           break;
         // print indices of finished sends
         std::cout << "send finished : ";
-        std::for_each(finished.second.begin(), finished.second.end(),
+        std::for_each(snd.begin(), snd.end(),
                       [](mpl::irequest_pool::size_type j) { std::cout << j << ' '; });
         std::cout << "\n";
       }
@@ -118,13 +117,12 @@ int main() {
       r.push(comm_world.irecv(v_3.data(), l, 0));  // receive v3 from rank 0
       r.push(comm_world.irecv(v_4.data(), l, 0));  // receive v4 from rank 0
       while (true) {
-        auto finished{r.waitsome()};  // wait until one or more receives have finished
-        if (finished.first ==
-            mpl::test_result::no_active_requests)  // there have been no pending receives
+        auto [fst, snd]{r.waitsome()};  // wait until one or more receives have finished
+        if (fst == mpl::test_result::no_active_requests)  // there have been no pending receives
           break;
         // print indices of finished receives
         std::cout << "recv finished : ";
-        std::for_each(finished.second.begin(), finished.second.end(),
+        std::for_each(snd.begin(), snd.end(),
                       [](mpl::irequest_pool::size_type j) { std::cout << j << ' '; });
         std::cout << '\n';
       }

@@ -16,7 +16,7 @@ int main() {
   // if there are two or more processes send a message from process 0 to process 1
   if (comm_world.size() >= 2) {
     if (comm_world.rank() == 0) {
-      std::string message{"Hello world!"};
+      const std::string message{"Hello world!"};
       comm_world.send(message, 1);  // send message to rank 1
     } else if (comm_world.rank() == 1) {
       std::string message;

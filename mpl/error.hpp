@@ -1,4 +1,4 @@
-#if !(defined MPL_ERROR_HPP)
+#ifndef MPL_ERROR_HPP
 
 #define MPL_ERROR_HPP
 

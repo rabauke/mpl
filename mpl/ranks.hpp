@@ -1,4 +1,4 @@
-#if !(defined MPL_RANKS_HPP)
+#ifndef MPL_RANKS_HPP
 
 #define MPL_RANKS_HPP
 

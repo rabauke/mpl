@@ -25,7 +25,7 @@ int main() {
   });
   // calculate minimum and its location and send result to rank root
   const int root{0};
-  mpl::contiguous_layout<pair_t> layout(n);
+  const mpl::contiguous_layout<pair_t> layout(n);
   if (comm_world.rank() == root) {
     std::vector<pair_t> result(n);
     // calculate minimum
@@ -35,14 +35,14 @@ int main() {
     for (int r{0}; r < comm_world.size(); ++r) {
       if (r > 0)
         comm_world.recv(v.data(), layout, r);
-      for (auto i : v)
-        std::cout << std::fixed << std::setprecision(5) << i.first << ' ' << i.second << '\t';
+      for (const auto [fst, snd] : v)
+        std::cout << std::fixed << std::setprecision(5) << fst << ' ' << snd << '\t';
       std::cout << '\n';
     }
     // display results of global reduction
     std::cout << "\nresults:\n";
-    for (const pair_t &i : result)
-      std::cout << std::fixed << std::setprecision(5) << i.first << ' ' << i.second << '\t';
+    for (const auto &[fst, snd] : result)
+      std::cout << std::fixed << std::setprecision(5) << fst << ' ' << snd << '\t';
     std::cout << '\n';
   } else {
     // calculate minimum and its location and send result to rank 0

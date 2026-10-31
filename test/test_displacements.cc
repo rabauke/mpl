@@ -9,7 +9,7 @@ static_assert(std::is_same_v<mpl::displacements::value_type, mpl::ssize_t>);
 SCENARIO("displacements container manages memory offsets for layout indexing",
          "[displacements]") {
   GIVEN("displacements constructed with sizes and initializer lists") {
-    mpl::displacements displacements_1(10);
+    const mpl::displacements displacements_1(10);
     mpl::displacements displacements_2{1, 2, 3};
 
     THEN("initial sizes match constructor arguments") {

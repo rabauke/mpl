@@ -18,10 +18,9 @@ bool gather_test(const T &val) {
     for (int i{0}; i < comm_world.size(); ++i)
       v_expected.push_back(val);
     return v == v_expected;
-  } else {
-    comm_world.gather(0, val);
-    return true;
   }
+  comm_world.gather(0, val);
+  return true;
 }
 
 
@@ -36,10 +35,9 @@ bool gather_test(const std::vector<T> &send, const std::vector<T> &expected,
     for (int i{0}; i < comm_world.size(); ++i)
       std::copy(expected.begin(), expected.end(), std::back_inserter(v_expected));
     return v == v_expected;
-  } else {
-    comm_world.gather(0, send.data(), l);
-    return true;
   }
+  comm_world.gather(0, send.data(), l);
+  return true;
 }
 
 
@@ -54,11 +52,10 @@ bool igather_test(const T &val) {
       v_expected.push_back(val);
     r.wait();
     return v == v_expected;
-  } else {
-    auto r{comm_world.igather(0, val)};
-    r.wait();
-    return true;
   }
+  auto r{comm_world.igather(0, val)};
+  r.wait();
+  return true;
 }
 
 
@@ -74,11 +71,10 @@ bool igather_test(const std::vector<T> &send, const std::vector<T> &expected,
       std::copy(expected.begin(), expected.end(), std::back_inserter(v_expected));
     r.wait();
     return v == v_expected;
-  } else {
-    auto r{comm_world.igather(0, send.data(), l)};
-    r.wait();
-    return true;
   }
+  auto r{comm_world.igather(0, send.data(), l)};
+  r.wait();
+  return true;
 }
 
 }  // namespace

@@ -9,8 +9,8 @@ int main() {
   const auto c_rank{comm_world.rank()};
   const auto c_size{comm_world.size()};
   // fill vector with C_rank+1 elements, each having the value C_rank+1
-  std::vector<int> x(c_rank + 1, c_rank + 1);
-  mpl::contiguous_layout<int> l(c_rank + 1);
+  const std::vector<int> x(c_rank + 1, c_rank + 1);
+  const mpl::contiguous_layout<int> l(c_rank + 1);
   // root rank will send and receive in gather operation
   if (c_rank == 0) {
     // messages of varying size will be received

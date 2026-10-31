@@ -34,7 +34,7 @@ my_array operator+(const my_array &a, const my_array &b) {
 
 int main() {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  int root{0};
+  const int root{0};
 
   // synchronize processes via barrier
   comm_world.barrier();
@@ -89,7 +89,7 @@ int main() {
     for (int i_1{0}; i_1 < n_1; ++i_1)
       for (int i_0{0}; i_0 < n_0; ++i_0)
         array[i_0][i_1] = i_0 + 100 * i_1;
-    mpl::contiguous_layout<double> l(n_1 * n_0);
+    const mpl::contiguous_layout<double> l(n_1 * n_0);
     comm_world.allreduce(mpl::plus<double>(), &array[0][0], l);
     if (comm_world.rank() == 0) {
       std::cout << "array after allreduce\n";

@@ -1,4 +1,4 @@
-#if !(defined MPL_MESSAGE_HPP)
+#ifndef MPL_MESSAGE_HPP
 
 #define MPL_MESSAGE_HPP
 

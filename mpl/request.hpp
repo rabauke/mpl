@@ -1,4 +1,4 @@
-#if !(defined MPL_REQUEST_HPP)
+#ifndef MPL_REQUEST_HPP
 
 #define MPL_REQUEST_HPP
 

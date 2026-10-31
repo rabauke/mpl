@@ -1,4 +1,4 @@
-#if !(defined MPL_CARTESIAN_COMMUNICATOR_HPP)
+#ifndef MPL_CARTESIAN_COMMUNICATOR_HPP
 
 #define MPL_CARTESIAN_COMMUNICATOR_HPP
 
@@ -27,7 +27,7 @@ namespace mpl {
     /// Periodicity indicator for a dimension in a Cartesian process topology.
     enum class periodicity_tag {
       non_periodic,  ///< dimension is non-periodic
-      periodic       ///< dimension is periodic
+      periodic,      ///< dimension is periodic
     };
 
     /// indicates that a dimension in a Cartesian process topology is non-periodic
@@ -40,7 +40,7 @@ namespace mpl {
     /// Cartesian process topology
     enum class included_tag : int {
       excluded = 0,  ///< dimension is excluded from the new communicator
-      included = 1   ///< dimension is included in the new communicator
+      included = 1,  ///< dimension is included in the new communicator
     };
 
     /// indicates that a dimension is excluded from the new communicator
@@ -443,7 +443,7 @@ namespace mpl {
     /// the communicator \c other with the same arguments.
     explicit cartesian_communicator(const cartesian_communicator &other,
                                     const included_tags &is_included) {
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
       if (is_included.size() != other.dimensionality())
         throw invalid_size();
 #endif
@@ -467,9 +467,9 @@ namespace mpl {
     cartesian_communicator &operator=(const cartesian_communicator &other) noexcept {
       if (this != &other) {
         if (is_valid()) {
-          int result_1;
+          int result_1{0};
           MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-          int result_2;
+          int result_2{0};
           MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
           if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
             MPI_Comm_free(&comm_);
@@ -485,8 +485,9 @@ namespace mpl {
     /// the communicator \c other.
     cartesian_communicator &operator=(cartesian_communicator &&other) noexcept {
       if (this != &other) {
-        int result_1{0}, result_2{0};
+        int result_1{0};
         MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
+        int result_2{0};
         MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
         if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
           MPI_Comm_free(&comm_);
@@ -583,7 +584,7 @@ namespace mpl {
 
 }  // namespace mpl
 
-#if !(defined MPL_DOXYGEN_SHOULD_SKIP_THIS)
+#ifndef MPL_DOXYGEN_SHOULD_SKIP_THIS
 
 namespace std {
   template<>

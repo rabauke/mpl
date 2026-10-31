@@ -27,8 +27,7 @@ bool bcast_test(const std::vector<T> &send, const std::vector<T> &expected,
   comm_world.bcast(0, x.data(), l);
   if (comm_world.rank() == 0)
     return x == send;
-  else
-    return x == expected;
+  return x == expected;
 }
 
 
@@ -55,8 +54,7 @@ bool ibcast_test(const std::vector<T> &send, const std::vector<T> &expected,
   r.wait();
   if (comm_world.rank() == 0)
     return x == send;
-  else
-    return x == expected;
+  return x == expected;
 }
 
 }  // namespace

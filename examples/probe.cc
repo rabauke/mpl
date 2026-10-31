@@ -26,14 +26,14 @@ int main() {
     enum class tag { send = 29 };
     const int n{12};
     std::vector<int> v(n);
-    mpl::contiguous_layout<int> l(n);
+    const mpl::contiguous_layout<int> l(n);
     std::iota(v.begin(), v.end(), 0);
     comm_world.send(v.data(), l, 1, tag::send);
   }
   if (comm_world.rank() == 1) {
     // receive a message of an a priori unknown number of elements from rank 0
     // first probe for a message from some arbitrary rank with any tag
-    mpl::status_t s(comm_world.probe(mpl::any_source, mpl::tag_t::any()));
+    const mpl::status_t s(comm_world.probe(mpl::any_source, mpl::tag_t::any()));
     // decode the number of elements, the source and the tag
     const mpl::ssize_t n{s.get_count<int>()};
     const int source{s.source()};
@@ -44,7 +44,7 @@ int main() {
               << "count  : " << n << '\n';
     // reserve sufficient amount of memory to receive the message
     std::vector<int> v(n);
-    mpl::contiguous_layout<int> l(n);
+    const mpl::contiguous_layout<int> l(n);
     // finally, receive the message
     comm_world.recv(v.data(), l, source, tag);
     print_range("v = ", v.begin(), v.end());

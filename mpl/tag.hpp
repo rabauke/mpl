@@ -1,4 +1,4 @@
-#if !(defined MPL_TAG_HPP)
+#ifndef MPL_TAG_HPP
 
 #define MPL_TAG_HPP
 
@@ -11,7 +11,6 @@ namespace mpl {
 
   /// Class for representing tag parameters in communication operations.
   class tag_t {
-  private:
     int t{0};
 
   public:
