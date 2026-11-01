@@ -293,6 +293,14 @@ namespace mpl {
       return info(i);
     }
 
+    /// Get the underlying MPI handle of the file.
+    /// \return MPI handle of the file
+    /// \note This function returns a non-owning handle to the underlying MPI file, which may
+    /// be useful when refactoring legacy MPI applications to MPL.
+    [[nodiscard]] MPI_File native_handle() const {
+      return file_;
+    }
+
     /// read data from file, blocking, non-collective, explicit offset
     /// \tparam T read data type
     /// \param offset file offset in bytes

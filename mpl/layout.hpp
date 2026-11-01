@@ -160,6 +160,16 @@ namespace mpl {
       return *this;
     }
 
+    /// Get the underlying MPI handle of the data type.
+    /// \return MPI handle of the data type
+    /// \note This function returns a non-owning handle to the underlying MPI data type, which
+    /// may be useful when refactoring legacy MPI applications to MPL.
+    /// \warning The handle must not be used to modify the MPI data type that the handle points
+    /// to.
+    [[nodiscard]] MPI_Datatype native_handle() const {
+      return type_;
+    }
+
     /// Get the byte extent of the layout.
     /// \return the extent in bytes
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
