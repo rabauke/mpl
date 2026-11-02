@@ -112,7 +112,8 @@ int main() {
     const std::vector<int> t_2{0, 1, 2, 3, 4, 5, 6, 77, 42};
     send(comm_world, t_2);
     isend(comm_world, t_2);
-    const std::vector<std::tuple<int, double>> t_3{{0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
+    const std::vector<std::tuple<int, double>> t_3{
+        {0, 0.0}, {1, 0.1}, {2, 0.2}, {3, 0.3}, {4, 0.4}};
     send(comm_world, t_3);
     isend(comm_world, t_3);
     const std::vector<bool> t_4{false, true, false, true, true};

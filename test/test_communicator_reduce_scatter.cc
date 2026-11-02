@@ -6,59 +6,59 @@
 
 namespace {
 
-template<typename F, typename T>
-bool reduce_scatter_test(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  std::vector<T> v_x;
-  mpl::contiguous_layouts<T> l;
-  for (int i{0}; i < comm_world.size(); ++i) {
-    const int block_size{i + 1};
-    for (int j{0}; j < block_size; ++j)
-      v_x.push_back(x);
-    l.push_back(mpl::contiguous_layout<T>(block_size));
-    ++x;
+  template<typename F, typename T>
+  bool reduce_scatter_test(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    std::vector<T> v_x;
+    mpl::contiguous_layouts<T> l;
+    for (int i{0}; i < comm_world.size(); ++i) {
+      const int block_size{i + 1};
+      for (int j{0}; j < block_size; ++j)
+        v_x.push_back(x);
+      l.push_back(mpl::contiguous_layout<T>(block_size));
+      ++x;
+    }
+    const int block_size{comm_world.rank() + 1};
+    std::vector<T> v_y(block_size);
+    comm_world.reduce_scatter(f, v_x.data(), v_y.data(), l);
+    x = val;
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    T expected{x};
+    for (int i{1}; i < comm_world.size(); ++i)
+      expected = f(expected, x);
+    std::vector<T> v_expected(block_size, expected);
+    return v_y == v_expected;
   }
-  const int block_size{comm_world.rank() + 1};
-  std::vector<T> v_y(block_size);
-  comm_world.reduce_scatter(f, v_x.data(), v_y.data(), l);
-  x = val;
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  T expected{x};
-  for (int i{1}; i < comm_world.size(); ++i)
-    expected = f(expected, x);
-  std::vector<T> v_expected(block_size, expected);
-  return v_y == v_expected;
-}
 
 
-template<typename F, typename T>
-bool ireduce_scatter_test(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  std::vector<T> v_x;
-  mpl::contiguous_layouts<T> l;
-  for (int i{0}; i < comm_world.size(); ++i) {
-    const int block_size{i + 1};
-    for (int j{0}; j < block_size; ++j)
-      v_x.push_back(x);
-    l.push_back(mpl::contiguous_layout<T>(block_size));
-    ++x;
+  template<typename F, typename T>
+  bool ireduce_scatter_test(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    std::vector<T> v_x;
+    mpl::contiguous_layouts<T> l;
+    for (int i{0}; i < comm_world.size(); ++i) {
+      const int block_size{i + 1};
+      for (int j{0}; j < block_size; ++j)
+        v_x.push_back(x);
+      l.push_back(mpl::contiguous_layout<T>(block_size));
+      ++x;
+    }
+    const int block_size{comm_world.rank() + 1};
+    std::vector<T> v_y(block_size);
+    auto r{comm_world.ireduce_scatter(f, v_x.data(), v_y.data(), l)};
+    x = val;
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    T expected{x};
+    for (int i{1}; i < comm_world.size(); ++i)
+      expected = f(expected, x);
+    std::vector<T> v_expected(block_size, expected);
+    r.wait();
+    return v_y == v_expected;
   }
-  const int block_size{comm_world.rank() + 1};
-  std::vector<T> v_y(block_size);
-  auto r{comm_world.ireduce_scatter(f, v_x.data(), v_y.data(), l)};
-  x = val;
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  T expected{x};
-  for (int i{1}; i < comm_world.size(); ++i)
-    expected = f(expected, x);
-  std::vector<T> v_expected(block_size, expected);
-  r.wait();
-  return v_y == v_expected;
-}
 
 }  // namespace
 

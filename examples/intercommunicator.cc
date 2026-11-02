@@ -15,7 +15,8 @@ int main() {
   const int remote_leader{my_group == 0 ? 1 : 0};
   // comm_world is used as the communicator that can communicate with processes in the local
   // group as well as in the remote group
-  const mpl::inter_communicator icom{local_communicator, local_leader, comm_world, remote_leader};
+  const mpl::inter_communicator icom{local_communicator, local_leader, comm_world,
+                                     remote_leader};
   // gather data from all processes in the remote group
   const int send_data{world_rank};  // as an example, send rank in comm_world
   std::vector<int> recv_data(icom.remote_size());

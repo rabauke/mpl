@@ -6,56 +6,56 @@
 
 namespace {
 
-template<typename T>
-bool bcast_test(const T &val) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  T x{};
-  if (comm_world.rank() == 0)
-    x = val;
-  comm_world.bcast(0, x);
-  return x == val;
-}
+  template<typename T>
+  bool bcast_test(const T &val) {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    T x{};
+    if (comm_world.rank() == 0)
+      x = val;
+    comm_world.bcast(0, x);
+    return x == val;
+  }
 
 
-template<typename T>
-bool bcast_test(const std::vector<T> &send, const std::vector<T> &expected,
-                const mpl::layout<T> &l) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  std::vector<T> x(send.size(), {});
-  if (comm_world.rank() == 0)
-    x = send;
-  comm_world.bcast(0, x.data(), l);
-  if (comm_world.rank() == 0)
-    return x == send;
-  return x == expected;
-}
+  template<typename T>
+  bool bcast_test(const std::vector<T> &send, const std::vector<T> &expected,
+                  const mpl::layout<T> &l) {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    std::vector<T> x(send.size(), {});
+    if (comm_world.rank() == 0)
+      x = send;
+    comm_world.bcast(0, x.data(), l);
+    if (comm_world.rank() == 0)
+      return x == send;
+    return x == expected;
+  }
 
 
-template<typename T>
-bool ibcast_test(const T &val) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  T x{};
-  if (comm_world.rank() == 0)
-    x = val;
-  auto r{comm_world.ibcast(0, x)};
-  r.wait();
-  return x == val;
-}
+  template<typename T>
+  bool ibcast_test(const T &val) {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    T x{};
+    if (comm_world.rank() == 0)
+      x = val;
+    auto r{comm_world.ibcast(0, x)};
+    r.wait();
+    return x == val;
+  }
 
 
-template<typename T>
-bool ibcast_test(const std::vector<T> &send, const std::vector<T> &expected,
-                 const mpl::layout<T> &l) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  std::vector<T> x(send.size(), {});
-  if (comm_world.rank() == 0)
-    x = send;
-  auto r{comm_world.ibcast(0, x.data(), l)};
-  r.wait();
-  if (comm_world.rank() == 0)
-    return x == send;
-  return x == expected;
-}
+  template<typename T>
+  bool ibcast_test(const std::vector<T> &send, const std::vector<T> &expected,
+                   const mpl::layout<T> &l) {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    std::vector<T> x(send.size(), {});
+    if (comm_world.rank() == 0)
+      x = send;
+    auto r{comm_world.ibcast(0, x.data(), l)};
+    r.wait();
+    if (comm_world.rank() == 0)
+      return x == send;
+    return x == expected;
+  }
 
 }  // namespace
 

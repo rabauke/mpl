@@ -4,20 +4,20 @@
 
 namespace {
 
-template<typename F, typename G>
-bool reduce_op_test(F f, G gen) {
-  using T = decltype(gen(0));
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{gen(comm_world.rank())};
-  T y{};
-  comm_world.allreduce(f, x, y);
-  T expected{gen(0)};
-  for (int i{1}; i < comm_world.size(); ++i)
-    expected = f(expected, gen(i));
-  T x_inplace{gen(comm_world.rank())};
-  comm_world.allreduce(f, x_inplace);
-  return y == expected and x_inplace == expected;
-}
+  template<typename F, typename G>
+  bool reduce_op_test(F f, G gen) {
+    using T = decltype(gen(0));
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{gen(comm_world.rank())};
+    T y{};
+    comm_world.allreduce(f, x, y);
+    T expected{gen(0)};
+    for (int i{1}; i < comm_world.size(); ++i)
+      expected = f(expected, gen(i));
+    T x_inplace{gen(comm_world.rank())};
+    comm_world.allreduce(f, x_inplace);
+    return y == expected and x_inplace == expected;
+  }
 
 }  // namespace
 

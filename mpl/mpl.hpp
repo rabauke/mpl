@@ -43,7 +43,8 @@ namespace mpl {
   using ssize_t = std::ptrdiff_t;
 
   static_assert(std::is_signed_v<std::ptrdiff_t> == std::is_signed_v<MPI_Count> and
-                sizeof(std::ptrdiff_t) == sizeof(MPI_Count), "incompatible MPI_Count type");
+                    sizeof(std::ptrdiff_t) == sizeof(MPI_Count),
+                "incompatible MPI_Count type");
 
 }  // namespace mpl
 

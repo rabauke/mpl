@@ -33,10 +33,10 @@ namespace mpl {
 
     /// Copy constructor.
     /// \param other the other set of displacements to copy from
-    displacements(const displacements& other) = default;
+    displacements(const displacements &other) = default;
     /// Move constructor.
     /// \param other the other set of displacements to move from
-    displacements(displacements&& other) = default;
+    displacements(displacements &&other) = default;
 
     using base::operator=;
     using base::begin;

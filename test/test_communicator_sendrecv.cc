@@ -15,116 +15,116 @@
 
 namespace {
 
-enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
+  enum class my_enum : int { val = std::numeric_limits<int>::max() - 1 };
 
-template<typename T>
-bool sendrecv_test(const T &data) {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  const int rank{comm_world.rank()};
-  const int size{comm_world.size()};
-  T data_r;
-  comm_world.sendrecv(data, (rank + 1) % size, mpl::tag_t(0), data_r, (rank - 1 + size) % size,
-                      mpl::tag_t(0));
-  return data_r == data;
-}
-
-
-template<typename T>
-bool sendrecv_iter_test(const T &data) {
-  static_assert(has_size<T>());
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  if (comm_world.size() < 2)
-    return false;
-  std::vector<typename T::value_type> data_r(data.size());
-  if (comm_world.rank() == 0) {
-    comm_world.sendrecv(std::begin(data), std::end(data), 1, mpl::tag_t(4), std::begin(data_r),
-                        std::end(data_r), 1, mpl::tag_t(4));
-    return std::equal(std::begin(data), std::end(data), std::begin(data_r));
+  template<typename T>
+  bool sendrecv_test(const T &data) {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    const int rank{comm_world.rank()};
+    const int size{comm_world.size()};
+    T data_r;
+    comm_world.sendrecv(data, (rank + 1) % size, mpl::tag_t(0), data_r,
+                        (rank - 1 + size) % size, mpl::tag_t(0));
+    return data_r == data;
   }
-  if (comm_world.rank() == 1) {
-    comm_world.sendrecv(std::begin(data), std::end(data), 0, mpl::tag_t(4), std::begin(data_r),
-                        std::end(data_r), 0, mpl::tag_t(4));
-    return std::equal(std::begin(data), std::end(data), std::begin(data_r));
+
+
+  template<typename T>
+  bool sendrecv_iter_test(const T &data) {
+    static_assert(has_size<T>());
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    if (comm_world.size() < 2)
+      return false;
+    std::vector<typename T::value_type> data_r(data.size());
+    if (comm_world.rank() == 0) {
+      comm_world.sendrecv(std::begin(data), std::end(data), 1, mpl::tag_t(4),
+                          std::begin(data_r), std::end(data_r), 1, mpl::tag_t(4));
+      return std::equal(std::begin(data), std::end(data), std::begin(data_r));
+    }
+    if (comm_world.rank() == 1) {
+      comm_world.sendrecv(std::begin(data), std::end(data), 0, mpl::tag_t(4),
+                          std::begin(data_r), std::end(data_r), 0, mpl::tag_t(4));
+      return std::equal(std::begin(data), std::end(data), std::begin(data_r));
+    }
+    return true;
   }
-  return true;
-}
 
 
-template<typename T>
-struct data_type_helper;
+  template<typename T>
+  struct data_type_helper;
 
-template<typename T, std::size_t n>
-struct data_type_helper<std::array<T, n>> {
-  static std::array<T, n> get(int val) {
-    std::array<T, n> res;
-    std::fill(std::begin(res), std::end(res), val);
-    return res;
+  template<typename T, std::size_t n>
+  struct data_type_helper<std::array<T, n>> {
+    static std::array<T, n> get(int val) {
+      std::array<T, n> res;
+      std::fill(std::begin(res), std::end(res), val);
+      return res;
+    }
+  };
+
+
+  template<typename T1, typename T2>
+  struct data_type_helper<std::pair<T1, T2>> {
+    static std::pair<T1, T2> get(int val) {
+      return std::make_pair<T1, T2>(T1(val), T2(val));
+    }
+  };
+
+
+  template<typename... Ts>
+  struct data_type_helper<std::tuple<Ts...>> {
+    static std::tuple<Ts...> get(int val) {
+      return std::make_tuple<Ts...>(Ts(val)...);
+    }
+  };
+
+
+  template<typename T>
+  struct data_type_helper<std::vector<T>> {
+    static std::vector<T> get(int val) {
+      return {T(val), T(val), T(val), T(val), T(val)};
+    }
+  };
+
+
+  template<typename T>
+  struct data_type_helper<std::list<T>> {
+    static std::list<T> get(int val) {
+      return {T(val), T(val), T(val), T(val), T(val)};
+    }
+  };
+
+
+  template<typename T>
+  bool sendrecv_replace_test() {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    const int rank{comm_world.rank()};
+    const int size{comm_world.size()};
+    T x, expected;
+    if constexpr (std::is_constructible_v<T, int> or std::is_enum_v<T>) {
+      x = T(rank);
+      expected = T((rank + size - 1) % size);
+    } else {
+      x = data_type_helper<T>::get(rank);
+      expected = data_type_helper<T>::get((rank + size - 1) % size);
+    }
+    comm_world.sendrecv_replace(x, (rank + 1) % size, mpl::tag_t(0), (rank - 1 + size) % size,
+                                mpl::tag_t(0));
+    return x == expected;
   }
-};
 
 
-template<typename T1, typename T2>
-struct data_type_helper<std::pair<T1, T2>> {
-  static std::pair<T1, T2> get(int val) {
-    return std::make_pair<T1, T2>(T1(val), T2(val));
+  template<typename T>
+  bool sendrecv_replace_iter_test() {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    const int rank{comm_world.rank()};
+    const int size{comm_world.size()};
+    T x = data_type_helper<T>::get(rank);
+    T expected = data_type_helper<T>::get((rank + size - 1) % size);
+    comm_world.sendrecv_replace(std::begin(x), std::end(x), (rank + 1) % size, mpl::tag_t(0),
+                                (rank - 1 + size) % size, mpl::tag_t(0));
+    return x == expected;
   }
-};
-
-
-template<typename... Ts>
-struct data_type_helper<std::tuple<Ts...>> {
-  static std::tuple<Ts...> get(int val) {
-    return std::make_tuple<Ts...>(Ts(val)...);
-  }
-};
-
-
-template<typename T>
-struct data_type_helper<std::vector<T>> {
-  static std::vector<T> get(int val) {
-    return {T(val), T(val), T(val), T(val), T(val)};
-  }
-};
-
-
-template<typename T>
-struct data_type_helper<std::list<T>> {
-  static std::list<T> get(int val) {
-    return {T(val), T(val), T(val), T(val), T(val)};
-  }
-};
-
-
-template<typename T>
-bool sendrecv_replace_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  const int rank{comm_world.rank()};
-  const int size{comm_world.size()};
-  T x, expected;
-  if constexpr (std::is_constructible_v<T, int> or std::is_enum_v<T>) {
-    x = T(rank);
-    expected = T((rank + size - 1) % size);
-  } else {
-    x = data_type_helper<T>::get(rank);
-    expected = data_type_helper<T>::get((rank + size - 1) % size);
-  }
-  comm_world.sendrecv_replace(x, (rank + 1) % size, mpl::tag_t(0), (rank - 1 + size) % size,
-                              mpl::tag_t(0));
-  return x == expected;
-}
-
-
-template<typename T>
-bool sendrecv_replace_iter_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  const int rank{comm_world.rank()};
-  const int size{comm_world.size()};
-  T x = data_type_helper<T>::get(rank);
-  T expected = data_type_helper<T>::get((rank + size - 1) % size);
-  comm_world.sendrecv_replace(std::begin(x), std::end(x), (rank + 1) % size, mpl::tag_t(0),
-                              (rank - 1 + size) % size, mpl::tag_t(0));
-  return x == expected;
-}
 
 }  // namespace
 

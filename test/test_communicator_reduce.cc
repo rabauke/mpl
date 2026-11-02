@@ -6,196 +6,196 @@
 
 namespace {
 
-template<typename F, typename T>
-bool reduce_test(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  if (comm_world.rank() == 0) {
-    T y{};
-    comm_world.reduce(f, 0, x, y);
-    T expected{val};
-    for (int i{1}; i < comm_world.size(); ++i) {
+  template<typename F, typename T>
+  bool reduce_test(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
       ++x;
-      expected = f(expected, x);
+    if (comm_world.rank() == 0) {
+      T y{};
+      comm_world.reduce(f, 0, x, y);
+      T expected{val};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x;
+        expected = f(expected, x);
+      }
+      return y == expected;
     }
-    return y == expected;
-  }
-  comm_world.reduce(f, 0, x);
-  return true;
-}
-
-
-template<typename F, typename T>
-bool reduce_test_with_layout(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  const int n{5};
-  mpl::contiguous_layout<T> l(n);
-  std::vector<T> v_x(n, x);
-  if (comm_world.rank() == 0) {
-    std::vector<T> v_y(n);
-    comm_world.reduce(f, 0, v_x.data(), v_y.data(), l);
-    T expected{val};
-    for (int i{1}; i < comm_world.size(); ++i) {
-      ++x;
-      expected = f(expected, x);
-    }
-    std::vector<T> v_expected(n, expected);
-    return v_y == v_expected;
-  }
-  comm_world.reduce(f, 0, v_x.data(), l);
-  return true;
-}
-
-
-template<typename F, typename T>
-bool ireduce_test(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  if (comm_world.rank() == 0) {
-    T y{};
-    auto r{comm_world.ireduce(f, 0, x, y)};
-    r.wait();
-    T expected{val};
-    for (int i{1}; i < comm_world.size(); ++i) {
-      ++x;
-      expected = f(expected, x);
-    }
-    return y == expected;
-  }
-  auto r{comm_world.ireduce(f, 0, x)};
-  r.wait();
-  return true;
-}
-
-
-template<typename F, typename T>
-bool ireduce_test_with_layout(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  const int n{5};
-  mpl::contiguous_layout<T> l(n);
-  std::vector<T> v_x(n, x);
-  if (comm_world.rank() == 0) {
-    std::vector<T> v_y(n);
-    auto r{comm_world.ireduce(f, 0, v_x.data(), v_y.data(), l)};
-    r.wait();
-    T expected{val};
-    for (int i{1}; i < comm_world.size(); ++i) {
-      ++x;
-      expected = f(expected, x);
-    }
-    std::vector<T> v_expected(n, expected);
-    return v_y == v_expected;
-  }
-  auto r{comm_world.ireduce(f, 0, v_x.data(), l)};
-  r.wait();
-  return true;
-}
-
-
-template<typename F, typename T>
-bool reduce_test_inplace(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  if (comm_world.rank() == 0) {
-    T x2{val};
     comm_world.reduce(f, 0, x);
-    T expected{x2};
-    for (int i{1}; i < comm_world.size(); ++i) {
-      ++x2;
-      expected = f(expected, x2);
-    }
-    return x == expected;
+    return true;
   }
-  comm_world.reduce(f, 0, x);
-  return true;
-}
 
 
-template<typename F, typename T>
-bool reduce_test_with_layout_inplace(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  const int n{5};
-  mpl::contiguous_layout<T> l(n);
-  std::vector<T> v_x(n, x);
-  if (comm_world.rank() == 0) {
-    comm_world.reduce(f, 0, v_x.data(), l);
-    T expected{val};
-    for (int i{1}; i < comm_world.size(); ++i) {
+  template<typename F, typename T>
+  bool reduce_test_with_layout(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
       ++x;
-      expected = f(expected, x);
+    const int n{5};
+    mpl::contiguous_layout<T> l(n);
+    std::vector<T> v_x(n, x);
+    if (comm_world.rank() == 0) {
+      std::vector<T> v_y(n);
+      comm_world.reduce(f, 0, v_x.data(), v_y.data(), l);
+      T expected{val};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x;
+        expected = f(expected, x);
+      }
+      std::vector<T> v_expected(n, expected);
+      return v_y == v_expected;
     }
-    std::vector<T> v_expected(n, expected);
-    return v_x == v_expected;
+    comm_world.reduce(f, 0, v_x.data(), l);
+    return true;
   }
-  const std::vector<T> &const_v_x{v_x};
-  comm_world.reduce(f, 0, const_v_x.data(), l);
-  return true;
-}
 
 
-template<typename F, typename T>
-bool ireduce_test_inplace(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  if (comm_world.rank() == 0) {
-    T x2{val};
+  template<typename F, typename T>
+  bool ireduce_test(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    if (comm_world.rank() == 0) {
+      T y{};
+      auto r{comm_world.ireduce(f, 0, x, y)};
+      r.wait();
+      T expected{val};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x;
+        expected = f(expected, x);
+      }
+      return y == expected;
+    }
     auto r{comm_world.ireduce(f, 0, x)};
     r.wait();
-    T expected{x2};
-    for (int i{1}; i < comm_world.size(); ++i) {
-      ++x2;
-      expected = f(expected, x2);
-    }
-    return x == expected;
+    return true;
   }
-  auto r{comm_world.ireduce(f, 0, x)};
-  r.wait();
-  return true;
-}
 
 
-template<typename F, typename T>
-bool ireduce_test_with_layout_inplace(F f, const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T x{val};
-  for (int i{0}; i < comm_world.rank(); ++i)
-    ++x;
-  const int n{5};
-  mpl::contiguous_layout<T> l(n);
-  std::vector<T> v_x(n, x);
-  if (comm_world.rank() == 0) {
+  template<typename F, typename T>
+  bool ireduce_test_with_layout(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    const int n{5};
+    mpl::contiguous_layout<T> l(n);
+    std::vector<T> v_x(n, x);
+    if (comm_world.rank() == 0) {
+      std::vector<T> v_y(n);
+      auto r{comm_world.ireduce(f, 0, v_x.data(), v_y.data(), l)};
+      r.wait();
+      T expected{val};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x;
+        expected = f(expected, x);
+      }
+      std::vector<T> v_expected(n, expected);
+      return v_y == v_expected;
+    }
     auto r{comm_world.ireduce(f, 0, v_x.data(), l)};
     r.wait();
-    T expected{val};
-    for (int i{1}; i < comm_world.size(); ++i) {
-      ++x;
-      expected = f(expected, x);
-    }
-    std::vector<T> v_expected(n, expected);
-    return v_x == v_expected;
+    return true;
   }
-  const std::vector<T> &const_v_x{v_x};
-  auto r{comm_world.ireduce(f, 0, const_v_x.data(), l)};
-  r.wait();
-  return true;
-}
+
+
+  template<typename F, typename T>
+  bool reduce_test_inplace(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    if (comm_world.rank() == 0) {
+      T x2{val};
+      comm_world.reduce(f, 0, x);
+      T expected{x2};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x2;
+        expected = f(expected, x2);
+      }
+      return x == expected;
+    }
+    comm_world.reduce(f, 0, x);
+    return true;
+  }
+
+
+  template<typename F, typename T>
+  bool reduce_test_with_layout_inplace(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    const int n{5};
+    mpl::contiguous_layout<T> l(n);
+    std::vector<T> v_x(n, x);
+    if (comm_world.rank() == 0) {
+      comm_world.reduce(f, 0, v_x.data(), l);
+      T expected{val};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x;
+        expected = f(expected, x);
+      }
+      std::vector<T> v_expected(n, expected);
+      return v_x == v_expected;
+    }
+    const std::vector<T> &const_v_x{v_x};
+    comm_world.reduce(f, 0, const_v_x.data(), l);
+    return true;
+  }
+
+
+  template<typename F, typename T>
+  bool ireduce_test_inplace(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    if (comm_world.rank() == 0) {
+      T x2{val};
+      auto r{comm_world.ireduce(f, 0, x)};
+      r.wait();
+      T expected{x2};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x2;
+        expected = f(expected, x2);
+      }
+      return x == expected;
+    }
+    auto r{comm_world.ireduce(f, 0, x)};
+    r.wait();
+    return true;
+  }
+
+
+  template<typename F, typename T>
+  bool ireduce_test_with_layout_inplace(F f, const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T x{val};
+    for (int i{0}; i < comm_world.rank(); ++i)
+      ++x;
+    const int n{5};
+    mpl::contiguous_layout<T> l(n);
+    std::vector<T> v_x(n, x);
+    if (comm_world.rank() == 0) {
+      auto r{comm_world.ireduce(f, 0, v_x.data(), l)};
+      r.wait();
+      T expected{val};
+      for (int i{1}; i < comm_world.size(); ++i) {
+        ++x;
+        expected = f(expected, x);
+      }
+      std::vector<T> v_expected(n, expected);
+      return v_x == v_expected;
+    }
+    const std::vector<T> &const_v_x{v_x};
+    auto r{comm_world.ireduce(f, 0, const_v_x.data(), l)};
+    r.wait();
+    return true;
+  }
 
 }  // namespace
 
@@ -253,8 +253,8 @@ SCENARIO("collective reduce operations across communicator processes",
         REQUIRE(reduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
         REQUIRE(reduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
         REQUIRE(reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-        REQUIRE(
-            reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(reduce_test_with_layout_inplace([](auto a, auto b) { return a + b; },
+                                                tuple{1, 2.0}));
 
         REQUIRE(ireduce_test_inplace(add<double>(), 1.0));
         REQUIRE(ireduce_test_inplace(add<tuple>(), tuple{1, 2.0}));
@@ -268,8 +268,8 @@ SCENARIO("collective reduce operations across communicator processes",
         REQUIRE(ireduce_test_with_layout_inplace(mpl::plus<double>(), 1.0));
         REQUIRE(ireduce_test_with_layout_inplace(mpl::plus<tuple>(), tuple{1, 2.0}));
         REQUIRE(ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, 1.0));
-        REQUIRE(
-            ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; }, tuple{1, 2.0}));
+        REQUIRE(ireduce_test_with_layout_inplace([](auto a, auto b) { return a + b; },
+                                                 tuple{1, 2.0}));
       }
     }
   }

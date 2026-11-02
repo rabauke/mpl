@@ -21,8 +21,8 @@ namespace {
 
 
   template<std::size_t dim, typename T, typename A>
-  void update_overlap(const mpl::cartesian_communicator& comm_c,
-                      mpl::distributed_grid<dim, T, A>& grid) {
+  void update_overlap(const mpl::cartesian_communicator &comm_c,
+                      mpl::distributed_grid<dim, T, A> &grid) {
     for (std::size_t i{0}; i < dim; ++i) {
       // send to left
       auto [source_l, destination_l] = comm_c.shift(i, -1);
@@ -43,7 +43,7 @@ SCENARIO("distributed_grid decomposes a 2D grid over the processes",
   GIVEN(
       "a 2D Cartesian communicator and a grid with sizes not divisible by the process "
       "counts") {
-    const mpl::communicator& comm_world{mpl::environment::comm_world()};
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
     mpl::cartesian_communicator::dimensions dimensions{
         mpl::cartesian_communicator::non_periodic, mpl::cartesian_communicator::non_periodic};
     mpl::cartesian_communicator comm_c{comm_world,
@@ -83,11 +83,11 @@ SCENARIO("distributed_grid decomposes a 2D grid over the processes",
 SCENARIO("distributed_grid overlap regions are updated from neighboring processes",
          "[distributed_grid][halo]") {
   GIVEN("a 2D grid with overlap regions filled with global values in its interior") {
-    const mpl::communicator& comm_world{mpl::environment::comm_world()};
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
     const mpl::cartesian_communicator::dimensions dimensions{
         mpl::cartesian_communicator::non_periodic, mpl::cartesian_communicator::non_periodic};
     const mpl::cartesian_communicator comm_c{comm_world,
-                                       mpl::dims_create(comm_world.size(), dimensions)};
+                                             mpl::dims_create(comm_world.size(), dimensions)};
     mpl::distributed_grid<2, int> grid{comm_c, {{nx, overlap_x}, {ny, overlap_y}}};
     for (auto j{grid.obegin(1)}; j < grid.oend(1); ++j)
       for (auto i{grid.obegin(0)}; i < grid.oend(0); ++i) {
@@ -125,7 +125,7 @@ SCENARIO("distributed_grid overlap regions are updated from neighboring processe
 SCENARIO("local_grid scatters and gathers the global grid",
          "[local_grid][distributed_grid][scatter][gather]") {
   GIVEN("a 2D Cartesian communicator, a local grid and a distributed grid on each process") {
-    const mpl::communicator& comm_world{mpl::environment::comm_world()};
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
     mpl::cartesian_communicator::dimensions dimensions{
         mpl::cartesian_communicator::non_periodic, mpl::cartesian_communicator::non_periodic};
     mpl::cartesian_communicator comm_c{comm_world,

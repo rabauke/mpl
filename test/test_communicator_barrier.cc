@@ -4,19 +4,19 @@
 
 namespace {
 
-bool barrier_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  comm_world.barrier();
-  return true;
-}
+  bool barrier_test() {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    comm_world.barrier();
+    return true;
+  }
 
 
-bool ibarrier_test() {
-  const mpl::communicator &comm_world = mpl::environment::comm_world();
-  auto r{comm_world.ibarrier()};
-  r.wait();
-  return true;
-}
+  bool ibarrier_test() {
+    const mpl::communicator &comm_world = mpl::environment::comm_world();
+    auto r{comm_world.ibarrier()};
+    r.wait();
+    return true;
+  }
 
 }  // namespace
 

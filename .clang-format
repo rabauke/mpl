@@ -15,5 +15,7 @@ SpaceAfterTemplateKeyword: false
 SortIncludes: false
 SortUsingDeclarations: false
 CommentPragmas: '^/'
+PointerAlignment: Right
+ReferenceAlignment: Right
 Standard: c++20
 ...

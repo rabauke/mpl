@@ -1046,7 +1046,8 @@ SCENARIO("parallel MPI file input and output operations", "[file]") {
       THEN("data matches after writing and reading back") {
         REQUIRE(read_at_write_at_test(1.0));
         REQUIRE(read_at_write_at_test(std::array{1, 2, 3, 4}));
-        REQUIRE(read_at_write_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
+        REQUIRE(
+            read_at_write_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
       }
     }
 
@@ -1054,7 +1055,8 @@ SCENARIO("parallel MPI file input and output operations", "[file]") {
       THEN("data matches after completing asynchronous transfers") {
         REQUIRE(iread_at_iwrite_at_test(1.0));
         REQUIRE(iread_at_iwrite_at_test(std::array{1, 2, 3, 4}));
-        REQUIRE(iread_at_iwrite_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
+        REQUIRE(
+            iread_at_iwrite_at_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
       }
     }
 
@@ -1101,7 +1103,9 @@ SCENARIO("parallel MPI file input and output operations", "[file]") {
       }
     }
 
-    WHEN("performing non-blocking collective positioned iread_at_all and iwrite_at_all operations") {
+    WHEN(
+        "performing non-blocking collective positioned iread_at_all and iwrite_at_all "
+        "operations") {
       THEN("data matches after non-blocking collective positioned transfers") {
         REQUIRE(iread_at_all_iwrite_at_all_test(1.0));
         REQUIRE(iread_at_all_iwrite_at_all_test(std::array{1, 2, 3, 4}));
@@ -1114,8 +1118,8 @@ SCENARIO("parallel MPI file input and output operations", "[file]") {
       THEN("data matches after collective transfers") {
         REQUIRE(read_all_write_all_test(1.0));
         REQUIRE(read_all_write_all_test(std::array{1, 2, 3, 4}));
-        REQUIRE(read_all_write_all_test(std::vector{1.0, 2.0, 3.0},
-                                        mpl::vector_layout<double>(3)));
+        REQUIRE(
+            read_all_write_all_test(std::vector{1.0, 2.0, 3.0}, mpl::vector_layout<double>(3)));
       }
     }
 
@@ -1155,12 +1159,14 @@ SCENARIO("parallel MPI file input and output operations", "[file]") {
       }
     }
 
-    WHEN("performing split collective ordered read_ordered_split and write_ordered_split operations") {
+    WHEN(
+        "performing split collective ordered read_ordered_split and write_ordered_split "
+        "operations") {
       THEN("data matches after split collective ordered transfers") {
         REQUIRE(read_ordered_split_write_ordered_split_test(1.0));
         REQUIRE(read_ordered_split_write_ordered_split_test(std::array{1, 2, 3, 4}));
         REQUIRE(read_ordered_split_write_ordered_split_test(std::vector{1.0, 2.0, 3.0},
-                                                           mpl::vector_layout<double>(3)));
+                                                            mpl::vector_layout<double>(3)));
       }
     }
   }

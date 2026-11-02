@@ -22,7 +22,7 @@ int main() {
   // split comm_world into a communicator which contains all processes
   // except rank 0 of comm_world and carry out some collective communication
   const mpl::communicator comm_without_0(mpl::communicator::split, comm_world,
-                                   comm_world.rank() == 0 ? mpl::undefined : 1);
+                                         comm_world.rank() == 0 ? mpl::undefined : 1);
   if (comm_world.rank() != 0) {
     double data{1};
     comm_without_0.allreduce(mpl::plus<double>(), data);

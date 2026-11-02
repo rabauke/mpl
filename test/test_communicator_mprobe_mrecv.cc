@@ -15,8 +15,8 @@ static_assert(not std::is_convertible_v<mpl::message_t, MPI_Message>);
 
 
 template<typename T>
-bool mprobe_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool mprobe_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -41,8 +41,8 @@ bool mprobe_test(const T& data) {
 
 
 template<typename T>
-bool mprobe_iter_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool mprobe_iter_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -65,8 +65,8 @@ bool mprobe_iter_test(const T& data) {
 
 
 template<typename T>
-bool improbe_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool improbe_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -97,8 +97,8 @@ bool improbe_test(const T& data) {
 
 
 template<typename T>
-bool improbe_iter_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool improbe_iter_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -127,7 +127,7 @@ bool improbe_iter_test(const T& data) {
 
 
 bool mprobe_move_assignment_test() {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
 
@@ -147,7 +147,7 @@ bool mprobe_move_assignment_test() {
     if (discarded_status.source() != 0 or transferred_status.source() != 0)
       return false;
     destination = std::move(source);
-    mpl::message_t& self{destination};
+    mpl::message_t &self{destination};
     destination = std::move(self);
 
     int received{};
@@ -159,7 +159,7 @@ bool mprobe_move_assignment_test() {
 
 
 SCENARIO("matched message probing and receiving", "[communicator][mprobe_mrecv]") {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
 
   GIVEN("a world communicator with sender rank 0 and receiver rank 1") {
     if (comm_world.size() < 2)

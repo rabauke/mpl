@@ -19,8 +19,8 @@ static_assert(std::is_class_v<mpl::message_t>);
 
 
 template<typename T>
-bool probe_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool probe_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -45,8 +45,8 @@ bool probe_test(const T& data) {
 
 
 template<typename T>
-bool probe_iter_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool probe_iter_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -69,8 +69,8 @@ bool probe_iter_test(const T& data) {
 
 
 template<typename T>
-bool iprobe_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool iprobe_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -100,8 +100,8 @@ bool iprobe_test(const T& data) {
 
 
 template<typename T>
-bool iprobe_iter_test(const T& data) {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+bool iprobe_iter_test(const T &data) {
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
   if (comm_world.size() < 2)
     return false;
   if (comm_world.rank() == 0)
@@ -155,7 +155,7 @@ SCENARIO("layouts represent counts larger than int", "[layout]") {
 
 
 SCENARIO("probing incoming message status and metadata", "[communicator][probe]") {
-  const mpl::communicator& comm_world = mpl::environment::comm_world();
+  const mpl::communicator &comm_world = mpl::environment::comm_world();
 
   GIVEN("a world communicator with sender rank 0 and receiver rank 1") {
     if (comm_world.size() < 2)

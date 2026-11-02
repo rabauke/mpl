@@ -8,70 +8,70 @@
 
 namespace {
 
-template<typename T>
-bool scatter_test(const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T recv;
-  if (comm_world.rank() == 0) {
-    std::vector<T> v(comm_world.size(), val);
-    comm_world.scatter(0, v.data(), recv);
-  } else {
-    comm_world.scatter(0, recv);
+  template<typename T>
+  bool scatter_test(const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T recv;
+    if (comm_world.rank() == 0) {
+      std::vector<T> v(comm_world.size(), val);
+      comm_world.scatter(0, v.data(), recv);
+    } else {
+      comm_world.scatter(0, recv);
+    }
+    return recv == val;
   }
-  return recv == val;
-}
 
 
-template<typename T>
-bool scatter_test(const std::vector<T> &send, const std::vector<T> &expected,
-                  const mpl::layout<T> &l) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  std::vector<T> recv(send.size());
-  if (comm_world.rank() == 0) {
-    std::vector<T> v_send;
-    for (int i{0}; i < comm_world.size(); ++i)
-      std::copy(send.begin(), send.end(), std::back_inserter(v_send));
-    comm_world.scatter(0, v_send.data(), l, recv.data(), l);
-  } else {
-    comm_world.scatter(0, recv.data(), l);
+  template<typename T>
+  bool scatter_test(const std::vector<T> &send, const std::vector<T> &expected,
+                    const mpl::layout<T> &l) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    std::vector<T> recv(send.size());
+    if (comm_world.rank() == 0) {
+      std::vector<T> v_send;
+      for (int i{0}; i < comm_world.size(); ++i)
+        std::copy(send.begin(), send.end(), std::back_inserter(v_send));
+      comm_world.scatter(0, v_send.data(), l, recv.data(), l);
+    } else {
+      comm_world.scatter(0, recv.data(), l);
+    }
+    return recv == expected;
   }
-  return recv == expected;
-}
 
 
-template<typename T>
-bool iscatter_test(const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  T recv;
-  if (comm_world.rank() == 0) {
-    std::vector<T> v(comm_world.size(), val);
-    auto r{comm_world.iscatter(0, v.data(), recv)};
-    r.wait();
-  } else {
-    auto r{comm_world.iscatter(0, recv)};
-    r.wait();
+  template<typename T>
+  bool iscatter_test(const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    T recv;
+    if (comm_world.rank() == 0) {
+      std::vector<T> v(comm_world.size(), val);
+      auto r{comm_world.iscatter(0, v.data(), recv)};
+      r.wait();
+    } else {
+      auto r{comm_world.iscatter(0, recv)};
+      r.wait();
+    }
+    return recv == val;
   }
-  return recv == val;
-}
 
 
-template<typename T>
-bool iscatter_test(const std::vector<T> &send, const std::vector<T> &expected,
-                   const mpl::layout<T> &l) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  std::vector<T> recv(send.size());
-  if (comm_world.rank() == 0) {
-    std::vector<T> v_send;
-    for (int i{0}; i < comm_world.size(); ++i)
-      std::copy(send.begin(), send.end(), std::back_inserter(v_send));
-    auto r{comm_world.iscatter(0, v_send.data(), l, recv.data(), l)};
-    r.wait();
-  } else {
-    auto r{comm_world.iscatter(0, recv.data(), l)};
-    r.wait();
+  template<typename T>
+  bool iscatter_test(const std::vector<T> &send, const std::vector<T> &expected,
+                     const mpl::layout<T> &l) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    std::vector<T> recv(send.size());
+    if (comm_world.rank() == 0) {
+      std::vector<T> v_send;
+      for (int i{0}; i < comm_world.size(); ++i)
+        std::copy(send.begin(), send.end(), std::back_inserter(v_send));
+      auto r{comm_world.iscatter(0, v_send.data(), l, recv.data(), l)};
+      r.wait();
+    } else {
+      auto r{comm_world.iscatter(0, recv.data(), l)};
+      r.wait();
+    }
+    return recv == expected;
   }
-  return recv == expected;
-}
 
 }  // namespace
 

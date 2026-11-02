@@ -8,74 +8,74 @@
 
 namespace {
 
-template<typename T>
-bool gather_test(const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  if (comm_world.rank() == 0) {
-    std::vector<T> v(comm_world.size());
-    comm_world.gather(0, val, v.data());
-    std::vector<T> v_expected;
-    for (int i{0}; i < comm_world.size(); ++i)
-      v_expected.push_back(val);
-    return v == v_expected;
+  template<typename T>
+  bool gather_test(const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    if (comm_world.rank() == 0) {
+      std::vector<T> v(comm_world.size());
+      comm_world.gather(0, val, v.data());
+      std::vector<T> v_expected;
+      for (int i{0}; i < comm_world.size(); ++i)
+        v_expected.push_back(val);
+      return v == v_expected;
+    }
+    comm_world.gather(0, val);
+    return true;
   }
-  comm_world.gather(0, val);
-  return true;
-}
 
 
-template<typename T>
-bool gather_test(const std::vector<T> &send, const std::vector<T> &expected,
-                 const mpl::layout<T> &l) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  if (comm_world.rank() == 0) {
-    std::vector<T> v(comm_world.size() * send.size());
-    comm_world.gather(0, send.data(), l, v.data(), l);
-    std::vector<T> v_expected;
-    for (int i{0}; i < comm_world.size(); ++i)
-      std::copy(expected.begin(), expected.end(), std::back_inserter(v_expected));
-    return v == v_expected;
+  template<typename T>
+  bool gather_test(const std::vector<T> &send, const std::vector<T> &expected,
+                   const mpl::layout<T> &l) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    if (comm_world.rank() == 0) {
+      std::vector<T> v(comm_world.size() * send.size());
+      comm_world.gather(0, send.data(), l, v.data(), l);
+      std::vector<T> v_expected;
+      for (int i{0}; i < comm_world.size(); ++i)
+        std::copy(expected.begin(), expected.end(), std::back_inserter(v_expected));
+      return v == v_expected;
+    }
+    comm_world.gather(0, send.data(), l);
+    return true;
   }
-  comm_world.gather(0, send.data(), l);
-  return true;
-}
 
 
-template<typename T>
-bool igather_test(const T &val) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  if (comm_world.rank() == 0) {
-    std::vector<T> v(comm_world.size());
-    auto r{comm_world.igather(0, val, v.data())};
-    std::vector<T> v_expected;
-    for (int i{0}; i < comm_world.size(); ++i)
-      v_expected.push_back(val);
+  template<typename T>
+  bool igather_test(const T &val) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    if (comm_world.rank() == 0) {
+      std::vector<T> v(comm_world.size());
+      auto r{comm_world.igather(0, val, v.data())};
+      std::vector<T> v_expected;
+      for (int i{0}; i < comm_world.size(); ++i)
+        v_expected.push_back(val);
+      r.wait();
+      return v == v_expected;
+    }
+    auto r{comm_world.igather(0, val)};
     r.wait();
-    return v == v_expected;
+    return true;
   }
-  auto r{comm_world.igather(0, val)};
-  r.wait();
-  return true;
-}
 
 
-template<typename T>
-bool igather_test(const std::vector<T> &send, const std::vector<T> &expected,
-                  const mpl::layout<T> &l) {
-  const mpl::communicator &comm_world{mpl::environment::comm_world()};
-  if (comm_world.rank() == 0) {
-    std::vector<T> v(comm_world.size() * send.size());
-    auto r{comm_world.igather(0, send.data(), l, v.data(), l)};
-    std::vector<T> v_expected;
-    for (int i{0}; i < comm_world.size(); ++i)
-      std::copy(expected.begin(), expected.end(), std::back_inserter(v_expected));
+  template<typename T>
+  bool igather_test(const std::vector<T> &send, const std::vector<T> &expected,
+                    const mpl::layout<T> &l) {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    if (comm_world.rank() == 0) {
+      std::vector<T> v(comm_world.size() * send.size());
+      auto r{comm_world.igather(0, send.data(), l, v.data(), l)};
+      std::vector<T> v_expected;
+      for (int i{0}; i < comm_world.size(); ++i)
+        std::copy(expected.begin(), expected.end(), std::back_inserter(v_expected));
+      r.wait();
+      return v == v_expected;
+    }
+    auto r{comm_world.igather(0, send.data(), l)};
     r.wait();
-    return v == v_expected;
+    return true;
   }
-  auto r{comm_world.igather(0, send.data(), l)};
-  r.wait();
-  return true;
-}
 
 }  // namespace
 

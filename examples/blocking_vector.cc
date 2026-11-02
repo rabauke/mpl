@@ -23,7 +23,7 @@ int main() {
   if (comm_world.size() < 2)
     return EXIT_FAILURE;
   const int n{12};
-  std::vector<int> v(n);             // vector of n elements lying contiguously in memory
+  std::vector<int> v(n);                   // vector of n elements lying contiguously in memory
   const mpl::contiguous_layout<int> l(n);  // corresponding memory layout
   // process 0 sends
   if (comm_world.rank() == 0) {
