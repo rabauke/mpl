@@ -747,13 +747,21 @@ SCENARIO("inactive persistent requests can be restarted", "[error][request]") {
   int value{0};
   mpl::prequest_pool pool;
   pool.push(comm.recv_init(value, mpl::proc_null, mpl::tag_t{86}));
-  CHECK(pool.testany().first == mpl::test_result::no_active_requests);
-  CHECK(pool.testsome().first == mpl::test_result::no_active_requests);
-  for (int i{0}; i < 2; ++i) {
-    pool.start(0);
-    pool.waitall();
+  const auto check_no_active_requests{[&]() {
+    CHECK(pool.testany().first == mpl::test_result::no_active_requests);
+    CHECK(pool.testsome().first == mpl::test_result::no_active_requests);
     CHECK(pool.waitany().first == mpl::test_result::no_active_requests);
-  }
+    CHECK(pool.waitsome().first == mpl::test_result::no_active_requests);
+  }};
+  check_no_active_requests();
+
+  pool.startall();
+  CHECK(pool.testall());
+  check_no_active_requests();
+
+  pool.startall();
+  pool.waitall();
+  check_no_active_requests();
 }
 
 

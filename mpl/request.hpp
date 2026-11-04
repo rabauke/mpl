@@ -478,9 +478,41 @@ namespace mpl {
     using base = impl::request_pool<prequest>;
     using base::requests_;
 
+    enum class request_state { inactive, active };
+    std::vector<request_state> active_requests_;
+
   public:
     using size_type = typename base::size_type;
 
+  private:
+    [[nodiscard]] bool has_active_requests() const {
+      for (const auto active : active_requests_)
+        if (active == request_state::active)
+          return true;
+      return false;
+    }
+
+    void mark_inactive(const size_type i) {
+      if (active_requests_[i] == request_state::active)
+        active_requests_[i] = request_state::inactive;
+    }
+
+    void mark_reported_requests_inactive(const request_error &error) {
+      const auto mark{[this](const std::vector<int> &indices) {
+        for (const int index : indices)
+          if (index >= 0 and static_cast<size_type>(index) < active_requests_.size())
+            mark_inactive(static_cast<size_type>(index));
+      }};
+      mark(error.completed_requests());
+      mark(error.failed_requests());
+    }
+
+    void mark_all_inactive() {
+      for (size_type i{0}; i < active_requests_.size(); ++i)
+        mark_inactive(i);
+    }
+
+  public:
     /// Constructs an empty pool of persistent communication requests.
     prequest_pool() = default;
 
@@ -489,7 +521,8 @@ namespace mpl {
 
     /// Move constructor.
     /// \param other the request pool to move from
-    prequest_pool(prequest_pool &&other) noexcept : base{std::move(other)} {
+    prequest_pool(prequest_pool &&other) noexcept
+        : base{std::move(other)}, active_requests_{std::move(other.active_requests_)} {
     }
 
     /// Deleted copy constructor.
@@ -498,19 +531,134 @@ namespace mpl {
     /// Move operator.
     /// \param other the request pool to move from
     prequest_pool &operator=(prequest_pool &&other) noexcept {
-      base::operator=(std::move(other));
+      if (this != &other) {
+        base::operator=(std::move(other));
+        active_requests_ = std::move(other.active_requests_);
+      }
       return *this;
+    }
+
+    /// Move a persistent request into the request pool.
+    /// \param request request to move into the pool
+    void push(prequest &&request) {
+      active_requests_.reserve(size() + 1);
+      base::push(std::move(request));
+      active_requests_.push_back(request_state::inactive);
     }
 
     /// Start a single persistent request in the pool.
     /// \param i index of the persistent request to start
     void start(size_type i) {
       detail::check(MPI_Start(&requests_[i]));
+      active_requests_[i] = request_state::active;
     }
 
     /// Start all persistent requests in the pool.
     void startall() {
       detail::check(MPI_Startall(size(), requests_.data()));
+      for (size_type i{0}; i < size(); ++i)
+        active_requests_[i] = request_state::active;
+    }
+
+    /// Wait for completion of a single persistent communication operation.
+    /// \param i index of the request to wait for
+    /// \return operation's status after completion
+    status_t wait(const size_type i) {
+      const auto result{base::wait(i)};
+      mark_inactive(i);
+      return result;
+    }
+
+    /// Test for completion of a single persistent communication operation.
+    /// \param i index of the request to test
+    /// \return the operation's status if completed successfully
+    std::optional<status_t> test(const size_type i) {
+      const auto result{base::test(i)};
+      if (result)
+        mark_inactive(i);
+      return result;
+    }
+
+    /// Wait for completion of any active persistent communication operation.
+    /// \return outcome and index of the completed request
+    std::pair<test_result, size_type> waitany() {
+      if (not has_active_requests())
+        return std::make_pair(test_result::no_active_requests, size());
+      const auto result{base::waitany()};
+      if (result.first == test_result::completed)
+        mark_inactive(result.second);
+      return result;
+    }
+
+    /// Test for completion of any active persistent communication operation.
+    /// \return outcome and index of the completed request
+    std::pair<test_result, size_type> testany() {
+      if (not has_active_requests())
+        return std::make_pair(test_result::no_active_requests, size());
+      const auto result{base::testany()};
+      if (result.first == test_result::completed)
+        mark_inactive(result.second);
+      return result;
+    }
+
+    /// Wait for completion of all active persistent communication operations.
+    void waitall() {
+      try {
+        base::waitall();
+      } catch (const request_error &error) {
+        mark_reported_requests_inactive(error);
+        throw;
+      }
+      mark_all_inactive();
+    }
+
+    /// Test for completion of all active persistent communication operations.
+    /// \return true if all active requests have completed
+    bool testall() {
+      bool result;
+      try {
+        result = base::testall();
+      } catch (const request_error &error) {
+        mark_reported_requests_inactive(error);
+        throw;
+      }
+      if (result)
+        mark_all_inactive();
+      return result;
+    }
+
+    /// Wait until one or more active persistent requests have completed.
+    /// \return outcome and indices of the completed requests
+    std::pair<test_result, std::vector<size_type>> waitsome() {
+      if (not has_active_requests())
+        return std::make_pair(test_result::no_active_requests, std::vector<size_type>{});
+      try {
+        auto result = base::waitsome();
+        if (result.first == test_result::completed)
+          for (const auto index : result.second)
+            mark_inactive(index);
+        return result;
+      } catch (const request_error &error) {
+        mark_reported_requests_inactive(error);
+        throw;
+      }
+    }
+
+    /// Test whether one or more active persistent requests have completed.
+    /// \return outcome and indices of the completed requests
+    std::pair<test_result, std::vector<size_type>> testsome() {
+      if (not has_active_requests())
+        return std::make_pair(test_result::no_active_requests, std::vector<size_type>{});
+      try {
+        auto result = base::testsome();
+        if (result.first == test_result::completed)
+          for (const auto index : result.second)
+            mark_inactive(index);
+        return result;
+      } catch (const request_error &error) {
+        mark_reported_requests_inactive(error);
+        throw;
+      }
     }
   };
 
