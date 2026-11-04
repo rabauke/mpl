@@ -48,7 +48,7 @@ namespace mpl {
     /// \return true if associated request has been canceled
     [[nodiscard]] bool is_cancelled() const {
       int result;
-      MPI_Test_cancelled(static_cast<const MPI_Status *>(this), &result);
+      detail::check(MPI_Test_cancelled(static_cast<const MPI_Status *>(this), &result));
       return result != 0;
     }
 
@@ -62,8 +62,8 @@ namespace mpl {
     template<typename T>
     [[nodiscard]] ssize_t get_count() const {
       MPI_Count result;
-      MPI_Get_count_c(static_cast<const MPI_Status *>(this),
-                      detail::datatype_traits<T>::get_datatype(), &result);
+      detail::check(MPI_Get_count_c(static_cast<const MPI_Status *>(this),
+                                    detail::datatype_traits<T>::get_datatype(), &result));
       return static_cast<ssize_t>(result);
     }
 
@@ -73,8 +73,9 @@ namespace mpl {
     template<typename T>
     [[nodiscard]] ssize_t get_count(const layout<T> &l) const {
       MPI_Count result;
-      MPI_Get_count_c(static_cast<const MPI_Status *>(this),
-                      detail::datatype_traits<layout<T>>::get_datatype(l), &result);
+      detail::check(MPI_Get_count_c(static_cast<const MPI_Status *>(this),
+                                    detail::datatype_traits<layout<T>>::get_datatype(l),
+                                    &result));
       return static_cast<ssize_t>(result);
     }
 

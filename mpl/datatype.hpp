@@ -35,6 +35,32 @@ namespace mpl {
     struct contiguous_const_stl_container : public stl_container {};
     struct contiguous_stl_container : public contiguous_const_stl_container {};
 
+    class datatype_guard {
+      MPI_Datatype type_{MPI_DATATYPE_NULL};
+
+    public:
+      datatype_guard() = default;
+      datatype_guard(const datatype_guard &) = delete;
+      datatype_guard &operator=(const datatype_guard &) = delete;
+      ~datatype_guard() noexcept {
+        if (type_ != MPI_DATATYPE_NULL)
+          MPI_Type_free(&type_);
+      }
+
+      void reset(MPI_Datatype type) noexcept {
+        type_ = type;
+      }
+      MPI_Datatype *address() noexcept {
+        return &type_;
+      }
+      MPI_Datatype get() const noexcept {
+        return type_;
+      }
+      MPI_Datatype release() noexcept {
+        return std::exchange(type_, MPI_DATATYPE_NULL);
+      }
+    };
+
   }  // namespace detail
 
   //--- forward declarations -------------------------------------------
@@ -131,7 +157,7 @@ namespace mpl {
     /// \param x an instance of type \c S (the template parameter of class \c struct_layout)
     /// \return reference to this \c struct_layout object (allows chaining)
     struct_layout &register_struct(const S &x) {
-      MPI_Get_address(const_cast<S *>(&x), &base_);
+      detail::check(MPI_Get_address(const_cast<S *>(&x), &base_));
       return *this;
     }
 
@@ -145,7 +171,7 @@ namespace mpl {
       static_assert(not std::is_pointer_v<T>, "type must not be pointer");
       block_lengths_.push_back(static_cast<MPI_Count>(size(x)));
       MPI_Aint address;
-      MPI_Get_address(&x, &address);
+      detail::check(MPI_Get_address(&x, &address));
       displacements_.push_back(address - base_);
       data_types_.push_back(get_datatype(x));
       return *this;
@@ -162,18 +188,23 @@ namespace mpl {
   /// \see class \c struct_builder
   template<typename T>
   class base_struct_builder {
-    MPI_Datatype type_;
+    MPI_Datatype type_{MPI_DATATYPE_NULL};
 
   protected:
     void define_struct(const struct_layout<T> &str) {
-      MPI_Datatype temp_type;
-      MPI_Type_create_struct_c(static_cast<MPI_Count>(str.block_lengths_.size()),
-                               str.block_lengths_.data(), str.displacements_.data(),
-                               str.data_types_.data(), &temp_type);
-      MPI_Type_commit(&temp_type);
-      MPI_Type_create_resized(temp_type, 0, sizeof(T), &type_);
-      MPI_Type_commit(&type_);
-      MPI_Type_free(&temp_type);
+      detail::datatype_guard intermediate;
+      detail::datatype_guard result;
+      MPI_Datatype temp_type{MPI_DATATYPE_NULL};
+      detail::check(MPI_Type_create_struct_c(
+          static_cast<MPI_Count>(str.block_lengths_.size()), str.block_lengths_.data(),
+          str.displacements_.data(), str.data_types_.data(), &temp_type));
+      intermediate.reset(temp_type);
+      detail::check(MPI_Type_commit(intermediate.address()));
+      temp_type = MPI_DATATYPE_NULL;
+      detail::check(MPI_Type_create_resized(intermediate.get(), 0, sizeof(T), &temp_type));
+      result.reset(temp_type);
+      detail::check(MPI_Type_commit(result.address()));
+      type_ = result.release();
     }
 
     base_struct_builder() = default;
@@ -183,8 +214,9 @@ namespace mpl {
     void operator=(const base_struct_builder &) = delete;
 
   protected:
-    ~base_struct_builder() {
-      MPI_Type_free(&type_);
+    ~base_struct_builder() noexcept {
+      if (type_ != MPI_DATATYPE_NULL)
+        MPI_Type_free(&type_);
     }
 
     using data_type_category = detail::basic_or_fixed_size_type;

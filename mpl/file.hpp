@@ -84,7 +84,7 @@ namespace mpl {
     ~file() {
       try {
         close();
-      } catch (io_failure &) {
+      } catch (mpi_error &) {
         // must not throw
       }
     }
@@ -97,7 +97,7 @@ namespace mpl {
     file &operator=(file &&other) noexcept {
       try {
         close();
-      } catch (io_failure &) {
+      } catch (mpi_error &) {
         // must not throw
       }
       file_ = other.file_;
@@ -117,8 +117,7 @@ namespace mpl {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{
           MPI_File_open(comm.comm_, name, static_cast<int_type>(mode), i.info_, &file_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// open a file
@@ -133,8 +132,7 @@ namespace mpl {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
                                   i.info_, &file_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// open a file
@@ -149,15 +147,13 @@ namespace mpl {
       using int_type = std::underlying_type_t<file::access_mode>;
       const int err{MPI_File_open(comm.comm_, name.c_str(), static_cast<int_type>(mode),
                                   i.info_, &file_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// close a file
     void close() {
       const int err{MPI_File_close(&file_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// resize file (shrink or grow as required)
@@ -166,8 +162,7 @@ namespace mpl {
     /// communicator.
     void resize(ssize_t size) {
       const int err{MPI_File_set_size(file_, size)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// resize file (grow as required)
@@ -176,8 +171,7 @@ namespace mpl {
     /// communicator.
     void preallocate(ssize_t size) {
       const int err{MPI_File_preallocate(file_, size)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// get file size
@@ -185,8 +179,7 @@ namespace mpl {
     [[nodiscard]] ssize_t size() const {
       MPI_Offset size{0};
       const int err{MPI_File_get_size(file_, &size)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return size;
     }
 
@@ -195,8 +188,7 @@ namespace mpl {
     [[nodiscard]] access_mode mode() const {
       int mode{0};
       const int err{MPI_File_get_amode(file_, &mode)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return static_cast<access_mode>(mode);
     }
 
@@ -205,8 +197,7 @@ namespace mpl {
     /// communicator.
     void sync() {
       const int err{MPI_File_sync(file_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// set the process's file view
@@ -221,8 +212,7 @@ namespace mpl {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
           detail::datatype_traits<T>::get_datatype(), representation, i.info_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// set the process's file view
@@ -238,8 +228,7 @@ namespace mpl {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
           detail::datatype_traits<layout<T>>::get_datatype(l), representation, i.info_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// update current individual %file pointer
@@ -247,8 +236,7 @@ namespace mpl {
     /// \param whence %file pointer positioning mode
     void seek(ssize_t offset, whence_mode whence) {
       const int err{MPI_File_seek(file_, offset, static_cast<int>(whence))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// get current individual %file pointer
@@ -256,8 +244,7 @@ namespace mpl {
     [[nodiscard]] ssize_t position() const {
       MPI_Offset offset{0};
       const int err{MPI_File_get_position(file_, &offset)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return offset;
     }
 
@@ -268,8 +255,7 @@ namespace mpl {
     [[nodiscard]] ssize_t byte_offset(ssize_t offset) const {
       MPI_Offset displ{0};
       const int err{MPI_File_get_byte_offset(file_, offset, &displ)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return displ;
     }
 
@@ -279,8 +265,7 @@ namespace mpl {
     /// communicator.
     void set_info(info &i) {
       const int err{MPI_File_set_info(file_, i.info_)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// get %file hint
@@ -288,8 +273,7 @@ namespace mpl {
     [[nodiscard]] info get_info() const {
       MPI_Info i;
       const int err{MPI_File_get_info(file_, &i)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return info(i);
     }
 
@@ -312,8 +296,7 @@ namespace mpl {
       const int err{MPI_File_read_at_c(file_, offset, &data, 1,
                                        detail::datatype_traits<T>::get_datatype(),
                                        static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -329,8 +312,7 @@ namespace mpl {
       const int err{MPI_File_read_at_c(file_, offset, data, 1,
                                        detail::datatype_traits<layout<T>>::get_datatype(l),
                                        static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -345,8 +327,7 @@ namespace mpl {
       const int err{MPI_File_write_at_c(file_, offset, &data, 1,
                                         detail::datatype_traits<T>::get_datatype(),
                                         static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -362,8 +343,7 @@ namespace mpl {
       const int err{MPI_File_write_at_c(file_, offset, data, 1,
                                         detail::datatype_traits<layout<T>>::get_datatype(l),
                                         static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -377,8 +357,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_at_c(file_, offset, &data, 1,
                                         detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -393,8 +372,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_at_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -408,8 +386,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_c(file_, offset, &data, 1,
                                          detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -424,8 +401,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -438,8 +414,7 @@ namespace mpl {
       status_t s;
       const int err{MPI_File_read_c(file_, &data, 1, detail::datatype_traits<T>::get_datatype(),
                                     static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -454,8 +429,7 @@ namespace mpl {
       const int err{MPI_File_read_c(file_, data, 1,
                                     detail::datatype_traits<layout<T>>::get_datatype(l),
                                     static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -469,8 +443,7 @@ namespace mpl {
       const int err{MPI_File_write_c(file_, &data, 1,
                                      detail::datatype_traits<T>::get_datatype(),
                                      static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -485,8 +458,7 @@ namespace mpl {
       const int err{MPI_File_write_c(file_, data, 1,
                                      detail::datatype_traits<layout<T>>::get_datatype(l),
                                      static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -499,8 +471,7 @@ namespace mpl {
       MPI_Request req;
       const int err{
           MPI_File_iread_c(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -514,8 +485,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -528,8 +498,7 @@ namespace mpl {
       MPI_Request req;
       const int err{
           MPI_File_iwrite_c(file_, &data, 1, detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -543,8 +512,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -558,8 +526,7 @@ namespace mpl {
       const int err{MPI_File_read_shared_c(file_, &data, 1,
                                            detail::datatype_traits<T>::get_datatype(),
                                            static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -574,8 +541,7 @@ namespace mpl {
       const int err{MPI_File_read_shared_c(file_, data, 1,
                                            detail::datatype_traits<layout<T>>::get_datatype(l),
                                            static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -589,8 +555,7 @@ namespace mpl {
       const int err{MPI_File_write_shared_c(file_, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(),
                                             static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -605,8 +570,7 @@ namespace mpl {
       const int err{MPI_File_write_shared_c(file_, data, 1,
                                             detail::datatype_traits<layout<T>>::get_datatype(l),
                                             static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -619,8 +583,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_shared_c(file_, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -634,8 +597,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_shared_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -648,8 +610,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_shared_c(file_, &data, 1,
                                              detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -663,8 +624,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_shared_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -679,8 +639,7 @@ namespace mpl {
       const int err{MPI_File_read_at_all_c(file_, offset, &data, 1,
                                            detail::datatype_traits<T>::get_datatype(),
                                            static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -696,8 +655,7 @@ namespace mpl {
       const int err{MPI_File_read_at_all_c(file_, offset, data, 1,
                                            detail::datatype_traits<layout<T>>::get_datatype(l),
                                            static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -712,8 +670,7 @@ namespace mpl {
       const int err{MPI_File_write_at_all_c(file_, offset, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(),
                                             static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -729,8 +686,7 @@ namespace mpl {
       const int err{MPI_File_write_at_all_c(file_, offset, data, 1,
                                             detail::datatype_traits<layout<T>>::get_datatype(l),
                                             static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -744,8 +700,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_at_all_c(file_, offset, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -760,8 +715,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_at_all_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -775,8 +729,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_all_c(file_, offset, &data, 1,
                                              detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -791,8 +744,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_all_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -806,8 +758,7 @@ namespace mpl {
       const int err{MPI_File_read_all_c(file_, &data, 1,
                                         detail::datatype_traits<T>::get_datatype(),
                                         static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -822,8 +773,7 @@ namespace mpl {
       const int err{MPI_File_read_all_c(file_, data, 1,
                                         detail::datatype_traits<layout<T>>::get_datatype(l),
                                         static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -837,8 +787,7 @@ namespace mpl {
       const int err{MPI_File_write_all_c(file_, &data, 1,
                                          detail::datatype_traits<T>::get_datatype(),
                                          static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -853,8 +802,7 @@ namespace mpl {
       const int err{MPI_File_write_all_c(file_, data, 1,
                                          detail::datatype_traits<layout<T>>::get_datatype(l),
                                          static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -867,8 +815,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_all_c(file_, &data, 1,
                                          detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -882,8 +829,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iread_all_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -896,8 +842,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_all_c(file_, &data, 1,
                                           detail::datatype_traits<T>::get_datatype(), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -911,8 +856,7 @@ namespace mpl {
       MPI_Request req;
       const int err{MPI_File_iwrite_all_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return impl::base_irequest{req};
     }
 
@@ -926,8 +870,7 @@ namespace mpl {
       const int err{MPI_File_read_ordered_c(file_, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(),
                                             static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -942,8 +885,7 @@ namespace mpl {
       const int err{MPI_File_read_ordered_c(file_, data, 1,
                                             detail::datatype_traits<layout<T>>::get_datatype(l),
                                             static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -957,8 +899,7 @@ namespace mpl {
       const int err{MPI_File_write_ordered_c(file_, &data, 1,
                                              detail::datatype_traits<T>::get_datatype(),
                                              static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -973,8 +914,7 @@ namespace mpl {
       const int err{MPI_File_write_ordered_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l),
           static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -986,8 +926,7 @@ namespace mpl {
     void read_at_all_begin(ssize_t offset, T &data) {
       const int err{MPI_File_read_at_all_begin_c(file_, offset, &data, 1,
                                                  detail::datatype_traits<T>::get_datatype())};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// read data from file, blocking, split-collective, explicit offset
@@ -999,8 +938,7 @@ namespace mpl {
     void read_at_all_begin(ssize_t offset, T *data, const layout<T> &l) {
       const int err{MPI_File_read_at_all_begin_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// finish reading data from file, blocking, split-collective, explicit offset
@@ -1011,8 +949,7 @@ namespace mpl {
     status_t read_at_all_end(T &data) {
       status_t s;
       const int err{MPI_File_read_at_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1024,8 +961,7 @@ namespace mpl {
     status_t read_at_all_end(T *data) {
       status_t s;
       const int err{MPI_File_read_at_all_end(file_, data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1037,8 +973,7 @@ namespace mpl {
     void write_at_all_begin(ssize_t offset, const T &data) {
       const int err{MPI_File_write_at_all_begin_c(file_, offset, &data, 1,
                                                   detail::datatype_traits<T>::get_datatype())};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// write data to file, blocking, split-collective, explicit offset
@@ -1050,8 +985,7 @@ namespace mpl {
     void write_at_all_begin(ssize_t offset, const T *data, const layout<T> &l) {
       const int err{MPI_File_write_at_all_begin_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// finish writing data to file, blocking, split-collective, explicit offset
@@ -1062,8 +996,7 @@ namespace mpl {
     status_t write_at_all_end(const T &data) {
       status_t s;
       const int err{MPI_File_write_at_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1075,8 +1008,7 @@ namespace mpl {
     status_t write_at_all_end(const T *data) {
       status_t s;
       const int err{MPI_File_write_at_all_end(file_, data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1087,8 +1019,7 @@ namespace mpl {
     void read_all_begin(T &data) {
       const int err{MPI_File_read_all_begin_c(file_, &data, 1,
                                               detail::datatype_traits<T>::get_datatype())};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// read data from file, blocking, split-collective, individual file-pointer based
@@ -1099,8 +1030,7 @@ namespace mpl {
     void read_all_begin(T *data, const layout<T> &l) {
       const int err{MPI_File_read_all_begin_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// finish reading data from file, blocking, split-collective, individual file-pointer based
@@ -1111,8 +1041,7 @@ namespace mpl {
     status_t read_all_end(T &data) {
       status_t s;
       const int err{MPI_File_read_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1124,8 +1053,7 @@ namespace mpl {
     status_t read_all_end(T *data) {
       status_t s;
       const int err{MPI_File_read_all_end(file_, data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1136,8 +1064,7 @@ namespace mpl {
     void write_all_begin(const T &data) {
       const int err{MPI_File_write_all_begin_c(file_, &data, 1,
                                                detail::datatype_traits<T>::get_datatype())};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// write data to file, blocking, split-collective, individual file-pointer based
@@ -1148,8 +1075,7 @@ namespace mpl {
     void write_all_begin(const T *data, const layout<T> &l) {
       const int err{MPI_File_write_all_begin_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// finish writing data to file, blocking, split-collective, individual file-pointer based
@@ -1160,8 +1086,7 @@ namespace mpl {
     status_t write_all_end(const T &data) {
       status_t s;
       const int err{MPI_File_write_all_end(file_, &data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1173,8 +1098,7 @@ namespace mpl {
     status_t write_all_end(const T *data) {
       status_t s;
       const int err{MPI_File_write_all_end(file_, data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1185,8 +1109,7 @@ namespace mpl {
     void read_ordered_begin(T &data) {
       const int err{MPI_File_read_ordered_begin_c(file_, &data, 1,
                                                   detail::datatype_traits<T>::get_datatype())};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// read data from file, blocking, split-collective, shared file-pointer based
@@ -1197,8 +1120,7 @@ namespace mpl {
     void read_ordered_begin(T *data, const layout<T> &l) {
       const int err{MPI_File_read_ordered_begin_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// finish reading data from file, blocking, split-collective, shared file-pointer based
@@ -1209,8 +1131,7 @@ namespace mpl {
     status_t read_ordered_end(T &data) {
       status_t s;
       const int err{MPI_File_read_ordered_end(file_, &data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1222,8 +1143,7 @@ namespace mpl {
     status_t read_ordered_end(T *data) {
       status_t s;
       const int err{MPI_File_read_ordered_end(file_, data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1234,8 +1154,7 @@ namespace mpl {
     void write_ordered_begin(const T &data) {
       const int err{MPI_File_write_ordered_begin_c(file_, &data, 1,
                                                    detail::datatype_traits<T>::get_datatype())};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// write data to file, blocking, split-collective, shared file-pointer based
@@ -1246,8 +1165,7 @@ namespace mpl {
     void write_ordered_begin(const T *data, const layout<T> &l) {
       const int err{MPI_File_write_ordered_begin_c(
           file_, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
     }
 
     /// finish writing data to file, blocking, split-collective, shared file-pointer based
@@ -1258,8 +1176,7 @@ namespace mpl {
     status_t write_ordered_end(const T &data) {
       status_t s;
       const int err{MPI_File_write_ordered_end(file_, &data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1271,8 +1188,7 @@ namespace mpl {
     status_t write_ordered_end(const T *data) {
       status_t s;
       const int err{MPI_File_write_ordered_end(file_, data, static_cast<MPI_Status *>(&s))};
-      if (err != MPI_SUCCESS)
-        throw io_failure(err);
+      detail::check(err);
       return s;
     }
 
@@ -1327,7 +1243,7 @@ namespace mpl {
 
 
   inline group::group(const file &f) {
-    MPI_File_get_group(f.file_, &gr_);
+    detail::check(MPI_File_get_group(f.file_, &gr_));
   }
 
 }  // namespace mpl

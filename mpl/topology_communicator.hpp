@@ -53,8 +53,9 @@ namespace mpl::impl {
     /// overload) by all  processes in the communicator.
     template<typename T>
     void neighbor_allgather(const T &senddata, T *recvdata) const {
-      MPI_Neighbor_allgather_c(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
-                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_);
+      detail::check(MPI_Neighbor_allgather_c(
+          &senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+          detail::datatype_traits<T>::get_datatype(), comm_));
     }
 
     /// Gather messages from all neighboring processes.
@@ -69,9 +70,9 @@ namespace mpl::impl {
     template<typename T>
     void neighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                             const layout<T> &recvl) const {
-      MPI_Neighbor_allgather_c(
+      detail::check(MPI_Neighbor_allgather_c(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
-          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
+          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_));
     }
 
     // --- nonblocking neighbor allgather ---
@@ -86,9 +87,9 @@ namespace mpl::impl {
     template<typename T>
     mpl::irequest ineighbor_allgather(const T &senddata, T *recvdata) const {
       MPI_Request req;
-      MPI_Ineighbor_allgather_c(&senddata, 1, detail::datatype_traits<T>::get_datatype(),
-                                recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
-                                &req);
+      detail::check(MPI_Ineighbor_allgather_c(
+          &senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+          detail::datatype_traits<T>::get_datatype(), comm_, &req));
       return impl::base_irequest{req};
     }
 
@@ -106,9 +107,9 @@ namespace mpl::impl {
     mpl::irequest ineighbor_allgather(const T *senddata, const layout<T> &sendl, T *recvdata,
                                       const layout<T> &recvl) const {
       MPI_Request req;
-      MPI_Ineighbor_allgather_c(
+      detail::check(MPI_Ineighbor_allgather_c(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
-          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
+          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req));
       return impl::base_irequest{req};
     }
 
@@ -206,8 +207,9 @@ namespace mpl::impl {
     /// overload) by all processes in the communicator.
     template<typename T>
     void neighbor_alltoall(const T *senddata, T *recvdata) const {
-      MPI_Neighbor_alltoall_c(senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata,
-                              1, detail::datatype_traits<T>::get_datatype(), comm_);
+      detail::check(MPI_Neighbor_alltoall_c(
+          senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+          detail::datatype_traits<T>::get_datatype(), comm_));
     }
 
     /// Sends messages to all neighbouring processes and receives messages from all
@@ -231,9 +233,9 @@ namespace mpl::impl {
     template<typename T>
     void neighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                            const layout<T> &recvl) const {
-      MPI_Neighbor_alltoall_c(
+      detail::check(MPI_Neighbor_alltoall_c(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
-          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_);
+          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_));
     }
 
     // --- nonblocking neighbor all-to-all ---
@@ -254,9 +256,9 @@ namespace mpl::impl {
     template<typename T>
     mpl::irequest ineighbor_alltoall(const T *senddata, T *recvdata) const {
       MPI_Request req;
-      MPI_Ineighbor_alltoall_c(senddata, 1, detail::datatype_traits<T>::get_datatype(),
-                               recvdata, 1, detail::datatype_traits<T>::get_datatype(), comm_,
-                               &req);
+      detail::check(MPI_Ineighbor_alltoall_c(
+          senddata, 1, detail::datatype_traits<T>::get_datatype(), recvdata, 1,
+          detail::datatype_traits<T>::get_datatype(), comm_, &req));
       return impl::base_irequest{req};
     }
 
@@ -283,9 +285,9 @@ namespace mpl::impl {
     mpl::irequest ineighbor_alltoall(const T *senddata, const layout<T> &sendl, T *recvdata,
                                      const layout<T> &recvl) const {
       MPI_Request req;
-      MPI_Ineighbor_alltoall_c(
+      detail::check(MPI_Ineighbor_alltoall_c(
           senddata, 1, detail::datatype_traits<layout<T>>::get_datatype(sendl), recvdata, 1,
-          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req);
+          detail::datatype_traits<layout<T>>::get_datatype(recvl), comm_, &req));
       return impl::base_irequest{req};
     }
 
@@ -324,10 +326,10 @@ namespace mpl::impl {
       static_assert(
           sizeof(decltype(*sendls())) == sizeof(MPI_Datatype),
           "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
-      MPI_Neighbor_alltoallw_c(senddata, counts.data(), senddispls_as_mpi.data(),
-                               reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata,
-                               counts.data(), recvdispls_as_mpi.data(),
-                               reinterpret_cast<const MPI_Datatype *>(recvls()), comm_);
+      detail::check(MPI_Neighbor_alltoallw_c(
+          senddata, counts.data(), senddispls_as_mpi.data(),
+          reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata, counts.data(),
+          recvdispls_as_mpi.data(), reinterpret_cast<const MPI_Datatype *>(recvls()), comm_));
     }
 
     /// Sends messages with a variable amount of data to all neighbouring processes and
@@ -394,10 +396,11 @@ namespace mpl::impl {
       static_assert(
           sizeof(decltype(*sendls())) == sizeof(MPI_Datatype),
           "compiler adds some unexpected padding, reinterpret cast will yield wrong results");
-      MPI_Ineighbor_alltoallw_c(senddata, counts.data(), senddispls_as_mpi.data(),
-                                reinterpret_cast<const MPI_Datatype *>(sendls()), recvdata,
-                                counts.data(), recvdispls_as_mpi.data(),
-                                reinterpret_cast<const MPI_Datatype *>(recvls()), comm_, &req);
+      detail::check(MPI_Ineighbor_alltoallw_c(senddata, counts.data(), senddispls_as_mpi.data(),
+                                              reinterpret_cast<const MPI_Datatype *>(sendls()),
+                                              recvdata, counts.data(), recvdispls_as_mpi.data(),
+                                              reinterpret_cast<const MPI_Datatype *>(recvls()),
+                                              comm_, &req));
       return impl::base_irequest{req};
     }
 

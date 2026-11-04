@@ -98,7 +98,7 @@ namespace mpl {
       /// Cancels the request if it is pending.
       void cancel() {
         if (request_ != MPI_REQUEST_NULL)
-          MPI_Cancel(&request_);
+          detail::check(MPI_Cancel(&request_));
       }
 
       /// Tests for the completion.
@@ -106,7 +106,7 @@ namespace mpl {
       std::optional<status_t> test() {
         int result{true};
         status_t s;
-        MPI_Test(&request_, &result, static_cast<MPI_Status *>(&s));
+        detail::check(MPI_Test(&request_, &result, static_cast<MPI_Status *>(&s)));
         if (result != 0)
           return s;
         return {};
@@ -116,7 +116,7 @@ namespace mpl {
       /// \return operation's status after completion
       status_t wait() {
         status_t s;
-        MPI_Wait(&request_, static_cast<MPI_Status *>(&s));
+        detail::check(MPI_Wait(&request_, static_cast<MPI_Status *>(&s)));
         return s;
       }
 
@@ -125,7 +125,7 @@ namespace mpl {
       std::optional<status_t> get_status() {
         int result{true};
         status_t s;
-        MPI_Request_get_status(request_, &result, static_cast<MPI_Status *>(&s));
+        detail::check(MPI_Request_get_status(request_, &result, static_cast<MPI_Status *>(&s)));
         if (result != 0)
           return s;
         return {};
@@ -184,6 +184,9 @@ namespace mpl {
       }
 
       /// Get status of a request.
+      /// Status validity depends on the most recent completion call. In particular, a
+      /// testall that returns false does not provide usable completion statuses, and the
+      /// MPI error field is defined only for an MPI_ERR_IN_STATUS result.
       /// \param i index of the request for which the status will be returned
       /// \return status of request
       [[nodiscard]] const status_t &get_status(size_type i) const {
@@ -193,10 +196,10 @@ namespace mpl {
       /// Cancels a pending request in the pool.
       /// \param i index of the request for which shall be cancelled
       void cancel(size_type i) {
-        MPI_Cancel(&requests_[i]);
+        detail::check(MPI_Cancel(&requests_[i]));
       }
 
-      /// Cancels all requests in the pool.
+      /// Cancels all requests in the pool, stopping at the first error.
       void cancelall() {
         for (size_type i = 0; i < requests_.size(); ++i)
           cancel(i);
@@ -206,7 +209,7 @@ namespace mpl {
       /// \param i index of the request to wait for
       /// \return operation's status after completion
       status_t wait(size_type i) {
-        MPI_Wait(&requests_[i], static_cast<MPI_Status *>(&statuses_[i]));
+        detail::check(MPI_Wait(&requests_[i], static_cast<MPI_Status *>(&statuses_[i])));
         return statuses_[i];
       }
 
@@ -215,7 +218,8 @@ namespace mpl {
       /// \return the operation's status if completed successfully
       std::optional<status_t> test(size_type i) {
         int result{true};
-        MPI_Test(&requests_[i], &result, static_cast<MPI_Status *>(&statuses_[i]));
+        detail::check(
+            MPI_Test(&requests_[i], &result, static_cast<MPI_Status *>(&statuses_[i])));
         if (result != 0)
           return statuses_[i];
         return {};
@@ -235,7 +239,8 @@ namespace mpl {
       std::pair<test_result, size_type> waitany() {
         int index;
         status_t s;
-        MPI_Waitany(size(), &requests_[0], &index, static_cast<MPI_Status *>(&s));
+        detail::check(
+            MPI_Waitany(size(), requests_.data(), &index, static_cast<MPI_Status *>(&s)));
         if (index != MPI_UNDEFINED) {
           statuses_[index] = s;
           return std::make_pair(test_result::completed, static_cast<size_type>(index));
@@ -249,7 +254,8 @@ namespace mpl {
       std::pair<test_result, size_type> testany() {
         int index, flag;
         status_t s;
-        MPI_Testany(size(), &requests_[0], &index, &flag, static_cast<MPI_Status *>(&s));
+        detail::check(MPI_Testany(size(), requests_.data(), &index, &flag,
+                                  static_cast<MPI_Status *>(&s)));
         if (flag != 0 and index != MPI_UNDEFINED) {
           statuses_[index] = s;
           return std::make_pair(test_result::completed, static_cast<size_type>(index));
@@ -259,16 +265,57 @@ namespace mpl {
         return std::make_pair(test_result::no_completed, size());
       }
 
+      void store_some_statuses(const int return_code, const int count,
+                               const std::vector<int> &out_indices,
+                               const std::vector<status_t> &out_statuses) {
+        if ((return_code == MPI_SUCCESS or return_code == MPI_ERR_IN_STATUS) and
+            count != MPI_UNDEFINED)
+          for (int i{0}; i < count; ++i)
+            statuses_[out_indices[i]] = out_statuses[i];
+      }
+
+      template<typename S>
+      static void check_statuses(const int return_code, const S *statuses, const int n,
+                                 const int *indices = nullptr) {
+        if (return_code != MPI_ERR_IN_STATUS) {
+          detail::check(return_code);
+          return;
+        }
+        // Requests with status MPI_ERR_PENDING are still pending and therefore neither
+        // failed nor completed.
+        std::vector<int> failed;
+        std::vector<int> completed;
+        int first_code{MPI_SUCCESS};
+        for (int i{0}; i < n; ++i) {
+          const int e{static_cast<const MPI_Status &>(statuses[i]).MPI_ERROR};
+          const int index{indices != nullptr ? indices[i] : i};
+          if (e == MPI_SUCCESS) {
+            completed.push_back(index);
+          } else if (e != MPI_ERR_PENDING) {
+            if (failed.empty())
+              first_code = e;
+            failed.push_back(index);
+          }
+        }
+        if (failed.empty())
+          detail::check(return_code);
+        throw request_error{first_code, std::move(failed), std::move(completed)};
+      }
+
       /// Waits for completion of all pending requests.
       void waitall() {
-        MPI_Waitall(size(), &requests_[0], static_cast<MPI_Status *>(&statuses_[0]));
+        check_statuses(
+            MPI_Waitall(size(), requests_.data(), static_cast<MPI_Status *>(statuses_.data())),
+            statuses_.data(), size());
       }
 
       /// Tests for completion of all pending requests.
       /// \return true if all pending requests have completed
       bool testall() {
         int flag;
-        MPI_Testall(size(), &requests_[0], &flag, static_cast<MPI_Status *>(&statuses_[0]));
+        check_statuses(MPI_Testall(size(), requests_.data(), &flag,
+                                   static_cast<MPI_Status *>(statuses_.data())),
+                       statuses_.data(), size());
         return static_cast<bool>(flag);
       }
 
@@ -278,12 +325,15 @@ namespace mpl {
       std::pair<test_result, std::vector<size_type>> waitsome() {
         std::vector<int> out_indices(size());
         std::vector<status_t> out_statuses(size());
-        int count;
-        MPI_Waitsome(size(), &requests_[0], &count, out_indices.data(),
-                     static_cast<MPI_Status *>(&out_statuses[0]));
+        int count{MPI_UNDEFINED};
+        const int return_code{MPI_Waitsome(size(), requests_.data(), &count, out_indices.data(),
+                                           static_cast<MPI_Status *>(out_statuses.data()))};
+        // Store the statuses first, because the requests that completed are already
+        // deallocated by MPI, even if another request failed.
+        store_some_statuses(return_code, count, out_indices, out_statuses);
+        check_statuses(return_code, out_statuses.data(), count == MPI_UNDEFINED ? 0 : count,
+                       out_indices.data());
         if (count != MPI_UNDEFINED) {
-          for (int i{0}; i < count; ++i)
-            statuses_[out_indices[i]] = out_statuses[i];
           return std::make_pair(
               test_result::completed,
               std::vector<size_t>(out_indices.begin(), out_indices.begin() + count));
@@ -297,12 +347,15 @@ namespace mpl {
       std::pair<test_result, std::vector<size_type>> testsome() {
         std::vector<int> out_indices(size());
         std::vector<status_t> out_statuses(size());
-        int count;
-        MPI_Testsome(size(), &requests_[0], &count, out_indices.data(),
-                     static_cast<MPI_Status *>(&out_statuses[0]));
+        int count{MPI_UNDEFINED};
+        const int return_code{MPI_Testsome(size(), requests_.data(), &count, out_indices.data(),
+                                           static_cast<MPI_Status *>(out_statuses.data()))};
+        // Store the statuses first, because the requests that completed are already
+        // deallocated by MPI, even if another request failed.
+        store_some_statuses(return_code, count, out_indices, out_statuses);
+        check_statuses(return_code, out_statuses.data(), count == MPI_UNDEFINED ? 0 : count,
+                       out_indices.data());
         if (count != MPI_UNDEFINED) {
-          for (int i{0}; i < count; ++i)
-            statuses_[out_indices[i]] = out_statuses[i];
           return std::make_pair(
               count == 0 ? test_result::no_completed : test_result::completed,
               std::vector<size_t>(out_indices.begin(), out_indices.begin() + count));
@@ -412,7 +465,7 @@ namespace mpl {
 
     /// Start communication operation.
     void start() {
-      MPI_Start(&request_);
+      detail::check(MPI_Start(&request_));
     }
 
     friend class impl::request_pool<prequest>;
@@ -452,12 +505,12 @@ namespace mpl {
     /// Start a single persistent request in the pool.
     /// \param i index of the persistent request to start
     void start(size_type i) {
-      MPI_Start(&requests_[i]);
+      detail::check(MPI_Start(&requests_[i]));
     }
 
     /// Start all persistent requests in the pool.
     void startall() {
-      MPI_Startall(size(), &requests_[0]);
+      detail::check(MPI_Startall(size(), requests_.data()));
     }
   };
 

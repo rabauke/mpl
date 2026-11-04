@@ -268,7 +268,7 @@ namespace mpl {
     private:
       explicit op(F f_) {
         f.reset(new F(f_));
-        MPI_Op_create_c(op::apply, is_commutative, &mpi_op);
+        detail::check(MPI_Op_create_c(op::apply, is_commutative, &mpi_op));
       }
 
     public:

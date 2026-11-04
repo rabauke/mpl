@@ -32,7 +32,7 @@ MPL requires an MPI 4.1 implementation and uses its large-count interfaces.
 MPL gives currently access via a convenient C++ interface to the 
 following features of the Message Passing Interface standard:
 
-* environmental management (implicit initialization and finalization, timers, but no error handling).
+* environmental management (implicit initialization and finalization and timers),
 * point-to-point communication (blocking and non-blocking),
 * collective communication (blocking and non-blocking),
 * derived data types (happens automatically for many custom data types or via the `base_struct_builder` helper class and the layout classes of MPL),
@@ -44,7 +44,6 @@ following features of the Message Passing Interface standard:
 
 Currently, the following MPI features are not yet supported by MPL:
 
-* error handling and
 * one-sided communication.
 
 Although MPL covers a subset of the MPI functionality only, it has 
@@ -99,6 +98,13 @@ int main() {
 }
 ```
 
+## Error handling
+
+When a checked MPI call returns an error, MPL reports it as `mpl::mpi_error` (derived from `mpl::error`), carrying its code, class and message. Recognized I/O error classes become `mpl::io_failure`, including outside file operations; other classes from file operations remain `mpl::mpi_error`.
+
+MPL installs `MPI_ERRORS_RETURN` when it initializes its environment and wraps `MPI_COMM_WORLD` and `MPI_COMM_SELF`, and when it creates or wraps communicators. With external MPI initialization, earlier operations do not initialize the MPL environment or change those handlers; a fatal handler may abort before a call returns. Borrowed `mpi_communicator` and `mpi_inter_communicator` adapters change the original handle's handler without restoring it or taking ownership. MPI file and objectless operations can use different handlers; exceptions are possible only if MPI returns an error to MPL.
+
+Error reporting does not guarantee recovery: MPI may not permit continued execution, and other ranks may remain blocked. Cleanup and destructors are best-effort and do not throw. See the error handling documentation for request completion details.
 
 ## Building and Testing
 

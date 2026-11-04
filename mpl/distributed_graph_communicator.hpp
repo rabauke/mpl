@@ -88,14 +88,14 @@ namespace mpl {
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     distributed_graph_communicator(const distributed_graph_communicator &other) {
-      MPI_Comm_dup(other.comm_, &comm_);
+      communicator::operator=(other);
     }
 
     /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     distributed_graph_communicator(distributed_graph_communicator &&other) noexcept {
       comm_ = other.comm_;
-      other.comm_ = MPI_COMM_SELF;
+      other.comm_ = MPI_COMM_NULL;
     }
 
     /// Creates a new communicator with graph process topology.
@@ -134,10 +134,11 @@ namespace mpl {
         destinations_vector.push_back(x.rank);
         destination_weights.push_back(x.weight);
       }
-      MPI_Dist_graph_create_adjacent(other.comm_, sources_vector.size(), sources_vector.data(),
-                                     source_weights.data(), destinations.size(),
-                                     destinations_vector.data(), destination_weights.data(),
-                                     MPI_INFO_NULL, reorder, &comm_);
+      detail::check(MPI_Dist_graph_create_adjacent(
+          other.comm_, sources_vector.size(), sources_vector.data(), source_weights.data(),
+          destinations.size(), destinations_vector.data(), destination_weights.data(),
+          MPI_INFO_NULL, reorder, &comm_));
+      detail::set_errors_return(comm_);
     }
 
     /// Copy-assigns and creates a new communicator with graph process topology which
@@ -147,19 +148,8 @@ namespace mpl {
     /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
-    distributed_graph_communicator &operator=(
-        const distributed_graph_communicator &other) noexcept {
-      if (this != &other) {
-        if (is_valid()) {
-          int result_1;
-          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-          int result_2;
-          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-          if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-            MPI_Comm_free(&comm_);
-        }
-        MPI_Comm_dup(other.comm_, &comm_);
-      }
+    distributed_graph_communicator &operator=(const distributed_graph_communicator &other) {
+      communicator::operator=(other);
       return *this;
     }
 
@@ -168,16 +158,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator \c other.
     distributed_graph_communicator &operator=(distributed_graph_communicator &&other) noexcept {
-      if (this != &other) {
-        int result_1;
-        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-        int result_2;
-        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-        if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-          MPI_Comm_free(&comm_);
-        comm_ = other.comm_;
-        other.comm_ = MPI_COMM_SELF;
-      }
+      communicator::operator=(static_cast<communicator &&>(other));
       return *this;
     }
 
@@ -185,7 +166,8 @@ namespace mpl {
     /// \return in- and out-degree
     [[nodiscard]] std::tuple<int, int> in_out_degree() const {
       int t_in_degree, t_out_degree, t_weighted;
-      MPI_Dist_graph_neighbors_count(comm_, &t_in_degree, &t_out_degree, &t_weighted);
+      detail::check(
+          MPI_Dist_graph_neighbors_count(comm_, &t_in_degree, &t_out_degree, &t_weighted));
       return {t_in_degree, t_out_degree};
     };
 
@@ -208,8 +190,9 @@ namespace mpl {
       const auto [in_deg, out_deg]{in_out_degree()};
       std::vector<int> sources(in_deg), source_weights(in_deg);
       std::vector<int> destinations(out_deg), destination_weights(out_deg);
-      MPI_Dist_graph_neighbors(comm_, in_deg, sources.data(), source_weights.data(), out_deg,
-                               destinations.data(), destination_weights.data());
+      detail::check(MPI_Dist_graph_neighbors(comm_, in_deg, sources.data(),
+                                             source_weights.data(), out_deg,
+                                             destinations.data(), destination_weights.data()));
       neighbours_set neighbours;
       for (int i{0}; i < in_deg; ++i)
         neighbours.add({sources[i], source_weights[i]});
@@ -223,8 +206,9 @@ namespace mpl {
       const auto [in_deg, out_deg]{in_out_degree()};
       std::vector<int> sources(in_deg), source_weights(in_deg);
       std::vector<int> destinations(out_deg), destination_weights(out_deg);
-      MPI_Dist_graph_neighbors(comm_, in_deg, sources.data(), source_weights.data(), out_deg,
-                               destinations.data(), destination_weights.data());
+      detail::check(MPI_Dist_graph_neighbors(comm_, in_deg, sources.data(),
+                                             source_weights.data(), out_deg,
+                                             destinations.data(), destination_weights.data()));
       neighbours_set neighbours;
       for (int i{0}; i < in_deg; ++i)
         neighbours.add({destinations[i], destination_weights[i]});

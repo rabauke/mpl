@@ -417,7 +417,7 @@ namespace mpl {
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     cartesian_communicator(const cartesian_communicator &other) {
-      MPI_Comm_dup(other.comm_, &comm_);
+      communicator::operator=(other);
     }
 
     /// Creates a new communicator with Cartesian process topology.
@@ -430,8 +430,9 @@ namespace mpl {
     /// the communicator \c other with the same arguments.
     explicit cartesian_communicator(const communicator &other, const dimensions &dims,
                                     bool reorder = true) {
-      MPI_Cart_create(other.comm_, dims.dims_.size(), dims.dims_.data(), dims.periodic_.data(),
-                      reorder, &comm_);
+      detail::check(MPI_Cart_create(other.comm_, dims.dims_.size(), dims.dims_.data(),
+                                    dims.periodic_.data(), reorder, &comm_));
+      detail::set_errors_return(comm_);
     }
 
     /// Creates a new communicator with Cartesian process topology by partitioning a
@@ -447,14 +448,16 @@ namespace mpl {
       if (is_included.size() != other.dimensionality())
         throw invalid_size();
 #endif
-      MPI_Cart_sub(other.comm_, reinterpret_cast<const int *>(is_included.data()), &comm_);
+      detail::check(
+          MPI_Cart_sub(other.comm_, reinterpret_cast<const int *>(is_included.data()), &comm_));
+      detail::set_errors_return(comm_);
     }
 
     /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     cartesian_communicator(cartesian_communicator &&other) noexcept {
       comm_ = other.comm_;
-      other.comm_ = MPI_COMM_SELF;
+      other.comm_ = MPI_COMM_NULL;
     }
 
     /// Copy-assigns and creates a new communicator with Cartesian process topology which
@@ -464,18 +467,8 @@ namespace mpl {
     /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
-    cartesian_communicator &operator=(const cartesian_communicator &other) noexcept {
-      if (this != &other) {
-        if (is_valid()) {
-          int result_1{0};
-          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-          int result_2{0};
-          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-          if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-            MPI_Comm_free(&comm_);
-        }
-        MPI_Comm_dup(other.comm_, &comm_);
-      }
+    cartesian_communicator &operator=(const cartesian_communicator &other) {
+      communicator::operator=(other);
       return *this;
     }
 
@@ -484,16 +477,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator \c other.
     cartesian_communicator &operator=(cartesian_communicator &&other) noexcept {
-      if (this != &other) {
-        int result_1{0};
-        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-        int result_2{0};
-        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-        if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-          MPI_Comm_free(&comm_);
-        comm_ = other.comm_;
-        other.comm_ = MPI_COMM_SELF;
-      }
+      communicator::operator=(static_cast<communicator &&>(other));
       return *this;
     }
 
@@ -501,7 +485,7 @@ namespace mpl {
     /// \return number of dimensions of the Cartesian topology
     [[nodiscard]] int dimensionality() const {
       int t_dimensionality{0};
-      MPI_Cartdim_get(this->comm_, &t_dimensionality);
+      detail::check(MPI_Cartdim_get(this->comm_, &t_dimensionality));
       return t_dimensionality;
     }
 
@@ -512,7 +496,7 @@ namespace mpl {
     /// \return process rank
     [[nodiscard]] int rank(const vector &coordinate) const {
       int t_rank{0};
-      MPI_Cart_rank(this->comm_, coordinate.data(), &t_rank);
+      detail::check(MPI_Cart_rank(this->comm_, coordinate.data(), &t_rank));
       return t_rank;
     }
 
@@ -521,7 +505,7 @@ namespace mpl {
     /// \return Cartesian location
     [[nodiscard]] vector coordinates(int rank) const {
       vector coordinates(dimensionality());
-      MPI_Cart_coords(comm_, rank, coordinates.size(), coordinates.data());
+      detail::check(MPI_Cart_coords(comm_, rank, coordinates.size(), coordinates.data()));
       return coordinates;
     }
 
@@ -531,8 +515,8 @@ namespace mpl {
       const int t_dimensionality{dimensionality()};
       dimensions t_dimensions(t_dimensionality);
       vector t_coordinate(t_dimensionality);
-      MPI_Cart_get(comm_, t_dimensionality, t_dimensions.dims_.data(),
-                   t_dimensions.periodic_.data(), t_coordinate.data());
+      detail::check(MPI_Cart_get(comm_, t_dimensionality, t_dimensions.dims_.data(),
+                                 t_dimensions.periodic_.data(), t_coordinate.data()));
       return t_coordinate;
     }
 
@@ -542,8 +526,8 @@ namespace mpl {
       const int t_dimensionality{dimensionality()};
       dimensions t_dimensions(t_dimensionality);
       vector t_coordinate(t_dimensionality);
-      MPI_Cart_get(comm_, t_dimensionality, t_dimensions.dims_.data(),
-                   t_dimensions.periodic_.data(), t_coordinate.data());
+      detail::check(MPI_Cart_get(comm_, t_dimensionality, t_dimensions.dims_.data(),
+                                 t_dimensions.periodic_.data(), t_coordinate.data()));
       return t_dimensions;
     }
 
@@ -557,7 +541,8 @@ namespace mpl {
     /// returned instead.
     [[nodiscard]] shift_ranks shift(int direction, int displacement) const {
       shift_ranks ranks;
-      MPI_Cart_shift(this->comm_, direction, displacement, &ranks.source, &ranks.destination);
+      detail::check(MPI_Cart_shift(this->comm_, direction, displacement, &ranks.source,
+                                   &ranks.destination));
       return ranks;
     }
   };

@@ -110,9 +110,12 @@ namespace mpl {
     MPI_Datatype type_{MPI_DATATYPE_NULL};
 
   protected:
-    explicit layout(MPI_Datatype new_type) : type_{new_type} {
-      if (type_ != MPI_DATATYPE_NULL)
-        MPI_Type_commit(&type_);
+    explicit layout(MPI_Datatype new_type) {
+      detail::datatype_guard owner;
+      owner.reset(new_type);
+      if (new_type != MPI_DATATYPE_NULL)
+        detail::check(MPI_Type_commit(owner.address()));
+      type_ = owner.release();
     }
 
   public:
@@ -124,7 +127,7 @@ namespace mpl {
     /// \param l the layout to copy from
     layout(const layout &l) {
       if (l.type_ != MPI_DATATYPE_NULL)
-        MPI_Type_dup(l.type_, &type_);
+        detail::check(MPI_Type_dup(l.type_, &type_));
     }
 
     /// Move constructor creates a new layout that describes the same memory layout as
@@ -142,7 +145,7 @@ namespace mpl {
         if (type_ != MPI_DATATYPE_NULL)
           MPI_Type_free(&type_);
         if (l.type_ != MPI_DATATYPE_NULL)
-          MPI_Type_dup(l.type_, &type_);
+          detail::check(MPI_Type_dup(l.type_, &type_));
         else
           type_ = MPI_DATATYPE_NULL;
       }
@@ -177,7 +180,7 @@ namespace mpl {
     /// \see \c extent
     [[nodiscard]] ssize_t byte_extent() const {
       MPI_Count lb_, extent_;
-      MPI_Type_get_extent_c(type_, &lb_, &extent_);
+      detail::check(MPI_Type_get_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
         throw invalid_datatype_bound();
       return extent_;
@@ -190,7 +193,7 @@ namespace mpl {
     /// \see \c byte_upper_bound, \c lower_bound
     [[nodiscard]] ssize_t byte_lower_bound() const {
       MPI_Count lb_, extent_;
-      MPI_Type_get_extent_c(type_, &lb_, &extent_);
+      detail::check(MPI_Type_get_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
         throw invalid_datatype_bound();
       return lb_;
@@ -203,7 +206,7 @@ namespace mpl {
     /// \see \c byte_lower_bound, \c upper_bound
     [[nodiscard]] ssize_t byte_upper_bound() const {
       MPI_Count lb_, extent_;
-      MPI_Type_get_extent_c(type_, &lb_, &extent_);
+      detail::check(MPI_Type_get_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
         throw invalid_datatype_bound();
       return extent_ - lb_;
@@ -255,7 +258,7 @@ namespace mpl {
     /// \see \c true_extent
     [[nodiscard]] ssize_t true_byte_extent() const {
       MPI_Count lb_, extent_;
-      MPI_Type_get_true_extent_c(type_, &lb_, &extent_);
+      detail::check(MPI_Type_get_true_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
         throw invalid_datatype_bound();
       return extent_;
@@ -268,7 +271,7 @@ namespace mpl {
     /// \see \c true_byte_upper_bound, \c true_lower_bound
     [[nodiscard]] ssize_t true_byte_lower_bound() const {
       MPI_Count lb_, extent_;
-      MPI_Type_get_true_extent_c(type_, &lb_, &extent_);
+      detail::check(MPI_Type_get_true_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
         throw invalid_datatype_bound();
       return lb_;
@@ -281,7 +284,7 @@ namespace mpl {
     /// \see \c true_byte_lower_bound, \c true_upper_bound
     [[nodiscard]] ssize_t true_byte_upper_bound() const {
       MPI_Count lb_, extent_;
-      MPI_Type_get_true_extent_c(type_, &lb_, &extent_);
+      detail::check(MPI_Type_get_true_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
         throw invalid_datatype_bound();
       return extent_ - lb_;
@@ -332,8 +335,8 @@ namespace mpl {
     void byte_resize(ssize_t lb, ssize_t extent) {
       if (type_ != MPI_DATATYPE_NULL) {
         MPI_Datatype newtype;
-        MPI_Type_create_resized(type_, lb, extent, &newtype);
-        MPI_Type_commit(&newtype);
+        detail::check(MPI_Type_create_resized(type_, lb, extent, &newtype));
+        detail::check(MPI_Type_commit(&newtype));
         MPI_Type_free(&type_);
         type_ = newtype;
       }
@@ -440,7 +443,8 @@ namespace mpl {
 
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -500,7 +504,7 @@ namespace mpl {
     static MPI_Datatype build(
         size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(static_cast<MPI_Count>(count), old_type, &new_type);
+      detail::check(MPI_Type_contiguous_c(static_cast<MPI_Count>(count), old_type, &new_type));
       return new_type;
     }
 
@@ -596,7 +600,7 @@ namespace mpl {
     static MPI_Datatype build(
         size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(static_cast<MPI_Count>(count), old_type, &new_type);
+      detail::check(MPI_Type_contiguous_c(static_cast<MPI_Count>(count), old_type, &new_type));
       return new_type;
     }
 
@@ -662,7 +666,8 @@ namespace mpl {
 
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -670,7 +675,7 @@ namespace mpl {
         MPI_Count count, MPI_Count blocklength, MPI_Count stride,
         MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
-      MPI_Type_vector_c(count, blocklength, stride, old_type, &new_type);
+      detail::check(MPI_Type_vector_c(count, blocklength, stride, old_type, &new_type));
       return new_type;
     }
 
@@ -789,7 +794,8 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -799,8 +805,9 @@ namespace mpl {
       MPI_Datatype new_type;
       const auto blocklengths{detail::to_mpi_values<MPI_Count>(par.blocklengths)};
       const auto displacements{detail::to_mpi_values<MPI_Count>(par.displacements)};
-      MPI_Type_indexed_c(static_cast<MPI_Count>(par.displacements.size()), blocklengths.data(),
-                         displacements.data(), old_type, &new_type);
+      detail::check(MPI_Type_indexed_c(static_cast<MPI_Count>(par.displacements.size()),
+                                       blocklengths.data(), displacements.data(), old_type,
+                                       &new_type));
       return new_type;
     }
 
@@ -912,7 +919,8 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -922,9 +930,9 @@ namespace mpl {
       MPI_Datatype new_type;
       const auto blocklengths{detail::to_mpi_values<MPI_Count>(par.blocklengths)};
       const auto displacements{detail::to_mpi_values<MPI_Count>(par.displacements)};
-      MPI_Type_create_hindexed_c(static_cast<MPI_Count>(par.displacements.size()),
-                                 blocklengths.data(), displacements.data(), old_type,
-                                 &new_type);
+      detail::check(MPI_Type_create_hindexed_c(static_cast<MPI_Count>(par.displacements.size()),
+                                               blocklengths.data(), displacements.data(),
+                                               old_type, &new_type));
       return new_type;
     }
 
@@ -1031,7 +1039,8 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -1040,8 +1049,9 @@ namespace mpl {
         MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       const auto displacements{detail::to_mpi_values<MPI_Count>(par.displacements)};
-      MPI_Type_create_indexed_block_c(static_cast<MPI_Count>(par.displacements.size()),
-                                      blocklengths, displacements.data(), old_type, &new_type);
+      detail::check(MPI_Type_create_indexed_block_c(
+          static_cast<MPI_Count>(par.displacements.size()), blocklengths, displacements.data(),
+          old_type, &new_type));
       return new_type;
     }
 
@@ -1152,7 +1162,8 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -1161,8 +1172,9 @@ namespace mpl {
         MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       const auto displacements{detail::to_mpi_values<MPI_Count>(par.displacements)};
-      MPI_Type_create_hindexed_block_c(static_cast<MPI_Count>(par.displacements.size()),
-                                       blocklengths, displacements.data(), old_type, &new_type);
+      detail::check(MPI_Type_create_hindexed_block_c(
+          static_cast<MPI_Count>(par.displacements.size()), blocklengths, displacements.data(),
+          old_type, &new_type));
       return new_type;
     }
 
@@ -1276,7 +1288,8 @@ namespace mpl {
       template<typename iter_T>
       parameter(iter_T first, iter_T last) {
         MPI_Count lb_, extent_;
-        MPI_Type_get_extent_c(detail::datatype_traits<T>::get_datatype(), &lb_, &extent_);
+        detail::check(
+            MPI_Type_get_extent_c(detail::datatype_traits<T>::get_datatype(), &lb_, &extent_));
         if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
           throw invalid_datatype_bound();
         for (iter_T i = first; i != last; ++i)
@@ -1289,7 +1302,8 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -1298,9 +1312,9 @@ namespace mpl {
         MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       const auto displacements{detail::to_mpi_values<MPI_Count>(par.displacements)};
-      MPI_Type_create_hindexed_c(static_cast<MPI_Count>(par.displacements.size()),
-                                 par.blocklengths.data(), displacements.data(), old_type,
-                                 &new_type);
+      detail::check(MPI_Type_create_hindexed_c(static_cast<MPI_Count>(par.displacements.size()),
+                                               par.blocklengths.data(), displacements.data(),
+                                               old_type, &new_type));
       return new_type;
     }
 
@@ -1458,7 +1472,8 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type;
-      MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<T>::get_datatype(), &new_type));
       return new_type;
     }
 
@@ -1470,9 +1485,9 @@ namespace mpl {
         const auto sizes{detail::to_mpi_values<MPI_Count>(par.sizes)};
         const auto subsizes{detail::to_mpi_values<MPI_Count>(par.subsizes)};
         const auto starts{detail::to_mpi_values<MPI_Count>(par.starts)};
-        MPI_Type_create_subarray_c(static_cast<int>(par.sizes.size()), sizes.data(),
-                                   subsizes.data(), starts.data(),
-                                   static_cast<int>(par.order()), old_type, &new_type);
+        detail::check(MPI_Type_create_subarray_c(
+            static_cast<int>(par.sizes.size()), sizes.data(), subsizes.data(), starts.data(),
+            static_cast<int>(par.order()), old_type, &new_type));
       } else
         new_type = build();
       return new_type;
@@ -1633,15 +1648,16 @@ namespace mpl {
   private:
     static MPI_Datatype build() {
       MPI_Datatype new_type{};
-      MPI_Type_contiguous_c(0, detail::datatype_traits<char>::get_datatype(), &new_type);
+      detail::check(
+          MPI_Type_contiguous_c(0, detail::datatype_traits<char>::get_datatype(), &new_type));
       return new_type;
     }
 
     static MPI_Datatype build(const parameter &par) {
       MPI_Datatype new_type{};
-      MPI_Type_create_struct_c(static_cast<MPI_Count>(par.block_lengths_.size()),
-                               par.block_lengths_.data(), par.displacements_.data(),
-                               par.types_.data(), &new_type);
+      detail::check(MPI_Type_create_struct_c(
+          static_cast<MPI_Count>(par.block_lengths_.size()), par.block_lengths_.data(),
+          par.displacements_.data(), par.types_.data(), &new_type));
       return new_type;
     }
 

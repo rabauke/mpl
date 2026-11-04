@@ -124,14 +124,14 @@ namespace mpl {
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
     graph_communicator(const graph_communicator &other) {
-      MPI_Comm_dup(other.comm_, &comm_);
+      communicator::operator=(other);
     }
 
     /// Move-constructs a communicator.
     /// \param other the other communicator to move from
     graph_communicator(graph_communicator &&other) noexcept {
       comm_ = other.comm_;
-      other.comm_ = MPI_COMM_SELF;
+      other.comm_ = MPI_COMM_NULL;
     }
 
     /// Creates a new communicator with graph process topology.
@@ -161,7 +161,9 @@ namespace mpl {
         ++index[std::get<0>(e)];
       }
       std::partial_sum(index.begin(), index.end(), index.begin());
-      MPI_Graph_create(other.comm_, nodes, index.data(), edges_list.data(), reorder, &comm_);
+      detail::check(MPI_Graph_create(other.comm_, nodes, index.data(), edges_list.data(),
+                                     reorder, &comm_));
+      detail::set_errors_return(comm_);
     }
 
     /// Copy-assigns and creates a new communicator with graph process topology which
@@ -171,18 +173,8 @@ namespace mpl {
     /// the communicator \c other. Communicators should not be copied unless a new independent
     /// communicator is wanted. Communicators should be passed via references to functions to
     /// avoid unnecessary copying.
-    graph_communicator &operator=(const graph_communicator &other) noexcept {
-      if (this != &other) {
-        if (is_valid()) {
-          int result_1;
-          MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-          int result_2;
-          MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-          if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-            MPI_Comm_free(&comm_);
-        }
-        MPI_Comm_dup(other.comm_, &comm_);
-      }
+    graph_communicator &operator=(const graph_communicator &other) {
+      communicator::operator=(other);
       return *this;
     }
 
@@ -191,16 +183,7 @@ namespace mpl {
     /// \note This is a collective operation that needs to be carried out by all processes of
     /// the communicator \c other.
     graph_communicator &operator=(graph_communicator &&other) noexcept {
-      if (this != &other) {
-        int result_1;
-        MPI_Comm_compare(comm_, MPI_COMM_WORLD, &result_1);
-        int result_2;
-        MPI_Comm_compare(comm_, MPI_COMM_SELF, &result_2);
-        if (result_1 != MPI_IDENT and result_2 != MPI_IDENT)
-          MPI_Comm_free(&comm_);
-        comm_ = other.comm_;
-        other.comm_ = MPI_COMM_SELF;
-      }
+      communicator::operator=(static_cast<communicator &&>(other));
       return *this;
     }
 
@@ -209,7 +192,7 @@ namespace mpl {
     /// \return number of direct neighbours of the process with the given rank
     [[nodiscard]] int degree(int rank) const {
       int n_neighbors;
-      MPI_Graph_neighbors_count(this->comm_, rank, &n_neighbors);
+      detail::check(MPI_Graph_neighbors_count(this->comm_, rank, &n_neighbors));
       return n_neighbors;
     };
 
@@ -225,7 +208,7 @@ namespace mpl {
     [[nodiscard]] node_list neighbors(int rank) const {
       const int max_neighbors{degree(rank)};
       node_list nl(max_neighbors);
-      MPI_Graph_neighbors(comm_, rank, max_neighbors, nl.data());
+      detail::check(MPI_Graph_neighbors(comm_, rank, max_neighbors, nl.data()));
       return nl;
     }
 

@@ -6,6 +6,7 @@
 #include <memory>
 #include <vector>
 #include <mpi.h>
+#include <mpl/error.hpp>
 
 
 namespace mpl {
@@ -38,12 +39,13 @@ namespace mpl {
         public:
           initializer() {
             int is_initialized{0};
-            MPI_Initialized(&is_initialized);
+            mpl::detail::check(MPI_Initialized(&is_initialized));
             is_externally_initialized_ = is_initialized != 0;
             if (is_externally_initialized_)
-              MPI_Query_thread(&thread_mode_);
+              mpl::detail::check(MPI_Query_thread(&thread_mode_));
             else
-              MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_);
+              mpl::detail::check(
+                  MPI_Init_thread(nullptr, nullptr, MPI_THREAD_MULTIPLE, &thread_mode_));
           }
 
           ~initializer() {
@@ -73,7 +75,7 @@ namespace mpl {
       public:
         env() : comm_world_{MPI_COMM_WORLD}, comm_self_{MPI_COMM_SELF} {
           int size;
-          MPI_Comm_size(MPI_COMM_WORLD, &size);
+          mpl::detail::check(MPI_Comm_size(MPI_COMM_WORLD, &size));
         }
 
         env(const env &) = delete;
@@ -83,7 +85,7 @@ namespace mpl {
         [[nodiscard]] int tag_up() const {
           void *p;
           int flag;
-          MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &p, &flag);
+          mpl::detail::check(MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_TAG_UB, &p, &flag));
           return *static_cast<int *>(p);
         }
 
@@ -93,14 +95,14 @@ namespace mpl {
 
         [[nodiscard]] bool is_thread_main() const {
           int res;
-          MPI_Is_thread_main(&res);
+          mpl::detail::check(MPI_Is_thread_main(&res));
           return static_cast<bool>(res);
         }
 
         [[nodiscard]] bool wtime_is_global() const {
           void *p;
           int flag;
-          MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &p, &flag);
+          mpl::detail::check(MPI_Comm_get_attr(MPI_COMM_WORLD, MPI_WTIME_IS_GLOBAL, &p, &flag));
           return *static_cast<int *>(p);
         }
 
@@ -115,7 +117,7 @@ namespace mpl {
         [[nodiscard]] std::string processor_name() const {
           std::array<char, MPI_MAX_PROCESSOR_NAME> name;
           int len;
-          MPI_Get_processor_name(name.data(), &len);
+          mpl::detail::check(MPI_Get_processor_name(name.data(), &len));
           return name.data();
         }
 
@@ -128,13 +130,13 @@ namespace mpl {
         }
 
         void buffer_attach(void *buff, ssize_t size) const {
-          MPI_Buffer_attach_c(buff, size);
+          mpl::detail::check(MPI_Buffer_attach_c(buff, size));
         }
 
         [[nodiscard]] std::pair<void *, ssize_t> buffer_detach() const {
           void *buff;
           MPI_Count size;
-          MPI_Buffer_detach_c(&buff, &size);
+          mpl::detail::check(MPI_Buffer_detach_c(&buff, &size));
           return {buff, size};
         }
       };
@@ -263,15 +265,21 @@ namespace mpl {
     /// <tt>\ref bsend_overhead</tt> for each buffered send operation.  Use
     /// \c communicator::bsend_size to calculate the required buffer size.
     /// \see \c communicator::bsend and \c communicator::ibsend
-    explicit bsend_buffer(ssize_t size) : buff_{operator new(size)} {
-      environment::buffer_attach(buff_, size);
+    explicit bsend_buffer(ssize_t size) {
+      std::unique_ptr<void, void (*)(void *)> owner{operator new(size), &operator delete };
+      environment::buffer_attach(owner.get(), size);
+      buff_ = owner.release();
     }
 
     /// waits for uncompleted message transfers and frees the buffer
     /// \note A blocking communication operation is performed when an object of type
     /// \c bsend_buffer goes out of scope.
     ~bsend_buffer() {
-      environment::buffer_detach();
+      try {
+        environment::buffer_detach();
+      } catch (...) {
+        // must not throw
+      }
       operator delete(buff_);
     }
 

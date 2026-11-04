@@ -1171,3 +1171,25 @@ SCENARIO("parallel MPI file input and output operations", "[file]") {
     }
   }
 }
+
+
+SCENARIO("opening a nonexistent file throws io_failure", "[file]") {
+  GIVEN("the world communicator and the file name this_file_does_not_exist.bin") {
+    const mpl::communicator &comm_world{mpl::environment::comm_world()};
+    mpl::file file;
+    WHEN("the nonexistent file is opened read-only") {
+      bool caught{false};
+      try {
+        file.open(comm_world, "this_file_does_not_exist.bin",
+                  mpl::file::access_mode::read_only);
+      } catch (const mpl::io_failure &e) {
+        caught = true;
+        CHECK(e.error_class() != MPI_SUCCESS);
+        CHECK(std::string{e.what()}.size() > 0);
+      }
+      THEN("an mpl::io_failure is caught") {
+        CHECK(caught);
+      }
+    }
+  }
+}
