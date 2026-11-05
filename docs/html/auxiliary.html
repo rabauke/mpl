@@ -385,12 +385,10 @@
 <section id="types-for-probing-messages">
 <h2>Types for probing messages<a class="headerlink" href="#types-for-probing-messages" title="Link to this heading">¶</a></h2>
 <p>The following types are used in the context of probing messages. See section <a class="reference internal" href="examples/probe.html"><span class="doc">Probing messages</span></a> for an example.</p>
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl9message_tE">
-<span id="_CPPv3N3mpl9message_tE"></span><span id="_CPPv2N3mpl9message_tE"></span><span class="target" id="namespacempl_1aad56222a03607f133f93f9e1756c9b57"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">message_t</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Message</span></span><a class="headerlink" href="#_CPPv4N3mpl9message_tE" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Status of a received message. </p>
-</dd></dl>
-
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygenclass: Cannot find class “mpl::message_t” in doxygen xml output for project “MPL” from directory: /home/bauke/Programmieren/Parallel/mpi/mpl/cmake-build-documentation/doc/doxygen/xml</p>
+</div>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl8status_tE">
 <span id="_CPPv3N3mpl8status_tE"></span><span id="_CPPv2N3mpl8status_tE"></span><span id="mpl::status_t"></span><span class="target" id="classmpl_1_1status__t"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">status_t</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Status</span></span><a class="headerlink" href="#_CPPv4N3mpl8status_tE" title="Link to this definition">¶</a><br /></dt>
@@ -448,8 +446,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countEiv">
-<span id="_CPPv3I0ENK3mpl8status_t9get_countEv"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a2b8f4267f5ab695b07c88aa38d6d63f3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countEiv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tv">
+<span id="_CPPv3I0ENK3mpl8status_t9get_countEv"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a59cc8b9074b5c22abb7f910fe496e1ce"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tv" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – received data type </p>
@@ -461,8 +459,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countEiRK6layoutI1TE">
-<span id="_CPPv3I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a22617760b4daf5aa02bb4ea654fbc33b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countEiRK6layoutI1TE" title="mpl::status_t::get_count::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countEiRK6layoutI1TE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE">
+<span id="_CPPv3I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a84747bd529b39d4da96e7c361f1e41d9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE" title="mpl::status_t::get_count::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – received data type </p>
@@ -516,8 +514,8 @@
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
 <dl class="cpp var">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13mprobe_status7messageE">
-<span id="_CPPv3N3mpl13mprobe_status7messageE"></span><span id="_CPPv2N3mpl13mprobe_status7messageE"></span><span id="mpl::mprobe_status::message__message_t"></span><span class="target" id="structmpl_1_1mprobe__status_1a5b8730b80d075e2151742d9a2359fcba"></span><a class="reference internal" href="#_CPPv4N3mpl9message_tE" title="mpl::message_t"><span class="n"><span class="pre">message_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">message</span></span></span><a class="headerlink" href="#_CPPv4N3mpl13mprobe_status7messageE" title="Link to this definition">¶</a><br /></dt>
-<dd><p>message handle to be used in a matching receive operation </p>
+<span id="_CPPv3N3mpl13mprobe_status7messageE"></span><span id="_CPPv2N3mpl13mprobe_status7messageE"></span><span id="mpl::mprobe_status::message__message_t"></span><span class="target" id="structmpl_1_1mprobe__status_1a5b8730b80d075e2151742d9a2359fcba"></span><span class="n"><span class="pre">message_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">message</span></span></span><a class="headerlink" href="#_CPPv4N3mpl13mprobe_status7messageE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>opaque message value to be used in a matching receive operation </p>
 </dd></dl>
 
 <dl class="cpp var">
@@ -535,7 +533,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">mpl::displacements</span></code> class is used in the context of various collective communication operations that send and/or receive an amount of data that varies over the set of participating processes.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13displacementsE">
-<span id="_CPPv3N3mpl13displacementsE"></span><span id="_CPPv2N3mpl13displacementsE"></span><span id="mpl::displacements"></span><span class="target" id="classmpl_1_1displacements"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">MPI_Aint</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl13displacementsE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mpl13displacementsE"></span><span id="_CPPv2N3mpl13displacementsE"></span><span id="mpl::displacements"></span><span class="target" id="classmpl_1_1displacements"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl13displacementsE" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Set of displacements indicates the beginning of data buffers in various collective communication operations. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -568,8 +566,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI8MPI_AintEE">
-<span id="_CPPv3N3mpl13displacements13displacementsENSt16initializer_listI8MPI_AintEE"></span><span id="_CPPv2N3mpl13displacements13displacementsENSt16initializer_listI8MPI_AintEE"></span><span id="mpl::displacements::displacements__std::initializer_list:MPI_Aint:"></span><span class="target" id="classmpl_1_1displacements_1a1bd662aa7e892d66ae444eef97138ef0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">MPI_Aint</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI8MPI_AintEE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE">
+<span id="_CPPv3N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE"></span><span id="_CPPv2N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE"></span><span id="mpl::displacements::displacements__std::initializer_list:ssize_t:"></span><span class="target" id="classmpl_1_1displacements_1afaeea1c1413abe0115f0863de0316b79"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Constructs a set of displacements with given displacements. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -596,17 +594,6 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>other</strong> – the other set of displacements to move from </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13displacementsclEv">
-<span id="_CPPv3NK3mpl13displacementsclEv"></span><span id="_CPPv2NK3mpl13displacementsclEv"></span><span id="mpl::displacements::call-operatorC"></span><span class="target" id="classmpl_1_1displacements_1a968a16b1107f073f51b1ac4adc05a41d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">MPI_Aint</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">()</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl13displacementsclEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Get raw displacement data. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pointer to the array of displacements </p>
 </dd>
 </dl>
 </dd></dl>
@@ -824,6 +811,7 @@
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl13irequest_pool10get_statusE9size_type">
 <span id="_CPPv3NK3mpl13irequest_pool10get_statusE9size_type"></span><span id="_CPPv2NK3mpl13irequest_pool10get_statusE9size_type"></span><span id="mpl::irequest_pool::get_status__size_typeC"></span><span class="target" id="classmpl_1_1impl_1_1request__pool_1a75dc2f2ca575a452d2ede241ec1eaacc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_status</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool9size_typeE" title="mpl::irequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl13irequest_pool10get_statusE9size_type" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Get status of a request. </p>
+<p>Status validity depends on the most recent completion call. In particular, a testall that returns false does not provide usable completion statuses, and the MPI error field is defined only for an MPI_ERR_IN_STATUS result. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>i</strong> – index of the request for which the status will be returned </p>
@@ -848,7 +836,7 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13irequest_pool9cancelallEv">
 <span id="_CPPv3N3mpl13irequest_pool9cancelallEv"></span><span id="_CPPv2N3mpl13irequest_pool9cancelallEv"></span><span id="mpl::irequest_pool::cancelall"></span><span class="target" id="classmpl_1_1impl_1_1request__pool_1abf948b5021694e07f0351f7552876021"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cancelall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13irequest_pool9cancelallEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Cancels all requests in the pool. </p>
+<dd><p>Cancels all requests in the pool, stopping at the first error. </p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -913,6 +901,11 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13irequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE">
+<span id="_CPPv3N3mpl13irequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE"></span><span id="_CPPv2N3mpl13irequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE"></span><span id="mpl::irequest_pool::store_some_statuses__iC.iC.std::vector:i:CR.std::vector:status_t:CR"></span><span class="target" id="classmpl_1_1impl_1_1request__pool_1ad13a3bd02f196099df0e6b249df2ec4b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">store_some_statuses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">return_code</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out_indices</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out_statuses</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13irequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13irequest_pool7waitallEv">
 <span id="_CPPv3N3mpl13irequest_pool7waitallEv"></span><span id="_CPPv2N3mpl13irequest_pool7waitallEv"></span><span id="mpl::irequest_pool::waitall"></span><span class="target" id="classmpl_1_1impl_1_1request__pool_1ade0ef9a73a2afe5c1a14cfc5b9829a01"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13irequest_pool7waitallEv" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Waits for completion of all pending requests. </p>
@@ -950,6 +943,14 @@
 </dd>
 </dl>
 </dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13irequest_pool14check_statusesEKiPK1SKiPKi">
+<span id="_CPPv3N3mpl13irequest_pool14check_statusesEKiPK1SKiPKi"></span><span id="_CPPv2N3mpl13irequest_pool14check_statusesEKiPK1SKiPKi"></span><span id="mpl::irequest_pool::check_statuses__iC.SCP.iC.iCP"></span><span class="target" id="classmpl_1_1impl_1_1request__pool_1a8b3ef53990a6ebbd72efa915af072a75"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">check_statuses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">return_code</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">S</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">statuses</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">indices</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13irequest_pool14check_statusesEKiPK1SKiPKi" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 </div>
 </dd></dl>
@@ -1111,6 +1112,17 @@
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool4pushERR8prequest">
+<span id="_CPPv3N3mpl13prequest_pool4pushERR8prequest"></span><span id="_CPPv2N3mpl13prequest_pool4pushERR8prequest"></span><span id="mpl::prequest_pool::push__prequestRR"></span><span class="target" id="classmpl_1_1prequest__pool_1a44fbbaff5aec4171d1d833a923185c3f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">push</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl8prequestE" title="mpl::prequest"><span class="n"><span class="pre">prequest</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">request</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool4pushERR8prequest" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Move a persistent request into the request pool. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – request to move into the pool </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool5startE9size_type">
 <span id="_CPPv3N3mpl13prequest_pool5startE9size_type"></span><span id="_CPPv2N3mpl13prequest_pool5startE9size_type"></span><span id="mpl::prequest_pool::start__size_type"></span><span class="target" id="classmpl_1_1prequest__pool_1acd1147923dac554cd20f7788fa2afba8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">start</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool5startE9size_type" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Start a single persistent request in the pool. </p>
@@ -1125,6 +1137,95 @@
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool8startallEv">
 <span id="_CPPv3N3mpl13prequest_pool8startallEv"></span><span id="_CPPv2N3mpl13prequest_pool8startallEv"></span><span id="mpl::prequest_pool::startall"></span><span class="target" id="classmpl_1_1prequest__pool_1a5abe3ab472067413623d98c22cadc0a4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">startall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool8startallEv" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Start all persistent requests in the pool. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool4waitEK9size_type">
+<span id="_CPPv3N3mpl13prequest_pool4waitEK9size_type"></span><span id="_CPPv2N3mpl13prequest_pool4waitEK9size_type"></span><span id="mpl::prequest_pool::wait__size_typeC"></span><span class="target" id="classmpl_1_1prequest__pool_1a8aa5002a028760a29a96dfcace3dafdc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wait</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool4waitEK9size_type" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Wait for completion of a single persistent communication operation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>i</strong> – index of the request to wait for </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>operation’s status after completion </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool4testEK9size_type">
+<span id="_CPPv3N3mpl13prequest_pool4testEK9size_type"></span><span id="_CPPv2N3mpl13prequest_pool4testEK9size_type"></span><span id="mpl::prequest_pool::test__size_typeC"></span><span class="target" id="classmpl_1_1prequest__pool_1a57b64356641f0bd5f72e4e99c7558cd8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">test</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool4testEK9size_type" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Test for completion of a single persistent communication operation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>i</strong> – index of the request to test </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the operation’s status if completed successfully </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7waitanyEv">
+<span id="_CPPv3N3mpl13prequest_pool7waitanyEv"></span><span id="_CPPv2N3mpl13prequest_pool7waitanyEv"></span><span id="mpl::prequest_pool::waitany"></span><span class="target" id="classmpl_1_1prequest__pool_1ab63dfe0362d244a946087f14d54a0fd4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitany</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7waitanyEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Wait for completion of any active persistent communication operation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outcome and index of the completed request </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7testanyEv">
+<span id="_CPPv3N3mpl13prequest_pool7testanyEv"></span><span id="_CPPv2N3mpl13prequest_pool7testanyEv"></span><span id="mpl::prequest_pool::testany"></span><span class="target" id="classmpl_1_1prequest__pool_1abb37cb0c89df2d55d3ac3b6f1b6caac8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testany</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7testanyEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Test for completion of any active persistent communication operation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outcome and index of the completed request </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7waitallEv">
+<span id="_CPPv3N3mpl13prequest_pool7waitallEv"></span><span id="_CPPv2N3mpl13prequest_pool7waitallEv"></span><span id="mpl::prequest_pool::waitall"></span><span class="target" id="classmpl_1_1prequest__pool_1ade0ef9a73a2afe5c1a14cfc5b9829a01"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7waitallEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Wait for completion of all active persistent communication operations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7testallEv">
+<span id="_CPPv3N3mpl13prequest_pool7testallEv"></span><span id="_CPPv2N3mpl13prequest_pool7testallEv"></span><span id="mpl::prequest_pool::testall"></span><span class="target" id="classmpl_1_1prequest__pool_1a1f149675f8ac1f6edd2f5aeebc21e228"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7testallEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Test for completion of all active persistent communication operations. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true if all active requests have completed </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool8waitsomeEv">
+<span id="_CPPv3N3mpl13prequest_pool8waitsomeEv"></span><span id="_CPPv2N3mpl13prequest_pool8waitsomeEv"></span><span id="mpl::prequest_pool::waitsome"></span><span class="target" id="classmpl_1_1prequest__pool_1a10ff28f213a862b7cb2bd927ebc3c2bc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitsome</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool8waitsomeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Wait until one or more active persistent requests have completed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outcome and indices of the completed requests </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool8testsomeEv">
+<span id="_CPPv3N3mpl13prequest_pool8testsomeEv"></span><span id="_CPPv2N3mpl13prequest_pool8testsomeEv"></span><span id="mpl::prequest_pool::testsome"></span><span class="target" id="classmpl_1_1prequest__pool_1a74ab33662b33f1b5d6725ca9a3c30880"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testsome</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool8testsomeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Test whether one or more active persistent requests have completed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>outcome and indices of the completed requests </p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
@@ -1153,6 +1254,7 @@
 <dt class="sig sig-object cpp" id="_CPPv4NK3mpl13prequest_pool10get_statusE9size_type">
 <span id="_CPPv3NK3mpl13prequest_pool10get_statusE9size_type"></span><span id="_CPPv2NK3mpl13prequest_pool10get_statusE9size_type"></span><span id="mpl::prequest_pool::get_status__size_typeC"></span><span class="target" id="id6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_status</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3mpl13prequest_pool10get_statusE9size_type" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Get status of a request. </p>
+<p>Status validity depends on the most recent completion call. In particular, a testall that returns false does not provide usable completion statuses, and the MPI error field is defined only for an MPI_ERR_IN_STATUS result. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>i</strong> – index of the request for which the status will be returned </p>
@@ -1177,108 +1279,21 @@
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool9cancelallEv">
 <span id="_CPPv3N3mpl13prequest_pool9cancelallEv"></span><span id="_CPPv2N3mpl13prequest_pool9cancelallEv"></span><span id="mpl::prequest_pool::cancelall"></span><span class="target" id="id8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cancelall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool9cancelallEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Cancels all requests in the pool. </p>
+<dd><p>Cancels all requests in the pool, stopping at the first error. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool4waitE9size_type">
-<span id="_CPPv3N3mpl13prequest_pool4waitE9size_type"></span><span id="_CPPv2N3mpl13prequest_pool4waitE9size_type"></span><span id="mpl::prequest_pool::wait__size_type"></span><span class="target" id="id9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">wait</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool4waitE9size_type" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Wait for completion of a single pending communication operation in the pool. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>i</strong> – index of the request to wait for </p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>operation’s status after completion </p>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE">
+<span id="_CPPv3N3mpl13prequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE"></span><span id="_CPPv2N3mpl13prequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE"></span><span id="mpl::prequest_pool::store_some_statuses__iC.iC.std::vector:i:CR.std::vector:status_t:CR"></span><span class="target" id="id9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">store_some_statuses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">return_code</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">count</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out_indices</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">out_statuses</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool4testE9size_type">
-<span id="_CPPv3N3mpl13prequest_pool4testE9size_type"></span><span id="_CPPv2N3mpl13prequest_pool4testE9size_type"></span><span id="mpl::prequest_pool::test__size_type"></span><span class="target" id="id10"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl8status_tE" title="mpl::status_t"><span class="n"><span class="pre">status_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">test</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool4testE9size_type" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Tests for completion of a single pending communication operation in the pool. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>i</strong> – index of the request to test </p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>the operation’s status if completed successfully </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool4pushERR8prequest">
-<span id="_CPPv3N3mpl13prequest_pool4pushERR8prequest"></span><span id="_CPPv2N3mpl13prequest_pool4pushERR8prequest"></span><span id="mpl::prequest_pool::push__prequestRR"></span><span class="target" id="id11"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">push</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N3mpl8prequestE" title="mpl::prequest"><span class="n"><span class="pre">prequest</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">request</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool4pushERR8prequest" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Move a request into the request pool. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> – request to move into the pool </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7waitanyEv">
-<span id="_CPPv3N3mpl13prequest_pool7waitanyEv"></span><span id="_CPPv2N3mpl13prequest_pool7waitanyEv"></span><span id="mpl::prequest_pool::waitany"></span><span class="target" id="id12"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitany</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7waitanyEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Wait for completion of any pending communication operation. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pair containing the outcome of the wait operation and an index to the completed request if there was any pending request </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7testanyEv">
-<span id="_CPPv3N3mpl13prequest_pool7testanyEv"></span><span id="_CPPv2N3mpl13prequest_pool7testanyEv"></span><span id="mpl::prequest_pool::testany"></span><span class="target" id="id13"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testany</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7testanyEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Test for completion of any pending communication operation. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pair containing the outcome of the test and an index to the completed request if there was any pending request </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7waitallEv">
-<span id="_CPPv3N3mpl13prequest_pool7waitallEv"></span><span id="_CPPv2N3mpl13prequest_pool7waitallEv"></span><span id="mpl::prequest_pool::waitall"></span><span class="target" id="id14"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7waitallEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Waits for completion of all pending requests. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool7testallEv">
-<span id="_CPPv3N3mpl13prequest_pool7testallEv"></span><span id="_CPPv2N3mpl13prequest_pool7testallEv"></span><span id="mpl::prequest_pool::testall"></span><span class="target" id="id15"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testall</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool7testallEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Tests for completion of all pending requests. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>true if all pending requests have completed </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool8waitsomeEv">
-<span id="_CPPv3N3mpl13prequest_pool8waitsomeEv"></span><span id="_CPPv2N3mpl13prequest_pool8waitsomeEv"></span><span id="mpl::prequest_pool::waitsome"></span><span class="target" id="id16"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">waitsome</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool8waitsomeEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Waits until one or more pending requests have finished. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pair containing the outcome of the wait operation and a list of indices to the completed requests if there was any pending request </p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool8testsomeEv">
-<span id="_CPPv3N3mpl13prequest_pool8testsomeEv"></span><span id="_CPPv2N3mpl13prequest_pool8testsomeEv"></span><span id="mpl::prequest_pool::testsome"></span><span class="target" id="id17"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl11test_resultE" title="mpl::test_result"><span class="n"><span class="pre">test_result</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9size_typeE" title="mpl::prequest_pool::size_type"><span class="n"><span class="pre">size_type</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">testsome</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool8testsomeEv" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Tests if one or more pending requests have finished. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>pair containing the outcome of the test and a list of indices to the completed requests if there was any pending request </p>
-</dd>
-</dl>
-</dd></dl>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13prequest_pool14check_statusesEKiPK1SKiPKi">
+<span id="_CPPv3N3mpl13prequest_pool14check_statusesEKiPK1SKiPKi"></span><span id="_CPPv2N3mpl13prequest_pool14check_statusesEKiPK1SKiPKi"></span><span id="mpl::prequest_pool::check_statuses__iC.SCP.iC.iCP"></span><span class="target" id="id10"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">check_statuses</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">return_code</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">S</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">statuses</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">n</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">indices</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13prequest_pool14check_statusesEKiPK1SKiPKi" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
 
 </div>
 </dd></dl>
@@ -1477,15 +1492,14 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#types-for-probing-messages">Types for probing messages</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mpl9message_tE"><code class="docutils literal notranslate"><span class="pre">message_t</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl8status_tE"><code class="docutils literal notranslate"><span class="pre">mpl::status_t</span></code></a><ul>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t6sourceEv"><code class="docutils literal notranslate"><span class="pre">source()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t3tagEv"><code class="docutils literal notranslate"><span class="pre">tag()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t5errorEv"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t12is_cancelledEv"><code class="docutils literal notranslate"><span class="pre">is_cancelled()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t11is_canceledEv"><code class="docutils literal notranslate"><span class="pre">is_canceled()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countEiv"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countEiRK6layoutI1TE"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tv"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl8status_t8status_tEv"><code class="docutils literal notranslate"><span class="pre">status_t()</span></code></a></li>
 </ul>
 </li>
@@ -1501,10 +1515,9 @@
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements9size_typeE"><code class="docutils literal notranslate"><span class="pre">size_type</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements10value_typeE"><code class="docutils literal notranslate"><span class="pre">value_type</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsE9size_type"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI8MPI_AintEE"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsERK13displacements"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsERR13displacements"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mpl13displacementsclEv"><code class="docutils literal notranslate"><span class="pre">operator()()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1548,10 +1561,12 @@
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool4pushERR8irequest"><code class="docutils literal notranslate"><span class="pre">push()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool7waitanyEv"><code class="docutils literal notranslate"><span class="pre">waitany()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool7testanyEv"><code class="docutils literal notranslate"><span class="pre">testany()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE"><code class="docutils literal notranslate"><span class="pre">store_some_statuses()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool7waitallEv"><code class="docutils literal notranslate"><span class="pre">waitall()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool7testallEv"><code class="docutils literal notranslate"><span class="pre">testall()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool8waitsomeEv"><code class="docutils literal notranslate"><span class="pre">waitsome()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool8testsomeEv"><code class="docutils literal notranslate"><span class="pre">testsome()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13irequest_pool14check_statusesEKiPK1SKiPKi"><code class="docutils literal notranslate"><span class="pre">check_statuses()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1576,22 +1591,24 @@
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool13prequest_poolERR13prequest_pool"><code class="docutils literal notranslate"><span class="pre">prequest_pool()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_poolaSERK13prequest_pool"><code class="docutils literal notranslate"><span class="pre">operator=()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_poolaSERR13prequest_pool"><code class="docutils literal notranslate"><span class="pre">operator=()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool4pushERR8prequest"><code class="docutils literal notranslate"><span class="pre">push()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool5startE9size_type"><code class="docutils literal notranslate"><span class="pre">start()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool8startallEv"><code class="docutils literal notranslate"><span class="pre">startall()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mpl13prequest_pool4sizeEv"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mpl13prequest_pool5emptyEv"><code class="docutils literal notranslate"><span class="pre">empty()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4NK3mpl13prequest_pool10get_statusE9size_type"><code class="docutils literal notranslate"><span class="pre">get_status()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool6cancelE9size_type"><code class="docutils literal notranslate"><span class="pre">cancel()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9cancelallEv"><code class="docutils literal notranslate"><span class="pre">cancelall()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool4waitE9size_type"><code class="docutils literal notranslate"><span class="pre">wait()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool4testE9size_type"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool4pushERR8prequest"><code class="docutils literal notranslate"><span class="pre">push()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool4waitEK9size_type"><code class="docutils literal notranslate"><span class="pre">wait()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool4testEK9size_type"><code class="docutils literal notranslate"><span class="pre">test()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool7waitanyEv"><code class="docutils literal notranslate"><span class="pre">waitany()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool7testanyEv"><code class="docutils literal notranslate"><span class="pre">testany()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool7waitallEv"><code class="docutils literal notranslate"><span class="pre">waitall()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool7testallEv"><code class="docutils literal notranslate"><span class="pre">testall()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool8waitsomeEv"><code class="docutils literal notranslate"><span class="pre">waitsome()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool8testsomeEv"><code class="docutils literal notranslate"><span class="pre">testsome()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13prequest_pool4sizeEv"><code class="docutils literal notranslate"><span class="pre">size()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13prequest_pool5emptyEv"><code class="docutils literal notranslate"><span class="pre">empty()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13prequest_pool10get_statusE9size_type"><code class="docutils literal notranslate"><span class="pre">get_status()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool6cancelE9size_type"><code class="docutils literal notranslate"><span class="pre">cancel()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool9cancelallEv"><code class="docutils literal notranslate"><span class="pre">cancelall()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool19store_some_statusesEKiKiRKNSt6vectorIiEERKNSt6vectorI8status_tEE"><code class="docutils literal notranslate"><span class="pre">store_some_statuses()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13prequest_pool14check_statusesEKiPK1SKiPKi"><code class="docutils literal notranslate"><span class="pre">check_statuses()</span></code></a></li>
 </ul>
 </li>
 </ul>

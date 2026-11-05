@@ -24,17 +24,6 @@ A handle returned by a ``native handle`` method must not be freed
 manually, as it is managed by the MPL object.
 
 
-Using MPI communicators in MPL
-------------------------------
-
-The MPL class ``mpi_communicator`` provides a way to use an MPI
-communicator in MPL.  The constructor of ``mpi_communicator``
-requires a MPI communicator of type ``MPI_Comm`` as its argument and
-the constructed object will utilize this MPI communicator in all
-successive communication operations.  This MPI communicator is *not*
-freed by the ``mpi_communicator`` destructor.
-
-
 Custom initialization and deinitialization of the MPI environment
 -----------------------------------------------------------------
 

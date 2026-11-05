@@ -293,7 +293,7 @@
 </section>
 <section id="supported-features">
 <h2>Supported features<a class="headerlink" href="#supported-features" title="Link to this heading">¶</a></h2>
-<p>MPL assumes that the underlying MPI implementation supports the <a class="reference external" href="https://www.mpi-forum.org/docs/mpi-3.1/mpi31-report.pdf">version 3.1</a> of the Message Passing Interface standard. Future versions of MPL may also employ features of the new <a class="reference external" href="https://www.mpi-forum.org/docs/mpi-4.0/mpi40-report.pdf">version 4.0</a> or later MPI versions.</p>
+<p>MPL requires an MPI 4.1 implementation and uses its large-count interfaces.</p>
 <p>MPL gives currently access via a convenient C++ interface to the following features of the Message Passing Interface standard:</p>
 <ul class="simple">
 <li><p>environmental management (implicit initialization and finalization, timers, but no error handling).</p></li>
@@ -341,7 +341,7 @@
 <span class="w">  </span><span class="c1">// if there are two or more processes send a message from process 0 to process 1</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">message</span><span class="p">{</span><span class="s">"Hello world!"</span><span class="p">};</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">message</span><span class="p">{</span><span class="s">"Hello world!"</span><span class="p">};</span>
 <span class="w">      </span><span class="n">comm_world</span><span class="p">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">  </span><span class="c1">// send message to rank 1</span>
 <span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">comm_world</span><span class="p">.</span><span class="n">rank</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">      </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">message</span><span class="p">;</span>

@@ -300,15 +300,6 @@ handle.  These handles can be used in calls to plain MPI functions.
 A handle returned by a <code class="docutils literal notranslate"><span class="pre">native</span> <span class="pre">handle</span></code> method must not be freed
 manually, as it is managed by the MPL object.</p>
 </section>
-<section id="using-mpi-communicators-in-mpl">
-<h2>Using MPI communicators in MPL<a class="headerlink" href="#using-mpi-communicators-in-mpl" title="Link to this heading">¶</a></h2>
-<p>The MPL class <code class="docutils literal notranslate"><span class="pre">mpi_communicator</span></code> provides a way to use an MPI
-communicator in MPL.  The constructor of <code class="docutils literal notranslate"><span class="pre">mpi_communicator</span></code>
-requires a MPI communicator of type <code class="docutils literal notranslate"><span class="pre">MPI_Comm</span></code> as its argument and
-the constructed object will utilize this MPI communicator in all
-successive communication operations.  This MPI communicator is <em>not</em>
-freed by the <code class="docutils literal notranslate"><span class="pre">mpi_communicator</span></code> destructor.</p>
-</section>
 <section id="custom-initialization-and-deinitialization-of-the-mpi-environment">
 <h2>Custom initialization and deinitialization of the MPI environment<a class="headerlink" href="#custom-initialization-and-deinitialization-of-the-mpi-environment" title="Link to this heading">¶</a></h2>
 <p>MPL entirely hides the initialization and deinitialization of the MPI
@@ -410,7 +401,6 @@ above.</p>
             <ul>
 <li><a class="reference internal" href="#">MPL-MPI interoperability</a><ul>
 <li><a class="reference internal" href="#getting-mpi-handles-from-mpl-objects">Getting MPI handles from MPL objects</a></li>
-<li><a class="reference internal" href="#using-mpi-communicators-in-mpl">Using MPI communicators in MPL</a></li>
 <li><a class="reference internal" href="#custom-initialization-and-deinitialization-of-the-mpi-environment">Custom initialization and deinitialization of the MPI environment</a></li>
 </ul>
 </li>

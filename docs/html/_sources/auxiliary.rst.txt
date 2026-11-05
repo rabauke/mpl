@@ -19,7 +19,7 @@ Types for probing messages
 
 The following types are used in the context of probing messages. See section :doc:`examples/probe` for an example.
 
-.. doxygentypedef:: mpl::message_t
+.. doxygenclass:: mpl::message_t
 .. doxygenclass:: mpl::status_t
 .. doxygenstruct:: mpl::mprobe_status
 

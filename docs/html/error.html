@@ -289,7 +289,7 @@
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl5errorE">
 <span id="_CPPv3N3mpl5errorE"></span><span id="_CPPv2N3mpl5errorE"></span><span id="mpl::error"></span><span class="target" id="classmpl_1_1error"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">exception</span></span><a class="headerlink" href="#_CPPv4N3mpl5errorE" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Base class for all MPL exception classes that will be thrown in case of run-time errors. </p>
-<p>Subclassed by <a class="reference internal" href="#classmpl_1_1invalid__argument"><span class="std std-ref">invalid_argument</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__count"><span class="std std-ref">invalid_count</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__datatype__bound"><span class="std std-ref">invalid_datatype_bound</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__dim"><span class="std std-ref">invalid_dim</span></a>, invalid_displacement, <a class="reference internal" href="#classmpl_1_1invalid__layout"><span class="std std-ref">invalid_layout</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__rank"><span class="std std-ref">invalid_rank</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__size"><span class="std std-ref">invalid_size</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__tag"><span class="std std-ref">invalid_tag</span></a>, io_failure</p>
+<p>Subclassed by <a class="reference internal" href="#classmpl_1_1invalid__argument"><span class="std std-ref">invalid_argument</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__count"><span class="std std-ref">invalid_count</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__datatype__bound"><span class="std std-ref">invalid_datatype_bound</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__dim"><span class="std std-ref">invalid_dim</span></a>, invalid_displacement, <a class="reference internal" href="#classmpl_1_1invalid__layout"><span class="std std-ref">invalid_layout</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__rank"><span class="std std-ref">invalid_rank</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__size"><span class="std std-ref">invalid_size</span></a>, <a class="reference internal" href="#classmpl_1_1invalid__tag"><span class="std std-ref">invalid_tag</span></a>, <a class="reference internal" href="#classmpl_1_1mpi__error"><span class="std std-ref">mpi_error</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
@@ -522,6 +522,185 @@
 </div>
 </dd></dl>
 
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl9mpi_errorE">
+<span id="_CPPv3N3mpl9mpi_errorE"></span><span id="_CPPv2N3mpl9mpi_errorE"></span><span id="mpl::mpi_error"></span><span class="target" id="classmpl_1_1mpi__error"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mpi_error</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl5errorE" title="mpl::error"><span class="n"><span class="pre">error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl9mpi_errorE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Base class for all exceptions that originate from a failed MPI call. </p>
+<p>In contrast to the other exception classes, which are thrown by MPL before MPI is called, this class carries the MPI error code and the MPI error class. Constructing an <a class="reference internal" href="#classmpl_1_1mpi__error"><span class="std std-ref">mpi_error</span></a> with a valid MPI error code is safe before MPI initialization and after finalization. Failed inquiries use a conservative class and numeric message. </p>
+<p>Subclassed by <a class="reference internal" href="#classmpl_1_1io__failure"><span class="std std-ref">io_failure</span></a>, <a class="reference internal" href="#classmpl_1_1request__error"><span class="std std-ref">request_error</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl9mpi_error9mpi_errorEKi">
+<span id="_CPPv3N3mpl9mpi_error9mpi_errorEKi"></span><span id="_CPPv2N3mpl9mpi_error9mpi_errorEKi"></span><span id="mpl::mpi_error::mpi_error__iC"></span><span class="target" id="classmpl_1_1mpi__error_1abd9cebdd8dae49ce4a93ea8e612234e2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mpi_error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">mpi_code</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl9mpi_error9mpi_errorEKi" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mpi_code</strong> – valid MPI error code returned by an MPI function </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl9mpi_error10error_codeEv">
+<span id="_CPPv3NK3mpl9mpi_error10error_codeEv"></span><span id="_CPPv2NK3mpl9mpi_error10error_codeEv"></span><span id="mpl::mpi_error::error_codeC"></span><span class="target" id="classmpl_1_1mpi__error_1a040fbd37f41d8e2fab505365a9c14a9d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_code</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl9mpi_error10error_codeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MPI error code </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl9mpi_error11error_classEv">
+<span id="_CPPv3NK3mpl9mpi_error11error_classEv"></span><span id="_CPPv2NK3mpl9mpi_error11error_classEv"></span><span id="mpl::mpi_error::error_classC"></span><span class="target" id="classmpl_1_1mpi__error_1aa825df064edb26771afa132284f50cb4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl9mpi_error11error_classEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MPI error class </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl9mpi_error4whatEv">
+<span id="_CPPv3NK3mpl9mpi_error4whatEv"></span><span id="_CPPv2NK3mpl9mpi_error4whatEv"></span><span id="mpl::mpi_error::whatC"></span><span class="target" id="id8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl9mpi_error4whatEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl10io_failureE">
+<span id="_CPPv3N3mpl10io_failureE"></span><span id="_CPPv2N3mpl10io_failureE"></span><span id="mpl::io_failure"></span><span class="target" id="classmpl_1_1io__failure"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">io_failure</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl9mpi_errorE" title="mpl::mpi_error"><span class="n"><span class="pre">mpi_error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl10io_failureE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Will be thrown in case of file-related io errors. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl10io_failure10io_failureEKi">
+<span id="_CPPv3N3mpl10io_failure10io_failureEKi"></span><span id="_CPPv2N3mpl10io_failure10io_failureEKi"></span><span id="mpl::io_failure::io_failure__iC"></span><span class="target" id="classmpl_1_1io__failure_1a2cc835a9e70f6382bbbee55f851ad313"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">io_failure</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">code</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl10io_failure10io_failureEKi" title="Link to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl10io_failure10error_codeEv">
+<span id="_CPPv3NK3mpl10io_failure10error_codeEv"></span><span id="_CPPv2NK3mpl10io_failure10error_codeEv"></span><span id="mpl::io_failure::error_codeC"></span><span class="target" id="id9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_code</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl10io_failure10error_codeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MPI error code </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl10io_failure11error_classEv">
+<span id="_CPPv3NK3mpl10io_failure11error_classEv"></span><span id="_CPPv2NK3mpl10io_failure11error_classEv"></span><span id="mpl::io_failure::error_classC"></span><span class="target" id="id10"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl10io_failure11error_classEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MPI error class </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl10io_failure4whatEv">
+<span id="_CPPv3NK3mpl10io_failure4whatEv"></span><span id="_CPPv2NK3mpl10io_failure4whatEv"></span><span id="mpl::io_failure::whatC"></span><span class="target" id="id11"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl10io_failure4whatEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13request_errorE">
+<span id="_CPPv3N3mpl13request_errorE"></span><span id="_CPPv2N3mpl13request_errorE"></span><span id="mpl::request_error"></span><span class="target" id="classmpl_1_1request__error"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">request_error</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl9mpi_errorE" title="mpl::mpi_error"><span class="n"><span class="pre">mpi_error</span></span></a><a class="headerlink" href="#_CPPv4N3mpl13request_errorE" title="Link to this definition">¶</a><br /></dt>
+<dd><p>Will be thrown if one or more requests of a multi-request completion call failed. </p>
+<p>The lists describe outcomes reported by the failing call, not the entire pool state. Unlisted requests are not necessarily pending; null or inactive persistent slots may be reported as successfully completed with empty statuses. Statuses reported by the failing call are available from the request pool. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13request_error13request_errorEKiNSt6vectorIiEENSt6vectorIiEE">
+<span id="_CPPv3N3mpl13request_error13request_errorEKiNSt6vectorIiEENSt6vectorIiEE"></span><span id="_CPPv2N3mpl13request_error13request_errorEKiNSt6vectorIiEENSt6vectorIiEE"></span><span id="mpl::request_error::request_error__iC.std::vector:i:.std::vector:i:"></span><span class="target" id="classmpl_1_1request__error_1ad5375bf3b36fca21466c1eeb8bad8718"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">request_error</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">code</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">failed</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">completed</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13request_error13request_errorEKiNSt6vectorIiEENSt6vectorIiEE" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>code</strong> – error code of the first failed request </p></li>
+<li><p><strong>failed</strong> – indices of the requests that completed with an error </p></li>
+<li><p><strong>completed</strong> – indices of the requests that completed successfully </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13request_error15failed_requestsEv">
+<span id="_CPPv3NK3mpl13request_error15failed_requestsEv"></span><span id="_CPPv2NK3mpl13request_error15failed_requestsEv"></span><span id="mpl::request_error::failed_requestsC"></span><span class="target" id="classmpl_1_1request__error_1a53416e8a85ce845ae82f09538bcabd34"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">failed_requests</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl13request_error15failed_requestsEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>indices of the requests that completed with an error </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13request_error18completed_requestsEv">
+<span id="_CPPv3NK3mpl13request_error18completed_requestsEv"></span><span id="_CPPv2NK3mpl13request_error18completed_requestsEv"></span><span id="mpl::request_error::completed_requestsC"></span><span class="target" id="classmpl_1_1request__error_1a0117c26b17616b118f9319ecf12c4bcf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">completed_requests</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl13request_error18completed_requestsEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>indices of the requests that completed successfully in the failed call </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13request_error10error_codeEv">
+<span id="_CPPv3NK3mpl13request_error10error_codeEv"></span><span id="_CPPv2NK3mpl13request_error10error_codeEv"></span><span id="mpl::request_error::error_codeC"></span><span class="target" id="id12"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_code</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl13request_error10error_codeEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MPI error code </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13request_error11error_classEv">
+<span id="_CPPv3NK3mpl13request_error11error_classEv"></span><span id="_CPPv2NK3mpl13request_error11error_classEv"></span><span id="mpl::request_error::error_classC"></span><span class="target" id="id13"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">error_class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><a class="headerlink" href="#_CPPv4NK3mpl13request_error11error_classEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>MPI error class </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3mpl13request_error4whatEv">
+<span id="_CPPv3NK3mpl13request_error4whatEv"></span><span id="_CPPv2NK3mpl13request_error4whatEv"></span><span id="mpl::request_error::whatC"></span><span class="target" id="id14"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">what</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">noexcept</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK3mpl13request_error4whatEv" title="Link to this definition">¶</a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>character pointer to error message </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<section id="mpi-errors">
+<h2>MPI errors<a class="headerlink" href="#mpi-errors" title="Link to this heading">¶</a></h2>
+<p>When a checked MPI call returns an error, MPL throws <code class="docutils literal notranslate"><span class="pre">mpl::mpi_error</span></code> (or a subclass), carrying the MPI error code (<code class="docutils literal notranslate"><span class="pre">error_code()</span></code>), class (<code class="docutils literal notranslate"><span class="pre">error_class()</span></code>) and message (<code class="docutils literal notranslate"><span class="pre">what()</span></code>).  MPL argument exceptions such as <code class="docutils literal notranslate"><span class="pre">mpl::invalid_rank</span></code> derive directly from <code class="docutils literal notranslate"><span class="pre">mpl::error</span></code> and carry no MPI code.  Classification is by MPI error class: recognized I/O classes become <code class="docutils literal notranslate"><span class="pre">mpl::io_failure</span></code> even outside a file operation, while other classes returned by file operations remain <code class="docutils literal notranslate"><span class="pre">mpl::mpi_error</span></code>.</p>
+<p>When multiple-completion calls report per-request errors, <code class="docutils literal notranslate"><span class="pre">mpl::request_error</span></code> lists failed and successful indices reported by that call.  These lists are not a complete partition of pool state: unlisted slots are not necessarily pending, and null or inactive persistent slots can produce empty successful statuses.  Statuses of reported completions are stored in the pool; per-request error fields are meaningful on the prescribed <code class="docutils literal notranslate"><span class="pre">MPI_ERR_IN_STATUS</span></code> path, not an unsuccessful <code class="docutils literal notranslate"><span class="pre">testall</span></code> poll.</p>
+<p>MPL installs <code class="docutils literal notranslate"><span class="pre">MPI_ERRORS_RETURN</span></code> on communicators it creates or wraps.  With external MPI initialization, <code class="docutils literal notranslate"><span class="pre">MPI_COMM_WORLD</span></code> and <code class="docutils literal notranslate"><span class="pre">MPI_COMM_SELF</span></code> are changed when the MPL environment is first accessed, not necessarily by earlier datatype or info operations.  Borrowed <code class="docutils literal notranslate"><span class="pre">mpi_communicator</span></code> and <code class="docutils literal notranslate"><span class="pre">mpi_inter_communicator</span></code> adapters change the original handle’s handler immediately, do not restore it, and do not free the handle.  Other MPI calls, including file and objectless operations, may use different handlers.  A fatal handler can abort before MPI returns, so MPL cannot convert that failure into an exception; install an appropriate returning handler when needed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Error reporting does not guarantee that execution can continue after an MPI error.  An exception on one process in a collective operation may leave other processes blocked.  Destructors do not throw; cleanup and finalization errors are ignored.</p>
+</div>
+</section>
 </section>
 
         </article>
@@ -634,6 +813,30 @@
 <li><a class="reference internal" href="#_CPPv4NK3mpl16invalid_argument4whatEv"><code class="docutils literal notranslate"><span class="pre">what()</span></code></a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#_CPPv4N3mpl9mpi_errorE"><code class="docutils literal notranslate"><span class="pre">mpl::mpi_error</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mpl9mpi_error9mpi_errorEKi"><code class="docutils literal notranslate"><span class="pre">mpi_error()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl9mpi_error10error_codeEv"><code class="docutils literal notranslate"><span class="pre">error_code()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl9mpi_error11error_classEv"><code class="docutils literal notranslate"><span class="pre">error_class()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl9mpi_error4whatEv"><code class="docutils literal notranslate"><span class="pre">what()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mpl10io_failureE"><code class="docutils literal notranslate"><span class="pre">mpl::io_failure</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mpl10io_failure10io_failureEKi"><code class="docutils literal notranslate"><span class="pre">io_failure()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl10io_failure10error_codeEv"><code class="docutils literal notranslate"><span class="pre">error_code()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl10io_failure11error_classEv"><code class="docutils literal notranslate"><span class="pre">error_class()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl10io_failure4whatEv"><code class="docutils literal notranslate"><span class="pre">what()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13request_errorE"><code class="docutils literal notranslate"><span class="pre">mpl::request_error</span></code></a><ul>
+<li><a class="reference internal" href="#_CPPv4N3mpl13request_error13request_errorEKiNSt6vectorIiEENSt6vectorIiEE"><code class="docutils literal notranslate"><span class="pre">request_error()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13request_error15failed_requestsEv"><code class="docutils literal notranslate"><span class="pre">failed_requests()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13request_error18completed_requestsEv"><code class="docutils literal notranslate"><span class="pre">completed_requests()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13request_error10error_codeEv"><code class="docutils literal notranslate"><span class="pre">error_code()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13request_error11error_classEv"><code class="docutils literal notranslate"><span class="pre">error_class()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4NK3mpl13request_error4whatEv"><code class="docutils literal notranslate"><span class="pre">what()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mpi-errors">MPI errors</a></li>
 </ul>
 </li>
 </ul>
