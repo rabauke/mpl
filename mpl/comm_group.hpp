@@ -2451,6 +2451,206 @@ namespace mpl {
         }
       }
 
+      // --- non-blocking send and receive ---
+      /// Starts a non-blocking operation that sends a message and receives a message.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param send_data data to send
+      /// \param destination rank of the receiving process
+      /// \param send_tag tag associated to the data to send
+      /// \param recv_data data to receive
+      /// \param source rank of the sending process
+      /// \param recv_tag tag associated to the data to receive
+      /// \return communication request, the status of the receive operation is returned by
+      /// the request's wait or test operations
+      /// \note The send and receive buffers must not overlap.  The referenced objects must
+      /// stay alive until the operation has completed, e.g., by calling \c wait on the
+      /// returned request.
+      template<typename T>
+      [[nodiscard]] irequest isendrecv(const T &send_data, int destination, tag_t send_tag,
+                                       T &recv_data, int source, tag_t recv_tag) const {
+        check_dest(destination);
+        check_source(source);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
+        MPI_Request req;
+        detail::check(MPI_Isendrecv_c(&send_data, 1, detail::datatype_traits<T>::get_datatype(),
+                                      destination, static_cast<int>(send_tag), &recv_data, 1,
+                                      detail::datatype_traits<T>::get_datatype(), source,
+                                      static_cast<int>(recv_tag), comm_, &req));
+        return base_irequest{req};
+      }
+
+      /// Starts a non-blocking operation that sends a message and receives a message.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param send_data data to send
+      /// \param sendl memory layout of the data to send
+      /// \param destination rank of the receiving process
+      /// \param send_tag tag associated to the data to send
+      /// \param recv_data data to receive
+      /// \param recvl memory layout of the data to receive
+      /// \param source rank of the sending process
+      /// \param recv_tag tag associated to the data to receive
+      /// \return communication request, the status of the receive operation is returned by
+      /// the request's wait or test operations
+      /// \note The send and receive buffers must not overlap.  The referenced memory must stay
+      /// alive until the operation has completed, e.g., by calling \c wait on the returned
+      /// request.
+      template<typename T>
+      [[nodiscard]] irequest isendrecv(const T *send_data, const layout<T> &sendl,
+                                       int destination, tag_t send_tag, T *recv_data,
+                                       const layout<T> &recvl, int source,
+                                       tag_t recv_tag) const {
+        check_dest(destination);
+        check_source(source);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
+        MPI_Request req;
+        detail::check(MPI_Isendrecv_c(send_data, 1,
+                                      detail::datatype_traits<layout<T>>::get_datatype(sendl),
+                                      destination, static_cast<int>(send_tag), recv_data, 1,
+                                      detail::datatype_traits<layout<T>>::get_datatype(recvl),
+                                      source, static_cast<int>(recv_tag), comm_, &req));
+        return base_irequest{req};
+      }
+
+      /// Starts a non-blocking operation that sends a message and receives a message.
+      /// \tparam iterT1 iterator type, must fulfill the requirements of a
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// the iterator's value-type must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \tparam iterT2 iterator type, must fulfill the requirements of a
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// the iterator's value-type must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param begin_1 iterator pointing to the first data value to send
+      /// \param end_1 iterator pointing one element beyond the last data value to send
+      /// \param destination rank of the receiving process
+      /// \param send_tag tag associated to the data to send
+      /// \param begin_2 iterator pointing to the first data value to receive
+      /// \param end_2 iterator pointing one element beyond the last data value to receive
+      /// \param source rank of the sending process
+      /// \param recv_tag tag associated to the data to receive
+      /// \return communication request, the status of the receive operation is returned by
+      /// the request's wait or test operations
+      /// \note The send and receive ranges must not overlap.  The referenced elements must
+      /// stay alive until the operation has completed, e.g., by calling \c wait on the
+      /// returned request.
+      template<typename iterT1, typename iterT2>
+      [[nodiscard]] irequest isendrecv(iterT1 begin_1, iterT1 end_1, int destination,
+                                       tag_t send_tag, iterT2 begin_2, iterT2 end_2, int source,
+                                       tag_t recv_tag) const {
+        using value_type_1 = typename std::iterator_traits<iterT1>::value_type;
+        using value_type_2 = typename std::iterator_traits<iterT2>::value_type;
+        if constexpr (detail::is_contiguous_iterator_v<iterT1> and
+                      detail::is_contiguous_iterator_v<iterT2>) {
+          const vector_layout<value_type_1> l_1(std::distance(begin_1, end_1));
+          const vector_layout<value_type_2> l_2(std::distance(begin_2, end_2));
+          return isendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                           recv_tag);
+        } else if constexpr (detail::is_contiguous_iterator_v<iterT1>) {
+          const vector_layout<value_type_1> l_1(std::distance(begin_1, end_1));
+          const iterator_layout<value_type_2> l_2(begin_2, end_2);
+          return isendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                           recv_tag);
+        } else if constexpr (detail::is_contiguous_iterator_v<iterT2>) {
+          const iterator_layout<value_type_1> l_1(begin_1, end_1);
+          const vector_layout<value_type_2> l_2(std::distance(begin_2, end_2));
+          return isendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                           recv_tag);
+        } else {
+          const iterator_layout<value_type_1> l_1(begin_1, end_1);
+          const iterator_layout<value_type_2> l_2(begin_2, end_2);
+          return isendrecv(&(*begin_1), l_1, destination, send_tag, &(*begin_2), l_2, source,
+                           recv_tag);
+        }
+      }
+
+      /// Starts a non-blocking operation that sends a message and receives a message.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param data data to send, will hold the received data
+      /// \param destination rank of the receiving process
+      /// \param send_tag tag associated to the data to send
+      /// \param source rank of the sending process
+      /// \param recv_tag tag associated to the data to receive
+      /// \return communication request, the status of the receive operation is returned by
+      /// the request's wait or test operations
+      /// \note The referenced object must stay alive until the operation has completed, e.g.,
+      /// by calling \c wait on the returned request.
+      template<typename T>
+      [[nodiscard]] irequest isendrecv_replace(T &data, int destination, tag_t send_tag,
+                                               int source, tag_t recv_tag) const {
+        check_dest(destination);
+        check_source(source);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
+        MPI_Request req;
+        detail::check(MPI_Isendrecv_replace_c(
+            &data, 1, detail::datatype_traits<T>::get_datatype(), destination,
+            static_cast<int>(send_tag), source, static_cast<int>(recv_tag), comm_, &req));
+        return base_irequest{req};
+      }
+
+      /// Starts a non-blocking operation that sends a message and receives a message.
+      /// \tparam T type of the data to send, must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param data data to send, will hold the received data
+      /// \param l memory layout of the data to send and receive
+      /// \param destination rank of the receiving process
+      /// \param send_tag tag associated to the data to send
+      /// \param source rank of the sending process
+      /// \param recv_tag tag associated to the data to receive
+      /// \return communication request, the status of the receive operation is returned by
+      /// the request's wait or test operations
+      /// \note The referenced memory must stay alive until the operation has completed, e.g.,
+      /// by calling \c wait on the returned request.
+      template<typename T>
+      [[nodiscard]] irequest isendrecv_replace(T *data, const layout<T> &l, int destination,
+                                               tag_t send_tag, int source,
+                                               tag_t recv_tag) const {
+        check_dest(destination);
+        check_source(source);
+        check_send_tag(send_tag);
+        check_recv_tag(recv_tag);
+        MPI_Request req;
+        detail::check(MPI_Isendrecv_replace_c(
+            data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), destination,
+            static_cast<int>(send_tag), source, static_cast<int>(recv_tag), comm_, &req));
+        return base_irequest{req};
+      }
+
+      /// Starts a non-blocking operation that sends a message and receives a message.
+      /// \tparam iterT iterator type, must fulfill the requirements of a
+      /// <a href="https://en.cppreference.com/w/cpp/named_req/ForwardIterator">LegacyForwardIterator</a>,
+      /// the iterator's value-type must meet the requirements as described in the
+      /// \verbatim embed:rst:inline :doc:`data_types` \endverbatim section
+      /// \param begin iterator pointing to the first data value to send and to receive
+      /// \param end iterator pointing one element beyond the last data value to send and to
+      /// receive
+      /// \param destination rank of the receiving process
+      /// \param send_tag tag associated to the data to send
+      /// \param source rank of the sending process
+      /// \param recv_tag tag associated to the data to receive
+      /// \return communication request, the status of the receive operation is returned by
+      /// the request's wait or test operations
+      /// \note The referenced elements must stay alive until the operation has completed,
+      /// e.g., by calling \c wait on the returned request.
+      template<typename iterT>
+      [[nodiscard]] irequest isendrecv_replace(iterT begin, iterT end, int destination,
+                                               tag_t send_tag, int source,
+                                               tag_t recv_tag) const {
+        using value_type = typename std::iterator_traits<iterT>::value_type;
+        if constexpr (detail::is_contiguous_iterator_v<iterT>) {
+          const vector_layout<value_type> l(std::distance(begin, end));
+          return isendrecv_replace(&(*begin), l, destination, send_tag, source, recv_tag);
+        } else {
+          const iterator_layout<value_type> l(begin, end);
+          return isendrecv_replace(&(*begin), l, destination, send_tag, source, recv_tag);
+        }
+      }
+
       // === collective ==================================================
       // === barrier ===
       // --- blocking barrier ---
