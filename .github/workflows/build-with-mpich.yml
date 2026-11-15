@@ -1,6 +1,8 @@
 name: build-with-mpich
 run-name: Build MPL with MPICH
 on: [push, pull_request, workflow_dispatch]
+env:
+  MPICH_VERSION: 5.0.2
 jobs:
   compile-mpl:
     runs-on: ubuntu-26.04
@@ -9,7 +11,23 @@ jobs:
         uses: actions/checkout@v7
       - name: Install build dependencies
         run: |
-          sudo apt install libmpich-dev cmake ninja-build g++ libcatch2-dev
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends cmake ninja-build g++ libcatch2-dev libfabric-dev libhwloc-dev curl ca-certificates
+      - name: Install MPICH ${{ env.MPICH_VERSION }}
+        run: |
+          ASSET_NAME="mpich-${MPICH_VERSION}-linux-x86_64.tar.gz"
+          CHECKSUM_NAME="${ASSET_NAME}.sha256"
+          BASE_URL="https://github.com/rabauke/build-openmpi/releases/download/v${MPICH_VERSION}"
+          curl -fSL "${BASE_URL}/${ASSET_NAME}" -o "${ASSET_NAME}"
+          curl -fSL "${BASE_URL}/${CHECKSUM_NAME}" -o "${CHECKSUM_NAME}"
+          sha256sum -c "${CHECKSUM_NAME}"
+          sudo tar -xzf "${ASSET_NAME}" -C /opt
+          echo "/opt/mpich/bin" >> "$GITHUB_PATH"
+          echo "LD_LIBRARY_PATH=/opt/mpich/lib:${LD_LIBRARY_PATH:-}" >> "$GITHUB_ENV"
+          echo "CMAKE_PREFIX_PATH=/opt/mpich" >> "$GITHUB_ENV"
+      - name: Show MPICH information
+        run: |
+          which mpicxx mpirun
           mpichversion
       - name: Build mpl
         run: |
