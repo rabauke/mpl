@@ -2,7 +2,7 @@ name: build-with-openmpi
 run-name: Build MPL with OpenMPI
 on: [push, pull_request, workflow_dispatch]
 env:
-  OPENMPI_VERSION: 6.0.0rc2
+  OPENMPI_VERSION: 6.0.0rc3
 jobs:
   compile-mpl:
     runs-on: ubuntu-26.04
