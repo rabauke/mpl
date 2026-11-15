@@ -46,7 +46,24 @@ namespace mpl {
                     sizeof(std::ptrdiff_t) == sizeof(MPI_Count),
                 "incompatible MPI_Count type");
 
+#if defined(OPEN_MPI)
+  inline constexpr char mpi_impl_name[]{"Open MPI"};
+#elif defined(I_MPI_VERSION)
+  inline constexpr char mpi_impl_name[]{"Intel MPI"};
+#elif defined(MVAPICH2_VERSION)
+  inline constexpr char mpi_impl_name[]{"MVAPICH2"};
+#elif defined(CRAY_MPICH_VERSION)
+  inline constexpr char mpi_impl_name[]{"Cray MPICH"};
+#elif defined(MSMPI_VER)
+  inline constexpr char mpi_impl_name[]{"Microsoft MPI"};
+#elif defined(MPICH_NAME)
+  inline constexpr char mpi_impl_name[]{"MPICH"};
+#else
+  inline constexpr char mpi_impl_name[]{"unknown MPI implementation"};
+#endif
+
 }  // namespace mpl
+
 
 #include <mpl/error.hpp>
 #include <mpl/displacements.hpp>
