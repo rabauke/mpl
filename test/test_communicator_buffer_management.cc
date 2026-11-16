@@ -29,44 +29,55 @@ namespace {
 }  // namespace
 
 
-TEST_CASE("global buffer flush operations complete buffered sends", "[environment][buffer]") {
-  const mpl::communicator &comm{mpl::environment::comm_world()};
+SCENARIO("global buffer flush operations complete buffered sends", "[environment][buffer]") {
+  GIVEN("the world communicator and an attached global buffer") {
+    const mpl::communicator &comm{mpl::environment::comm_world()};
 
-  SECTION("blocking flush") {
-    buffered_send_test(comm, mpl::environment::buffer_attach, mpl::environment::buffer_flush,
-                       mpl::environment::buffer_detach);
-  }
+    WHEN("the global buffer is flushed synchronously") {
+      THEN("the buffered message is delivered and the buffer is detached") {
+        buffered_send_test(comm, mpl::environment::buffer_attach,
+                           mpl::environment::buffer_flush, mpl::environment::buffer_detach);
+      }
+    }
 
-  SECTION("nonblocking flush") {
-    buffered_send_test(
-        comm, mpl::environment::buffer_attach,
-        []() {
-          auto request{mpl::environment::buffer_iflush()};
-          request.wait();
-        },
-        mpl::environment::buffer_detach);
+    WHEN("the global buffer is flushed asynchronously") {
+      THEN("the buffered message is delivered after the flush request completes") {
+        buffered_send_test(
+            comm, mpl::environment::buffer_attach,
+            []() {
+              auto request{mpl::environment::buffer_iflush()};
+              request.wait();
+            },
+            mpl::environment::buffer_detach);
+      }
+    }
   }
 }
 
 
+SCENARIO("communicator buffer flush operations complete buffered sends",
+         "[communicator][buffer]") {
+  GIVEN("the world communicator and a buffer attached to it") {
+    const mpl::communicator &comm{mpl::environment::comm_world()};
 
-TEST_CASE("communicator buffer flush operations complete buffered sends",
-          "[communicator][buffer]") {
-  const mpl::communicator &comm{mpl::environment::comm_world()};
+    WHEN("the communicator buffer is flushed synchronously") {
+      THEN("the buffered message is delivered and the buffer is detached") {
+        buffered_send_test(
+            comm, [&comm](void *buffer, MPI_Count size) { comm.attach_buffer(buffer, size); },
+            [&comm]() { comm.flush_buffer(); }, [&comm]() { return comm.detach_buffer(); });
+      }
+    }
 
-  SECTION("blocking flush") {
-    buffered_send_test(
-        comm, [&comm](void *buffer, MPI_Count size) { comm.attach_buffer(buffer, size); },
-        [&comm]() { comm.flush_buffer(); }, [&comm]() { return comm.detach_buffer(); });
-  }
-
-  SECTION("nonblocking flush") {
-    buffered_send_test(
-        comm, [&comm](void *buffer, MPI_Count size) { comm.attach_buffer(buffer, size); },
-        [&comm]() {
-          auto request{comm.iflush_buffer()};
-          request.wait();
-        },
-        [&comm]() { return comm.detach_buffer(); });
+    WHEN("the communicator buffer is flushed asynchronously") {
+      THEN("the buffered message is delivered after the flush request completes") {
+        buffered_send_test(
+            comm, [&comm](void *buffer, MPI_Count size) { comm.attach_buffer(buffer, size); },
+            [&comm]() {
+              auto request{comm.iflush_buffer()};
+              request.wait();
+            },
+            [&comm]() { return comm.detach_buffer(); });
+      }
+    }
   }
 }
