@@ -31,6 +31,8 @@ endfunction()
 
 add_test_executable(test_group test_group.cc)
 add_test_executable(test_communicator test_communicator.cc)
+add_test_executable(test_communicator_idup_with_info test_communicator_idup_with_info.cc)
+add_test_executable(test_mpi_allocator test_mpi_allocator.cc)
 add_test_executable(test_initialization test_initialization.cc)
 add_test_executable(test_cartesian_communicator test_cartesian_communicator.cc)
 add_test_executable(test_graph_communicator test_graph_communicator.cc)

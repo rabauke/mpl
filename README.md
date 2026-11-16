@@ -32,17 +32,21 @@ MPL requires an MPI 4.1 implementation and uses its large-count interfaces.
 MPL gives currently access via a convenient C++ interface to the 
 following features of the Message Passing Interface standard:
 
-* environmental management (implicit initialization and finalization and timers),
+* environmental management (implicit initialization and finalization, timers, runtime library
+  identification, and environment-derived info objects),
 * point-to-point communication (blocking and non-blocking),
 * collective communication (blocking and non-blocking),
 * buffered sends with process-wide and communicator-scoped buffers and blocking or non-blocking
   flush operations,
 * derived data types (happens automatically for many custom data types or via the `base_struct_builder` helper class and the layout classes of MPL),
-* communicator- and group-management,
+* communicator- and group-management, including communicator info hints and info-aware
+  asynchronous duplication,
+* MPI-managed STL allocation and process-local reduction,
 * process topologies (cartesian and graph topologies),
 * inter-communicators,
-* dynamic process creation and
-* file i/o.
+* dynamic process creation,
+* file i/o, and
+* error reporting through MPL exceptions.
 
 Currently, the following MPI features are not yet supported by MPL:
 

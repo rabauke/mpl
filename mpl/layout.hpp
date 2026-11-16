@@ -78,6 +78,9 @@ namespace mpl {
 
   namespace detail {
 
+    template<typename T>
+    class contiguous_layout_access;
+
     static_assert(std::numeric_limits<MPI_Count>::min() <=
                           std::numeric_limits<ssize_t>::min() and
                       std::numeric_limits<MPI_Count>::max() >=
@@ -581,6 +584,7 @@ namespace mpl {
     friend class communicator;
     friend class inter_communicator;
     friend class contiguous_layouts<T>;
+    friend class detail::contiguous_layout_access<T>;
   };
 
   //--------------------------------------------------------------------

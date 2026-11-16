@@ -5,6 +5,18 @@
 SCENARIO("info objects store key-value configuration pairs", "[info]") {
   [[maybe_unused]] const mpl::communicator &comm_world{mpl::environment::comm_world()};
 
+  GIVEN("an info object created from the environment") {
+    char program_name[]{"test_info"};
+    char *argv[]{program_name, nullptr};
+    mpl::info env_info{mpl::info::from_environment(1, argv)};
+
+    THEN("the returned object can be queried and updated") {
+      REQUIRE(env_info.size() >= 0);
+      env_info.set("mpl-test-key", "mpl-test-value");
+      REQUIRE(env_info.value("mpl-test-key").value() == "mpl-test-value");
+    }
+  }
+
   GIVEN("a newly created info object") {
     mpl::info info_1;
 

@@ -43,6 +43,7 @@ SCENARIO("external initialization of the MPI environment", "[initialization]") {
     WHEN("performing MPI and MPL operations") {
       THEN("communicator is valid and operations succeed") {
         REQUIRE(initialization_test());
+        REQUIRE_FALSE(mpl::environment::library_version().empty());
       }
     }
   }

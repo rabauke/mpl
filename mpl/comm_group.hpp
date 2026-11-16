@@ -4884,6 +4884,19 @@ namespace mpl {
       return base::info();
     }
 
+    /// Creates a duplicate communicator asynchronously with the given hints.
+    /// \param i info object with hints for the new communicator
+    /// \return the new communicator and a request that signals its completion
+    /// \note This is a collective operation and must be called by all processes in this
+    /// communicator. The new communicator must not be used until the returned request completes.
+    [[nodiscard]] std::pair<communicator, irequest> idup_with_info(const mpl::info &i) const {
+      communicator new_comm;
+      MPI_Request request{MPI_REQUEST_NULL};
+      detail::check(MPI_Comm_idup_with_info(comm_, i.info_, &new_comm.comm_, &request));
+      irequest wrapped_request{impl::base_irequest{request}};
+      return {std::move(new_comm), std::move(wrapped_request)};
+    }
+
     /// Tests for identity of communicators.
     /// \param other communicator to compare with
     /// \return true if identical

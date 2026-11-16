@@ -24,6 +24,15 @@ namespace mpl {
     /// Creates a new info object with no key-value pairs attached.
     info() = default;
 
+    /// Creates an info object from environment variables and command-line arguments.
+    /// \param argc the number of command-line arguments
+    /// \param argv the command-line arguments
+    [[nodiscard]] static info from_environment(int argc, char *argv[]) {
+      MPI_Info handle{MPI_INFO_NULL};
+      detail::check(MPI_Info_create_env(argc, argv, &handle));
+      return info{handle};
+    }
+
     /// Copy-constructs a new info object.
     /// \param other the other info object to copy from
     info(const info &other) {

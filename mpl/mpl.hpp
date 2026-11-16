@@ -77,6 +77,7 @@ namespace mpl {
 #include <mpl/operator.hpp>
 #include <mpl/request.hpp>
 #include <mpl/info.hpp>
+#include <mpl/mpi_allocator.hpp>
 #include <mpl/comm_group.hpp>
 #include <mpl/environment.hpp>
 #include <mpl/topology_communicator.hpp>

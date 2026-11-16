@@ -3,12 +3,28 @@
 #define MPL_OPERATOR_HPP
 
 #include <mpi.h>
+#include <cstddef>
 #include <functional>
 #include <type_traits>
 #include <memory>
+#include <mpl/datatype.hpp>
+#include <mpl/error.hpp>
+#include <mpl/layout.hpp>
 
 
 namespace mpl {
+
+  namespace detail {
+
+    template<typename T>
+    class contiguous_layout_access {
+    public:
+      [[nodiscard]] static std::size_t size(const contiguous_layout<T> &l) noexcept {
+        return l.count_;
+      }
+    };
+
+  }  // namespace detail
 
   /// Function object for calculating the maximum of two values in reduction operations
   /// as <tt>communicator::reduce</tt>.
@@ -287,6 +303,28 @@ namespace mpl {
     std::unique_ptr<F> op<T, F>::f;
 
   }  // namespace detail
+
+  /// Applies a reduction operation to two scalar values locally.
+  /// \param f reduction operation
+  /// \param in input value
+  /// \param inout input and output value; contains the result after the call
+  template<typename T, typename F>
+  void reduce_local(F f, const T &in, T &inout) {
+    detail::check(MPI_Reduce_local_c(&in, &inout, 1, detail::datatype_traits<T>::get_datatype(),
+                                     detail::get_op<T, F>(f).mpi_op));
+  }
+
+  /// Applies a reduction operation to contiguous buffers locally.
+  /// \param f reduction operation
+  /// \param in input buffer
+  /// \param inout input and output buffer; contains the results after the call
+  /// \param l contiguous layout describing the number of elements
+  template<typename T, typename F>
+  void reduce_local(F f, const T *in, T *inout, const contiguous_layout<T> &l) {
+    detail::check(MPI_Reduce_local_c(
+        in, inout, static_cast<MPI_Count>(detail::contiguous_layout_access<T>::size(l)),
+        detail::datatype_traits<T>::get_datatype(), detail::get_op<T, F>(f).mpi_op));
+  }
 
 }  // namespace mpl
 

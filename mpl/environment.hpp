@@ -2,6 +2,7 @@
 
 #define MPL_ENVIRONMENT_HPP
 
+#include <array>
 #include <string>
 #include <memory>
 #include <vector>
@@ -121,6 +122,13 @@ namespace mpl {
           return name.data();
         }
 
+        [[nodiscard]] std::string library_version() const {
+          std::array<char, MPI_MAX_LIBRARY_VERSION_STRING> version;
+          int len;
+          mpl::detail::check(MPI_Get_library_version(version.data(), &len));
+          return {version.data(), static_cast<std::string::size_type>(len)};
+        }
+
         [[nodiscard]] double wtime() const {
           return MPI_Wtime();
         }
@@ -153,7 +161,7 @@ namespace mpl {
 
       //----------------------------------------------------------------
 
-      inline const env &get_env() {
+      [[nodiscard]] inline const env &get_env() {
         static env the_env;
         return the_env;
       }
@@ -165,14 +173,14 @@ namespace mpl {
     /// Determines the highest level of thread support that is provided by the underlying
     /// MPI implementation.
     /// \return supported threading level
-    inline threading_modes threading_mode() {
+    [[nodiscard]] inline threading_modes threading_mode() {
       return detail::get_env().threading_mode();
     }
 
     /// Determines if the current thread is the main thread, i.e., the thread that has
     /// initialized the MPI environment of the underlying MPI implementation.
     /// \return true if the current thread is the main thread
-    inline bool is_thread_main() {
+    [[nodiscard]] inline bool is_thread_main() {
       return detail::get_env().is_thread_main();
     }
 
@@ -180,21 +188,21 @@ namespace mpl {
     /// for all processes of the communicator given in <tt>\ref comm_world</tt>.
     /// \return true if times are synchronized
     /// \see <tt>\ref wtime</tt>
-    inline bool wtime_is_global() {
+    [[nodiscard]] inline bool wtime_is_global() {
       return detail::get_env().wtime_is_global();
     }
 
     /// Provides access to a predefined communicator that allows communication with
     /// all processes.
     /// \return communicator to communicate with any other process
-    inline const communicator &comm_world() {
+    [[nodiscard]] inline const communicator &comm_world() {
       return detail::get_env().comm_world();
     }
 
     /// Provides access to a predefined communicator that includes only the calling
     /// process itself.
     /// \return communicator including only the process itself
-    inline const communicator &comm_self() {
+    [[nodiscard]] inline const communicator &comm_self() {
       return detail::get_env().comm_self();
     }
 
@@ -202,20 +210,26 @@ namespace mpl {
     /// \return name of the node
     /// \note The name is determined by the underlying MPI implementation, i.e., it is
     /// implementation defined and may be different for different MPI implementations.
-    inline std::string processor_name() {
+    [[nodiscard]] inline std::string processor_name() {
       return detail::get_env().processor_name();
+    }
+
+    /// Gets the version string of the MPI library in use.
+    /// \return version string reported by the MPI implementation
+    [[nodiscard]] inline std::string library_version() {
+      return detail::get_env().library_version();
     }
 
     /// Get time.
     /// \return number of seconds of elapsed wall-clock time since some time in the past
-    inline double wtime() {
+    [[nodiscard]] inline double wtime() {
       return detail::get_env().wtime();
     }
 
     /// Get resolution of time given by \c wtime.
     /// \return resolution of \c wtime in seconds.
     /// \see \c wtime
-    inline double wtick() {
+    [[nodiscard]] inline double wtick() {
       return detail::get_env().wtick();
     }
 
@@ -252,11 +266,11 @@ namespace mpl {
 
   //--------------------------------------------------------------------
 
-  tag_t tag_t::up() {
+  [[nodiscard]] tag_t tag_t::up() {
     return tag_t(environment::detail::get_env().tag_up());
   }
 
-  tag_t tag_t::any() {
+  [[nodiscard]] tag_t tag_t::any() {
     return tag_t(MPI_ANY_TAG);
   }
 
