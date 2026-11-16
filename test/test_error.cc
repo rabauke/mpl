@@ -6,9 +6,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <algorithm>
 #include <limits>
-#include <stdexcept>
 #include <mpl/mpl.hpp>
-#include "test_helper.hpp"
 
 
 SCENARIO("mpl error types derive from mpl::error and std::exception", "[error]") {
@@ -32,6 +30,7 @@ SCENARIO("mpl error types derive from mpl::error and std::exception", "[error]")
   }
 }
 
+
 SCENARIO("mpl::invalid_argument is thrown and caught as its specific type", "[error]") {
   GIVEN("an mpl::invalid_argument exception") {
     WHEN("it is thrown") {
@@ -44,7 +43,7 @@ SCENARIO("mpl::invalid_argument is thrown and caught as its specific type", "[er
   }
 }
 
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
 
 SCENARIO("invalid destination and source ranks throw invalid_rank", "[error]") {
   GIVEN("the world communicator and a value to send or receive") {
@@ -63,6 +62,7 @@ SCENARIO("invalid destination and source ranks throw invalid_rank", "[error]") {
   }
 }
 
+
 SCENARIO("proc_null and any_source are accepted by rank checks", "[error]") {
   GIVEN("the world communicator and a value to send or receive") {
     const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -80,6 +80,7 @@ SCENARIO("proc_null and any_source are accepted by rank checks", "[error]") {
   }
 }
 
+
 SCENARIO("negative and oversized send tags throw invalid_tag", "[error]") {
   GIVEN("the world communicator, a valid destination and a value to send") {
     const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -96,6 +97,7 @@ SCENARIO("negative and oversized send tags throw invalid_tag", "[error]") {
     }
   }
 }
+
 
 SCENARIO("cartesian dimension mismatch throws invalid_size", "[error]") {
   GIVEN("a cartesian communicator and an included_tags vector of the wrong size") {
@@ -128,7 +130,6 @@ SCENARIO("MPL_DEBUG-guarded error checks are skipped without MPL_DEBUG", "[error
 
 #endif
 
-
 SCENARIO("mpi_error and its derived types form the expected hierarchy", "[error]") {
   GIVEN("the mpl mpi_error type and its derived types") {
     WHEN("the static type relationships are evaluated") {
@@ -142,18 +143,20 @@ SCENARIO("mpi_error and its derived types form the expected hierarchy", "[error]
   }
 }
 
+
 SCENARIO("mpi_error carries code, class and message", "[error]") {
   GIVEN("an mpi_error constructed from MPI_ERR_TRUNCATE") {
-    mpl::mpi_error e{MPI_ERR_TRUNCATE};
+    const mpl::mpi_error e{MPI_ERR_TRUNCATE};
     WHEN("its error class, error code and message are queried") {
       THEN("class and code are MPI_ERR_TRUNCATE and the message is non-empty") {
         CHECK(e.error_class() == MPI_ERR_TRUNCATE);
         CHECK(e.error_code() == MPI_ERR_TRUNCATE);
-        CHECK(std::string{e.what()}.size() > 0);
+        CHECK(not std::string{e.what()}.empty());
       }
     }
   }
 }
+
 
 // Lifecycle inquiries are also covered by test_error_no_mpi.
 SCENARIO("error helpers query MPI while initialized", "[error]") {
@@ -173,6 +176,7 @@ SCENARIO("error helpers query MPI while initialized", "[error]") {
   }
 }
 
+
 SCENARIO("receive into too small buffer throws mpi_error with class MPI_ERR_TRUNCATE",
          "[error]") {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -182,16 +186,16 @@ SCENARIO("receive into too small buffer throws mpi_error with class MPI_ERR_TRUN
       if (comm_world.rank() == 0) {
         auto send{
             comm_world.isend(send_data, mpl::contiguous_layout<int>(2), 0, mpl::tag_t{1})};
-        int recv_data;
         bool caught{false};
         try {
+          int recv_data{0};
           comm_world.recv(recv_data, 0, mpl::tag_t{1});
         } catch (const mpl::error &e) {
-          auto *e_mpi{dynamic_cast<const mpl::mpi_error *>(&e)};
+          const auto *e_mpi{dynamic_cast<const mpl::mpi_error *>(&e)};
           CHECK(e_mpi != nullptr);
           if (e_mpi != nullptr)
             CHECK(e_mpi->error_class() == MPI_ERR_TRUNCATE);
-          CHECK(std::string{e.what()}.size() > 0);
+          CHECK(not std::string{e.what()}.empty());
           caught = true;
         }
         send.wait();
@@ -203,14 +207,15 @@ SCENARIO("receive into too small buffer throws mpi_error with class MPI_ERR_TRUN
   }
 }
 
+
 SCENARIO("waitall with truncated receive throws request_error", "[error]") {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   GIVEN("rank 0 has sent two ints to itself and posts a non-blocking receive for one int") {
-    int recv_data;
     int send_data[2]{1, 2};
-    mpl::irequest_pool requests;
     WHEN("waitall is called on rank 0") {
       if (comm_world.rank() == 0) {
+        mpl::irequest_pool requests;
+        int recv_data{0};
         auto send{
             comm_world.isend(send_data, mpl::contiguous_layout<int>(2), 0, mpl::tag_t{2})};
         requests.push(comm_world.irecv(recv_data, 0, mpl::tag_t{2}));
@@ -231,13 +236,14 @@ SCENARIO("waitall with truncated receive throws request_error", "[error]") {
   }
 }
 
+
 SCENARIO("an error inside the helper thread of a container irecv is reported on wait",
          "[error]") {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   GIVEN("a non-blocking receive of a std::vector from a rank outside the communicator") {
     std::vector<int> data;
     const int invalid_source{comm_world.size()};
-#if defined MPL_DEBUG
+#ifdef MPL_DEBUG
     WHEN("irecv is called with MPL_DEBUG checks enabled") {
       THEN("the invalid rank is rejected synchronously") {
         CHECK_THROWS_AS(comm_world.irecv(data, invalid_source, mpl::tag_t{30}),
@@ -265,6 +271,13 @@ SCENARIO("an error inside the helper thread of a container irecv is reported on 
 
 namespace {
 
+  int error_class(const mpl::status_t &status) {
+    int result{MPI_SUCCESS};
+    REQUIRE(MPI_Error_class(status.error(), &result) == MPI_SUCCESS);
+    return result;
+  }
+
+
   // Receives and discards all messages that a failed test may have left behind.
   class drain_guard {
     const mpl::communicator &comm_;
@@ -274,16 +287,23 @@ namespace {
     drain_guard(const mpl::communicator &comm, mpl::tag_t t) : comm_{comm}, tag_{t} {
     }
 
+    drain_guard(const drain_guard &) = delete;
+    drain_guard &operator=(const drain_guard &) = delete;
+    drain_guard(drain_guard &&) = delete;
+    drain_guard &operator=(drain_guard &&) = delete;
+
     ~drain_guard() {
       try {
         while (comm_.iprobe(0, tag_)) {
-          int data[2];
+          int data[2]{};
           comm_.recv(data, mpl::contiguous_layout<int>(2), 0, tag_);
         }
       } catch (...) {
+        // destructor must not throw
       }
     }
   };
+
 
   class self_sends {
     const mpl::communicator &comm_;
@@ -293,22 +313,31 @@ namespace {
   public:
     explicit self_sends(const mpl::communicator &comm) : comm_{comm} {
     }
+
+    self_sends(const self_sends &) = delete;
+    self_sends &operator=(const self_sends &) = delete;
+    self_sends(self_sends &&) = delete;
+    self_sends &operator=(self_sends &&) = delete;
+
     void send(mpl::tag_t tag, int count = 2) {
       requests_.push_back(comm_.isend(data_, mpl::contiguous_layout<int>(count), 0, tag));
     }
+
     ~self_sends() {
       for (auto &request : requests_) {
         try {
           request.wait();
         } catch (...) {
+          // destructor must not throw
         }
       }
     }
   };
 
+
   // Calls f until it throws mpl::request_error or the limit is reached.
   template<typename F>
-  std::optional<mpl::request_error> expect_request_error(F &&f) {
+  std::optional<mpl::request_error> expect_request_error(const F &f) {
     for (int i{0}; i < 1000000; ++i) {
       try {
         f();
@@ -319,8 +348,9 @@ namespace {
     return std::nullopt;
   }
 
+
   template<typename F>
-  std::optional<mpl::mpi_error> expect_mpi_error(F &&f) {
+  std::optional<mpl::mpi_error> expect_mpi_error(const F &f) {
     for (int i{0}; i < 1000000; ++i) {
       try {
         f();
@@ -331,32 +361,41 @@ namespace {
     return std::nullopt;
   }
 
+
   class delayed_release {
     const mpl::communicator &control_;
     mpl::irequest_pool &pool_;
     bool pending_{false};
     bool released_{false};
-    bool started_;
+    bool started_{false};
 
   public:
     delayed_release(const mpl::communicator &control, mpl::irequest_pool &pool,
                     bool requires_start = false)
-        : control_{control}, pool_{pool}, started_{!requires_start} {
+        : control_{control}, pool_{pool}, started_{not requires_start} {
     }
+
+    delayed_release(const delayed_release &) = delete;
+    delayed_release &operator=(const delayed_release &) = delete;
+    delayed_release(delayed_release &&) = delete;
+    delayed_release &operator=(delayed_release &&) = delete;
+
     void posted() noexcept {
       pending_ = true;
     }
+
     void start() {
-      if (!started_) {
-        int signal{1};
+      if (not started_) {
+        constexpr int signal{1};
         control_.send(signal, 1, mpl::tag_t{84});
         started_ = true;
       }
     }
+
     void release() {
       start();
-      if (!released_) {
-        int signal{1};
+      if (not released_) {
+        constexpr int signal{1};
         control_.send(signal, 1, mpl::tag_t{91});
         released_ = true;
       }
@@ -365,10 +404,12 @@ namespace {
         pending_ = false;
       }
     }
+
     ~delayed_release() {
       try {
         release();
       } catch (...) {
+        // destructor must not throw
       }
     }
   };
@@ -381,9 +422,9 @@ SCENARIO("testall with truncated receive throws request_error", "[error]") {
   GIVEN("rank 0 has a pending truncated non-blocking receive in a pool") {
     const mpl::tag_t tag{10};
     const drain_guard guard{comm_world, tag};
-    int recv_data{0};
-    mpl::irequest_pool requests;
     if (comm_world.rank() == 0) {
+      mpl::irequest_pool requests;
+      int recv_data{0};
       self_sends sends{comm_world};
       sends.send(tag);
       requests.push(comm_world.irecv(recv_data, 0, tag));
@@ -394,12 +435,13 @@ SCENARIO("testall with truncated receive throws request_error", "[error]") {
           CHECK(e->error_class() == MPI_ERR_TRUNCATE);
           CHECK(e->failed_requests() == std::vector<int>{0});
           CHECK(e->completed_requests().empty());
-          CHECK(requests.get_status(0).error() == MPI_ERR_TRUNCATE);
+          CHECK(error_class(requests.get_status(0)) == MPI_ERR_TRUNCATE);
         }
       }
     }
   }
 }
+
 
 SCENARIO("waitall reports failed and completed requests of a mixed pool", "[error]") {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -408,10 +450,10 @@ SCENARIO("waitall reports failed and completed requests of a mixed pool", "[erro
     const mpl::tag_t tag_truncated{12};
     const drain_guard guard_ok{comm_world, tag_ok};
     const drain_guard guard_truncated{comm_world, tag_truncated};
-    int recv_ok{0};
-    int recv_truncated{0};
-    mpl::irequest_pool requests;
     if (comm_world.rank() == 0) {
+      mpl::irequest_pool requests;
+      int recv_truncated{0};
+      int recv_ok{0};
       self_sends sends{comm_world};
       sends.send(tag_ok, 1);
       sends.send(tag_truncated);
@@ -431,12 +473,13 @@ SCENARIO("waitall reports failed and completed requests of a mixed pool", "[erro
           CHECK(error->completed_requests() == std::vector<int>{0});
           CHECK(recv_ok == 1);
           CHECK(requests.get_status(0).error() == MPI_SUCCESS);
-          CHECK(requests.get_status(1).error() == MPI_ERR_TRUNCATE);
+          CHECK(error_class(requests.get_status(1)) == MPI_ERR_TRUNCATE);
         }
       }
     }
   }
 }
+
 
 SCENARIO("waitsome and testsome keep the statuses of requests that completed", "[error]") {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
@@ -445,13 +488,13 @@ SCENARIO("waitsome and testsome keep the statuses of requests that completed", "
     const mpl::tag_t tag_truncated{14};
     const drain_guard guard_ok{comm_world, tag_ok};
     const drain_guard guard_truncated{comm_world, tag_truncated};
-    int recv_ok_1{0};
-    int recv_truncated_1{0};
-    int recv_ok_2{0};
-    int recv_truncated_2{0};
-    mpl::irequest_pool requests_wait;
-    mpl::irequest_pool requests_test;
     if (comm_world.rank() == 0) {
+      mpl::irequest_pool requests_wait;
+      mpl::irequest_pool requests_test;
+      int recv_truncated_2{0};
+      int recv_ok_2{0};
+      int recv_truncated_1{0};
+      int recv_ok_1{0};
       self_sends sends{comm_world};
       sends.send(tag_ok, 1);
       sends.send(tag_ok, 1);
@@ -467,7 +510,7 @@ SCENARIO("waitsome and testsome keep the statuses of requests that completed", "
           REQUIRE(e.has_value());
           CHECK(e->error_class() == MPI_ERR_TRUNCATE);
           CHECK(e->failed_requests() == std::vector<int>{1});
-          CHECK(requests_wait.get_status(1).error() == MPI_ERR_TRUNCATE);
+          CHECK(error_class(requests_wait.get_status(1)) == MPI_ERR_TRUNCATE);
           // the matching request either completed in the failing call or in an earlier one
           if (not e->completed_requests().empty()) {
             CHECK(e->completed_requests() == std::vector<int>{0});
@@ -483,7 +526,7 @@ SCENARIO("waitsome and testsome keep the statuses of requests that completed", "
           REQUIRE(e.has_value());
           CHECK(e->error_class() == MPI_ERR_TRUNCATE);
           CHECK(e->failed_requests() == std::vector<int>{1});
-          CHECK(requests_test.get_status(1).error() == MPI_ERR_TRUNCATE);
+          CHECK(error_class(requests_test.get_status(1)) == MPI_ERR_TRUNCATE);
           if (not e->completed_requests().empty()) {
             CHECK(e->completed_requests() == std::vector<int>{0});
             CHECK(requests_test.get_status(0).error() == MPI_SUCCESS);
@@ -496,13 +539,14 @@ SCENARIO("waitsome and testsome keep the statuses of requests that completed", "
   }
 }
 
+
 SCENARIO("single-completion calls throw mpi_error on a truncated receive", "[error]") {
   const mpl::communicator &comm_world{mpl::environment::comm_world()};
   GIVEN("rank 0 has a pending truncated non-blocking receive") {
     const mpl::tag_t tag{15};
     const drain_guard guard{comm_world, tag};
-    int recv_data{0};
     if (comm_world.rank() == 0) {
+      int recv_data{0};
       self_sends sends{comm_world};
       WHEN("the pool waits for any request") {
         sends.send(tag);
@@ -566,6 +610,7 @@ SCENARIO("single-completion calls throw mpi_error on a truncated receive", "[err
   }
 }
 
+
 SCENARIO("check_statuses classifies synthetic statuses", "[error]") {
   using pool_type = mpl::impl::request_pool<mpl::irequest>;
   GIVEN("statuses with a successful, a pending and a failed request") {
@@ -585,7 +630,7 @@ SCENARIO("check_statuses classifies synthetic statuses", "[error]") {
         }
       }
       THEN("an index map is applied to failed and completed requests") {
-        const int indices[3]{5, 7, 9};
+        constexpr int indices[3]{5, 7, 9};
         try {
           pool_type::check_statuses(MPI_ERR_IN_STATUS, statuses, 3, indices);
           FAIL("request_error expected");
@@ -630,11 +675,12 @@ SCENARIO("check_statuses classifies synthetic statuses", "[error]") {
   }
 }
 
+
 SCENARIO("completion calls on an empty request pool are safe", "[error]") {
   GIVEN("an empty request pool") {
-    mpl::irequest_pool requests;
     WHEN("each completion call is performed") {
       THEN("nothing is thrown and no active requests are reported") {
+        mpl::irequest_pool requests;
         CHECK_NOTHROW(requests.waitall());
         CHECK_NOTHROW(requests.testall());
         CHECK(requests.waitany().first == mpl::test_result::no_active_requests);
@@ -650,6 +696,7 @@ SCENARIO("completion calls on an empty request pool are safe", "[error]") {
   }
 }
 
+
 SCENARIO("a delayed receive remains pending while another completes", "[error][request]") {
   const auto &world{mpl::environment::comm_world()};
   if (world.size() < 2) {
@@ -658,7 +705,9 @@ SCENARIO("a delayed receive remains pending while another completes", "[error][r
   }
   const mpl::communicator control{world};
   if (world.rank() == 0) {
-    int previous{0}, good{0}, delayed{0};
+    int previous{0};
+    int good{0};
+    int delayed{0};
     mpl::irequest_pool pool;
     delayed_release guard{control, pool, true};
     pool.push(world.irecv(previous, mpl::proc_null, mpl::tag_t{80}));
@@ -679,15 +728,16 @@ SCENARIO("a delayed receive remains pending while another completes", "[error][r
   } else if (world.rank() == 1) {
     int signal{0};
     control.recv(signal, 0, mpl::tag_t{84});
-    const int good{42};
+    constexpr int good{42};
     auto send_good{world.isend(good, 0, mpl::tag_t{82})};
     control.recv(signal, 0, mpl::tag_t{91});
-    const int delayed{99};
+    constexpr int delayed{99};
     auto send_delayed{world.isend(delayed, 0, mpl::tag_t{81})};
     send_good.wait();
     send_delayed.wait();
   }
 }
+
 
 SCENARIO("live mixed requests release a delayed receive after an error", "[error][request]") {
   const auto &world{mpl::environment::comm_world()};
@@ -697,7 +747,10 @@ SCENARIO("live mixed requests release a delayed receive after an error", "[error
   }
   const mpl::communicator control{world};
   if (world.rank() == 0) {
-    int previous{0}, delayed{0}, good{0}, truncated{0};
+    int previous{0};
+    int delayed{0};
+    int good{0};
+    int truncated{0};
     mpl::irequest_pool pool;
     delayed_release guard{control, pool};
     pool.push(world.irecv(previous, mpl::proc_null, mpl::tag_t{87}));
@@ -707,7 +760,7 @@ SCENARIO("live mixed requests release a delayed receive after an error", "[error
     pool.push(world.irecv(good, 1, mpl::tag_t{89}));
     pool.push(world.irecv(truncated, 1, mpl::tag_t{90}));
     std::optional<mpl::request_error> error;
-    for (int i{0}; i < 1000000 && !error; ++i) {
+    for (int i{0}; i < 1000000 and not error; ++i) {
       try {
         pool.testsome();
       } catch (const mpl::request_error &e) {
@@ -716,7 +769,7 @@ SCENARIO("live mixed requests release a delayed receive after an error", "[error
     }
     const bool error_before_release{error.has_value()};
     guard.release();
-    if (!error)
+    if (not error)
       error = expect_request_error([&]() { pool.testsome(); });
     CHECK(delayed == 99);
     CHECK(good == 42);
@@ -728,19 +781,20 @@ SCENARIO("live mixed requests release a delayed receive after an error", "[error
       CHECK(std::find(completed.begin(), completed.end(), 1) == completed.end());
     }
   } else if (world.rank() == 1) {
-    const int good{42};
-    const int bad[2]{1, 2};
+    constexpr int good{42};
+    constexpr int bad[2]{1, 2};
     auto send_good{world.isend(good, 0, mpl::tag_t{89})};
     auto send_bad{world.isend(bad, mpl::contiguous_layout<int>(2), 0, mpl::tag_t{90})};
     int signal{0};
     control.recv(signal, 0, mpl::tag_t{91});
-    const int delayed{99};
+    constexpr int delayed{99};
     auto send_delayed{world.isend(delayed, 0, mpl::tag_t{88})};
     send_good.wait();
     send_bad.wait();
     send_delayed.wait();
   }
 }
+
 
 SCENARIO("inactive persistent requests can be restarted", "[error][request]") {
   const auto &comm{mpl::environment::comm_world()};
@@ -769,7 +823,7 @@ namespace {
 
   template<typename Communicator>
   bool has_errors_return(const Communicator &comm) {
-    MPI_Errhandler handler;
+    MPI_Errhandler handler{MPI_ERRHANDLER_NULL};
     if (MPI_Comm_get_errhandler(comm.native_handle(), &handler) != MPI_SUCCESS)
       return false;
     const bool result{handler == MPI_ERRORS_RETURN};
@@ -791,8 +845,8 @@ SCENARIO("MPI_ERRORS_RETURN is installed on every communicator creation path", "
   }
   GIVEN("communicators derived from the world communicator") {
     WHEN("a communicator is copied, moved and assigned") {
-      mpl::communicator copy{comm_world};
-      mpl::communicator moved{mpl::communicator{comm_world}};
+      const mpl::communicator copy{comm_world};
+      const mpl::communicator moved{mpl::communicator{comm_world}};
       mpl::communicator copy_assigned;
       copy_assigned = comm_world;
       mpl::communicator move_assigned;
