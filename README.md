@@ -35,6 +35,8 @@ following features of the Message Passing Interface standard:
 * environmental management (implicit initialization and finalization and timers),
 * point-to-point communication (blocking and non-blocking),
 * collective communication (blocking and non-blocking),
+* buffered sends with process-wide and communicator-scoped buffers and blocking or non-blocking
+  flush operations,
 * derived data types (happens automatically for many custom data types or via the `base_struct_builder` helper class and the layout classes of MPL),
 * communicator- and group-management,
 * process topologies (cartesian and graph topologies),
@@ -44,7 +46,9 @@ following features of the Message Passing Interface standard:
 
 Currently, the following MPI features are not yet supported by MPL:
 
-* one-sided communication.
+* one-sided communication and
+* session-scoped buffer management, which remains unsupported until MPL provides a session
+  abstraction.
 
 Although MPL covers a subset of the MPI functionality only, it has 
 probably the largest MPI-feature coverage among all alternative C++ 

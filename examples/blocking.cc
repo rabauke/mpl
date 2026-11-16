@@ -19,9 +19,11 @@ int main() {
     {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
-      mpl::ssize_t const size{comm_world.bsend_size<decltype(x)>()};
-      mpl::bsend_buffer const buff{size};
+      const mpl::ssize_t size{comm_world.bsend_size<decltype(x)>()};
+      mpl::communicator_buffer const buff{comm_world, size};
       comm_world.bsend(x, 1);  // send x to rank 1 via buffered send
+      comm_world
+          .flush_buffer();  // wait until buffered sends on this communicator have completed
     }
     ++x;
     comm_world.ssend(x, 1);  // send x to rank 1 via synchronous send

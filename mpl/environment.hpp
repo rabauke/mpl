@@ -139,6 +139,16 @@ namespace mpl {
           mpl::detail::check(MPI_Buffer_detach_c(&buff, &size));
           return {buff, size};
         }
+
+        void buffer_flush() const {
+          mpl::detail::check(MPI_Buffer_flush());
+        }
+
+        [[nodiscard]] irequest buffer_iflush() const {
+          MPI_Request req;
+          mpl::detail::check(MPI_Buffer_iflush(&req));
+          return mpl::impl::base_irequest{req};
+        }
       };
 
       //----------------------------------------------------------------
@@ -209,8 +219,7 @@ namespace mpl {
       return detail::get_env().wtick();
     }
 
-    /// Provides to MPL a buffer in the user's memory to be used for buffering outgoing
-    /// messages.
+    /// Provides a process-wide buffer in the user's memory for buffering outgoing messages.
     /// \param buff pointer to user-provided buffer
     /// \param size size of the buffer in bytes, must be non-negative
     /// \see \c buffer_detach
@@ -218,12 +227,25 @@ namespace mpl {
       return detail::get_env().buffer_attach(buff, size);
     }
 
-    /// Detach the buffer currently associated with MPL.
+    /// Detaches the process-wide buffer currently associated with MPL.
     /// \return pair representing the buffer location and size, i.e., the parameters provided to
     /// <tt>\ref buffer_attach</tt>
     /// \see \c buffer_attach
     inline std::pair<void *, MPI_Count> buffer_detach() {
       return detail::get_env().buffer_detach();
+    }
+
+    /// Completes all outstanding buffered sends using the process-wide buffer.
+    /// \note Complete this operation before detaching or reusing the buffer storage.
+    inline void buffer_flush() {
+      detail::get_env().buffer_flush();
+    }
+
+    /// Starts completion of all outstanding buffered sends using the process-wide buffer.
+    /// \return request that completes when all buffered sends have completed
+    /// \note Wait for or test the request before detaching or reusing the buffer storage.
+    [[nodiscard]] inline irequest buffer_iflush() {
+      return detail::get_env().buffer_iflush();
     }
 
   }  // namespace environment
@@ -290,6 +312,54 @@ namespace mpl {
     /// deleted move assignment operator
     /// \param other buffer manager to move-assign from
     void operator=(bsend_buffer &&other) = delete;
+  };
+
+  /// Buffer manager for buffered sends on a communicator.
+  /// \note The communicator must outlive the guard, and a communicator may have at most one
+  /// attached buffer at a time.
+  class communicator_buffer {
+    const communicator &comm_;
+    void *buff_{nullptr};
+
+  public:
+    /// deleted default constructor
+    communicator_buffer() = delete;
+
+    /// Allocates and attaches a buffer to the given communicator.
+    /// \param comm communicator to associate with the allocated buffer
+    /// \param size non-negative buffer size in bytes; use \c communicator::bsend_size to calculate
+    /// the required size
+    /// \note The buffer is detached before its allocation is released. If detachment fails, the
+    /// destructor does not throw and leaves the allocation untouched to avoid freeing storage
+    /// that MPI may still use; this can leak the allocation.
+    explicit communicator_buffer(const communicator &comm, ssize_t size) : comm_{comm} {
+      std::unique_ptr<void, void (*)(void *)> owner{operator new(size), &operator delete };
+      comm_.attach_buffer(owner.get(), size);
+      buff_ = owner.release();
+    }
+
+    /// Detaches the buffer before releasing its allocation.
+    ~communicator_buffer() noexcept {
+      try {
+        (void)comm_.detach_buffer();
+      } catch (...) {
+        // Keep the buffer alive if detachment failed.
+        return;
+      }
+      operator delete(buff_);
+    }
+
+    /// deleted copy constructor
+    communicator_buffer(const communicator_buffer &) = delete;
+
+    /// deleted move constructor
+    communicator_buffer(communicator_buffer &&) = delete;
+
+    /// deleted copy assignment operator
+    void operator=(const communicator_buffer &) = delete;
+
+    /// deleted move assignment operator
+    void operator=(communicator_buffer &&) = delete;
   };
 
 }  // namespace mpl

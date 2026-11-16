@@ -916,6 +916,41 @@ namespace mpl {
       }
 
       // === buffered send ===
+      /// Attaches a user-provided buffer to this communicator for buffered sends.
+      /// \param buff pointer to caller-owned buffer storage
+      /// \param size non-negative buffer size in bytes
+      /// \note Keep the storage valid until it is detached. Each communicator may have at most one
+      /// attached buffer at a time.
+      void attach_buffer(void *buff, ssize_t size) const {
+        detail::check(MPI_Comm_attach_buffer_c(comm_, buff, size));
+      }
+
+      /// Detaches the buffer currently associated with this communicator.
+      /// \return pair containing the attached buffer address and its size in bytes
+      /// \note The returned storage remains caller-owned and may be reused or released after this
+      /// call completes.
+      [[nodiscard]] std::pair<void *, ssize_t> detach_buffer() const {
+        void *buff;
+        MPI_Count size;
+        detail::check(MPI_Comm_detach_buffer_c(comm_, &buff, &size));
+        return {buff, size};
+      }
+
+      /// Completes all outstanding buffered sends using this communicator's buffer.
+      /// \note Complete this operation before detaching or reusing the buffer storage.
+      void flush_buffer() const {
+        detail::check(MPI_Comm_flush_buffer(comm_));
+      }
+
+      /// Starts completion of all outstanding buffered sends using this communicator's buffer.
+      /// \return request that completes when all buffered sends have completed
+      /// \note Wait for or test the request before detaching or reusing the buffer storage.
+      [[nodiscard]] irequest iflush_buffer() const {
+        MPI_Request req;
+        detail::check(MPI_Comm_iflush_buffer(comm_, &req));
+        return base_irequest{req};
+      }
+
       // --- determine buffer size ---
       /// Determines the message buffer size.
       /// \tparam T type of the data to send in a later buffered send operation, must meet the

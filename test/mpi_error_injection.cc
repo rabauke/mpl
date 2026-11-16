@@ -37,7 +37,9 @@ namespace {
   }
 }  // namespace
 
+
 namespace injection {
+
   void reset() {
     armed = operation::none;
     resources.clear();
@@ -74,6 +76,10 @@ namespace injection {
     return {buffer_attaches, buffer_deletes, buffer_detaches};
   }
 
+  void *buffer_pointer() {
+    return tracked_buffer;
+  }
+
   int cancel_calls() {
     return cancellations;
   }
@@ -81,16 +87,20 @@ namespace injection {
   failure::failure(operation op) {
     armed = op;
   }
+
   failure::~failure() {
     armed = operation::none;
   }
+
 }  // namespace injection
+
 
 extern "C" int MPI_Error_class(int code, int *error_class) {
   if (fail(injection::operation::error_class))
     return MPI_ERR_OTHER;
   return PMPI_Error_class(code, error_class);
 }
+
 
 extern "C" int MPI_Error_string(int code, char *message, int *length) {
   if (fail(injection::operation::error_string))
@@ -102,6 +112,7 @@ extern "C" int MPI_Error_string(int code, char *message, int *length) {
   return PMPI_Error_string(code, message, length);
 }
 
+
 extern "C" int MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm) {
   if (fail(injection::operation::dup))
     return MPI_ERR_OTHER;
@@ -111,6 +122,7 @@ extern "C" int MPI_Comm_dup(MPI_Comm comm, MPI_Comm *newcomm) {
   return result;
 }
 
+
 extern "C" int MPI_Comm_split(MPI_Comm comm, int color, int key, MPI_Comm *newcomm) {
   const int result{PMPI_Comm_split(comm, color, key, newcomm)};
   if (result == MPI_SUCCESS)
@@ -118,11 +130,13 @@ extern "C" int MPI_Comm_split(MPI_Comm comm, int color, int key, MPI_Comm *newco
   return result;
 }
 
+
 extern "C" int MPI_Comm_set_errhandler(MPI_Comm comm, MPI_Errhandler handler) {
   if (fail(injection::operation::set_handler))
     return MPI_ERR_OTHER;
   return PMPI_Comm_set_errhandler(comm, handler);
 }
+
 
 extern "C" int MPI_Comm_free(MPI_Comm *comm) {
   for (auto it{resources.rbegin()}; it != resources.rend(); ++it) {
@@ -136,6 +150,7 @@ extern "C" int MPI_Comm_free(MPI_Comm *comm) {
   }
   return PMPI_Comm_free(comm);
 }
+
 
 extern "C" int MPI_Type_create_struct_c(MPI_Count count, const MPI_Count blocklengths[],
                                         const MPI_Count displacements[],
@@ -151,6 +166,7 @@ extern "C" int MPI_Type_create_struct_c(MPI_Count count, const MPI_Count blockle
   return result;
 }
 
+
 extern "C" int MPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb, MPI_Aint extent,
                                        MPI_Datatype *newtype) {
   if (fail(injection::operation::resize)) {
@@ -163,6 +179,7 @@ extern "C" int MPI_Type_create_resized(MPI_Datatype oldtype, MPI_Aint lb, MPI_Ai
   return result;
 }
 
+
 extern "C" int MPI_Type_commit(MPI_Datatype *datatype) {
   ++datatype_commits;
   if (fail(injection::operation::layout_commit) ||
@@ -171,6 +188,7 @@ extern "C" int MPI_Type_commit(MPI_Datatype *datatype) {
     return MPI_ERR_OTHER;
   return PMPI_Type_commit(datatype);
 }
+
 
 extern "C" int MPI_Type_contiguous_c(MPI_Count count, MPI_Datatype oldtype,
                                      MPI_Datatype *newtype) {
@@ -182,6 +200,7 @@ extern "C" int MPI_Type_contiguous_c(MPI_Count count, MPI_Datatype oldtype,
   return result;
 }
 
+
 extern "C" int MPI_Cancel(MPI_Request *request) {
   ++cancellations;
   if (fail(injection::operation::cancel))
@@ -189,11 +208,13 @@ extern "C" int MPI_Cancel(MPI_Request *request) {
   return PMPI_Cancel(request);
 }
 
+
 extern "C" int MPI_File_get_group(MPI_File file, MPI_Group *group) {
   if (fail(injection::operation::file_group))
     return MPI_ERR_FILE;
   return PMPI_File_get_group(file, group);
 }
+
 
 extern "C" int MPI_File_get_size(MPI_File file, MPI_Offset *size) {
   if (fail(injection::operation::file_arg))
@@ -203,17 +224,20 @@ extern "C" int MPI_File_get_size(MPI_File file, MPI_Offset *size) {
   return PMPI_File_get_size(file, size);
 }
 
+
 extern "C" int MPI_Info_set(MPI_Info info, const char *key, const char *value) {
   if (fail(injection::operation::info_set))
     return MPI_ERR_INFO;
   return PMPI_Info_set(info, key, value);
 }
 
+
 extern "C" int MPI_Group_size(MPI_Group group, int *size) {
   if (fail(injection::operation::group_size))
     return MPI_ERR_GROUP;
   return PMPI_Group_size(group, size);
 }
+
 
 extern "C" int MPI_Buffer_attach_c(void *buffer, MPI_Count size) {
   tracked_buffer = buffer;
@@ -223,26 +247,48 @@ extern "C" int MPI_Buffer_attach_c(void *buffer, MPI_Count size) {
   return PMPI_Buffer_attach_c(buffer, size);
 }
 
+
 extern "C" int MPI_Buffer_detach_c(void *buffer, MPI_Count *size) {
   ++buffer_detaches;
   return PMPI_Buffer_detach_c(buffer, size);
 }
 
+
+extern "C" int MPI_Comm_attach_buffer_c(MPI_Comm comm, void *buffer, MPI_Count size) {
+  tracked_buffer = buffer;
+  ++buffer_attaches;
+  if (fail(injection::operation::buffer_attach))
+    return MPI_ERR_OTHER;
+  return PMPI_Comm_attach_buffer_c(comm, buffer, size);
+}
+
+
+extern "C" int MPI_Comm_detach_buffer_c(MPI_Comm comm, void *buffer, MPI_Count *size) {
+  ++buffer_detaches;
+  if (fail(injection::operation::buffer_detach))
+    return MPI_ERR_OTHER;
+  return PMPI_Comm_detach_buffer_c(comm, buffer, size);
+}
+
+
 void *operator new(std::size_t size) {
-  if (void *p = std::malloc(size == 0 ? 1 : size))
+  if (void *p{std::malloc(size == 0 ? 1 : size)})
     return p;
   throw std::bad_alloc{};
 }
 
+
 void operator delete(void *p) noexcept {
-  if (p != nullptr && p == tracked_buffer)
+  if (p != nullptr and p == tracked_buffer)
     ++buffer_deletes;
   std::free(p);
 }
 
+
 void operator delete(void *p, std::size_t) noexcept {
   ::operator delete(p);
 }
+
 
 extern "C" int MPI_Type_free(MPI_Datatype *datatype) {
   for (auto it{datatypes.rbegin()}; it != datatypes.rend(); ++it) {

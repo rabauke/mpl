@@ -15,6 +15,7 @@ namespace injection {
     resized_commit,
     layout_commit,
     buffer_attach,
+    buffer_detach,
     error_class,
     error_string,
     error_string_bad_length,
@@ -27,25 +28,31 @@ namespace injection {
     group_size
   };
 
+
   struct counts {
     int acquired{0};
     int released{0};
     int duplicate_releases{0};
   };
 
+
   void reset();
   void track(MPI_Comm comm);
   counts events();
   counts datatype_events();
   counts buffer_events();
+  void *buffer_pointer();
   int cancel_calls();
+
 
   class failure {
   public:
     explicit failure(operation op);
     ~failure();
     failure(const failure &) = delete;
+    failure(failure &&) = delete;
     failure &operator=(const failure &) = delete;
+    failure &operator=(failure &&) = delete;
   };
 
 }  // namespace injection

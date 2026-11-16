@@ -37,9 +37,11 @@ int main() {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
       const mpl::ssize_t size{comm_world.bsend_size<decltype(x)>()};
-      mpl::bsend_buffer buff(size);
+      mpl::communicator_buffer buff(comm_world, size);
       r = comm_world.ibsend(x, 1);  // send x to rank 1 via buffered send
       r.wait();                     // wait until send has finished
+      auto flush_request{comm_world.iflush_buffer()};
+      flush_request.wait();  // wait until buffered sends on this communicator have completed
     }
     ++x;
     r = comm_world.issend(x, 1);  // send x to rank 1 via synchronous send

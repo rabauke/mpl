@@ -286,6 +286,55 @@ TEST_CASE("buffer attachment owns allocation only after success", "[buffer_attac
   injection::reset();
 }
 
+TEST_CASE("communicator buffer attachment transfers ownership only after success",
+          "[buffer_attachment]") {
+  const auto &self{mpl::environment::comm_self()};
+  injection::reset();
+  {
+    injection::failure fail{injection::operation::buffer_attach};
+    CHECK_THROWS_AS((mpl::communicator_buffer{self, 1024}), mpl::mpi_error);
+  }
+  auto events{injection::buffer_events()};
+  CHECK(events.acquired == 1);
+  CHECK(events.released == 1);
+  CHECK(events.duplicate_releases == 0);
+
+  injection::reset();
+  {
+    mpl::communicator_buffer buffer{self, 1024};
+    CHECK(injection::buffer_events().released == 0);
+  }
+  events = injection::buffer_events();
+  CHECK(events.acquired == 1);
+  CHECK(events.released == 1);
+  CHECK(events.duplicate_releases == 1);
+
+  injection::reset();
+  void *buffer{nullptr};
+  {
+    injection::failure fail{injection::operation::buffer_detach};
+    buffer = [&self]() {
+      mpl::communicator_buffer attached{self, 1024};
+      return injection::buffer_pointer();
+    }();
+  }
+  events = injection::buffer_events();
+  CHECK(events.acquired == 1);
+  CHECK(events.released == 0);
+  CHECK(events.duplicate_releases == 1);
+
+  void *detached_buffer{nullptr};
+  MPI_Count detached_size{0};
+  CHECK(PMPI_Comm_detach_buffer_c(self.native_handle(), &detached_buffer, &detached_size) ==
+        MPI_SUCCESS);
+  CHECK(detached_buffer == buffer);
+  ::operator delete(detached_buffer);
+  events = injection::buffer_events();
+  CHECK(events.released == 1);
+  CHECK(events.duplicate_releases == 1);
+  injection::reset();
+}
+
 TEST_CASE("cancellation errors are reported without abandoning requests",
           "[cancel_injection]") {
   const auto &self{mpl::environment::comm_self()};
@@ -393,5 +442,4 @@ TEST_CASE("file operations route errors by MPI class", "[file_injection]") {
     injection::failure fail{injection::operation::file_io};
     CHECK_THROWS_AS(file.size(), mpl::io_failure);
   }
-
 }
