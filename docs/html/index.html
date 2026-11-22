@@ -289,27 +289,34 @@
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
 <p>MPL is a message passing library written in C++17 based on the <a class="reference external" href="http://mpi-forum.org/">Message Passing Interface</a> (MPI) standard. Since the C++ API has been dropped from the MPI standard in version 3.1, it is the aim of MPL to provide a modern C++ message passing library for high performance computing.</p>
-<p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. The library’s focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. The aim of MPL is to provide an idiomatic C++ message passing library without introducing a significant overhead compared to utilizing MPI via its plain C-API. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface standard and would like to utilize it via a more user-friendly interface in modern C++. Unlike <a class="reference external" href="https://www.boost.org/doc/libs/1_77_0/doc/html/mpi.html">Boost.MPI</a>, MPL does not rely on an external serialization library and has a negligible run-time overhead.</p>
+<p>MPL will neither bring all functions of the C language MPI-API to C++ nor provide a direct mapping of the C API to some C++ functions and classes. The library’s focus lies on the MPI core message passing functions, ease of use, type safety, and elegance. The aim of MPL is to provide an idiomatic C++ message passing library without introducing a significant overhead compared to utilizing MPI via its plain C-API. This library is most useful for developers who have at least some basic knowledge of the Message Passing Interface standard and would like to utilize it via a more user-friendly interface in modern C++. Unlike <a class="reference external" href="https://www.boost.org/doc/libs/latest/doc/html/mpi.html">Boost.MPI</a>, MPL does not rely on an external serialization library and has a negligible run-time overhead.</p>
 </section>
 <section id="supported-features">
 <h2>Supported features<a class="headerlink" href="#supported-features" title="Link to this heading">¶</a></h2>
 <p>MPL requires an MPI 4.1 implementation and uses its large-count interfaces.</p>
 <p>MPL gives currently access via a convenient C++ interface to the following features of the Message Passing Interface standard:</p>
 <ul class="simple">
-<li><p>environmental management (implicit initialization and finalization, timers, but no error handling).</p></li>
+<li><p>environmental management (implicit initialization and finalization, timers, runtime library
+identification, and environment-derived info objects),</p></li>
 <li><p>point-to-point communication (blocking and non-blocking),</p></li>
 <li><p>collective communication (blocking and non-blocking),</p></li>
+<li><p>buffered sends with process-wide and communicator-scoped buffers and blocking or non-blocking
+flush operations,</p></li>
 <li><p>derived data types (happens automatically for many custom data types or via the <code class="docutils literal notranslate"><span class="pre">base_struct_builder</span></code> helper class and the layout classes of MPL),</p></li>
-<li><p>communicator- and group-management,</p></li>
+<li><p>communicator- and group-management, including communicator info hints and info-aware
+asynchronous duplication,</p></li>
+<li><p>MPI-managed STL allocation and process-local reduction,</p></li>
 <li><p>process topologies (cartesian and graph topologies),</p></li>
 <li><p>inter-communicators,</p></li>
-<li><p>dynamic process creation and</p></li>
-<li><p>file i/o.</p></li>
+<li><p>dynamic process creation,</p></li>
+<li><p>file i/o, and</p></li>
+<li><p>error reporting through MPL exceptions.</p></li>
 </ul>
 <p>Currently, the following MPI features are not yet supported by MPL:</p>
 <ul class="simple">
-<li><p>error handling and</p></li>
-<li><p>one-sided communication.</p></li>
+<li><p>one-sided communication and</p></li>
+<li><p>session-scoped buffer management, which remains unsupported until MPL provides a session
+abstraction.</p></li>
 </ul>
 <p>Although MPL covers a subset of the MPI functionality only, it has probably the largest MPI-feature coverage among all alternative C++ interfaces to MPI.</p>
 </section>
@@ -354,11 +361,52 @@
 </pre></div>
 </div>
 </section>
+<section id="error-handling">
+<h2>Error handling<a class="headerlink" href="#error-handling" title="Link to this heading">¶</a></h2>
+<p>When a checked MPI call returns an error, MPL reports it as <code class="docutils literal notranslate"><span class="pre">mpl::mpi_error</span></code> (derived from
+<code class="docutils literal notranslate"><span class="pre">mpl::error</span></code>), carrying its code, class, and message. Recognized I/O error classes become
+<code class="docutils literal notranslate"><span class="pre">mpl::io_failure</span></code>, including outside file operations; other classes from file operations remain
+<code class="docutils literal notranslate"><span class="pre">mpl::mpi_error</span></code>.</p>
+<p>MPL installs <code class="docutils literal notranslate"><span class="pre">MPI_ERRORS_RETURN</span></code> when it initializes its environment and wraps
+<code class="docutils literal notranslate"><span class="pre">MPI_COMM_WORLD</span></code> and <code class="docutils literal notranslate"><span class="pre">MPI_COMM_SELF</span></code>, and when it creates or wraps communicators. With external
+MPI initialization, earlier operations do not initialize the MPL environment or change those
+handlers; a fatal handler may abort before a call returns. Borrowed <code class="docutils literal notranslate"><span class="pre">mpi_communicator</span></code> and
+<code class="docutils literal notranslate"><span class="pre">mpi_inter_communicator</span></code> adapters change the original handle’s handler without restoring it or
+taking ownership. MPI file and objectless operations can use different handlers; exceptions are
+possible only if MPI returns an error to MPL.</p>
+<p>Error reporting does not guarantee recovery: MPI may not permit continued execution, and other
+ranks may remain blocked. Cleanup and destructors are best-effort and do not throw. See
+<a class="reference internal" href="error.html"><span class="doc">Error handling</span></a> for request completion details.</p>
+</section>
+<section id="building-and-testing">
+<h2>Building and testing<a class="headerlink" href="#building-and-testing" title="Link to this heading">¶</a></h2>
+<p>MPL can be built and tested using standard CMake commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span>-DCMAKE_BUILD_TYPE<span class="o">=</span>Release<span class="w"> </span>-DBUILD_TESTING<span class="o">=</span>ON<span class="w"> </span>-DMPL_BUILD_EXAMPLES<span class="o">=</span>ON
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>-j
+ctest<span class="w"> </span>--test-dir<span class="w"> </span>build<span class="w"> </span>--output-on-failure
+</pre></div>
+</div>
+<section id="mpich-hwloc-troubleshooting">
+<h3>MPICH / hwloc troubleshooting<a class="headerlink" href="#mpich-hwloc-troubleshooting" title="Link to this heading">¶</a></h3>
+<p>When running unit tests or executables directly via <code class="docutils literal notranslate"><span class="pre">mpirun</span></code> or <code class="docutils literal notranslate"><span class="pre">mpiexec</span></code> under MPICH on
+systems with <code class="docutils literal notranslate"><span class="pre">libhwloc</span></code> GL plugins installed (<code class="docutils literal notranslate"><span class="pre">hwloc_gl.so</span></code>), MPI initialization may hang in
+remote, headless, or containerized environments if an unreachable <code class="docutils literal notranslate"><span class="pre">$DISPLAY</span></code> socket endpoint is
+queried via <code class="docutils literal notranslate"><span class="pre">XOpenDisplay</span></code>.</p>
+<p>While CTest targets in MPL configure this automatically, when executing binaries directly under
+MPICH, disable the hwloc OpenGL discovery component by setting:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">HWLOC_COMPONENTS</span><span class="o">=</span>-gl
+<span class="c1"># or prepend to direct mpiexec invocations:</span>
+<span class="nv">HWLOC_COMPONENTS</span><span class="o">=</span>-gl<span class="w"> </span>mpiexec<span class="w"> </span>-n<span class="w"> </span><span class="m">2</span><span class="w"> </span>./build/test/test_communicator_send_recv
+</pre></div>
+</div>
+</section>
+</section>
 <section id="further-documentation">
 <h2>Further documentation<a class="headerlink" href="#further-documentation" title="Link to this heading">¶</a></h2>
-<p>For further documentation see the blog posts</p>
+<p>For further documentation see the
+<a class="reference external" href="https://rabauke.github.io/mpl/html/">documentation</a>, the blog posts</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.numbercrunch.de/blog/2015/08/mpl-a-message-passing-library/">MPL – A message passinglibrary</a>,</p></li>
+<li><p><a class="reference external" href="https://www.numbercrunch.de/blog/2015/08/mpl-a-message-passing-library/">MPL – A message passing library</a>,</p></li>
 <li><p><a class="reference external" href="https://www.numbercrunch.de/blog/2015/09/mpl-collective-communication/">MPL – Collective communication</a>,</p></li>
 <li><p><a class="reference external" href="https://www.numbercrunch.de/blog/2015/09/mpl-data-types/">MPL – Data types</a>,</p></li>
 </ul>
@@ -368,7 +416,11 @@
 </ul>
 <p>the book</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://web.corral.tacc.utexas.edu/CompEdu/pdf/pcse/EijkhoutParallelProgramming.pdf">Parallel Programming for Science and Engineering</a> by Victor Eijkhout</p></li>
+<li><p><a class="reference external" href="https://theartofhpc.com/pcse.html">Parallel Programming for Science and Engineering</a> by Victor Eijkhout, or</p></li>
+</ul>
+<p>the workshop material</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://southernmethodistuniversity.github.io/parallel_cpp/intro.html">SMU O’Donnell Data Science and Research Computing Institute Parallel C++ Workshop</a></p></li>
 </ul>
 <p>and the files in the <code class="docutils literal notranslate"><span class="pre">examples</span></code> directory of the source package.</p>
 </section>
@@ -436,6 +488,11 @@
 <li><a class="reference internal" href="#introduction">Introduction</a></li>
 <li><a class="reference internal" href="#supported-features">Supported features</a></li>
 <li><a class="reference internal" href="#hello-parallel-world">Hello parallel world</a></li>
+<li><a class="reference internal" href="#error-handling">Error handling</a></li>
+<li><a class="reference internal" href="#building-and-testing">Building and testing</a><ul>
+<li><a class="reference internal" href="#mpich-hwloc-troubleshooting">MPICH / hwloc troubleshooting</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#further-documentation">Further documentation</a></li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
