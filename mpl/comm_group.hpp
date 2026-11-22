@@ -5931,6 +5931,8 @@ namespace mpl {
       args.reserve(command.size() - 1);
       for (command_line::size_type j{1}; j < command.size(); ++j)
         args.push_back(std::vector<char>(command[j].begin(), command[j].end()));
+      for (auto &arg : args)
+        arg.push_back('\0');
       std::vector<char *> args_pointers;
       args_pointers.reserve(args.size() + 1);
       for (auto &arg : args)
@@ -5978,12 +5980,15 @@ namespace mpl {
           throw invalid_argument();
 #endif
         vector_of_commands.push_back(std::vector<char>(command[0].begin(), command[0].end()));
+        vector_of_commands.back().push_back('\0');
         vector_of_commands_ptr.push_back(vector_of_commands.back().data());
         {
           std::vector<std::vector<char>> args;
           args.reserve(command.size() - 1);
           for (command_line::size_type i{1}; i < command.size(); ++i)
             args.push_back(std::vector<char>(command[i].begin(), command[i].end()));
+          for (auto &arg : args)
+            arg.push_back('\0');
           vector_of_args.push_back(std::move(args));
         }
         std::vector<char *> args_pointers;
@@ -6037,12 +6042,15 @@ namespace mpl {
           throw invalid_argument();
 #endif
         vector_of_commands.push_back(std::vector<char>(command[0].begin(), command[0].end()));
+        vector_of_commands.back().push_back('\0');
         vector_of_commands_ptr.push_back(vector_of_commands.back().data());
         {
           std::vector<std::vector<char>> args;
           args.reserve(command.size() - 1);
           for (command_line::size_type j{1}; j < command.size(); ++j)
             args.push_back(std::vector<char>(command[j].begin(), command[j].end()));
+          for (auto &arg : args)
+            arg.push_back('\0');
           vector_of_args.push_back(std::move(args));
         }
         std::vector<char *> args_pointers;
