@@ -70,8 +70,8 @@ namespace {
       for (int i{0}; i < j + 1; ++i)
         expected.push_back(expected_val);
     }
-    comm_world.alltoallv(send_data.data(), sendls, senddispls, recv_data.data(), recvls,
-                         recvdispls);
+    comm_world.alltoallv_contiguous(send_data.data(), sendls, senddispls, recv_data.data(),
+                                    recvls, recvdispls);
     return recv_data == expected;
   }
 
@@ -171,8 +171,8 @@ namespace {
       for (int i{0}; i < j + 1; ++i)
         expected.push_back(expected_val);
     }
-    auto r{comm_world.ialltoallv(send_data.data(), sendls, senddispls, recv_data.data(), recvls,
-                                 recvdispls)};
+    auto r{comm_world.ialltoallv_contiguous(send_data.data(), sendls, senddispls,
+                                            recv_data.data(), recvls, recvdispls)};
     r.wait();
     return recv_data == expected;
   }

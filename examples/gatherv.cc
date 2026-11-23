@@ -10,7 +10,7 @@ int main() {
   const auto c_size{comm_world.size()};
   // fill vector with C_rank+1 elements, each having the value C_rank+1
   const std::vector<int> x(c_rank + 1, c_rank + 1);
-  const mpl::contiguous_layout<int> l(c_rank + 1);
+  const mpl::vector_layout<int> l(c_rank + 1);
   // root rank will send and receive in gather operation
   if (c_rank == 0) {
     // messages of varying size will be received
@@ -20,16 +20,17 @@ int main() {
     for (int i{0}; i < c_size; ++i)
       // define layout for message to be received from rank i
       ls.push_back(mpl::indexed_layout<int>({{
-          i + 1,           // number of int elements
-          (i * i + i) / 2  // position of the first element in receive buffer
+          i + 1,            // number of int elements
+          (i * i + i) / 2,  // position of the first element in receive buffer
       }}));
     std::vector<int> y((c_size * c_size + c_size) / 2);  // receive buffer
     comm_world.gatherv(0, x.data(), l, y.data(), ls);    // receive data
     // print data
     for (const auto &f : y)
       std::cout << f << '\n';
-  } else
+  } else {
     // non-root ranks just send
     comm_world.gatherv(0, x.data(), l);
+  }
   return EXIT_SUCCESS;
 }

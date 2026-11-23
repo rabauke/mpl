@@ -62,11 +62,13 @@ namespace {
     const mpl::contiguous_layout<T> layout(comm_world.rank() + 1);
     if constexpr (variant == use_non_root_overload::yes) {
       if (comm_world.rank() == 0)
-        comm_world.scatterv(0, v_scatter.data(), layouts, displacements, v_recv.data(), layout);
+        comm_world.scatterv_contiguous(0, v_scatter.data(), layouts, displacements,
+                                       v_recv.data(), layout);
       else
-        comm_world.scatterv(0, v_recv.data(), layout);
+        comm_world.scatterv_contiguous(0, v_recv.data(), layout);
     } else {
-      comm_world.scatterv(0, v_scatter.data(), layouts, displacements, v_recv.data(), layout);
+      comm_world.scatterv_contiguous(0, v_scatter.data(), layouts, displacements, v_recv.data(),
+                                     layout);
     }
     return v_recv == v_expected;
   }
@@ -130,16 +132,16 @@ namespace {
     const mpl::contiguous_layout<T> layout(comm_world.rank() + 1);
     if constexpr (variant == use_non_root_overload::yes) {
       if (comm_world.rank() == 0) {
-        auto r{comm_world.iscatterv(0, v_scatter.data(), layouts, displacements, v_recv.data(),
-                                    layout)};
+        auto r{comm_world.iscatterv_contiguous(0, v_scatter.data(), layouts, displacements,
+                                               v_recv.data(), layout)};
         r.wait();
       } else {
-        auto r{comm_world.iscatterv(0, v_recv.data(), layout)};
+        auto r{comm_world.iscatterv_contiguous(0, v_recv.data(), layout)};
         r.wait();
       }
     } else {
-      auto r{comm_world.iscatterv(0, v_scatter.data(), layouts, displacements, v_recv.data(),
-                                  layout)};
+      auto r{comm_world.iscatterv_contiguous(0, v_scatter.data(), layouts, displacements,
+                                             v_recv.data(), layout)};
       r.wait();
     }
     return v_recv == v_expected;

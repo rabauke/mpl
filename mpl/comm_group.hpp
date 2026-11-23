@@ -2935,6 +2935,7 @@ namespace mpl {
                                     nullptr, 0, MPI_DATATYPE_NULL, root_rank, comm_, &req));
         return base_irequest{req};
       }
+
       // === root gets varying amount of data from each rank and stores in non-contiguous memory
       // --- blocking gather ---
       /// Gather messages with a variable amount of data from all processes at a single
@@ -2998,17 +2999,18 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      void gatherv(int root_rank, const T *send_data, const contiguous_layout<T> &sendl,
-                   T *recv_data, const contiguous_layouts<T> &recvls,
-                   const displacements &recvdispls) const {
+      void gatherv_contiguous(int root_rank, const T *send_data,
+                              const contiguous_layout<T> &sendl, T *recv_data,
+                              const contiguous_layouts<T> &recvls,
+                              const displacements &recvdispls) const {
         check_root(root_rank);
         check_size(recvls);
         check_size(recvdispls);
         const auto recvcounts{sizes_as_vector_of_ints(recvls)};
-        const auto reacvdispls_int(count_displacements_as_vector_of_ints<T>(recvdispls));
+        const auto recvdispls_int{count_displacements_as_vector_of_ints<T>(recvdispls)};
         detail::check(MPI_Gatherv_c(send_data, static_cast<MPI_Count>(sendl.size()),
                                     detail::datatype_traits<T>::get_datatype(), recv_data,
-                                    recvcounts.data(), reacvdispls_int.data(),
+                                    recvcounts.data(), recvdispls_int.data(),
                                     detail::datatype_traits<T>::get_datatype(), root_rank,
                                     comm_));
       }
@@ -3078,14 +3080,15 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest igatherv(int root_rank, const T *send_data, const contiguous_layout<T> &sendl,
-                        T *recv_data, const contiguous_layouts<T> &recvls,
-                        const displacements &recvdispls) const {
+      irequest igatherv_contiguous(int root_rank, const T *send_data,
+                                   const contiguous_layout<T> &sendl, T *recv_data,
+                                   const contiguous_layouts<T> &recvls,
+                                   const displacements &recvdispls) const {
         check_root(root_rank);
         check_size(recvls);
         check_size(recvdispls);
         const auto recvcounts{sizes_as_vector_of_ints(recvls)};
-        const auto recvdispls_int(count_displacements_as_vector_of_ints<T>(recvdispls));
+        const auto recvdispls_int{count_displacements_as_vector_of_ints<T>(recvdispls)};
         MPI_Request req;
         detail::check(MPI_Igatherv_c(send_data, static_cast<MPI_Count>(sendl.size()),
                                      detail::datatype_traits<T>::get_datatype(), recv_data,
@@ -3128,7 +3131,8 @@ namespace mpl {
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void gatherv(int root_rank, const T *send_data, const contiguous_layout<T> &sendl) const {
+      void gatherv_contiguous(int root_rank, const T *send_data,
+                              const contiguous_layout<T> &sendl) const {
         check_nonroot(root_rank);
         detail::check(MPI_Gatherv_c(send_data, static_cast<MPI_Count>(sendl.size()),
                                     detail::datatype_traits<T>::get_datatype(), nullptr,
@@ -3170,8 +3174,8 @@ namespace mpl {
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest igatherv(int root_rank, const T *send_data,
-                        const contiguous_layout<T> &sendl) const {
+      irequest igatherv_contiguous(int root_rank, const T *send_data,
+                                   const contiguous_layout<T> &sendl) const {
         check_nonroot(root_rank);
         MPI_Request req;
         detail::check(MPI_Igatherv_c(send_data, static_cast<MPI_Count>(sendl.size()),
@@ -3307,9 +3311,9 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      void allgatherv(const T *send_data, const contiguous_layout<T> &sendl, T *recv_data,
-                      const contiguous_layouts<T> &recvls,
-                      const displacements &recvdispls) const {
+      void allgatherv_contiguous(const T *send_data, const contiguous_layout<T> &sendl,
+                                 T *recv_data, const contiguous_layouts<T> &recvls,
+                                 const displacements &recvdispls) const {
         check_size(recvls);
         check_size(recvdispls);
         const auto recvcounts{sizes_as_vector_of_ints(recvls)};
@@ -3374,9 +3378,9 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iallgatherv(const T *send_data, const contiguous_layout<T> &sendl, T *recv_data,
-                           const contiguous_layouts<T> &recvls,
-                           const displacements &recvdispls) const {
+      irequest iallgatherv_contiguous(const T *send_data, const contiguous_layout<T> &sendl,
+                                      T *recv_data, const contiguous_layouts<T> &recvls,
+                                      const displacements &recvdispls) const {
         check_size(recvls);
         check_size(recvdispls);
         const auto recvcounts{sizes_as_vector_of_ints(recvls)};
@@ -3607,9 +3611,10 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      void scatterv(int root_rank, const T *send_data, const contiguous_layouts<T> &sendls,
-                    const displacements &senddispls, T *recv_data,
-                    const contiguous_layout<T> &recvl) const {
+      void scatterv_contiguous(int root_rank, const T *send_data,
+                               const contiguous_layouts<T> &sendls,
+                               const displacements &senddispls, T *recv_data,
+                               const contiguous_layout<T> &recvl) const {
         check_root(root_rank);
         check_size(sendls);
         check_size(senddispls);
@@ -3687,9 +3692,10 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest iscatterv(int root_rank, const T *send_data, const contiguous_layouts<T> &sendls,
-                         const displacements &senddispls, T *recv_data,
-                         const contiguous_layout<T> &recvl) const {
+      irequest iscatterv_contiguous(int root_rank, const T *send_data,
+                                    const contiguous_layouts<T> &sendls,
+                                    const displacements &senddispls, T *recv_data,
+                                    const contiguous_layout<T> &recvl) const {
         check_root(root_rank);
         check_size(sendls);
         check_size(senddispls);
@@ -3736,7 +3742,8 @@ namespace mpl {
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      void scatterv(int root_rank, T *recv_data, const contiguous_layout<T> &recvl) const {
+      void scatterv_contiguous(int root_rank, T *recv_data,
+                               const contiguous_layout<T> &recvl) const {
         check_root(root_rank);
         detail::check(MPI_Scatterv_c(nullptr, nullptr, nullptr, MPI_DATATYPE_NULL, recv_data,
                                      static_cast<MPI_Count>(recvl.size()),
@@ -3779,7 +3786,8 @@ namespace mpl {
       /// overload) by all processes in the communicator. This particular overload can only be
       /// called by non-root processes.
       template<typename T>
-      irequest iscatterv(int root_rank, T *recv_data, const contiguous_layout<T> &recvl) const {
+      irequest iscatterv_contiguous(int root_rank, T *recv_data,
+                                    const contiguous_layout<T> &recvl) const {
         check_root(root_rank);
         MPI_Request req;
         detail::check(MPI_Iscatterv_c(nullptr, nullptr, nullptr, MPI_DATATYPE_NULL, recv_data,
@@ -3955,10 +3963,10 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      void alltoallv(const T *send_data, const contiguous_layouts<T> &sendls,
-                     const displacements &senddispls, T *recv_data,
-                     const contiguous_layouts<T> &recvls,
-                     const displacements &recvdispls) const {
+      void alltoallv_contiguous(const T *send_data, const contiguous_layouts<T> &sendls,
+                                const displacements &senddispls, T *recv_data,
+                                const contiguous_layouts<T> &recvls,
+                                const displacements &recvdispls) const {
         check_size(senddispls);
         check_size(sendls);
         check_size(recvdispls);
@@ -4154,10 +4162,10 @@ namespace mpl {
       /// \note This is a collective operation and must be called (possibly by utilizing another
       /// overload) by all processes in the communicator.
       template<typename T>
-      irequest ialltoallv(const T *send_data, const contiguous_layouts<T> &sendls,
-                          const displacements &senddispls, T *recv_data,
-                          const contiguous_layouts<T> &recvls,
-                          const displacements &recvdispls) const {
+      irequest ialltoallv_contiguous(const T *send_data, const contiguous_layouts<T> &sendls,
+                                     const displacements &senddispls, T *recv_data,
+                                     const contiguous_layouts<T> &recvls,
+                                     const displacements &recvdispls) const {
         check_size(senddispls);
         check_size(sendls);
         check_size(recvdispls);
