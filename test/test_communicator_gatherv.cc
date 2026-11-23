@@ -65,7 +65,7 @@ namespace {
         comm_world.gatherv_contiguous(0, v_send.data(), layout, v_gather.data(), layouts,
                                       displacements);
       else
-        comm_world.gatherv(0, v_send.data(), layout);
+        comm_world.gatherv_contiguous(0, v_send.data(), layout);
     } else {
       comm_world.gatherv_contiguous(0, v_send.data(), layout, v_gather.data(), layouts,
                                     displacements);
@@ -132,8 +132,8 @@ namespace {
     const mpl::contiguous_layout<T> layout(comm_world.rank() + 1);
     if constexpr (variant == use_non_root_overload::yes) {
       if (comm_world.rank() == 0) {
-        auto r{comm_world.igatherv_contiguous(0, v_send.data(), layout, v_gather.data(), layouts,
-                                   displacements)};
+        auto r{comm_world.igatherv_contiguous(0, v_send.data(), layout, v_gather.data(),
+                                              layouts, displacements)};
         r.wait();
       } else {
         auto r{comm_world.igatherv_contiguous(0, v_send.data(), layout)};
@@ -141,7 +141,7 @@ namespace {
       }
     } else {
       auto r{comm_world.igatherv_contiguous(0, v_send.data(), layout, v_gather.data(), layouts,
-                                 displacements)};
+                                            displacements)};
       r.wait();
     }
     return comm_world.rank() == 0 ? v_gather == v_expected : true;
