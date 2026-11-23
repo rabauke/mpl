@@ -13,6 +13,12 @@ function(add_mpl_executable TARGET_NAME SOURCES)
   # add MPL_Debug definition if building in debug mode
   target_compile_definitions(${TARGET_NAME} PRIVATE
     $<$<CONFIG:Debug>:MPL_DEBUG>)
+  add_custom_target(run_${TARGET_NAME}
+    COMMAND ${CMAKE_COMMAND} -E env HWLOC_COMPONENTS=-gl
+            ${MPIEXEC_EXECUTABLE} ${MPIEXEC_NUMPROC_FLAG} ${MPIEXEC_MAX_NUMPROCS}
+            ${MPIEXEC_PREFLAGS} $<TARGET_FILE:${TARGET_NAME}> ${MPIEXEC_POSTFLAGS}
+    DEPENDS ${TARGET_NAME}
+    WORKING_DIRECTORY $<TARGET_FILE_DIR:${TARGET_NAME}>)
 endfunction()
 
 
