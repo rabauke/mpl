@@ -4,14 +4,38 @@
 #include <mpl/mpl.hpp>
 #include "mpi_error_injection.hpp"
 
+
 namespace {
+
+  struct completion_guard {
+    mpl::prequest_pool &pool;
+    bool active{false};
+
+    explicit completion_guard(mpl::prequest_pool &pool) : pool{pool} {
+    }
+
+    completion_guard(const completion_guard &) = delete;
+    completion_guard(completion_guard &&) = delete;
+    completion_guard &operator=(const completion_guard &) = delete;
+    completion_guard &operator=(completion_guard &&) = delete;
+
+    ~completion_guard() {
+      if (active) {
+        try {
+          pool.waitall();
+        } catch (...) {  // NOLINT(*-empty-catch)
+        }
+      }
+    }
+  };
+
 
   template<typename T>
   void assignment_failure(T &destination, const T &source, injection::operation op) {
     const MPI_Comm original{destination.native_handle()};
     injection::reset();
     {
-      injection::failure fail{op};
+      const injection::failure fail{op};
       CHECK_THROWS_AS(destination = source, mpl::mpi_error);
     }
     CHECK(destination.native_handle() == original);
@@ -38,7 +62,9 @@ namespace {
     CHECK(destination.is_valid());
     CHECK(injection::events().acquired == 1);
   }
+
 }  // namespace
+
 
 SCENARIO("error inquiries preserve codes and use nonrecursive fallbacks", "[inquiry]") {
   GIVEN("an initialized MPI environment and injected inquiry failures") {
@@ -47,14 +73,14 @@ SCENARIO("error inquiries preserve codes and use nonrecursive fallbacks", "[inqu
     WHEN("constructing errors or routing MPI error codes") {
       THEN("codes are preserved and fallback behavior avoids incorrect classifications") {
         {
-          injection::failure fail{injection::operation::error_class};
+          const injection::failure fail{injection::operation::error_class};
           const mpl::mpi_error error{MPI_ERR_TRUNCATE};
           CHECK(error.error_code() == MPI_ERR_TRUNCATE);
           CHECK(error.error_class() == MPI_ERR_OTHER);
         }
         for (const auto op : {injection::operation::error_string,
                               injection::operation::error_string_bad_length}) {
-          injection::failure fail{op};
+          const injection::failure fail{op};
           const mpl::mpi_error error{MPI_ERR_TRUNCATE};
           CHECK(error.error_code() == MPI_ERR_TRUNCATE);
           CHECK(error.error_class() == MPI_ERR_TRUNCATE);
@@ -62,7 +88,7 @@ SCENARIO("error inquiries preserve codes and use nonrecursive fallbacks", "[inqu
                 std::string::npos);
         }
         {
-          injection::failure fail{injection::operation::error_class};
+          const injection::failure fail{injection::operation::error_class};
           try {
             mpl::detail::check(MPI_ERR_FILE);
             FAIL("expected an MPI exception");
@@ -85,6 +111,7 @@ SCENARIO("error inquiries preserve codes and use nonrecursive fallbacks", "[inqu
     }
   }
 }
+
 
 SCENARIO("user-defined error codes retain their registered class", "[inquiry]") {
   GIVEN("an MPI error class, code, and diagnostic registered by the user") {
@@ -119,6 +146,7 @@ SCENARIO("user-defined error codes retain their registered class", "[inquiry]") 
   }
 }
 
+
 SCENARIO("communicator assignment exception specifications", "[assignment_traits]") {
   GIVEN("the communicator types provided by MPL") {
     WHEN("copy and move assignment traits are inspected") {
@@ -138,10 +166,11 @@ SCENARIO("communicator assignment exception specifications", "[assignment_traits
   }
 }
 
+
 SCENARIO("communicator copy assignment preserves ownership on failure", "[assignment]") {
   GIVEN("source and destination communicators") {
     const auto &self{mpl::environment::comm_self()};
-    mpl::communicator source{self};
+    mpl::communicator const source{self};
     mpl::communicator destination{self};
 
     WHEN("copy assignment encounters an injected MPI failure") {
@@ -152,10 +181,11 @@ SCENARIO("communicator copy assignment preserves ownership on failure", "[assign
   }
 }
 
+
 SCENARIO("successful replacement is released exactly once", "[assignment]") {
   GIVEN("a destination communicator that will be replaced by a copy") {
     const auto &self{mpl::environment::comm_self()};
-    mpl::communicator source{self};
+    mpl::communicator const source{self};
 
     WHEN("the destination is assigned and then destroyed") {
       {
@@ -176,11 +206,12 @@ SCENARIO("successful replacement is released exactly once", "[assignment]") {
   }
 }
 
+
 SCENARIO("cartesian copy assignment preserves topology on failure", "[assignment]") {
   GIVEN("source and destination one-dimensional Cartesian communicators") {
     const auto &self{mpl::environment::comm_self()};
     const mpl::cartesian_communicator::dimensions dims{mpl::cartesian_communicator::periodic};
-    mpl::cartesian_communicator source{self, mpl::dims_create(1, dims)};
+    const mpl::cartesian_communicator source{self, mpl::dims_create(1, dims)};
     mpl::cartesian_communicator destination{self, mpl::dims_create(1, dims)};
 
     WHEN("copy assignment encounters an injected MPI failure") {
@@ -192,12 +223,13 @@ SCENARIO("cartesian copy assignment preserves topology on failure", "[assignment
   }
 }
 
+
 SCENARIO("intercommunicator copy assignment preserves ownership on failure", "[assignment]") {
   GIVEN("an intercommunicator connecting each process to the other") {
     const auto &world{mpl::environment::comm_world()};
     REQUIRE(world.size() == 2);
-    mpl::communicator local{mpl::communicator::split, world, world.rank()};
-    mpl::inter_communicator source{local, 0, world, 1 - world.rank()};
+    const mpl::communicator local{mpl::communicator::split, world, world.rank()};
+    const mpl::inter_communicator source{local, 0, world, 1 - world.rank()};
     mpl::inter_communicator destination{source};
 
     WHEN("copy assignment encounters an injected MPI failure") {
@@ -208,6 +240,7 @@ SCENARIO("intercommunicator copy assignment preserves ownership on failure", "[a
     }
   }
 }
+
 
 SCENARIO("move and self assignment retain valid ownership", "[move]") {
   GIVEN("two communicators with valid ownership") {
@@ -232,6 +265,7 @@ SCENARIO("move and self assignment retain valid ownership", "[move]") {
   }
 }
 
+
 SCENARIO("failed owned adoption releases the newly created communicator", "[adoption]") {
   GIVEN("an initialized MPI environment") {
     const auto &self{mpl::environment::comm_self()};
@@ -239,7 +273,7 @@ SCENARIO("failed owned adoption releases the newly created communicator", "[adop
     WHEN("owned communicator adoption fails while installing its error handler") {
       injection::reset();
       {
-        injection::failure fail{injection::operation::set_handler};
+        const injection::failure fail{injection::operation::set_handler};
         CHECK_THROWS_AS((mpl::communicator{mpl::communicator::split, self, 0}), mpl::mpi_error);
       }
 
@@ -253,6 +287,7 @@ SCENARIO("failed owned adoption releases the newly created communicator", "[adop
   }
 }
 
+
 SCENARIO("failed borrowed adoption does not free the external communicator", "[adoption]") {
   GIVEN("an external communicator handle") {
     (void)mpl::environment::comm_self();
@@ -263,7 +298,7 @@ SCENARIO("failed borrowed adoption does not free the external communicator", "[a
 
     WHEN("borrowed communicator adoption fails while installing its error handler") {
       {
-        injection::failure fail{injection::operation::set_handler};
+        const injection::failure fail{injection::operation::set_handler};
         CHECK_THROWS_AS((mpl::mpi_communicator{raw}), mpl::mpi_error);
       }
 
@@ -281,6 +316,7 @@ SCENARIO("failed borrowed adoption does not free the external communicator", "[a
   }
 }
 
+
 SCENARIO("struct datatype construction rolls back and can be retried", "[struct_datatype]") {
   GIVEN("a builder for a struct datatype") {
     (void)mpl::environment::comm_self();
@@ -294,7 +330,7 @@ SCENARIO("struct datatype construction rolls back and can be retried", "[struct_
           INFO(static_cast<int>(op));
           injection::reset();
           {
-            injection::failure fail{op};
+            const injection::failure fail{op};
             CHECK_THROWS_AS(builder{}, mpl::mpi_error);
           }
           const auto failed{injection::datatype_events()};
@@ -306,7 +342,7 @@ SCENARIO("struct datatype construction rolls back and can be retried", "[struct_
           CHECK(failed.duplicate_releases == 0);
           injection::reset();
           {
-            builder retry;
+            const builder retry;
             const auto live{injection::datatype_events()};
             CHECK(live.acquired == 2);
             CHECK(live.released == 1);
@@ -322,6 +358,7 @@ SCENARIO("struct datatype construction rolls back and can be retried", "[struct_
   }
 }
 
+
 SCENARIO("layout adoption releases datatypes on failure and success", "[layout_adoption]") {
   GIVEN("an initialized MPI environment") {
     (void)mpl::environment::comm_self();
@@ -329,7 +366,7 @@ SCENARIO("layout adoption releases datatypes on failure and success", "[layout_a
     WHEN("layout commitment fails and is then retried successfully") {
       injection::reset();
       {
-        injection::failure fail{injection::operation::layout_commit};
+        const injection::failure fail{injection::operation::layout_commit};
         CHECK_THROWS_AS((mpl::contiguous_layout<int>{2}), mpl::mpi_error);
       }
       auto events{injection::datatype_events()};
@@ -338,7 +375,7 @@ SCENARIO("layout adoption releases datatypes on failure and success", "[layout_a
       CHECK(events.duplicate_releases == 0);
       injection::reset();
       {
-        mpl::contiguous_layout<int> layout{2};
+        const mpl::contiguous_layout<int> layout{2};
         CHECK(injection::datatype_events().released == 0);
       }
 
@@ -352,6 +389,7 @@ SCENARIO("layout adoption releases datatypes on failure and success", "[layout_a
   }
 }
 
+
 SCENARIO("buffer attachment owns allocation only after success", "[buffer_attachment]") {
   GIVEN("an initialized MPI environment") {
     (void)mpl::environment::comm_self();
@@ -359,7 +397,7 @@ SCENARIO("buffer attachment owns allocation only after success", "[buffer_attach
     WHEN("buffer attachment fails and is then retried successfully") {
       injection::reset();
       {
-        injection::failure fail{injection::operation::buffer_attach};
+        const injection::failure fail{injection::operation::buffer_attach};
         CHECK_THROWS_AS((mpl::bsend_buffer{1024}), mpl::mpi_error);
       }
       auto events{injection::buffer_events()};
@@ -368,7 +406,7 @@ SCENARIO("buffer attachment owns allocation only after success", "[buffer_attach
       CHECK(events.duplicate_releases == 0);
       injection::reset();
       {
-        mpl::bsend_buffer buffer{1024};
+        const mpl::bsend_buffer buffer{1024};
         CHECK(injection::buffer_events().released == 0);
       }
 
@@ -383,6 +421,7 @@ SCENARIO("buffer attachment owns allocation only after success", "[buffer_attach
   }
 }
 
+
 SCENARIO("communicator buffer attachment transfers ownership only after success",
          "[buffer_attachment]") {
   GIVEN("a communicator and a buffer to attach") {
@@ -391,7 +430,7 @@ SCENARIO("communicator buffer attachment transfers ownership only after success"
     WHEN("attachment or detachment encounters an injected failure") {
       injection::reset();
       {
-        injection::failure fail{injection::operation::buffer_attach};
+        const injection::failure fail{injection::operation::buffer_attach};
         CHECK_THROWS_AS((mpl::communicator_buffer{self, 1024}), mpl::mpi_error);
       }
       auto events{injection::buffer_events()};
@@ -401,7 +440,7 @@ SCENARIO("communicator buffer attachment transfers ownership only after success"
 
       injection::reset();
       {
-        mpl::communicator_buffer buffer{self, 1024};
+        const mpl::communicator_buffer buffer{self, 1024};
         CHECK(injection::buffer_events().released == 0);
       }
       events = injection::buffer_events();
@@ -412,9 +451,9 @@ SCENARIO("communicator buffer attachment transfers ownership only after success"
       injection::reset();
       void *buffer{nullptr};
       {
-        injection::failure fail{injection::operation::buffer_detach};
+        const injection::failure fail{injection::operation::buffer_detach};
         buffer = [&self]() {
-          mpl::communicator_buffer attached{self, 1024};
+          const mpl::communicator_buffer attached{self, 1024};
           return injection::buffer_pointer();
         }();
       }
@@ -439,6 +478,7 @@ SCENARIO("communicator buffer attachment transfers ownership only after success"
   }
 }
 
+
 SCENARIO("cancellation errors are reported without abandoning requests", "[cancel_injection]") {
   GIVEN("pending nonblocking receives") {
     const auto &self{mpl::environment::comm_self()};
@@ -448,7 +488,7 @@ SCENARIO("cancellation errors are reported without abandoning requests", "[cance
     WHEN("request and pool cancellation fail once and are retried") {
       injection::reset();
       {
-        injection::failure fail{injection::operation::cancel};
+        const injection::failure fail{injection::operation::cancel};
         CHECK_THROWS_AS(request.cancel(), mpl::mpi_error);
       }
       request.cancel();
@@ -459,7 +499,7 @@ SCENARIO("cancellation errors are reported without abandoning requests", "[cance
       pool.push(self.irecv(data[2], 0));
       injection::reset();
       {
-        injection::failure fail{injection::operation::cancel};
+        const injection::failure fail{injection::operation::cancel};
         CHECK_THROWS_AS(pool.cancelall(), mpl::mpi_error);
       }
       const int calls{injection::cancel_calls()};
@@ -473,6 +513,7 @@ SCENARIO("cancellation errors are reported without abandoning requests", "[cance
   }
 }
 
+
 SCENARIO("persistent request restarts after an injected cancellation failure",
          "[cancel_injection][request]") {
   GIVEN("a persistent receive request pool targeting MPI_PROC_NULL") {
@@ -480,24 +521,13 @@ SCENARIO("persistent request restarts after an injected cancellation failure",
     int value{0};
     mpl::prequest_pool pool;
     pool.push(self.recv_init(value, mpl::proc_null));
-    struct completion_guard {
-      mpl::prequest_pool &pool;
-      bool active{false};
-      ~completion_guard() {
-        if (active) {
-          try {
-            pool.waitall();
-          } catch (...) {
-          }
-        }
-      }
-    } guard{pool};
+    completion_guard guard{pool};
 
     WHEN("cancellation fails and the request is subsequently restarted") {
       pool.start(0);
       guard.active = true;
       {
-        injection::failure fail{injection::operation::cancel};
+        const injection::failure fail{injection::operation::cancel};
         CHECK_THROWS_AS(pool.cancel(0), mpl::mpi_error);
       }
       pool.waitall();
@@ -514,23 +544,24 @@ SCENARIO("persistent request restarts after an injected cancellation failure",
   }
 }
 
+
 SCENARIO("representative wrapper errors preserve MPI classes", "[wrapper_injection]") {
   GIVEN("communicator-backed layout, info, and group wrappers") {
     const auto &self{mpl::environment::comm_self()};
     mpl::info info;
-    mpl::group group{self};
+    const mpl::group group{self};
 
     WHEN("MPI failures are injected into representative wrapper operations") {
       {
-        injection::failure fail{injection::operation::datatype_create};
+        const injection::failure fail{injection::operation::datatype_create};
         CHECK_THROWS_AS((mpl::contiguous_layout<int>{2}), mpl::mpi_error);
       }
       {
-        injection::failure fail{injection::operation::info_set};
+        const injection::failure fail{injection::operation::info_set};
         CHECK_THROWS_AS(info.set("key", "value"), mpl::mpi_error);
       }
       {
-        injection::failure fail{injection::operation::group_size};
+        const injection::failure fail{injection::operation::group_size};
         CHECK_THROWS_AS(group.size(), mpl::mpi_error);
       }
 
@@ -541,23 +572,24 @@ SCENARIO("representative wrapper errors preserve MPI classes", "[wrapper_injecti
   }
 }
 
+
 SCENARIO("file operations route errors by MPI class", "[file_injection]") {
   GIVEN("an open temporary MPI file") {
     const auto &self{mpl::environment::comm_self()};
     const auto name{std::string{"mpl-error-injection-"} +
                     std::to_string(mpl::environment::comm_world().rank()) + ".tmp"};
-    mpl::file file{self, name,
-                   mpl::file::access_mode::create | mpl::file::access_mode::read_write |
-                       mpl::file::access_mode::delete_on_close};
+    const mpl::file file{self, name,
+                         mpl::file::access_mode::create | mpl::file::access_mode::read_write |
+                             mpl::file::access_mode::delete_on_close};
 
     WHEN("file-related MPI failures are injected") {
       {
-        injection::failure fail{injection::operation::file_group};
+        const injection::failure fail{injection::operation::file_group};
         CHECK_THROWS_AS((mpl::group{file}), mpl::io_failure);
       }
       CHECK(mpl::group{file}.size() == 1);
       {
-        injection::failure fail{injection::operation::file_arg};
+        const injection::failure fail{injection::operation::file_arg};
         try {
           (void)file.size();
           FAIL("expected an MPI exception");
@@ -569,7 +601,7 @@ SCENARIO("file operations route errors by MPI class", "[file_injection]") {
       }
 
       THEN("I/O-class errors are routed to io_failure") {
-        injection::failure fail{injection::operation::file_io};
+        const injection::failure fail{injection::operation::file_io};
         CHECK_THROWS_AS(file.size(), mpl::io_failure);
       }
     }
