@@ -81,7 +81,7 @@ SCENARIO("mpi_communicator wrapping raw MPI_Comm handles", "[mpi_communicator]")
 
     WHEN("transmitting integer types") {
       THEN("all integer types are transmitted and received correctly") {
-        send_recv_test(std::byte(77));
+        send_recv_test(static_cast<std::byte>(77));
         send_recv_test(std::numeric_limits<char>::max() - 1);
         send_recv_test(std::numeric_limits<signed char>::max() - 1);
         send_recv_test(std::numeric_limits<unsigned char>::max() - 1);

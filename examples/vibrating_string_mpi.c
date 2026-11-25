@@ -44,16 +44,16 @@ static inline double u_0_dt(double x) {
 
 
 int main(int argc, char *argv[]) {
-  int C_rank, C_size, *N_l, *N0_l;
-  double dx = L / (N - 1), eps = dt * dt * c * c / (dx * dx), *u = NULL, *u_l, *u_old_l,
-         *u_new_l, *u_temp;
+  int C_rank;
+  int C_size;
+  double dx = L / (N - 1), eps = dt * dt * c * c / (dx * dx), *u = NULL, *u_new_l;
   MPI_Status statuses[4];
   MPI_Request requests[4];
   MPI_Init(&argc, &argv);
   MPI_Comm_size(MPI_COMM_WORLD, &C_size);
   MPI_Comm_rank(MPI_COMM_WORLD, &C_rank);
-  N_l = secure_malloc(C_size * sizeof(*N_l));
-  N0_l = secure_malloc(C_size * sizeof(*N0_l));
+  int *N_l = secure_malloc(C_size * sizeof(*N_l));
+  int *N0_l = secure_malloc(C_size * sizeof(*N0_l));
   // calculate size and position of local grids
   // the local grids include one mirror grid point at each end or the boundary condition
   for (int i = 0; i < C_size; ++i) {
@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
     // position of local
     N0_l[i] = i * (N - 2) / C_size;
   }
-  u_old_l = secure_malloc((N_l[C_rank]) * sizeof(*u_old_l));
-  u_l = secure_malloc((N_l[C_rank]) * sizeof(*u_l));
+  double *u_old_l = secure_malloc((N_l[C_rank]) * sizeof(*u_old_l));
+  double *u_l = secure_malloc((N_l[C_rank]) * sizeof(*u_l));
   u_new_l = secure_malloc((N_l[C_rank]) * sizeof(*u_new_l));
   // 1st time step uses elongation and velocity
   for (int i = 0; i < N_l[C_rank]; ++i) {
@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
               C_rank + 1 < C_size ? C_rank + 1 : MPI_PROC_NULL, left_copy, MPI_COMM_WORLD,
               &requests[3]);
     MPI_Waitall(4, requests, statuses);
-    u_temp = u_old_l;
+    double *u_temp = u_old_l;
     u_old_l = u_l;
     u_l = u_new_l;
     u_new_l = u_temp;

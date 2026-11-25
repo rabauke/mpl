@@ -97,7 +97,7 @@ vector parallel_sort(vector v) {
   free(pivot_pos);
   free(pivots);
   free(local_pivots);
-  return (vector){v2, recv_pos};
+  return (vector){.data = v2, .N = recv_pos};
 }
 
 
@@ -112,8 +112,8 @@ int main(int argc, char *argv[]) {
   double *v = malloc(N * sizeof(*v));
   if (v == NULL)
     MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
-  fill_random((vector){v, N});
-  const vector sorted = parallel_sort((vector){v, N});
+  fill_random((vector){.data = v, .N = N});
+  const vector sorted = parallel_sort((vector){.data = v, .N = N});
   free(sorted.data);
   free(v);
   MPI_Finalize();

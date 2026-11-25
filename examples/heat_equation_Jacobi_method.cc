@@ -12,11 +12,10 @@ template<std::size_t dim, typename T, typename A>
 mpl::irequest_pool update_overlap(const mpl::cartesian_communicator &communicator,
                                   mpl::distributed_grid<dim, T, A> &distributed_grid,
                                   mpl::tag_t tag = mpl::tag_t()) {
-  mpl::shift_ranks ranks;
   mpl::irequest_pool r;
   for (std::size_t i{0}; i < dim; ++i) {
     // send to left
-    ranks = communicator.shift(i, -1);
+    mpl::shift_ranks ranks = communicator.shift(i, -1);
     r.push(communicator.isend(distributed_grid.data(), distributed_grid.left_border_layout(i),
                               ranks.destination, tag));
     r.push(communicator.irecv(distributed_grid.data(), distributed_grid.right_mirror_layout(i),
