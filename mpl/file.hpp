@@ -160,7 +160,7 @@ namespace mpl {
     /// \param size file size in bytes
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void resize(ssize_t size) {
+    void resize(ssize_type size) {
       const int err{MPI_File_set_size(file_, size)};
       detail::check(err);
     }
@@ -169,14 +169,14 @@ namespace mpl {
     /// \param size file size in bytes
     /// \note This is a collective operation and must be called by all processes in the
     /// communicator.
-    void preallocate(ssize_t size) {
+    void preallocate(ssize_type size) {
       const int err{MPI_File_preallocate(file_, size)};
       detail::check(err);
     }
 
     /// get file size
     /// \return file size in bytes
-    [[nodiscard]] ssize_t size() const {
+    [[nodiscard]] ssize_type size() const {
       MPI_Offset size{0};
       const int err{MPI_File_get_size(file_, &size)};
       detail::check(err);
@@ -207,7 +207,7 @@ namespace mpl {
     /// \param i hints
     /// \return status of performed i/o operation
     template<typename T>
-    void set_view(const char *representation, ssize_t displacement = 0,
+    void set_view(const char *representation, ssize_type displacement = 0,
                   const info &i = info{}) {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
@@ -223,7 +223,7 @@ namespace mpl {
     /// \param i hints
     /// \return status of performed i/o operation
     template<typename T>
-    void set_view(const char *representation, const layout<T> &l, ssize_t displacement = 0,
+    void set_view(const char *representation, const layout<T> &l, ssize_type displacement = 0,
                   const info &i = info{}) {
       const int err{MPI_File_set_view(
           file_, displacement, detail::datatype_traits<T>::get_datatype(),
@@ -234,14 +234,14 @@ namespace mpl {
     /// update current individual %file pointer
     /// \param offset %file pointer offset
     /// \param whence %file pointer positioning mode
-    void seek(ssize_t offset, whence_mode whence) {
+    void seek(ssize_type offset, whence_mode whence) {
       const int err{MPI_File_seek(file_, offset, static_cast<int>(whence))};
       detail::check(err);
     }
 
     /// get current individual %file pointer
     /// \return current individual %file pointer
-    [[nodiscard]] ssize_t position() const {
+    [[nodiscard]] ssize_type position() const {
       MPI_Offset offset{0};
       const int err{MPI_File_get_position(file_, &offset)};
       detail::check(err);
@@ -252,7 +252,7 @@ namespace mpl {
     /// \param offset %file pointer offset
     /// \return absolute byte position in %file that corresponds to the given view-relative
     /// offset
-    [[nodiscard]] ssize_t byte_offset(ssize_t offset) const {
+    [[nodiscard]] ssize_type byte_offset(ssize_type offset) const {
       MPI_Offset displ{0};
       const int err{MPI_File_get_byte_offset(file_, offset, &displ)};
       detail::check(err);
@@ -291,7 +291,7 @@ namespace mpl {
     /// \param data value to read
     /// \return status of performed i/o operation
     template<typename T>
-    status_t read_at(ssize_t offset, T &data) {
+    status_t read_at(ssize_type offset, T &data) {
       status_t s;
       const int err{MPI_File_read_at_c(file_, offset, &data, 1,
                                        detail::datatype_traits<T>::get_datatype(),
@@ -307,7 +307,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return status of performed i/o operation
     template<typename T>
-    status_t read_at(ssize_t offset, T *data, const layout<T> &l) {
+    status_t read_at(ssize_type offset, T *data, const layout<T> &l) {
       status_t s;
       const int err{MPI_File_read_at_c(file_, offset, data, 1,
                                        detail::datatype_traits<layout<T>>::get_datatype(l),
@@ -322,7 +322,7 @@ namespace mpl {
     /// \param data value to write
     /// \return status of performed i/o operation
     template<typename T>
-    status_t write_at(ssize_t offset, const T &data) {
+    status_t write_at(ssize_type offset, const T &data) {
       status_t s;
       const int err{MPI_File_write_at_c(file_, offset, &data, 1,
                                         detail::datatype_traits<T>::get_datatype(),
@@ -338,7 +338,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return status of performed i/o operation
     template<typename T>
-    status_t write_at(ssize_t offset, const T *data, const layout<T> &l) {
+    status_t write_at(ssize_type offset, const T *data, const layout<T> &l) {
       status_t s;
       const int err{MPI_File_write_at_c(file_, offset, data, 1,
                                         detail::datatype_traits<layout<T>>::get_datatype(l),
@@ -353,7 +353,7 @@ namespace mpl {
     /// \param data value to read
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iread_at(ssize_t offset, T &data) {
+    irequest iread_at(ssize_type offset, T &data) {
       MPI_Request req;
       const int err{MPI_File_iread_at_c(file_, offset, &data, 1,
                                         detail::datatype_traits<T>::get_datatype(), &req)};
@@ -368,7 +368,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iread_at(ssize_t offset, T *data, const layout<T> &l) {
+    irequest iread_at(ssize_type offset, T *data, const layout<T> &l) {
       MPI_Request req;
       const int err{MPI_File_iread_at_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
@@ -382,7 +382,7 @@ namespace mpl {
     /// \param data value to write
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iwrite_at(ssize_t offset, const T &data) {
+    irequest iwrite_at(ssize_type offset, const T &data) {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_c(file_, offset, &data, 1,
                                          detail::datatype_traits<T>::get_datatype(), &req)};
@@ -397,7 +397,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iwrite_at(ssize_t offset, const T *data, const layout<T> &l) {
+    irequest iwrite_at(ssize_type offset, const T *data, const layout<T> &l) {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
@@ -634,7 +634,7 @@ namespace mpl {
     /// \param data value to read
     /// \return status of performed i/o operation
     template<typename T>
-    status_t read_at_all(ssize_t offset, T &data) {
+    status_t read_at_all(ssize_type offset, T &data) {
       status_t s;
       const int err{MPI_File_read_at_all_c(file_, offset, &data, 1,
                                            detail::datatype_traits<T>::get_datatype(),
@@ -650,7 +650,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return status of performed i/o operation
     template<typename T>
-    status_t read_at_all(ssize_t offset, T *data, const layout<T> &l) {
+    status_t read_at_all(ssize_type offset, T *data, const layout<T> &l) {
       status_t s;
       const int err{MPI_File_read_at_all_c(file_, offset, data, 1,
                                            detail::datatype_traits<layout<T>>::get_datatype(l),
@@ -665,7 +665,7 @@ namespace mpl {
     /// \param data value to write
     /// \return status of performed i/o operation
     template<typename T>
-    status_t write_at_all(ssize_t offset, const T &data) {
+    status_t write_at_all(ssize_type offset, const T &data) {
       status_t s;
       const int err{MPI_File_write_at_all_c(file_, offset, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(),
@@ -681,7 +681,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return status of performed i/o operation
     template<typename T>
-    status_t write_at_all(ssize_t offset, const T *data, const layout<T> &l) {
+    status_t write_at_all(ssize_type offset, const T *data, const layout<T> &l) {
       status_t s;
       const int err{MPI_File_write_at_all_c(file_, offset, data, 1,
                                             detail::datatype_traits<layout<T>>::get_datatype(l),
@@ -696,7 +696,7 @@ namespace mpl {
     /// \param data value to read
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iread_at_all(ssize_t offset, T &data) {
+    irequest iread_at_all(ssize_type offset, T &data) {
       MPI_Request req;
       const int err{MPI_File_iread_at_all_c(file_, offset, &data, 1,
                                             detail::datatype_traits<T>::get_datatype(), &req)};
@@ -711,7 +711,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iread_at_all(ssize_t offset, T *data, const layout<T> &l) {
+    irequest iread_at_all(ssize_type offset, T *data, const layout<T> &l) {
       MPI_Request req;
       const int err{MPI_File_iread_at_all_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
@@ -725,7 +725,7 @@ namespace mpl {
     /// \param data value to write
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iwrite_at_all(ssize_t offset, const T &data) {
+    irequest iwrite_at_all(ssize_type offset, const T &data) {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_all_c(file_, offset, &data, 1,
                                              detail::datatype_traits<T>::get_datatype(), &req)};
@@ -740,7 +740,7 @@ namespace mpl {
     /// \param l layout used in associated i/o operation
     /// \return request representing the ongoing i/o operation
     template<typename T>
-    irequest iwrite_at_all(ssize_t offset, const T *data, const layout<T> &l) {
+    irequest iwrite_at_all(ssize_type offset, const T *data, const layout<T> &l) {
       MPI_Request req;
       const int err{MPI_File_iwrite_at_all_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l), &req)};
@@ -923,7 +923,7 @@ namespace mpl {
     /// \param offset file offset in bytes
     /// \param data value to read
     template<typename T>
-    void read_at_all_begin(ssize_t offset, T &data) {
+    void read_at_all_begin(ssize_type offset, T &data) {
       const int err{MPI_File_read_at_all_begin_c(file_, offset, &data, 1,
                                                  detail::datatype_traits<T>::get_datatype())};
       detail::check(err);
@@ -935,7 +935,7 @@ namespace mpl {
     /// \param data pointer to the data to read
     /// \param l layout used in associated i/o operation
     template<typename T>
-    void read_at_all_begin(ssize_t offset, T *data, const layout<T> &l) {
+    void read_at_all_begin(ssize_type offset, T *data, const layout<T> &l) {
       const int err{MPI_File_read_at_all_begin_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       detail::check(err);
@@ -970,7 +970,7 @@ namespace mpl {
     /// \param offset file offset in bytes
     /// \param data value to write
     template<typename T>
-    void write_at_all_begin(ssize_t offset, const T &data) {
+    void write_at_all_begin(ssize_type offset, const T &data) {
       const int err{MPI_File_write_at_all_begin_c(file_, offset, &data, 1,
                                                   detail::datatype_traits<T>::get_datatype())};
       detail::check(err);
@@ -982,7 +982,7 @@ namespace mpl {
     /// \param data pointer to the data to write
     /// \param l layout used in associated i/o operation
     template<typename T>
-    void write_at_all_begin(ssize_t offset, const T *data, const layout<T> &l) {
+    void write_at_all_begin(ssize_type offset, const T *data, const layout<T> &l) {
       const int err{MPI_File_write_at_all_begin_c(
           file_, offset, data, 1, detail::datatype_traits<layout<T>>::get_datatype(l))};
       detail::check(err);

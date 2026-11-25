@@ -336,9 +336,9 @@ namespace mpl {
         if (count != MPI_UNDEFINED) {
           return std::make_pair(
               test_result::completed,
-              std::vector<size_t>(out_indices.begin(), out_indices.begin() + count));
+              std::vector<size_type>(out_indices.begin(), out_indices.begin() + count));
         }
-        return std::make_pair(test_result::no_active_requests, std::vector<size_t>{});
+        return std::make_pair(test_result::no_active_requests, std::vector<size_type>{});
       }
 
       /// Tests if one or more pending requests have finished.
@@ -358,9 +358,9 @@ namespace mpl {
         if (count != MPI_UNDEFINED) {
           return std::make_pair(
               count == 0 ? test_result::no_completed : test_result::completed,
-              std::vector<size_t>(out_indices.begin(), out_indices.begin() + count));
+              std::vector<size_type>(out_indices.begin(), out_indices.begin() + count));
         }
-        return std::make_pair(test_result::no_active_requests, std::vector<size_t>{});
+        return std::make_pair(test_result::no_active_requests, std::vector<size_type>{});
       }
     };
 

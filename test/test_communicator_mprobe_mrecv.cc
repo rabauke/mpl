@@ -51,7 +51,7 @@ bool mprobe_iter_test(const T &data) {
     auto [m, s]{comm_world.mprobe(0)};
     if (s.source() != 0)
       return false;
-    mpl::ssize_t count{s.get_count<typename T::value_type>()};
+    mpl::ssize_type count{s.get_count<typename T::value_type>()};
     if (count != static_cast<int>(data.size()))
       return false;
     T data_r;
@@ -110,7 +110,7 @@ bool improbe_iter_test(const T &data) {
         auto [m, s]{std::move(res.value())};
         if (s.source() != 0)
           return false;
-        mpl::ssize_t count{s.get_count<typename T::value_type>()};
+        mpl::ssize_type count{s.get_count<typename T::value_type>()};
         if (count != static_cast<int>(data.size()))
           return false;
         T data_r;

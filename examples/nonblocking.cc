@@ -36,7 +36,7 @@ int main() {
     {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
-      const mpl::ssize_t size{comm_world.bsend_size<decltype(x)>()};
+      const mpl::ssize_type size{comm_world.bsend_size<decltype(x)>()};
       mpl::communicator_buffer buff(comm_world, size);
       r = comm_world.ibsend(x, 1);  // send x to rank 1 via buffered send
       r.wait();                     // wait until send has finished
@@ -56,7 +56,7 @@ int main() {
     {
       // create a buffer for buffered send,
       // memory will be freed on leaving the scope
-      const mpl::ssize_t size{comm_world.bsend_size(l)};
+      const mpl::ssize_type size{comm_world.bsend_size(l)};
       mpl::bsend_buffer buff(size);
       mpl::irequest_pool r;
       r.push(comm_world.isend(v_1.data(), l, 1));   // send x to rank 1 via standard send
@@ -67,7 +67,7 @@ int main() {
     }
     {
       mpl::irequest_pool r;
-      const mpl::ssize_t size{comm_world.bsend_size(l)};
+      const mpl::ssize_type size{comm_world.bsend_size(l)};
       mpl::bsend_buffer buff(size);
       r.push(comm_world.isend(v_1.data(), l, 1));   // send v1 to rank 1 via standard send
       r.push(comm_world.ibsend(v_2.data(), l, 1));  // send v2 to rank 1 via buffered send

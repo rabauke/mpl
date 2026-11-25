@@ -82,14 +82,14 @@ namespace mpl {
     class contiguous_layout_access;
 
     static_assert(std::numeric_limits<MPI_Count>::min() <=
-                          std::numeric_limits<ssize_t>::min() and
+                          std::numeric_limits<ssize_type>::min() and
                       std::numeric_limits<MPI_Count>::max() >=
-                          std::numeric_limits<ssize_t>::max(),
+                          std::numeric_limits<ssize_type>::max(),
                   "MPI implementation with unusual MPI_Count");
     static_assert(std::numeric_limits<MPI_Aint>::min() <=
-                          std::numeric_limits<ssize_t>::min() and
+                          std::numeric_limits<ssize_type>::min() and
                       std::numeric_limits<MPI_Aint>::max() >=
-                          std::numeric_limits<ssize_t>::max(),
+                          std::numeric_limits<ssize_type>::max(),
                   "MPI implementation with unusual MPI_Aint");
 
     template<typename To_T, typename From_T>
@@ -181,7 +181,7 @@ namespace mpl {
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \c extent
-    [[nodiscard]] ssize_t byte_extent() const {
+    [[nodiscard]] ssize_type byte_extent() const {
       MPI_Count lb_, extent_;
       detail::check(MPI_Type_get_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -194,7 +194,7 @@ namespace mpl {
     /// \note The lower bound of a layout correspondents to the lower bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
     /// \see \c byte_upper_bound, \c lower_bound
-    [[nodiscard]] ssize_t byte_lower_bound() const {
+    [[nodiscard]] ssize_type byte_lower_bound() const {
       MPI_Count lb_, extent_;
       detail::check(MPI_Type_get_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -207,7 +207,7 @@ namespace mpl {
     /// \note The upper bound of a layout correspondents to the upper bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
     /// \see \c byte_lower_bound, \c upper_bound
-    [[nodiscard]] ssize_t byte_upper_bound() const {
+    [[nodiscard]] ssize_type byte_upper_bound() const {
       MPI_Count lb_, extent_;
       detail::check(MPI_Type_get_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -220,10 +220,10 @@ namespace mpl {
     /// \note The extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \c byte_extent
-    [[nodiscard]] ssize_t extent() const {
+    [[nodiscard]] ssize_type extent() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      const ssize_t res{byte_extent()};
-      if (static_cast<ssize_t>(res / sizeof(T) * sizeof(T)) != res)
+      const ssize_type res{byte_extent()};
+      if (static_cast<ssize_type>(res / sizeof(T) * sizeof(T)) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
@@ -233,10 +233,10 @@ namespace mpl {
     /// \note The lower bound of a layout correspondents to the lower bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
     /// \see \c byte_lower_bound, \c upper_bound
-    [[nodiscard]] ssize_t lower_bound() const {
+    [[nodiscard]] ssize_type lower_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      const ssize_t res{byte_lower_bound()};
-      if (static_cast<ssize_t>(res / sizeof(T) * sizeof(T)) != res)
+      const ssize_type res{byte_lower_bound()};
+      if (static_cast<ssize_type>(res / sizeof(T) * sizeof(T)) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
@@ -246,10 +246,10 @@ namespace mpl {
     /// \note The upper bound of a layout correspondents to the upper bound of the underlying
     /// MPI datatype.  See MPI documentation for details.
     /// \see \c byte_upper_bound, \c lower_bound
-    [[nodiscard]] ssize_t upper_bound() const {
+    [[nodiscard]] ssize_type upper_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      const ssize_t res{byte_upper_bound()};
-      if (static_cast<ssize_t>(res / sizeof(T) * sizeof(T)) != res)
+      const ssize_type res{byte_upper_bound()};
+      if (static_cast<ssize_type>(res / sizeof(T) * sizeof(T)) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
     }
@@ -259,7 +259,7 @@ namespace mpl {
     /// \note The true extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \c true_extent
-    [[nodiscard]] ssize_t true_byte_extent() const {
+    [[nodiscard]] ssize_type true_byte_extent() const {
       MPI_Count lb_, extent_;
       detail::check(MPI_Type_get_true_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -272,7 +272,7 @@ namespace mpl {
     /// \note The true lower bound of a layout correspondents to the lower bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \c true_byte_upper_bound, \c true_lower_bound
-    [[nodiscard]] ssize_t true_byte_lower_bound() const {
+    [[nodiscard]] ssize_type true_byte_lower_bound() const {
       MPI_Count lb_, extent_;
       detail::check(MPI_Type_get_true_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -285,7 +285,7 @@ namespace mpl {
     /// \note The true upper bound of a layout correspondents to the upper bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \c true_byte_lower_bound, \c true_upper_bound
-    [[nodiscard]] ssize_t true_byte_upper_bound() const {
+    [[nodiscard]] ssize_type true_byte_upper_bound() const {
       MPI_Count lb_, extent_;
       detail::check(MPI_Type_get_true_extent_c(type_, &lb_, &extent_));
       if (lb_ == MPI_UNDEFINED or extent_ == MPI_UNDEFINED)
@@ -298,9 +298,9 @@ namespace mpl {
     /// \note The true extent of a layout correspondents to the extent of the underlying MPI
     /// datatype.  See MPI documentation for details.
     /// \see \c true_byte_extent
-    [[nodiscard]] ssize_t true_extent() const {
+    [[nodiscard]] ssize_type true_extent() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      const ssize_t res{true_byte_extent()};
+      const ssize_type res{true_byte_extent()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
@@ -311,9 +311,9 @@ namespace mpl {
     /// \note The true lower bound of a layout correspondents to the lower bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \c true_byte_lower_bound, \c true_upper_bound
-    [[nodiscard]] ssize_t true_lower_bound() const {
+    [[nodiscard]] ssize_type true_lower_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      const ssize_t res{true_byte_lower_bound()};
+      const ssize_type res{true_byte_lower_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
@@ -324,9 +324,9 @@ namespace mpl {
     /// \note The true upper bound of a layout correspondents to the upper bound of the
     /// underlying MPI datatype.  See MPI documentation for details.
     /// \see \c true_byte_upper_bound, \c true_lower_bound
-    [[nodiscard]] ssize_t true_upper_bound() const {
+    [[nodiscard]] ssize_type true_upper_bound() const {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      const ssize_t res{true_byte_upper_bound()};
+      const ssize_type res{true_byte_upper_bound()};
       if (res / sizeof(T) * sizeof(T) != res)
         throw invalid_datatype_bound();
       return res / sizeof(T);
@@ -335,7 +335,7 @@ namespace mpl {
     /// Resize the layout.
     /// \param lb the layout's new true byte lower bound
     /// \param extent the layout's new true byte extent
-    void byte_resize(ssize_t lb, ssize_t extent) {
+    void byte_resize(ssize_type lb, ssize_type extent) {
       if (type_ != MPI_DATATYPE_NULL) {
         MPI_Datatype newtype;
         detail::check(MPI_Type_create_resized(type_, lb, extent, &newtype));
@@ -348,10 +348,10 @@ namespace mpl {
     /// Resize the layout.
     /// \param lb the layout's new true lower bound
     /// \param extent the layout's new true extent
-    void resize(ssize_t lb, ssize_t extent) {
+    void resize(ssize_type lb, ssize_type extent) {
       static_assert(not std::is_void_v<T>, "layout type must be for non-void type");
-      byte_resize(static_cast<ssize_t>(sizeof(T)) * lb,
-                  static_cast<ssize_t>(sizeof(T)) * extent);
+      byte_resize(static_cast<ssize_type>(sizeof(T)) * lb,
+                  static_cast<ssize_type>(sizeof(T)) * extent);
     }
 
     /// Swap with other layout.
@@ -505,29 +505,29 @@ namespace mpl {
     using layout<T>::type_;
 
     static MPI_Datatype build(
-        size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
+        size_type count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       detail::check(MPI_Type_contiguous_c(static_cast<MPI_Count>(count), old_type, &new_type));
       return new_type;
     }
 
-    size_t count_;
+    size_type count_;
 
-    [[nodiscard]] size_t size() const {
+    [[nodiscard]] size_type size() const {
       return count_;
     }
 
   public:
     /// constructs layout for contiguous storage several objects of type T
     /// \param count number of objects
-    explicit contiguous_layout(size_t count = 0) : layout<T>(build(count)), count_(count) {
+    explicit contiguous_layout(size_type count = 0) : layout<T>(build(count)), count_(count) {
     }
 
     /// constructs layout for data with memory layout that is a homogenous sequence of
     /// some other contiguous layout
     /// \param count number of layouts in sequence
     /// \param l the layout of a single element
-    explicit contiguous_layout(size_t count, const contiguous_layout &l)
+    explicit contiguous_layout(size_type count, const contiguous_layout &l)
         : layout<T>(build(count, l.type_)), count_(l.count_ * count) {
     }
 
@@ -602,7 +602,7 @@ namespace mpl {
     using layout<T>::type_;
 
     static MPI_Datatype build(
-        size_t count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
+        size_type count, MPI_Datatype old_type = detail::datatype_traits<T>::get_datatype()) {
       MPI_Datatype new_type;
       detail::check(MPI_Type_contiguous_c(static_cast<MPI_Count>(count), old_type, &new_type));
       return new_type;
@@ -611,14 +611,14 @@ namespace mpl {
   public:
     /// constructs layout for contiguous storage several objects of type T
     /// \param count number of objects
-    explicit vector_layout(size_t count = 0) : layout<T>(build(count)) {
+    explicit vector_layout(size_type count = 0) : layout<T>(build(count)) {
     }
 
     /// constructs layout for data with memory layout that is a homogenous sequence of some
     /// other layout
     /// \param count number of layouts in sequence
     /// \param l the layout of a single element
-    explicit vector_layout(size_t count, const layout<T> &l)
+    explicit vector_layout(size_type count, const layout<T> &l)
         : layout<T>(build(count, l.type_)) {
     }
 
@@ -692,7 +692,7 @@ namespace mpl {
     /// \param count the number of blocks (non-negative)
     /// \param blocklength number of data elements in each block (non-negative)
     /// \param stride number or elements between start of each block
-    explicit strided_vector_layout(ssize_t count, ssize_t blocklength, ssize_t stride)
+    explicit strided_vector_layout(ssize_type count, ssize_type blocklength, ssize_type stride)
         : layout<T>(build(static_cast<MPI_Count>(count), static_cast<MPI_Count>(blocklength),
                           static_cast<MPI_Count>(stride))) {
     }
@@ -703,7 +703,7 @@ namespace mpl {
     /// \param stride number or elements between start of each block, each element having the
     /// size given by the extend of the layout given by parameter \c l
     /// \param l the layout of a single element in each block
-    explicit strided_vector_layout(ssize_t count, ssize_t blocklength, ssize_t stride,
+    explicit strided_vector_layout(ssize_type count, ssize_type blocklength, ssize_type stride,
                                    const layout<T> &l)
         : layout<T>(build(static_cast<MPI_Count>(count), static_cast<MPI_Count>(blocklength),
                           static_cast<MPI_Count>(stride), l.type_)) {
@@ -758,7 +758,7 @@ namespace mpl {
   public:
     /// Class representing the parameters to characterize an indexed layout.
     class parameter {
-      std::vector<ssize_t> blocklengths, displacements;
+      std::vector<ssize_type> blocklengths, displacements;
 
     public:
       /// creates parameters for an indexed layout representing an empty sequence
@@ -778,16 +778,16 @@ namespace mpl {
       /// converts an initializer list into a parameters
       /// \param list initializer list with two-element tuples of block lengths and
       /// displacements
-      parameter(std::initializer_list<std::tuple<ssize_t, ssize_t>> list) {
+      parameter(std::initializer_list<std::tuple<ssize_type, ssize_type>> list) {
         using std::get;
-        for (const std::tuple<ssize_t, ssize_t> &i : list)
+        for (const std::tuple<ssize_type, ssize_type> &i : list)
           add(get<0>(i), get<1>(i));
       }
 
       /// add an additional block
       /// \param blocklength block length
       /// \param displacement displacement (relative to the beginning of the first block)
-      void add(ssize_t blocklength, ssize_t displacement) {
+      void add(ssize_type blocklength, ssize_type displacement) {
         blocklengths.push_back(blocklength);
         displacements.push_back(displacement);
       }
@@ -882,8 +882,8 @@ namespace mpl {
     /// Class representing the parameters to characterize a heterogeneously indexed
     /// layout.
     class parameter {
-      std::vector<ssize_t> blocklengths;
-      std::vector<ssize_t> displacements;
+      std::vector<ssize_type> blocklengths;
+      std::vector<ssize_type> displacements;
 
     public:
       /// creates parameters for an empty sequence
@@ -903,16 +903,16 @@ namespace mpl {
       /// converts an initializer list into a hindexed layout parameter
       /// \param list initializer list with two-element tuples of block lengths and
       /// displacements
-      parameter(std::initializer_list<std::tuple<ssize_t, ssize_t>> list) {
+      parameter(std::initializer_list<std::tuple<ssize_type, ssize_type>> list) {
         using std::get;
-        for (const std::tuple<ssize_t, ssize_t> &i : list)
+        for (const std::tuple<ssize_type, ssize_type> &i : list)
           add(get<0>(i), get<1>(i));
       }
 
       /// add an additional block
       /// \param blocklength block length
       /// \param displacement displacement (relative to the beginning of the first block)
-      void add(ssize_t blocklength, ssize_t displacement) {
+      void add(ssize_type blocklength, ssize_type displacement) {
         blocklengths.push_back(blocklength);
         displacements.push_back(displacement);
       }
@@ -1008,7 +1008,7 @@ namespace mpl {
   public:
     /// Class representing the parameters to characterize an indexed layout.
     class parameter {
-      std::vector<ssize_t> displacements;
+      std::vector<ssize_type> displacements;
 
     public:
       /// creates parameters for an indexed layout representing an empty sequence
@@ -1026,14 +1026,14 @@ namespace mpl {
 
       /// converts an initializer list into an indexed block layout parameter
       /// \param list initializer list with integers representing displacements
-      parameter(std::initializer_list<ssize_t> list) {
-        for (const ssize_t i : list)
+      parameter(std::initializer_list<ssize_type> list) {
+        for (const ssize_type i : list)
           add(i);
       }
 
       /// add an additional block
       /// \param displacement displacement (relative to the beginning of the first block)
-      void add(ssize_t displacement) {
+      void add(ssize_type displacement) {
         displacements.push_back(displacement);
       }
 
@@ -1068,7 +1068,7 @@ namespace mpl {
     /// \param blocklength the length of each block
     /// \param par parameter containing information about the layout
     /// \note displacements are given in multiples of the extent of \c T
-    explicit indexed_block_layout(ssize_t blocklength, const parameter &par)
+    explicit indexed_block_layout(ssize_type blocklength, const parameter &par)
         : layout<T>(build(static_cast<MPI_Count>(blocklength), par)) {
     }
 
@@ -1077,7 +1077,7 @@ namespace mpl {
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
     /// \note displacements are given in multiples of the extent of \c l
-    explicit indexed_block_layout(ssize_t blocklength, const parameter &par, const layout<T> &l)
+    explicit indexed_block_layout(ssize_type blocklength, const parameter &par, const layout<T> &l)
         : layout<T>(build(static_cast<MPI_Count>(blocklength), par, l.type_)) {
     }
 
@@ -1131,7 +1131,7 @@ namespace mpl {
     /// Class representing the parameters to characterize a heterogeneously indexed
     /// layout.
     class parameter {
-      std::vector<ssize_t> displacements;
+      std::vector<ssize_type> displacements;
 
     public:
       /// creates an hindexed block layout parameter for an empty sequence
@@ -1149,14 +1149,14 @@ namespace mpl {
 
       /// converts an initializer list into an hindexed block layout parameter
       /// \param list initializer list with integers representing the displacements
-      parameter(std::initializer_list<ssize_t> list) {
-        for (const ssize_t &i : list)
+      parameter(std::initializer_list<ssize_type> list) {
+        for (const ssize_type &i : list)
           add(i);
       }
 
       /// add an additional block
       /// \param displacement displacement (relative to the beginning of the first block)
-      void add(ssize_t displacement) {
+      void add(ssize_type displacement) {
         displacements.push_back(displacement);
       }
 
@@ -1191,7 +1191,7 @@ namespace mpl {
     /// \param blocklength the length of each block
     /// \param par parameter containing information about the layout
     /// \note displacements are given in bytes
-    explicit hindexed_block_layout(ssize_t blocklength, const parameter &par)
+    explicit hindexed_block_layout(ssize_type blocklength, const parameter &par)
         : layout<T>(build(static_cast<MPI_Count>(blocklength), par)) {
     }
 
@@ -1200,7 +1200,7 @@ namespace mpl {
     /// \param par parameter containing information about the layout
     /// \param l the layout of a single element
     /// \note displacements are given bytes
-    explicit hindexed_block_layout(ssize_t blocklength, const parameter &par,
+    explicit hindexed_block_layout(ssize_type blocklength, const parameter &par,
                                    const layout<T> &l)
         : layout<T>(build(static_cast<MPI_Count>(blocklength), par, l.type_)) {
     }
@@ -1416,7 +1416,7 @@ namespace mpl {
   public:
     /// Class representing the parameters to characterize a subarray layout.
     class parameter {
-      std::vector<ssize_t> sizes, subsizes, starts;
+      std::vector<ssize_type> sizes, subsizes, starts;
       array_orders order_ = array_orders::C_order;
 
     public:
@@ -1443,8 +1443,8 @@ namespace mpl {
       /// first component of each value gives the total size of the dimension, the second one
       /// equals the size of the subarray, the third value gives the index of the first element
       /// of the subarray.  Array order is C order.
-      parameter(std::initializer_list<std::array<ssize_t, 3>> list) {
-        for (const std::array<ssize_t, 3> &i : list)
+      parameter(std::initializer_list<std::array<ssize_type, 3>> list) {
+        for (const std::array<ssize_type, 3> &i : list)
           add(i[0], i[1], i[2]);
       }
 
@@ -1452,7 +1452,7 @@ namespace mpl {
       /// \param size total size of the array along the current dimension
       /// \param subsize size of the subarray
       /// \param start the index of the first element of the subarray
-      void add(ssize_t size, ssize_t subsize, ssize_t start) {
+      void add(ssize_type size, ssize_type subsize, ssize_type start) {
         sizes.push_back(size);
         subsizes.push_back(subsize);
         starts.push_back(start);

@@ -13,7 +13,7 @@ namespace mpl::impl {
     static std::vector<MPI_Aint> to_mpi_displacements(const displacements &displs) {
       std::vector<MPI_Aint> result;
       result.reserve(displs.size());
-      for (const ssize_t displacement : displs)
+      for (const ssize_type displacement : displs)
         result.push_back(static_cast<MPI_Aint>(displacement));
       return result;
     }

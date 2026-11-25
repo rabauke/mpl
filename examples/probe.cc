@@ -35,7 +35,7 @@ int main() {
     // first probe for a message from some arbitrary rank with any tag
     const mpl::status_t s(comm_world.probe(mpl::any_source, mpl::tag_t::any()));
     // decode the number of elements, the source and the tag
-    const mpl::ssize_t n{s.get_count<int>()};
+    const mpl::ssize_type n{s.get_count<int>()};
     const int source{s.source()};
     const mpl::tag_t tag(s.tag());
     std::cerr << "source : " << s.source() << '\n'

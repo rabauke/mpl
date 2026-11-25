@@ -12,8 +12,8 @@ namespace mpl {
   /// Set of %displacements indicates the beginning of data buffers in various collective
   /// communication operations.
   /// \note Individual %displacements are always given in bytes.
-  class displacements : private std::vector<ssize_t> {
-    using base = std::vector<ssize_t>;
+  class displacements : private std::vector<ssize_type> {
+    using base = std::vector<ssize_type>;
 
   public:
     using size_type = base::size_type;
@@ -28,7 +28,7 @@ namespace mpl {
 
     /// Constructs a set of displacements with given displacements.
     /// \param init initial displacements
-    explicit displacements(std::initializer_list<ssize_t> init) : base(init) {
+    explicit displacements(std::initializer_list<ssize_type> init) : base(init) {
     }
 
     /// Copy constructor.

@@ -37,10 +37,10 @@ namespace mpl {
   constexpr int bsend_overhead = MPI_BSEND_OVERHEAD;
 
   /// Unsigned integer type used for array indexing and address arithmetic.
-  using size_t = std::size_t;
+  using size_type = std::size_t;
 
   /// Signed integer type used for array indexing and address arithmetic.
-  using ssize_t = std::ptrdiff_t;
+  using ssize_type = std::ptrdiff_t;
 
   static_assert(std::is_signed_v<std::ptrdiff_t> == std::is_signed_v<MPI_Count> and
                     sizeof(std::ptrdiff_t) == sizeof(MPI_Count),

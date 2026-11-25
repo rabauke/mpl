@@ -275,7 +275,7 @@ namespace mpl {
                         [[maybe_unused]] MPI_Datatype *datatype) {
         auto *i_1{static_cast<T *>(in_vector)};
         auto *i_2{static_cast<T *>(in_out_vector)};
-        for (ssize_t i{0}, i_end{*len}; i < i_end; ++i, ++i_1, ++i_2)
+        for (ssize_type i{0}, i_end{*len}; i < i_end; ++i, ++i_1, ++i_2)
           *i_2 = (*f)(*i_1, *i_2);
       }
 

@@ -137,11 +137,11 @@ namespace mpl {
           return MPI_Wtick();
         }
 
-        void buffer_attach(void *buff, ssize_t size) const {
+        void buffer_attach(void *buff, ssize_type size) const {
           mpl::detail::check(MPI_Buffer_attach_c(buff, size));
         }
 
-        [[nodiscard]] std::pair<void *, ssize_t> buffer_detach() const {
+        [[nodiscard]] std::pair<void *, ssize_type> buffer_detach() const {
           void *buff;
           MPI_Count size;
           mpl::detail::check(MPI_Buffer_detach_c(&buff, &size));
@@ -301,7 +301,7 @@ namespace mpl {
     /// <tt>\ref bsend_overhead</tt> for each buffered send operation.  Use
     /// \c communicator::bsend_size to calculate the required buffer size.
     /// \see \c communicator::bsend and \c communicator::ibsend
-    explicit bsend_buffer(ssize_t size) {
+    explicit bsend_buffer(ssize_type size) {
       std::unique_ptr<void, void (*)(void *)> owner{operator new(size), &operator delete };
       environment::buffer_attach(owner.get(), size);
       buff_ = owner.release();
@@ -346,7 +346,7 @@ namespace mpl {
     /// \note The buffer is detached before its allocation is released. If detachment fails, the
     /// destructor does not throw and leaves the allocation untouched to avoid freeing storage
     /// that MPI may still use; this can leak the allocation.
-    explicit communicator_buffer(const communicator &comm, ssize_t size) : comm_{comm} {
+    explicit communicator_buffer(const communicator &comm, ssize_type size) : comm_{comm} {
       std::unique_ptr<void, void (*)(void *)> owner{operator new(size), &operator delete };
       comm_.attach_buffer(owner.get(), size);
       buff_ = owner.release();

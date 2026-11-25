@@ -14,7 +14,7 @@
 
 
 static_assert(
-    std::is_same_v<decltype(std::declval<mpl::status_t>().get_count<int>()), mpl::ssize_t>);
+    std::is_same_v<decltype(std::declval<mpl::status_t>().get_count<int>()), mpl::ssize_type>);
 static_assert(std::is_class_v<mpl::message_t>);
 
 
@@ -55,7 +55,7 @@ bool probe_iter_test(const T &data) {
     const mpl::status_t s{comm_world.probe(0)};
     if (s.source() != 0)
       return false;
-    mpl::ssize_t count{s.get_count<typename T::value_type>()};
+    mpl::ssize_type count{s.get_count<typename T::value_type>()};
     if (count != static_cast<int>(data.size()))
       return false;
     T data_r{};
@@ -112,7 +112,7 @@ bool iprobe_iter_test(const T &data) {
       if (s) {
         if (s->source() != 0)
           return false;
-        mpl::ssize_t count{s->template get_count<typename T::value_type>()};
+        mpl::ssize_type count{s->template get_count<typename T::value_type>()};
         if (count != static_cast<int>(data.size()))
           return false;
         T data_r{};
@@ -138,7 +138,7 @@ SCENARIO("layouts represent counts larger than int", "[layout]") {
   const mpl::vector_layout<char> vector{count};
   REQUIRE(vector.byte_extent() == static_cast<ssize_t>(count));
 
-  const mpl::strided_vector_layout<char> strided{static_cast<mpl::ssize_t>(count), 1, 2};
+  const mpl::strided_vector_layout<char> strided{static_cast<mpl::ssize_type>(count), 1, 2};
   REQUIRE(strided.byte_extent() == static_cast<ssize_t>(2 * count - 1));
 
   const mpl::hindexed_layout<char> hindexed{{{2, 0}, {3, 5}}};
@@ -150,7 +150,7 @@ SCENARIO("layouts represent counts larger than int", "[layout]") {
   const std::vector<int> iterator_data{1, 2, 3, 4};
   const mpl::iterator_layout<int> iterator{iterator_data.begin(), iterator_data.end()};
   REQUIRE(iterator.byte_extent() ==
-          static_cast<mpl::ssize_t>(iterator_data.size() * sizeof(int)));
+          static_cast<mpl::ssize_type>(iterator_data.size() * sizeof(int)));
 }
 
 

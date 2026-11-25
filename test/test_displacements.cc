@@ -3,7 +3,7 @@
 #include <mpl/mpl.hpp>
 
 
-static_assert(std::is_same_v<mpl::displacements::value_type, mpl::ssize_t>);
+static_assert(std::is_same_v<mpl::displacements::value_type, mpl::ssize_type>);
 
 
 SCENARIO("displacements container manages memory offsets for layout indexing",

@@ -921,7 +921,7 @@ namespace mpl {
       /// \param size non-negative buffer size in bytes
       /// \note Keep the storage valid until it is detached. Each communicator may have at most one
       /// attached buffer at a time.
-      void attach_buffer(void *buff, ssize_t size) const {
+      void attach_buffer(void *buff, ssize_type size) const {
         detail::check(MPI_Comm_attach_buffer_c(comm_, buff, size));
       }
 
@@ -929,7 +929,7 @@ namespace mpl {
       /// \return pair containing the attached buffer address and its size in bytes
       /// \note The returned storage remains caller-owned and may be reused or released after this
       /// call completes.
-      [[nodiscard]] std::pair<void *, ssize_t> detach_buffer() const {
+      [[nodiscard]] std::pair<void *, ssize_type> detach_buffer() const {
         void *buff;
         MPI_Count size;
         detail::check(MPI_Comm_detach_buffer_c(comm_, &buff, &size));
@@ -960,7 +960,7 @@ namespace mpl {
       /// in a series of  buffered send operations
       /// \return message buffer size
       template<typename T>
-      [[nodiscard]] ssize_t bsend_size(ssize_t number = 1) const {
+      [[nodiscard]] ssize_type bsend_size(ssize_type number = 1) const {
         MPI_Count pack_size{0};
         detail::check(MPI_Pack_size_c(number, detail::datatype_traits<T>::get_datatype(), comm_,
                                       &pack_size));
@@ -975,7 +975,7 @@ namespace mpl {
       /// \param number quantity of buffered send operations with the given data type and layout
       /// \return message buffer size
       template<typename T>
-      [[nodiscard]] ssize_t bsend_size(const layout<T> &l, ssize_t number = 1) const {
+      [[nodiscard]] ssize_type bsend_size(const layout<T> &l, ssize_type number = 1) const {
         MPI_Count pack_size{0};
         detail::check(MPI_Pack_size_c(
             number, detail::datatype_traits<layout<T>>::get_datatype(l), comm_, &pack_size));
