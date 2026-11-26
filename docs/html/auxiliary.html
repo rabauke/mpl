@@ -286,18 +286,14 @@
 <h1>Auxiliary functions and classes<a class="headerlink" href="#auxiliary-functions-and-classes" title="Link to this heading">¶</a></h1>
 <section id="integer-types">
 <h2>Integer types<a class="headerlink" href="#integer-types" title="Link to this heading">¶</a></h2>
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl6size_tE">
-<span id="_CPPv3N3mpl6size_tE"></span><span id="_CPPv2N3mpl6size_tE"></span><span class="target" id="namespacempl_1a801d6a451a01953ef8cbae6feb6a3638"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">size_t</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><a class="headerlink" href="#_CPPv4N3mpl6size_tE" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Unsigned integer type used for array indexing and address arithmetic. </p>
-</dd></dl>
-
-<dl class="cpp type">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl7ssize_tE">
-<span id="_CPPv3N3mpl7ssize_tE"></span><span id="_CPPv2N3mpl7ssize_tE"></span><span class="target" id="namespacempl_1a7b04c6449aee9c6ec0044f5bd6cfcb19"></span><span class="k"><span class="pre">using</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">mpl</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ssize_t</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ptrdiff_t</span></span><a class="headerlink" href="#_CPPv4N3mpl7ssize_tE" title="Link to this definition">¶</a><br /></dt>
-<dd><p>Signed integer type used for array indexing and address arithmetic. </p>
-</dd></dl>
-
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygentypedef: Cannot find typedef “mpl::size_t” in doxygen xml output for project “MPL” from directory: /home/bauke/Programmieren/Parallel/mpi/mpl/cmake-build-documentation/doc/doxygen/xml</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>doxygentypedef: Cannot find typedef “mpl::ssize_t” in doxygen xml output for project “MPL” from directory: /home/bauke/Programmieren/Parallel/mpi/mpl/cmake-build-documentation/doc/doxygen/xml</p>
+</div>
 </section>
 <section id="ranks">
 <h2>Ranks<a class="headerlink" href="#ranks" title="Link to this heading">¶</a></h2>
@@ -446,8 +442,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tv">
-<span id="_CPPv3I0ENK3mpl8status_t9get_countEv"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a59cc8b9074b5c22abb7f910fe496e1ce"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tv" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typev">
+<span id="_CPPv3I0ENK3mpl8status_t9get_countEv"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a8bad82f0b740370fc0672a4c34a98876"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">ssize_type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typev" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – received data type </p>
@@ -459,8 +455,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE">
-<span id="_CPPv3I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a84747bd529b39d4da96e7c361f1e41d9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE" title="mpl::status_t::get_count::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typeRK6layoutI1TE">
+<span id="_CPPv3I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span id="_CPPv2I0ENK3mpl8status_t9get_countERK6layoutI1TE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmpl_1_1status__t_1a4fe14ed1fbc5899b42818f6f15e966b4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">ssize_type</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_count</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="layouts.html#_CPPv4I0EN3mpl6layoutE" title="mpl::layout"><span class="n"><span class="pre">layout</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typeRK6layoutI1TE" title="mpl::status_t::get_count::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">l</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typeRK6layoutI1TE" title="Link to this definition">¶</a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>T</strong> – received data type </p>
@@ -533,7 +529,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">mpl::displacements</span></code> class is used in the context of various collective communication operations that send and/or receive an amount of data that varies over the set of participating processes.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N3mpl13displacementsE">
-<span id="_CPPv3N3mpl13displacementsE"></span><span id="_CPPv2N3mpl13displacementsE"></span><span id="mpl::displacements"></span><span class="target" id="classmpl_1_1displacements"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl13displacementsE" title="Link to this definition">¶</a><br /></dt>
+<span id="_CPPv3N3mpl13displacementsE"></span><span id="_CPPv2N3mpl13displacementsE"></span><span id="mpl::displacements"></span><span class="target" id="classmpl_1_1displacements"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">private</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ssize_type</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N3mpl13displacementsE" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Set of displacements indicates the beginning of data buffers in various collective communication operations. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -566,8 +562,8 @@
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE">
-<span id="_CPPv3N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE"></span><span id="_CPPv2N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE"></span><span id="mpl::displacements::displacements__std::initializer_list:ssize_t:"></span><span class="target" id="classmpl_1_1displacements_1afaeea1c1413abe0115f0863de0316b79"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE" title="mpl::ssize_t"><span class="n"><span class="pre">ssize_t</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE" title="Link to this definition">¶</a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI10ssize_typeEE">
+<span id="_CPPv3N3mpl13displacements13displacementsENSt16initializer_listI10ssize_typeEE"></span><span id="_CPPv2N3mpl13displacements13displacementsENSt16initializer_listI10ssize_typeEE"></span><span id="mpl::displacements::displacements__std::initializer_list:ssize_type:"></span><span class="target" id="classmpl_1_1displacements_1acda1dae1d3fab9040bf4e0191d5280e5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">displacements</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">ssize_type</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">init</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI10ssize_typeEE" title="Link to this definition">¶</a><br /></dt>
 <dd><p>Constructs a set of displacements with given displacements. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1474,11 +1470,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Auxiliary functions and classes</a><ul>
-<li><a class="reference internal" href="#integer-types">Integer types</a><ul>
-<li><a class="reference internal" href="#_CPPv4N3mpl6size_tE"><code class="docutils literal notranslate"><span class="pre">size_t</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl7ssize_tE"><code class="docutils literal notranslate"><span class="pre">ssize_t</span></code></a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#integer-types">Integer types</a></li>
 <li><a class="reference internal" href="#ranks">Ranks</a><ul>
 <li><a class="reference internal" href="#_CPPv4N3mpl5ranksE"><code class="docutils literal notranslate"><span class="pre">mpl::ranks</span></code></a><ul>
 <li><a class="reference internal" href="#_CPPv4N3mpl5ranks5ranksE9size_type"><code class="docutils literal notranslate"><span class="pre">ranks()</span></code></a></li>
@@ -1498,8 +1490,8 @@
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t5errorEv"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t12is_cancelledEv"><code class="docutils literal notranslate"><span class="pre">is_cancelled()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4NK3mpl8status_t11is_canceledEv"><code class="docutils literal notranslate"><span class="pre">is_canceled()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tv"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE7ssize_tRK6layoutI1TE"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typev"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4I0ENK3mpl8status_t9get_countE10ssize_typeRK6layoutI1TE"><code class="docutils literal notranslate"><span class="pre">get_count()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl8status_t8status_tEv"><code class="docutils literal notranslate"><span class="pre">status_t()</span></code></a></li>
 </ul>
 </li>
@@ -1515,7 +1507,7 @@
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements9size_typeE"><code class="docutils literal notranslate"><span class="pre">size_type</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements10value_typeE"><code class="docutils literal notranslate"><span class="pre">value_type</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsE9size_type"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
-<li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI7ssize_tEE"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
+<li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsENSt16initializer_listI10ssize_typeEE"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsERK13displacements"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
 <li><a class="reference internal" href="#_CPPv4N3mpl13displacements13displacementsERR13displacements"><code class="docutils literal notranslate"><span class="pre">displacements()</span></code></a></li>
 </ul>
